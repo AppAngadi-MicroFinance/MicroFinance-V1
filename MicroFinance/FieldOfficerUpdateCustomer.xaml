@@ -1,0 +1,93 @@
+﻿<Page x:Class="MicroFinance.FieldOfficerUpdateCustomer"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
+      Title="FieldOfficerUpdateCustomer">
+
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="Back" Content="Back" Style="{StaticResource SecondaryBtn}" Click="Back_Click"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center" x:Name="NotifcationcountPanel">
+            <RadioButton  Style="{StaticResource NotificationButton}" Margin="0,0,25,0" IsChecked="True">
+                <StackPanel  VerticalAlignment="Center">
+                    <StackPanel Height="23" Width="50" Margin="106,-20,0,0">
+                        <Border  Background="White" Height="22" Width="35" CornerRadius="10" BorderBrush="Black" BorderThickness="1">
+                            <TextBlock x:Name="NotficationCount"  Style="{StaticResource NumberRegular}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </StackPanel>
+                    <TextBlock Style="{StaticResource Regular}" HorizontalAlignment="Center">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Customer Details" Style="{StaticResource Regular}"/>
+                        </StackPanel>
+                    </TextBlock>
+                </StackPanel>
+            </RadioButton>
+        </StackPanel>
+        <Border BorderBrush="Black" BorderThickness="1.5" Grid.Row="1" Grid.Column="1">
+            <Grid Background="#e8fff2" x:Name="DetailsGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="NotificationFrom" Text="{Binding NotificationFrom}" FontSize="20" FontWeight="Bold"/>
+                    <TextBlock Text=" Notification" FontSize="20" FontWeight="Bold"/>
+                </StackPanel>
+                <ListView x:Name="NotificationList" Grid.Row="1" Grid.Column="1" Width="650" Height="470" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" Background="#e8fff2" MouseDoubleClick="NotificationList_MouseDoubleClick">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Width="630" Height="470" >
+                            </StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="620" Height="65" Margin="0,0,0,10" BorderThickness="1.5" BorderBrush="Black">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"/>
+                                        <ColumnDefinition Width="230"/>
+                                        <ColumnDefinition Width="15"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="15"/>
+                                        <ColumnDefinition Width="180"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock x:Name="NotificationPurpose" Text="{Binding NotificationPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.Column="0" Grid.ColumnSpan="7"/>
+                                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock Text="Customer Name : " FontSize="16" FontWeight="Bold"/>
+                                        <TextBlock  Text="{Binding NotificationFrom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock Text="Branch : " FontSize="16" FontWeight="Bold"/>
+                                        <TextBlock x:Name="BranchName" Text="{Binding BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock Text="Date : " FontSize="16" FontWeight="Bold"/>
+                                        <TextBlock x:Name="NotificationDate" Text="{Binding NotificationDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+        </Border>
+    </Grid>
+</Page>

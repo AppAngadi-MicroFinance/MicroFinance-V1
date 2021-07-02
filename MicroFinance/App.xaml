@@ -1,0 +1,803 @@
+﻿<Application x:Class="MicroFinance.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MicroFinance"
+             xmlns:validation="clr-namespace:MicroFinance.Validations"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!--Icons Buttons-->
+        <!--For Add-->
+        <Style TargetType="Button" x:Key="Add">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border x:Name="addborder" Width="30" Height="30"  Background="Transparent">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Add.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Arrow Circle Left-->
+        <Style TargetType="Button" x:Key="LeftArrow">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Arrow circle Left.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Arrow Circle Right-->
+        <Style TargetType="Button" x:Key="RightArrow">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\CircledArrow Right.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For command Refresh-->
+        <Style TargetType="Button" x:Key="Refresh">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Command-Refresh.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Edit Button-->
+        <Style TargetType="Button" x:Key="Edit">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30"  Background="Transparent">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Data-Edit.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Import-->
+        <Style TargetType="Button" x:Key="DataImport">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30"  Background="Transparent">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Data-Import.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Delete button-->
+        <Style TargetType="Button" x:Key="Delete">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts/Icons\Delete.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Done Shield-->
+        <Style TargetType="Button" x:Key="DoneShield">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30"  Background="White">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Done-Shield-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Download-->
+        <Style TargetType="Button" x:Key="Download">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Download.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Excel Export-->
+        <Style TargetType="Button" x:Key="ExportExcel">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Excel Export.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Home button-->
+        <Style TargetType="Button" x:Key="Home">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40">
+                            <Grid>
+                                <Image Source="Asserts\Icons\House-04.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Internet-->
+        <Style TargetType="Button" x:Key="Internet">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Internet.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Print-->
+        <Style TargetType="Button" x:Key="Print">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Print.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Save-->
+        <Style TargetType="Button" x:Key="Save">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Save.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Send-->
+        <Style TargetType="Button" x:Key="Send">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Send.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Setting-->
+        <Style TargetType="Button" x:Key="Settings">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Settings.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Show Symbol-->
+        <Style TargetType="Button" x:Key="Show">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30"  Background="Transparent">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Show-01-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Show Symbol-->
+        <Style TargetType="ToggleButton" x:Key="ToggleShow">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30"  Background="Transparent">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Show-01-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Tick-->
+        <Style TargetType="Button" x:Key="Tick">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Symbols\Tick.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Female User-->
+        <Style TargetType="Button" x:Key="FemaleUser">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40">
+                            <Grid>
+                                <Image Source="Asserts\Icons\User-Female.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Male User-->
+        <Style TargetType="Button" x:Key="MaleUser">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40">
+                            <Grid>
+                                <Image Source="Asserts\Icons\User-Male.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Search-->
+        <Style TargetType="Button" x:Key="Search">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="40" Height="40"  Background="White">
+                            <Grid>
+                                <Image Source="Symbols\User Search-01-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Warning-->
+        <Style TargetType="Button" x:Key="Warnings">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Warning-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--For Warning Shield-->
+        <Style TargetType="Button" x:Key="WarningShield">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Warning Shield-WF.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" x:Key="Close">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Close.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button" x:Key="ModalClose">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Close.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ToggleButton" x:Key="ToggleModalClose">
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Width="30" Height="30">
+                            <Grid>
+                                <Image Source="Asserts\Icons\Close.png"></Image>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+
+
+        <!--Action Buttons-->
+
+        <!--Primary Button-->
+        <Style x:Key="PrimaryBtn" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#F77604"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Width" Value="120"></Setter>
+            <Setter Property="Content">
+                <Setter.Value>
+                    <ContentPresenter VerticalAlignment="Center"  HorizontalAlignment="Center">
+                    </ContentPresenter>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                    <Setter Property="Foreground" Value="Black"></Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <!--<GreenBtn>-->
+        <Style x:Key="GreenBtn" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#F78A77"/>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Width" Value="120"></Setter>
+            <Setter Property="Content">
+                <Setter.Value>
+                    <ContentPresenter VerticalAlignment="Center"  HorizontalAlignment="Center">
+                    </ContentPresenter>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                    <Setter Property="Foreground" Value="Black"></Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+        <!--<GreenBtn>-->
+        <Style x:Key="GreenToggleBtn" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Background" Value="#F78A77"/>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Width" Value="120"></Setter>
+            <Setter Property="Content">
+                <Setter.Value>
+                    <ContentPresenter VerticalAlignment="Center"  HorizontalAlignment="Center">
+                    </ContentPresenter>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                    <Setter Property="Foreground" Value="Black"></Setter>
+                </Trigger>
+                <!--<Trigger Property="IsPressed" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                </Trigger>-->
+            </Style.Triggers>
+
+        </Style>
+        <!--Secondary Button-->
+        <Style x:Key="SecondaryBtn" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#0EABF2"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Width" Value="120"></Setter>
+            <Setter Property="Content">
+                <Setter.Value>
+                    <ContentPresenter VerticalAlignment="Center"  HorizontalAlignment="Center">
+                    </ContentPresenter>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+        <!--Secondary Toggle Button-->
+        <Style x:Key="SecondaryToggleBtn" TargetType="ToggleButton">
+            <Setter Property="Background" Value="#0EABF2"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Width" Value="120"></Setter>
+            <Setter Property="Content">
+                <Setter.Value>
+                    <ContentPresenter VerticalAlignment="Center"  HorizontalAlignment="Center">
+                    </ContentPresenter>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+        <!--Cancel Button-->
+        <Style x:Key="CancelBtn" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#7F7F7F"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Width" Value="120"></Setter>
+            <Setter Property="Content">
+                <Setter.Value>
+                    <ContentPresenter VerticalAlignment="Center"  HorizontalAlignment="Center">
+                    </ContentPresenter>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+        <!--Remove or Danger Button-->
+        <Style x:Key="DangerBtn" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF3400"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Width" Value="120"></Setter>
+            <Setter Property="Content">
+                <Setter.Value>
+                    <ContentPresenter VerticalAlignment="Center"  HorizontalAlignment="Center">
+                    </ContentPresenter>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Value="#fcb372" Property="Background"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <!--Text style-->
+        <!--for title text style-->
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="#433B65"/>
+        </Style>
+        <!--for Subtitle text style-->
+        <Style x:Key="SubTitle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="#781F9F"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <!--for Regular text style-->
+        <Style x:Key="Regular" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#2D1414"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <!--for Secondary text style-->
+        <Style x:Key="Secondary" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#584F45"/>
+        </Style>
+        <!--for small text style-->
+        <Style x:Key="Small" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#2D1414"/>
+        </Style>
+        <!--for Nuumber title style-->
+        <Style x:Key="NumberTitle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="#433B65"/>
+        </Style>
+        <!--for Nuumber subtitle style-->
+        <Style x:Key="NumberSubTitle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="#781F9F"/>
+        </Style>
+        <!--for Nuumber Regular style-->
+        <Style x:Key="NumberRegular" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#2D1414"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <!--for Nuumber small style-->
+        <Style x:Key="NumberSmall" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#2D1414"/>
+        </Style>
+
+        <!--for combo box-->
+        <Style x:Key="combo" TargetType="ComboBox" >
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#2D1414"/>
+            <Setter Property="Background" Value="#0eabf2"/>
+        </Style>
+
+
+        <!--for Listbox-->
+        <Style x:Key="List" TargetType="TextBox">
+            <Setter Property="Height" Value="40" ></Setter>
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#2D1414"/>
+        </Style>
+        <!--<Regular Input>-->
+        <ControlTemplate x:Key="TextBoxErrorTemplate">
+            <DockPanel>
+                <Ellipse DockPanel.Dock="Right" 
+                         Margin="2,0" ToolTip="Invalid Data" Width="10" Height="10">
+                    <Ellipse.Fill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#11ff1111" Offset="0"/>
+                            <GradientStop Color="#ffff0000" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <AdornedElementPlaceholder/>
+            </DockPanel>
+        </ControlTemplate>
+        <Style TargetType="TextBox" x:Key="Textbox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Border>
+                                <AdornedElementPlaceholder 
+                            ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" >
+
+                                </AdornedElementPlaceholder>
+                            </Border>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="BorderThickness" Value="1"></Setter>
+                    <Setter Property="BorderBrush" Value="red"></Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Text Box-->
+        <!--
+        <Style x:Key="Textbox" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+        </Style>-->
+        <!-- Notification Button-->
+        <Style TargetType="{x:Type ToggleButton}" x:Key="NotificationButton">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="FontFamily" Value="Robot"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border BorderBrush="Black" 
+                                Background="{TemplateBinding Background}" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"                  
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" Value="#bb40a6" />
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+
+        <!--<Input Fields>-->
+        <!--<Regular Input>-->
+        <Style TargetType="TextBox" x:Key="InputBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Border>
+                                <AdornedElementPlaceholder 
+                            ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}">
+                                </AdornedElementPlaceholder>
+                            </Border>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="FontFamily" Value="Roboto"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="BorderThickness" Value="2"></Setter>
+                    <Setter Property="BorderBrush" Value="red"></Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--<Calander>-->
+        <Style x:Key="DateSelecter" TargetType="DatePicker">
+            <Setter Property="FontFamily" Value="roboto"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+        </Style>
+
+
+
+        <!--<Primary BackGround>-->
+        <Style x:Key="PrimaryBackground" TargetType="Page">
+            <Setter Property="Background" Value="#FEF2E4"></Setter>
+            <Setter Property="Height" Value="660"></Setter>
+            <Setter Property="Width" Value="1366"></Setter>
+        </Style>
+        <!--<Primary BackGround>-->
+        <Style x:Key="PrimaryGrid" TargetType="Grid">
+            <Setter Property="Background" Value="#FEF2E4"></Setter>
+            <Setter Property="Height" Value="660"></Setter>
+            <Setter Property="Width" Value="1366"></Setter>
+        </Style>
+        <!--Employee item panel Template-->
+
+        <!--<Regular Font>-->
+        <!--<Style x:Key="Regular" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Roboto"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#2D1414"/>
+        </Style>-->
+      
+    </Application.Resources>
+</Application>
+

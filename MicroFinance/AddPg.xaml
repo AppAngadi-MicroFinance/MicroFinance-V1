@@ -1,0 +1,32 @@
+﻿<Window x:Class="MicroFinance.AddPg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MicroFinance"
+        mc:Ignorable="d"
+        Title="AddPg" Height="170" Width="400" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Background="#e8fff2" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top"  >
+            <TextBlock Text="Add Peer Group" Style="{StaticResource SubTitle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+        </Border>
+        <Border Grid.Row="0" Grid.RowSpan="3"  Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Group Name" Style="{StaticResource Regular}" HorizontalAlignment="Center" Margin="30,15.6,29.2,14"/>
+        <TextBox Grid.Row="1" x:Name="GroupNameBox" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Width="200" Grid.ColumnSpan="3" Margin="151,9.6,0,10"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+            <Button x:Name="CancelBtn" Click="CancelBtn_Click" Style="{StaticResource CancelBtn}" Content="Cancel" Margin="10,0"/>
+            <Button x:Name="AddBtn" Click="AddBtn_Click" Style="{StaticResource PrimaryBtn}" Content="Add" />
+        </StackPanel>
+    </Grid>
+</Window>
