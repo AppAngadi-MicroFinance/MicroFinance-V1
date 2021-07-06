@@ -88,6 +88,8 @@
     </Compile>
     <Compile Include="Converters\AgeConverter.cs" />
     <Compile Include="Converters\ComboEnableDisable.cs" />
+    <Compile Include="Converters\GenderFemale.cs" />
+    <Compile Include="Converters\GenderMaleCheck.cs" />
     <Compile Include="Converters\InverseVisible.cs" />
     <Compile Include="Converters\InverseVisiblityConverterbyImage.cs" />
     <Compile Include="Converters\MoneyConverter.cs" />
@@ -114,6 +116,7 @@
     <Compile Include="Modal\Branch_Shg_PgDetails.cs" />
     <Compile Include="Modal\CameraCapture.cs" />
     <Compile Include="Modal\Customer.cs" />
+    <Compile Include="Modal\GenerateCustomerId.cs" />
     <Compile Include="Modal\Guarantor.cs" />
     <Compile Include="Modal\LoanDetails.cs" />
     <Compile Include="Modal\LoanProcess.cs" />

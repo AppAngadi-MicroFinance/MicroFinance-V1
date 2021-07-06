@@ -96,6 +96,9 @@
                     <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Text="Customer Name : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                     <TextBlock Text="{Binding CustomerName, Mode=OneWay}" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource Regular}"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+                        <TextBlock Text="Gender : " Style="{StaticResource Regular}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Gender,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Margin="35,0,0,25"/>
+
                         <TextBlock Text="Date of Birth : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                         <TextBlock Text="{Binding DateofBirth,Mode=OneWay,StringFormat=d}" Style="{StaticResource NumberRegular}" Margin="15,0,0,0" FontWeight="Medium"/>
 
@@ -103,29 +106,46 @@
                         <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource AgeConvert}}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
                     </StackPanel>
 
-                    <TextBlock Text="Contact Number : " Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}" FontWeight="Bold"/>
-                    <TextBlock x:Name="ContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left" Text="{Binding ContactNumber,Mode=OneWay}"/>
+                    <TextBlock Text="Father Name : " Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left" Text="{Binding FatherName,Mode=OneWay}"/>
 
-                    <TextBlock Text="Religion : " Grid.Column="1" Grid.Row="7" Style="{StaticResource Regular}" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding Religion,Mode=OneWay}" Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource Regular}" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Mother Name : " Grid.Column="1" Grid.Row="7" Style="{StaticResource Regular}" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left" Text="{Binding MotherName,Mode=OneWay}"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2">
+                        <TextBlock Text="Contact Number : "  Style="{StaticResource Regular}" FontWeight="Bold"/>
+                        <TextBlock x:Name="ContactBox"  VerticalAlignment="Center"  Style="{StaticResource NumberRegular}" HorizontalAlignment="Left" Text="{Binding ContactNumber,Mode=OneWay}"/>
 
-                    <TextBlock Text="Community : " Grid.Column="1" Grid.Row="9" Style="{StaticResource Regular}" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding Community,Mode=OneWay}" Grid.Row="9" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource Regular}" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Religion : "  Style="{StaticResource Regular}" FontWeight="Bold" Margin="35,0,0,0"/>
+                        <TextBlock Text="{Binding Religion,Mode=OneWay}"  VerticalAlignment="Center" Style="{StaticResource Regular}" HorizontalAlignment="Left"/>
+                    </StackPanel>
 
-                    <TextBlock Text="Education : " Grid.Column="1" Grid.Row="11" Style="{StaticResource Regular}" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding Education,Mode=OneWay}" Grid.Row="11" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource Regular}" HorizontalAlignment="Left"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2">
+                        <TextBlock Text="Caste : " Style="{StaticResource Regular}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Caste,Mode=OneWay}"  VerticalAlignment="Center" Style="{StaticResource Regular}" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Community : "  Style="{StaticResource Regular}" FontWeight="Bold" Margin="50,0,0,0"/>
+                        <TextBlock Text="{Binding Community,Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource Regular}" HorizontalAlignment="Left"/>
 
-                    <TextBlock Text="Family Members  : " Grid.Column="1" Grid.Row="13" Style="{StaticResource Regular}" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding FamilyMembers,Mode=OneWay}" Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <TextBlock Text="Education : " Grid.Column="1" Grid.Row="13" Style="{StaticResource Regular}" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Education,Mode=OneWay}" Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource Regular}" HorizontalAlignment="Left"/>
 
-                    <TextBlock Text="Earning Members : " Grid.Column="1" Grid.Row="15" Style="{StaticResource Regular}" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding EarningMembers,Mode=OneWay}" Grid.Row="15" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="15" Grid.ColumnSpan="2">
+                        <TextBlock Text="Family Members  : "  Style="{StaticResource Regular}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding FamilyMembers,Mode=OneWay}"  VerticalAlignment="Center" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left"/>
+
+                        <TextBlock Text="Earning Members : " Grid.Column="1" Grid.Row="15" Style="{StaticResource Regular}" FontWeight="Bold" Margin="35,0,0,0"/>
+                        <TextBlock Text="{Binding EarningMembers,Mode=OneWay}" VerticalAlignment="Center" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left"/>
+                    </StackPanel>
 
                     <TextBlock Text="Occupation : " Grid.Column="1" Grid.Row="17" Style="{StaticResource Regular}" FontWeight="Bold"/>
                     <TextBlock Text="{Binding Occupation,Mode=OneWay}" Grid.Row="17" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource Regular}" HorizontalAlignment="Left"/>
+                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="19">
+                        <TextBlock Text="Montyly Income : "  Style="{StaticResource Regular}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding MonthlyIncome,Mode=OneWay,Converter={StaticResource MoneyConverter}}"  VerticalAlignment="Center" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left"/>
 
-                    <TextBlock Text="Montyly Income : " Grid.Column="1" Grid.Row="19" Style="{StaticResource Regular}" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding MonthlyIncome,Mode=OneWay,Converter={StaticResource MoneyConverter}}" Grid.Row="19" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Montyly Expenses : "  Style="{StaticResource Regular}" FontWeight="Bold" Margin="35,0,0,0"/>
+                        <TextBlock Text="{Binding MonthlyExpenses,Mode=OneWay,Converter={StaticResource MoneyConverter}}"  VerticalAlignment="Center" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left"/>
+                    </StackPanel>
 
                 </Grid>
             </Border>
@@ -212,15 +232,10 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="15"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="10"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="10"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="10"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="10"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="10"/>
                         <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="1" x:Name="GurantorGrid">
@@ -236,7 +251,7 @@
                             <Button x:Name="ViewGaurantor" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewGaurantor_Click"/>
                         </StackPanel>
                     </Grid>
-                    <Grid x:Name="NomineeGrid" Grid.Row="3">
+                    <Grid x:Name="NomineeGrid" Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="110"/>
@@ -250,7 +265,7 @@
                             <Button x:Name="ViewNominee" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewNominee_Click"/>
                         </StackPanel>
                     </Grid>
-                    <Grid x:Name="AddressProofGrid" Grid.Row="5">
+                    <Grid x:Name="AddressProofGrid" Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="110"/>
@@ -261,7 +276,7 @@
                         <TextBlock Text="Aadhar Card" Style="{StaticResource Regular}" Grid.Column="2" HorizontalAlignment="Center" />
                         <Button x:Name="ViewAddressProof" Style="{StaticResource Show}"  Grid.Column="3" HorizontalAlignment="Left" Click="ViewAddressProof_Click"/>
                     </Grid>
-                    <Grid x:Name="PhotoProofGrid" Grid.Row="7">
+                    <Grid x:Name="PhotoProofGrid" Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="110"/>
@@ -273,6 +288,63 @@
                         <Button x:Name="ViewPhotoProof" Style="{StaticResource Show}"  Grid.Column="3" HorizontalAlignment="Left" Click="ViewPhotoProof_Click"/>
 
                     </Grid>
+                    <Grid x:Name="BankGrid" Grid.Row="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Bank Details : " Style="{StaticResource Regular}" Grid.Column="1" FontWeight="Bold"/>
+                        <Button x:Name="ViewBank" Style="{StaticResource Show}"  Grid.Column="2" HorizontalAlignment="Center" Click="ViewBank_Click"/>
+
+                    </Grid>
+                    <Popup  Height="400" Width="500" x:Name="ViewAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">
+                        <Border BorderBrush="Blue" BorderThickness="2">
+                            <Grid Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10*"/>
+                                    <RowDefinition Height="70*"/>
+                                    <RowDefinition Height="20*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="BankDetails" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Title}"></TextBlock>
+                                <Button Click="PanelCloseBtn_Click" Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
+                                <Separator BorderThickness="5" BorderBrush="Black" VerticalAlignment="Bottom"></Separator>
+                                <Grid Grid.Row="1" Width="480">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40*"/>
+                                        <ColumnDefinition Width="60*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="Account Holder Name : " FontWeight="Bold" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding AccountHolder,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="Account Number : " FontWeight="Bold" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding AccountNumber,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
+
+                                    <TextBlock Text="Bank Name : " FontWeight="Bold" Style="{StaticResource Regular}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding BankName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+
+                                    <TextBlock Text="Branch Name : " FontWeight="Bold" Style="{StaticResource Regular}" Grid.Row="3" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding BranchName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource Regular}" Grid.Row="3" VerticalAlignment="Center"/>
+
+                                    <TextBlock Text="IFSC Code : " FontWeight="Bold" Style="{StaticResource Regular}" Grid.Row="4" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding IFSCCode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="4" VerticalAlignment="Center"/>
+
+                                    <TextBlock Text="MICR Code : " FontWeight="Bold" Style="{StaticResource Regular}" Grid.Row="5" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding MICRCode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="5" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Button Grid.Row="2" Height="40" Width="150" Content="OK" x:Name="BankOk" Click="BankOk_Click"></Button>
+                            </Grid>
+                        </Border>
+
+                    </Popup>
                 </Grid>
             </Border>
             <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3">
@@ -282,7 +354,7 @@
         </Grid>
 
 
-        
+
         <!-- Guarantor Popup for View-->
         <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" x:Name="ViewGuarantorPopopup" Placement="Center" >
             <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Black">
@@ -325,8 +397,10 @@
                         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                             <TextBlock Text="Date of Birth :   " Style="{StaticResource Regular}" />
                             <TextBlock x:Name="ViewGuarantorDOB" Style="{StaticResource NumberRegular}" Text="{Binding DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,StringFormat='d'}" Margin="0,3,0,0"/>
-                            <TextBlock Text="         Age : " Style="{StaticResource Regular}"/>
+                            <TextBlock Text="         Age : " Style="{StaticResource Regular}" />
                             <TextBlock x:Name="ViewGuarantorAge" Text="{Binding DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource AgeConvert}}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+                            <TextBlock Text="Gender : " Style="{StaticResource Regular}" Margin="20,0,0,0"/>
+                            <TextBlock Text="{Binding Gender,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"/>
                         </StackPanel>
                         <TextBlock Text="Contact Number : " Grid.Column="0" Grid.Row="5" Style="{StaticResource Regular}"/>
                         <TextBlock x:Name="ViewGuarantorContact" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="250" Style="{StaticResource  NumberRegular}" HorizontalAlignment="Left" Text="{Binding ContactNumber,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}">
@@ -389,7 +463,7 @@
                                     <ColumnDefinition Width="10"/>
                                     <ColumnDefinition Width="160"/>
                                     <ColumnDefinition Width="150"/>
-                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Address Proof :" Style="{StaticResource Regular}" Grid.Column="1"  />
                                 <TextBlock x:Name="ViewGuarantorAddressProof" Text="Family Card" FontWeight="Bold" Style="{StaticResource  Regular}" Grid.Column="2" Width="140" HorizontalAlignment="Left"/>
@@ -404,7 +478,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Photo Proof : " Style="{StaticResource Regular}" Grid.Column="1"  />
                                 <TextBlock Text="Aadhar Card" FontWeight="Bold" x:Name="ViewGuarantorPhotoProofBox" Style="{StaticResource  Regular}" Grid.Column="2" Width="140" HorizontalAlignment="Left"/>
-                                <Button x:Name="ViewGuarantorAddPhotoProof" Style="{StaticResource Show}" HorizontalAlignment="Left" Grid.Column="3" Click="ViewGuarantorAddPhotoProof_Click"/>
+                                <Button x:Name="ViewGuarantorAddPhotoProof" Style="{StaticResource Show}" HorizontalAlignment="Left" Grid.Column="3"/>
                             </Grid>
                             <Grid x:Name="ViewGuarantorPhotoProfileGrid" Grid.Row="5">
                                 <Grid.ColumnDefinitions>
@@ -414,7 +488,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Profile Photo : " Style="{StaticResource Regular}" Grid.Column="1" />
-                                <Button x:Name="ViewGuarantorAddProfilePhoto" Style="{StaticResource Show}" HorizontalAlignment="Left" Grid.Column="2" Click="ViewGuarantorAddProfilePhoto_Click"/>
+                                <Button x:Name="ViewGuarantorAddProfilePhoto" Style="{StaticResource Show}" HorizontalAlignment="Left" Grid.Column="2"/>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -446,7 +520,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1">
-                        <TextBlock Text=" Nominee" Style="{StaticResource SubTitle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                        <TextBlock Text="Nominee" Style="{StaticResource SubTitle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
                     </Border>
                     <Border Grid.Row="1" Grid.Column="1" BorderThickness="0,0,1,0" BorderBrush="Black" />
                     <Grid Grid.Row="1" Grid.Column="1" x:Name="ViewNomineeDetails">
@@ -467,6 +541,7 @@
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="10"/>
                             <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Text="Nominee Name : " Style="{StaticResource Regular}" />
                         <TextBlock x:Name="ViewNomineeName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Width="290" Style="{StaticResource  Regular}" Text="{Binding NomineeName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
@@ -475,6 +550,8 @@
                             <TextBlock x:Name="ViewNomineeDOB" Style="{StaticResource NumberRegular}" Text="{Binding DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,StringFormat='d'}" Margin="0,3,0,0"/>
                             <TextBlock Text="           Age : " Style="{StaticResource Regular}"/>
                             <TextBlock x:Name="ViewNomineeAge" Text="{Binding DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource AgeConvert}}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+                            <TextBlock Text="Gender : " Style="{StaticResource Regular}" Margin="20,0,0,0"/>
+                            <TextBlock Text="{Binding Gender,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"/>
                         </StackPanel>
                         <TextBlock Text="Contact Number : " Grid.Column="0" Grid.Row="5" Style="{StaticResource Regular}"/>
                         <TextBlock x:Name="ViewNomineeContact" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="250" Style="{StaticResource  NumberRegular}" HorizontalAlignment="Left" Text="{Binding ContactNumber,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}">
@@ -490,7 +567,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Border BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="0"/>
-                        <Grid Grid.Row="0">
+                        <Grid Grid.Row="0" x:Name="ViewNomineeAddress">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="120"/>

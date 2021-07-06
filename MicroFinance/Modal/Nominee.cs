@@ -90,6 +90,18 @@ namespace MicroFinance.Modal
                 _occupation = value;
             }
         }
+        private string _gender;
+        public string Gender
+        {
+            get
+            {
+                return _gender;
+            }
+            set
+            {
+                _gender = value;
+            }
+        }
         private string _relationship;
         public string RelationShip
         {
@@ -264,8 +276,32 @@ namespace MicroFinance.Modal
             }
         }
 
-        public string NameofAddressProof { get; set; }
-        public string NameofPhotoProof { get; set; }
+        private string _nameofAddressProof;
+        public string NameofAddressProof
+        {
+            get
+            {
+                return _nameofAddressProof;
+            }
+            set
+            {
+                _nameofAddressProof = value;
+                RaisedPropertyChanged("NameofAddressProof");
+            }
+        }
+        private string _nameofPhotoProof;
+        public string NameofPhotoProof
+        {
+            get
+            {
+                return _nameofPhotoProof;
+            }
+            set
+            {
+                _nameofPhotoProof = value;
+                RaisedPropertyChanged("NameofPhotoProof");
+            }
+        }
 
         public void AddNomineeDetails()
         {
@@ -290,7 +326,7 @@ namespace MicroFinance.Modal
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "insert into NomineeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,AddressProofName,PhotoProofName,IsAddressProof,IsPhotoProof,IsProfilePhoto,AddressProof,PhotoProof,ProfilePhoto) values('" + _customerId + "','" + NomineeName + "','" + DateofBirth + "','" + Age + "','" + ContactNumber + "','" + Occupation + "','" + RelationShip + "','" + Address + "','" + Pincode + "','" + NameofAddressProof + "','" + NameofPhotoProof + "','" + _isAddressProof + "','" + _isPhotoProof + "','" + _isProfilePhoto + "',@addressproof,@photoproof,@profileproof)";
+                sqlCommand.CommandText = "insert into NomineeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,AddressProofName,PhotoProofName,IsAddressProof,IsPhotoProof,IsProfilePhoto,AddressProof,PhotoProof,ProfilePhoto,Gender) values('" + _customerId + "','" + NomineeName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Occupation + "','" + RelationShip + "','" + Address + "','" + Pincode + "','" + NameofAddressProof + "','" + NameofPhotoProof + "','" + _isAddressProof + "','" + _isPhotoProof + "','" + _isProfilePhoto + "',@addressproof,@photoproof,@profileproof,'"+Gender+"')";
                 sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(AddressProof));
                 sqlCommand.Parameters.AddWithValue("@photoproof", Convertion(PhotoProof));
                 sqlCommand.Parameters.AddWithValue("@profileproof", Convertion(ProfilePicture));
@@ -324,7 +360,7 @@ namespace MicroFinance.Modal
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "update NomineeDetails set Name='" + NomineeName + "',Dob='" + DateofBirth + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Occupation='" + Occupation + "',RelationShip='" + RelationShip + "',Address='" + Address + "',Pincode='" + Pincode + "',AddressProofName='" + NameofAddressProof + "',PhotoProofName='" + NameofPhotoProof + "',IsAddressProof='" + _isAddressProof + "',IsPhotoProof='" + _isPhotoProof + "',IsProfilePhoto='" + _isProfilePhoto + "',AddressProof=@addressproof,PhotoProof=@photoproof,ProfilePhoto=@profileproof where CustId='"+_customerId+"'";
+                sqlCommand.CommandText = "update NomineeDetails set Name='" + NomineeName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Occupation='" + Occupation + "',RelationShip='" + RelationShip + "',Address='" + Address + "',Pincode='" + Pincode + "',AddressProofName='" + NameofAddressProof + "',PhotoProofName='" + NameofPhotoProof + "',IsAddressProof='" + _isAddressProof + "',IsPhotoProof='" + _isPhotoProof + "',IsProfilePhoto='" + _isProfilePhoto + "',AddressProof=@addressproof,PhotoProof=@photoproof,ProfilePhoto=@profileproof,Gender='"+Gender+"' where CustId='"+_customerId+"'";
                 sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(AddressProof));
                 sqlCommand.Parameters.AddWithValue("@photoproof", Convertion(PhotoProof));
                 sqlCommand.Parameters.AddWithValue("@profileproof", Convertion(ProfilePicture));
@@ -369,6 +405,7 @@ namespace MicroFinance.Modal
                     if (sqlDataReader.GetBoolean(13))
                         ProfilePicture = ByteToBI((byte[])sqlDataReader.GetValue(16));
                     IsNomineeNull = true;
+                    Gender = sqlDataReader.GetString(17);
                 }
             }
         }

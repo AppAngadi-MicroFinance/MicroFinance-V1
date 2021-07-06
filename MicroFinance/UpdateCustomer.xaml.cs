@@ -47,6 +47,7 @@ namespace MicroFinance
             AddressProofGrid.DataContext = customer;
             PhotoProofGrid.DataContext = customer;
             PhotoProfileGrid.DataContext = customer;
+            BankGrid.DataContext = customer;
 
             GurantorGrid.DataContext = guarantor;
             GuarantorAddressDetails.DataContext = guarantor;
@@ -132,7 +133,7 @@ namespace MicroFinance
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select distinct BranchName, SelfHelpGroup,PeerGroup from CustomerGroup where CustId = 'c3'";
+                sqlCommand.CommandText = "select distinct BranchName, SelfHelpGroup,PeerGroup from CustomerGroup where CustId = '"+CustomerId+"'";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
@@ -148,7 +149,6 @@ namespace MicroFinance
             SelectFO.SelectedItem = SelectedOfficerName;
             SelectSHG.SelectedItem = SelectedSHg;
             SelectPG.SelectedItem = SelectedPg;
-
         }
 
         private void SelectSHG_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -770,6 +770,99 @@ namespace MicroFinance
         {
             GuarantorWindow.Visibility = Visibility.Collapsed;
             EnableDisableBackground(true);
+        }
+        private void BankDetails_Click(object sender, RoutedEventArgs e)
+        {
+            AccountdetailsPanel.IsOpen = true;
+            EnableDisableBackground(false);
+        }
+
+        private void SampleCheck_Click(object sender, RoutedEventArgs e)
+        {
+            customer.HavingBankDetails = true;
+            AccountdetailsPanel.IsOpen = false;
+            EnableDisableBackground(true);
+            MainWindow.StatusMessageofPage(1, "Successfully Guarantor and Nominee Added...");
+        }
+
+        private void PanelCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AccountdetailsPanel.IsOpen = false;
+            EnableDisableBackground(true);
+        }
+
+        private void ViewBankDetails_Click(object sender, RoutedEventArgs e)
+        {
+            ViewAccountdetailsPanel.IsOpen = true;
+            EnableDisableBackground(false);
+        }
+
+        private void EditBankDetails_Click(object sender, RoutedEventArgs e)
+        {
+            AccountdetailsPanel.IsOpen = true;
+            EnableDisableBackground(false);
+        }
+
+        private void BankOk_Click(object sender, RoutedEventArgs e)
+        {
+            ViewAccountdetailsPanel.IsOpen = false;
+            EnableDisableBackground(true);
+        }
+        private void MaleBtn_Click(object sender, RoutedEventArgs e)
+        {
+            customer.Gender = "Male";
+        }
+
+        private void FemalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            customer.Gender = "Female";
+        }
+
+        private void SelectPG_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "select IsLeader from CustomerGroup where BranchName='" + SelectBranch.SelectedItem.ToString() + "' and SelfHelpGroup='" + SelectSHG.SelectedItem.ToString() + "' and PeerGroup='" + SelectPG.SelectedItem.ToString() + "'";
+                try
+                {
+                    if ((bool)command.ExecuteScalar())
+                    {
+                        IsLeaderCheck.IsEnabled = false;
+                    }
+                    else
+                    {
+                        IsLeaderCheck.IsEnabled = true;
+                    }
+                }
+                catch
+                {
+                    IsLeaderCheck.IsEnabled = true;
+                }
+            }
+
+        }
+
+        private void GuarantorMaleBtn_Click(object sender, RoutedEventArgs e)
+        {
+            guarantor.Gender = "Male";
+        }
+
+        private void GuarantorFemalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            guarantor.Gender = "Female";
+        }
+
+        private void NomineeMaleBtn_Click(object sender, RoutedEventArgs e)
+        {
+            nominee.Gender = "Male";
+        }
+
+        private void NomineeFemalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            nominee.Gender = "Female";
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
