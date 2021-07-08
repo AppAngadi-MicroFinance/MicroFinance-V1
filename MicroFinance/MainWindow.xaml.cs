@@ -27,8 +27,8 @@ namespace MicroFinance
         {
             
             LoginDesignation.LoginDesignation = "Field Officer";
-            LoginDesignation.EmpId = "0100420210603";
-            LoginDesignation.BranchId = "01202106004";
+            LoginDesignation.EmpId = "0100220210702";
+            LoginDesignation.BranchId = "01202106002";
             InitializeComponent(); 
             MessageStatus.DataContext = StatusMsg;
            // mainframe.NavigationService.Navigate(new LoanRecommend());
