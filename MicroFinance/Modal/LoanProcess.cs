@@ -11,7 +11,7 @@ namespace MicroFinance.Modal
     public class LoanProcess:Customer
     {
         private string[] _guaranterDetails = new string[2];
-       // string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
+       string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
         public string CustomerID { get; set; }
         private LoanDetails _loandetails;
         public LoanDetails loanDetails

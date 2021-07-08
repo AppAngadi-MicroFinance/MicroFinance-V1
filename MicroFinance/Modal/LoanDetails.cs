@@ -204,7 +204,7 @@ namespace MicroFinance.Modal
 
             return Result;
         }
-        public string GenerateLoanRequestID() // IDPattern 02001202106SL05 (02-Region/001-Branch/2021-CurrentYear/06-CurrentMonth/SL-Loantype(Special)/(No.of Loan given in currentYear+1))
+        public string GenerateLoanRequestID() // IDPattern 02001202106R05 (02-Region/001-Branch/2021-CurrentYear/06-CurrentMonth/R-Request/(No.of Loan given in currentYear+1))
         {
             int count = 1;
             string Result = "";

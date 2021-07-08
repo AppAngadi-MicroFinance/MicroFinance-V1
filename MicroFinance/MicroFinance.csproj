@@ -88,6 +88,8 @@
     </Compile>
     <Compile Include="Converters\AgeConverter.cs" />
     <Compile Include="Converters\ComboEnableDisable.cs" />
+    <Compile Include="Converters\GenderFemale.cs" />
+    <Compile Include="Converters\GenderMaleCheck.cs" />
     <Compile Include="Converters\GuaranterName.cs" />
     <Compile Include="Converters\InverseVisible.cs" />
     <Compile Include="Converters\InverseVisiblityConverterbyImage.cs" />
@@ -129,9 +131,6 @@
     <Compile Include="Modal\StaticProperty.cs" />
     <Compile Include="ModifyEmployee.xaml.cs">
       <DependentUpon>ModifyEmployee.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Page1.xaml.cs">
-      <DependentUpon>Page1.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegionManagerNotifyPanel.xaml.cs">
       <DependentUpon>RegionManagerNotifyPanel.xaml</DependentUpon>
@@ -227,10 +226,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ModifyEmployee.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Page1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
