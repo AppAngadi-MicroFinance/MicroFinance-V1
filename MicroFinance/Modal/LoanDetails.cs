@@ -47,6 +47,7 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("LoanAmount");
             }
         }
+        public List<string> months = new List<string> { "12 Months", "24 months" };
         private int _loanperiod;
         public int LoanPeriod
         {

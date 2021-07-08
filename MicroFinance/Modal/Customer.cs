@@ -248,6 +248,18 @@ namespace MicroFinance.Modal
                 _housingIndex = value;
             }
         }
+        private string _aadharNumber=null;
+        public string AadharNo
+        {
+            get
+            {
+                return _aadharNumber;
+            }
+            set
+            {
+                _aadharNumber = value;
+            }
+        }
         private bool _isLeader;
         public bool IsLeader
         {
@@ -526,6 +538,7 @@ namespace MicroFinance.Modal
 
 
 
+
         public Customer()
         {
             AddReligion();
@@ -599,6 +612,7 @@ namespace MicroFinance.Modal
                         _ishavingGuarantorAlready = true;
                     if (sqlData.GetBoolean(37))
                         _ishavingNomineeAlready = true;
+                    _aadharNumber = sqlData.GetString(40);
 
                 }
                 sqlData.Close();
@@ -606,48 +620,6 @@ namespace MicroFinance.Modal
                 _isLeader = (bool)sqlCommand.ExecuteScalar();
             }
         }
-
-
-
-        //public string GetLastCustomerId(string BranchName,string SelfHelpGroup,string PeerGroup)
-        //{
-        //    using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
-        //    {
-        //        sqlConnection.Open();
-        //        SqlCommand sqlCommand = new SqlCommand();
-        //        sqlCommand.Connection = sqlConnection;
-        //        sqlCommand.CommandText ="select TOP 1  CustId from CustomerGroup where BranchName = '"+BranchName+"' and SelfHelpGroup = '"+SelfHelpGroup+"' and PeerGroup = '"+PeerGroup+"' order by CustId desc";
-        //        //getting last customer id in that group 
-        //        String LastCustomerId = null;
-        //        SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-        //        while(sqlDataReader.Read())
-        //        {
-        //            LastCustomerId = sqlDataReader.GetString(0);
-        //        }
-        //        return LastCustomerId;
-        //    }
-        //}
-        //string NextCustomerId(string LastCustomerId)
-        //{
-        //    int temp = 0;
-        //    int tense = 0;
-        //    int i;
-        //    for(i=LastCustomerId.Length-1;i>=0;i--)
-        //    {
-        //        if(char.IsDigit( LastCustomerId[i]))
-        //        {
-        //            temp +=(int)Char.GetNumericValue( LastCustomerId[i]) * (int)Math.Pow(10, tense);
-        //            tense++;
-        //        }
-        //        else
-        //        {
-        //            temp++;
-        //            break;
-        //        }
-        //    }
-        //    string NextId = LastCustomerId.Substring(0, i+1) + temp.ToString();
-        //    return NextId;
-        //}
         public void SaveCustomerDetails(string Region, string BranchName, string SelfHelpGroup, string PeerGroup, Guarantor guarantor, Nominee nominee)
         {
 
@@ -677,6 +649,10 @@ namespace MicroFinance.Modal
             if(HavingBankDetails)
             {
                 AddBankDetails();
+            }
+            if(AadharNo!="")
+            {
+                AddAadharNumber();
             }
             CheckAndChangeStatus();
 
@@ -728,6 +704,17 @@ namespace MicroFinance.Modal
                 sqlCommand.ExecuteNonQuery();
             }
         }
+        void AddAadharNumber()
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sqlConnection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "update CustomerDetails set AadharNumber='"+AadharNo+"' where CustId = '" + _customerId + "'";
+                sqlCommand.ExecuteNonQuery();
+            }
+        }
         public void AddCustomerDetails(string Region, string BranchName, string SelfHelpGroup, string PeerGroup)
         {
             GenerateCustomerId GCID = new GenerateCustomerId();
@@ -740,7 +727,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "insert into CustomerDetails(CustId, Name, Dob, Age, Mobile, Religion, Community, Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, Address, Pincode, HousingType, HousingIndex,IsAddressProof, IsPhotoProof, IsProfilePhoto, GuarenteeStatus, NomineeStatus,IsActive,CustomerStatus,FatherName,MotherName,Gender,Caste,MonthlyExpenses,IsBankDetails) values ('" + _customerId + "','" + CustomerName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Religion + "','" + Community + "','" + Education + "','" + FamilyMembers + "','" + EarningMembers + "','" + Occupation + "','" + MonthlyIncome + "','" + AddressofCustomer + "','" + Pincode + "','" + HousingType + "','" + HousingIndex + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + true + "','" + 0 + "','"+FatherName+"','"+MotherName+"','"+Gender+"','"+Caste+"','"+MothlyExpenses+"','"+false+"')";
+                sqlCommand.CommandText = "insert into CustomerDetails(CustId, Name, Dob, Age, Mobile, Religion, Community, Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, Address, Pincode, HousingType, HousingIndex,IsAddressProof, IsPhotoProof, IsProfilePhoto, GuarenteeStatus, NomineeStatus,IsActive,CustomerStatus,FatherName,MotherName,Gender,Caste,MonthlyExpenses,IsBankDetails,AadharNumber) values ('" + _customerId + "','" + CustomerName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Religion + "','" + Community + "','" + Education + "','" + FamilyMembers + "','" + EarningMembers + "','" + Occupation + "','" + MonthlyIncome + "','" + AddressofCustomer + "','" + Pincode + "','" + HousingType + "','" + HousingIndex + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + true + "','" + 0 + "','"+FatherName+"','"+MotherName+"','"+Gender+"','"+Caste+"','"+MothlyExpenses+"','"+false+"','"+null+"')";
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "select Bid from BranchDetails where BranchName='" + BranchName + "'";
                 string BranchId = sqlCommand.ExecuteScalar().ToString();
@@ -749,7 +736,6 @@ namespace MicroFinance.Modal
 
             }
         }
-
         public void UpdateExistingDetails(string BranchName, string SelfHelpGroup, string PeerGroup, Guarantor guarantor, Nominee nominee)
         {
             ChangeCustomerDetails(BranchName, SelfHelpGroup, PeerGroup);
@@ -785,6 +771,10 @@ namespace MicroFinance.Modal
             {
                 AddBankDetails();
             }
+            if(AadharNo!="")
+            {
+                AddAadharNumber();
+            }
             CheckAndChangeStatus();
         }
         public void ChangeCustomerDetails(string BranchName, string SelfHelpGroup, string PeerGroup)
@@ -815,14 +805,22 @@ namespace MicroFinance.Modal
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
-                    if ((sqlDataReader.GetBoolean(0)==true && sqlDataReader.GetBoolean(1)==true && sqlDataReader.GetBoolean(2)==true && sqlDataReader.GetBoolean(3)==true && sqlDataReader.GetBoolean(4)==true && sqlDataReader.GetBoolean(5)==true))
+                    if ((sqlDataReader.GetBoolean(0)==true && sqlDataReader.GetBoolean(1)==true && sqlDataReader.GetBoolean(2)==true && sqlDataReader.GetBoolean(3)==true && sqlDataReader.GetBoolean(4)==true && sqlDataReader.GetBoolean(5)==true ))
                     {
                         _check = true;
                     }
 
                 }
                 sqlDataReader.Close();
-                if (_check)
+                bool _checkAadhar = false;
+                sqlCommand.CommandText = "select AadharNumber from CustomerDetails where CustId='" + _customerId + "'";
+                sqlDataReader = sqlCommand.ExecuteReader();
+                while(sqlDataReader.Read())
+                {
+                    _checkAadhar = true;
+                }
+                sqlDataReader.Close();
+                if (_check && _checkAadhar)
                 {
                     sqlCommand.CommandText = "update CustomerDetails set CustomerStatus='1' where CustId='" + _customerId + "'";
                     sqlCommand.ExecuteNonQuery();

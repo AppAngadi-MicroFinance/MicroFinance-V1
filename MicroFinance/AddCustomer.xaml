@@ -230,7 +230,7 @@
                         <TextBlock Text="Montyly Expenses"  Style="{StaticResource Regular}" Margin="10,0,15,0"/>
                         <TextBox x:Name="MonthlyExpensesBox" Grid.Row="19" Grid.Column="2" VerticalAlignment="Center" Width="100" Style="{StaticResource Textbox}" HorizontalAlignment="Left">
                             <TextBox.Text>
-                                <Binding Path="MonthlyExpenses" UpdateSourceTrigger="LostFocus" Mode="TwoWay">
+                                <Binding Path="MothlyExpenses" UpdateSourceTrigger="LostFocus" Mode="TwoWay">
                                     <Binding.Converter>
                                         <convert:MoneyConverter/>
                                     </Binding.Converter>
@@ -364,7 +364,7 @@
         <Grid Grid.Row="1" Grid.Column="5" x:Name="CustomerOtherDetails">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="260"/>
+                <RowDefinition Height="300"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -377,6 +377,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="15"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
@@ -605,6 +606,16 @@
 
                         </Popup>
                     </Grid>
+                    <Grid x:Name="AadharNoGrid" Grid.Row="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Aadhar No." Style="{StaticResource Regular}" VerticalAlignment="Center" Grid.Column="1"></TextBlock>
+                        <TextBox x:Name="AadharNo" Text="{Binding AadharNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontFamily="Segoe UI" Style="{StaticResource Textbox}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="2" Grid.ColumnSpan="2" Width="180"/>
+                    </Grid>
 
 
                 </Grid>
@@ -641,7 +652,7 @@
 
 
         <!-- Guarantor Popup-->
-        <Grid x:Name="GuarantorWindow" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="6" Visibility="Visible" >
+        <Grid x:Name="GuarantorWindow" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="6" Visibility="Collapsed" >
             <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Black">
                 <Grid Background="#e8fff2" >
                     <Grid.ColumnDefinitions>

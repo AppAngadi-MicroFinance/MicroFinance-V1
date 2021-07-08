@@ -218,7 +218,7 @@
         <Grid Grid.Row="1" Grid.Column="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="230"/>
+                <RowDefinition Height="250"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -230,7 +230,7 @@
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="2">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
@@ -238,7 +238,7 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="1" x:Name="GurantorGrid">
+                    <Grid Grid.Row="0" x:Name="GurantorGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="110"/>
@@ -251,7 +251,7 @@
                             <Button x:Name="ViewGaurantor" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewGaurantor_Click"/>
                         </StackPanel>
                     </Grid>
-                    <Grid x:Name="NomineeGrid" Grid.Row="2">
+                    <Grid x:Name="NomineeGrid" Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="110"/>
@@ -265,7 +265,7 @@
                             <Button x:Name="ViewNominee" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewNominee_Click"/>
                         </StackPanel>
                     </Grid>
-                    <Grid x:Name="AddressProofGrid" Grid.Row="3">
+                    <Grid x:Name="AddressProofGrid" Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="110"/>
@@ -273,10 +273,10 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Address Proof : " Style="{StaticResource Regular}" Grid.Column="1"  FontWeight="Bold"/>
-                        <TextBlock Text="Aadhar Card" Style="{StaticResource Regular}" Grid.Column="2" HorizontalAlignment="Center" />
+                        <TextBlock Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Column="2" HorizontalAlignment="Center" />
                         <Button x:Name="ViewAddressProof" Style="{StaticResource Show}"  Grid.Column="3" HorizontalAlignment="Left" Click="ViewAddressProof_Click"/>
                     </Grid>
-                    <Grid x:Name="PhotoProofGrid" Grid.Row="4">
+                    <Grid x:Name="PhotoProofGrid" Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="110"/>
@@ -284,11 +284,11 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Photo Proof" Style="{StaticResource Regular}" Grid.Column="1" FontWeight="Bold"/>
-                        <TextBlock Text="Identity Card" Style="{StaticResource Regular}" Grid.Column="2" HorizontalAlignment="Center" />
+                        <TextBlock Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Column="2" HorizontalAlignment="Center" />
                         <Button x:Name="ViewPhotoProof" Style="{StaticResource Show}"  Grid.Column="3" HorizontalAlignment="Left" Click="ViewPhotoProof_Click"/>
 
                     </Grid>
-                    <Grid x:Name="BankGrid" Grid.Row="5">
+                    <Grid x:Name="BankGrid" Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="110"/>
@@ -298,6 +298,16 @@
                         <TextBlock Text="Bank Details : " Style="{StaticResource Regular}" Grid.Column="1" FontWeight="Bold"/>
                         <Button x:Name="ViewBank" Style="{StaticResource Show}"  Grid.Column="2" HorizontalAlignment="Center" Click="ViewBank_Click"/>
 
+                    </Grid>
+                    <Grid x:Name="AadharNoGrid" Grid.Row="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Aadhar No. : " Style="{StaticResource Regular}" Grid.Column="1" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding AadharNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Style="{StaticResource NumberRegular}" />
                     </Grid>
                     <Popup  Height="400" Width="500" x:Name="ViewAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">
                         <Border BorderBrush="Blue" BorderThickness="2">

@@ -48,6 +48,7 @@ namespace MicroFinance
             PhotoProofGrid.DataContext = customer;
             PhotoProfileGrid.DataContext = customer;
             BankGrid.DataContext = customer;
+            AadharNoGrid.DataContext = customer;
 
             GurantorGrid.DataContext = guarantor;
             GuarantorAddressDetails.DataContext = guarantor;
