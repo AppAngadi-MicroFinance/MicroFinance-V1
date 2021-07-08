@@ -40,6 +40,8 @@ namespace MicroFinance
             AddressProofGrid.DataContext = customer;
             PhotoProofGrid.DataContext = customer;
             PhotoProfileGrid.DataContext = customer;
+            BankGrid.DataContext = customer;
+            AadharNoGrid.DataContext = customer;
 
             GurantorGrid.DataContext = guarantor;
             GuarantorAddressDetails.DataContext = guarantor;
@@ -160,6 +162,7 @@ namespace MicroFinance
         private void SelectReligion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CommunityBox.IsEnabled = true;
+            CasteBox.IsEnabled = true;
         }
 
         //add peer group
@@ -182,7 +185,7 @@ namespace MicroFinance
         {
             //BranchManagerWindow BMNF = new BranchManagerWindow();
             //BMNF.ShowDialog();
-            customer.SaveCustomerDetails(SelectBranch.Text, SelectSHG.Text, SelectPG.Text,guarantor,nominee);
+            customer.SaveCustomerDetails(SelectRegion.Text,SelectBranch.Text, SelectSHG.Text, SelectPG.Text,guarantor,nominee);
             NavigationService.GetNavigationService(this).Navigate(new dummypage());
             
         }
@@ -428,6 +431,10 @@ namespace MicroFinance
                 nominee.AddressProof = guarantor.AddressProof;
                 nominee.PhotoProof = guarantor.PhotoProof;
                 nominee.ProfilePicture = guarantor.ProfilePicture;
+                nominee.NameofAddressProof = guarantor.NameofAddressProof;
+                nominee.NameofPhotoProof = guarantor.NameofPhotoProof;
+                NomineeAddressProofBox.Text = guarantor.NameofAddressProof;
+                NomineePhotoProofBox.Text = guarantor.NameofPhotoProof;
                 SameAsCustomerAddressForNominee.IsChecked = SameAsCustomerAddress.IsChecked;
                 //if(SameAsCustomerAddress.IsChecked==true)
                 //{
@@ -546,6 +553,8 @@ namespace MicroFinance
             EnableDisableBackground(false);
             ViewNomineeDetails.DataContext = nominee;
             ViewNomineeAddress.DataContext = nominee;
+            ViewNomineeAddressProofGrid.DataContext = nominee;
+            ViewNomineePhotoProofGrid.DataContext = nominee;
         }
 
         private void EditNominee_Click(object sender, RoutedEventArgs e)
@@ -721,6 +730,103 @@ namespace MicroFinance
         private void GuarantorCancel_Click(object sender, RoutedEventArgs e)
         {
             GuarantorWindow.Visibility = Visibility.Collapsed;
+        }
+
+        private void BankDetails_Click(object sender, RoutedEventArgs e)
+        {
+            AccountdetailsPanel.IsOpen = true;
+            EnableDisableBackground(false);
+        }
+
+        private void SampleCheck_Click(object sender, RoutedEventArgs e)
+        {
+            customer.HavingBankDetails = true;
+            AccountdetailsPanel.IsOpen = false;
+            EnableDisableBackground(true);
+            MainWindow.StatusMessageofPage(1, "Successfully Guarantor and Nominee Added...");
+        }
+
+        private void PanelCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AccountdetailsPanel.IsOpen = false;
+            EnableDisableBackground(true);
+        }
+
+        private void ViewBankDetails_Click(object sender, RoutedEventArgs e)
+        {
+            ViewAccountdetailsPanel.IsOpen = true;
+            EnableDisableBackground(false);
+        }
+
+        private void EditBankDetails_Click(object sender, RoutedEventArgs e)
+        {
+            AccountdetailsPanel.IsOpen = true;
+            EnableDisableBackground(false);
+            customer.HavingBankDetails = true;
+        }
+
+        private void BankOk_Click(object sender, RoutedEventArgs e)
+        {
+            ViewAccountdetailsPanel.IsOpen = false;
+            EnableDisableBackground(true);
+        }
+        private void MaleBtn_Click(object sender, RoutedEventArgs e)
+        {
+            customer.Gender = "Male";
+        }
+
+        private void FemalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            customer.Gender = "Female";
+        }
+
+        private void SelectPG_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                if(SelectPG.SelectedItem!=null)
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = connection;
+                    command.CommandText = "select IsLeader from CustomerGroup where BranchName='" + SelectBranch.SelectedItem.ToString() + "' and SelfHelpGroup='" + SelectSHG.SelectedItem.ToString() + "' and PeerGroup='" + SelectPG.SelectedItem.ToString() + "'";
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (reader.GetBoolean(0) == true)
+                        {
+                            IsLeaderCheck.IsEnabled = false;
+                            break;
+                        }
+                        else
+                        {
+                            IsLeaderCheck.IsEnabled = true;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private void GuarantorMaleBtn_Click(object sender, RoutedEventArgs e)
+        {
+            guarantor.Gender = "Male";
+        }
+
+        private void GuarantorFemalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            guarantor.Gender = "Female";
+        }
+
+        private void NomineeMaleBtn_Click(object sender, RoutedEventArgs e)
+        {
+            nominee.Gender = "Male";
+        }
+
+        private void NomineeFemalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            nominee.Gender = "Female";
         }
     }
 }

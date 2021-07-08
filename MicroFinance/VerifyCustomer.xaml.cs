@@ -133,5 +133,20 @@ namespace MicroFinance
         {
             ViewImagePopup.IsOpen = false;
         }
+
+        private void ViewBank_Click(object sender, RoutedEventArgs e)
+        {
+            ViewAccountdetailsPanel.IsOpen = true;
+        }
+
+        private void BankOk_Click(object sender, RoutedEventArgs e)
+        {
+            ViewAccountdetailsPanel.IsOpen = false;
+        }
+
+        private void PanelCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ViewAccountdetailsPanel.IsOpen = false;
+        }
     }
 }

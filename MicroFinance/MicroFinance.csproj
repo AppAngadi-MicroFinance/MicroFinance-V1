@@ -117,6 +117,7 @@
     <Compile Include="Modal\Branch_Shg_PgDetails.cs" />
     <Compile Include="Modal\CameraCapture.cs" />
     <Compile Include="Modal\Customer.cs" />
+    <Compile Include="Modal\GenerateCustomerId.cs" />
     <Compile Include="Modal\Guarantor.cs" />
     <Compile Include="Modal\LoanDetails.cs" />
     <Compile Include="Modal\LoanProcess.cs" />
@@ -128,6 +129,9 @@
     <Compile Include="Modal\StaticProperty.cs" />
     <Compile Include="ModifyEmployee.xaml.cs">
       <DependentUpon>ModifyEmployee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page1.xaml.cs">
+      <DependentUpon>Page1.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegionManagerNotifyPanel.xaml.cs">
       <DependentUpon>RegionManagerNotifyPanel.xaml</DependentUpon>
@@ -223,6 +227,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ModifyEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
