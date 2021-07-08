@@ -7,10 +7,12 @@
       xmlns:local="clr-namespace:MicroFinance"
       mc:Ignorable="d" 
       d:DesignHeight="630" d:DesignWidth="1366"
-      Title="LoanRequest" Background="#FEF2E4" >
+      Title="LoanRequest" Background="#FEF2E4">
     <Page.Resources>
         <convert:VisibilityConverter x:Key="VisibleConverter"/>
         <convert:MoneyConverter x:Key="MoneyChange"/>
+        <convert:LoanRequestConverter x:Key="LoanrequestConvert"/>
+        <convert:MonthConverter x:Key="MonthConverter"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -64,18 +66,18 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Style="{StaticResource SubTitle}" Text="Group Members" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
-                <ListView x:Name="MembersListView" Width="920" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListView x:Name="MembersListView" Width="930" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionChanged="MembersListView_SelectionChanged" HorizontalContentAlignment="Left" BorderThickness="2" BorderBrush="White">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Height="380" Width="900" HorizontalAlignment="Center"/>
+                            <StackPanel Height="370" Width="910" Background="White" HorizontalAlignment="Left"/>
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" BorderThickness="1" Height="50" Width="900" >
+                            <Border BorderBrush="{Binding IsRequested,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource LoanrequestConvert}}"  BorderThickness="2" Height="60" Width="900" CornerRadius="5" >
                                 <Grid Height="50" Width="900">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="5"/>
                                         <ColumnDefinition Width="80"/>
                                         <ColumnDefinition Width="50"/>
                                         <ColumnDefinition Width="250"/>
@@ -88,11 +90,7 @@
                                         <RowDefinition Height="25"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <RadioButton Grid.Column="0" Grid.Row="0">
-                                        <RadioButton.LayoutTransform>
-                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-                                        </RadioButton.LayoutTransform>
-                                    </RadioButton>
+
                                     <Image Source="{Binding ProfilePhoto,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.RowSpan="2"/>
                                     <Border BorderBrush="White" BorderThickness="1" Grid.Row="0" Grid.Column="2" Background="#BB40A6" Height="20" Width="30" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="6">
                                         <TextBlock x:Name="IsleaderBlock" Grid.Row="0" Grid.Column="2" Text="L" Visibility="{Binding IsLeader,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleConverter}}" Style="{StaticResource Regular}" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
@@ -125,7 +123,7 @@
                                         </Border>
                                     </StackPanel>
 
-                                    <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="11"/>
+
 
                                 </Grid>
                             </Border>
@@ -134,9 +132,11 @@
                 </ListView>
 
             </Grid>
-            <Border Grid.Column="1" Width="270" Height="350" BorderThickness="2" BorderBrush="Black">
-                <Grid Background="White">
+            <Border Grid.Column="1" Width="270" Height="440" BorderThickness="2" BorderBrush="Black">
+                <Grid Background="White" x:Name="LoanRequestPanel">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="60"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="30"/>
@@ -154,31 +154,26 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="1" Grid.Column="1">
                         <TextBlock Text="Loan Type" Style="{StaticResource Regular}" FontWeight="Bold" FontSize="18"/>
-                        <ComboBox x:Name="LoanTypecombo" Style="{StaticResource combo}" HorizontalAlignment="Left">
+                        <ComboBox x:Name="LoanTypecombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding LoanType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                             <ComboBoxItem Content="Special Loan"/>
                             <ComboBoxItem Content="General Loan"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Grid.Column="1">
                         <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" FontWeight="Bold" FontSize="18"/>
-                        <ComboBox x:Name="LoanAmountcombo" Style="{StaticResource combo}" HorizontalAlignment="Left">
-                            <ComboBoxItem Content="₹.10,000" FontFamily="Courier New"/>
-                            <ComboBoxItem Content="₹.15,000" FontFamily="Courier New"/>
-                            <ComboBoxItem Content="₹.20,000" FontFamily="Courier New"/>
-                            <ComboBoxItem Content="₹.25,000" FontFamily="Courier New"/>
+                        <ComboBox x:Name="LoanAmountcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" SelectedValue="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Row="5" Grid.Column="1">
                         <TextBlock Text="Time Period" Style="{StaticResource Regular}" FontWeight="Bold" FontSize="18"/>
-                        <ComboBox x:Name="TimePeriodcombo" Style="{StaticResource combo}" HorizontalAlignment="Left">
-                            <ComboBoxItem Content="12 MONTHS"/>
-                            <ComboBoxItem Content="18 MONTHS"/>
-                            <ComboBoxItem Content="24 MONTHS"/>
-                            <ComboBoxItem Content="30 MONTHS"/>
-                            <ComboBoxItem Content="36 MONTHS"/>
+                        <ComboBox x:Name="TimePeriodcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding LoanPeriod,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource MonthConverter}}">
                         </ComboBox>
                     </StackPanel>
-                    <Button Grid.Row="7" Grid.Column="1" Content="Request Loan" Style="{StaticResource PrimaryBtn}"/>
+                    <StackPanel Grid.Row="7" Grid.Column="1">
+                        <TextBlock Text="Loan Purpose" Style="{StaticResource Regular}" FontWeight="Bold" FontSize="18"/>
+                        <TextBox Style="{StaticResource InputBox}" Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    </StackPanel>
+                    <Button Grid.Row="9" Grid.Column="1" Content="Request Loan" Style="{StaticResource PrimaryBtn}" x:Name="LoanRequestBtn" Click="LoanRequestBtn_Click"/>
                 </Grid>
             </Border>
         </Grid>

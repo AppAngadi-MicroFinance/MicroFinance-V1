@@ -88,9 +88,12 @@
     </Compile>
     <Compile Include="Converters\AgeConverter.cs" />
     <Compile Include="Converters\ComboEnableDisable.cs" />
+    <Compile Include="Converters\GuaranterName.cs" />
     <Compile Include="Converters\InverseVisible.cs" />
     <Compile Include="Converters\InverseVisiblityConverterbyImage.cs" />
+    <Compile Include="Converters\LoanRequestConverter.cs" />
     <Compile Include="Converters\MoneyConverter.cs" />
+    <Compile Include="Converters\MonthConverter.cs" />
     <Compile Include="Converters\StatusForegroundColor.cs" />
     <Compile Include="Converters\StatusImage.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
@@ -147,6 +150,7 @@
     <Compile Include="Validations\MoneyValidation.cs" />
     <Compile Include="Validations\NameValidation.cs" />
     <Compile Include="Validations\NumberValidation.cs" />
+    <Compile Include="Validations\PanNumberValidation.cs" />
     <Compile Include="Validations\PhoneNumberValidation.cs" />
     <Compile Include="Validations\PriceValidation.cs" />
     <Compile Include="VerifyCustomer.xaml.cs">

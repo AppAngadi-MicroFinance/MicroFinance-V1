@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Converters;
 
 namespace MicroFinance
 {
@@ -33,6 +34,12 @@ namespace MicroFinance
         public void add()
         {
             
+        }
+
+        private void ApprovetoHiMarkBtn_Click(object sender, RoutedEventArgs e)
+        {
+           
+
         }
     }
     public class Cust:BindableBase
