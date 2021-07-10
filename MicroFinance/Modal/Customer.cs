@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace MicroFinance.Modal
 {
-    public class Customer : BindableBase
+    public class Customer : LoanDetails
     {
         public string _customerId { get; set; }
 
@@ -368,7 +368,6 @@ namespace MicroFinance.Modal
                 return _addressProofNames;
             }
         }
-
         public string NameofAddressProof { get; set; }
         public string NameofPhotoProof { get; set; }
 
@@ -556,7 +555,6 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-
                 sqlCommand.CommandText = "select * from CustomerDetails where CustId='" + _customerId + "'";
                 SqlDataReader sqlData = sqlCommand.ExecuteReader();
                 while (sqlData.Read())

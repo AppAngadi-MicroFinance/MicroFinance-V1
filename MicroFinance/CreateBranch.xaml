@@ -8,8 +8,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="630" d:DesignWidth="1366"
       Title="CreateBranch" Background="White">
-    
-
     <Grid Style="{StaticResource PrimaryGrid}" x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="630"/>
@@ -18,20 +16,21 @@
             <Image x:Name="NotifyImage" Height="30" Width="30" Margin="10,0,0,0"></Image>
             <TextBlock x:Name="NotifyText" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
         </StackPanel>
-        <Grid ShowGridLines="False" Height="500" Width="600" HorizontalAlignment="Left" Margin="20,50,0,0" VerticalAlignment="Top">
+        <Grid ShowGridLines="False" Height="510" Width="600" HorizontalAlignment="Left" Margin="20,50,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40*"/>
                 <ColumnDefinition Width="60*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50px"/>
-                <RowDefinition Height="50px"/>
-                <RowDefinition Height="50px"/>
+                <RowDefinition Height="45px"/>
+                <RowDefinition Height="45px"/>
+                <RowDefinition Height="45px"/>
                 <RowDefinition Height="150px"/>
-                <RowDefinition Height="50px"/>
-                <RowDefinition Height="50px"/>
-                <RowDefinition Height="50px"/>
-                <RowDefinition Height="50px"/>
+                <RowDefinition Height="45px"/>
+                <RowDefinition Height="45px"/>
+                <RowDefinition Height="45px"/>
+                <RowDefinition Height="45px"/>
+                <RowDefinition Height="45px"/>
    
             </Grid.RowDefinitions>
             <TextBlock Text="Branch Details*" Style="{StaticResource SubTitle}" VerticalAlignment="Center"></TextBlock>
@@ -94,7 +93,8 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            
+            <TextBlock Text="Agreement Start Date" Style="{StaticResource Regular}" Grid.Row="8"></TextBlock>
+            <DatePicker Grid.Row="8" Grid.Column="1" Style="{StaticResource DateSelecter}" Width="250" Text="{Binding AgreementStartDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
         </Grid>
         <Grid Height="500" Width="600" HorizontalAlignment="Right" Margin="0,50,30,0" ShowGridLines="False" VerticalAlignment="Top" Name="Subgrid">
             <Grid.ColumnDefinitions>
@@ -112,9 +112,10 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Style="{StaticResource Regular}" Text="Opening Date" Grid.Row="0" VerticalAlignment="Center"></TextBlock>
-            <DatePicker x:Name="openingdate" Style="{StaticResource DateSelecter}" SelectedDateFormat="Short"  SelectedDate="{x:Static sys:DateTime.Now}"  Width="250" Grid.Row="0" Grid.Column="1" Text="{Binding OpeningDate,Mode=TwoWay}"></DatePicker>
+            <TextBlock Style="{StaticResource Regular}" Text="Agreement End Date" Grid.Row="0" VerticalAlignment="Center"></TextBlock>
+            <DatePicker x:Name="openingdate" Style="{StaticResource DateSelecter}" SelectedDateFormat="Short"  SelectedDate="{x:Static sys:DateTime.Now}"  Width="250" Grid.Row="0" Grid.Column="1" Text="{Binding AgreementEndDate,Mode=TwoWay}"></DatePicker>
             <TextBlock Text="Internet Connection (if required)" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
             <TextBox x:Name="internetnamebox" Style="{StaticResource InputBox}" Width="250"  Grid.Column="1" Grid.Row="1">
                 <TextBox.Text>
@@ -178,8 +179,18 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBlock Text="Owner Account Details" Grid.Row="9" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-            <Button Style="{StaticResource Add}" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" Margin="20,1.6,0,-2" Click="Button_Click"></Button>
+            <TextBlock Text="Pan Number" Grid.Row="9" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox Grid.Row="9" Grid.Column="1" Width="250" Style="{StaticResource InputBox}">
+                <TextBox.Text>
+                    <Binding Path="PanNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:PanNumberValidation/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock Text="Owner Account Details" Grid.Row="10" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+            <Button Style="{StaticResource Add}" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Margin="20,1.6,0,-2" Click="Button_Click"></Button>
         </Grid>
         <Button  VerticalAlignment="Bottom" Margin="0,0,0,20" Style="{StaticResource PrimaryBtn}"  Content="Save" Click="Savebtn_Click" x:Name="Savebtn"></Button>
         <Popup  Height="400" Width="500" x:Name="BranchAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">

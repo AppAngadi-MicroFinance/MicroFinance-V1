@@ -28,6 +28,9 @@ namespace MicroFinance
         public string EmployeeDesignation = MainWindow.LoginDesignation.LoginDesignation;
 
         Branch_Shg_PgDetails GetDetails = new Branch_Shg_PgDetails();
+        LoanDetails loanRequest = new LoanDetails();
+        List<int> Months = new List<int> { 12, 24, 36, 48 };
+        List<int> Amountlist = new List<int> { 10000, 15000, 20000, 30000 };
         List<string> SelfHelpGroups = new List<string>();
         List<string> PeerGroups = new List<string>();
         public LoanRequest()
@@ -36,6 +39,9 @@ namespace MicroFinance
             GetDetails.EmpId = EmployeeId;
             GetDetails.EmpDesignation = EmployeeDesignation;
             GetBranchDetailsofFieldOfficer();
+            LoanAmountcombo.ItemsSource = Amountlist;
+            TimePeriodcombo.ItemsSource = Months;
+            LoanRequestPanel.DataContext = loanRequest;
         }
         void GetBranchDetailsofFieldOfficer()
         {
@@ -65,6 +71,7 @@ namespace MicroFinance
             PeerGroups = GetDetails.GetPeerGroup(ShgName);
             SelectPg.ItemsSource = PeerGroups;
             SelectPg.IsEnabled = true;
+            
 
         }
         public BitmapImage ByteToBI(byte[] array)
@@ -85,6 +92,7 @@ namespace MicroFinance
 
         void GroupMembersDetails()
         {
+            MembersList.Clear();
             if (SelectPg.SelectedItem != null)
             {
                 string _peerGroup = SelectPg.SelectedItem.ToString();
@@ -103,12 +111,13 @@ namespace MicroFinance
                         CustomerIds.Add(sqlData.GetString(0));
                     }
                     sqlData.Close();
+                    string _customerID="";
                     string _customerName = "";
                     int _age = 0;
                     string _guarantorName = "";
                     string _nomineeName = "";
-                    string _status = "";
-                    int _pendingAmount = 0;
+                    //string _status = "";
+                    //int _pendingAmount = 0;
                     bool _isleader = false;
                     BitmapImage _profilePhoto;
                     foreach (string item in CustomerIds)
@@ -117,13 +126,14 @@ namespace MicroFinance
                         sqlData = command.ExecuteReader();
                         while (sqlData.Read())
                         {
+                            _customerID = item;
                             _customerName = sqlData.GetString(0);
                             _age = sqlData.GetInt32(1);
                             _profilePhoto = ByteToBI((byte[])sqlData.GetValue(2));
                             _guarantorName = sqlData.GetString(3);
                             _nomineeName = sqlData.GetString(4);
                             _isleader = sqlData.GetBoolean(5);
-                            MembersList.Add(new GroupMembers { CustomerName = _customerName, Age = _age, ProfilePhoto = _profilePhoto, GuarantorName = _guarantorName, NomineeName = _nomineeName, IsLeader = _isleader, PendingStatus = "Week 9", PendingAmount = 1200 });
+                            MembersList.Add(new GroupMembers { CustomerID=_customerID, CustomerName = _customerName, Age = _age, ProfilePhoto = _profilePhoto, GuarantorName = _guarantorName, NomineeName = _nomineeName, IsLeader = _isleader, PendingStatus = "Week 9", PendingAmount = 1200 });
                         }
                         sqlData.Close();
                     }
@@ -140,7 +150,6 @@ namespace MicroFinance
                 MembersListView.ItemsSource = MembersList;
                 MembersListView.Items.Refresh();
                 LoanRequestGrid.IsEnabled = false;
-
             }
 
         }
@@ -149,11 +158,41 @@ namespace MicroFinance
         {
             GroupMembersDetails();
             MembersListView.ItemsSource = MembersList;
+            MembersListView.Items.Refresh();
+        }
+
+        private void LoanRequestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(MembersListView.SelectedItem!=null)
+            {
+                string BranchName = SelectBranch.SelectedValue as string;
+                string RegionName = SelectRegion.SelectedValue as string;
+                GroupMembers groupMembers = MembersListView.SelectedValue as GroupMembers;
+                groupMembers.IsRequested = true;
+                loanRequest.CustomerID = groupMembers.CustomerID;
+                loanRequest.EmployeeID = EmployeeId;
+                loanRequest.SendRequest(RegionName, BranchName);
+                MembersListView.Items.Refresh();
+                loanRequest = new LoanDetails();
+                LoanRequestPanel.DataContext = new LoanDetails();
+            }
+            else
+            {
+                MessageBox.Show("Select The Customer");
+            }
+            
+            
+        }
+
+        private void MembersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 
     class GroupMembers
     {
+        public string CustomerID { get; set; }
         public string CustomerName { get; set; }
         public int Age { get; set; }
         public string GuarantorName { get; set; }
@@ -162,6 +201,7 @@ namespace MicroFinance
         public string PendingStatus { get; set; }
         public BitmapImage ProfilePhoto { get; set; }
         public bool IsLeader { get; set; }
+        public bool IsRequested { get; set; }
     }
 }
 

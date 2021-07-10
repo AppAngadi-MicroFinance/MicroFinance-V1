@@ -39,26 +39,28 @@
             </Grid>
             <Grid Grid.Row="1" Grid.RowSpan="2">
                 <TextBlock Text="Basic Details*" Style="{StaticResource SubTitle}" Margin="90,-450,0,0"></TextBlock>
-                <Grid Height="450" Width="500" Panel.ZIndex="2">
-                    <Grid x:Name="BasicDetailsGrid" VerticalAlignment="Center" ShowGridLines="False" Width="480" >
+                <Grid Height="470" Width="500" Panel.ZIndex="2">
+                    <Grid x:Name="BasicDetailsGrid" VerticalAlignment="Center" ShowGridLines="False" Width="480" Margin="0,20,0,0" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40*"/>
                             <ColumnDefinition Width="60*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="50px"/>
-                            <RowDefinition Height="50px"/>
-                            <RowDefinition Height="50px"/>
-                            <RowDefinition Height="50px"/>
-                            <RowDefinition Height="50px"/>
-                            <RowDefinition Height="50px"/>
-                            <RowDefinition Height="50px"/>
-                            <RowDefinition Height="50px"/>
+                            <RowDefinition Height="45px"/>
+                            <RowDefinition Height="45px"/>
+                            <RowDefinition Height="45px"/>
+                            <RowDefinition Height="45px"/>
+                            <RowDefinition Height="45px"/>
+                            <RowDefinition Height="45px"/>
+                            <RowDefinition Height="45px"/>
+                            <RowDefinition Height="45px"/>
+                            <RowDefinition Height="45px"/>
+                            <RowDefinition Height="45px"/>
                            
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
                             <TextBlock Text="Name" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                            <TextBox x:Name="Employeenamebox" Style="{StaticResource InputBox}" Width="415" Margin="10,0,0,0">
+                            <TextBox x:Name="Employeenamebox" Style="{StaticResource InputBox}" Width="410" Margin="10,0,0,0">
                                 <TextBox.Text>
                                     <Binding Path="EmployeeName" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
                                         <Binding.ValidationRules>
@@ -71,11 +73,22 @@
                         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
                             <TextBlock Text="DOB" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                             <DatePicker x:Name="Employeedob" Style="{StaticResource DateSelecter}" Width="250" Margin="19,0,0,0" SelectedDateFormat="Short" Text="{Binding DOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
-                            <TextBlock Text="Age" VerticalAlignment="Center" Style="{StaticResource Regular}" Margin="50,0,0,0"></TextBlock>
+                            <TextBlock Text="Age" VerticalAlignment="Center" Style="{StaticResource Regular}" Margin="45,0,0,0"></TextBlock>
                             <TextBox x:Name="Employeeage" Style="{StaticResource InputBox}" Width="80" Margin="10,0,0,0" Text="{Binding Age,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"></TextBox>
+                            
                         </StackPanel>
-                        <TextBlock Grid.Row="2" Text="Contact Number" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox x:Name="EmployeeContactnumber" Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                        <TextBlock Text="Father Name" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
+                        <TextBox x:Name="EmployeeFatherName" Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                            <TextBox.Text>
+                                <Binding Path="FatherName" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBlock Grid.Row="3" Text="Contact Number" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="EmployeeContactnumber" Grid.Row="3" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
                             <TextBox.Text>
                                 <Binding Path="ContactNumber" Mode="TwoWay">
                                     <Binding.ValidationRules>
@@ -84,8 +97,8 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBlock Grid.Row="3" Text="Email" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox x:Name="EmployeeEmail" Grid.Row="3" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                        <TextBlock Grid.Row="4" Text="Email" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="EmployeeEmail" Grid.Row="4" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
                             <TextBox.Text>
                                 <Binding Path="Email" Mode="TwoWay">
                                     <Binding.ValidationRules>
@@ -94,8 +107,8 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBlock Text="Aadhar Number" Grid.Row="4" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox x:Name="EmployeeAadhar" Grid.Row="4" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                        <TextBlock Text="Aadhar Number" Grid.Row="5" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="EmployeeAadhar" Grid.Row="5" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
                             <TextBox.Text>
                                 <Binding Path="AadharNumber" Mode="TwoWay">
                                     <Binding.ValidationRules>
@@ -104,12 +117,23 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBlock Text="Religion" Grid.Row="5" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <ComboBox Grid.Row="5" Grid.Column="1" Style="{StaticResource combo}" Width="250" x:Name="Religioncombo" Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="Religioncombo_SelectionChanged"></ComboBox>
-                        <TextBlock Grid.Row="6" Text="Education" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox x:Name="EmployeeEducation" Grid.Row="6" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding Education,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Grid.Row="7" Text="Date of Joining" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <DatePicker x:Name="Employeejoiningdate" Grid.Row="7" Grid.Column="1" Style="{StaticResource DateSelecter}" SelectedDateFormat="Long"  Width="250" Text="{Binding DateOfJoining,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                        <TextBlock Text="Pan Number" Grid.Row="6" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="EmployeePan" Grid.Row="6" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                            <TextBox.Text>
+                                <Binding Path="PanNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validation:PanNumberValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        
+                        <TextBlock Text="Religion" Grid.Row="7" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                        <ComboBox Grid.Row="7" Grid.Column="1" Style="{StaticResource combo}" Width="250" x:Name="Religioncombo" Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="Religioncombo_SelectionChanged"></ComboBox>
+                        <TextBlock Grid.Row="8" Text="Education" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="EmployeeEducation" Grid.Row="8" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding Education,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBlock Grid.Row="9" Text="Date of Joining" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                        <DatePicker x:Name="Employeejoiningdate" Grid.Row="9" Grid.Column="1" Style="{StaticResource DateSelecter}" SelectedDateFormat="Long"  Width="250" Text="{Binding DateOfJoining,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                     </Grid>
                 </Grid>
             </Grid>

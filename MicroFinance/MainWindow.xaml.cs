@@ -25,14 +25,12 @@ namespace MicroFinance
         public static LoginDetails LoginDesignation = new LoginDetails();
         public MainWindow()
         {
-
-            InitializeComponent();
             LoginDesignation.LoginDesignation = "Field Officer";
             LoginDesignation.EmpId = "0100220210702";
             LoginDesignation.BranchId = "01202106002";
+            InitializeComponent();
             MessageStatus.DataContext = StatusMsg;
-           // mainframe.NavigationService.Navigate(new LoanRecommend());
-
+            mainframe.NavigationService.Navigate(new Test());
         }
         public static void StatusMessageofPage(int Type, string Message)
         {

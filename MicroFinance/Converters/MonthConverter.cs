@@ -17,16 +17,17 @@ namespace MicroFinance.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string _months = value.ToString();
-            int i = 0;
-            int _no = 0;
-            while(_months[i]!=' ')
-            {
-                _no = _no * 10;
-                _no = _no + (_months[i] - 48);
-                i++;
-            }
-            return _no;
+            //string _months = value.ToString();
+            //int i = 0;
+            //int _no = 0;
+            //while(_months[i]!=' ')
+            //{
+            //    _no = _no * 10;
+            //    _no = _no + (_months[i] - 48);
+            //    i++;
+            //}
+            //return _no;
+            return 12;
         }
     }
 }

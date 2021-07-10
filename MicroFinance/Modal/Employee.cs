@@ -221,7 +221,19 @@ namespace MicroFinance.Modal
             }
         }
         //
-
+        private string _fathername;
+        public string FatherName
+        {
+            get
+            {
+                return _fathername;
+            }
+            set
+            {
+                _fathername = value;
+                RaisedPropertyChanged("FatherName");
+            }
+        }
         private string _aadharnumber;
         public string AadharNumber
         {
@@ -237,6 +249,20 @@ namespace MicroFinance.Modal
                     RaisedPropertyChanged("Aadharnumber");
                 }
             }
+        }
+        private string _pannumber;
+        public string PanNumber
+        {
+            get
+            {
+                return _pannumber;
+            }
+            set
+            {
+                _pannumber = value.ToUpper();
+                RaisedPropertyChanged("PanNumber");
+            }
+
         }
         private string _religion;
         public string Religion
@@ -488,10 +514,12 @@ namespace MicroFinance.Modal
             {
                 using (SqlConnection sqlConn = new SqlConnection(Connectionstring))
                 {
+                    string address = _houseno+"\t" + _townname;
+                    string ID = GenerateEmployeeID();
                     sqlConn.Open();
                     SqlCommand Sqlcomm = new SqlCommand();
                     Sqlcomm.Connection = sqlConn;
-                    Sqlcomm.CommandText = "insert into Employee(EmpId,Name,DOB,age,MobileNo,Region,EmailId,Education,AadhaarNo,DateOfJoin,BankName,BranchName,AccountNumber,IFSCCode,MICRCode,Address,PinCode,District,IsAddressProof,AddressProofName,AddressProof,IsPhotoProof,PhotoProofName,PhotoProof,IsProfilePhoto,ProfilePhoto,IsActive,Designation,Bid)values('" + GenerateEmployeeID() + "','" + EmployeeName + "','" + _dob.ToString("MM/dd/yyyy") + "','" + Age + "','" + _contactnumber + "','" + _religion + "','" + _email + "','" + _education + "','" + _aadharnumber + "','" + DateOfJoining.ToString("MM/dd/yyyy") + "','" + _bankname +"|~"+ "','" + BankBranchName + "','" + _accountnumber + "','" + _ifsccode + "','" + _micrcode + "','" + (_houseno + _townname) + "','" + _pincode + "','" + _district + "',"+ IsTrue(_isaddressproof) +",'" + _addressproofName + "',@addressproof,"+IsTrue(_isphotoproof)+",'" + _photoproofname + "',@photoproof,"+IsTrue(_isprofilepicture)+",@profilepicture,"+IsTrue(_isactive)+",'" + _designation + "','" + GetBranchID() + "')";
+                    Sqlcomm.CommandText = "insert into Employee(EmpId,Name,DOB,age,MobileNo,Region,EmailId,Education,AadhaarNo,DateOfJoin,BankName,BranchName,AccountNumber,IFSCCode,MICRCode,Address,PinCode,District,IsAddressProof,AddressProofName,AddressProof,IsPhotoProof,PhotoProofName,PhotoProof,IsProfilePhoto,ProfilePhoto,IsActive,Designation,Bid,FatherName,PanNumber,KYCNumber)values('" +ID + "','" + EmployeeName + "','" + _dob.ToString("MM/dd/yyyy") + "','" + Age + "','" + _contactnumber + "','" + _religion + "','" + _email + "','" + _education + "','" + _aadharnumber + "','" + DateOfJoining.ToString("MM/dd/yyyy") + "','" + _bankname +"','" + BankBranchName + "','" + _accountnumber + "','" + _ifsccode + "','" + _micrcode + "','" + address + "','" + _pincode + "','" + _district + "',"+ IsTrue(_isaddressproof) +",'" + _addressproofName + "',@addressproof,"+IsTrue(_isphotoproof)+",'" + _photoproofname + "',@photoproof,"+IsTrue(_isprofilepicture)+",@profilepicture,"+IsTrue(_isactive)+",'" + _designation + "','" + GetBranchID() + "','"+_fathername+"','"+_pannumber+"','"+ID+"')";
                     Sqlcomm.Parameters.AddWithValue("@addressproof", Convertion(_addressproofimage));
                     Sqlcomm.Parameters.AddWithValue("@photoproof", Convertion(_photoproofimage));
                     Sqlcomm.Parameters.AddWithValue("@profilepicture", Convertion(_profileimage));
@@ -503,10 +531,11 @@ namespace MicroFinance.Modal
             {
                 using (SqlConnection sqlConn = new SqlConnection(Connectionstring))
                 {
+                    string address = _houseno + "\t" + _townname;
                     sqlConn.Open();
                     SqlCommand Sqlcomm = new SqlCommand();
                     Sqlcomm.Connection = sqlConn;
-                    Sqlcomm.CommandText = "update Employee set Name = '"+EmployeeName+"',DOB = '"+_dob.ToString("MM/dd/yyyy")+"',age = '"+_age+"',MobileNo = '"+_contactnumber+"',Region = '"+_religion+"',EmailId = '"+_email+"',Education = '"+_education+"',AadhaarNo = '"+_aadharnumber+"',DateOfJoin = '"+_dateofjoining.ToString("MM/dd/yyyy")+"',BankName = '"+_bankname+"',BranchName = '"+_bankbranchname+"',AccountNumber = '"+_accountnumber+"',IFSCCode = '"+_ifsccode+"',MICRCode = '"+_micrcode+"',Address = '"+(_houseno+"|~"+_townname)+"',PinCode = '"+_pincode+"',District = '"+District+"',IsAddressProof = '"+IsTrue(_isaddressproof)+"',AddressProofName = '"+_addressproofName+ "',AddressProof = @addressproof,IsPhotoProof = '"+IsTrue(_isphotoproof)+"',PhotoProofName = '"+_photoproofname+ "',PhotoProof = photoproof,IsProfilePhoto = '"+IsTrue(_isprofilepicture)+ "',ProfilePhoto =@profilepicture,IsActive ="+IsTrue(_isactive)+",Designation = '"+_designation+"',Bid = '"+BranchID+ "' where Name = '" + EmployeeName + "' and AadhaarNo = '" + _aadharnumber + "' ";
+                    Sqlcomm.CommandText = "update Employee set Name = '"+EmployeeName+"',DOB = '"+_dob.ToString("MM/dd/yyyy")+"',age = '"+_age+"',MobileNo = '"+_contactnumber+"',Region = '"+_religion+"',EmailId = '"+_email+"',Education = '"+_education+"',AadhaarNo = '"+_aadharnumber+"',DateOfJoin = '"+_dateofjoining.ToString("MM/dd/yyyy")+"',BankName = '"+_bankname+"',BranchName = '"+_bankbranchname+"',AccountNumber = '"+_accountnumber+"',IFSCCode = '"+_ifsccode+"',MICRCode = '"+_micrcode+"',Address = '"+address+"',PinCode = '"+_pincode+"',District = '"+District+"',IsAddressProof = '"+IsTrue(_isaddressproof)+"',AddressProofName = '"+_addressproofName+ "',AddressProof = @addressproof,IsPhotoProof = '"+IsTrue(_isphotoproof)+"',PhotoProofName = '"+_photoproofname+ "',PhotoProof = photoproof,IsProfilePhoto = '"+IsTrue(_isprofilepicture)+ "',ProfilePhoto =@profilepicture,IsActive ="+IsTrue(_isactive)+",Designation = '"+_designation+"',Bid = '"+BranchID+ "', FatherName='" + FatherName + "',PanNumber='" + _pannumber + "' where Name = '" + EmployeeName + "' and AadhaarNo = '" + _aadharnumber + "'";
                     Sqlcomm.Parameters.AddWithValue("@addressproof", Convertion(_addressproofimage));
                     Sqlcomm.Parameters.AddWithValue("@photoproof", Convertion(_photoproofimage));
                     Sqlcomm.Parameters.AddWithValue("@profilepicture", Convertion(_profileimage));
@@ -693,12 +722,14 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select EmpId,Name,DOB,Age,MobileNo,Region,EmailId,Education,AadhaarNo,DateOfJoin,BankName,BranchName,AccountNumber,IFSCCode,MICRCode,Address,PinCode,District,IsAddressProof,AddressProofName,AddressProof,IsPhotoProof,PhotoProofName,PhotoProof,IsProfilePhoto,ProfilePhoto,IsActive,Designation,Bid from Employee";
+                    sqlcomm.CommandText = "select EmpId,Name,DOB,Age,MobileNo,Region,EmailId,Education,AadhaarNo,DateOfJoin,BankName,BranchName,AccountNumber,IFSCCode,MICRCode,Address,PinCode,District,IsAddressProof,AddressProofName,AddressProof,IsPhotoProof,PhotoProofName,PhotoProof,IsProfilePhoto,ProfilePhoto,IsActive,Designation,Bid,FatherName,PanNumber from Employee";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
                     {
                         while(reader.Read())
                         {
+                            string addressarr = reader.GetString(15);
+                            string[] address = addressarr.Split('\t').ToArray();       
                             EmployeeList.Add(new Employee
                             {
                                 _employeeID = reader.GetString(0),
@@ -716,7 +747,8 @@ namespace MicroFinance.Modal
                                 _accountnumber = reader.GetString(12),
                                 _ifsccode = reader.GetString(13),
                                 _micrcode = reader.GetString(14),
-                                _houseno = reader.GetString(15),
+                                _houseno = address[0].ToString(),
+                                _townname=address[1].ToString(),
                                 _pincode = reader.GetString(16),
                                 _district = reader.GetString(17),
                                 _isaddressproof = reader.GetBoolean(18),
@@ -729,7 +761,9 @@ namespace MicroFinance.Modal
                                 _profileimage = (reader.GetBoolean(24) ? ByteToBI((byte[])reader.GetValue(25)) : null),
                                 _isactive = reader.GetBoolean(26),
                                 _designation = reader.GetString(27),
-                                _branchID = reader.GetString(28)
+                                _branchID = reader.GetString(28),
+                                _fathername=reader.GetString(29),
+                                _pannumber=reader.GetString(30)
                             }
                             ) ;
                         }

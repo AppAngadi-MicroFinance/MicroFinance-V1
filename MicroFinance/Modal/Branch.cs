@@ -12,8 +12,6 @@ namespace MicroFinance.Modal
     {
         public List<Branch> BranchList = new List<Branch>();
         public List<string> RegionList = new List<string>();
-
-
         private string ConnectionString = Properties.Settings.Default.DBConnection;
         public Branch()
         {
@@ -32,9 +30,8 @@ namespace MicroFinance.Modal
                 {
                    _regionName = value;
                    RaisedPropertyChanged("RegionName");
-                     
                 }
-                  
+                
             }
         }
         
@@ -126,17 +123,43 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("AccountantName");
             }
         }
-        private DateTime _openingdate = DateTime.Today;
-        public DateTime OpeningDate
+        private DateTime _agreementenddate = DateTime.Today;
+        public DateTime AgreementEndDate
         {
             get
             {
-                return _openingdate;
+                return _agreementenddate;
             }
             set
             {
-                _openingdate = value;
-                RaisedPropertyChanged("OpeningDate");
+                _agreementenddate = value;
+                RaisedPropertyChanged("AgreementStartDate");
+            }
+        }
+        private DateTime _agreementstartdate = DateTime.Today;
+        public DateTime AgreementStartDate
+        {
+            get
+            {
+                return _agreementstartdate;
+            }
+            set
+            {
+                _agreementstartdate = value;
+                RaisedPropertyChanged("AgreementStartDate");
+            }
+        }
+        private string _pannumber;
+        public string PanNumber
+        {
+            get
+            {
+                return _pannumber;
+            }
+            set
+            {
+                _pannumber = value.ToUpper();
+                RaisedPropertyChanged("PanNumber");
             }
         }
         private string _ebconnectionname;
@@ -500,7 +523,7 @@ namespace MicroFinance.Modal
                     {
                         SqlCommand sqlcomm = new SqlCommand();
                         sqlcomm.Connection = sqlconn;
-                        sqlcomm.CommandText = "insert into BranchDetails(SNo,Bid,RegionName,BranchName,Address,LandLineNumber,LandLineCost,DateofCreation,EBNumber,EBConnectionName,InternetConnectionName,InternetCost,BuildingOwnerName,OwnerContact,OwnerAddress,AdvancePaid,MonthlyRent,OwnerACBankName,OwnerACBranchName,AccountHolderName,AccountNumber,IFSCCode,MICRCode)values('" + GetBranchCount() + "','" +GenerateBranchID()+ "','" + _regionName + "','" + _branchname + "','" + _branchaddress + "','" + _landlinenumber + "'," + _landlinecostpermonth + ",'" + _openingdate.ToString("MM/dd/yyyy") + "','" + _ebconnectionnubmer + "','" + _ebconnectionname.ToUpper() + "','" + InternetConnectionName + "'," + _internetconnectioncost + ",'" + OwnerName + "','" + _ownercontactnumber + "','" + OwnerAddress + "'," + _advancepaid + "," + _rentpermonth + ",'" + _bankname + "','" + _bankbranchname + "','" + _accountholdername + "','" + _accountnumber + "','" + _ifsccode + "','" + MICRCode + "')";
+                        sqlcomm.CommandText = "insert into BranchDetails(SNo,Bid,RegionName,BranchName,Address,LandLineNumber,LandLineCost,AgreementStartDate,EBNumber,EBConnectionName,InternetConnectionName,InternetCost,BuildingOwnerName,OwnerContact,OwnerAddress,AdvancePaid,MonthlyRent,OwnerACBankName,OwnerACBranchName,AccountHolderName,AccountNumber,IFSCCode,MICRCode,AgreementEndDate,OwnerPanNumber)values('" + GetBranchCount() + "','" +GenerateBranchID()+ "','" + _regionName + "','" + _branchname + "','" + _branchaddress + "','" + _landlinenumber + "'," + _landlinecostpermonth + ",'" + _agreementstartdate.ToString("MM-dd-yyyy") + "','" + _ebconnectionnubmer + "','" + _ebconnectionname.ToUpper() + "','" + InternetConnectionName + "'," + _internetconnectioncost + ",'" + OwnerName + "','" + _ownercontactnumber + "','" + OwnerAddress + "'," + _advancepaid + "," + _rentpermonth + ",'" + _bankname + "','" + _bankbranchname + "','" + _accountholdername + "','" + _accountnumber + "','" + _ifsccode + "','" + MICRCode + "','"+_agreementenddate.ToString("MM-dd-yyyy")+"','"+_pannumber+"')";
                         sqlcomm.ExecuteNonQuery();
                     }
                     sqlconn.Close();

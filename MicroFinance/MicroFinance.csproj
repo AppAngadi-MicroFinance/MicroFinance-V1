@@ -94,6 +94,7 @@
     <Compile Include="Converters\ComboEnableDisable.cs" />
     <Compile Include="Converters\GenderFemale.cs" />
     <Compile Include="Converters\GenderMaleCheck.cs" />
+    <Compile Include="Converters\GuaranterName.cs" />
     <Compile Include="Converters\InverseVisible.cs" />
     <Compile Include="Converters\InverseVisiblityConverterbyImage.cs" />
     <Compile Include="Converters\LeaveCheck.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Validations\MoneyValidation.cs" />
     <Compile Include="Validations\NameValidation.cs" />
     <Compile Include="Validations\NumberValidation.cs" />
+    <Compile Include="Validations\PanNumberValidation.cs" />
     <Compile Include="Validations\PhoneNumberValidation.cs" />
     <Compile Include="Validations\PriceValidation.cs" />
     <Compile Include="VerifyCustomer.xaml.cs">

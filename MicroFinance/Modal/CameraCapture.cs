@@ -23,10 +23,10 @@ namespace MicroFinance.Modal
 {
     class CameraCapture
     {
-        public static BitmapImage SavedImage;
-        public BitmapImage tempimg;
-        public FilterInfoCollection FilterInfoCollection;
-        public VideoCaptureDevice captureDevice;
+        //public static BitmapImage SavedImage;
+        //public BitmapImage tempimg;
+        //public FilterInfoCollection FilterInfoCollection;
+        //public VideoCaptureDevice captureDevice;
 
         //public void OpenCamera()
         //{

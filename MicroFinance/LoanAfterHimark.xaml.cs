@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Modal;
 
 namespace MicroFinance
 {
@@ -20,12 +21,17 @@ namespace MicroFinance
     /// </summary>
     public partial class LoanAfterHimark : Page
     {
+        LoanProcess loanprocess = new LoanProcess();
+        public List<LoanProcess> RecommendList = new List<LoanProcess>();
         public LoanAfterHimark()
         {
             InitializeComponent();
-            setCount();
-            setAmount();
-            Custlist.ItemsSource = LoanRecommend.RecommenedList;
+            loanprocess.GetRecommendList();
+            //setCount();
+            //setAmount();
+            RecommendList.Clear();
+            RecommendList = loanprocess.RecommendList;
+            Custlist.ItemsSource = RecommendList;
         }
         void setCount()
         {
@@ -62,6 +68,50 @@ namespace MicroFinance
         private void Custlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void ApproveLoanBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LoanProcess loan = new LoanProcess();
+            Button btn = sender as Button;
+            string ID = btn.Uid.ToString();
+            Custlist.Items.Refresh();
+            
+            loan = GetRecommendDetails(ID);
+            string ApprovedBy = MainWindow.LoginDesignation.EmpId;
+            loan.ApprovedBy = ApprovedBy;
+            loan.ApproveLoan(ID);
+            //MessageBox.Show(loan.ToString());
+        }
+
+        public LoanProcess GetRecommendDetails(string ID)
+        {
+            LoanProcess selectedLoan = new LoanProcess();
+            int i = 0;
+            foreach(LoanProcess process in RecommendList)
+            {
+                if(process.LoanRequestID==ID)
+                {
+                    selectedLoan = RecommendList.ElementAt(i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            return selectedLoan;
+        }
+
+        private void RejectResonOKBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LoanProcess loan = new LoanProcess();
+            Button button = sender as Button;
+            string ID = button.Uid.ToString();
+            loan = GetRecommendDetails(ID);
+            string ApprovedBy = MainWindow.LoginDesignation.EmpId;
+            loan.ApprovedBy = ApprovedBy;
+            loan.RejectLoan(ID);
+            Custlist.Items.Refresh();
         }
     }
 }
