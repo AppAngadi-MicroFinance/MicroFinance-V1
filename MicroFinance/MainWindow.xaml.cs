@@ -25,11 +25,11 @@ namespace MicroFinance
         public static LoginDetails LoginDesignation = new LoginDetails();
         public MainWindow()
         {
-            
+
+            InitializeComponent();
             LoginDesignation.LoginDesignation = "Field Officer";
             LoginDesignation.EmpId = "0100220210702";
             LoginDesignation.BranchId = "01202106002";
-            InitializeComponent(); 
             MessageStatus.DataContext = StatusMsg;
            // mainframe.NavigationService.Navigate(new LoanRecommend());
 
@@ -79,6 +79,11 @@ namespace MicroFinance
         private void ApprovefromHImark_Click(object sender, RoutedEventArgs e)
         {
             mainframe.NavigationService.Navigate(new LoanAfterHimark());
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            mainframe.NavigationService.Navigate(new CollectionEntry());
         }
     }
 }

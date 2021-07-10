@@ -16,13 +16,23 @@ namespace MicroFinance.Validations
             try
             {
                 string _money = (string)value;
-                int _isNumber = Convert.ToInt32(_money);
+                if (_money[0] == '₹')
+                {
+                StringBuilder sb = new StringBuilder();
+                    for(int i=3;i<_money.Length;i++)
+                    {
+                    sb.Append(_money[i]);
+                    }
+                value = sb.ToString();
+                }
+                int _isNumber = Convert.ToInt32(value);
                 return ValidationResult.ValidResult;
-            }
-            catch
+        }
+            catch(Exception E)
             {
                 return new ValidationResult(false, "Number Only Allowed");
-            }
-        }
+    }
+
+}
     }
 }

@@ -30,6 +30,7 @@
                 <MenuItem Header="LoanRequestFO" FontSize="14" x:Name="LoanRequestFO" Click="LoanRequestFO_Click"/>
                 <MenuItem Header="Send to Himark" FontSize="14" x:Name="SendtoHimark" Click="SendtoHimark_Click"/>
                 <MenuItem Header="Approve From Himark" FontSize="14" x:Name="ApprovefromHImark" Click="ApprovefromHImark_Click"/>
+                <MenuItem Header="Daily Collection" FontSize="14" Click="MenuItem_Click"/>
                 
             </Menu>
             

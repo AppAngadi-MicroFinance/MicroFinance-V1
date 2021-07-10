@@ -5,34 +5,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows.Media;
-using System.Windows;
 
-namespace MicroFinance.Converters 
+namespace MicroFinance.Converters
 {
-    class StatusImage : IValueConverter
+    class PresentCheck : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int _type = (int)value;
-
-            if(_type==0)
+            int _getNo = (int)value;
+            if(_getNo==1)
             {
-                return "Asserts/Icons/Done-Shield-WF.png";
-            }
-            else if(_type==1)
-            {
-                return "Asserts/Icons/Warning Shield-WF.png";
+                return true;
             }
             else
             {
-                return "Asserts/Icons/Warning Shield-WF.png";
+                return false;
             }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            bool _get = (bool)value;
+            if(true)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

@@ -57,7 +57,7 @@ namespace MicroFinance
         {
             notification = new Notification();
             notification =(Notification)NotificationList.SelectedItem;
-            NavigationService.GetNavigationService(this).Navigate(new UpdateCustomer(notification.CustomerId));
+            NavigationService.GetNavigationService(this).Navigate(new AddCustomer(notification.CustomerId));
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
