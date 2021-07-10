@@ -16,7 +16,7 @@
         <Grid x:Name="PopUpGrid"></Grid>
 
 
-        <Border BorderBrush="Blue" BorderThickness="2" Height="60" Width="910" CornerRadius="5" >
+        <!--<Border BorderBrush="Blue" BorderThickness="2" Visibility="Hidden" Height="60" Width="910" CornerRadius="5" >
             <Grid Height="50" Width="900">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5"/>
@@ -68,13 +68,13 @@
                 
 
             </Grid>
-        </Border>
+        </Border>-->
 
 
 
 
 
-        <Border Background="Beige" Height="100" Width="600" CornerRadius="10" Visibility="Hidden">
+        <Border Background="Beige" Height="100" Width="600" CornerRadius="10">
             <Grid ShowGridLines="False" x:Name="MainGrid1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40*"/>
@@ -85,14 +85,14 @@
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="220"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.RowSpan="2" Height="80" Width="80" CornerRadius="50" >
                     <Border.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="Asserts\Icons\user-Male.png"></ImageBrush>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding ProfilePicture,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></ImageBrush>
                     </Border.Background>
                 </Border>
-                <TextBlock  Text="{Binding CustName,Mode=TwoWay}" Grid.Column="1" Style="{StaticResource SubTitle}" Grid.ColumnSpan="2" Margin="10,0,0,0"></TextBlock>
+                <TextBlock  Text="{Binding CustomerName,Mode=TwoWay}" Grid.Column="1" Style="{StaticResource SubTitle}" Grid.ColumnSpan="2" Margin="10,0,0,0"></TextBlock>
                 <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                     <TextBlock Text="Monthly Income : " VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
                     <TextBlock Text="{Binding MonthlyIncome,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Style="{StaticResource NumberRegular}"></TextBlock>
@@ -100,8 +100,8 @@
                     <ToggleButton x:Name="ViewButton" Margin="5,0,0,0" Style="{StaticResource ToggleShow}"></ToggleButton>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
-                    <TextBlock Text="FO: " Style="{StaticResource Regular}" ></TextBlock>
-                    <TextBlock Text="{Binding FieldOfficerName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" ></TextBlock>
+                    <TextBlock Text="FO: " Style="{StaticResource Regular}" Margin="0,12,0,8" ></TextBlock>
+                    <TextBlock Text="{Binding FieldOfficerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" ></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" Margin="10,0,0,0">
                     <TextBlock Text="GN: " Style="{StaticResource Regular}" ></TextBlock>
@@ -125,8 +125,8 @@
                     <TextBlock Text="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Foreground="WhiteSmoke"  VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
                 <Popup Height="670" Width="1366" x:Name="CustDetailsPanel" IsOpen="{Binding IsChecked,ElementName=ViewButton}" Placement="AbsolutePoint" AllowsTransparency="True">
-                    <Border BorderBrush="#707070" BorderThickness="1" Height="503" Width="1100" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Grid Background="White" ShowGridLines="true" x:Name="CustDetailsGrid">
+                    <Border BorderBrush="#707070" BorderThickness="2" CornerRadius="5" Height="503" Width="1100" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid Background="White" ShowGridLines="False" x:Name="CustDetailsGrid">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="250"/>
                                 <ColumnDefinition/>
@@ -146,7 +146,7 @@
                             <TextBlock Grid.Column="1" Text="Customer Details" Margin="10,0,0,0" Style="{StaticResource SubTitle}" VerticalAlignment="Bottom"></TextBlock>
                             <TextBlock Grid.Column="2" Text="Loan Details" Style="{StaticResource SubTitle}" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
                             <Border Grid.Column="1" Grid.Row="1"  BorderBrush="#707070" BorderThickness="1" Height="220" Width="400" Background="#E8FFF2">
-                                <Grid Width="390" x:Name="CustomerDetailsGrid" DataContext="{Binding CustomerDetails,Mode=OneWay}">
+                                <Grid Width="390" x:Name="CustomerDetailsGrid" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="38*"/>
                                         <ColumnDefinition Width="2*"/>
@@ -162,19 +162,19 @@
                                     </Grid.RowDefinitions>
                                     <TextBlock Text="Customer Name" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text=":" Grid.Column="1" Style="{StaticResource Regular}"></TextBlock>
-                                    <TextBlock Text="{Binding CustName,Mode=TwoWay}"  Grid.Column="2" Style="{StaticResource Regular}"></TextBlock>
+                                    <TextBlock Text="{Binding CustomerName,Mode=TwoWay}"  Grid.Column="2" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text="Customer ID" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text=":" Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text="{Binding _customerId,Mode=OneWay}" Grid.Column="2" Grid.Row="1" Style="{StaticResource NumberRegular}"></TextBlock>
                                     <TextBlock Text="Guarantor" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text=":" Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
-                                    <TextBlock Text="{Binding GuaranterName,Mode=OneWay}" Grid.Column="2" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
+                                    <TextBlock Text="{Binding GuaranterName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text="Guarantor Relationship" TextWrapping="Wrap" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text=":" Grid.Column="1" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                    <TextBlock Text="{Binding GuaranterRelatioShip,Mode=TwoWay}" Grid.Column="2" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
+                                    <TextBlock Text="{Binding GuaranterRelatioShip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text="District" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text=":" Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                    <TextBlock Text="{Binding Region,Mode=OneWay}" Grid.Column="2" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                    <TextBlock Text="{Binding City,Mode=OneWay}" Grid.Column="2" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text="Group Name" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text=":" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text="{Binding SHGName,Mode=OneWay}" Grid.Column="2" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
@@ -210,19 +210,19 @@
                                     <TextBlock Text="12%" Grid.Column="2" Grid.Row="3" Style="{StaticResource NumberRegular}"></TextBlock>
                                     <TextBlock Text="Enroll Date" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
                                     <TextBlock Text=":" Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                    <TextBlock Text="{Binding EnrollDate,Mode=OneWay}" Grid.Column="2" Grid.Row="4" Style="{StaticResource NumberRegular}"></TextBlock>
+                                    <TextBlock Text="{Binding EnrollDate,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,StringFormat='dd-MM-yyyy'}" Grid.Column="2" Grid.Row="4" Style="{StaticResource NumberRegular}" ></TextBlock>
                                     <TextBlock Text="Loan Purpose" Style="{StaticResource Regular}" Grid.Row="5"></TextBlock>
                                     <TextBlock Text=":" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
-                                    <TextBlock Text="{Binding LoanPurpose,Mode=OneWay}" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="2"></TextBlock>
+                                    <TextBlock Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="2"></TextBlock>
                                     <ToggleButton Grid.Column="2" Grid.Row="6" Style="{StaticResource GreenToggleBtn}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,2" Content="Modify" IsChecked="{Binding IsOpen,ElementName=ModifyPanel}"></ToggleButton>
                                 </Grid>
                             </Border>
                             <ToggleButton Grid.Row="1" Style="{StaticResource SecondaryToggleBtn}" Content="More Details" VerticalAlignment="Bottom" Margin="0,0,0,20" IsChecked="{Binding IsOpen,ElementName=CustMoreDetailsPanel}"></ToggleButton>
                             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
-                                <Button x:Name="ApprovetoHiMarkBtn" Click="ApprovetoHiMarkBtn_Click" Style="{StaticResource PrimaryBtn}" Content="Approve to Hi-Mark" Width="200"></Button>
-                                <!-- <Button Style="{StaticResource DangerBtn}" Margin="10,0,0,0" Content="Reject"></Button>-->
+                                <Button x:Name="ApproveLoanBtn" Uid="{Binding LoanRequestID,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource PrimaryBtn}" Content="Approve"></Button>
+                                 <ToggleButton Style="{StaticResource DangerToggleBtn}" Margin="10,0,0,0" x:Name="RejectLoanBtn" Content="Reject" IsChecked="{Binding IsOpen, ElementName=RejectReasonPanel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ToggleButton>
                             </StackPanel>
-                            <Border Grid.Row="2" Grid.Column="1" Height="40" Width="400" BorderBrush="#707070" BorderThickness="1">
+                            <Border Grid.Row="2" Grid.Column="1" Height="40" Width="400" Visibility="Hidden" BorderBrush="#707070" BorderThickness="1">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="100px"/>
@@ -242,8 +242,9 @@
                     </Border>
 
                 </Popup>
+                
                 <Popup x:Name="CustMoreDetailsPanel" Placement="Center" PlacementTarget="{Binding ElementName=CustDetailsGrid}">
-                    <Border BorderBrush="#707070" Background="White" BorderThickness="1" Height="280" Width="489">
+                    <Border BorderBrush="#707070" CornerRadius="5" Background="White" BorderThickness="1" Height="280" Width="489">
                         <Grid Background="White" Width="480">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="38*"/>
@@ -265,7 +266,7 @@
                             <Separator Grid.ColumnSpan="3" BorderBrush="#707070" BorderThickness="2" VerticalAlignment="Bottom"></Separator>
                             <TextBlock Text="Aadhar Number" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
                             <TextBlock Text=":" Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
-                            <TextBlock Text="{Binding }" Grid.Column="2" Grid.Row="1" Style="{StaticResource NumberRegular}" Margin="0,7.8,0,9.4"></TextBlock>
+                            <TextBlock Text="{Binding AadharNo,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" Style="{StaticResource NumberRegular}" Margin="0,7.8,0,9.4"></TextBlock>
                             <ToggleButton x:Name="CustAadhraProofBtn" Style="{StaticResource ToggleShow}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,25,0"></ToggleButton>
                             <TextBlock Text="Address" TextWrapping="Wrap" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
                             <TextBlock Text=":" Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
@@ -285,8 +286,27 @@
                         </Grid>
                     </Border>
                 </Popup>
+                <Popup x:Name="RejectReasonPanel" Placement="Center" PlacementTarget="{Binding ElementName=CustDetailsGrid}">
+                    <Border Height="230" Width="400" Background="White" BorderBrush="Gray" BorderThickness="2" CornerRadius="5">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40px"/>
+                                <RowDefinition Height="25px"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="60px"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="RejectReson" Style="{StaticResource SubTitle}" HorizontalAlignment="Center"></TextBlock>
+                            <ToggleButton x:Name="RejectPanelCloseBtn" Style="{StaticResource ToggleModalClose}" HorizontalAlignment="Right" Margin="0,0,10,0" ></ToggleButton>
+                            <Separator BorderBrush="Gray" BorderThickness="3" VerticalAlignment="Bottom"></Separator>
+                            <TextBlock Text="Reason" Style="{StaticResource Regular}" Grid.Row="1" Margin="20,0,0,0"></TextBlock>
+                            <TextBox Grid.Row="2" VerticalAlignment="Top" Height="80" Width="370" FontSize="14" FontFamily="Segoe UI"></TextBox>
+                            <Button Style="{StaticResource SecondaryBtn}" Grid.Row="3" Content="OK" ></Button>
+                        </Grid>
+                    </Border>
+                </Popup>
                 <Popup x:Name="ModifyPanel" Placement="Center" PlacementTarget="{Binding ElementName=CustDetailsGrid}">
-                    <Border Background="White" Height="345" Width="400" BorderBrush="#707070" BorderThickness="1">
+                    <Border Background="White" Height="345" CornerRadius="5" Width="400" BorderBrush="#707070" BorderThickness="1">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40"/>
@@ -331,32 +351,32 @@
 
 
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

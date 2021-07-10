@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace MicroFinance.Modal
 {
-    public class Customer : BindableBase
+    public class Customer : LoanDetails
     {
         public string _customerId { get; set; }
 

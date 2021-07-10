@@ -130,8 +130,50 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("LoanPurpose");
             }
         }
+        private string _approvedby;
+        public string ApprovedBy
+        {
+            get
+            {
+                return _approvedby;
+            }
+            set
+            {
+                _approvedby = value;
+                RaisedPropertyChanged("ApprovedBy");
+            }
+        }
+        private string _branchId;
+        public string BranchID
+        {
+            get
+            {
+                return _branchId;
+            }
+            set
+            {
+                _branchId = value;
+                RaisedPropertyChanged("BranchID");
+            }
+        }
+        private string _remark;
+        public string Remark
+        {
+            get
+            {
+                return _remark;
+            }
+            set
+            {
+                _remark = value;
+                RaisedPropertyChanged("Remark");
+            }
+        }
+
+
         private string _branchname;
         private string _regionname;
+       
         public void SendRequest(string Region,String Branch)
         {
             this._regionname = Region;
@@ -143,13 +185,26 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "insert into LoanRequest(RequestID,CustomerID,EmpID,LoanType,LoanAmount,LoanPeriod,LoanPurpose,EnrollDate,StatusCode,Status,Remark) values ('"+GenerateLoanRequestID()+"','"+_customerID+"','"+_employeeID+"','"+_loantype+"',"+_loanamount+","+_loanperiod+",'"+_loanPurpose+"','"+DateTime.Now.ToString("MM-dd-yyyy")+"','1','Requested','')";
+                    sqlcomm.CommandText = "insert into LoanRequest(RequestID,CustomerID,EmpID,LoanType,LoanAmount,LoanPeriod,LoanPurpose,EnrollDate,StatusCode,Status,Remark,BranchID) values ('"+GenerateLoanRequestID()+"','"+_customerID+"','"+_employeeID+"','"+_loantype+"',"+_loanamount+","+_loanperiod+",'"+_loanPurpose+"','"+DateTime.Now.ToString("MM-dd-yyyy")+"','1','Requested','','"+_branchId+"')";
                     sqlcomm.ExecuteNonQuery();
                 }
                 sqlconn.Close();
             }
         }
-
+        public void RecommendLoan(string RequestId)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "update LoanRequest set Status='Recommend',StatusCode='2' where RequestID='" + RequestId + "'";
+                    sqlcomm.ExecuteNonQuery();
+                }
+            }
+        }
         public string GetRegionNumber()
         {
             string Result = "";
@@ -177,8 +232,17 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SNo from BranchDetails where BranchName='" + _branchname + "'";
-                    Result = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select SNo,Bid from BranchDetails where BranchName='" + _branchname + "'";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            Result = reader.GetString(0);
+                            _branchId = reader.GetString(1);
+                        }
+                        reader.Close();
+                    }
                 }
                 sqlconn.Close();
                 return Result;
@@ -204,7 +268,7 @@ namespace MicroFinance.Modal
 
             return Result;
         }
-        public string GenerateLoanRequestID() // IDPattern 02001202106R05 (02-Region/001-Branch/2021-CurrentYear/06-CurrentMonth/R-Request/(No.of Loan given in currentYear+1))
+        public string GenerateLoanRequestID() // IDPattern 02001202106R05 (02-Region/001-Branch/2021-CurrentYear/06-CurrentMonth/R-Request(Spe)/(No.of Loan given in currentYear+1))
         {
             int count = 1;
             string Result = "";
@@ -228,6 +292,79 @@ namespace MicroFinance.Modal
             Result = region + branch + year + month + "R"+ ((count < 10) ? "0" + count : count.ToString());
             return Result;
         }
+        public string GenerateLoanID() // IDPattern 02001202106R05 (02-Region/001-Branch/2021-CurrentYear/06-CurrentMonth/R-Request(Spe)/(No.of Loan given in currentYear+1))
+        {
+            int count = 1;
+            string Result = "";
+            int year = DateTime.Now.Year;
+            int mon = DateTime.Now.Month;
+            string month = ((mon) < 10 ? "0" + mon : mon.ToString());
+            using (SqlConnection sqlcon = new SqlConnection(ConnectionString))
+            {
+                sqlcon.Open();
+                if (sqlcon.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "select Count(LoanID) from LoanDetails where LoanID like '%" + year + "%'";
+                    count += (int)sqlcomm.ExecuteScalar();
+                }
+                sqlcon.Close();
+            }
+            string region = BranchID.Substring(0, 2);
+            string branch = BranchID.Substring(8);
+            Result = region + branch + year + month + "GL" + ((count < 10) ? "0" + count : count.ToString());
+            return Result;
+        }
+
+        public void GetRequestDetails(string ID)
+        {
+            using (SqlConnection sqlconn=new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if(sqlconn.State==ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select BranchID from LoanRequest where RequestID='"+ID+"'";
+                    _branchId = (string)sqlcomm.ExecuteScalar();
+                    sqlconn.Close();
+                }
+                _interestrate = 12;
+            }
+        }
+        //public void ApproveLoan(string ID)
+        //{
+        //    GetRequestDetails(ID);
+        //    RequestApproval(ID);
+        //    using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
+        //    {
+        //        sqlconn.Open();
+        //        if(sqlconn.State==ConnectionState.Open)
+        //        {
+        //            SqlCommand sqlcomm = new SqlCommand();
+        //            sqlcomm.Connection = sqlconn;
+        //            sqlcomm.CommandText = "insert into LoanDetails(LoanID,CustomerID,LoanType,LoanPeriod,InterestRate,RequestedBY,ApprovedBy,ApproveDate,LoanAmount)values('" + GenerateLoanID() + "','"+_customerID+ "','"+_loantype+ "',"+_loanperiod+","+_interestrate+ ",'"+_employeeID+ "','"+_approvedby+"','"+DateTime.Now.ToString("MM-dd-yyyy")+ "'," + _loanamount + ")";
+        //            sqlcomm.ExecuteNonQuery();
+        //        }
+        //    }
+
+        //}
+        public void RequestApproval(string ID)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "update LoanRequest set LoanAmount=" + LoanAmount + " ,Status='Approved',StatusCode='3' where RequestID='" + ID + "'";
+                    sqlcomm.ExecuteNonQuery();
+                }
+            }
+        }
+
 
 
 

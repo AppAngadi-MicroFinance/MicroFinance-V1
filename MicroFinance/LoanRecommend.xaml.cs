@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Modal;
 
 namespace MicroFinance
 {
@@ -20,14 +21,19 @@ namespace MicroFinance
     /// </summary>
     public partial class LoanRecommend : Page
     {
-        List<Cust> customerlist = new List<Cust>();
+        public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
+        public List<LoanProcess> loanDetails = new List<LoanProcess>();
         public static List<Cust> RecommenedList = new List<Cust>();
+        LoanProcess loanProcess = new LoanProcess();
         public LoanRecommend()
         {
             InitializeComponent();
-            AddList();
+            //AddList();
+            loanProcess.GetRequestList(LoginBranchID);
+            loanDetails=loanProcess.RequestList;
+            Custlist.ItemsSource = loanDetails;
             setCount();
-            Custlist.ItemsSource = customerlist;
+            
            // RecommededcustomerList.ItemsSource = RecommenedList;
         }
 
@@ -56,31 +62,25 @@ namespace MicroFinance
         {
             int count1 = 0;
             int count2 = 0;
-            foreach (Cust c in customerlist)
-            {
+            //foreach (Cust c in customerlist)
+            //{
                 
-                if(c.LoanType=="General")
-                {
-                    count1++;
-                }
-                else if(c.LoanType=="Special")
-                {
-                    count2++;
-                }
-            }
+            //    if(c.LoanType=="General")
+            //    {
+            //        count1++;
+            //    }
+            //    else if(c.LoanType=="Special")
+            //    {
+            //        count2++;
+            //    }
+            //}
             GeneralLoanCount.Text = count1.ToString();
             SpecialLoanCount.Text = count2.ToString();
         }
 
         public void AddList()
         {
-            customerlist.Add(new Cust { CustName = "Ashraf ALi", FieldOfficerName = "Safdhar", LoanType = "General", LoanAmount = 10000, LoanPeriod = "12", MonthlyIncome = 5000 });
-            customerlist.Add(new Cust { CustName = "Thalif", FieldOfficerName = "Safdhar", LoanType = "General", LoanAmount = 10000, LoanPeriod = "12", MonthlyIncome = 5000 });
-            customerlist.Add(new Cust { CustName = "Santhosh", FieldOfficerName = "Safdhar", LoanType = "General", LoanAmount = 10000, LoanPeriod = "12", MonthlyIncome = 5000 });
-            customerlist.Add(new Cust { CustName = "Sameer", FieldOfficerName = "Safdhar", LoanType = "General", LoanAmount = 10000, LoanPeriod = "12", MonthlyIncome = 5000 });
-            customerlist.Add(new Cust { CustName = "Rashik", FieldOfficerName = "Safdhar", LoanType = "General", LoanAmount = 10000, LoanPeriod = "12", MonthlyIncome = 5000 });
-            customerlist.Add(new Cust { CustName = "Mani", FieldOfficerName = "Safdhar", LoanType = "General", LoanAmount = 10000, LoanPeriod = "12", MonthlyIncome = 5000 });
-
+            loanDetails.Add(new LoanProcess { LoanAmount = 10000, LoanType = "General Loan", LoanPeriod = 24 ,CustomerName="Ashraf Ali",LocalityTown="Trichy",DoorNumber="42/20a",StreetName="Kuppu sami Naidu Street",AadharNo="852074109630",Religion="Muslim",Occupation="Daily Wages",Community="BCM",City="Trichy",MonthlyIncome=15000});
         }
 
         private void SendToHiMarkBtn_Click(object sender, RoutedEventArgs e)
@@ -91,12 +91,16 @@ namespace MicroFinance
 
         private void ApprovetoHiMarkBtn_Click(object sender, RoutedEventArgs e)
         {
-            Cust SelectedCustomer = Custlist.SelectedItem as Cust;
-            RecommenedList.Add(SelectedCustomer);
-            //RecommededcustomerList.Items.Clear();
-            SelectedCustomersView.ItemsSource = RecommenedList;
-            SelectedCustomersView.Items.Refresh();
-
+            //Cust SelectedCustomer = Custlist.SelectedItem as Cust;
+            //RecommenedList.Add(SelectedCustomer);
+            //SelectedCustomersView.ItemsSource = RecommenedList;
+            //SelectedCustomersView.Items.Refresh();
+            Button button = sender as Button;
+            string ID = button.Uid.ToString();
+            Custlist.Items.Refresh();
+            loanProcess.RecommendLoan(ID);
+            //MessageBox.Show(ID);
+            
         }
     }
 }

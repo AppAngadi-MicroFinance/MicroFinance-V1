@@ -101,267 +101,269 @@
 
                 </StackPanel>
             </Grid>
-            <ListBox Height="530" Width="630" x:Name="Custlist" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.IsDeferredScrollingEnabled="True" SelectionMode="Single" >
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border Background="Beige" Height="100" Width="600" CornerRadius="10">
-                            <Grid ShowGridLines="False" x:Name="MainGrid1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="40*"/>
-                                    <RowDefinition Height="40*"/>
-                                    <RowDefinition Height="20*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="200"/>
-                                </Grid.ColumnDefinitions>
-                                <Border Grid.RowSpan="2" Height="80" Width="80" CornerRadius="50" >
-                                    <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="Asserts\Icons\user-Male.png"></ImageBrush>
-                                    </Border.Background>
-                                </Border>
-                                <TextBlock  Text="{Binding CustName,Mode=TwoWay}" Grid.Column="1" Style="{StaticResource SubTitle}" Grid.ColumnSpan="2" Margin="10,0,0,0"></TextBlock>
-                                <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                                    <TextBlock Text="Monthly Income : " VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                                    <TextBlock Text="{Binding MonthlyIncome,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Style="{StaticResource NumberRegular}"></TextBlock>
-                                    <!--<Button x:Name="ViewButton" Style="{StaticResource Show}" Margin="5,0,0,0"></Button>-->
-                                    <ToggleButton x:Name="ViewButton" Margin="5,0,0,0" Style="{StaticResource ToggleShow}"></ToggleButton>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
-                                    <TextBlock Text="FO: " Style="{StaticResource Regular}" ></TextBlock>
-                                    <TextBlock Text="{Binding FieldOfficerName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" ></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" Margin="10,0,0,0">
-                                    <TextBlock Text="GN: " Style="{StaticResource Regular}" ></TextBlock>
-                                    <TextBlock Text="ASD123001" Style="{StaticResource Regular}" ></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" Margin="10,0,0,0">
-                                    <TextBlock Text="BackLog: " Style="{StaticResource Regular}" ></TextBlock>
-                                    <TextBlock Text="0" Style="{StaticResource NumberRegular}" ></TextBlock>
-                                </StackPanel>
-                                <Border Grid.Row="2" Grid.ColumnSpan="4" Background="Blue" CornerRadius="0,0,10,10"></Border>
-                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="50,0,0,0" Grid.ColumnSpan="2">
-                                    <TextBlock Text="Loan Type:  " Style="{StaticResource Regular}" Foreground="WhiteSmoke"></TextBlock>
-                                    <TextBlock Text="{Binding LoanType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Foreground="WhiteSmoke"></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2" Margin="0,0,0,0" Grid.ColumnSpan="2">
-                                    <TextBlock Text="Period/M:  " Style="{StaticResource Regular}"  Foreground="WhiteSmoke"></TextBlock>
-                                    <TextBlock Text="{Binding LoanPeriod,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Foreground="WhiteSmoke" ></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3" Margin="10,0,0,0" Grid.ColumnSpan="2">
-                                    <TextBlock Text="Loan Amount:   " Style="{StaticResource Regular}"  Foreground="WhiteSmoke"></TextBlock>
-                                    <TextBlock Text="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Foreground="WhiteSmoke"  VerticalAlignment="Center"></TextBlock>
-                                </StackPanel>
-                                <Popup Height="670" Width="1366" x:Name="CustDetailsPanel" IsOpen="{Binding IsChecked,ElementName=ViewButton}" Placement="AbsolutePoint" AllowsTransparency="True">
-                                    <Border BorderBrush="#707070" BorderThickness="1" Height="503" Width="1100" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Grid Background="White" ShowGridLines="true" x:Name="CustDetailsGrid">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="250"/>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="20*"/>
-                                                <RowDefinition Height="60*"/>
-                                                <RowDefinition Height="20*"/>
-                                            </Grid.RowDefinitions>
-                                            <Border Height="200" Width="200" Grid.RowSpan="2" CornerRadius="100" VerticalAlignment="Top" Margin="0,20,0,0">
-                                                <Border.Background>
-                                                    <ImageBrush ImageSource="Asserts\Icons\User-Male.png"></ImageBrush>
-                                                </Border.Background>
-                                            </Border>
-                                            <ToggleButton Grid.Column="2" Style="{StaticResource ToggleModalClose}" HorizontalAlignment="Right" Margin="0,0,20,0" IsChecked="{Binding IsOpen,ElementName=CustDetailsPanel}"></ToggleButton>
-                                            <TextBlock Grid.Column="1" Text="Customer Details" Margin="10,0,0,0" Style="{StaticResource SubTitle}" VerticalAlignment="Bottom"></TextBlock>
-                                            <TextBlock Grid.Column="2" Text="Loan Details" Style="{StaticResource SubTitle}" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
-                                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="#707070" BorderThickness="1" Height="220" Width="400" Background="#E8FFF2">
-                                                <Grid Width="390">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="38*"/>
-                                                        <ColumnDefinition Width="2*"/>
-                                                        <ColumnDefinition Width="60*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                    </Grid.RowDefinitions>
-                                                    <TextBlock Text="Customer Name" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text=":" Grid.Column="1" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="{Binding CustName,Mode=TwoWay}"  Grid.Column="2" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="Customer ID" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="0200120210603" Grid.Column="2" Grid.Row="1" Style="{StaticResource NumberRegular}"></TextBlock>
-                                                    <TextBlock Text="Guarantor" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="Ashraf Ali" Grid.Column="2" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="Guarantor Relationship" TextWrapping="Wrap" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="Ashraf Ali" Grid.Column="2" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="Region" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="Trichy" Grid.Column="2" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="Group Name" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="ASDFGHR" Grid.Column="2" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
-                                                </Grid>
-                                            </Border>
-                                            <Border Grid.Column="2" Grid.Row="1" BorderBrush="#707070" BorderThickness="1" Height="220" Width="400" Background="#E8FFF2">
-                                                <Grid Width="390">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="38*"/>
-                                                        <ColumnDefinition Width="2*"/>
-                                                        <ColumnDefinition Width="60*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                        <RowDefinition/>
-                                                        <RowDefinition Height="50px"/>
-                                                    </Grid.RowDefinitions>
-                                                    <TextBlock Text="Loan Type" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text=":" Grid.Column="1" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="{Binding LoanType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="Loan Period / Month" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="{Binding LoanPeriod,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" Style="{StaticResource NumberRegular}"></TextBlock>
-                                                    <TextBlock Text="Loan Amount" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="2" Style="{StaticResource NumberRegular}"></TextBlock>
-                                                    <TextBlock Text="Interest" TextWrapping="Wrap" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="12%" Grid.Column="2" Grid.Row="3" Style="{StaticResource NumberRegular}"></TextBlock>
-                                                    <TextBlock Text="Enroll Date" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="23-06-2021" Grid.Column="2" Grid.Row="4" Style="{StaticResource NumberRegular}"></TextBlock>
-                                                    <ToggleButton Grid.Column="2" Grid.Row="6" Style="{StaticResource GreenToggleBtn}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,2" Content="Modify" IsChecked="{Binding IsOpen,ElementName=ModifyPanel}"></ToggleButton>
-                                                </Grid>
-                                            </Border>
-                                            <ToggleButton Grid.Row="1" Style="{StaticResource SecondaryToggleBtn}" Content="More Details" VerticalAlignment="Bottom" Margin="0,0,0,20" IsChecked="{Binding IsOpen,ElementName=CustMoreDetailsPanel}"></ToggleButton>
-                                            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
-                                                <Button x:Name="ApprovetoHiMarkBtn" Click="ApprovetoHiMarkBtn_Click" Style="{StaticResource PrimaryBtn}" Content="Approve to Hi-Mark" Width="200"></Button>
-                                                <!-- <Button Style="{StaticResource DangerBtn}" Margin="10,0,0,0" Content="Reject"></Button>-->
-                                            </StackPanel>
-                                            <Border Grid.Row="2" Grid.Column="1" Height="40" Width="400" BorderBrush="#707070" BorderThickness="1">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="100px"/>
-                                                        <ColumnDefinition Width="40px"/>
-                                                        <ColumnDefinition/>
-                                                        <ColumnDefinition/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBlock Text="Back Log       :" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Text="Yes" Grid.Column="1" Style="{StaticResource Regular }"></TextBlock>
-                                                    <TextBlock Grid.Column="2" Text="Back Log Amount:" Style="{StaticResource Regular}"></TextBlock>
-                                                    <TextBlock Grid.Column="3" Text="2000" Style="{StaticResource NumberRegular}" Margin="10,0,0,0"></TextBlock>
-                                                    <Button Grid.Column="4" Style="{StaticResource Show}" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
-                                                </Grid>
-                                            </Border>
-                                            <!--<ToggleButton x:Name="ModelClose" IsChecked="{Binding IsOpen,ElementName=CustDetailsPanel}" Height="50" Width="50" Content="close"></ToggleButton>-->
-                                        </Grid>
+            <ScrollViewer Height="530" Width="630" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl Height="530" Width="630" x:Name="Custlist" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible"  ScrollViewer.IsDeferredScrollingEnabled="True" BorderBrush="Gray" BorderThickness="2" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="Beige" Height="100" Width="600" CornerRadius="10">
+                                <Grid ShowGridLines="False" x:Name="MainGrid1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40*"/>
+                                        <RowDefinition Height="40*"/>
+                                        <RowDefinition Height="20*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="220"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.RowSpan="2" Height="80" Width="80" CornerRadius="50" >
+                                        <Border.Background>
+                                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding ProfilePicture,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></ImageBrush>
+                                        </Border.Background>
                                     </Border>
+                                    <TextBlock  Text="{Binding CustomerName,Mode=TwoWay}" Grid.Column="1" Style="{StaticResource SubTitle}" Grid.ColumnSpan="2" Margin="10,0,0,0"></TextBlock>
+                                    <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Text="Monthly Income : " VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                                        <TextBlock Text="{Binding MonthlyIncome,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Style="{StaticResource NumberRegular}"></TextBlock>
+                                        <!--<Button x:Name="ViewButton" Style="{StaticResource Show}" Margin="5,0,0,0"></Button>-->
+                                        <ToggleButton x:Name="ViewButton" Margin="5,0,0,0" Style="{StaticResource ToggleShow}"></ToggleButton>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
+                                        <TextBlock Text="FO: " Style="{StaticResource Regular}" ></TextBlock>
+                                        <TextBlock Text="{Binding FieldOfficerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" Margin="10,0,0,0">
+                                        <TextBlock Text="GN: " Style="{StaticResource Regular}" ></TextBlock>
+                                        <TextBlock Text="{Binding SHGName,Mode=OneWay}" Style="{StaticResource Regular}" ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" Margin="10,0,0,0">
+                                        <TextBlock Text="BackLog: " Style="{StaticResource Regular}" ></TextBlock>
+                                        <TextBlock Text="0" Style="{StaticResource NumberRegular}" ></TextBlock>
+                                    </StackPanel>
+                                    <Border Grid.Row="2" Grid.ColumnSpan="4" Background="Blue" CornerRadius="0,0,10,10"></Border>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="50,0,0,0" Grid.ColumnSpan="2">
+                                        <TextBlock Text="Loan Type:  " Style="{StaticResource Regular}" Foreground="WhiteSmoke"></TextBlock>
+                                        <TextBlock Text="{Binding LoanType,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Foreground="WhiteSmoke"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2" Margin="0,0,0,0" Grid.ColumnSpan="2">
+                                        <TextBlock Text="Period/M:  " Style="{StaticResource Regular}"  Foreground="WhiteSmoke"></TextBlock>
+                                        <TextBlock Text="{Binding LoanPeriod,Mode=Oneway,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Foreground="WhiteSmoke" ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3" Margin="10,0,0,0" Grid.ColumnSpan="2">
+                                        <TextBlock Text="Loan Amount:   " Style="{StaticResource Regular}"  Foreground="WhiteSmoke"></TextBlock>
+                                        <TextBlock Text="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Foreground="WhiteSmoke"  VerticalAlignment="Center"></TextBlock>
+                                    </StackPanel>
+                                    <Popup Height="670" Width="1366" x:Name="CustDetailsPanel" IsOpen="{Binding IsChecked,ElementName=ViewButton}" Placement="AbsolutePoint" AllowsTransparency="True">
+                                        <Border BorderBrush="#707070" BorderThickness="1" Height="503" Width="1100" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Grid Background="White" ShowGridLines="False" x:Name="CustDetailsGrid">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="250"/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="20*"/>
+                                                    <RowDefinition Height="60*"/>
+                                                    <RowDefinition Height="20*"/>
+                                                </Grid.RowDefinitions>
+                                                <Border Height="200" Width="200" Grid.RowSpan="2" CornerRadius="100" VerticalAlignment="Top" Margin="0,20,0,0">
+                                                    <Border.Background>
+                                                        <ImageBrush ImageSource="{Binding ProfilePicture,Mode=OneWay}"></ImageBrush>
+                                                    </Border.Background>
+                                                </Border>
+                                                <ToggleButton Grid.Column="2" Style="{StaticResource ToggleModalClose}" HorizontalAlignment="Right" Margin="0,0,20,0" IsChecked="{Binding IsOpen,ElementName=CustDetailsPanel}"></ToggleButton>
+                                                <TextBlock Grid.Column="1" Text="Customer Details" Margin="10,0,0,0" Style="{StaticResource SubTitle}" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Grid.Column="2" Text="Loan Details" Style="{StaticResource SubTitle}" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <Border Grid.Column="1" Grid.Row="1"  BorderBrush="#707070" BorderThickness="1" Height="220" Width="400" Background="#E8FFF2">
+                                                    <Grid Width="390" x:Name="CustomerDetailsGrid" >
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="38*"/>
+                                                            <ColumnDefinition Width="2*"/>
+                                                            <ColumnDefinition Width="60*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                        </Grid.RowDefinitions>
+                                                        <TextBlock Text="Customer Name" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="{Binding CustomerName,Mode=TwoWay}"  Grid.Column="2" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="Customer ID" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="{Binding _customerId,Mode=OneWay}" Grid.Column="2" Grid.Row="1" Style="{StaticResource NumberRegular}"></TextBlock>
+                                                        <TextBlock Text="Guarantor" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="{Binding GuaranterName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="Guarantor Relationship" TextWrapping="Wrap" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="{Binding GuaranterRelatioShip,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="District" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="{Binding City,Mode=OneWay}" Grid.Column="2" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="Group Name" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="{Binding SHGName,Mode=OneWay}" Grid.Column="2" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+                                                    </Grid>
+                                                </Border>
+                                                <Border Grid.Column="2" Grid.Row="1" BorderBrush="#707070" BorderThickness="1" Height="220" Width="400" Background="#E8FFF2">
+                                                    <Grid Width="390">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="38*"/>
+                                                            <ColumnDefinition Width="2*"/>
+                                                            <ColumnDefinition Width="60*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition/>
+                                                            <RowDefinition Height="50px"/>
+                                                        </Grid.RowDefinitions>
+                                                        <TextBlock Text="Loan Type" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="{Binding LoanType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="Loan Period / Month" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="{Binding LoanPeriod,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" Style="{StaticResource NumberRegular}"></TextBlock>
+                                                        <TextBlock Text="Loan Amount" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="2" Style="{StaticResource NumberRegular}"></TextBlock>
+                                                        <TextBlock Text="Interest" TextWrapping="Wrap" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="12%" Grid.Column="2" Grid.Row="3" Style="{StaticResource NumberRegular}"></TextBlock>
+                                                        <TextBlock Text="Enroll Date" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="{Binding EnrollDate,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,StringFormat='dd-MM-yyyy'}" Grid.Column="2" Grid.Row="4" Style="{StaticResource NumberRegular}" ></TextBlock>
+                                                        <TextBlock Text="Loan Purpose" Style="{StaticResource Regular}" Grid.Row="5"></TextBlock>
+                                                        <TextBlock Text=":" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="2"></TextBlock>
+                                                        <ToggleButton Grid.Column="2" Grid.Row="6" Style="{StaticResource GreenToggleBtn}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,2" Content="Modify" IsChecked="{Binding IsOpen,ElementName=ModifyPanel}"></ToggleButton>
+                                                    </Grid>
+                                                </Border>
+                                                <ToggleButton Grid.Row="1" Style="{StaticResource SecondaryToggleBtn}" Content="More Details" VerticalAlignment="Bottom" Margin="0,0,0,20" IsChecked="{Binding IsOpen,ElementName=CustMoreDetailsPanel}"></ToggleButton>
+                                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
+                                                    <Button x:Name="ApprovetoHiMarkBtn" Uid="{Binding LoanRequestID,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Click="ApprovetoHiMarkBtn_Click" Style="{StaticResource PrimaryBtn}" Content="Approve to Hi-Mark" Width="200"></Button>
+                                                    <!-- <Button Style="{StaticResource DangerBtn}" Margin="10,0,0,0" Content="Reject"></Button>-->
+                                                </StackPanel>
+                                                <Border Grid.Row="2" Grid.Column="1" Height="40" Width="400" Visibility="Hidden" BorderBrush="#707070" BorderThickness="1">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="100px"/>
+                                                            <ColumnDefinition Width="40px"/>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Text="Back Log       :" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Text="Yes" Grid.Column="1" Style="{StaticResource Regular }"></TextBlock>
+                                                        <TextBlock Grid.Column="2" Text="Back Log Amount:" Style="{StaticResource Regular}"></TextBlock>
+                                                        <TextBlock Grid.Column="3" Text="2000" Style="{StaticResource NumberRegular}" Margin="10,0,0,0"></TextBlock>
+                                                        <Button Grid.Column="4" Style="{StaticResource Show}" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
+                                                    </Grid>
+                                                </Border>
+                                                <!--<ToggleButton x:Name="ModelClose" IsChecked="{Binding IsOpen,ElementName=CustDetailsPanel}" Height="50" Width="50" Content="close"></ToggleButton>-->
+                                            </Grid>
+                                        </Border>
 
-                                </Popup>
-                                <Popup x:Name="CustMoreDetailsPanel" Placement="Center" PlacementTarget="{Binding ElementName=CustDetailsGrid}">
-                                    <Border BorderBrush="#707070" Background="White" BorderThickness="1" Height="280" Width="489">
-                                        <Grid Background="White" Width="480">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="38*"/>
-                                                <ColumnDefinition Width="2*"/>
-                                                <ColumnDefinition Width="60*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-                                            <TextBlock Text="More Details" Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3"></TextBlock>
-                                            <ToggleButton x:Name="CustMoreDetailsCloseBtn" Style="{StaticResource ToggleModalClose}" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,10,0" IsChecked="{Binding IsOpen,ElementName=CustMoreDetailsPanel}"></ToggleButton>
-                                            <Separator Grid.ColumnSpan="3" BorderBrush="#707070" BorderThickness="2" VerticalAlignment="Bottom"></Separator>
-                                            <TextBlock Text="Aadhar Number" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text=":" Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text="987654321001" Grid.Column="2" Grid.Row="1" Style="{StaticResource NumberRegular}"></TextBlock>
-                                            <ToggleButton x:Name="CustAadhraProofBtn" Style="{StaticResource ToggleShow}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,25,0"></ToggleButton>
-                                            <TextBlock Text="Family Card" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text=":" Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text="17/G/S/00300525" Grid.Column="2" Grid.Row="2" Style="{StaticResource NumberRegular}"></TextBlock>
-                                            <ToggleButton Style="{StaticResource ToggleShow}" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,25,0" x:Name="CustFamilyCardProofBtn"></ToggleButton>
-                                            <TextBlock Text="Address" TextWrapping="Wrap" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text=":" Grid.Column="1" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text="Trichy" Grid.Column="2" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text="Religion" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text=":" Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text="Muslim" Grid.Column="2" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text="Family Occupation" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text=":" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text="Daily Wages" Grid.Column="2" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text="Community" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text=":" Grid.Column="1" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text="Muslim" Grid.Column="2" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text="District" Grid.Row="7" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text=":" Grid.Column="1" Grid.Row="7" Style="{StaticResource Regular}"></TextBlock>
-                                            <TextBlock Text="Trichy" Grid.Column="2" Grid.Row="7" Style="{StaticResource Regular}"></TextBlock>
+                                    </Popup>
+                                    <Popup x:Name="CustMoreDetailsPanel" Placement="Center" PlacementTarget="{Binding ElementName=CustDetailsGrid}">
+                                        <Border BorderBrush="#707070" Background="White" BorderThickness="1" Height="280" Width="489">
+                                            <Grid Background="White" Width="480">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="38*"/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                    <ColumnDefinition Width="60*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="More Details" Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3"></TextBlock>
+                                                <ToggleButton x:Name="CustMoreDetailsCloseBtn" Style="{StaticResource ToggleModalClose}" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,10,0" IsChecked="{Binding IsOpen,ElementName=CustMoreDetailsPanel}"></ToggleButton>
+                                                <Separator Grid.ColumnSpan="3" BorderBrush="#707070" BorderThickness="2" VerticalAlignment="Bottom"></Separator>
+                                                <TextBlock Text="Aadhar Number" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text="{Binding AadharNo,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" Style="{StaticResource NumberRegular}" Margin="0,7.8,0,9.4"></TextBlock>
+                                                <ToggleButton x:Name="CustAadhraProofBtn" Style="{StaticResource ToggleShow}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,25,0"></ToggleButton>
+                                                <TextBlock Text="Address" TextWrapping="Wrap" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text="{Binding Address,Mode=OneWay}" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,5,0,0" Style="{StaticResource Regular}" TextWrapping="Wrap"></TextBlock>
+                                                <TextBlock Text="Religion" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text="{Binding Religion}" Grid.Column="2" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text="Family Occupation" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text="{Binding Occupation,Mode=TwoWay}" Grid.Column="2" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text="Community" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text="{Binding Community,Mode=OneWay}" Grid.Column="2" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text="District" Grid.Row="7" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="7" Style="{StaticResource Regular}"></TextBlock>
+                                                <TextBlock Text="{Binding City,Mode=OneWay}" Grid.Column="2" Grid.Row="7" Style="{StaticResource Regular}"></TextBlock>
+                                            </Grid>
+                                        </Border>
+                                    </Popup>
+                                    <Popup x:Name="ModifyPanel" Placement="Center" PlacementTarget="{Binding ElementName=CustDetailsGrid}">
+                                        <Border Background="White" Height="345" Width="400" BorderBrush="#707070" BorderThickness="1">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="40"/>
+                                                    <RowDefinition Height="20"/>
+                                                    <RowDefinition Height="50"/>
+                                                    <RowDefinition Height="20"/>
+                                                    <RowDefinition Height="50"/>
+                                                    <RowDefinition Height="20"/>
+                                                    <RowDefinition Height="50"/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="Loan Type" Style="{StaticResource Regular}" Margin="60,0,0,0" Grid.Row="1"></TextBlock>
+                                                <ComboBox Style="{StaticResource combo}" Grid.Row="2" HorizontalAlignment="Left" Width="250" Margin="60,0,0,0"  Text="{Binding LoanType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+                                                    <ComboBoxItem Content="General"></ComboBoxItem>
+                                                    <ComboBoxItem Content="Gold Loan"></ComboBoxItem>
+                                                    <ComboBoxItem Content="Special"></ComboBoxItem>
+                                                </ComboBox>
+                                                <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" Margin="60,0,0,0" Grid.Row="3"></TextBlock>
+                                                <ComboBox Style="{StaticResource combo}" Grid.Row="4" HorizontalAlignment="Left" Width="250" Margin="60,0,0,0" Text="{Binding LoanAmount,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}">
+                                                    <ComboBoxItem Content="10000"></ComboBoxItem>
+                                                    <ComboBoxItem Content="20000"></ComboBoxItem>
+                                                    <ComboBoxItem Content="30000"></ComboBoxItem>
+                                                    <ComboBoxItem Content="40000"></ComboBoxItem>
+                                                    <ComboBoxItem Content="50000"></ComboBoxItem>
+                                                </ComboBox>
+                                                <TextBlock Text="Loan Period" Style="{StaticResource Regular}" Margin="60,0,0,0" Grid.Row="5"></TextBlock>
+                                                <ComboBox Style="{StaticResource combo}" Grid.Row="6" HorizontalAlignment="Left" Width="200" Margin="60,0,0,0" Text="{Binding LoanPeriod,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}" >
+                                                    <ComboBoxItem Content="12"></ComboBoxItem>
+                                                    <ComboBoxItem Content="24"></ComboBoxItem>
+                                                    <ComboBoxItem Content="36"></ComboBoxItem>
+                                                </ComboBox>
+                                                <TextBlock Text="Month" Grid.Row="6" Style="{StaticResource Regular}" HorizontalAlignment="Center" Margin="180,0,0,0"></TextBlock>
+                                                <StackPanel Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                                    <ToggleButton Style="{StaticResource SecondaryToggleBtn}" Content="Submit" IsChecked="{Binding IsOpen,ElementName=ModifyPanel}"></ToggleButton>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </Popup>
+                                </Grid>
 
-                                        </Grid>
-                                    </Border>
-                                </Popup>
-                                <Popup x:Name="ModifyPanel" Placement="Center" PlacementTarget="{Binding ElementName=CustDetailsGrid}">
-                                    <Border Background="White" Height="345" Width="400" BorderBrush="#707070" BorderThickness="1">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="40"/>
-                                                <RowDefinition Height="20"/>
-                                                <RowDefinition Height="50"/>
-                                                <RowDefinition Height="20"/>
-                                                <RowDefinition Height="50"/>
-                                                <RowDefinition Height="20"/>
-                                                <RowDefinition Height="50"/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-                                            <TextBlock Text="Loan Type" Style="{StaticResource Regular}" Margin="60,0,0,0" Grid.Row="1"></TextBlock>
-                                            <ComboBox Style="{StaticResource combo}" Grid.Row="2" HorizontalAlignment="Left" Width="250" Margin="60,0,0,0"  Text="{Binding LoanType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
-                                                <ComboBoxItem Content="General"></ComboBoxItem>
-                                                <ComboBoxItem Content="Gold Loan"></ComboBoxItem>
-                                                <ComboBoxItem Content="Special"></ComboBoxItem>
-                                            </ComboBox>
-                                            <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" Margin="60,0,0,0" Grid.Row="3"></TextBlock>
-                                            <ComboBox Style="{StaticResource combo}" Grid.Row="4" HorizontalAlignment="Left" Width="250" Margin="60,0,0,0" Text="{Binding LoanAmount,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}">
-                                                <ComboBoxItem Content="10000"></ComboBoxItem>
-                                                <ComboBoxItem Content="20000"></ComboBoxItem>
-                                                <ComboBoxItem Content="30000"></ComboBoxItem>
-                                                <ComboBoxItem Content="40000"></ComboBoxItem>
-                                                <ComboBoxItem Content="50000"></ComboBoxItem>
-                                            </ComboBox>
-                                            <TextBlock Text="Loan Period" Style="{StaticResource Regular}" Margin="60,0,0,0" Grid.Row="5"></TextBlock>
-                                            <ComboBox Style="{StaticResource combo}" Grid.Row="6" HorizontalAlignment="Left" Width="200" Margin="60,0,0,0" Text="{Binding LoanPeriod,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}" >
-                                                <ComboBoxItem Content="12"></ComboBoxItem>
-                                                <ComboBoxItem Content="24"></ComboBoxItem>
-                                                <ComboBoxItem Content="36"></ComboBoxItem>
-                                            </ComboBox>
-                                            <TextBlock Text="Month" Grid.Row="6" Style="{StaticResource Regular}" HorizontalAlignment="Center" Margin="180,0,0,0"></TextBlock>
-                                            <StackPanel Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                                                <ToggleButton Style="{StaticResource SecondaryToggleBtn}" Content="Submit" IsChecked="{Binding IsOpen,ElementName=ModifyPanel}"></ToggleButton>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-                                </Popup>
-                            </Grid>
-
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            
 
         </Grid>
                 
