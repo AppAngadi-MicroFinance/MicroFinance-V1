@@ -86,6 +86,10 @@
     <Compile Include="Capture.xaml.cs">
       <DependentUpon>Capture.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CollectionEntry.xaml.cs">
+      <DependentUpon>CollectionEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\AbsentCheck.cs" />
     <Compile Include="Converters\AgeConverter.cs" />
     <Compile Include="Converters\ComboEnableDisable.cs" />
     <Compile Include="Converters\GenderFemale.cs" />
@@ -93,13 +97,18 @@
     <Compile Include="Converters\GuaranterName.cs" />
     <Compile Include="Converters\InverseVisible.cs" />
     <Compile Include="Converters\InverseVisiblityConverterbyImage.cs" />
+    <Compile Include="Converters\LeaveCheck.cs" />
     <Compile Include="Converters\LoanRequestConverter.cs" />
     <Compile Include="Converters\MoneyConverter.cs" />
     <Compile Include="Converters\MonthConverter.cs" />
+    <Compile Include="Converters\PresentCheck.cs" />
     <Compile Include="Converters\StatusForegroundColor.cs" />
     <Compile Include="Converters\StatusImage.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Converters\VisiblityConverterByImage.cs" />
+    <Compile Include="DenominationPage.xaml.cs">
+      <DependentUpon>DenominationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="dummypage.xaml.cs">
       <DependentUpon>dummypage.xaml</DependentUpon>
     </Compile>
@@ -183,7 +192,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CollectionEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CreateBranch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DenominationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

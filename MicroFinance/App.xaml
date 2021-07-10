@@ -648,6 +648,15 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
+        <!--for Error Star Regular style-->
+        <Style x:Key="ErrorStar" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="Margin" Value="5,5,0,0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Text" Value="*"/>
+        </Style>
         <!--for Nuumber small style-->
         <Style x:Key="NumberSmall" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Courier New"/>

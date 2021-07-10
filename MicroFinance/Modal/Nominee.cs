@@ -202,8 +202,8 @@ namespace MicroFinance.Modal
                 _localityTown = value;
             }
         }
-        private int _pincode;
-        public int Pincode
+        private string _pincode;
+        public string Pincode
         {
             get
             {
@@ -391,7 +391,7 @@ namespace MicroFinance.Modal
                     _localityTown = Address[4];
                     _city = Address[6];
                     _state = Address[8];
-                    _pincode = sqlDataReader.GetInt32(8);
+                    _pincode = sqlDataReader.GetInt32(8).ToString();
                     if (sqlDataReader.GetBoolean(11))
                     {
                         NameofAddressProof = sqlDataReader.GetString(9);
