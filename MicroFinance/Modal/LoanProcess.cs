@@ -299,7 +299,9 @@ namespace MicroFinance.Modal
                     sqlcomm.Connection = sqlconn;
                     sqlcomm.CommandText = "insert into LoanDetails(LoanID,CustomerID,LoanType,LoanPeriod,InterestRate,RequestedBY,ApprovedBy,ApproveDate,LoanAmount)values('" +LoanId  + "','" + _customerId + "','" + LoanType + "'," + LoanPeriod + "," + InterestRate + ",'" + EmployeeID + "','" + ApprovedBy + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "'," + LoanAmount + ")";
                     sqlcomm.ExecuteNonQuery();
+                    sqlcomm = new SqlCommand();
                     sqlcomm.CommandText = "insert into LoanCollection values ('" + LoanId + "','" + _customerId + "','" + InstallmentWeek(LoanPeriod) + "',"+LoanAmount+",'"+DateTime.Today.ToString("MM-dd-yyyy")+ "','" + DateTime.Today.ToString("MM-dd-yyyy") + "','"+LoanType+"','True')";
+                    sqlcomm.ExecuteNonQuery();
                 }
                 sqlconn.Close();
             }
