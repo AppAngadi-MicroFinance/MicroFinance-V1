@@ -213,8 +213,8 @@ namespace MicroFinance.Modal
                 _localityTown = value;
             }
         }
-        private int _pincode;
-        public int Pincode
+        private string _pincode;
+        public string Pincode
         {
             get
             {
@@ -310,7 +310,73 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("NameofPhotoProof");
             }
         }
+        public List<String> CheckNulls()
+        {
+            List<string> NullFields = new List<string>();
+            if(GuarantorName.Equals(null))
+            {
+                NullFields.Add("Guarantor Name");
+            }
+            if(DateofBirth.Equals(DateTime.Today))
+            {
+                NullFields.Add("Date of Birth");
+            }
+            if(Gender.Equals(null))
+            {
+                NullFields.Add("Gender");
+            }
+            if(ContactNumber.Equals(null))
+            {
+                NullFields.Add("Contact Number");
+            }
+            if(Occupation.Equals(null))
+            {
+                NullFields.Add("Occupation");
+            }
+            if(RelationShip.Equals(null))
+            {
+                NullFields.Add("Relationship");
+            }
+            if(DoorNumber.Equals(null))
+            {
+                NullFields.Add("DoorNumber");
+            }
+            if(StreetName.Equals(null))
+            {
+                NullFields.Add("Street Name");
+            }
+            if(LocalityTown.Equals(null))
+            {
+                NullFields.Add("Locality");
+            }
+            if(Pincode.Equals(null))
+            {
+                NullFields.Add("Pincode");
 
+            }
+            if (City.Equals(null))
+            {
+                NullFields.Add("City");
+            }
+            if(State.Equals(null))
+            {
+                NullFields.Add("State");
+            }
+            if(AddressProof.Equals(null))
+            {
+                NullFields.Add("Address Proof");
+            }
+            if(PhotoProof.Equals(null))
+            {
+                NullFields.Add("Photo Proof");
+            }
+            if(ProfilePicture.Equals(null))
+            {
+                NullFields.Add("Profile Picture");
+            }
+            return NullFields;
+
+        }
         public void AddGuarantorDetails()
         {
             string Address = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" + City + "|~" + State;
@@ -398,7 +464,7 @@ namespace MicroFinance.Modal
                     _localityTown = Address[4];
                     _city = Address[6];
                     _state = Address[8];
-                    _pincode = sqlDataReader.GetInt32(8);
+                    _pincode = sqlDataReader.GetInt32(8).ToString();
                     if(sqlDataReader.GetBoolean(11))
                     {
                         NameofAddressProof = sqlDataReader.GetString(9);

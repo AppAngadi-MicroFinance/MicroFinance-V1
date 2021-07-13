@@ -21,10 +21,17 @@ namespace MicroFinance.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string s = (string)value;
-            long x = 0;
-            x=long.Parse(s);
-            return x;
+            string _money = (string)value;
+            if (_money[0] == '₹')
+            {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 3; i < _money.Length; i++)
+                {
+                    sb.Append(_money[i]);
+                }
+                value = sb.ToString();
+            }
+            return value;
         }
     }
 }
