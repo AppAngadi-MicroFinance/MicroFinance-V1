@@ -10,8 +10,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="70*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="75*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="0"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
@@ -49,8 +49,8 @@
                 <TextBlock x:Name="TotalAmount" Grid.Row="3" Style="{StaticResource NumberRegular}" Margin="10,4,0,0"/>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1">
-            <Grid Width="500" Height="430" Background="#e8fff2" VerticalAlignment="Top">
+        <Grid Margin="10,0,-9.6,105.4" Grid.RowSpan="2">
+            <Grid Width="500" Height="auto" Background="#e8fff2" VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="65*"/>
                     <ColumnDefinition Width="35*"/>
@@ -68,6 +68,7 @@
                     <RowDefinition Height="35"/>
                     <RowDefinition Height="35"/>
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="80"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Cash Denomination" Style="{StaticResource Regular}" FontWeight="Medium" HorizontalAlignment="Center" />
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="Amount" Style="{StaticResource Regular}" FontWeight="Medium" HorizontalAlignment="Center" />
@@ -210,7 +211,10 @@
                         <TextBlock Text="10000" Style="{StaticResource NumberRegular}"/>
                     </StackPanel>
                 </Border>
-            </Grid>
+                <StackPanel  Orientation="Horizontal" Background="#FEF2E4" Grid.Row="12" Grid.ColumnSpan="2">
+                    <Button x:Name="SaveDenomination" Style="{StaticResource PrimaryBtn}" Content="Save"  Margin="200,10,0,0"/>
+                </StackPanel>
+            </Grid> 
         </Grid>
     </Grid>
 </Page>

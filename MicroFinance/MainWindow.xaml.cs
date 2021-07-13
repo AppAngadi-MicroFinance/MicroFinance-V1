@@ -81,7 +81,7 @@ namespace MicroFinance
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            mainframe.NavigationService.Navigate(new CollectionEntry());
+            mainframe.NavigationService.Navigate(new CollectionStartPage());
         }
     }
 }

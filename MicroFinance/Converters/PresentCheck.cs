@@ -26,7 +26,7 @@ namespace MicroFinance.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool _get = (bool)value;
-            if(true)
+            if(_get)
             {
                 return 1;
             }

@@ -36,20 +36,20 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                 <TextBlock Text="Branch Name : " Style="{StaticResource Regular}" FontWeight="Bold"/>
-                <TextBlock Text="SubramaniyaBuram" Style="{StaticResource Regular}"/>
+                <TextBlock x:Name="BranchNameBlock" Style="{StaticResource Regular}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
                 <TextBlock Text="Center Name : " Style="{StaticResource Regular}" FontWeight="Bold"/>
-                <TextBlock Text="SubramaniyaBuram" Style="{StaticResource Regular}"/>
+                <TextBlock x:Name="CenterBlck" Style="{StaticResource Regular}"/>
             </StackPanel>
             <TextBlock Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Text="Daily Collections" Style="{StaticResource SubTitle}" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right">
                 <TextBlock Text="Date : " Style="{StaticResource Regular}" FontWeight="Bold"/>
-                <TextBlock Text="12-07-2021" Style="{StaticResource NumberRegular}"/>
+                <TextBlock x:Name="DateBlck" Style="{StaticResource NumberRegular}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,43,0">
                 <TextBlock Text="Day : " Style="{StaticResource Regular}" FontWeight="Bold"/>
-                <TextBlock Text="Monday" Style="{StaticResource Regular}"/>
+                <TextBlock x:Name="DayBlck"  Style="{StaticResource Regular}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
@@ -67,7 +67,8 @@
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="130"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -98,11 +99,14 @@
                 <Border BorderBrush="Black" BorderThickness="1" Background="AliceBlue" Grid.Column="7" >
                     <TextBlock Text="Total" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium" />
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="1,1,0,1" Background="AliceBlue" Grid.Column="8" >
+                <Border BorderBrush="Black" BorderThickness="1" Background="AliceBlue" Grid.Column="8">
+                    <TextBlock Text="NO" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium"/>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="1,1,0,1" Background="AliceBlue" Grid.Column="9" >
                     <TextBlock Text="Attendance" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium"/>
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="9" Background="AliceBlue"/>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="auto" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="10">
+                <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="10" Background="AliceBlue"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="auto" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="11">
                     <ItemsControl x:Name="CollectionList" Grid.Row="1" Grid.ColumnSpan="10" BorderBrush="Black" BorderThickness="1" Background="LightGray">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -121,7 +125,8 @@
                                         <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="130"/>
                                     </Grid.ColumnDefinitions>
                                     <Border BorderBrush="Black" BorderThickness="1"  Grid.Column="0" Height="auto">
                                         <TextBlock Text="{Binding SNo}" Grid.Column="0" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium"/>
@@ -136,30 +141,33 @@
                                         <TextBlock Text="{Binding LoanType}" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1" Grid.Column="4" >
-                                        <TextBox Text="{Binding Principal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="40" Style="{StaticResource InputBox}" HorizontalContentAlignment="Center"/>
+                                        <TextBox Background="Transparent" Text="{Binding Principal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Height="40" Style="{StaticResource Textbox}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1"  Grid.Column="5" >
-                                        <TextBox Text="{Binding Interest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="40" Style="{StaticResource InputBox}" HorizontalContentAlignment="Center"/>
+                                        <TextBox Background="Transparent"  Text="{Binding Interest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Height="40" Style="{StaticResource Textbox}" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1" Grid.Column="6" >
                                         <TextBox Text="{Binding Security,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Height="40" Style="{StaticResource  InputBox}" HorizontalContentAlignment="Center"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1"  Grid.Column="7" >
-                                        <TextBox IsReadOnly="True" Text="{Binding Total,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="40" Width="120" HorizontalContentAlignment="Center" Style="{StaticResource Textbox}" HorizontalAlignment="Center" FontWeight="Medium" TextChanged="TextBox_TextChanged"/>
+                                        <TextBox Background="Transparent" IsReadOnly="True" Text="{Binding Total,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Height="40" Width="120" HorizontalContentAlignment="Center" Style="{StaticResource Textbox}" HorizontalAlignment="Center" FontWeight="Medium" TextChanged="TextBox_TextChanged"/>
                                     </Border>
-                                    <Border BorderBrush="Black" BorderThickness="1"  Grid.Column="8" >
+                                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="8">
+                                        <TextBox Text="{Binding NOOfPayment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="40" Width="50" HorizontalAlignment="Center" Style="{StaticResource Textbox}" HorizontalContentAlignment="Center" FontWeight="Medium"/>
+                                    </Border>
+                                    <Border BorderBrush="Black" BorderThickness="1"  Grid.Column="9" >
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <RadioButton Content="P" FontWeight="Bold" IsChecked="{Binding Attendance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource PCheck}}">
                                                 <RadioButton.LayoutTransform>
                                                     <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                                 </RadioButton.LayoutTransform>
                                             </RadioButton>
-                                            <RadioButton Content="A" FontWeight="Bold" Margin="20,0,0,0" IsChecked="{Binding Attendance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource ACheck}}">
+                                            <RadioButton Content="A" FontWeight="Bold" Margin="10,0,0,0" IsChecked="{Binding Attendance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource ACheck}}">
                                                 <RadioButton.LayoutTransform>
                                                     <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                                 </RadioButton.LayoutTransform>
                                             </RadioButton>
-                                            <RadioButton Content="L" FontWeight="Bold" Margin="20,0,0,0" IsChecked="{Binding Attendance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource LCheck}}">
+                                            <RadioButton Content="L" FontWeight="Bold" Margin="10,0,0,0" IsChecked="{Binding Attendance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource LCheck}}">
                                                 <RadioButton.LayoutTransform>
                                                     <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                                 </RadioButton.LayoutTransform>
@@ -233,7 +241,7 @@
                 <Grid Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
                     <StackPanel>
                         <Button x:Name="AddDenomination" Content="Add Denomination" Style="{StaticResource SecondaryBtn}" Width="140" Click="AddDenomination_Click"/>
-                        <Button x:Name="SaveCollection" Content="Save" Style="{StaticResource PrimaryBtn}" Margin="0,30,0,0"/>
+                        <Button x:Name="SaveCollection" Content="Save" Style="{StaticResource PrimaryBtn}" Margin="0,30,0,0" Click="SaveCollection_Click" Visibility="Visible"/>
                     </StackPanel>
                 </Grid>
             </Grid>
