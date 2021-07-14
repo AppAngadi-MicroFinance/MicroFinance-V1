@@ -44,7 +44,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xFindCustomerBtn" Style="{StaticResource NavigateAddEmployee}"></Button>
+                <Button x:Name="xFindCustomerBtn" Click="xFindCustomerBtn_Click" Style="{StaticResource NavigateAddEmployee}"></Button>
             </Border>
         </Grid>
 
