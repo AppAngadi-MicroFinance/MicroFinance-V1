@@ -370,5 +370,36 @@ namespace MicroFinance
                 }
             }
         }
+
+        private void ProofDetailsviewcloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            PhotoProofViewPanel.IsOpen = false;
+            EmployeeMainGrid.IsEnabled = true;
+        }
+
+        private void ViewAddressProof_Click(object sender, RoutedEventArgs e)
+        {
+            AddressProofViewPanel.IsOpen = true;
+            EmployeeMainGrid.IsEnabled = false;
+        }
+
+        private void EditAddressProof_Click(object sender, RoutedEventArgs e)
+        {
+            PhotoProofNametxt.Text = "Address Proof";
+            capturepanel.Visibility = Visibility.Visible;
+            EmployeeDetailsGrid.IsEnabled = false;
+            capturepanel.IsEnabled = true;
+        }
+
+        private void ViewPhotoProof_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddressDetailsviewcloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            PhotoProofViewPanel.IsOpen = true;
+            EmployeeMainGrid.IsEnabled = false;
+        }
     }
 }

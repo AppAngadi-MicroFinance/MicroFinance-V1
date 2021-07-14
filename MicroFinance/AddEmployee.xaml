@@ -207,8 +207,8 @@
                         <ComboBox Width="230" Style="{StaticResource combo}" x:Name="AddressProofcombo" SelectedIndex="0" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                         <Button Style="{StaticResource Add}" x:Name="AddressproofBtn" Click="AddressproofBtn_Click" Visibility="{Binding AddressProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"></Button>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="AddressProofViewEditPanel" Visibility="{Binding AddressProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}" >
-                            <Button x:Name="ViewAddressProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" />
-                            <Button x:Name="EditAddressProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" />
+                            <Button x:Name="ViewAddressProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewAddressProof_Click" />
+                            <Button x:Name="EditAddressProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditAddressProof_Click"/>
                         </StackPanel>
                     </StackPanel>
                     <TextBlock Text="Photo Proof" Grid.Row="7" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
@@ -216,7 +216,7 @@
                         <ComboBox Width="230" Style="{StaticResource combo}" x:Name="PhotoproofCombo" SelectedIndex="0" Text="{Binding PhotoProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                         <Button Style="{StaticResource Add}" x:Name="PhotoProofBtn" Click="PhotoProofBtn_Click" Visibility="{Binding PhotoProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3"  Visibility="{Binding PhotoProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}" >
-                            <Button x:Name="ViewPhotoProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" />
+                            <Button x:Name="ViewPhotoProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewPhotoProof_Click" />
                             <Button x:Name="EditPhotoProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" />
                         </StackPanel>
                     </StackPanel>
@@ -480,6 +480,50 @@
 
                     <Image Grid.Row="2" Height="150" Width="200" Source="{Binding AddressProofImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></Image>
                     <Image Grid.Row="2" Grid.Column="1" Height="150" Width="200" Source="{Binding PhotoProofImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></Image>
+                </Grid>
+            </Border>
+        </Popup>
+        <Popup Height="250" Width="400"  x:Name="AddressProofViewPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
+            <Border BorderBrush="Blue" BorderThickness="2">
+                <Grid Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50px"/>
+                        <RowDefinition Height="20px"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Text="Proof Details" Style="{StaticResource Title}" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    </TextBlock>
+                    <Button Style="{StaticResource ModalClose}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,15,0" x:Name="ProofDetailsviewcloseBtn" Click="ProofDetailsviewcloseBtn_Click"></Button>
+                    <Separator BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom" ></Separator>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock Text="Address Proof : "  Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+
+                    <Image Grid.Row="2" Height="150" Width="200" Source="{Binding AddressProofImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></Image>
+                </Grid>
+            </Border>
+        </Popup>
+        <Popup Height="250" Width="400"  x:Name="PhotoProofViewPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
+            <Border BorderBrush="Blue" BorderThickness="2">
+                <Grid Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50px"/>
+                        <RowDefinition Height="20px"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Proof Details" Style="{StaticResource Title}" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    </TextBlock>
+                    <Button Style="{StaticResource ModalClose}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,15,0" x:Name="AddressDetailsviewcloseBtn" Click="AddressDetailsviewcloseBtn_Click"></Button>
+                    <Separator BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom" ></Separator>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock Text="Address Proof : "  Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+
+                    <Image Grid.Row="2" Height="150" Width="200" Source="{Binding AddressProofImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></Image>
                 </Grid>
             </Border>
         </Popup>
