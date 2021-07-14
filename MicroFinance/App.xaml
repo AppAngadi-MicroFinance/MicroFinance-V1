@@ -5,6 +5,12 @@
              xmlns:validation="clr-namespace:MicroFinance.Validations"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DashBoardStylesResource.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        
         <!--Icons Buttons-->
         <!--For Add-->
         <Style TargetType="Button" x:Key="Add">
@@ -831,7 +837,8 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="#2D1414"/>
         </Style>-->
-      
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>
 

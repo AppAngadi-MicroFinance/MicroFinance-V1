@@ -43,6 +43,7 @@ namespace MicroFinance
             RegionCombo.ItemsSource = branch.RegionList;
             DesignationCombo.ItemsSource = DesignationList;
             Religioncombo.ItemsSource = Religionlist;
+
             BranchCombo.Text = emp.BranchName;
             EmployeeMainGrid.DataContext = emp;
             emp.Region = branch.GetRegionName(emp.BranchID);
@@ -97,7 +98,9 @@ namespace MicroFinance
 
         private void SampleCheck_Click(object sender, RoutedEventArgs e)
         {
+            addemployee.HavingBankDetails = true;
             EmployeeAccountdetailsPanel.IsOpen = false;
+            MainWindow.StatusMessageofPage(1, "Successfully Guarantor and Nominee Added...");
             EmployeeMainGrid.IsEnabled = true;
         }
 
@@ -124,17 +127,17 @@ namespace MicroFinance
                 case "Address Proof":
                     addemployee.AddressProofImage = image;
                     addemployee.IsAddressProof = true;
-                    MainWindow.StatusMessageofPage(0, "Address Proof Added");
+                    MainWindow.StatusMessageofPage(1, "Address Proof Added");
                     break;
                 case "Photo Proof":
                     addemployee.PhotoProofImage = image;
                     addemployee.IsPhotoProof = true;
-                    MainWindow.StatusMessageofPage(0, "Photo Proof Added");
+                    MainWindow.StatusMessageofPage(1, "Photo Proof Added");
                     break;
                 case "Profile Picture":
                     addemployee.ProfileImage = image;
                     addemployee.IsProfilePicture = true;
-                    MainWindow.StatusMessageofPage(0, "Profile Picture Added");
+                    MainWindow.StatusMessageofPage(1, "Profile Picture Added");
                     break;
             }
         }

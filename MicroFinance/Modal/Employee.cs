@@ -105,7 +105,7 @@ namespace MicroFinance.Modal
             }
            
         }
-        private DateTime _dob=DateTime.Now;
+        private DateTime _dob=DateTime.Today;
         public DateTime DOB
         {
             get
@@ -114,12 +114,9 @@ namespace MicroFinance.Modal
             }
             set
             {
-                if(value!=_dob)
-                {
                     _dob = value;
                     Age = CalculateAge(value);
                     RaisedPropertyChanged("DOB");
-                }
             }
         }
         private int _age;
@@ -369,7 +366,19 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("ProfileImage");
             }
         }
-
+        private bool _havingBankDetails;
+        public bool HavingBankDetails
+        {
+            get
+            {
+                return _havingBankDetails;
+            }
+            set
+            {
+                _havingBankDetails = value;
+                RaisedPropertyChanged("HavingBankDetails");
+            }
+        }
         private string _accountholdername;
         public string AccountHolderName
         {
@@ -469,7 +478,7 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("IsPhotoProof");
             }
         }
-        private bool _isaddressproof;
+        private bool _isaddressproof=false;
         public bool IsAddressProof
         {
             get

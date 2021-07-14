@@ -112,6 +112,18 @@
     <Compile Include="Converters\StatusImage.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Converters\VisiblityConverterByImage.cs" />
+    <Compile Include="DashboardAccountant.xaml.cs">
+      <DependentUpon>DashboardAccountant.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardBranchManager.xaml.cs">
+      <DependentUpon>DashboardBranchManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardFieldOfficer.xaml.cs">
+      <DependentUpon>DashboardFieldOfficer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DashBoardHeadOfficer.xaml.cs">
+      <DependentUpon>DashBoardHeadOfficer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DenominationPage.xaml.cs">
       <DependentUpon>DenominationPage.xaml</DependentUpon>
     </Compile>
@@ -209,6 +221,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateBranch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DashboardAccountant.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DashboardBranchManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DashboardFieldOfficer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DashBoardHeadOfficer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DashBoardStylesResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -336,6 +368,60 @@
     <Resource Include="Asserts\Icons\Warning Shield-WF.png" />
     <Resource Include="Asserts\Icons\Warning-WF.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\addCustomer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\pendings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\accounting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\coins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\loanRequest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\bell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\SHG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\detail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\notepad.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\searchingPerson.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\searchEmployee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\team.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\branch.png" />
+    <Resource Include="Asserts\Icons\map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\loan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\event.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\Wallet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\money.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\logout.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

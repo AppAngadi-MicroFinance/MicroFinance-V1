@@ -6,7 +6,7 @@
         xmlns:Convert="clr-namespace:MicroFinance.Converters"
         xmlns:local="clr-namespace:MicroFinance" xmlns:modal="clr-namespace:MicroFinance.Modal" d:DataContext="{d:DesignInstance Type=modal:StaticProperty}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1366" Background="white" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="768" Width="1366" Background="#FEF2E4" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Convert:StatusForegroundColor x:Key="StatusColor"></Convert:StatusForegroundColor>
         <Convert:StatusImage x:Key="ImageConvert"></Convert:StatusImage>
@@ -14,32 +14,37 @@
     <Grid Height="768" Width="1366" ShowGridLines="False">
         <Grid.RowDefinitions>
            
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="660"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        
-        <Border Grid.Row="0" Background="AliceBlue">
-            <Menu VerticalAlignment="Center" Height="20px">
-                <MenuItem  Header="Create Branch" FontSize="14" Name="CrBranch" Click="CrBranch_Click">
-                </MenuItem>
-                <MenuItem Header="Add Employee" FontSize="14" x:Name="CreEmployee" Click="CreEmployee_Click"></MenuItem>
-                <MenuItem Header="Modify Employee" FontSize="14" x:Name="modifyemployee" Click="modifyemployee_Click"></MenuItem>
-                <MenuItem Header="Add Region" FontSize="14" x:Name="Addregion" Click="Addregion_Click"></MenuItem>
-                <MenuItem Header="Add/Update Customer" FontSize="14" x:Name="CustomerAdd" Click="CustomerAdd_Click"/>
-                <MenuItem Header="LoanRequestFO" FontSize="14" x:Name="LoanRequestFO" Click="LoanRequestFO_Click"/>
-                <MenuItem Header="Send to Himark" FontSize="14" x:Name="SendtoHimark" Click="SendtoHimark_Click"/>
-                <MenuItem Header="Approve From Himark" FontSize="14" x:Name="ApprovefromHImark" Click="ApprovefromHImark_Click"/>
-                <MenuItem Header="Daily Collection" FontSize="14" Click="MenuItem_Click"/>
-                
-            </Menu>
-            
-        </Border>
+
+        <Grid Grid.Row="0" Background="#E8FAFF">
+            <Button x:Name="xLogoutButton" Width="30" Height="30" Style="{StaticResource LogoutButtonStyle}"
+                    HorizontalAlignment="Right" Click="xLogoutButton_Click" Margin="0,0,10,0" Visibility="Collapsed"></Button>
+        </Grid>
+
         <Frame Grid.Row="1" x:Name="mainframe" NavigationUIVisibility="Hidden"></Frame>
+
+        <!--Login window-->
+        <Grid x:Name="xLoginWindow" Grid.Row="1" Width="500" Height="300" VerticalAlignment="Center" Background="Gray">
+            <StackPanel VerticalAlignment="Center">
+                <StackPanel Width="400" Height="50">
+                    <TextBlock Text="Username  :" HorizontalAlignment="Left"></TextBlock>
+                    <TextBox x:Name="xUserName" Width="300" Height="40" HorizontalAlignment="Left"></TextBox>
+                </StackPanel>
+                <StackPanel Width="400" Height="50">
+                    <TextBlock Text="Password  :" HorizontalAlignment="Left"></TextBlock>
+                    <TextBox x:Name="xPassword" Width="300" Height="40" HorizontalAlignment="Left"></TextBox>
+                </StackPanel>
+
+                <Button x:Name="xLoginButton" Click="xLoginButton_Click" Width="200" Height="40" Background="Orange" Content="Sign in"></Button>
+            </StackPanel>
+        </Grid>
+
         <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#e8fff2" x:Name="MessageStatus">
             <Image Width="25" Height="25" Source="{Binding MessageType,Converter={StaticResource ImageConvert},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
             <TextBlock  Text="{Binding StatusMessage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" FontWeight="Medium" Foreground="{Binding MessageType,Converter={StaticResource StatusColor},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" VerticalAlignment="Center"/>
         </StackPanel>
-
     </Grid>
 </Window>

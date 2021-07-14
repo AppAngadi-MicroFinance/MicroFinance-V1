@@ -22,7 +22,7 @@ namespace MicroFinance
     /// </summary>
     public partial class AddCustomer : Page
     {
-        public string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
+        public string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection2;
         public static Customer customer = new Customer();
         public static Guarantor guarantor = new Guarantor();
         public static Nominee nominee = new Nominee();
@@ -870,7 +870,10 @@ namespace MicroFinance
             EnableDisableBackground(true);
             MainWindow.StatusMessageofPage(1, "Successfully Guarantor and Nominee Added...");
         }
+        void BankFieldValidation()
+        {
 
+        }
         private void PanelCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             AccountdetailsPanel.IsOpen = false;
