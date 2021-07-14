@@ -31,7 +31,7 @@ namespace MicroFinance.Validations
             catch(Exception E)
             {
                 return new ValidationResult(false, "Number Only Allowed");
-    }
+            }
 
 }
     }

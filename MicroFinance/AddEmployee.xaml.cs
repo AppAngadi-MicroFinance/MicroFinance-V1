@@ -97,8 +97,8 @@ namespace MicroFinance
 
         private void SampleCheck_Click(object sender, RoutedEventArgs e)
         {
-           
-           
+            EmployeeAccountdetailsPanel.IsOpen = false;
+            EmployeeMainGrid.IsEnabled = true;
         }
 
         private void ImageSavebtn_Click(object sender, RoutedEventArgs e)

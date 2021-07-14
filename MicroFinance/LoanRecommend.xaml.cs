@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Reports;
 
 namespace MicroFinance
 {
@@ -23,7 +24,7 @@ namespace MicroFinance
     {
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public List<LoanProcess> loanDetails = new List<LoanProcess>();
-        public static List<Cust> RecommenedList = new List<Cust>();
+        public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
         LoanProcess loanProcess = new LoanProcess();
         public LoanRecommend()
         {
@@ -33,8 +34,7 @@ namespace MicroFinance
             loanDetails=loanProcess.RequestList;
             Custlist.ItemsSource = loanDetails;
             setCount();
-            
-           // RecommededcustomerList.ItemsSource = RecommenedList;
+            SelectedCustomersView.ItemsSource = RecommenedList;
         }
 
         //private void Custlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,44 +62,75 @@ namespace MicroFinance
         {
             int count1 = 0;
             int count2 = 0;
-            //foreach (Cust c in customerlist)
-            //{
-                
-            //    if(c.LoanType=="General")
-            //    {
-            //        count1++;
-            //    }
-            //    else if(c.LoanType=="Special")
-            //    {
-            //        count2++;
-            //    }
-            //}
+            foreach (LoanProcess c in loanDetails)
+            {
+
+                if (c.LoanType == "General Loan")
+                {
+                    count1++;
+                }
+                else if (c.LoanType == "Special")
+                {
+                    count2++;
+                }
+            }
             GeneralLoanCount.Text = count1.ToString();
             SpecialLoanCount.Text = count2.ToString();
         }
 
-        public void AddList()
-        {
-            loanDetails.Add(new LoanProcess { LoanAmount = 10000, LoanType = "General Loan", LoanPeriod = 24 ,CustomerName="Ashraf Ali",LocalityTown="Trichy",DoorNumber="42/20a",StreetName="Kuppu sami Naidu Street",AadharNo="852074109630",Religion="Muslim",Occupation="Daily Wages",Community="BCM",City="Trichy",MonthlyIncome=15000});
-        }
-
-        private void SendToHiMarkBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new LoanAfterHimark());
-
-        }
-
         private void ApprovetoHiMarkBtn_Click(object sender, RoutedEventArgs e)
         {
-            //Cust SelectedCustomer = Custlist.SelectedItem as Cust;
-            //RecommenedList.Add(SelectedCustomer);
-            //SelectedCustomersView.ItemsSource = RecommenedList;
-            //SelectedCustomersView.Items.Refresh();
             Button button = sender as Button;
             string ID = button.Uid.ToString();
             Custlist.Items.Refresh();
-            loanProcess.RecommendLoan(ID);
-            //MessageBox.Show(ID);
+            if(loanProcess.IsAlreadyRecommend(ID))
+            {
+                MainWindow.StatusMessageofPage(1, "This loan is Already Recommend");
+            }
+            else
+            {
+                loanProcess.RecommendLoan(ID);
+                AddtoRecommendList(ID);
+                SelectedCustomersView.Items.Refresh();
+                MainWindow.StatusMessageofPage(0, "loan Recommend Successfully...");
+
+            }
+            
+        }
+
+
+        public void AddtoRecommendList(string ID)
+        {
+            LoanProcess ln = new LoanProcess();
+            foreach(LoanProcess l in loanDetails)
+            {
+                if(l.LoanRequestID.Equals(ID))
+                {
+                    RecommenedList.Add(l);
+                }
+            }
+        }
+
+        private void DownloadExcelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<HiMark> Himarklist = new List<HiMark>();
+            HiMark himarkReport = new HiMark();
+            foreach (LoanProcess lp in loanDetails)
+            {
+                himarkReport = new HiMark(lp);
+                Himarklist.Add(himarkReport);
+            }
+            try
+            {
+                himarkReport = new HiMark();
+                himarkReport.hiMarksList = Himarklist;
+                himarkReport.createHimarkXls();
+                MainWindow.StatusMessageofPage(0, "Excel Export Successfully... Location: D:\\");
+            }
+            catch 
+            {
+
+            }
             
         }
     }
