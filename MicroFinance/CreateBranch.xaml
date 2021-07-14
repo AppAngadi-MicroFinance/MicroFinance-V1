@@ -12,6 +12,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="630"/>
         </Grid.RowDefinitions>
+        <Button x:Name="xBackwardButton" Click="xBackwardButton_Click"
+                Style="{StaticResource BackButtonStyle}" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Image x:Name="NotifyImage" Height="30" Width="30" Margin="10,0,0,0"></Image>
             <TextBlock x:Name="NotifyText" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
