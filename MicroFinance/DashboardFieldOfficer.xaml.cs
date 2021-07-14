@@ -39,5 +39,16 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new LoanRequest());
         }
+
+        private void xFindCustomerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            xSearchPersonPop.Visibility = Visibility.Visible;
+        }
+
+        private void xPopupCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            xSearchPersonPop.Visibility = Visibility.Collapsed;
+            xSearchBoxCustomer.Clear();
+        }
     }
 }

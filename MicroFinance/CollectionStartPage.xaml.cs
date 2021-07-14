@@ -74,5 +74,11 @@ namespace MicroFinance
             
             NavigationService.GetNavigationService(this).Navigate(new CollectionEntry(_branchName,_shgName,_date.ToShortDateString(),_day));
         }
+
+        private void xBackwardButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.NavigationService.CanGoBack)
+                this.NavigationService.GoBack();
+        }
     }
 }

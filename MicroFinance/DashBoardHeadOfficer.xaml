@@ -9,9 +9,6 @@
       Title="DashBoardHeadOfficer">
 
     <Grid>
-
-        
-        
         <!--Section A-->        <!-- 1. Find Customer | 2. Find Employee | 3. Add New Employee-->
         <Grid Width="400" Height="170" Margin="130,100,0,0"
               HorizontalAlignment="Left" VerticalAlignment="Top">

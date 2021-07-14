@@ -42,7 +42,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xFindCustomerBtn" Style="{StaticResource NavigateFindCustomer}"></Button>
+                <Button x:Name="xFindCustomerBtn" Click="xFindCustomerBtn_Click" Style="{StaticResource NavigateFindCustomer}"></Button>
             </Border>
         </Grid>
 
@@ -83,6 +83,37 @@
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>
             <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
+        </Border>
+
+        <!--Search person Pop-Up-->
+        <Border x:Name="xSearchPersonPop" Width="700" Height="500" BorderThickness="5,30,5,3" BorderBrush="Gray" Visibility="Collapsed">
+            <Grid Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button x:Name="xPopupCloseBtn" Click="xPopupCloseBtn_Click" Width="30" Height="30"  Background="Red" Foreground="White"
+                        Margin="0,-30,-5,0" Grid.Row="0" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top"></Button>
+
+                <TextBlock x:Name="xPopUpHeading" Text="Find Customer" FontSize="16" FontWeight="SemiBold" Margin="10,-25,0,0" Foreground="White"></TextBlock>
+
+                <!--Search Textbox-->
+                <Border Width="600" Height="50" Margin="10,0,0,0" Grid.Row="0" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                    <TextBox x:Name="xSearchBoxCustomer" Margin="10,5,0,0" Width="580" Height="30" FontSize="16" BorderThickness="0" FontWeight="SemiBold"></TextBox>
+                </Border>
+
+                <!--Search Button-->
+                <Button x:Name="xSearchBtn" Width="50" Height="50" Content="Search" 
+                        Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"></Button>
+
+                <!--Exit Button-->
+                
+
+                <ListView Grid.Row="1" Width="600" Height="400" Background="LightGreen">
+
+                </ListView>
+            </Grid>
+
         </Border>
     </Grid>
 </Page>
