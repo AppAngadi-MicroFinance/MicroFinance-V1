@@ -255,6 +255,7 @@ namespace MicroFinance.Modal
                                     BankBranchName = reader.GetString(30),
                                     IFSCCode = reader.GetString(31),
                                     MICRCode = reader.GetString(32),
+                                    
                                     //}
                                     //if (reader.GetBoolean(24))
                                     //{

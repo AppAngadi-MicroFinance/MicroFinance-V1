@@ -362,7 +362,53 @@ namespace MicroFinance.Modal
                     sqlcomm.CommandText = "update LoanRequest set LoanAmount=" + LoanAmount + " ,Status='Approved',StatusCode='3' where RequestID='" + ID + "'";
                     sqlcomm.ExecuteNonQuery();
                 }
+                sqlconn.Close();
             }
+        }
+
+        public bool IsAlreadyRecommend(string ID)
+        {
+            bool result = false;
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "Select Status from LoanRequest where RequestID='" + ID + "'";
+                    sqlcomm.ExecuteNonQuery();
+                    string status = (string)sqlcomm.ExecuteScalar();
+                    if(status.Equals("Recommend"))
+                    {
+                        result = true;
+                    }
+                }
+                sqlconn.Close();
+            }
+            return result;
+        }
+        public bool IsAlreadyApproved(string ID)
+        {
+            bool result = false;
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "Select Status from LoanRequest where RequestID='" + ID + "'";
+                    sqlcomm.ExecuteNonQuery();
+                    string status = (string)sqlcomm.ExecuteScalar();
+                    if (status.Equals("Approved"))
+                    {
+                        result = true;
+                    }
+                }
+                sqlconn.Close();
+            }
+            return result;
         }
 
 

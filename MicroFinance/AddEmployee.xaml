@@ -325,7 +325,7 @@
                             </TextBox.Text>
                         </TextBox>
                     </Grid>
-                    <Button Grid.Row="2" Height="40" Width="150" Content="Add" x:Name="SampleCheck" Click="SampleCheck_Click"></Button>
+                    <Button Grid.Row="2" Height="40" Width="150" Content="Add" Style="{StaticResource SecondaryBtn}" x:Name="SampleCheck" Click="SampleCheck_Click"></Button>
                 </Grid>
             </Border>
 
