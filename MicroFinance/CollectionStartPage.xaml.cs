@@ -69,6 +69,7 @@ namespace MicroFinance
             string _shgName = SHGBox.Text;
             DateTime _date =(DateTime)DateBox.SelectedDate;
             string _day = _date.DayOfWeek.ToString();
+            String _regionName = MainWindow.LoginDesignation.RegionName;
             
             NavigationService.GetNavigationService(this).Navigate(new CollectionEntry(_branchName,_shgName,_date.ToShortDateString(),_day));
         }

@@ -241,7 +241,7 @@
                 <Grid Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
                     <StackPanel>
                         <Button x:Name="AddDenomination" Content="Add Denomination" Style="{StaticResource SecondaryBtn}" Width="140" Click="AddDenomination_Click"/>
-                        <Button x:Name="SaveCollection" Content="Save" Style="{StaticResource PrimaryBtn}" Margin="0,30,0,0" Click="SaveCollection_Click" Visibility="Visible"/>
+                        <Button x:Name="SaveCollection" Content="Save" Style="{StaticResource PrimaryBtn}" Margin="0,30,0,0" Click="SaveCollection_Click" IsEnabled="False"/>
                     </StackPanel>
                 </Grid>
             </Grid>

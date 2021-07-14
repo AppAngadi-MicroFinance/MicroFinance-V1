@@ -20,15 +20,15 @@ namespace MicroFinance.Converters
 
             if (_message==1)
             {
-                return (Brush)bc.ConvertFrom("#26d512");
+                return (Brush)bc.ConvertFrom("Blue");
             }
             else if(_message==0)
             {
-                return (Brush)bc.ConvertFrom("Blue");
+                return (Brush)bc.ConvertFrom("Red");
             }
             else
             {
-                return (Brush)bc.ConvertFrom("Red");
+                return (Brush)bc.ConvertFrom("#26d512");
             }
         }
 

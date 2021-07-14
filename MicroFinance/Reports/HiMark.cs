@@ -325,7 +325,7 @@ namespace MicroFinance.Reports
                 set
                 {
                     _applicantIDprooftype = value;
-                RaisedPropertyChanged("ApplicantIDProofType")
+                RaisedPropertyChanged("ApplicantIDProofType");
                 }
             }
             private string _Applicantidproofno;
@@ -416,7 +416,7 @@ namespace MicroFinance.Reports
                 set
                 {
                     _coapplicantage = value;
-                RaisedPropertyChanged("COapplicantAge")
+                RaisedPropertyChanged("COapplicantAge");
                 }
             }
             private string _coapplicantIDprooftype;
@@ -1031,84 +1031,84 @@ namespace MicroFinance.Reports
                 string lpf, string documentationcharges, string penalcharges, string guarantee, string gtlipremiumamt, string paipremiumamt, string insuranceamt, string hmreference,
                 string slrefno, string sldated)
             {
-                CBOName = cboname;
-                FIGName = figname;
-                FIGFormationDate = figformationdate;
-                FIGVillage = figvillage;
-                FIGTaluk = figtaluk;
-                FIGDistrict = figdistrict;
-                FIGState = figstate;
-                FIGSavings = figsavings;
-                FIGBankName = figbankname;
-                FIGAccountNO = figaccountno;
-                FIGBankIFSC = figbankifsc;
-                FIGBranchName = figbranchname;
-                EligibleLoanAmount = eligibleloanamount;
-                ApplicationNo = applicationno;
-                EmpID = empid;
-                RMName = rmname;
-                DateOfApplication = dateofapp;
-                Member = member;
-                ApplicantName = applicantname;
-                ApplicantGender = applicantgender;
-                ApplicantMobile = appmobileno;
-                ApplicantDOB = applicantdob;
-                ApplicantAge = applicantage;
-                ApplicantIDProofType = appidprooftype;
-                ApplicantIDProofNo = appidproofno;
-                ApplicantAddressProofType = appaddressprooftype;
-                ApplicantAddressProofNo = appaddressprooftype;
-                COapplicantName = coappname;
-                COapplicantGender = coappgender;
-                COapplicantDOB = coappdob;
-                COapplicantAge = coappage;
-                COapplicantIDProofType = coappidprooftype;
-                COapplicantIDProofNo = coappidproofno;
-                COapplicantAddressProofType = coappaddressprofftype;
-                COapplicantAddressProofNo = coappaddressproofno;
-                RelationshipWithApplicant = apprelationtype;
-                RelationshipWithCOapplicant = coapprelationshiptype;
-                ApplicantFatherName = appfathername;
-                ApplicantMotherName = appmothername;
-                DoorNO = doorno;
-                StreetName = streetname;
-                Village = village;
-                Taluk = taluk;
-                District = district;
-                State = state;
-                Pincode = pincode;
-                Occupation = occupation;
-                Education = education;
-                Place = place;
-                Residence = residence;
-                TypeOFResidence = typeeofresidence;
-                LandHolding = landholding;
-                Caste = caste;
-                Religion = religion;
-                MonthlyIncome = monthlyincome;
-                MonthlyExpenses = monthlyexpenses;
-                ApplicantBankName = appbankname;
-                ApplicantAccountNO = appaccountno;
-                ApplicantIFSCcode = appifsccodde;
-                ApplicantBranchName = appbranchname;
-                LoanPurpose = loanpurpose;
-                LoanTenure = loantenure;
-                SamFinBranh = samfinbranch;
-                RepaymentSchedule = repaymentschedule;
-                Security = security;
-                FullAddress = fulladdress;
-                MonthlySurplus = monthlysurplus;
-                IntrestRate = intrestrate;
-                LPF = lpf;
-                DocumentationCharges = documentationcharges;
-                PenalChanges = penalcharges;
-                Guarantee = guarantee;
-                GTLIPremiumAmount = gtlipremiumamt;
-                PAIPermiumAmount = paipremiumamt;
-                InsuranceAmount = insuranceamt;
-                HMreferenceNo = hmreference;
-                SLreferenceNo = slrefno;
-                SLdated = slrefno;
+                //CBOName = cboname;
+                //FIGName = figname;
+                //FIGFormationDate = figformationdate;
+                //FIGVillage = figvillage;
+                //FIGTaluk = figtaluk;
+                //FIGDistrict = figdistrict;
+                //FIGState = figstate;
+                //FIGSavings = figsavings;
+                //FIGBankName = figbankname;
+                //FIGAccountNO = figaccountno;
+                //FIGBankIFSC = figbankifsc;
+                //FIGBranchName = figbranchname;
+                //EligibleLoanAmount = eligibleloanamount;
+                //ApplicationNo = applicationno;
+                //EmpID = empid;
+                //RMName = rmname;
+                //DateOfApplication = dateofapp;
+                //Member = member;
+                //ApplicantName = applicantname;
+                //ApplicantGender = applicantgender;
+                //ApplicantMobile = appmobileno;
+                //ApplicantDOB = applicantdob;
+                //ApplicantAge = applicantage;
+                //ApplicantIDProofType = appidprooftype;
+                //ApplicantIDProofNo = appidproofno;
+                //ApplicantAddressProofType = appaddressprooftype;
+                //ApplicantAddressProofNo = appaddressprooftype;
+                //COapplicantName = coappname;
+                //COapplicantGender = coappgender;
+                //COapplicantDOB = coappdob;
+                //COapplicantAge = coappage;
+                //COapplicantIDProofType = coappidprooftype;
+                //COapplicantIDProofNo = coappidproofno;
+                //COapplicantAddressProofType = coappaddressprofftype;
+                //COapplicantAddressProofNo = coappaddressproofno;
+                //RelationshipWithApplicant = apprelationtype;
+                //RelationshipWithCOapplicant = coapprelationshiptype;
+                //ApplicantFatherName = appfathername;
+                //ApplicantMotherName = appmothername;
+                //DoorNO = doorno;
+                //StreetName = streetname;
+                //Village = village;
+                //Taluk = taluk;
+                //District = district;
+                //State = state;
+                //Pincode = pincode;
+                //Occupation = occupation;
+                //Education = education;
+                //Place = place;
+                //Residence = residence;
+                //TypeOFResidence = typeeofresidence;
+                //LandHolding = landholding;
+                //Caste = caste;
+                //Religion = religion;
+                //MonthlyIncome = monthlyincome;
+                //MonthlyExpenses = monthlyexpenses;
+                //ApplicantBankName = appbankname;
+                //ApplicantAccountNO = appaccountno;
+                //ApplicantIFSCcode = appifsccodde;
+                //ApplicantBranchName = appbranchname;
+                //LoanPurpose = loanpurpose;
+                //LoanTenure = loantenure;
+                //SamFinBranh = samfinbranch;
+                //RepaymentSchedule = repaymentschedule;
+                //Security = security;
+                //FullAddress = fulladdress;
+                //MonthlySurplus = monthlysurplus;
+                //IntrestRate = intrestrate;
+                //LPF = lpf;
+                //DocumentationCharges = documentationcharges;
+                //PenalChanges = penalcharges;
+                //Guarantee = guarantee;
+                //GTLIPremiumAmount = gtlipremiumamt;
+                //PAIPermiumAmount = paipremiumamt;
+                //InsuranceAmount = insuranceamt;
+                //HMreferenceNo = hmreference;
+                //SLreferenceNo = slrefno;
+                //SLdated = slrefno;
 
             }
             private static List<HiMark> Members()

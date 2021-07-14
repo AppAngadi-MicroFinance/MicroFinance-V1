@@ -37,7 +37,7 @@ namespace MicroFinance
             DateBlck.Text = Date;
             DayBlck.Text = Day;
             GroupNameUnderShg(SelfHelpGroupName);
-            GetActiveCustomers(BranchName, SelfHelpGroupName);
+            GetActiveCustomers(SelfHelpGroupName);
             GetLoanDetails();
             CollectionDetails();
             CollectionList.ItemsSource = DailyCollectionsDetails;
@@ -50,9 +50,10 @@ namespace MicroFinance
             using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
             {
                 connection.Open();
+                string BranchId = MainWindow.LoginDesignation.BranchId;
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "select PeerGroupName from PeerGroup join SelfHelpGroup on PeerGroup.PGId = SelfHelpGroup.PGId where SHGName = '" + SHGName + "'";
+                command.CommandText = "select PeerGroupName from PeerGroup join SelfHelpGroup on PeerGroup.PGId = SelfHelpGroup.PGId where SHGName = '" + SHGName + "' and BId='"+BranchId+"'";
                 SqlDataReader dataReader = command.ExecuteReader();
                 while(dataReader.Read())
                 {
@@ -61,14 +62,14 @@ namespace MicroFinance
                 dataReader.Close();
             }
         }
-        void GetActiveCustomers(string BranchName,String SelfHelpGroupName)
+        void GetActiveCustomers(String SelfHelpGroupName)
         {
             using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "SELECT CustId FROM CustomerGroup WHERE BranchName = '" + BranchName + "' and SelfHelpGroup = '" + SelfHelpGroupName + "'";
+                command.Connection = connection; string BranchId = MainWindow.LoginDesignation.BranchId;
+                command.CommandText = "SELECT distinct CustomerDetails.CustId FROM CustomerDetails join CustomerGroup on CustomerDetails.CustId=CustomerGroup.CustId WHERE CustomerGroup.BranchId = '"+BranchId+"' and CustomerGroup.SelfHelpGroup = '"+SelfHelpGroupName+"' and IsActive='True'";
                 SqlDataReader dataReader = command.ExecuteReader();
                 while(dataReader.Read())
                 {
@@ -174,10 +175,14 @@ namespace MicroFinance
             GetTotalEachGroup();
         }
 
-
+        DenominationPage denomination=new DenominationPage();
         private void AddDenomination_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GetNavigationService(this).Navigate(new DenominationPage(OverAlltotal));
+            if(!denomination.AlreadyEntered)
+            {
+                denomination = new DenominationPage(10000, BranchNameBlock.Text, CenterBlck.Text, Convert.ToDateTime(DateBlck.Text), SaveCollection);
+            }
+            NavigationService.GetNavigationService(this).Navigate(denomination);
         }
 
         private void SaveCollection_Click(object sender, RoutedEventArgs e)
@@ -208,13 +213,19 @@ namespace MicroFinance
                     string _todayDate = Convert.ToDateTime(DateBlck.Text).ToString("yyyy-MM-dd");
                     command.CommandText = "insert into LoanCollection values('" + loan.CustId + "','" + loan.LoanId + "'," + loan.Principal + "," + loan.Interest + "," + loan.Security + "," + loan.Total + "," + loan.Attendance + ",'" +_todayDate+ "',"+loan.NOOfPayment+","+_remainingDue+")";
                     command.ExecuteNonQuery();
-                    if(_remainingDue==0)
+                    if(_remainingDue<=0)
                     {
                         command.CommandText = "update LoanDisposement set Active = 'False', EndDate = '" + _todayDate + "'  where LoanID = '" + loan.LoanId + "'";
                         command.ExecuteNonQuery();
                     }
-                    
-
+                    command.CommandText = "select COUNT(LoanID) from LoanDisposement where CustID='" + loan.CustId + "' and Active='True'";
+                    int _activeLoans = (int)command.ExecuteScalar();
+                    if(_activeLoans==0)
+                    {
+                        command.CommandText = "UPDATE CustomerDetails SET IsActive='FALSE' WHERE CustId='" + loan.CustId + "'";
+                        command.ExecuteNonQuery();
+                    }
+                    denomination.InsertDenomination();
                 }
             }
         }
