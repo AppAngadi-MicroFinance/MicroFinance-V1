@@ -8,8 +8,10 @@
       d:DesignHeight="630" d:DesignWidth="1366" Background="#FEF2E4"
       Title="CollectionStartPage">
 
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Grid>
+    <Grid Width="1366" Height="630">
+        <Button x:Name="xBackwardButton" Click="xBackwardButton_Click"
+                Style="{StaticResource BackButtonStyle}" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="250"/>
