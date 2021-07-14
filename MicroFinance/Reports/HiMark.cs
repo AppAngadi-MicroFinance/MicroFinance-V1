@@ -2099,7 +2099,8 @@ namespace MicroFinance.Reports
                 xlWorkSheet.Cells[RowStart, 13] = "Default-Manaparai";
                 xlWorkSheet.Cells[RowStart, 14] = hm.loandetails.LoanAmount;
                 xlWorkSheet.Cells[RowStart, 15] = hm.loandetails.LoanRequestID;
-                xlWorkSheet.Cells[RowStart, 16] = hm.loandetails.EmployeeID;
+                string empid= hm.loandetails.EmployeeID;
+                xlWorkSheet.Cells[RowStart, 16] = "E"+empid;
                 xlWorkSheet.Cells[RowStart, 17] = "Null";
                 xlWorkSheet.Cells[RowStart, 18] = DateTime.Today.ToString("dd-MMM-yyyy");
                 xlWorkSheet.Cells[RowStart, 19] = ((hm.loandetails.IsLeader)?"Leader":"Member");
@@ -2109,7 +2110,8 @@ namespace MicroFinance.Reports
                 xlWorkSheet.Cells[RowStart, 23] = hm.loandetails.DateofBirth.ToString("dd-MM-yyyy");
                 xlWorkSheet.Cells[RowStart, 24] = hm.loandetails.Age;
                 xlWorkSheet.Cells[RowStart, 25] = hm.loandetails.NameofPhotoProof;
-                xlWorkSheet.Cells[RowStart, 26] = hm.loandetails.AadharNo;
+                string Aadharnumberformat = hm.loandetails.AadharNo.Substring(0, 4) + " " + hm.loandetails.AadharNo.Substring(4, 4) + " " + hm.loandetails.AadharNo.Substring(8);
+                xlWorkSheet.Cells[RowStart, 26] = Aadharnumberformat;
                 xlWorkSheet.Cells[RowStart, 27] = hm.loandetails.NameofAddressProof;
                 xlWorkSheet.Cells[RowStart, 28] = "Null";
                 xlWorkSheet.Cells[RowStart, 29] = hm.Guarantordetails.GuarantorName;
