@@ -217,14 +217,14 @@
                         <Button Style="{StaticResource Add}" x:Name="PhotoProofBtn" Click="PhotoProofBtn_Click" Visibility="{Binding PhotoProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3"  Visibility="{Binding PhotoProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}" >
                             <Button x:Name="ViewPhotoProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewPhotoProof_Click" />
-                            <Button x:Name="EditPhotoProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" />
+                            <Button x:Name="EditPhotoProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditPhotoProof_Click" />
                         </StackPanel>
                     </StackPanel>
                     <TextBlock Text="Profile Photo" Grid.Row="8" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource Add}" HorizontalAlignment="Left" Margin="10,0,0,0" x:Name="ProfilePictureBtn" Click="ProfilePictureBtn_Click" Visibility="{Binding ProfileImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"></Button>
                     <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="1"  Visibility="{Binding ProfileImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}" >
-                        <Button x:Name="ViewProfileProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" />
-                        <Button x:Name="EditProfileProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" />
+                        <Button x:Name="ViewProfileProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0"  Click="ViewProfileProof_Click"/>
+                        <Button x:Name="EditProfileProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditProfileProof_Click" />
                     </StackPanel>
 
                 </Grid>
@@ -234,8 +234,8 @@
                     <TextBlock Text="Add Bank Details" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <Button x:Name="BankDetails" Click="BankDetails_Click" Margin="100,0,0,0" Style="{StaticResource Add}" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleBool}}"/>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,0" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource  VisibleByBool}}" >
-                        <Button x:Name="ViewBank" Style="{StaticResource Show}"  Margin="0,0,10,0" />
-                        <Button x:Name="EditBank" Style="{StaticResource Edit}" />
+                        <Button x:Name="ViewBank" Style="{StaticResource Show}"  Margin="0,0,10,0" Click="ViewBank_Click" />
+                        <Button x:Name="EditBank" Style="{StaticResource Edit}" Click="EditBank_Click" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -519,13 +519,71 @@
                     <Button Style="{StaticResource ModalClose}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,15,0" x:Name="AddressDetailsviewcloseBtn" Click="AddressDetailsviewcloseBtn_Click"></Button>
                     <Separator BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom" ></Separator>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,0,0">
-                        <TextBlock Text="Address Proof : "  Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                        <TextBlock Text="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Photo Proof : "  Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding PhotoProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
 
-                    <Image Grid.Row="2" Height="150" Width="200" Source="{Binding AddressProofImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></Image>
+                    <Image Grid.Row="2" Height="150" Width="200" Source="{Binding PhotoProofImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></Image>
                 </Grid>
             </Border>
+        </Popup>
+        <Popup Height="250" Width="400"  x:Name="ProfilePictureViewPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
+            <Border BorderBrush="Blue" BorderThickness="2">
+                <Grid Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50px"/>
+                        <RowDefinition Height="20px"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Profile Picture" Style="{StaticResource Title}" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    </TextBlock>
+                    <Button Style="{StaticResource ModalClose}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,15,0" x:Name="ProfilePictureviewcloseBtn" Click="ProfilePictureviewcloseBtn_Click"></Button>
+                    <Separator BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom" ></Separator>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock Text="Profile Picture "  Style="{StaticResource Regular}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                       
+                    </StackPanel>
+
+                    <Image Grid.Row="2" Height="150" Width="200" Source="{Binding ProfileImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></Image>
+                </Grid>
+            </Border>
+        </Popup>
+        <Popup x:Name="BankDetailsviewPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
+            <Border BorderBrush="Blue" BorderThickness="2">
+                <Grid Background="White" Height="300" Width="400">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="60*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Account Details" Grid.ColumnSpan="2" Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <Separator BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></Separator>
+                    <Button Style="{StaticResource ModalClose}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,15,0" x:Name="bankdetailsviewpanelclosebtn" Click="bankdetailsviewpanelclosebtn_Click"></Button>
+                    <TextBlock Text="Account Holder Name" Grid.Row="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding AccountHolderName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Text="Account Number" Grid.Row="2" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding AccountNumber,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="IFSC Code" Grid.Row="3" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding IFSCCode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="MICR Code" Grid.Row="4" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding MICRCode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="Bank Name" Grid.Row="5" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding BankName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="Branch Name" Grid.Row="6" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding BankBranchName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+
+                </Grid>
+            </Border>
+
         </Popup>
     </Grid>
 </Page>

@@ -100,7 +100,6 @@ namespace MicroFinance
         {
             addemployee.HavingBankDetails = true;
             EmployeeAccountdetailsPanel.IsOpen = false;
-            MainWindow.StatusMessageofPage(1, "Successfully Guarantor and Nominee Added...");
             EmployeeMainGrid.IsEnabled = true;
         }
 
@@ -373,7 +372,7 @@ namespace MicroFinance
 
         private void ProofDetailsviewcloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            PhotoProofViewPanel.IsOpen = false;
+            AddressProofViewPanel.IsOpen = false;
             EmployeeMainGrid.IsEnabled = true;
         }
 
@@ -393,12 +392,61 @@ namespace MicroFinance
 
         private void ViewPhotoProof_Click(object sender, RoutedEventArgs e)
         {
-
+            PhotoProofViewPanel.IsOpen = true;
+            EmployeeMainGrid.IsEnabled = false;
         }
 
         private void AddressDetailsviewcloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            PhotoProofViewPanel.IsOpen = true;
+            PhotoProofViewPanel.IsOpen = false;
+            EmployeeMainGrid.IsEnabled = true;
+        }
+
+        private void EditPhotoProof_Click(object sender, RoutedEventArgs e)
+        {
+            Captureframe.NavigationService.Navigate(new Capture());
+            PhotoProofNametxt.Text = "Photo Proof";
+            capturepanel.Visibility = Visibility.Visible;
+            EmployeeDetailsGrid.IsEnabled = false;
+            capturepanel.IsEnabled = true;
+        }
+
+        private void ProfilePictureviewcloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ProfilePictureViewPanel.IsOpen = false;
+            EmployeeMainGrid.IsEnabled = true;
+        }
+
+        private void ViewProfileProof_Click(object sender, RoutedEventArgs e)
+        {
+            ProfilePictureViewPanel.IsOpen = true;
+            EmployeeMainGrid.IsEnabled = false;
+        }
+
+        private void EditProfileProof_Click(object sender, RoutedEventArgs e)
+        {
+            Captureframe.NavigationService.Navigate(new Capture());
+            PhotoProofNametxt.Text = "Profile Picture";
+            capturepanel.Visibility = Visibility.Visible;
+            EmployeeDetailsGrid.IsEnabled = false;
+            capturepanel.IsEnabled = true;
+        }
+
+        private void bankdetailsviewpanelclosebtn_Click(object sender, RoutedEventArgs e)
+        {
+            BankDetailsviewPanel.IsOpen = false;
+            EmployeeMainGrid.IsEnabled = true;
+        }
+
+        private void ViewBank_Click(object sender, RoutedEventArgs e)
+        {
+            BankDetailsviewPanel.IsOpen = true;
+            EmployeeMainGrid.IsEnabled = false;
+        }
+
+        private void EditBank_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeAccountdetailsPanel.IsOpen = true;
             EmployeeMainGrid.IsEnabled = false;
         }
     }
