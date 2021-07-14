@@ -57,7 +57,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xCollectionEntryBtn" Style="{StaticResource NavigateCollectionEntry}"></Button>
+                <Button x:Name="xCollectionEntryBtn" Click="xCollectionEntryBtn_Click" Style="{StaticResource NavigateCollectionEntry}"></Button>
             </Border>
             <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
@@ -73,7 +73,7 @@
             <Border.Effect>
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>
-            <Button x:Name="xLoanRequestBtn" Style="{StaticResource NavigateLoanRequest}"></Button>
+            <Button x:Name="xLoanRequestBtn" Click="xLoanRequestBtn_Click" Style="{StaticResource NavigateLoanRequest}"></Button>
         </Border>
 
         <!--Section D-->

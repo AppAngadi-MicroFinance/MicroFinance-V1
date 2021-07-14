@@ -31,58 +31,59 @@ namespace MicroFinance
             LoginDesignation.RegionName = "Trichy";
             InitializeComponent();
             MessageStatus.DataContext = StatusMsg;
-            mainframe.NavigationService.Navigate(new Test());
         }
         public static void StatusMessageofPage(int Type, string Message)
         {
             StatusMsg.MessageType = Type;
             StatusMsg.StatusMessage = Message;
         }
-        private void CreEmployee_Click(object sender, RoutedEventArgs e)
+        
+        private void xLogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            mainframe.NavigationService.Navigate(new AddEmployee());
+            LogOutState();
         }
 
-        private void CrBranch_Click(object sender, RoutedEventArgs e)
+        private void xLoginButton_Click(object sender, RoutedEventArgs e)
         {
-            mainframe.NavigationService.Navigate(new CreateBranch());
+            string UserName = xUserName.Text;
+            string Password = xPassword.Text;
+            int power = int.Parse(UserName);
+            if (power == 1)
+            {
+                mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
+                LoggedInState();
+            }
+            else if(power == 2)
+            {
+                mainframe.NavigationService.Navigate(new DashboardAccountant());
+                LoggedInState();
+            }
+            else if (power == 3)
+            {
+                mainframe.NavigationService.Navigate(new DashboardBranchManager());
+                LoggedInState();
+            }
+            else if (power == 4)
+            {
+                mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
+                LoggedInState();
+            }
+            
         }
 
-        private void modifyemployee_Click(object sender, RoutedEventArgs e)
+        void LoggedInState()
         {
-            mainframe.NavigationService.Navigate(new ModifyEmployee());
+            xLoginWindow.Visibility = Visibility.Collapsed;
+            xUserName.Clear();
+            xPassword.Clear();
+
+            xLogoutButton.Visibility = Visibility.Visible;
         }
-        private void Addregion_Click(object sender, RoutedEventArgs e)
+        void LogOutState()
         {
-            AddRegion ad = new AddRegion();
-            ad.ShowDialog();
-
-        }
-
-        private void CustomerAdd_Click(object sender, RoutedEventArgs e)
-        {
-            mainframe.NavigationService.Navigate(new dummypage());
-        }
-
-        private void LoanRequestFO_Click(object sender, RoutedEventArgs e)
-        {
-            mainframe.NavigationService.Navigate(new LoanRequest());
-
-        }
-
-        private void SendtoHimark_Click(object sender, RoutedEventArgs e)
-        {
-            mainframe.NavigationService.Navigate(new LoanRecommend());
-        }
-
-        private void ApprovefromHImark_Click(object sender, RoutedEventArgs e)
-        {
-            mainframe.NavigationService.Navigate(new LoanAfterHimark());
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            mainframe.NavigationService.Navigate(new CollectionStartPage());
+            xLogoutButton.Visibility = Visibility.Collapsed;
+            xLoginWindow.Visibility = Visibility.Visible;
+            mainframe.Content = null;
         }
     }
 }
