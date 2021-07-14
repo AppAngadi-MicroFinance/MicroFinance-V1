@@ -401,5 +401,11 @@ namespace MicroFinance
             PhotoProofViewPanel.IsOpen = true;
             EmployeeMainGrid.IsEnabled = false;
         }
+
+        private void xBackwardButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.NavigationService.CanGoBack)
+                this.NavigationService.GoBack();
+        }
     }
 }

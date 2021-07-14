@@ -120,5 +120,11 @@ namespace MicroFinance
             loan.RejectLoan(ID);
             Custlist.Items.Refresh();
         }
+
+        private void xBackwardButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.NavigationService.CanGoBack)
+                this.NavigationService.GoBack();
+        }
     }
 }

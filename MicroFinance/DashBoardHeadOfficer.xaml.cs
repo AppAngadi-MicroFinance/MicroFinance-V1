@@ -25,9 +25,41 @@ namespace MicroFinance
             InitializeComponent();
         }
 
-        private void xFindCustomerBtn_Click(object sender, RoutedEventArgs e)
+        private void xAddNewEmployee_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new AddEmployee());
+        }
+
+        private void xPendingCustomerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ModifyEmployee());
+        }
+        private void xLoanRequestListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new LoanAfterHimark());
+        }
+
+        private void xAddNewBranch_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new CreateBranch());
+        }
+
+        private void xPopupCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            xSearchPersonPop.Visibility = Visibility.Collapsed;
+            xSearchBoxCustomer.Clear();
+        }
+
+        private void xFindCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            xSearchPersonPop.Visibility = Visibility.Visible;
+            xPopUpHeading.Text = "Find Customer";
+        }
+
+        private void xFindEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            xSearchPersonPop.Visibility = Visibility.Visible;
+            xPopUpHeading.Text = "Find Employee";
         }
     }
 }

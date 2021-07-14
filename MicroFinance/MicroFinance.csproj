@@ -420,5 +420,8 @@
   <ItemGroup>
     <Resource Include="Asserts\Icons\logout.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\rubberstamp.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

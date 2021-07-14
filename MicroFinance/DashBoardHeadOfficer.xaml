@@ -9,6 +9,7 @@
       Title="DashBoardHeadOfficer">
 
     <Grid>
+
         
         
         <!--Section A-->        <!-- 1. Find Customer | 2. Find Employee | 3. Add New Employee-->
@@ -23,28 +24,39 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <!--Add New Customer Button-->
+            <!--New Customer Approvals Button-->
             <Border Grid.Row="0" Grid.Column="0" Width="180" Height="70" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xAddCustomerBtn" Style="{StaticResource NavigateFindCustomerSmall}"></Button>
+                <Button x:Name="xCustomerApproval"  Style="{StaticResource CustomerApprovalSmallSmall}"></Button>
             </Border>
-
-            <!--Pending Customers-->
-            <Border Grid.Row="1" Grid.Column="0" Width="180" Height="70" Style="{StaticResource MainBorder}">
+            
+            <!--Find Customer Button-->
+            <Border Grid.Row="0" Grid.Column="1" Width="180" Height="70" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xPendingCustomerBtn" Style="{StaticResource NavigateFindEmployeeSmall}"></Button>
+                <Button x:Name="xFindCustomer" Click="xFindCustomer_Click" Style="{StaticResource NavigateFindCustomerSmall}"></Button>
             </Border>
 
-            <!--Find Customer-->
-            <Border  Width="150" Height="150" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource MainBorder}">
+            <!--Find Employee Customers-->
+            <Border Grid.Row="1" Grid.Column="1" Width="180" Height="70" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xFindCustomerBtn" Click="xFindCustomerBtn_Click" Style="{StaticResource NavigateAddEmployee}"></Button>
+                <Button x:Name="xFindEmployee" Click="xFindEmployee_Click" Style="{StaticResource NavigateFindEmployeeSmall}"></Button>
+            </Border>
+
+
+            <!--Add New Employee Customer-->
+            
+            <Border  
+                Width="180" Height="70" Grid.Row="1" Grid.Column="0" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xAddNewEmployee"  Click="xAddNewEmployee_Click" Style="{StaticResource NavigateAddEmployee}"></Button>
             </Border>
         </Grid>
 
@@ -60,7 +72,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xCollectionEntryBtn" Style="{StaticResource NavigateAddBranch}"></Button>
+                <Button x:Name="xAddNewBranch" Click="xAddNewBranch_Click" Style="{StaticResource NavigateAddBranch}"></Button>
             </Border>
             <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
@@ -69,16 +81,21 @@
                 <Button x:Name="xAllowanceReportBtn" Style="{StaticResource NavigateAddRegion}"></Button>
             </Border>
         </Grid>
-        
-        
+
+        <Grid Width="400" Height="170" Margin="130,0,0,50" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xDailyReportsBtn" Style="{StaticResource NavigateDailyReports}"></Button>
+            </Border>
+        </Grid>
         <!--Section C-->         <!--Daily Reports-->
-        <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" 
-                Margin="130,0,0,50" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-            </Border.Effect>
-            <Button x:Name="xDailyReportsBtn" Style="{StaticResource NavigateDailyReports}"></Button>
-        </Border>
+        
         
         <!--Section D-->         <!--Loan Recomendation | Notification-->
         <Grid Width="400" Height="170" Margin="0,0,130,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
@@ -90,7 +107,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xLoanRequestListBtn" Style="{StaticResource NavigateLoanRecomandationList}"></Button>
+                <Button x:Name="xLoanRequestListBtn" Click="xLoanRequestListBtn_Click" Style="{StaticResource NavigateLoanRecomandationList}"></Button>
             </Border>
 
             <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
@@ -99,8 +116,39 @@
                 </Border.Effect>
                 <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
             </Border>
-
-
         </Grid>
+
+
+        <!--Search person Pop-Up-->
+        <Border x:Name="xSearchPersonPop" Width="700" Height="500" BorderThickness="5,30,5,3" BorderBrush="Gray" Visibility="Collapsed">
+            <Grid Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                
+                <TextBlock x:Name="xPopUpHeading" Text="Find Customer" FontSize="16" FontWeight="SemiBold" Margin="10,-25,0,0" Foreground="White"></TextBlock>
+                
+                <!--Search Textbox-->
+                <Border Width="600" Height="50" Margin="10,0,0,0" Grid.Row="0" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
+                    <TextBox x:Name="xSearchBoxCustomer" Margin="10,5,0,0" Width="580" Height="30" FontSize="16" BorderThickness="0" FontWeight="SemiBold"></TextBox>
+                </Border>
+                
+                <!--Search Button-->
+                <Button x:Name="xSearchBtn" Width="50" Height="50" Content="Search" 
+                        Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"></Button>
+                
+                <!--Exit Button-->
+                <Button x:Name="xPopupCloseBtn" Click="xPopupCloseBtn_Click" Width="30" Height="30" Content="X" Background="Red" Foreground="White"
+                        Margin="0,-30,-5,0" Grid.Row="0" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top"></Button>
+
+                <ListView Grid.Row="1" Width="600" Height="400" Background="LightGreen">
+
+                </ListView>
+            </Grid>
+            
+        </Border>
+        
     </Grid>
 </Page>
