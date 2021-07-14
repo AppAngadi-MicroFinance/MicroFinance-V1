@@ -26,7 +26,8 @@ namespace MicroFinance.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ASHRAF;Initial Catalog=MicroFinance;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-GQ1D89V\\MSSQLSERVER1;Initial Catalog=MicroFinance;User ID=sa;" +
+            "Password=DATA")]
         public string DBConnection {
             get {
                 return ((string)(this["DBConnection"]));
@@ -36,21 +37,11 @@ namespace MicroFinance.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ASHRAF;Initial Catalog=MicroFinance;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-GQ1D89V\\MSSQLSERVER1;Initial Catalog=MicroFinance;User ID=sa;" +
+            "Password=DATA")]
         public string db {
             get {
                 return ((string)(this["db"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=HUNT\\SQLEXPRESS2;Initial Catalog=MicroFinance;Persist Security Info=T" +
-            "rue;User ID=sa;Password=data")]
-        public string DBConnection2 {
-            get {
-                return ((string)(this["DBConnection2"]));
             }
         }
     }

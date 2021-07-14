@@ -29,5 +29,15 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new AddCustomer());
         }
+
+        private void xCollectionEntryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new CollectionStartPage());
+        }
+
+        private void xLoanRequestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new LoanRequest());
+        }
     }
 }

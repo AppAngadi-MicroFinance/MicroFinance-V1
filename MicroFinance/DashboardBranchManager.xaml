@@ -26,7 +26,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xAddCustomerBtn" Style="{StaticResource NavigateAddCustomer}"></Button>
+                <Button x:Name="xAddCustomerBtn" Click="xAddCustomerBtn_Click" Style="{StaticResource NavigateAddCustomer}"></Button>
             </Border>
 
             <!--Pending Customers-->
@@ -71,7 +71,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xLoanRequestListBtn" Style="{StaticResource NavigateLoanRequestList}"></Button>
+                <Button x:Name="xLoanRequestListBtn" Click="xLoanRequestListBtn_Click" Style="{StaticResource NavigateLoanRequestList}"></Button>
             </Border>
             
             <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
