@@ -42,6 +42,10 @@ namespace MicroFinance
             CollectionDetails();
             CollectionList.ItemsSource = DailyCollectionsDetails;
             GetTotalEachGroup();
+            if(DailyCollectionsDetails.Count>0)
+            {
+                AddDenomination.IsEnabled = true;
+            }
         }
 
 
@@ -191,43 +195,57 @@ namespace MicroFinance
         }
         void InsertCollections()
         {
-            foreach (DailyCollection loan in DailyCollectionsDetails)
+            try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+                foreach (DailyCollection loan in DailyCollectionsDetails)
                 {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand();
-                    command.Connection = connection; 
-                    command.CommandText = "select sum(Principal) from LoanCollection where LoanId='" + loan.LoanId + "'";
-                    int _remainingDue = 0;
-                    SqlDataReader dataReader = command.ExecuteReader();
-                    while(dataReader.Read())
+                    using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
                     {
-                        if (!dataReader.IsDBNull(0))
+                        connection.Open();
+                        SqlCommand command = new SqlCommand();
+                        command.Connection = connection;
+                        command.CommandText = "select sum(Principal) from LoanCollection where LoanId='" + loan.LoanId + "'";
+                        int _remainingDue = 0;
+                        SqlDataReader dataReader = command.ExecuteReader();
+                        while (dataReader.Read())
                         {
-                            _remainingDue = dataReader.GetInt32(0);
+                            if (!dataReader.IsDBNull(0))
+                            {
+                                _remainingDue = dataReader.GetInt32(0);
+                            }
                         }
-                    }
-                    dataReader.Close();
-                    _remainingDue = loan.Amount - _remainingDue-loan.Principal;
-                    string _todayDate = Convert.ToDateTime(DateBlck.Text).ToString("yyyy-MM-dd");
-                    command.CommandText = "insert into LoanCollection values('" + loan.CustId + "','" + loan.LoanId + "'," + loan.Principal + "," + loan.Interest + "," + loan.Security + "," + loan.Total + "," + loan.Attendance + ",'" +_todayDate+ "',"+loan.NOOfPayment+","+_remainingDue+")";
-                    command.ExecuteNonQuery();
-                    if(_remainingDue<=0)
-                    {
-                        command.CommandText = "update LoanDisposement set Active = 'False', EndDate = '" + _todayDate + "'  where LoanID = '" + loan.LoanId + "'";
+                        dataReader.Close();
+                        _remainingDue = loan.Amount - _remainingDue - loan.Principal;
+                        string _todayDate = Convert.ToDateTime(DateBlck.Text).ToString("yyyy-MM-dd");
+                        command.CommandText = "insert into LoanCollection values('" + loan.CustId + "','" + loan.LoanId + "'," + loan.Principal + "," + loan.Interest + "," + loan.Security + "," + loan.Total + "," + loan.Attendance + ",'" + _todayDate + "'," + loan.NOOfPayment + "," + _remainingDue + ")";
                         command.ExecuteNonQuery();
+                        if (_remainingDue <= 0)
+                        {
+                            command.CommandText = "update LoanDisposement set Active = 'False', EndDate = '" + _todayDate + "'  where LoanID = '" + loan.LoanId + "'";
+                            command.ExecuteNonQuery();
+                        }
+                        command.CommandText = "select COUNT(LoanID) from LoanDisposement where CustID='" + loan.CustId + "' and Active='True'";
+                        int _activeLoans = (int)command.ExecuteScalar();
+                        if (_activeLoans == 0)
+                        {
+                            command.CommandText = "UPDATE CustomerDetails SET IsActive='FALSE' WHERE CustId='" + loan.CustId + "'";
+                            command.ExecuteNonQuery();
+                        }
+                        denomination.InsertDenomination();
                     }
-                    command.CommandText = "select COUNT(LoanID) from LoanDisposement where CustID='" + loan.CustId + "' and Active='True'";
-                    int _activeLoans = (int)command.ExecuteScalar();
-                    if(_activeLoans==0)
-                    {
-                        command.CommandText = "UPDATE CustomerDetails SET IsActive='FALSE' WHERE CustId='" + loan.CustId + "'";
-                        command.ExecuteNonQuery();
-                    }
-                    denomination.InsertDenomination();
                 }
+
+                NavigationService.GetNavigationService(this).Navigate(new CollectionStartPage());
             }
+            catch
+            {
+                MainWindow.StatusMessageofPage(2, "Enter Proper value.....");
+            }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
     public class DailyCollection: BindableBase
