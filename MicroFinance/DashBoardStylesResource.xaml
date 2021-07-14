@@ -1,0 +1,368 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MicroFinance">
+
+    <!--Main Display Text style-->
+    <Style x:Key="DashboardBtnText" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="18"></Setter>
+        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+        <Setter Property="TextWrapping" Value="Wrap"></Setter>
+        <Setter Property="TextAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+
+    <!--Notification batch Text style-->
+    <Style x:Key="NotifyText" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+        <Setter Property="Foreground" Value="Yellow"></Setter>
+        <Setter Property="TextAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+
+    <!--Notification Batch Border-->
+    <Style x:Key="NotifyCount" TargetType="{x:Type Border}">
+        <Setter Property="CornerRadius" Value="50"></Setter>
+        <Setter Property="Background" Value="Red"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+    </Style>
+
+    <!--Dashboard Buttons main Border-->
+    <Style x:Key="MainBorder" TargetType="{x:Type Border}">
+        <Setter Property="Border.Background" Value="#FEF8F1"></Setter>
+        <Setter Property="Border.CornerRadius" Value="5"></Setter>
+        <Style.Triggers>
+            <Trigger Property="Border.IsMouseOver" Value="True">
+                <Setter Property="Border.Background" Value="Red"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Add Customer Template-->
+    <ControlTemplate  TargetType="{x:Type Button}" x:Key="AddCustomerTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\addCustomer.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Column="1"  Width="110"  Text="Add Customer" Style="{StaticResource DashboardBtnText}"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateAddCustomer">
+        <Setter Property="Template" Value="{StaticResource AddCustomerTemplate}"/>
+    </Style>
+
+    <!--Pending Customer Template-->
+    <ControlTemplate  TargetType="{x:Type Button}" x:Key="PendingCustomerTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Margin="0,-10,-10,0" Style="{StaticResource NotifyCount}" Width="25" Height="25" Grid.ColumnSpan="2">
+                <TextBlock Style="{StaticResource NotifyText}" Text="12" FontSize="14"></TextBlock>
+            </Border>
+            <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\Pendings.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Column="1"  Width="110"  Text="Pending Customer" Style="{StaticResource DashboardBtnText}"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigatePendingCustomer">
+        <Setter Property="Template" Value="{StaticResource PendingCustomerTemplate}"/>
+    </Style>
+
+    <!--Find Customer template-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="FindCustomerTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\searchingPerson.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Find Customer"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateFindCustomer">
+        <Setter Property="Template" Value="{StaticResource FindCustomerTemplate}"/>
+    </Style>
+
+    <!--Collction Entry template-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="CollectionEntryTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\accounting.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Collection Entry"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateCollectionEntry">
+        <Setter Property="Template" Value="{StaticResource CollectionEntryTemplate}"/>
+    </Style>
+
+    <!--Allowances Report template-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="AllowancesReportTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\coins.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Allowances Report"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateAllowancesReport">
+        <Setter Property="Template" Value="{StaticResource AllowancesReportTemplate}"/>
+    </Style>
+
+    <!--Loan Request Button-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="LaonRequestTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\LoanRequest.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Loan Request"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateLoanRequest">
+        <Setter Property="Template" Value="{StaticResource LaonRequestTemplate}"/>
+    </Style>
+
+    <!--Notification Button-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="NotificationTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\bell.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Notification"></TextBlock>
+            <Border Margin="0,-15,-15,0" Style="{StaticResource NotifyCount}" Width="35" Height="35" Panel.ZIndex="10">
+                <TextBlock Style="{StaticResource NotifyText}" Text="12" FontSize="18"></TextBlock>
+            </Border>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateNotification">
+        <Setter Property="Template" Value="{StaticResource NotificationTemplate}"/>
+    </Style>
+
+    <!--Add SHG Button-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="AddSHGTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\SHG.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Add SHG"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateAddSHG">
+        <Setter Property="Template" Value="{StaticResource AddSHGTemplate}"/>
+    </Style>
+
+
+    <!--Daily Reports Button-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="DailyReportsTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\detail.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Daily Reoprts"></TextBlock>
+            
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateDailyReports">
+        <Setter Property="Template" Value="{StaticResource DailyReportsTemplate}"/>
+    </Style>
+
+    <!--Loan Request Button-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="LoanRequestTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\notepad.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Loan Request"></TextBlock>
+
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateLoanRequestList">
+        <Setter Property="Template" Value="{StaticResource LoanRequestTemplate}"/>
+    </Style>
+
+
+
+  
+
+    <!--Find Customer small Template-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="FindCustomerSmallTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\searchingPerson.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Column="1"  Width="110"  Text="Find Customer" Style="{StaticResource DashboardBtnText}"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateFindCustomerSmall">
+        <Setter Property="Template" Value="{StaticResource FindCustomerSmallTemplate}"/>
+    </Style>
+
+    <!--Find Employee small Template-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="FindEmployeeSmallTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\searchEmployee.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Column="1"  Width="110"  Text="Find Employee" Style="{StaticResource DashboardBtnText}"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateFindEmployeeSmall">
+        <Setter Property="Template" Value="{StaticResource FindEmployeeSmallTemplate}"/>
+    </Style>
+
+
+    <!--Add new Employee template-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="AddEmployeeTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\team.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Add New Employee"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateAddEmployee">
+        <Setter Property="Template" Value="{StaticResource AddEmployeeTemplate}"/>
+    </Style>
+
+    <!--Add New Branch template-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="AddBranchTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\branch.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Add New Branch"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateAddBranch">
+        <Setter Property="Template" Value="{StaticResource AddBranchTemplate}"/>
+    </Style>
+
+    <!--Add New Region template-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="AddRegionTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\map.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Add New Region"></TextBlock>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateAddRegion">
+        <Setter Property="Template" Value="{StaticResource AddRegionTemplate}"/>
+    </Style>
+
+
+    <!--Loan Recomandation Button-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="LoanRecomandationTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\loan.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="130" Style="{StaticResource DashboardBtnText}" Text="Loan Recomandation"></TextBlock>
+
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateLoanRecomandationList">
+        <Setter Property="Template" Value="{StaticResource LoanRecomandationTemplate}"/>
+    </Style>
+
+
+
+    <!--Create Scheduling Button-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="CreateScheduleTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\event.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Create Schedule"></TextBlock>
+
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateCreateSchedule">
+        <Setter Property="Template" Value="{StaticResource CreateScheduleTemplate}"/>
+    </Style>
+
+    <!--Petty Cash Button-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="PettyCashTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\Wallet.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Petty Cash"></TextBlock>
+
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigatePettyCash">
+        <Setter Property="Template" Value="{StaticResource PettyCashTemplate}"/>
+    </Style>
+
+
+    <!--Petty Cash Button-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="DailyCollectionTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\money.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Daily Collection"></TextBlock>
+
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="NavigateDailyCollection">
+        <Setter Property="Template" Value="{StaticResource DailyCollectionTemplate}"/>
+    </Style>
+
+    
+    <!--Logout Button-->
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="LogoutButtonTemplate">
+        <Grid>
+            <Image Grid.Column="0" Width="28" Height="28" Source=".\Asserts\Icons\logout.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="{x:Type Button}" x:Key="LogoutButtonStyle">
+        <Setter Property="Template" Value="{StaticResource LogoutButtonTemplate}"/>
+    </Style>
+</ResourceDictionary>
