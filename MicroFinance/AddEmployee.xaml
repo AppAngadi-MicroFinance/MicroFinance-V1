@@ -5,10 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
       xmlns:validation="clr-namespace:MicroFinance.Validations"
+      xmlns:convert="clr-namespace:MicroFinance.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="630" d:DesignWidth="1366"
       Title="AddEmployee">
 
+    <Page.Resources>
+        <convert:VisiblityConverterByImage x:Key="VisibleByImage"/>
+        <convert:InverseVisiblityConverterbyImage x:Key="InverseVisibleByImage"/>
+        <convert:VisibilityConverter x:Key="VisibleByBool"/>
+        <convert:InverseVisible x:Key="InverseVisibleBool"/>
+    </Page.Resources>
     <Grid Style="{StaticResource PrimaryGrid}" x:Name="EmployeeMainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="630"/>
@@ -72,7 +79,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
                             <TextBlock Text="DOB" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                            <DatePicker x:Name="Employeedob" Style="{StaticResource DateSelecter}" Width="250" Margin="19,0,0,0" SelectedDateFormat="Short" Text="{Binding DOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                            <DatePicker x:Name="Employeedob" Style="{StaticResource DateSelecter}" Width="250" Margin="19,0,0,0" SelectedDate="{Binding DOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                             <TextBlock Text="Age" VerticalAlignment="Center" Style="{StaticResource Regular}" Margin="45,0,0,0"></TextBlock>
                             <TextBox x:Name="Employeeage" Style="{StaticResource InputBox}" Width="80" Margin="10,0,0,0" Text="{Binding Age,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"></TextBox>
                             
@@ -133,7 +140,7 @@
                         <TextBlock Grid.Row="8" Text="Education" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                         <TextBox x:Name="EmployeeEducation" Grid.Row="8" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding Education,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBlock Grid.Row="9" Text="Date of Joining" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <DatePicker x:Name="Employeejoiningdate" Grid.Row="9" Grid.Column="1" Style="{StaticResource DateSelecter}" SelectedDateFormat="Long"  Width="250" Text="{Binding DateOfJoining,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                        <DatePicker x:Name="Employeejoiningdate" Grid.Row="9" Grid.Column="1" Style="{StaticResource DateSelecter}" SelectedDateFormat="Long"  Width="250" SelectedDate="{Binding DateOfJoining,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                     </Grid>
                 </Grid>
             </Grid>
@@ -196,24 +203,40 @@
                     </TextBox>
                     <TextBlock Text="Other Details*" Style="{StaticResource SubTitle}" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="Address Proof" Grid.Row="6" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1">
+                    <StackPanel x:Name="AddressPanelofEmployee" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1">
                         <ComboBox Width="230" Style="{StaticResource combo}" x:Name="AddressProofcombo" SelectedIndex="0" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                        <Button Style="{StaticResource Add}" x:Name="AddressproofBtn" Click="AddressproofBtn_Click"></Button>
+                        <Button Style="{StaticResource Add}" x:Name="AddressproofBtn" Click="AddressproofBtn_Click" Visibility="{Binding AddressProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"></Button>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="AddressProofViewEditPanel" Visibility="{Binding AddressProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}" >
+                            <Button x:Name="ViewAddressProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" />
+                            <Button x:Name="EditAddressProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" />
+                        </StackPanel>
                     </StackPanel>
                     <TextBlock Text="Photo Proof" Grid.Row="7" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="7" Grid.Column="1">
                         <ComboBox Width="230" Style="{StaticResource combo}" x:Name="PhotoproofCombo" SelectedIndex="0" Text="{Binding PhotoProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                        <Button Style="{StaticResource Add}" x:Name="PhotoProofBtn" Click="PhotoProofBtn_Click"></Button>
+                        <Button Style="{StaticResource Add}" x:Name="PhotoProofBtn" Click="PhotoProofBtn_Click" Visibility="{Binding PhotoProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3"  Visibility="{Binding PhotoProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}" >
+                            <Button x:Name="ViewPhotoProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" />
+                            <Button x:Name="EditPhotoProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" />
+                        </StackPanel>
                     </StackPanel>
                     <TextBlock Text="Profile Photo" Grid.Row="8" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                    <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource Add}" HorizontalAlignment="Left" Margin="10,0,0,0" x:Name="ProfilePictureBtn" Click="ProfilePictureBtn_Click"></Button>
-                    
+                    <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource Add}" HorizontalAlignment="Left" Margin="10,0,0,0" x:Name="ProfilePictureBtn" Click="ProfilePictureBtn_Click" Visibility="{Binding ProfileImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"></Button>
+                    <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="1"  Visibility="{Binding ProfileImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}" >
+                        <Button x:Name="ViewProfileProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" />
+                        <Button x:Name="EditProfileProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" />
+                    </StackPanel>
+
                 </Grid>
             </Border>
             <Border Grid.Row="3" Width="500">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="Add Bank Details" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                    <Button x:Name="BankDetails" Click="BankDetails_Click" Margin="120,0,0,0" Style="{StaticResource Add}"></Button>
+                    <Button x:Name="BankDetails" Click="BankDetails_Click" Margin="100,0,0,0" Style="{StaticResource Add}" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleBool}}"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource  VisibleByBool}}" >
+                        <Button x:Name="ViewBank" Style="{StaticResource Show}"  Margin="0,0,10,0" />
+                        <Button x:Name="EditBank" Style="{StaticResource Edit}" />
+                    </StackPanel>
                 </StackPanel>
             </Border>
             <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -302,7 +325,7 @@
                             </TextBox.Text>
                         </TextBox>
                     </Grid>
-                    <Button Grid.Row="2" Height="40" Width="150" Content="Add" x:Name="SampleCheck" Click="SampleCheck_Click"></Button>
+                    <Button Grid.Row="2" Height="40" Width="150" Content="Add" Style="{StaticResource SecondaryBtn}" x:Name="SampleCheck" Click="SampleCheck_Click"></Button>
                 </Grid>
             </Border>
 

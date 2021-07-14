@@ -11,5 +11,6 @@ namespace MicroFinance.Modal
         public string LoginDesignation { get; set; }
         public string EmpId { get; set; }
         public string BranchId { get; set; }
+        public string RegionName { get; set; }
     }
 }

@@ -10,8 +10,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="70*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="75*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -22,27 +22,27 @@
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="0"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                 <TextBlock Text="Branch Name : " Style="{StaticResource Regular}" FontWeight="Bold"/>
-                <TextBlock Text="SubramaniyaBuram" Style="{StaticResource Regular}"/>
+                <TextBlock x:Name="BranchBlock" Style="{StaticResource Regular}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
                 <TextBlock Text="Center Name : " Style="{StaticResource Regular}" FontWeight="Bold"/>
-                <TextBlock Text="SubramaniyaBuram" Style="{StaticResource Regular}"/>
+                <TextBlock x:Name="CenterBlock" Style="{StaticResource Regular}"/>
             </StackPanel>
             <TextBlock Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Text="Denomination" Style="{StaticResource SubTitle}" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right">
                 <TextBlock Text="Date : " Style="{StaticResource Regular}" FontWeight="Bold"/>
-                <TextBlock Text="12-07-2021" Style="{StaticResource NumberRegular}"/>
+                <TextBlock x:Name="DateBlock"  Style="{StaticResource NumberRegular}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,43,0">
                 <TextBlock Text="Day : " Style="{StaticResource Regular}" FontWeight="Bold"/>
-                <TextBlock Text="Monday" Style="{StaticResource Regular}"/>
+                <TextBlock x:Name="DayBlock" Style="{StaticResource Regular}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Center"  VerticalAlignment="Top">
                 <TextBlock Text="Total Collected Amount : " Grid.Row="3" Style="{StaticResource Regular}" FontWeight="Bold"/>
@@ -50,28 +50,60 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-            <Grid Width="500" Height="430" Background="#e8fff2" VerticalAlignment="Top">
+            <Grid Width="450" Height="auto" Background="#e8fff2" VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="65*"/>
-                    <ColumnDefinition Width="35*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="350"/>
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Cash Denomination" Style="{StaticResource Regular}" FontWeight="Medium" HorizontalAlignment="Center" />
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="Amount" Style="{StaticResource Regular}" FontWeight="Medium" HorizontalAlignment="Center" />
-                <Border BorderBrush="Black" BorderThickness="1,1,1,0" Grid.Row="1" Grid.Column="0">
+                <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="0">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Cash Denomination" Style="{StaticResource Regular}" FontWeight="Medium" HorizontalAlignment="Center" />
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="1">
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Amount" Style="{StaticResource Regular}" FontWeight="Medium" HorizontalAlignment="Center" />
+                </Border>
+                
+                <ItemsControl x:Name="DenominationList" Grid.Row="1" Background="AliceBlue" Grid.ColumnSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate >
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="35" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="200"/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding Amount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Style="{StaticResource NumberRegular}" />
+                                        <TextBlock Text=" X " Style="{StaticResource NumberRegular}" />
+                                        <TextBox Text="{Binding Multiples,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Style="{StaticResource InputBox}" Width="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextChanged="TextBox_TextChanged"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="1" >
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Answer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Style="{StaticResource NumberRegular}" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Border BorderBrush="Black" BorderThickness="1,1,1,1" Grid.Row="2" Grid.Column="0">
+                    <TextBlock  Text="Total" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Bold"/>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="1,1,1,1" Grid.Row="2" Grid.Column="1" >
+                    <TextBox x:Name="Totalamount" Text="0"  Background="Transparent" HorizontalContentAlignment="Center" Width="200" Height="40" Style="{StaticResource  InputBox}"/>
+                </Border>
+                <!--<Border BorderBrush="Black" BorderThickness="1,1,1,0" Grid.Row="1" Grid.Column="0">
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
                         <TextBlock Text="₹.2,000" Style="{StaticResource NumberRegular}"/>
                         <TextBlock Text="X" Style="{StaticResource NumberRegular}" Margin="10,0,10,0"/>
@@ -200,8 +232,8 @@
                         <TextBlock Text="₹." Style="{StaticResource NumberRegular}" />
                         <TextBlock Text="10000" Style="{StaticResource NumberRegular}"/>
                     </StackPanel>
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1,1,1,1" Grid.Row="11" Grid.Column="0">
+                </Border>-->
+                <!--<Border BorderBrush="Black" BorderThickness="1,1,1,1" Grid.Row="11" Grid.Column="0">
                     <TextBlock  Text="Total" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Bold"/>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1,1,1,1" Grid.Row="11" Grid.Column="1">
@@ -209,8 +241,12 @@
                         <TextBlock Text="₹." Style="{StaticResource NumberRegular}" />
                         <TextBlock Text="10000" Style="{StaticResource NumberRegular}"/>
                     </StackPanel>
-                </Border>
-            </Grid>
+                </Border>-->
+                <StackPanel  Orientation="Horizontal" Background="#FEF2E4" Grid.Row="12" Grid.ColumnSpan="2">
+                    <Button x:Name="Cancel" Content="Cancel" Style="{StaticResource CancelBtn}" Margin="100,10,0,0" Click="Cancel_Click"/>
+                    <Button x:Name="SaveDenomination" Style="{StaticResource PrimaryBtn}" Content="Save"  Margin="15,10,0,0" Click="SaveDenomination_Click"/>
+                </StackPanel>
+            </Grid> 
         </Grid>
     </Grid>
 </Page>

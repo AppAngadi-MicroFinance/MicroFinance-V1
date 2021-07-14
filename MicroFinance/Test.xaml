@@ -14,7 +14,7 @@
     
     <Grid Name="MainGrid">
         <Grid x:Name="PopUpGrid"></Grid>
-
+    
 
         <!--<Border BorderBrush="Blue" BorderThickness="2" Visibility="Hidden" Height="60" Width="910" CornerRadius="5" >
             <Grid Height="50" Width="900">

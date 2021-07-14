@@ -255,6 +255,7 @@ namespace MicroFinance.Modal
                                     BankBranchName = reader.GetString(30),
                                     IFSCCode = reader.GetString(31),
                                     MICRCode = reader.GetString(32),
+                                    
                                     //}
                                     //if (reader.GetBoolean(24))
                                     //{
@@ -289,6 +290,7 @@ namespace MicroFinance.Modal
         {
             GetRequestDetails(ID);
             RequestApproval(ID);
+            string LoanId = GenerateLoanID();
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
             {
                 sqlconn.Open();
@@ -296,9 +298,13 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "insert into LoanDetails(LoanID,CustomerID,LoanType,LoanPeriod,InterestRate,RequestedBY,ApprovedBy,ApproveDate,LoanAmount)values('" + GenerateLoanID() + "','" + _customerId + "','" + LoanType + "'," + LoanPeriod + "," + InterestRate + ",'" + EmployeeID + "','" + ApprovedBy + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "'," + LoanAmount + ")";
+                    sqlcomm.CommandText = "insert into LoanDetails(LoanID,CustomerID,LoanType,LoanPeriod,InterestRate,RequestedBY,ApprovedBy,ApproveDate,LoanAmount)values('" +LoanId  + "','" + _customerId + "','" + LoanType + "'," + LoanPeriod + "," + InterestRate + ",'" + EmployeeID + "','" + ApprovedBy + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "'," + LoanAmount + ")";
+                    sqlcomm.ExecuteNonQuery();
+                    sqlcomm = new SqlCommand();
+                    sqlcomm.CommandText = "insert into LoanCollection values ('" + LoanId + "','" + _customerId + "','" + InstallmentWeek(LoanPeriod) + "',"+LoanAmount+",'"+DateTime.Today.ToString("MM-dd-yyyy")+ "','" + DateTime.Today.ToString("MM-dd-yyyy") + "','"+LoanType+"','True')";
                     sqlcomm.ExecuteNonQuery();
                 }
+                sqlconn.Close();
             }
 
         }
@@ -315,6 +321,24 @@ namespace MicroFinance.Modal
                     sqlcomm.ExecuteNonQuery();
                 }
             }
+        }
+
+        public int InstallmentWeek(int month)
+        {
+            int Result = 0;
+            switch(month)
+            {
+                case 12:
+                    Result = 50;
+                    break;
+                case 24:
+                    Result = 100;
+                    break;
+                case 6:
+                    Result = 25;
+                    break;
+            }
+            return Result;
         }
        
 

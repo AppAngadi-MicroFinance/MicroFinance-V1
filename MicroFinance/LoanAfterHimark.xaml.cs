@@ -27,20 +27,20 @@ namespace MicroFinance
         {
             InitializeComponent();
             loanprocess.GetRecommendList();
-            //setCount();
-            //setAmount();
             RecommendList.Clear();
             RecommendList = loanprocess.RecommendList;
             Custlist.ItemsSource = RecommendList;
+            setCount();
+            setAmount();
         }
         void setCount()
         {
             int count1 = 0;
             int count2 = 0;
-            foreach (Cust c in LoanRecommend.RecommenedList)
+            foreach (LoanProcess c in RecommendList)
             {
 
-                if (c.LoanType == "General")
+                if (c.LoanType == "General Loan")
                 {
                     count1++;
                 }
@@ -56,9 +56,8 @@ namespace MicroFinance
         {
             int Amount1 = 0;
             int Amount2 = 0;
-            foreach (Cust c in LoanRecommend.RecommenedList)
+            foreach (LoanProcess c in RecommendList)
             {
-
                 Amount1 += c.LoanAmount;
             }
             LoanAmountValue.Text = Amount1.ToString();
@@ -76,12 +75,20 @@ namespace MicroFinance
             Button btn = sender as Button;
             string ID = btn.Uid.ToString();
             Custlist.Items.Refresh();
+            if(loan.IsAlreadyApproved(ID))
+            {
+                MainWindow.StatusMessageofPage(1, "Loan Already Approved!...");
+            }
+            else
+            {
+                loan = GetRecommendDetails(ID);
+                string ApprovedBy = MainWindow.LoginDesignation.EmpId;
+                loan.ApprovedBy = ApprovedBy;
+                loan.ApproveLoan(ID);
+                MainWindow.StatusMessageofPage(1, "Loan Approved Successfully...");
+            }
             
-            loan = GetRecommendDetails(ID);
-            string ApprovedBy = MainWindow.LoginDesignation.EmpId;
-            loan.ApprovedBy = ApprovedBy;
-            loan.ApproveLoan(ID);
-            //MessageBox.Show(loan.ToString());
+            
         }
 
         public LoanProcess GetRecommendDetails(string ID)

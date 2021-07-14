@@ -13,7 +13,7 @@ namespace MicroFinance.Modal
 
         }
 
-        private int _messageType = 0;
+        private int _messageType = 1;
 
         public int MessageType
         {

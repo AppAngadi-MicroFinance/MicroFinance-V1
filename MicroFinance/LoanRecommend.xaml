@@ -16,11 +16,13 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="50*"/>
-                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="15*"/>
+                    <RowDefinition Height="15*"/>
                 </Grid.RowDefinitions>
-                <Border BorderBrush="Black" BorderThickness="1" Width="500" Height="150" Grid.Row="0">
+                <Border BorderBrush="Black" BorderThickness="1" Width="500" Height="150" Grid.Row="1">
                     <Grid >
                         <Grid.ColumnDefinitions >
                             <ColumnDefinition  Width="350"/>
@@ -51,7 +53,7 @@
                         </Border>
                     </Grid>
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="1" Width="500" Height="250" Grid.Row="1">
+                <Border BorderBrush="Black" BorderThickness="1" Width="500" Height="250" Grid.Row="2">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
@@ -83,7 +85,7 @@
                                             <ColumnDefinition Width="220"/>
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1,0,0,1"  Height="30">
-                                            <TextBlock Text="{Binding CustName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center"/>
                                         </Border>
                                         <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1,0,0,1"  Height="30">
                                             <TextBlock Text="{Binding LoanAmount,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center"/>
@@ -95,15 +97,15 @@
                     </Grid>
 
                 </Border>
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2">
-                    <Button x:Name="DownloadExcelBtn" Content="Download Excel" Style="{StaticResource SecondaryBtn}" Width="150" />
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3">
+                    <Button x:Name="DownloadExcelBtn" Content="Download Excel" Style="{StaticResource SecondaryBtn}" Width="150" Click="DownloadExcelBtn_Click" />
                     <!--<Button x:Name="SendToHiMarkBtn" Content="Send To Hi-Mark" Style="{StaticResource PrimaryBtn}" Margin="0,10,0,0" Width="150" Click="SendToHiMarkBtn_Click" />-->
 
                 </StackPanel>
             </Grid>
-            <ScrollViewer Height="530" Width="630" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <ItemsControl Height="530" Width="630" x:Name="Custlist" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible"  ScrollViewer.IsDeferredScrollingEnabled="True" BorderBrush="Gray" BorderThickness="2" >
-                    <ItemsControl.ItemTemplate>
+            
+                <ListBox Height="530" Width="630" x:Name="Custlist" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible"  ScrollViewer.IsDeferredScrollingEnabled="True" BorderBrush="Gray" BorderThickness="2" >
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border Background="Beige" Height="100" Width="600" CornerRadius="10">
                                 <Grid ShowGridLines="False" x:Name="MainGrid1">
@@ -250,7 +252,7 @@
                                                 </Border>
                                                 <ToggleButton Grid.Row="1" Style="{StaticResource SecondaryToggleBtn}" Content="More Details" VerticalAlignment="Bottom" Margin="0,0,0,20" IsChecked="{Binding IsOpen,ElementName=CustMoreDetailsPanel}"></ToggleButton>
                                                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
-                                                    <Button x:Name="ApprovetoHiMarkBtn" Uid="{Binding LoanRequestID,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Click="ApprovetoHiMarkBtn_Click" Style="{StaticResource PrimaryBtn}" Content="Approve to Hi-Mark" Width="200"></Button>
+                                                    <Button x:Name="ApprovetoHiMarkBtn" Uid="{Binding LoanRequestID,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Click="ApprovetoHiMarkBtn_Click" Style="{StaticResource PrimaryBtn}" Content="Recommend" Width="200"></Button>
                                                     <!-- <Button Style="{StaticResource DangerBtn}" Margin="10,0,0,0" Content="Reject"></Button>-->
                                                 </StackPanel>
                                                 <Border Grid.Row="2" Grid.Column="1" Height="40" Width="400" Visibility="Hidden" BorderBrush="#707070" BorderThickness="1">
@@ -360,9 +362,9 @@
 
                             </Border>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            
             
 
         </Grid>

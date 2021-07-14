@@ -16,11 +16,11 @@ namespace MicroFinance.Converters
         {
             int _type = (int)value;
 
-            if(_type==0)
+            if(_type==1)
             {
                 return "Asserts/Icons/Done-Shield-WF.png";
             }
-            else if(_type==1)
+            else if(_type==2)
             {
                 return "Asserts/Icons/Warning Shield-WF.png";
             }

@@ -1,0 +1,35 @@
+﻿<Page x:Class="MicroFinance.CollectionStartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      d:DesignHeight="630" d:DesignWidth="1366" Background="#FEF2E4"
+      Title="CollectionStartPage">
+
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Branch Name" Style="{StaticResource Regular}" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
+            <ComboBox Style="{StaticResource combo}" Margin="15,0,0,0" x:Name="BranchBox" Grid.Row="0" Grid.Column="1" IsEnabled="False"/>
+            <TextBlock Text="Field Officer" Style="{StaticResource Regular}" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
+            <ComboBox Style="{StaticResource combo}" Margin="15,0,0,0" x:Name="FieldOfficerBox" Grid.Row="1" Grid.Column="1" IsEnabled="False"/>
+            <TextBlock Text="Self Help Group" Style="{StaticResource Regular}" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
+            <ComboBox Style="{StaticResource combo}" Margin="15,0,0,0" x:Name="SHGBox" Grid.Row="2" Grid.Column="1"/>
+            <TextBlock Text="Date" Style="{StaticResource Regular}" FontWeight="Bold" Grid.Row="3" Grid.Column="0"/>
+            <DatePicker x:Name="DateBox" Grid.Row="3" Grid.Column="1" Width="200" HorizontalAlignment="Center" Margin="0,8,-15,0"/>
+            <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"  x:Name="EnterBtn" Style="{StaticResource SecondaryBtn}" Content="Continue" Click="EnterBtn_Click"/>
+        </Grid>
+    </Grid>
+</Page>

@@ -25,83 +25,64 @@ namespace MicroFinance
         public static LoginDetails LoginDesignation = new LoginDetails();
         public MainWindow()
         {
+            LoginDesignation.LoginDesignation = "Field Officer";
+            LoginDesignation.EmpId = "0100220210702";
+            LoginDesignation.BranchId = "01202106002";
+            LoginDesignation.RegionName = "Trichy";
             InitializeComponent();
             MessageStatus.DataContext = StatusMsg;
-            
+            mainframe.NavigationService.Navigate(new Test());
         }
         public static void StatusMessageofPage(int Type, string Message)
         {
             StatusMsg.MessageType = Type;
             StatusMsg.StatusMessage = Message;
         }
-
-
-        //Login
-        private void xLoginButton_Click(object sender, RoutedEventArgs e)
+        private void CreEmployee_Click(object sender, RoutedEventArgs e)
         {
-            Navigate();
+            mainframe.NavigationService.Navigate(new AddEmployee());
         }
 
-        
-        public void Navigate()
+        private void CrBranch_Click(object sender, RoutedEventArgs e)
         {
-            string UserName = xUserName.Text;
-            string Password = xPassword.Text;
-            if (Validation(UserName, Password))
-            {
-                //int power = GetDesignation();
-                int power = int.Parse(UserName);
-                if (power == 1)
-                {
-                    mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
-                }
-                else if (power == 2)
-                {
-                    mainframe.NavigationService.Navigate(new DashboardAccountant());
-                }
-                else if(power == 3)
-                {
-                    mainframe.NavigationService.Navigate(new DashboardBranchManager());
-                }
-                else if(power == 4)
-                {
-                    mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
-                }
-                LogInState();
-            }
+            mainframe.NavigationService.Navigate(new CreateBranch());
         }
 
-        void LogInState()
+        private void modifyemployee_Click(object sender, RoutedEventArgs e)
         {
-            xLogoutButton.Visibility = Visibility.Visible;
-            xLoginWindow.Visibility = Visibility.Collapsed;
+            mainframe.NavigationService.Navigate(new ModifyEmployee());
+        }
+        private void Addregion_Click(object sender, RoutedEventArgs e)
+        {
+            AddRegion ad = new AddRegion();
+            ad.ShowDialog();
 
-            xUserName.Text = string.Empty;
-            xPassword.Text = string.Empty;
         }
 
-        void LogOutState()
+        private void CustomerAdd_Click(object sender, RoutedEventArgs e)
         {
-            xLogoutButton.Visibility = Visibility.Collapsed;
-            xLoginWindow.Visibility = Visibility.Visible;
+            mainframe.NavigationService.Navigate(new dummypage());
         }
 
-
-        public bool Validation(string userName, string passWord)
+        private void LoanRequestFO_Click(object sender, RoutedEventArgs e)
         {
-            return true;
+            mainframe.NavigationService.Navigate(new LoanRequest());
+
         }
 
-
-        public int GetDesignation()
+        private void SendtoHimark_Click(object sender, RoutedEventArgs e)
         {
-            return 1;
+            mainframe.NavigationService.Navigate(new LoanRecommend());
         }
 
-        private void xLogoutButton_Click(object sender, RoutedEventArgs e)
+        private void ApprovefromHImark_Click(object sender, RoutedEventArgs e)
         {
-            mainframe.Content = null;
-            LogOutState();
+            mainframe.NavigationService.Navigate(new LoanAfterHimark());
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            mainframe.NavigationService.Navigate(new CollectionStartPage());
         }
     }
 }
