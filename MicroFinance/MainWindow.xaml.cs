@@ -28,6 +28,7 @@ namespace MicroFinance
             LoginDesignation.LoginDesignation = "Field Officer";
             LoginDesignation.EmpId = "0100220210702";
             LoginDesignation.BranchId = "01202106002";
+            LoginDesignation.RegionName = "Trichy";
             InitializeComponent();
             MessageStatus.DataContext = StatusMsg;
             mainframe.NavigationService.Navigate(new Test());

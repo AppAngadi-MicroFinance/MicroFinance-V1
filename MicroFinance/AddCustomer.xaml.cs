@@ -283,7 +283,7 @@ namespace MicroFinance
         {
             if (CustomerValidation() == false)
             {
-                MainWindow.StatusMessageofPage(1, "Please Enter Require Fields....");
+                MainWindow.StatusMessageofPage(0, "Please Enter Require Fields....");
             }
             else
             {
@@ -306,7 +306,7 @@ namespace MicroFinance
             }
             else
             {
-                StatusMessageWhileCapturingImage(2, "Please Capture or Select Photo To Save....");
+                StatusMessageWhileCapturingImage(0, "Please Capture or Select Photo To Save....");
                 //CaptureImageStatus.Text = "Please Capture or Select Photo";
             }
         }
@@ -521,7 +521,7 @@ namespace MicroFinance
         {
             if (!CheckGuarantorValidation())
             {
-                MainWindow.StatusMessageofPage(2, "Please Enter Required Fields....");
+                MainWindow.StatusMessageofPage(0, "Please Enter Required Fields....");
             }
             else
             {
