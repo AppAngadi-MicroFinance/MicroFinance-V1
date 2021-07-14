@@ -47,7 +47,7 @@
                 <TextBlock Text="Date : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                 <TextBlock x:Name="DateBlck" Style="{StaticResource NumberRegular}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,43,0">
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,0,0">
                 <TextBlock Text="Day : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                 <TextBlock x:Name="DayBlck"  Style="{StaticResource Regular}"/>
             </StackPanel>
@@ -240,8 +240,11 @@
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
                     <StackPanel>
-                        <Button x:Name="AddDenomination" Content="Add Denomination" Style="{StaticResource SecondaryBtn}" Width="140" Click="AddDenomination_Click"/>
-                        <Button x:Name="SaveCollection" Content="Save" Style="{StaticResource PrimaryBtn}" Margin="0,30,0,0" Click="SaveCollection_Click" IsEnabled="False"/>
+                        <Button x:Name="AddDenomination" Content="Add Denomination" IsEnabled="False" Style="{StaticResource SecondaryBtn}" Width="140" Click="AddDenomination_Click"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
+                            <Button x:Name="Cancel" Content="Cancel" Style="{ StaticResource CancelBtn}" Click="Cancel_Click"/>
+                            <Button x:Name="SaveCollection" Content="Save" Style="{StaticResource PrimaryBtn}" Margin="15,0,0,0" Click="SaveCollection_Click" IsEnabled="False"/>
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
             </Grid>

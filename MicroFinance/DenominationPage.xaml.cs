@@ -81,12 +81,12 @@ namespace MicroFinance
             if (initialAmt == currentAmt)
             {
                 _checkIsValid = true;
-                TotalPanel.Background = new SolidColorBrush(Colors.Green);
+                TotalAmount.Background = new SolidColorBrush(Colors.Green);
             }
             else
             {
                 _checkIsValid = false;
-                TotalPanel.Background = new SolidColorBrush(Colors.Red);
+                TotalAmount.Background = new SolidColorBrush(Colors.Red);
             }
 
         }
@@ -143,6 +143,11 @@ namespace MicroFinance
                 command.CommandText = "insert into DenominationTable values('" + _regionName + "','" + _branchId + "','" + _date + "','" + _empId + "'," + _twoThousand + "," + _fiveHundred + "," + _twoHundred + "," + _hundred + "," + _fifty + "," + _twenty + "," + _ten + "," + _five + "," + _two + "," + _one + ")";
                 command.ExecuteNonQuery();
             }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

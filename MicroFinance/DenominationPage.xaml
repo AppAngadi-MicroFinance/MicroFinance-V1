@@ -101,9 +101,7 @@
                     <TextBlock  Text="Total" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Bold"/>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1,1,1,1" Grid.Row="2" Grid.Column="1" >
-                    <StackPanel x:Name="TotalPanel" Orientation="Horizontal" Width="200" Height="40" HorizontalAlignment="Center" >
-                        <TextBlock x:Name="Totalamount" Text="0"  Style="{StaticResource  NumberRegular}"/>
-                    </StackPanel>
+                    <TextBox x:Name="Totalamount" Text="0"  Background="Transparent" HorizontalContentAlignment="Center" Width="200" Height="40" Style="{StaticResource  InputBox}"/>
                 </Border>
                 <!--<Border BorderBrush="Black" BorderThickness="1,1,1,0" Grid.Row="1" Grid.Column="0">
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
@@ -245,7 +243,8 @@
                     </StackPanel>
                 </Border>-->
                 <StackPanel  Orientation="Horizontal" Background="#FEF2E4" Grid.Row="12" Grid.ColumnSpan="2">
-                    <Button x:Name="SaveDenomination" Style="{StaticResource PrimaryBtn}" Content="Save"  Margin="180,10,0,0" Click="SaveDenomination_Click"/>
+                    <Button x:Name="Cancel" Content="Cancel" Style="{StaticResource CancelBtn}" Margin="100,10,0,0" Click="Cancel_Click"/>
+                    <Button x:Name="SaveDenomination" Style="{StaticResource PrimaryBtn}" Content="Save"  Margin="15,10,0,0" Click="SaveDenomination_Click"/>
                 </StackPanel>
             </Grid> 
         </Grid>

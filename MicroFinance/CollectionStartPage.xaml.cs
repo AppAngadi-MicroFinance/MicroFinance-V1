@@ -24,6 +24,7 @@ namespace MicroFinance
         public CollectionStartPage()
         {
             InitializeComponent();
+            DateBox.SelectedDate = DateTime.Today;
             GetDetails();
         }
         void GetDetails()
