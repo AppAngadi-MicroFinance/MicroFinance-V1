@@ -29,7 +29,7 @@
         <Frame Grid.Row="1" x:Name="mainframe" NavigationUIVisibility="Hidden"></Frame>
 
         <!--Login window-->
-        <Border Background="Gray" Width="500" Height="300" BorderBrush="White" BorderThickness="2" CornerRadius="10" Grid.Row="1">
+        <Border Background="Gray" Width="500" Height="300" BorderBrush="White" BorderThickness="2" CornerRadius="10" Grid.Row="1" Name="LoginBorder">
             <Grid x:Name="xLoginWindow" Grid.Row="1" Width="450" Height="280" VerticalAlignment="Center" ShowGridLines="False">
 
                 <Grid.RowDefinitions>

@@ -45,26 +45,31 @@ namespace MicroFinance
 
         private void xLoginButton_Click(object sender, RoutedEventArgs e)
         {
+
             string UserName = xUserName.Text;
             string Password = xPassword.Password;
             int power = int.Parse(UserName);
             if (power == 1)
             {
+                LoginBorder.Visibility = Visibility.Collapsed;
                 mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
                 LoggedInState();
             }
             else if(power == 2)
             {
+                LoginBorder.Visibility = Visibility.Collapsed;
                 mainframe.NavigationService.Navigate(new DashboardAccountant());
                 LoggedInState();
             }
             else if (power == 3)
             {
+                LoginBorder.Visibility = Visibility.Collapsed;
                 mainframe.NavigationService.Navigate(new DashboardBranchManager());
                 LoggedInState();
             }
             else if (power == 4)
             {
+                LoginBorder.Visibility = Visibility.Collapsed;
                 mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
                 LoggedInState();
             }
