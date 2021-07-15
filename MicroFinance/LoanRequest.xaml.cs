@@ -118,7 +118,7 @@ namespace MicroFinance
                     List<string> ActiveAndEligibleCustomerId = new List<string>();
                     foreach(string id in CustomerIds)
                     {
-                        command.CommandText = "select count(CustId) from CustomerDetails where CustomerDetails.CustId='" + id + "' and CustomerDetails.IsActive='True' and (select count(LoanDisposement.Active) from LoanDisposement where LoanDisposement.CustID='" + id + "')<2";
+                        command.CommandText = "select count(CustId) from CustomerDetails where CustomerDetails.CustId='" + id + "' and CustomerDetails.CustomerStatus='3' and (select count(LoanDisposement.Active) from LoanDisposement where LoanDisposement.CustID='" + id + "')<2";
                         if((int)command.ExecuteScalar()>0)
                         {
                             ActiveAndEligibleCustomerId.Add(id);
