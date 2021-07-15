@@ -50,5 +50,10 @@ namespace MicroFinance
             xSearchPersonPop.Visibility = Visibility.Collapsed;
             xSearchBoxCustomer.Clear();
         }
+
+        private void xPendingCustomerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new FieldOfficerUpdateCustomer());
+        }
     }
 }
