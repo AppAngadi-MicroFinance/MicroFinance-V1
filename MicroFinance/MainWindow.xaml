@@ -8,8 +8,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1366" Background="#FEF2E4" WindowStartupLocation="CenterScreen">
     <Window.Resources>
+       
         <Convert:StatusForegroundColor x:Key="StatusColor"></Convert:StatusForegroundColor>
         <Convert:StatusImage x:Key="ImageConvert"></Convert:StatusImage>
+        
     </Window.Resources>
     <Grid Height="768" Width="1366" ShowGridLines="False">
         <Grid.RowDefinitions>
@@ -27,20 +29,32 @@
         <Frame Grid.Row="1" x:Name="mainframe" NavigationUIVisibility="Hidden"></Frame>
 
         <!--Login window-->
-        <Grid x:Name="xLoginWindow" Grid.Row="1" Width="500" Height="300" VerticalAlignment="Center" Background="Gray">
-            <StackPanel VerticalAlignment="Center">
-                <StackPanel Width="400" Height="50">
-                    <TextBlock Text="Username  :" HorizontalAlignment="Left"></TextBlock>
-                    <TextBox x:Name="xUserName" Width="300" Height="40" HorizontalAlignment="Left"></TextBox>
-                </StackPanel>
-                <StackPanel Width="400" Height="50">
-                    <TextBlock Text="Password  :" HorizontalAlignment="Left"></TextBlock>
-                    <TextBox x:Name="xPassword" Width="300" Height="40" HorizontalAlignment="Left"></TextBox>
-                </StackPanel>
+        <Border Background="Gray" Width="500" Height="300" BorderBrush="White" BorderThickness="2" CornerRadius="10" Grid.Row="1">
+            <Grid x:Name="xLoginWindow" Grid.Row="1" Width="450" Height="280" VerticalAlignment="Center" ShowGridLines="False">
 
-                <Button x:Name="xLoginButton" Click="xLoginButton_Click" Width="200" Height="40" Background="Orange" Content="Sign in"></Button>
-            </StackPanel>
-        </Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50px"/>
+                    <RowDefinition Height="30px"/>
+                    <RowDefinition Height="50px"/>
+                    <RowDefinition Height="30px"/>
+                    <RowDefinition Height="50px"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Login" Style="{StaticResource Title}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontWeight="SemiBold"></TextBlock>
+                <TextBlock Text="User Name" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource Regular}" Foreground="White" Margin="80,0,0,0"></TextBlock>
+                <TextBox x:Name="xUserName" Width="300" Height="40" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource UserNamebox}">
+                </TextBox>
+                <TextBlock Text="Password" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="3" Style="{StaticResource Regular}" Foreground="White"></TextBlock>
+                <PasswordBox x:Name="xPassword" Width="300" Height="40" HorizontalAlignment="Center" Grid.Row="4" Style="{StaticResource UserPasswordbox}">
+                </PasswordBox>
+
+                <Button Style="{StaticResource WarningShield}" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0" Visibility="Collapsed"></Button>
+                <Button Style="{StaticResource WarningShield}" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0" Visibility="Collapsed"></Button>
+                <Button Grid.Row="6" x:Name="xLoginButton" Click="xLoginButton_Click" Width="200" Height="40" Content="Sign In" Style="{StaticResource LoginButton}"></Button>
+
+            </Grid>
+        </Border>
+        
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#e8fff2" x:Name="MessageStatus">
             <Image Width="25" Height="25" Source="{Binding MessageType,Converter={StaticResource ImageConvert},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>

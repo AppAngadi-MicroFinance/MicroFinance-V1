@@ -46,7 +46,7 @@ namespace MicroFinance
         private void xLoginButton_Click(object sender, RoutedEventArgs e)
         {
             string UserName = xUserName.Text;
-            string Password = xPassword.Text;
+            string Password = xPassword.Password;
             int power = int.Parse(UserName);
             if (power == 1)
             {
