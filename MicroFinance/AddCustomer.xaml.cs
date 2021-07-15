@@ -854,6 +854,7 @@ namespace MicroFinance
 
         private void GuarantorCancel_Click(object sender, RoutedEventArgs e)
         {
+            EnableDisableBackground(true);
             GuarantorWindow.Visibility = Visibility.Collapsed;
         }
 
