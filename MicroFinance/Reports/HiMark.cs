@@ -1320,7 +1320,7 @@ namespace MicroFinance.Reports
             EmpID.Font.Bold = true;
             EmpID.Font.Size = 11;
             EmpID.RowHeight = 46;
-            EmpID.ColumnWidth = 9;
+            EmpID.ColumnWidth = 15;
             EmpID.NumberFormat = "@";
             EmpID.WrapText = true;
             EmpID.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
