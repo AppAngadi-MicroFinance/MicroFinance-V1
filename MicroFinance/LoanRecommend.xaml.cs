@@ -85,14 +85,14 @@ namespace MicroFinance
             Custlist.Items.Refresh();
             if(loanProcess.IsAlreadyRecommend(ID))
             {
-                MainWindow.StatusMessageofPage(1, "This loan is Already Recommend");
+                MainWindow.StatusMessageofPage(0, "This loan is Already Recommend");
             }
             else
             {
                 loanProcess.RecommendLoan(ID);
                 AddtoRecommendList(ID);
                 SelectedCustomersView.Items.Refresh();
-                MainWindow.StatusMessageofPage(0, "loan Recommend Successfully...");
+                MainWindow.StatusMessageofPage(1, "loan Recommend Successfully...");
 
             }
             
@@ -125,7 +125,7 @@ namespace MicroFinance
                 himarkReport = new HiMark();
                 himarkReport.hiMarksList = Himarklist;
                 himarkReport.createHimarkXls();
-                MainWindow.StatusMessageofPage(0, "Excel Export Successfully... Location: D:\\");
+                MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: D:\\");
             }
             catch 
             {
