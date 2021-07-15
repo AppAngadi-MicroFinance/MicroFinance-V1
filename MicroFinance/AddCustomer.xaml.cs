@@ -42,6 +42,8 @@ namespace MicroFinance
             PhotoProfileGrid.DataContext = customer;
             BankGrid.DataContext = customer;
             AadharNoGrid.DataContext = customer;
+            Male.DataContext = customer;
+            Female.DataContext = customer;
 
             GurantorGrid.DataContext = guarantor;
             GuarantorAddressDetails.DataContext = guarantor;
@@ -71,6 +73,7 @@ namespace MicroFinance
             PhotoProfileGrid.DataContext = customer;
             BankGrid.DataContext = customer;
             AadharNoGrid.DataContext = customer;
+            GenderPanel.DataContext = customer;
 
             GurantorGrid.DataContext = guarantor;
             GuarantorAddressDetails.DataContext = guarantor;
@@ -543,36 +546,66 @@ namespace MicroFinance
                 MainWindow.StatusMessageofPage(1, "Successfully Guarantor Added...");
                 if (guarantor.IsNominee)
                 {
-                    nominee.NomineeName = guarantor.GuarantorName;
-                    nominee.DateofBirth = guarantor.DateofBirth;
-                    nominee.Age = guarantor.Age;
-                    nominee.ContactNumber = guarantor.ContactNumber;
-                    nominee.Occupation = guarantor.Occupation;
-                    nominee.RelationShip = guarantor.RelationShip;
-                    nominee.DoorNumber = guarantor.DoorNumber;
-                    nominee.StreetName = guarantor.StreetName;
-                    nominee.LocalityTown = guarantor.LocalityTown;
-                    nominee.Pincode = guarantor.Pincode;
-                    nominee.City = guarantor.City;
-                    nominee.State = guarantor.State;
+
+                    NomineeNameBox.Text = guarantor.GuarantorName;
+                    NomineeSelectDOB.SelectedDate = guarantor.DateofBirth;
+                    if(guarantor.Gender=="Male")
+                    {
+                        NMale.IsChecked = true;
+                    }
+                    else
+                    {
+                        NFemale.IsChecked = true;
+                    }
+                    NomineeContactBox.Text = guarantor.ContactNumber;
+                    NomineeOccupationBox.Text = guarantor.Occupation;
+                    NomineeRelationshipBox.Text = guarantor.RelationShip;
+                    NomineeHouseNOBox.Text = guarantor.DoorNumber;
+                    NomineeStreetNameBox.Text = guarantor.StreetName;
+                    NomineeLocalityBox.Text = guarantor.LocalityTown;
+                    NomineeCityBox.Text = guarantor.City;
+                    NomineePincodeBox.Text = guarantor.Pincode;
+                    NomineeStateBox.Text = guarantor.State;
                     nominee.IsNomineeNull = true;
+                    NomineeAddressProofBox.Text = guarantor.NameofAddressProof;
+                    NomineePhotoProofBox.Text = guarantor.NameofPhotoProof;
+                    SameAsCustomerAddressForNominee.IsChecked = SameAsCustomerAddress.IsChecked;
                     nominee.AddressProof = guarantor.AddressProof;
                     nominee.PhotoProof = guarantor.PhotoProof;
                     nominee.ProfilePicture = guarantor.ProfilePicture;
                     nominee.NameofAddressProof = guarantor.NameofAddressProof;
                     nominee.NameofPhotoProof = guarantor.NameofPhotoProof;
-                    NomineeAddressProofBox.Text = guarantor.NameofAddressProof;
-                    NomineePhotoProofBox.Text = guarantor.NameofPhotoProof;
-                    SameAsCustomerAddressForNominee.IsChecked = SameAsCustomerAddress.IsChecked;
-                    if (SameAsCustomerAddress.IsChecked == true)
-                    {
-                        nominee.DoorNumber = guarantor.DoorNumber;
-                        nominee.StreetName = guarantor.StreetName;
-                        nominee.LocalityTown = guarantor.LocalityTown;
-                        nominee.Pincode = guarantor.Pincode;
-                        nominee.City = guarantor.City;
-                        nominee.State = guarantor.City;
-                    }
+
+                    //nominee.NomineeName = guarantor.GuarantorName;
+                    //nominee.DateofBirth = guarantor.DateofBirth;
+                    //nominee.Age = guarantor.Age;
+                    //nominee.ContactNumber = guarantor.ContactNumber;
+                    //nominee.Occupation = guarantor.Occupation;
+                    //nominee.RelationShip = guarantor.RelationShip;
+                    //nominee.DoorNumber = guarantor.DoorNumber;
+                    //nominee.StreetName = guarantor.StreetName;
+                    //nominee.LocalityTown = guarantor.LocalityTown;
+                    //nominee.Pincode = guarantor.Pincode;
+                    //nominee.City = guarantor.City;
+                    //nominee.State = guarantor.State;
+                    //nominee.IsNomineeNull = true;
+                    //nominee.AddressProof = guarantor.AddressProof;
+                    //nominee.PhotoProof = guarantor.PhotoProof;
+                    //nominee.ProfilePicture = guarantor.ProfilePicture;
+                    //nominee.NameofAddressProof = guarantor.NameofAddressProof;
+                    //nominee.NameofPhotoProof = guarantor.NameofPhotoProof;
+                    //NomineeAddressProofBox.Text = guarantor.NameofAddressProof;
+                    //NomineePhotoProofBox.Text = guarantor.NameofPhotoProof;
+                    //SameAsCustomerAddressForNominee.IsChecked = SameAsCustomerAddress.IsChecked;
+                    ////if (SameAsCustomerAddress.IsChecked == true)
+                    ////{
+                    ////    nominee.DoorNumber = guarantor.DoorNumber;
+                    ////    nominee.StreetName = guarantor.StreetName;
+                    ////    nominee.LocalityTown = guarantor.LocalityTown;
+                    ////    nominee.Pincode = guarantor.Pincode;
+                    ////    nominee.City = guarantor.City;
+                    ////    nominee.State = guarantor.City;
+                    ////}
                     MainWindow.StatusMessageofPage(1, "Successfully Guarantor and Nominee Added...");
                 }
             }
@@ -1360,13 +1393,13 @@ namespace MicroFinance
         private void NomineeCityBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             NomineeCityBox.BorderBrush = GrayColor;
-            NomineeCityBox.Visibility = Visibility.Collapsed;
+            NomineeCityError.Visibility = Visibility.Collapsed;
         }
 
         private void NomineeStateBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             NomineeStateBox.BorderBrush = GrayColor;
-            NomineeStateBox.Visibility = Visibility.Collapsed;
+            NomineeStateError.Visibility = Visibility.Collapsed;
         }
 
         private void GuarantorPincodeBox_TextChanged(object sender, TextChangedEventArgs e)
