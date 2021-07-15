@@ -105,10 +105,10 @@
                                         <TextBlock Text="Age : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                                         <TextBlock x:Name="CustomerAgeBlock" Text="{Binding Age,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Margin="0,3,0,0"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="7">
+                                    <!--<StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="7">
                                         <TextBlock Text="Remaining Amount : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                                         <TextBlock x:Name="PendingAmount" Text="{Binding PendingAmount,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource MoneyChange}}" Style="{StaticResource NumberRegular}"/>
-                                    </StackPanel>
+                                    </StackPanel>-->
                                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3">
                                         <TextBlock Text="Guarantor : " Style="{StaticResource Regular}"  FontWeight="Bold"/>
                                         <TextBlock x:Name="GuarantorNameBlock" Text="{Binding GuarantorName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="3"/>
@@ -118,13 +118,13 @@
                                         <TextBlock Text="Nominee : " Style="{StaticResource Regular}"  FontWeight="Bold"/>
                                         <TextBlock x:Name="NomineeNameBlock" Text="{Binding NomineeName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="5"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="7">
+                                    <!--<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="7">
                                         <TextBlock Text="Remaining Weeks : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                                         <Border CornerRadius="9" Grid.Row="1" Grid.Column="7" BorderBrush="Black" BorderThickness="1" Background="#BB40A6" Width="100" HorizontalAlignment="Left" Margin="0,0,0,5">
                                             <TextBlock x:Name="PendingWeeksBlock" Text="{Binding PendingStatus,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource Regular}" FontWeight="Bold" HorizontalAlignment="Center" Foreground="White"/>
                                         </Border>
-                                    </StackPanel>
-
+                                    </StackPanel>-->
+                                    <Button x:Name="ViewLoanDetailsBtn" Style="{StaticResource Show}" Grid.Row="0" Grid.Column="7" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-5,10,0"/>
 
 
                                 </Grid>

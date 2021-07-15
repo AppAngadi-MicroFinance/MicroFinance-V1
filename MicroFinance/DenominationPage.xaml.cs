@@ -77,16 +77,16 @@ namespace MicroFinance
 
             long currentAmt = Total();
 
-            Totalamount.Text = currentAmt.ToString("C0");
+            TotalBox.Text = currentAmt.ToString("C0");
             if (initialAmt == currentAmt)
             {
                 _checkIsValid = true;
-                TotalAmount.Background = new SolidColorBrush(Colors.Green);
+                TotalBox.Background = new SolidColorBrush(Colors.Green);
             }
             else
             {
                 _checkIsValid = false;
-                TotalAmount.Background = new SolidColorBrush(Colors.Red);
+                TotalBox.Background = new SolidColorBrush(Colors.Red);
             }
 
         }
@@ -140,7 +140,7 @@ namespace MicroFinance
                 connection.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "insert into DenominationTable values('" + _regionName + "','" + _branchId + "','" + _date + "','" + _empId + "'," + _twoThousand + "," + _fiveHundred + "," + _twoHundred + "," + _hundred + "," + _fifty + "," + _twenty + "," + _ten + "," + _five + "," + _two + "," + _one + ")";
+                command.CommandText = "insert into DenominationTable values('" + _regionName + "','" + _branchId + "','" + _date + "','" + _empId + "'," + _twoThousand + "," + _fiveHundred + "," + _twoHundred + "," + _hundred + "," + _fifty + "," + _twenty + "," + _ten + "," + _five + "," + _two + "," + _one + ","+initialAmt+")";
                 command.ExecuteNonQuery();
             }
         }
