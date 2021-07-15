@@ -88,6 +88,7 @@ namespace MicroFinance
         {
             xLogoutButton.Visibility = Visibility.Collapsed;
             xLoginWindow.Visibility = Visibility.Visible;
+            LoginBorder.Visibility = Visibility.Visible;
             mainframe.Content = null;
         }
     }

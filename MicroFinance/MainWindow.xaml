@@ -31,7 +31,11 @@
         <!--Login window-->
         <Border Background="Gray" Width="500" Height="300" BorderBrush="White" BorderThickness="2" CornerRadius="10" Grid.Row="1" Name="LoginBorder">
             <Grid x:Name="xLoginWindow" Grid.Row="1" Width="450" Height="280" VerticalAlignment="Center" ShowGridLines="False">
-
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"></Setter>
+                    </Style>
+                </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50px"/>
                     <RowDefinition Height="30px"/>
