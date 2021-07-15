@@ -815,10 +815,15 @@ namespace MicroFinance.Modal
                 sqlDataReader = sqlCommand.ExecuteReader();
                 while(sqlDataReader.Read())
                 {
-                    _checkAadhar = true;
+                    if(!sqlDataReader.IsDBNull(0))
+                    {
+                        string _ad = sqlDataReader.GetString(0);
+                        if(!string.IsNullOrEmpty(_ad))
+                        _checkAadhar = true;
+                    }
                 }
                 sqlDataReader.Close();
-                if (_check && _checkAadhar)
+                if (_check==true && _checkAadhar==true)
                 {
                     sqlCommand.CommandText = "update CustomerDetails set CustomerStatus='1' where CustId='" + _customerId + "'";
                     sqlCommand.ExecuteNonQuery();
