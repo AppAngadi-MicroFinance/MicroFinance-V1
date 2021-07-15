@@ -81,6 +81,9 @@ namespace MicroFinance
             NomineeAddressDetails.DataContext = nominee;
             NomineeOtherDetails.DataContext = nominee;
             NomineeDetails.DataContext = nominee;
+
+
+            SaveCustomer.Content = "Update";
         }
         void FillAllDetails()
         {
@@ -287,8 +290,16 @@ namespace MicroFinance
             }
             else
             {
-                customer.SaveCustomerDetails(SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
-                NavigationService.GetNavigationService(this).Navigate(new dummypage());
+                if(SaveCustomer.Content.Equals("Update"))
+                {
+
+                    customer.UpdateExistingDetails(SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
+                }
+                else
+                {
+                    customer.SaveCustomerDetails(SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
+                }
+                NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
             }
 
         }
