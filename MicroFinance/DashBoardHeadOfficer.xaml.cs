@@ -61,5 +61,11 @@ namespace MicroFinance
             xSearchPersonPop.Visibility = Visibility.Visible;
             xPopUpHeading.Text = "Find Employee";
         }
+
+        private void xAllowanceReportBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddRegion region = new AddRegion();
+            region.ShowDialog();
+        }
     }
 }

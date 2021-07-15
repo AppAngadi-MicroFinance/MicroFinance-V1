@@ -75,7 +75,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xAllowanceReportBtn" Style="{StaticResource NavigateAddRegion}"></Button>
+                <Button x:Name="xAllowanceReportBtn" Style="{StaticResource NavigateAddRegion}" Click="xAllowanceReportBtn_Click"></Button>
             </Border>
         </Grid>
 

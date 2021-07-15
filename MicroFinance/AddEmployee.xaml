@@ -423,7 +423,7 @@
         </Popup>
         <Popup x:Name="BankDetailsPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
             <Border BorderBrush="Blue" BorderThickness="2">
-                <Grid Background="White" Height="300" Width="400">
+                <Grid Background="White" Height="300" Width="450">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -443,7 +443,7 @@
                     <TextBlock Text="Account Holder Name" Grid.Row="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
                     <TextBlock Text="{Binding AccountHolderName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
                     <TextBlock Text="Account Number" Grid.Row="2" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
-                    <TextBlock Text="{Binding AccountNumber,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding AccountNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
                     <TextBlock Text="IFSC Code" Grid.Row="3" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
                     <TextBlock Text="{Binding IFSCCode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
                     <TextBlock Text="MICR Code" Grid.Row="4" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>

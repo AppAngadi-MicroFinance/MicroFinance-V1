@@ -36,13 +36,12 @@ namespace MicroFinance
             {
                 region.AddRegion();
                 this.Close();
-                MainWindow.StatusMessageofPage(0, "Region Addeed Successfully");
+                MainWindow.StatusMessageofPage(1, "Region Addeed Successfully");
             }
             else
             {
-                MessageBox.Show("The "+region.RegionName+ " Region Is Already Exist... Please Check" ,"Information",MessageBoxButton.OK,MessageBoxImage.Information);
+                MainWindow.StatusMessageofPage(1, "The " + region.RegionName + " Region Is Already Exist... Please Check");
             }
-            
         }
     }
 }
