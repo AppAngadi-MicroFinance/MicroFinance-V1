@@ -230,7 +230,7 @@ namespace MicroFinance
                     ConfirmationPanel.IsOpen = false;
                     EmployeeMainGrid.IsEnabled = true;
                     addemployee.EmployeeAdd();
-                    MainWindow.StatusMessageofPage(0, "Employee Added Successfully");
+                    MainWindow.StatusMessageofPage(1, "Employee Added Successfully");
                     this.NavigationService.Navigate(new AddEmployee());
                 }
                 else if(EmployeeSaveBtn.Content.ToString()=="Update")
@@ -239,14 +239,14 @@ namespace MicroFinance
                         ConfirmationPanel.IsOpen = false;
                         EmployeeMainGrid.IsEnabled = true;
                         addemployee.EmployeeAdd();
-                        MainWindow.StatusMessageofPage(0, "Employee Updated Successfully");
+                        MainWindow.StatusMessageofPage(1, "Employee Updated Successfully");
                         this.NavigationService.Navigate(new AddEmployee());
                 }
                 
             }
             catch (Exception ex)
             {
-                MainWindow.StatusMessageofPage(1, ex.Message);
+                MainWindow.StatusMessageofPage(0, ex.Message);
             }
         }
         public void IsemptyCheck()

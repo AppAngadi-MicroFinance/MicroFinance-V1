@@ -101,11 +101,11 @@ namespace MicroFinance
                     ConfirmPanel.IsOpen = false;
                     MainGrid.IsEnabled = true;
                     MainGrid.Opacity = 1.0;
-                    MainWindow.StatusMessageofPage(0, "Branch Created Successfully");
+                    MainWindow.StatusMessageofPage(1, "Branch Created Successfully");
                 }
                 else
                 {
-                    MessageBox.Show("Branch Already Exists...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MainWindow.StatusMessageofPage(0, "Branch AlredyExits...");
                 }
 
                 this.NavigationService.Navigate(new CreateBranch());

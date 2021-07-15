@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MicroFinance" xmlns:validation="clr-namespace:MicroFinance.Validations"
         mc:Ignorable="d"
-        Title="AddRegion" Height="250" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Normal">
+        Title="AddRegion" Height="250" Width="420" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Normal">
     <Grid Background="White" x:Name="RegionMainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="40px"/>
