@@ -12,6 +12,7 @@
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
+        <TextBlock Text="Recommend Customers" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="50,40,0,0"></TextBlock>
         <Button x:Name="xBackwardButton" Click="xBackwardButton_Click"
                 Style="{StaticResource BackButtonStyle}" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
         <ListBox Height="530" Width="630" x:Name="Custlist" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.IsDeferredScrollingEnabled="True" SelectionChanged="Custlist_SelectionChanged">
