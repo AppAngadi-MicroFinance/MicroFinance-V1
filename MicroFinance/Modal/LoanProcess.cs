@@ -304,6 +304,10 @@ namespace MicroFinance.Modal
                     sqlcomm.Connection=sqlconn;
                     sqlcomm.CommandText = "insert into LoanDisposement(LoanID,CustID,DurationInWeeks,LoanAmount,StartDate,EndDate,LoanType,Active) values ('" + LoanId + "','" + _customerId + "','" + InstallmentWeek(LoanPeriod) + "',"+LoanAmount+",'"+DateTime.Today.ToString("MM-dd-yyyy")+ "','" + DateTime.Today.ToString("MM-dd-yyyy") + "','"+LoanType+"','True')";
                     sqlcomm.ExecuteNonQuery();
+                    sqlcomm = new SqlCommand();
+                    sqlcomm.Connection=sqlconn;
+                    sqlcomm.CommandText = "update CustomerDetails set IsActive='true' where CustId='"+_customerId+"'";
+                    sqlcomm.ExecuteNonQuery();
                 }
                 sqlconn.Close();
             }
