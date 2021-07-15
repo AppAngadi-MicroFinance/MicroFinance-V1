@@ -1142,7 +1142,7 @@
 
 
         <!-- Nominee Popup-->
-        <Grid x:Name="AddNomineepopup" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="6"  Visibility="Visible">
+        <Grid x:Name="AddNomineepopup" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="6"  Visibility="Collapsed">
             <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Black">
                 <Grid Background="#e8fff2" >
                     <Grid.ColumnDefinitions>
