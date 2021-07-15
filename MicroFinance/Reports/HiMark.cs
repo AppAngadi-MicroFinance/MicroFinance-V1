@@ -2050,7 +2050,7 @@ namespace MicroFinance.Reports
             FillHimarkDate(xlWorkSheet, hiMarksList);
             try
             {
-                string FileName = "D:\\Hi-Mark_" + DateTime.Today.ToString("MMM") + " .xlsx";
+                string FileName = "D:\\Hi-Mark_" + DateTime.Today.ToString("dd-MMM-yyyy (hh-mm)") + " .xlsx";
                 if(File.Exists(FileName)==true)
                 {
                     string FileNewname = "D:\\Hi - Mark_" + DateTime.Today.ToString("MMM") + "_New" + ".xlsx";
