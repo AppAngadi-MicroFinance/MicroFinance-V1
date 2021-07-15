@@ -184,7 +184,7 @@ namespace MicroFinance
         {
             if(!denomination.AlreadyEntered)
             {
-                denomination = new DenominationPage(10000, BranchNameBlock.Text, CenterBlck.Text, Convert.ToDateTime(DateBlck.Text), SaveCollection);
+                denomination = new DenominationPage(Convert.ToInt32(TotalAmountAll.Text), BranchNameBlock.Text, CenterBlck.Text, Convert.ToDateTime(DateBlck.Text), SaveCollection);
             }
             NavigationService.GetNavigationService(this).Navigate(denomination);
         }

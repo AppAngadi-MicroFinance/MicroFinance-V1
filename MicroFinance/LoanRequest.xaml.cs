@@ -96,6 +96,7 @@ namespace MicroFinance
             if (SelectPg.SelectedItem != null)
             {
                 string _peerGroup = SelectPg.SelectedItem.ToString();
+                string _regionName = MainWindow.LoginDesignation.RegionName;
                 List<string> CustomerIds = new List<string>();
                 string _branchName = SelectBranch.SelectedItem.ToString();
                 string _selfHelpGroup = SelectShg.SelectedItem.ToString();
@@ -104,13 +105,25 @@ namespace MicroFinance
                     sql.Open();
                     SqlCommand command = new SqlCommand();
                     command.Connection = sql;
-                    command.CommandText = "select CustId from CustomerGroup where BranchName='" + _branchName + "' and SelfHelpGroup='" + _selfHelpGroup + "' and PeerGroup='" + _peerGroup + "'";
+                    command.CommandText = "select CustId from CustomerGroup where BranchId=(select BId from BranchDetails where BranchName='" + _branchName + "' and RegionName='" + _regionName + "') and SelfHelpGroup='" + _selfHelpGroup + "' and PeerGroup='" + _peerGroup + "'";
                     SqlDataReader sqlData = command.ExecuteReader();
                     while (sqlData.Read())
                     {
-                        CustomerIds.Add(sqlData.GetString(0));
+                        if(!sqlData.IsDBNull(0))
+                        {
+                            CustomerIds.Add(sqlData.GetString(0));
+                        }
                     }
                     sqlData.Close();
+                    List<string> ActiveAndEligibleCustomerId = new List<string>();
+                    foreach(string id in CustomerIds)
+                    {
+                        command.CommandText = "select count(CustId) from CustomerDetails where CustomerDetails.CustId='" + id + "' and CustomerDetails.IsActive='True' and (select count(LoanDisposement.Active) from LoanDisposement where LoanDisposement.CustID='" + id + "')<2";
+                        if((int)command.ExecuteScalar()>0)
+                        {
+                            ActiveAndEligibleCustomerId.Add(id);
+                        }
+                    }
                     string _customerID="";
                     string _customerName = "";
                     int _age = 0;
@@ -120,7 +133,7 @@ namespace MicroFinance
                     //int _pendingAmount = 0;
                     bool _isleader = false;
                     BitmapImage _profilePhoto;
-                    foreach (string item in CustomerIds)
+                    foreach (string item in ActiveAndEligibleCustomerId)
                     {
                         command.CommandText = "select CustomerDetails.Name,CustomerDetails.Age,CustomerDetails.ProfilePhoto,GuarenteeDetails.Name,NomineeDetails.Name,CustomerGroup.IsLeader from CustomerDetails join GuarenteeDetails on CustomerDetails.CustId = GuarenteeDetails.CustId join NomineeDetails on CustomerDetails.CustId = NomineeDetails.CustId join CustomerGroup on CustomerDetails.CustId = CustomerGroup.CustId where CustomerDetails.CustId = '" + item + "'";
                         sqlData = command.ExecuteReader();

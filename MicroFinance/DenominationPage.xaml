@@ -101,7 +101,7 @@
                     <TextBlock  Text="Total" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Bold"/>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1,1,1,1" Grid.Row="2" Grid.Column="1" >
-                    <TextBox x:Name="Totalamount" Text="0"  Background="Transparent" HorizontalContentAlignment="Center" Width="200" Height="40" Style="{StaticResource  InputBox}"/>
+                    <TextBox x:Name="TotalBox" Text="0"  Background="Transparent" HorizontalContentAlignment="Center" Width="200" Height="40" Style="{StaticResource  InputBox}"/>
                 </Border>
                 <!--<Border BorderBrush="Black" BorderThickness="1,1,1,0" Grid.Row="1" Grid.Column="0">
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
