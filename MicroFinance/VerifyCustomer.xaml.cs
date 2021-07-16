@@ -146,8 +146,8 @@ namespace MicroFinance
                         command.CommandText = "update CustomerDetails set CustomerStatus='3' where CustId='" + CustomerId + "'";
                         command.ExecuteNonQuery();
                     }
-                    MainWindow.StatusMessageofPage(1, "Successfully Customer Recommended...");
-                    NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(1));
+                    MainWindow.StatusMessageofPage(1, "Successfully Customer Approved...");
+                    NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(2));
                 }
                 else
                 {
@@ -159,8 +159,8 @@ namespace MicroFinance
                         command.CommandText = "update CustomerDetails set CustomerStatus='2' where CustId='" + CustomerId + "'";
                         command.ExecuteNonQuery();
                     }
-                    MainWindow.StatusMessageofPage(1, "Successfully Customer Approved...");
-                    NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(2));
+                    MainWindow.StatusMessageofPage(1, "Successfully Customer Recommended...");
+                    NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(1));
                 }
             }
             catch

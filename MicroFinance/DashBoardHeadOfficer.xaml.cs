@@ -81,15 +81,15 @@ namespace MicroFinance
         {
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
             {
-                sqlconn.Open();
-                if (sqlconn.State == ConnectionState.Open)
-                {
-                    SqlCommand sqlcomm = new SqlCommand();
-                    sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SNo from Region where RegionName='" + Region + "'";
-                }
-                sqlconn.Close();
-                return Result;
+                //sqlconn.Open();
+                //if (sqlconn.State == ConnectionState.Open)
+                //{
+                //    SqlCommand sqlcomm = new SqlCommand();
+                //    sqlcomm.Connection = sqlconn;
+                //    sqlcomm.CommandText = "select SNo from Region where RegionName='" + Region + "'";
+                //}
+                //sqlconn.Close();
+                //return Result;
             }
         }
     }
