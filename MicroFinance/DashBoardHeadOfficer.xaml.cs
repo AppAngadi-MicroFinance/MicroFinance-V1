@@ -50,7 +50,7 @@ namespace MicroFinance
         private void xPopupCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             xSearchPersonPop.Visibility = Visibility.Collapsed;
-            xSearchBoxCustomer.Clear();
+           
         }
 
         private void xFindCustomer_Click(object sender, RoutedEventArgs e)
@@ -62,6 +62,7 @@ namespace MicroFinance
         private void xFindEmployee_Click(object sender, RoutedEventArgs e)
         {
             xSearchPersonPop.Visibility = Visibility.Visible;
+            EmployeeSearchFrame.NavigationService.Navigate(new ModifyEmployee());
             xPopUpHeading.Text = "Find Employee";
         }
 
@@ -76,21 +77,26 @@ namespace MicroFinance
             this.NavigationService.Navigate(new CustomerNotification(2));
         }
 
-
-        void GetCustomersForApprovals(string branchId)
+        private void EmployeeSeachPanelCloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
-            {
-                sqlconn.Open();
-                if (sqlconn.State == ConnectionState.Open)
-                {
-                    SqlCommand sqlcomm = new SqlCommand();
-                    sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SNo from Region where RegionName='" + Region + "'";
-                }
-                sqlconn.Close();
-                return Result;
-            }
+            xSearchPersonPop.Visibility = Visibility.Collapsed;
         }
+
+
+        //void GetCustomersForApprovals(string branchId)
+        //{
+        //    using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+        //    {
+        //        sqlconn.Open();
+        //        if (sqlconn.State == ConnectionState.Open)
+        //        {
+        //            SqlCommand sqlcomm = new SqlCommand();
+        //            sqlcomm.Connection = sqlconn;
+        //            sqlcomm.CommandText = "select SNo from Region where RegionName='" + Region + "'";
+        //        }
+        //        sqlconn.Close();
+        //        return Result;
+        //    }
+        //}
     }
 }
