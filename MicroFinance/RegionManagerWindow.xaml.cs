@@ -23,15 +23,15 @@ namespace MicroFinance
         public RegionManagerWindow()
         {
             InitializeComponent();
-            Notification NTF = new Notification();
-            NTF.NotificationFrom = MainWindow.LoginDesignation.LoginDesignation;
-            NTF.NotificationPurpose = "Approve Customer To Add";
-            NTF.NotificationDate = DateTime.Today.ToShortDateString();
-            NTF.CustomerObj = AddCustomer.customer;
-            NTF.GuarantorObj = AddCustomer.guarantor;
-            NTF.NomineeObj = AddCustomer.nominee;
-            RegionManagerNotifyPanel BMNF = new RegionManagerNotifyPanel(NTF);
-            frame.Navigate(BMNF, UriKind.Relative);
+            //Notification NTF = new Notification();
+            //NTF.NotificationFrom = MainWindow.LoginDesignation.LoginDesignation;
+            //NTF.NotificationPurpose = "Approve Customer To Add";
+            //NTF.NotificationDate = DateTime.Today.ToShortDateString();
+            //NTF.CustomerObj = AddCustomer.customer;
+            //NTF.GuarantorObj = AddCustomer.guarantor;
+            //NTF.NomineeObj = AddCustomer.nominee;
+            //RegionManagerNotifyPanel BMNF = new RegionManagerNotifyPanel(NTF);
+            //frame.Navigate(BMNF, UriKind.Relative);
         }
     }
 }

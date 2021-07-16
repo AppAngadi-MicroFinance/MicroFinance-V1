@@ -74,6 +74,9 @@
     <Compile Include="AddCustomer.xaml.cs">
       <DependentUpon>AddCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddNewSelfHelpGroup.xaml.cs">
+      <DependentUpon>AddNewSelfHelpGroup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddPg.xaml.cs">
       <DependentUpon>AddPg.xaml</DependentUpon>
     </Compile>
@@ -127,8 +130,8 @@
     <Compile Include="dummypage.xaml.cs">
       <DependentUpon>dummypage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FieldOfficerUpdateCustomer.xaml.cs">
-      <DependentUpon>FieldOfficerUpdateCustomer.xaml</DependentUpon>
+    <Compile Include="CustomerNotification.xaml.cs">
+      <DependentUpon>CustomerNotification.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoanAfterHimark.xaml.cs">
       <DependentUpon>LoanAfterHimark.xaml</DependentUpon>
@@ -151,8 +154,10 @@
     <Compile Include="Modal\LoginDetails.cs" />
     <Compile Include="Modal\Nominee.cs" />
     <Compile Include="Modal\Notification.cs" />
+    <Compile Include="Modal\OfficerModal.cs" />
     <Compile Include="Modal\PeerGroup.cs" />
     <Compile Include="Modal\Region.cs" />
+    <Compile Include="Modal\SelfHeadGroupModal.cs" />
     <Compile Include="Modal\StaticProperty.cs" />
     <Compile Include="ModifyEmployee.xaml.cs">
       <DependentUpon>ModifyEmployee.xaml</DependentUpon>
@@ -190,6 +195,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AddEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddNewSelfHelpGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -249,7 +258,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="FieldOfficerUpdateCustomer.xaml">
+    <Page Include="CustomerNotification.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

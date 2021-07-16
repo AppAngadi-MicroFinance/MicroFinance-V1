@@ -43,17 +43,29 @@
 
     <!--Add Customer Template-->
     <ControlTemplate  TargetType="{x:Type Button}" x:Key="AddCustomerTemplate">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\addCustomer.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-            <TextBlock Grid.Column="1"  Width="110"  Text="Add Customer" Style="{StaticResource DashboardBtnText}"></TextBlock>
-        </Grid>
+        
     </ControlTemplate>
+
     <Style TargetType="{x:Type Button}" x:Key="NavigateAddCustomer">
-        <Setter Property="Template" Value="{StaticResource AddCustomerTemplate}"/>
+        <Setter Property="Background" Value="#FEF8F1"></Setter>
+        <Setter Property="Content">
+            <Setter.Value>
+                <ContentPresenter>
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\addCustomer.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Column="1"  Width="110"  Text="Add Customer" Style="{StaticResource DashboardBtnText}"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!--Pending Customer Template-->

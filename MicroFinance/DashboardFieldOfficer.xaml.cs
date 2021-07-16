@@ -53,7 +53,7 @@ namespace MicroFinance
 
         private void xPendingCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new FieldOfficerUpdateCustomer());
+            this.NavigationService.Navigate(new CustomerNotification(0));
         }
     }
 }

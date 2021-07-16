@@ -1,0 +1,65 @@
+﻿<Page x:Class="MicroFinance.AddNewSelfHelpGroup"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
+      Title="AddNewSelfHelpGroup">
+
+    <Grid>
+        <Border Width="600" Height="400" BorderThickness="5" BorderBrush="#781f9f">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Fill="#781f9f" Grid.Row="0" Grid.ColumnSpan="2"></Rectangle>
+                <TextBlock Text="Branch" Foreground="White" FontSize="22" Grid.ColumnSpan="2" Margin="20,0,0,0" FontWeight="SemiBold" VerticalAlignment="Center"></TextBlock>
+
+                <Rectangle Fill="WhiteSmoke" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="8"></Rectangle>
+
+                <TextBlock Text="SHG name" Grid.Column="0" Grid.Row="1" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
+                           VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
+                <TextBox x:Name="xSHGname" Width="300" Grid.Column="1" Grid.Row="1" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBox>
+
+
+                <TextBlock Text="Collection Day" Grid.Column="0" Grid.Row="2" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
+                           VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
+                <ComboBox x:Name="xDayOfWeek" Width="300" Height="40" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left"></ComboBox>
+
+                <TextBlock Text="Time" Grid.Column="0" Grid.Row="3" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
+                           VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
+                <TextBox x:Name="xTimeBox" Width="300" Grid.Column="1" Grid.Row="3" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBox>
+                
+                <TextBlock Text="Field Officer" Grid.Column="0" Grid.Row="4" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
+                           VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
+                <ComboBox x:Name="xOfficerSelect" Width="300" Height="40" Grid.Column="1" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#0eabf2" BorderThickness="1" Width="200" Height="35">
+                                <TextBlock Text="{Binding Name}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+
+                <Button x:Name="xCreateNewSHG" Click="xCreateNewSHG_Click" Style="{StaticResource PrimaryBtn}" Width="200" Height="40" Grid.Column="1"
+                        FontSize="18" Grid.Row="5" Content="Create Center">
+                    
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

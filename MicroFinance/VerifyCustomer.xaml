@@ -110,7 +110,7 @@
                     <TextBlock Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left" Text="{Binding FatherName,Mode=OneWay}"/>
 
                     <TextBlock Text="Mother Name : " Grid.Column="1" Grid.Row="7" Style="{StaticResource Regular}" FontWeight="Bold"/>
-                    <TextBlock Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left" Text="{Binding MotherName,Mode=OneWay}"/>
+                    <TextBlock Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left" Text="{Binding MotherName,Mode=OneWay}"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2">
                         <TextBlock Text="Contact Number : "  Style="{StaticResource Regular}" FontWeight="Bold"/>
                         <TextBlock x:Name="ContactBox"  VerticalAlignment="Center"  Style="{StaticResource NumberRegular}" HorizontalAlignment="Left" Text="{Binding ContactNumber,Mode=OneWay}"/>

@@ -26,7 +26,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xCustomerApproval"  Style="{StaticResource CustomerApprovalSmallSmall}"></Button>
+                <Button x:Name="xCustomerApproval"  Style="{StaticResource CustomerApprovalSmallSmall}" Click="xCustomerApproval_Click"></Button>
             </Border>
             
             <!--Find Customer Button-->
