@@ -39,5 +39,10 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new CustomerNotification(1));
         }
+
+        private void xAddSHGBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
