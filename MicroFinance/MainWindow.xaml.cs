@@ -25,7 +25,7 @@ namespace MicroFinance
         string _userName;
         public static LoginDetails LoginDesignation;
 
-        public static string ConnectionString = "Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True";
+        public static string ConnectionString = Properties.Settings.Default.db;
         public MainWindow()
         {
             InitializeComponent();
