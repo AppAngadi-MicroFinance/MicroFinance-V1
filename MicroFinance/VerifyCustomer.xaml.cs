@@ -22,100 +22,120 @@ namespace MicroFinance
     public partial class VerifyCustomer : Page
     {
         Notification OverallObj = new Notification();
-        public VerifyCustomer(Notification notificationDetail)
+        Customer customer = new Customer();
+        Guarantor guarantor = new Guarantor();
+        Nominee nominee = new Nominee();
+        int _status;
+        public VerifyCustomer(Notification notificationDetail,int Status)
         {
+            _status = Status;
             InitializeComponent();
-       //     OverallObj = notificationDetail;
-       //     BranchDetailsGrid.DataContext = notificationDetail.CustomerObj;
-       //     CustomerGrid.DataContext = notificationDetail.CustomerObj;
-       //     AddressGrid.DataContext = notificationDetail.CustomerObj;
-       //     GurantorGrid.DataContext = notificationDetail.GuarantorObj;
-       //     NomineeGrid.DataContext = notificationDetail.NomineeObj;
-       //     AddressGrid.DataContext = notificationDetail.CustomerObj;
-       //     PhotoProofGrid.DataContext= notificationDetail.CustomerObj;
-       ////     PhotoProfileGrid.DataContext= notificationDetail.CustomerObj;
-       //     ProfilePhoto.Source = notificationDetail.CustomerObj.ProfilePicture;
-        }
 
+            if(_status==2)
+            {
+                VerifyCustomerBtn.Content = "Approve";
+            }
+
+            OverallObj = notificationDetail;
+            FillDetails();
+            
+            BranchDetailsGrid.DataContext = customer;
+            CustomerGrid.DataContext = customer;
+            AddressGrid.DataContext = customer;
+            GurantorGrid.DataContext = guarantor;
+            NomineeGrid.DataContext = nominee;
+            AddressGrid.DataContext =customer;
+            PhotoProofGrid.DataContext = customer;
+            ProfilePhoto.Source = customer.ProfilePicture;
+        }
+        string CustomerId;
+        void FillDetails()
+        {
+            CustomerId = OverallObj.CustomerId;
+            customer._customerId = CustomerId;
+            guarantor._customerId = CustomerId;
+            nominee._customerId = CustomerId;
+            customer.GetAllDetailsofCustomers();
+            guarantor.GetGuranteeDetails();
+            nominee.GetNomineeDetails();
+        }
         private void ViewGaurantor_Click(object sender, RoutedEventArgs e)
         {
             ViewGuarantorPopopup.IsOpen = true;
-            ViewGuarantorGrid.DataContext = OverallObj.GuarantorObj;
+            ViewGuarantorGrid.DataContext = guarantor;
         }
 
         private void ViewNominee_Click(object sender, RoutedEventArgs e)
         {
             ViewNomineePopopup.IsOpen = true;
-            ViewNomineeDetails.DataContext = OverallObj.NomineeObj;
+            ViewNomineeDetails.DataContext = nominee;
         }
 
         private void ViewAddressProof_Click(object sender, RoutedEventArgs e)
         {
             ImageTitle.Text = "Address Proof";
             ViewImagePopup.IsOpen = true;
-            viewImage.Source = OverallObj.CustomerObj.AddressProof;
+            viewImage.Source = customer.AddressProof;
         }
 
         private void ViewPhotoProof_Click(object sender, RoutedEventArgs e)
         {
             ImageTitle.Text = "Photo Proof";
             ViewImagePopup.IsOpen = true;
-            viewImage.Source = OverallObj.CustomerObj.PhotoProof;
+            viewImage.Source = customer.PhotoProof;
         }
 
         private void ViewAddressProofOfGuarantor_Click(object sender, RoutedEventArgs e)
         {
             ImageTitle.Text = "Address Proof";
             ViewImagePopup.IsOpen = true;
-            viewImage.Source = OverallObj.GuarantorObj.AddressProof;
+            viewImage.Source = guarantor.AddressProof;
         }
 
         private void ViewGuarantorAddPhotoProof_Click(object sender, RoutedEventArgs e)
         {
             ImageTitle.Text = "Photo Proof";
             ViewImagePopup.IsOpen = true;
-            viewImage.Source = OverallObj.GuarantorObj.PhotoProof;
+            viewImage.Source = guarantor.PhotoProof;
         }
 
         private void ViewGuarantorAddProfilePhoto_Click(object sender, RoutedEventArgs e)
         {
             ImageTitle.Text = "Profile Picture";
             ViewImagePopup.IsOpen = true;
-            viewImage.Source = OverallObj.GuarantorObj.ProfilePicture;
+            viewImage.Source = guarantor.ProfilePicture;
         }
 
         private void NomineeViewAddressProof_Click(object sender, RoutedEventArgs e)
         {
             ImageTitle.Text = "Address Proof";
             ViewImagePopup.IsOpen = true;
-            viewImage.Source = OverallObj.NomineeObj.AddressProof;
+            viewImage.Source = nominee.AddressProof;
         }
 
         private void NomineeViewPhotoProof_Click(object sender, RoutedEventArgs e)
         {
             ImageTitle.Text = "Photo Proof";
             ViewImagePopup.IsOpen = true;
-            viewImage.Source = OverallObj.NomineeObj.PhotoProof;
+            viewImage.Source = nominee.PhotoProof;
         }
 
         private void NomineeViewProfilePicture_Click(object sender, RoutedEventArgs e)
         {
             ImageTitle.Text = "Profile Picture";
             ViewImagePopup.IsOpen = true;
-            viewImage.Source = OverallObj.NomineeObj.ProfilePicture;
+            viewImage.Source = nominee.ProfilePicture;
         }
 
         private void VerifyCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
-
-            RegionManagerWindow RMW = new RegionManagerWindow();
             if (VerifyCustomerBtn.Content.Equals("Approve"))
             {
-                MessageBox.Show("Successfully Customer Added");
+
             }
             else
             {
-                RMW.ShowDialog();
+
             }
         }
 

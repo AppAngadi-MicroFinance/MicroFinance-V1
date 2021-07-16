@@ -8,9 +8,6 @@ namespace MicroFinance.Modal
 {
     public class Notification
     {
-        public Guarantor GuarantorObj { get; set; }
-        public Nominee NomineeObj { get; set; }
-        public Customer CustomerObj { get; set; }
 
         public string CustomerId { get; set; }
         public string EmpId { get; set; }
