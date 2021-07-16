@@ -67,5 +67,10 @@ namespace MicroFinance
             AddRegion region = new AddRegion();
             region.ShowDialog();
         }
+
+        private void xCustomerApproval_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new CustomerNotification(2));
+        }
     }
 }

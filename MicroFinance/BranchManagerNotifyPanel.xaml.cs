@@ -32,8 +32,8 @@ namespace MicroFinance
 
         private void NotificationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            VerifyCustomer verifyCustomer = new VerifyCustomer(notificationObj);
-            NavigationService.GetNavigationService(this).Navigate(verifyCustomer);
+        //    VerifyCustomer verifyCustomer = new VerifyCustomer(notificationObj);
+        //    NavigationService.GetNavigationService(this).Navigate(verifyCustomer);
         }
     }
 }

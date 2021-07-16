@@ -33,7 +33,7 @@ namespace MicroFinance
 
         private void UpdateCustomer_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GetNavigationService(this).Navigate(new FieldOfficerUpdateCustomer());
+            NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(0));
         }
     }
 }

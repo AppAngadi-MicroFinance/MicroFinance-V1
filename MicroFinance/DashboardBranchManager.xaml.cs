@@ -35,10 +35,9 @@ namespace MicroFinance
             this.NavigationService.Navigate(new LoanRecommend());
         }
 
-        private void xAddSHGBtn_Click(object sender, RoutedEventArgs e)
+        private void xRecommendCustome_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new AddNewSelfHelpGroup());
-
+            this.NavigationService.Navigate(new CustomerNotification(1));
         }
     }
 }

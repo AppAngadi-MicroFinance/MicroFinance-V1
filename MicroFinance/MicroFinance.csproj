@@ -130,8 +130,8 @@
     <Compile Include="dummypage.xaml.cs">
       <DependentUpon>dummypage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FieldOfficerUpdateCustomer.xaml.cs">
-      <DependentUpon>FieldOfficerUpdateCustomer.xaml</DependentUpon>
+    <Compile Include="CustomerNotification.xaml.cs">
+      <DependentUpon>CustomerNotification.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoanAfterHimark.xaml.cs">
       <DependentUpon>LoanAfterHimark.xaml</DependentUpon>
@@ -258,7 +258,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="FieldOfficerUpdateCustomer.xaml">
+    <Page Include="CustomerNotification.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
