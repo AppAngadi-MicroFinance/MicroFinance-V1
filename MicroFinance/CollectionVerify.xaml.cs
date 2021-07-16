@@ -16,23 +16,23 @@ using System.Windows.Shapes;
 namespace MicroFinance
 {
     /// <summary>
-    /// Interaction logic for DashboardAccountant.xaml
+    /// Interaction logic for CollectionVerify.xaml
     /// </summary>
-    public partial class DashboardAccountant : Page
+    public partial class CollectionVerify : Page
     {
-        public DashboardAccountant()
+        public CollectionVerify()
         {
             InitializeComponent();
         }
 
-        private void xCreateSchedule_Click(object sender, RoutedEventArgs e)
+        private void VerifyDenomination_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
-        private void xDailyCollection_Click(object sender, RoutedEventArgs e)
+        private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new CollectionVerify());
+
         }
     }
 }

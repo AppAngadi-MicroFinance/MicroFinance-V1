@@ -95,6 +95,9 @@
     <Compile Include="CollectionStartPage.xaml.cs">
       <DependentUpon>CollectionStartPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CollectionVerify.xaml.cs">
+      <DependentUpon>CollectionVerify.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\AbsentCheck.cs" />
     <Compile Include="Converters\AgeConverter.cs" />
     <Compile Include="Converters\ComboEnableDisable.cs" />
@@ -223,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CollectionStartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CollectionVerify.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
