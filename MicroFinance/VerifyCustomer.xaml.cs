@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,20 +27,24 @@ namespace MicroFinance
         Guarantor guarantor = new Guarantor();
         Nominee nominee = new Nominee();
         int _status;
+        string CustomerId;
+        List<BranchDetails> branchdetails = new List<BranchDetails>();
         public VerifyCustomer(Notification notificationDetail,int Status)
         {
             _status = Status;
+            OverallObj = notificationDetail;
+            CustomerId = OverallObj.CustomerId;
             InitializeComponent();
 
             if(_status==2)
             {
                 VerifyCustomerBtn.Content = "Approve";
+                Reject.Visibility = Visibility.Visible;
             }
-
-            OverallObj = notificationDetail;
+            GetBranchDetails();
             FillDetails();
             
-            BranchDetailsGrid.DataContext = customer;
+            BranchDetailsGrid.DataContext = branchdetails;
             CustomerGrid.DataContext = customer;
             AddressGrid.DataContext = customer;
             GurantorGrid.DataContext = guarantor;
@@ -47,11 +52,10 @@ namespace MicroFinance
             AddressGrid.DataContext =customer;
             PhotoProofGrid.DataContext = customer;
             ProfilePhoto.Source = customer.ProfilePicture;
+            ViewAccountdetailsPanel.DataContext = customer;
         }
-        string CustomerId;
         void FillDetails()
         {
-            CustomerId = OverallObj.CustomerId;
             customer._customerId = CustomerId;
             guarantor._customerId = CustomerId;
             nominee._customerId = CustomerId;
@@ -129,14 +133,72 @@ namespace MicroFinance
 
         private void VerifyCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (VerifyCustomerBtn.Content.Equals("Approve"))
+            try
             {
 
+                if (VerifyCustomerBtn.Content.Equals("Approve"))
+                {
+                    using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                    {
+                        sql.Open();
+                        SqlCommand command = new SqlCommand();
+                        command.Connection = sql;
+                        command.CommandText = "update CustomerDetails set CustomerStatus='3' where CustId='" + CustomerId + "'";
+                        command.ExecuteNonQuery();
+                    }
+                    MainWindow.StatusMessageofPage(1, "Successfully Customer Recommended...");
+                    NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(1));
+                }
+                else
+                {
+                    using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                    {
+                        sql.Open();
+                        SqlCommand command = new SqlCommand();
+                        command.Connection = sql;
+                        command.CommandText = "update CustomerDetails set CustomerStatus='2' where CustId='" + CustomerId + "'";
+                        command.ExecuteNonQuery();
+                    }
+                    MainWindow.StatusMessageofPage(1, "Successfully Customer Approved...");
+                    NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(2));
+                }
             }
-            else
+            catch
             {
-
+                MainWindow.StatusMessageofPage(2, "Check Correctly...");
             }
+        }
+        void GetBranchDetails()
+        {
+            string _region="";
+            string _branch="";
+            string _fieldofficer="";
+            string _Shg="";
+            string _pg="";
+            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "select BranchDetails.RegionName,BranchDetails.BranchName,CustomerGroup.SelfHelpGroup,CustomerGroup.PeerGroup from CustomerGroup join BranchDetails on BranchDetails.Bid=CustomerGroup.BranchId where CustId='" + CustomerId + "'";
+                SqlDataReader dataReader = command.ExecuteReader();
+                while(dataReader.Read())
+                {
+                    _region = dataReader.GetString(0);
+                    _branch = dataReader.GetString(1);
+                    _Shg = dataReader.GetString(2);
+                    _pg = dataReader.GetString(3);
+                }
+                dataReader.Close();
+                command.CommandText = "select Employee.Name from BranchEmployees join Employee on BranchEmployees.Empid=Employee.EmpId where BranchEmployees.Bid=(select distinct BranchId from CustomerGroup where CustId='" + CustomerId + "') and BranchEmployees.Designation='Field Officer'";
+                dataReader = command.ExecuteReader();
+                while(dataReader.Read())
+                {
+                    _fieldofficer = dataReader.GetString(0);
+                }
+                dataReader.Close();
+            }
+            branchdetails.Add(new BranchDetails { RegionName = _region, BranchName = _branch, FieldOfficerName = _fieldofficer, SHGName = _Shg, PGName = _pg });
         }
 
         private void ViewGuarantorOk_Click(object sender, RoutedEventArgs e)
@@ -168,5 +230,27 @@ namespace MicroFinance
         {
             ViewAccountdetailsPanel.IsOpen = false;
         }
+
+        private void Reject_Click(object sender, RoutedEventArgs e)
+        {
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sql.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sql;
+                command.CommandText = "update CustomerDetails set CustomerStatus='4' where CustId='" + CustomerId + "'";
+                command.ExecuteNonQuery();
+            }
+            MainWindow.StatusMessageofPage(1, "Successfully Customer Rejected...");
+            NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(2));
+        }
+    }
+    class BranchDetails
+    {
+        public string RegionName { get; set; }
+        public string BranchName { get; set; }
+        public string FieldOfficerName { get; set; }
+        public string SHGName { get; set;}
+        public string PGName { get; set; }
     }
 }

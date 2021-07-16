@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MicroFinance"
       xmlns:validate="clr-namespace:MicroFinance.Validations"
       mc:Ignorable="d" 
-      d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
+      d:DesignHeight="630" d:DesignWidth="1366" Background="#FEF2E4"
       xmlns:convert="clr-namespace:MicroFinance.Converters"
       Title="VerifyCustomer">
     <Page.Resources>
@@ -25,36 +25,43 @@
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="380"/>
         </Grid.ColumnDefinitions>
         <Grid x:Name="BranchDetailsGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="270"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="15"/>
-                <ColumnDefinition Width="310"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="15"/>
-                <ColumnDefinition Width="340"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="15"/>
-                <ColumnDefinition Width="340"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="250"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <TextBlock Text="Region : " Style="{StaticResource Regular}" VerticalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding RegionName,Mode=OneWay}" Style="{StaticResource Regular}" Margin="15,0,0,0"/>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="3">
                 <TextBlock Text="Branch : " Style="{StaticResource Regular}" VerticalAlignment="Center" FontWeight="Bold"/>
                 <TextBlock Text="{Binding BranchName,Mode=OneWay}" Style="{StaticResource Regular}" Margin="15,0,0,0"/>
 
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Column="3">
+            <StackPanel Orientation="Horizontal" Grid.Column="5">
                 <TextBlock Text="Field Officer : " Style="{StaticResource Regular}" VerticalAlignment="Center" FontWeight="Bold"/>
-                <TextBlock Text="{Binding FieldOfficer,Mode=OneWay}" Style="{StaticResource Regular}" Margin="15,0,0,0"/>
+                <TextBlock Text="{Binding FieldOfficerName,Mode=OneWay}" Style="{StaticResource Regular}" Margin="15,0,0,0"/>
 
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Column="5">
-                <TextBlock Text="Self Help Group : " Style="{StaticResource Regular}" VerticalAlignment="Center" FontWeight="Bold"/>
-                <TextBlock Text="{Binding SHG,Mode=OneWay}" Style="{StaticResource Regular}" Margin="15,0,0,0"/>
-            </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="7">
+                <TextBlock Text="Self Help Group : " Style="{StaticResource Regular}" VerticalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding SHGName,Mode=OneWay}" Style="{StaticResource Regular}" Margin="15,0,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="9">
                 <TextBlock Text="Peer Group : " Style="{StaticResource Regular}" FontWeight="Bold"/>
-                <TextBlock Text="{Binding PeerGroup,Mode=OneWay}" Style="{StaticResource Regular}" Margin="15,0,0,0"/>
+                <TextBlock Text="{Binding PGName,Mode=OneWay}" Style="{StaticResource Regular}" Margin="15,0,0,0"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="CustomerGrid" Grid.Row="1" Grid.Column="1">
@@ -97,13 +104,13 @@
                     <TextBlock Text="{Binding CustomerName, Mode=OneWay}" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource Regular}"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
                         <TextBlock Text="Gender : " Style="{StaticResource Regular}" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Gender,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Margin="35,0,0,25"/>
+                        <TextBlock Text="{Binding Gender,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Margin="35,0,20,0"/>
 
                         <TextBlock Text="Date of Birth : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                         <TextBlock Text="{Binding DateofBirth,Mode=OneWay,StringFormat=d}" Style="{StaticResource NumberRegular}" Margin="15,0,0,0" FontWeight="Medium"/>
 
-                        <TextBlock Text="Age : " Style="{StaticResource Regular}" Margin="35,0,0,0" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource AgeConvert}}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+                        <TextBlock Text="Age : " Style="{StaticResource Regular}" Margin="15,0,0,0" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource AgeConvert}}" Style="{StaticResource NumberRegular}" Margin="5,5,0,0"/>
                     </StackPanel>
 
                     <TextBlock Text="Father Name : " Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}" FontWeight="Bold"/>
@@ -144,7 +151,7 @@
                         <TextBlock Text="{Binding MonthlyIncome,Mode=OneWay,Converter={StaticResource MoneyConverter}}"  VerticalAlignment="Center" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left"/>
 
                         <TextBlock Text="Montyly Expenses : "  Style="{StaticResource Regular}" FontWeight="Bold" Margin="35,0,0,0"/>
-                        <TextBlock Text="{Binding MonthlyExpenses,Mode=OneWay,Converter={StaticResource MoneyConverter}}"  VerticalAlignment="Center" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding MothlyExpenses,Mode=OneWay,Converter={StaticResource MoneyConverter}}"  VerticalAlignment="Center" Style="{StaticResource NumberRegular}" HorizontalAlignment="Left"/>
                     </StackPanel>
 
                 </Grid>
@@ -212,6 +219,7 @@
             </CheckBox>
             <StackPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
                 <Button x:Name="Cancel" Style="{StaticResource CancelBtn}" Content="Cancel" Margin="0,0,20,0"/>
+                <Button x:Name="Reject" Style="{StaticResource DangerBtn}" Content="Reject" Margin="0,0,20,0" Visibility="Collapsed" Click="Reject_Click"/>
                 <Button x:Name="VerifyCustomerBtn" Style="{StaticResource PrimaryBtn}" Content="Verify" FontSize="16" Click="VerifyCustomerBtn_Click"/>
             </StackPanel>
         </Grid>
@@ -334,21 +342,21 @@
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Text="Account Holder Name : " FontWeight="Bold" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="{Binding AccountHolder,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding AccountHolder,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" VerticalAlignment="Center" Grid.Column="1"></TextBlock>
                                     <TextBlock Text="Account Number : " FontWeight="Bold" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="{Binding AccountNumber,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding AccountNumber,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1"></TextBlock>
 
                                     <TextBlock Text="Bank Name : " FontWeight="Bold" Style="{StaticResource Regular}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Text="{Binding BankName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{Binding BankName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1"></TextBlock>
 
                                     <TextBlock Text="Branch Name : " FontWeight="Bold" Style="{StaticResource Regular}" Grid.Row="3" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding BranchName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource Regular}" Grid.Row="3" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding BranchName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource Regular}" Grid.Row="3" VerticalAlignment="Center" Grid.Column="1"/>
 
                                     <TextBlock Text="IFSC Code : " FontWeight="Bold" Style="{StaticResource Regular}" Grid.Row="4" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding IFSCCode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="4" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding IFSCCode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="4" VerticalAlignment="Center" Grid.Column="1"/>
 
                                     <TextBlock Text="MICR Code : " FontWeight="Bold" Style="{StaticResource Regular}" Grid.Row="5" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding MICRCode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="5" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding MICRCode,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Row="5" VerticalAlignment="Center" Grid.Column="1"/>
                                 </Grid>
                                 <Button Grid.Row="2" Height="40" Width="150" Content="OK" x:Name="BankOk" Click="BankOk_Click"></Button>
                             </Grid>
