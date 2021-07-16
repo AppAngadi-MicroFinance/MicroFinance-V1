@@ -26,7 +26,12 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xCustomerApproval"  Style="{StaticResource CustomerApprovalSmallSmall}" Click="xCustomerApproval_Click"></Button>
+                <Grid>
+                    <Button x:Name="xCustomerApproval"  Style="{StaticResource CustomerApprovalSmallSmall}" Click="xCustomerApproval_Click"></Button>
+                    <Border Margin="0,-10,-10,0" Style="{StaticResource NotifyCount}" Width="25" Height="25" Grid.ColumnSpan="2">
+                        <TextBlock x:Name="xCustApprovalsCount" Style="{StaticResource NotifyText}" Text="12" FontSize="14"></TextBlock>
+                    </Border>
+                </Grid>
             </Border>
             
             <!--Find Customer Button-->
@@ -47,7 +52,6 @@
 
 
             <!--Add New Employee Customer-->
-            
             <Border  
                 Width="180" Height="70" Grid.Row="1" Grid.Column="0" Style="{StaticResource MainBorder}">
                 <Border.Effect>
