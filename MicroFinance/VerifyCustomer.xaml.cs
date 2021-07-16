@@ -49,10 +49,11 @@ namespace MicroFinance
             AddressGrid.DataContext = customer;
             GurantorGrid.DataContext = guarantor;
             NomineeGrid.DataContext = nominee;
-            AddressGrid.DataContext =customer;
+            AddressProofGrid.DataContext =customer;
             PhotoProofGrid.DataContext = customer;
             ProfilePhoto.Source = customer.ProfilePicture;
             ViewAccountdetailsPanel.DataContext = customer;
+            AadharNoGrid.DataContext = customer;
         }
         void FillDetails()
         {
@@ -72,7 +73,7 @@ namespace MicroFinance
         private void ViewNominee_Click(object sender, RoutedEventArgs e)
         {
             ViewNomineePopopup.IsOpen = true;
-            ViewNomineeDetails.DataContext = nominee;
+            viewNomineeGrid.DataContext = nominee;
         }
 
         private void ViewAddressProof_Click(object sender, RoutedEventArgs e)
@@ -146,8 +147,8 @@ namespace MicroFinance
                         command.CommandText = "update CustomerDetails set CustomerStatus='3' where CustId='" + CustomerId + "'";
                         command.ExecuteNonQuery();
                     }
-                    MainWindow.StatusMessageofPage(1, "Successfully Customer Recommended...");
-                    NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(1));
+                    MainWindow.StatusMessageofPage(1, "Successfully Customer Approved...");
+                    NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(2));
                 }
                 else
                 {
@@ -159,8 +160,8 @@ namespace MicroFinance
                         command.CommandText = "update CustomerDetails set CustomerStatus='2' where CustId='" + CustomerId + "'";
                         command.ExecuteNonQuery();
                     }
-                    MainWindow.StatusMessageofPage(1, "Successfully Customer Approved...");
-                    NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(2));
+                    MainWindow.StatusMessageofPage(1, "Successfully Customer Recommended...");
+                    NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(1));
                 }
             }
             catch

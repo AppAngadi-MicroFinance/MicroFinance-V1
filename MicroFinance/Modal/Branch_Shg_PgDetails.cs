@@ -22,7 +22,7 @@ namespace MicroFinance.Modal
         //        sqlConnection.Open();
         //        SqlCommand sqlCommand = new SqlCommand();
         //        sqlCommand.Connection = sqlConnection;
-        //        sqlCommand.CommandText = "select BranchName from BranchDetails where RegionName = (select RegionName from BranchDetails where Bid = (select Bid from BranchEmployees where Empid = '"+EmpId+"'))";
+        //        sqlCommand.CommandText = "select BranchName from BranchDetails where RegionName = (select RegionName from BranchDetails where Bid = (select Bid from BranchEmployees where Empid = '" + EmpId + "'))";
         //        SqlDataReader dataReader = sqlCommand.ExecuteReader();
         //        while (dataReader.Read())
         //        {
@@ -40,7 +40,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select RegionName from BranchDetails where Bid = (select Bid from BranchEmployees where Empid = '"+EmpId+"')";
+                sqlCommand.CommandText = "select RegionName from BranchDetails where Bid = (select Bid from BranchEmployees where Empid = '" + EmpId + "')";
                 RegionName = sqlCommand.ExecuteScalar().ToString();
             }
             return RegionName;
@@ -80,7 +80,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select SHGName from SelfHelpGroup where EmpId='" + EmpId + "'";
+                sqlCommand.CommandText = "select distinct SHGName from SelfHelpGroup where EmpId='" + EmpId + "'";
                 SqlDataReader dataReader = sqlCommand.ExecuteReader();
                 while(dataReader.Read())
                 {

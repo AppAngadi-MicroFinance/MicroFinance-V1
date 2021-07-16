@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,6 +36,10 @@ namespace MicroFinance
             IsEligible();
 
             BranchAndGroupDetailsforFieldOfficer();
+            Assign();
+        }
+        void Assign()
+        {
             CustomerGrid.DataContext = customer;
             AddressGrid.DataContext = customer;
             AddressProofGrid.DataContext = customer;
@@ -290,6 +295,8 @@ namespace MicroFinance
             if (CustomerValidation() == false)
             {
                 MainWindow.StatusMessageofPage(0, "Please Enter Require Fields....");
+                Thread.Sleep(2000);
+                MainWindow.StatusMessageofPage(1, "Ready...");
             }
             else
             {
@@ -302,9 +309,17 @@ namespace MicroFinance
                 {
                     customer.SaveCustomerDetails(SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
                 }
+                customer = new Customer();
+                nominee = new Nominee();
+                guarantor = new Guarantor();
+                Assign();
+                MainWindow.StatusMessageofPage(1, "Successfully Customer Details Added");
                 NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
-            }
+                Thread.Sleep(2000);
+                MainWindow.StatusMessageofPage(1, "Ready...");
 
+            }
+            
         }
 
         private void ImageSavebtn_Click(object sender, RoutedEventArgs e)

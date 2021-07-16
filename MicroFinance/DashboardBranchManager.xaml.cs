@@ -22,8 +22,8 @@ namespace MicroFinance
     /// </summary>
     public partial class DashboardBranchManager : Page
     {
-        string ConnectionString = "Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True";
-        string BranchId = "01202106002";
+
+        string BranchId = MainWindow.LoginDesignation.BranchId;
         public DashboardBranchManager()
         {
             InitializeComponent();
@@ -54,7 +54,7 @@ namespace MicroFinance
 
         private void xRecommendCustome_Click(object sender, RoutedEventArgs e)
         {
-            
+            this.NavigationService.Navigate(new CustomerNotification(1));
         }
 
         private void xAddSHGBtn_Click(object sender, RoutedEventArgs e)
@@ -64,7 +64,7 @@ namespace MicroFinance
         int GetCustomersStatus1(string branchId)
         {
             int value = 0;
-            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            using (SqlConnection sqlconn = new SqlConnection(MainWindow.ConnectionString))
             {
                 sqlconn.Open();
                 if (sqlconn.State == ConnectionState.Open)
