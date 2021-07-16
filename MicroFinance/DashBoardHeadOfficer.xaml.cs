@@ -22,10 +22,8 @@ namespace MicroFinance
     /// </summary>
     public partial class DashBoardHeadOfficer : Page
     {
-        string ConnectionString = "Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True";
 
-
-        string BranchID = "01202106002";
+        string BranchID = MainWindow.LoginDesignation.BranchId;
         public DashBoardHeadOfficer()
         {
             InitializeComponent();
@@ -99,7 +97,7 @@ namespace MicroFinance
         int GetCustomersStatus2(string branchId)
         {
             int value = 0;
-            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            using (SqlConnection sqlconn = new SqlConnection(MainWindow.ConnectionString))
             {
                 sqlconn.Open();
                 if (sqlconn.State == ConnectionState.Open)
@@ -112,6 +110,11 @@ namespace MicroFinance
                 sqlconn.Close();
             }
             return value;
+        }
+
+        private void EmployeeSeachPanelCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
