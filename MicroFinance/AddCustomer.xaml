@@ -34,11 +34,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="490"/>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="390"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="xBackwardButton" Click="xBackwardButton_Click"
                 Style="{StaticResource BackButtonStyle}" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
