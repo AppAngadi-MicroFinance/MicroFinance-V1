@@ -44,5 +44,10 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new AddNewSelfHelpGroup());
         }
+
+        private void xAddSHGBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

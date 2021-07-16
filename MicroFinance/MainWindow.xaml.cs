@@ -26,8 +26,8 @@ namespace MicroFinance
         public MainWindow()
         {
             LoginDesignation.LoginDesignation = "Field Officer";
-            LoginDesignation.EmpId = "0100220210702";
-            LoginDesignation.BranchId = "01202106002";
+            LoginDesignation.EmpId = "0100120210702";
+            LoginDesignation.BranchId = "01202107001";
             LoginDesignation.RegionName = "Trichy";
             InitializeComponent();
             MessageStatus.DataContext = StatusMsg;
