@@ -101,6 +101,7 @@
     <Compile Include="Converters\AbsentCheck.cs" />
     <Compile Include="Converters\AgeConverter.cs" />
     <Compile Include="Converters\ComboEnableDisable.cs" />
+    <Compile Include="Converters\DayConverter.cs" />
     <Compile Include="Converters\GenderFemale.cs" />
     <Compile Include="Converters\GenderMaleCheck.cs" />
     <Compile Include="Converters\GuaranterName.cs" />
