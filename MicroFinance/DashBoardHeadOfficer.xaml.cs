@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +22,7 @@ namespace MicroFinance
     /// </summary>
     public partial class DashBoardHeadOfficer : Page
     {
+        string ConnectionString = "Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True";
         public DashBoardHeadOfficer()
         {
             InitializeComponent();
@@ -71,6 +74,23 @@ namespace MicroFinance
         private void xCustomerApproval_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new CustomerNotification(2));
+        }
+
+
+        void GetCustomersForApprovals(string branchId)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select SNo from Region where RegionName='" + Region + "'";
+                }
+                sqlconn.Close();
+                return Result;
+            }
         }
     }
 }

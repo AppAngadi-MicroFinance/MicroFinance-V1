@@ -131,10 +131,8 @@ namespace MicroFinance
                 if (captureDevice.IsRunning)
                 {
                     MemoryStream memoryStream = new MemoryStream();
-
                     encoder.Frames.Add(BitmapFrame.Create(bitmap));
                     encoder.Save(memoryStream);
-
                     memoryStream.Position = 0;
                     SavedImage.BeginInit();
                     SavedImage.StreamSource = memoryStream;

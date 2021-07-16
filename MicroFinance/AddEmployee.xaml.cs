@@ -213,6 +213,8 @@ namespace MicroFinance
         private void ConfirmationPanelCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             ConfirmationPanel.IsOpen = false;
+            EmployeeMainGrid.IsEnabled = true;
+
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)

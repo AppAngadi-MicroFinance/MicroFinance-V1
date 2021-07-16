@@ -37,7 +37,17 @@ namespace MicroFinance
 
         private void xRecommendCustome_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new CustomerNotification(1));
+            
+        }
+
+        private void xAddSHGBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new AddNewSelfHelpGroup());
+        }
+
+        private void xAddSHGBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void xAddSHGBtn_Click(object sender, RoutedEventArgs e)
