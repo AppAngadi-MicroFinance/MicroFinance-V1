@@ -64,7 +64,7 @@ namespace MicroFinance
         int GetCustomersStatus1(string branchId)
         {
             int value = 0;
-            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.db))
             {
                 sqlconn.Open();
                 if (sqlconn.State == ConnectionState.Open)

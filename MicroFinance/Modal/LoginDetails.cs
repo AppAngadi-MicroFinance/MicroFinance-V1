@@ -40,9 +40,9 @@ namespace MicroFinance.Modal
                     dataReader.Close();
                 }
             }
-            catch
+            catch(Exception EX)
             {
-
+                throw new Exception(EX.Message);
             }
         }
     }
