@@ -23,7 +23,7 @@ namespace MicroFinance.Modal
         {
             try
             { 
-                using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.db))
+                using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.DBConnection))
                 {
                     sql.Open();
                     SqlCommand command = new SqlCommand();

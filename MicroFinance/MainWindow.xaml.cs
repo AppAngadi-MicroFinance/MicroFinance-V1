@@ -24,6 +24,8 @@ namespace MicroFinance
         public static StaticProperty StatusMsg = new StaticProperty();
         string _userName;
         public static LoginDetails LoginDesignation;
+
+        public static string ConnectionString = "Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True";
         public MainWindow()
         {
             InitializeComponent();
