@@ -23,6 +23,7 @@ namespace MicroFinance
         public DashboardFieldOfficer()
         {
             InitializeComponent();
+            
         }
 
         private void xAddCustomerBtn_Click(object sender, RoutedEventArgs e)

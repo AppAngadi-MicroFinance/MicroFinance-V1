@@ -5,14 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
       mc:Ignorable="d" 
-      d:DesignHeight="660" d:DesignWidth="1366"
+      d:DesignHeight="500" d:DesignWidth="750"
       Title="ModifyEmployee">
     <Page.Resources>
         
 </Page.Resources>
 
-    <Grid Style="{StaticResource PrimaryGrid}" x:Name="MainGrid">
-        <Grid Height="630" Width="800">
+    <Grid x:Name="MainGrid" Background="#FEF2E4">
+        <Grid Height="500" Width="750">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25*"/>
                 <ColumnDefinition Width="50*"/>
@@ -21,7 +21,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="75*"/>
-                <RowDefinition Height="15*"/>
+                
             </Grid.RowDefinitions>
             <TextBlock Style="{StaticResource SubTitle}" Text="Search Employee" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
             <TextBox Style="{StaticResource InputBox}" Width="350" x:Name="serachtxt" Grid.Column="1" Height="35" TextChanged="serachtxt_TextChanged"></TextBox>

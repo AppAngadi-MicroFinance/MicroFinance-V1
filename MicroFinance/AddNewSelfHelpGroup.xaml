@@ -9,6 +9,8 @@
       Title="AddNewSelfHelpGroup">
 
     <Grid>
+        <Button x:Name="xBackwardButton" Click="xBackwardButton_Click"
+                Style="{StaticResource BackButtonStyle}" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
         <Border Width="600" Height="400" BorderThickness="5" BorderBrush="#781f9f">
             <Grid>
                 <Grid.RowDefinitions>

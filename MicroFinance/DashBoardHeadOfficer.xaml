@@ -28,7 +28,7 @@
                 </Border.Effect>
                 <Grid>
                     <Button x:Name="xCustomerApproval"  Style="{StaticResource CustomerApprovalSmallSmall}" Click="xCustomerApproval_Click"></Button>
-                    <Border Margin="0,-10,-10,0" Style="{StaticResource NotifyCount}" Width="25" Height="25" Grid.ColumnSpan="2">
+                    <Border x:Name="xNotificationBatch" Margin="0,-10,-10,0" Style="{StaticResource NotifyCount}" Width="25" Height="25" Grid.ColumnSpan="2">
                         <TextBlock x:Name="xCustApprovalsCount" Style="{StaticResource NotifyText}" Text="12" FontSize="14"></TextBlock>
                     </Border>
                 </Grid>
@@ -121,32 +121,17 @@
 
 
         <!--Search person Pop-Up-->
-        <Border x:Name="xSearchPersonPop" Width="700" Height="500" BorderThickness="5,30,5,3" BorderBrush="Gray" Visibility="Collapsed">
+        <Border x:Name="xSearchPersonPop" Width="700" Height="550" BorderThickness="5,30,5,3" BorderBrush="Gray" Visibility="Collapsed">
             <Grid Background="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                
+                <Button Panel.ZIndex="2" Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Margin="0,-90,10,0" x:Name="EmployeeSeachPanelCloseBtn" Click="EmployeeSeachPanelCloseBtn_Click"></Button>
                 <TextBlock x:Name="xPopUpHeading" Text="Find Customer" FontSize="16" FontWeight="SemiBold" Margin="10,-25,0,0" Foreground="White"></TextBlock>
+                <Frame Grid.RowSpan="2" x:Name="EmployeeSearchFrame"></Frame>
                 
-                <!--Search Textbox-->
-                <Border Width="600" Height="50" Margin="10,0,0,0" Grid.Row="0" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black">
-                    <TextBox x:Name="xSearchBoxCustomer" Margin="10,5,0,0" Width="580" Height="30" FontSize="16" BorderThickness="0" FontWeight="SemiBold"></TextBox>
-                </Border>
-                
-                <!--Search Button-->
-                <Button x:Name="xSearchBtn" Width="50" Height="50" Content="Search" 
-                        Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"></Button>
-                
-                <!--Exit Button-->
-                <Button x:Name="xPopupCloseBtn" Click="xPopupCloseBtn_Click" Width="30" Height="30" Content="X" Background="Red" Foreground="White"
-                        Margin="0,-30,-5,0" Grid.Row="0" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top"></Button>
-
-                <ListView Grid.Row="1" Width="600" Height="400" Background="LightGreen">
-
-                </ListView>
             </Grid>
             
         </Border>

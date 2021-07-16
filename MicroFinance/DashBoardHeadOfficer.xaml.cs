@@ -23,9 +23,27 @@ namespace MicroFinance
     public partial class DashBoardHeadOfficer : Page
     {
         string ConnectionString = "Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True";
+
+
+        string BranchID = "01202106002";
         public DashBoardHeadOfficer()
         {
             InitializeComponent();
+            ManageApprovalNotification();
+        }
+
+
+        void ManageApprovalNotification()
+        {
+            int forApprovals = GetCustomersStatus2(BranchID);
+            if (forApprovals > 0)
+            {
+                xCustApprovalsCount.Text = forApprovals.ToString();
+            }
+            else
+            {
+                xNotificationBatch.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void xAddNewEmployee_Click(object sender, RoutedEventArgs e)
@@ -50,7 +68,7 @@ namespace MicroFinance
         private void xPopupCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             xSearchPersonPop.Visibility = Visibility.Collapsed;
-            xSearchBoxCustomer.Clear();
+           
         }
 
         private void xFindCustomer_Click(object sender, RoutedEventArgs e)
@@ -62,6 +80,7 @@ namespace MicroFinance
         private void xFindEmployee_Click(object sender, RoutedEventArgs e)
         {
             xSearchPersonPop.Visibility = Visibility.Visible;
+            EmployeeSearchFrame.NavigationService.Navigate(new ModifyEmployee());
             xPopUpHeading.Text = "Find Employee";
         }
 
@@ -77,20 +96,22 @@ namespace MicroFinance
         }
 
 
-        //void GetCustomersForApprovals(string branchId)
-        //{
-        //    using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
-        //    {
-        //        sqlconn.Open();
-        //        if (sqlconn.State == ConnectionState.Open)
-        //        {
-        //            SqlCommand sqlcomm = new SqlCommand();
-        //            sqlcomm.Connection = sqlconn;
-        //            sqlcomm.CommandText = "select SNo from Region where RegionName='" + Region + "'";
-        //        }
-        //        sqlconn.Close();
-        //        return Result;
-        //    }
-        //}
+        int GetCustomersStatus2(string branchId)
+        {
+            int value = 0;
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = sqlconn;
+                    cmd.CommandText = "select count(distinct CustomerDetails.CustId) from CustomerDetails join CustomerGroup on CustomerGroup.BranchId = '"+branchId+"' where CustomerDetails.CustomerStatus = 2";
+                    value = (int)cmd.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            return value;
+        }
     }
 }

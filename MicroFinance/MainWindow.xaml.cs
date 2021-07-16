@@ -22,13 +22,10 @@ namespace MicroFinance
     public partial class MainWindow : Window
     {
         public static StaticProperty StatusMsg = new StaticProperty();
-        public static LoginDetails LoginDesignation = new LoginDetails();
+        string _userName;
+        public static LoginDetails LoginDesignation;
         public MainWindow()
         {
-            LoginDesignation.LoginDesignation = "Field Officer";
-            LoginDesignation.EmpId = "0100120210702";
-            LoginDesignation.BranchId = "01202107001";
-            LoginDesignation.RegionName = "Trichy";
             InitializeComponent();
             MessageStatus.DataContext = StatusMsg;
         }
@@ -48,30 +45,41 @@ namespace MicroFinance
 
             string UserName = xUserName.Text;
             string Password = xPassword.Password;
-            int power = int.Parse(UserName);
-            if (power == 1)
+            _userName = UserName;
+            try
             {
-                LoginBorder.Visibility = Visibility.Collapsed;
-                mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
-                LoggedInState();
+                LoginDesignation = new LoginDetails(_userName);
+                //int power = int.Parse(UserName);
+                string power = LoginDesignation.LoginDesignation;
+                power = power.ToUpper();
+                if (power.Equals("FIELD OFFICER"))
+                {
+                    LoginBorder.Visibility = Visibility.Collapsed;
+                    mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
+                    LoggedInState();
+                }
+                else if (power.Equals("ACCOUNTANT"))
+                {
+                    LoginBorder.Visibility = Visibility.Collapsed;
+                    mainframe.NavigationService.Navigate(new DashboardAccountant());
+                    LoggedInState();
+                }
+                else if (power.Equals("MANAGER"))
+                {
+                    LoginBorder.Visibility = Visibility.Collapsed;
+                    mainframe.NavigationService.Navigate(new DashboardBranchManager());
+                    LoggedInState();
+                }
+                else if (power.Equals("REGION MANAGER"))
+                {
+                    LoginBorder.Visibility = Visibility.Collapsed;
+                    mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
+                    LoggedInState();
+                }
             }
-            else if(power == 2)
+            catch
             {
-                LoginBorder.Visibility = Visibility.Collapsed;
-                mainframe.NavigationService.Navigate(new DashboardAccountant());
-                LoggedInState();
-            }
-            else if (power == 3)
-            {
-                LoginBorder.Visibility = Visibility.Collapsed;
-                mainframe.NavigationService.Navigate(new DashboardBranchManager());
-                LoggedInState();
-            }
-            else if (power == 4)
-            {
-                LoginBorder.Visibility = Visibility.Collapsed;
-                mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
-                LoggedInState();
+                StatusMessageofPage(0, "Please Valid User Name.....");
             }
             
         }
