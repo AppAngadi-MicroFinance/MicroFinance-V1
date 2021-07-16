@@ -192,5 +192,11 @@ namespace MicroFinance
 
             return Result;
         }
+
+        private void xBackwardButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.NavigationService.CanGoBack)
+                this.NavigationService.GoBack();
+        }
     }
 }
