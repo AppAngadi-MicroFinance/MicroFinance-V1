@@ -80,7 +80,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select SHGName from SelfHelpGroup where EmpId='" + EmpId + "'";
+                sqlCommand.CommandText = "select distinct SHGName from SelfHelpGroup where EmpId='" + EmpId + "'";
                 SqlDataReader dataReader = sqlCommand.ExecuteReader();
                 while(dataReader.Read())
                 {

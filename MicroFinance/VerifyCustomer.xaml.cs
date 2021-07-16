@@ -49,10 +49,11 @@ namespace MicroFinance
             AddressGrid.DataContext = customer;
             GurantorGrid.DataContext = guarantor;
             NomineeGrid.DataContext = nominee;
-            AddressGrid.DataContext =customer;
+            AddressProofGrid.DataContext =customer;
             PhotoProofGrid.DataContext = customer;
             ProfilePhoto.Source = customer.ProfilePicture;
             ViewAccountdetailsPanel.DataContext = customer;
+            AadharNoGrid.DataContext = customer;
         }
         void FillDetails()
         {
@@ -72,7 +73,7 @@ namespace MicroFinance
         private void ViewNominee_Click(object sender, RoutedEventArgs e)
         {
             ViewNomineePopopup.IsOpen = true;
-            ViewNomineeDetails.DataContext = nominee;
+            viewNomineeGrid.DataContext = nominee;
         }
 
         private void ViewAddressProof_Click(object sender, RoutedEventArgs e)

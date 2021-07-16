@@ -35,6 +35,10 @@ namespace MicroFinance
             IsEligible();
 
             BranchAndGroupDetailsforFieldOfficer();
+            Assign();
+        }
+        void Assign()
+        {
             CustomerGrid.DataContext = customer;
             AddressGrid.DataContext = customer;
             AddressProofGrid.DataContext = customer;
@@ -302,9 +306,13 @@ namespace MicroFinance
                 {
                     customer.SaveCustomerDetails(SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
                 }
+                customer = new Customer();
+                nominee = new Nominee();
+                guarantor = new Guarantor();
+                Assign();
                 NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
             }
-
+            
         }
 
         private void ImageSavebtn_Click(object sender, RoutedEventArgs e)

@@ -30,13 +30,13 @@
         <Grid x:Name="BranchDetailsGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="15"/>
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="15"/>
-                <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="15"/>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="15"/>
                 <ColumnDefinition Width="250"/>
             </Grid.ColumnDefinitions>
@@ -526,7 +526,7 @@
         <!-- Nominee Popup for View-->
         <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" x:Name="ViewNomineePopopup" Placement="Center" >
             <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Black">
-                <Grid Background="#e8fff2" >
+                <Grid Background="#e8fff2" x:Name="viewNomineeGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30"/>
                         <ColumnDefinition Width="480"/>
