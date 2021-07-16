@@ -51,7 +51,7 @@
             <Border.Effect>
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>
-            <Button x:Name="xAddSHGBtn" Style="{StaticResource NavigateAddSHG}"></Button>
+            <Button x:Name="xAddSHGBtn" Click="xAddSHGBtn_Click" Style="{StaticResource NavigateAddSHG}"></Button>
         </Border>
         <!--Section C-->
         <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" 

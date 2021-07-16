@@ -148,7 +148,7 @@ namespace MicroFinance
             }
             else
             {
-                MessageBox.Show("please capture.");
+                MainWindow.StatusMessageofPage(0, "Please Capture..");
             }
         }
 
@@ -181,7 +181,7 @@ namespace MicroFinance
             }
             else
             {
-                MessageBox.Show("Capture Image First", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MainWindow.StatusMessageofPage(0, "Capture Image First");
             }
            
 
