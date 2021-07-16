@@ -113,5 +113,10 @@ namespace MicroFinance
             }
             return value;
         }
+
+        private void EmployeeSeachPanelCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
