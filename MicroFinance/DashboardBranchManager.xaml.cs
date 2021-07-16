@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Modal;
 
 namespace MicroFinance
 {
@@ -77,6 +78,10 @@ namespace MicroFinance
                 sqlconn.Close();
             }
             return value;
+        }
+
+        private void xDailyReportsBtn_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
