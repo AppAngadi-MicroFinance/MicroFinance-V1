@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,8 @@ namespace MicroFinance
         public static StaticProperty StatusMsg = new StaticProperty();
         string _userName;
         public static LoginDetails LoginDesignation;
+
+        public static string ConnectionString = Properties.Settings.Default.db;
         public MainWindow()
         {
             InitializeComponent();
@@ -57,24 +60,28 @@ namespace MicroFinance
                     LoginBorder.Visibility = Visibility.Collapsed;
                     mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
                     LoggedInState();
+                    MainWindow.StatusMessageofPage(1, "Ready...");
                 }
                 else if (power.Equals("ACCOUNTANT"))
                 {
                     LoginBorder.Visibility = Visibility.Collapsed;
                     mainframe.NavigationService.Navigate(new DashboardAccountant());
                     LoggedInState();
+                    MainWindow.StatusMessageofPage(1, "Ready...");
                 }
                 else if (power.Equals("MANAGER"))
                 {
                     LoginBorder.Visibility = Visibility.Collapsed;
                     mainframe.NavigationService.Navigate(new DashboardBranchManager());
                     LoggedInState();
+                    MainWindow.StatusMessageofPage(1, "Ready...");
                 }
                 else if (power.Equals("REGION MANAGER"))
                 {
                     LoginBorder.Visibility = Visibility.Collapsed;
                     mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
                     LoggedInState();
+                    MainWindow.StatusMessageofPage(1, "Ready...");
                 }
             }
             catch

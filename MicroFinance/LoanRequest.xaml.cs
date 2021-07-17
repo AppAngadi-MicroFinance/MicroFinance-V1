@@ -192,6 +192,8 @@ namespace MicroFinance
             else
             {
                 MessageBox.Show("Select The Customer");
+                loanRequest = new LoanDetails();
+                LoanRequestPanel.DataContext = new LoanDetails();
             }
             
             

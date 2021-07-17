@@ -60,21 +60,6 @@ namespace MicroFinance
         bool _checkIsValid = false;
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-        //    TextBox textBox = sender as TextBox;
-        //    Int32 selectionStart = textBox.SelectionStart;
-        //    Int32 selectionLength = textBox.SelectionLength;
-        //    String newText = String.Empty;
-        //    foreach (Char c in textBox.Text.ToCharArray())
-        //    {
-        //        if (Char.IsDigit(c) || Char.IsControl(c))
-        //        {
-        //            newText += c;
-        //        }
-        //    }
-
-        //    textBox.Text = newText;
-        //    textBox.SelectionStart = selectionStart <= textBox.Text.Length ? selectionStart : textBox.Text.Length;
-
             long currentAmt = Total();
 
             TotalBox.Text = currentAmt.ToString("C0");
@@ -140,7 +125,7 @@ namespace MicroFinance
                 connection.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "insert into DenominationTable values('" + _regionName + "','" + _branchId + "','" + _date + "','" + _empId + "'," + _twoThousand + "," + _fiveHundred + "," + _twoHundred + "," + _hundred + "," + _fifty + "," + _twenty + "," + _ten + "," + _five + "," + _two + "," + _one + ","+initialAmt+")";
+                command.CommandText = "insert into DenominationTable values('" + _regionName + "','" + _branchId + "','" + _date + "','" + _empId + "'," + _twoThousand + "," + _fiveHundred + "," + _twoHundred + "," + _hundred + "," + _fifty + "," + _twenty + "," + _ten + "," + _five + "," + _two + "," + _one + ","+initialAmt+",'"+CenterBlock.Text+"',0)";
                 command.ExecuteNonQuery();
             }
         }

@@ -36,7 +36,7 @@
             <Border.Effect>
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>
-            <Button x:Name="xDailyCollection" Style="{StaticResource NavigateDailyCollection}"></Button>
+            <Button x:Name="xDailyCollection" Style="{StaticResource NavigateDailyCollection}" Click="xDailyCollection_Click"></Button>
         </Border>
 
         <!--Section D-->                <!--Notification-->

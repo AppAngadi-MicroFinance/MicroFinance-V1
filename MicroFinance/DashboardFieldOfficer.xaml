@@ -34,7 +34,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xPendingCustomerBtn" Style="{StaticResource NavigatePendingCustomer}" Click="xPendingCustomerBtn_Click"></Button>
+                <Button x:Name="xPendingCustomerBtn" Style="{StaticResource PendingCustomerStyle}" Click="xPendingCustomerBtn_Click"></Button>
             </Border>
             
             <!--Find Customer-->
@@ -82,7 +82,12 @@
             <Border.Effect>
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>
-            <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
+            <Grid>
+                <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}" Click="xNotificationBtn_Click"></Button>
+                <Border Margin="0,-15,-15,0" Style="{StaticResource NotifyCount}" Width="35" Height="35" Panel.ZIndex="10">
+                    <TextBlock Style="{StaticResource NotifyText}" Text="12" FontSize="18"></TextBlock>
+                </Border>
+            </Grid>
         </Border>
 
         <!--Search person Pop-Up-->

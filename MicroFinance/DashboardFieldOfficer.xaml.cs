@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MicroFinance.Modal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,6 +56,11 @@ namespace MicroFinance
         private void xPendingCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new CustomerNotification(0));
+        }
+
+        private void xNotificationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GetNavigationService(this).Navigate(new CollectionSheet());
         }
     }
 }
