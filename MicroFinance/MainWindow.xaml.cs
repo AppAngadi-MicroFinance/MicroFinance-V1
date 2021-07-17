@@ -45,7 +45,6 @@ namespace MicroFinance
 
         private void xLoginButton_Click(object sender, RoutedEventArgs e)
         {
-
             string UserName = xUserName.Text;
             string Password = xPassword.Password;
             _userName = UserName;
