@@ -83,7 +83,7 @@
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>
             <Grid>
-                <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
+                <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}" Click="xNotificationBtn_Click"></Button>
                 <Border Margin="0,-15,-15,0" Style="{StaticResource NotifyCount}" Width="35" Height="35" Panel.ZIndex="10">
                     <TextBlock Style="{StaticResource NotifyText}" Text="12" FontSize="18"></TextBlock>
                 </Border>

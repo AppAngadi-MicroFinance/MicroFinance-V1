@@ -64,7 +64,7 @@ namespace MicroFinance.Modal
                         collectionFormats.Total = _principal + _interest;
                     }
                     dataReader.Close();
-                    command.CommandText = "select count(NoOfPaymentDone) from LoanCollection where LoanID='" + _loadId + "'";
+                    command.CommandText = "select Sum(NoOfPaymentDone) from LoanCollection where LoanID='" + _loadId + "'";
                     collectionFormats.NumberofPayment = (int)command.ExecuteScalar();
 					if(!String.IsNullOrEmpty(collectionFormats.MemberName))
                     {
