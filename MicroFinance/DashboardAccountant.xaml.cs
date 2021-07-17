@@ -29,5 +29,10 @@ namespace MicroFinance
         {
             
         }
+
+        private void xDailyCollection_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new CollectionVerify());
+        }
     }
 }

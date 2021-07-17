@@ -64,7 +64,7 @@
             <Border.Effect>
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>
-            <Button x:Name="xDailyReportsBtn" Style="{StaticResource NavigateDailyReports}"></Button>
+            <Button x:Name="xDailyReportsBtn" Style="{StaticResource NavigateDailyReports}" Click="xDailyReportsBtn_Click"></Button>
         </Border>
         <!--Section D-->
         <Grid Width="400" Height="170" Margin="0,0,150,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">

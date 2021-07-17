@@ -108,9 +108,13 @@
     <Compile Include="CollectionStartPage.xaml.cs">
       <DependentUpon>CollectionStartPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CollectionVerify.xaml.cs">
+      <DependentUpon>CollectionVerify.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\AbsentCheck.cs" />
     <Compile Include="Converters\AgeConverter.cs" />
     <Compile Include="Converters\ComboEnableDisable.cs" />
+    <Compile Include="Converters\DayConverter.cs" />
     <Compile Include="Converters\GenderFemale.cs" />
     <Compile Include="Converters\GenderMaleCheck.cs" />
     <Compile Include="Converters\GuaranterName.cs" />
@@ -239,6 +243,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CollectionVerify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CreateBranch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -352,6 +360,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Include="Modal\CollectionSheet.cs" />
+    <EmbeddedResource Include="Report1.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

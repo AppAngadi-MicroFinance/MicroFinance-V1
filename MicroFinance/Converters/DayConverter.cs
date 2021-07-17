@@ -8,32 +8,17 @@ using System.Windows.Data;
 
 namespace MicroFinance.Converters
 {
-    class PresentCheck : IValueConverter
+    class DayConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int _getNo = (int)value;
-            if(_getNo==1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            DateTime Date = (DateTime)value;
+            return Date.DayOfWeek;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool _get = (bool)value;
-            if(_get)
-            {
-                return 1;
-            }
-            else
-            {
-                return 2;
-            }
+            throw new NotImplementedException();
         }
     }
 }
