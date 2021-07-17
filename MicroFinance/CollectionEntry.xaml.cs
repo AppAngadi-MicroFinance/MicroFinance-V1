@@ -217,7 +217,7 @@ namespace MicroFinance
                         dataReader.Close();
                         _remainingDue = loan.Amount - _remainingDue - loan.Principal;
                         string _todayDate = Convert.ToDateTime(DateBlck.Text).ToString("yyyy-MM-dd");
-                        command.CommandText = "insert into LoanCollection values('" + loan.CustId + "','" + loan.LoanId + "'," + loan.Principal + "," + loan.Interest + "," + loan.Security + "," + loan.Total + "," + loan.Attendance + ",'" + _todayDate + "'," + loan.NOOfPayment + "," + _remainingDue + ")";
+                        command.CommandText = "insert into LoanCollection values('" + loan.CustId + "','" + loan.LoanId + "'," + loan.Principal + "," + loan.Interest + "," + loan.Security + "," + loan.Total + "," + loan.Attendance + ",'" + _todayDate + "'," + loan.NOOfPayment + "," + _remainingDue + ",'"+Convert.ToDateTime(DateBlck.Text).DayOfWeek+"')";
                         command.ExecuteNonQuery();
                         if (_remainingDue <= 0)
                         {
@@ -231,9 +231,10 @@ namespace MicroFinance
                             command.CommandText = "UPDATE CustomerDetails SET IsActive='FALSE' WHERE CustId='" + loan.CustId + "'";
                             command.ExecuteNonQuery();
                         }
-                        denomination.InsertDenomination();
                     }
                 }
+
+                denomination.InsertDenomination();
 
                 NavigationService.GetNavigationService(this).Navigate(new CollectionStartPage());
             }

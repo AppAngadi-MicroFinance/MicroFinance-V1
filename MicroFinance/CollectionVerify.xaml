@@ -36,20 +36,21 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Region Name" Style="{StaticResource Regular}" Margin="50,0,0,0"></TextBlock>
-                <ComboBox Style="{StaticResource combo}" Grid.Row="1"></ComboBox>
+                <TextBlock Margin="50,0,0,0" FontWeight="Medium" Style="{StaticResource Regular}" Grid.Row="1" x:Name="RegionName"></TextBlock>
                 <TextBlock Text="Branch Name" Style="{StaticResource Regular}" Grid.Row="0" Grid.Column="1" Margin="50,0,0,0"></TextBlock>
-                <ComboBox Style="{StaticResource combo}" Grid.Row="1" Grid.Column="1"></ComboBox>
+                <TextBlock Margin="50,0,0,0" FontWeight="Medium" Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="1" x:Name="BranchName"></TextBlock>
                 <TextBlock Text="Date" Grid.Row="2" Style="{StaticResource Regular}" Margin="50,0,0,0"></TextBlock>
                 <TextBlock Text="Day" Grid.Row="2" Grid.Column="1" Style="{StaticResource Regular}" Margin="50,0,0,0"></TextBlock>
-                <DatePicker Grid.Row="3" Style="{StaticResource DateSelecter}" Width="200"></DatePicker>
-                <TextBlock Text="Mon" Grid.Row="3" Grid.Column="1" Style="{StaticResource Regular}" Margin="50,0,0,0"></TextBlock>
+                <DatePicker x:Name="DatePic" Grid.Row="3" SelectedDateChanged="DatePicker_SelectedDateChanged" Style="{StaticResource DateSelecter}" Width="200"></DatePicker>
+                <TextBlock x:Name="DayText" Text="Friday" FontWeight="Medium" Grid.Row="3" Grid.Column="1" Style="{StaticResource Regular}" Margin="50,0,0,0"></TextBlock>
                 <TextBlock Text="Field Officer" Style="{StaticResource Regular}" Grid.Row="4" Margin="50,0,0,0"></TextBlock>
                 <TextBlock Text="SHG Name" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1" Margin="50,0,0,0"></TextBlock>
-                <ComboBox Style="{StaticResource combo}" Grid.Row="5"></ComboBox>
-                <ComboBox Style="{StaticResource combo}" Grid.Row="5" Grid.Column="1"></ComboBox>
-                <Button Style="{StaticResource SecondaryBtn}" Grid.Row="6" Grid.ColumnSpan="2" Grid.RowSpan="2" Content="Go"></Button>
+                <ComboBox x:Name="FieldOfficerBox" Style="{StaticResource combo}" Grid.Row="5" SelectionChanged="FieldOfficerBox_SelectionChanged"></ComboBox>
+                <ComboBox x:Name="ShgBox" Style="{StaticResource combo}" Grid.Row="5" Grid.Column="1"></ComboBox>
+                <Button Style="{StaticResource CancelBtn}" x:Name="CncBtn" Click="CncBtn_Click" Grid.Row="6" Grid.ColumnSpan="2" Grid.RowSpan="2" Content="Cancel"  Margin="0,0,200,0"></Button>
+                <Button Style="{StaticResource SecondaryBtn}" Grid.Row="6" Grid.ColumnSpan="2" Grid.RowSpan="2" Content="Go" Click="Button_Click" Margin="100,0,0,0"></Button>
             </Grid>
-            <Grid Grid.Column="1" Width="450" Height="auto" Background="#e8fff2" VerticalAlignment="Top" Margin="0,15,0,0">
+            <Grid Grid.Column="1" x:Name="DenominationGrid" Visibility="Hidden" Width="450" Height="auto" Background="#e8fff2" VerticalAlignment="Top" Margin="0,15,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="200"/>
@@ -84,7 +85,7 @@
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <TextBlock Text="{Binding Amount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Style="{StaticResource NumberRegular}" />
                                         <TextBlock Text=" X " Style="{StaticResource NumberRegular}" />
-                                        <TextBlock Text="{Binding Multiples,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Style="{StaticResource InputBox}" Width="40" Margin="10,0,0,0"/>
+                                        <TextBlock Text="{Binding Multiples,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Style="{StaticResource NumberRegular}" Width="40" Margin="10,0,0,0"/>
                                     </StackPanel>
                                 </Border>
                                 <Border BorderBrush="Black" BorderThickness="0,1,1,1" Grid.Column="1" >
@@ -100,7 +101,7 @@
                     <TextBlock  Text="Total" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Bold"/>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1,1,1,1" Grid.Row="2" Grid.Column="1" >
-                    <TextBox x:Name="TotalBox" Text="0"  Background="Transparent" HorizontalContentAlignment="Center" Width="200" Height="40" Style="{StaticResource  InputBox}"/>
+                    <TextBox IsReadOnly="True" x:Name="TotalBox" Text="0"  Background="Transparent"  Width="200" Height="40" Style="{StaticResource  InputBox}" HorizontalContentAlignment="Center"/>
                 </Border>
                 <!--<Border BorderBrush="Black" BorderThickness="1,1,1,0" Grid.Row="1" Grid.Column="0">
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">

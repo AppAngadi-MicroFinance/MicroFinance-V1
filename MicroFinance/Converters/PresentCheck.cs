@@ -32,7 +32,7 @@ namespace MicroFinance.Converters
             }
             else
             {
-                return 0;
+                return 2;
             }
         }
     }
