@@ -18,7 +18,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="84.8"></RowDefinition>
             </Grid.RowDefinitions>
             
             <!--Add New Customer Button-->
@@ -34,7 +34,12 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xPendingCustomerBtn" Style="{StaticResource PendingCustomerStyle}" Click="xPendingCustomerBtn_Click"></Button>
+                <Grid>
+                    <Button x:Name="xPendingCustomerBtn" Style="{StaticResource PendingCustomerStyle}" Click="xPendingCustomerBtn_Click"></Button>
+                    <Border x:Name="xNotificationBatch" Margin="0,-10,-10,0" Style="{StaticResource NotifyCount}" Width="25" Height="25" Grid.ColumnSpan="2">
+                        <TextBlock x:Name="xCustomerPendings" Style="{StaticResource NotifyText}" Text="12" FontSize="14"></TextBlock>
+                    </Border>
+                </Grid>
             </Border>
             
             <!--Find Customer-->

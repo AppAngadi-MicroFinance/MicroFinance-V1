@@ -85,9 +85,9 @@ namespace MicroFinance
             }
             catch
             {
-                StatusMessageofPage(0, "Please Valid User Name.....");
+                StatusMessageofPage(0, "Please Valid User Name.....");  
             }
-            
+
         }
 
         void LoggedInState()

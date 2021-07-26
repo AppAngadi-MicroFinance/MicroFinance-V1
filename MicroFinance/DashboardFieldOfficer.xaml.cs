@@ -1,6 +1,7 @@
 ﻿using MicroFinance.Modal;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,22 @@ namespace MicroFinance
         public DashboardFieldOfficer()
         {
             InitializeComponent();
-            
+            xCustomerPendings.Text = LoadPendingCustomers(MainWindow.LoginDesignation.BranchId).ToString();
+        }
+
+        int LoadPendingCustomers(string branchId)
+        {
+            int Pendings = 0;
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "select Count(CustomerDetails.CustId) from CustomerDetails join CustomerGroup on CustomerDetails.CustId = CustomerGroup.CustId join SelfHelpGroup2 on SelfHelpGroup2.SHGName = CustomerGroup.SelfHelpGroup where CustomerDetails.CustomerStatus = 0 and SelfHelpGroup2.BranchId = '"+branchId+"'";
+                Pendings = (int)cmd.ExecuteScalar();
+                con.Close();
+            }
+            return Pendings;
         }
 
         private void xAddCustomerBtn_Click(object sender, RoutedEventArgs e)
