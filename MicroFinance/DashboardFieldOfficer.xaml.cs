@@ -78,5 +78,11 @@ namespace MicroFinance
         {
             NavigationService.GetNavigationService(this).Navigate(new CollectionSheet());
         }
+
+        private void xAddPeerGroup_Click(object sender, RoutedEventArgs e)
+        {
+            AddPg APG = new AddPg();
+            APG.ShowDialog();
+        }
     }
 }

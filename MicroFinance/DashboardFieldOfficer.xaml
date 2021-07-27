@@ -30,12 +30,12 @@
             </Border>
 
             <!--Pending Customers-->
-            <Border Grid.Row="1" Grid.Column="0" Width="180" Height="70" Style="{StaticResource MainBorder}">
+            <Border Grid.Row="1" Grid.Column="1" Width="180" Height="70" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Grid>
-                    <Button x:Name="xPendingCustomerBtn" Style="{StaticResource PendingCustomerStyle}" Click="xPendingCustomerBtn_Click"></Button>
+                    <Button x:Name="xPendingCustomerBtn" Style="{StaticResource PendingCustomerStyle}" Click="xPendingCustomerBtn_Click" Height="70" Margin="0,0,0,0.4" VerticalAlignment="Bottom"></Button>
                     <Border x:Name="xNotificationBatch" Margin="0,-10,-10,0" Style="{StaticResource NotifyCount}" Width="25" Height="25" Grid.ColumnSpan="2">
                         <TextBlock x:Name="xCustomerPendings" Style="{StaticResource NotifyText}" Text="12" FontSize="14"></TextBlock>
                     </Border>
@@ -43,12 +43,21 @@
             </Border>
             
             <!--Find Customer-->
-            <Border  Width="150" Height="150" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource MainBorder}">
+            <Border  Width="180" Height="70" Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Button x:Name="xFindCustomerBtn" Click="xFindCustomerBtn_Click" Style="{StaticResource NavigateFindCustomer}"></Button>
             </Border>
+
+            <Border  Width="180" Height="70" Grid.Row="1" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xAddPeerGroup" Click="xAddPeerGroup_Click" Style="{StaticResource AddPeerGroupStyle}" FontSize="12"></Button>
+            </Border>
+
+
         </Grid>
 
         <!--Section B-->
