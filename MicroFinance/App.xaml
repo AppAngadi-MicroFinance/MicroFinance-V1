@@ -222,7 +222,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <!--For Print-->
+
+
+            <!--For Print-->
         <Style TargetType="Button" x:Key="Print">
             <Setter Property="Template" >
                 <Setter.Value>

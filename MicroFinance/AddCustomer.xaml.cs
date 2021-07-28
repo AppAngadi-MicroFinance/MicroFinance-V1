@@ -274,16 +274,6 @@ namespace MicroFinance
             CasteBox.IsEnabled = true;
         }
 
-        //add peer group
-        private void AddPG_Click(object sender, RoutedEventArgs e)
-        {
-            // NavigationService.GetNavigationService(this).Navigate(new AddPg());
-            AddPg APG = new AddPg();
-            APG.ShowDialog();
-
-
-        }
-
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
@@ -1826,8 +1816,10 @@ namespace MicroFinance
 
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.NavigationService.CanGoBack)
-                this.NavigationService.GoBack();
+            //if (this.NavigationService.CanGoBack)
+            //    this.NavigationService.GoBack();
+
+            this.NavigationService.Navigate(new DashboardFieldOfficer());
         }
     }
 }

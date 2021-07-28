@@ -100,6 +100,35 @@
         </Setter>
     </Style>
 
+    <!--Add PeerGroup Template-->
+    <Style TargetType="{x:Type Button}" x:Key="AddPeerGroupStyle">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="Background" Value="#FEF8F1"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Content">
+            <Setter.Value>
+                <ContentPresenter>
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\Pendings.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Column="1"  Width="110"  Text="Add PeerGroup" Style="{StaticResource DashboardBtnText}"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--Customer Recomndation Template-->
     <Style TargetType="{x:Type Button}" x:Key="NavigatePendingCustomer">
         <Style.Resources>
@@ -144,12 +173,12 @@
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition Height="55"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\searchingPerson.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Find Customer"></TextBlock>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\searchingPerson.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Column="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Find Customer"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>

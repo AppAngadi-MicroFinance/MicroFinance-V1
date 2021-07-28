@@ -22,18 +22,20 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="450"/>
                 <ColumnDefinition Width="380"/>
                 <ColumnDefinition Width="450"/>
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
+            <Button x:Name="xCloseButton" Click="xCloseButton_Click" Margin="5,5,0,0" Style="{StaticResource Close}" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left">
+                
+            </Button>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                 <TextBlock Text="Branch Name : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                 <TextBlock x:Name="BranchNameBlock" Style="{StaticResource Regular}"/>

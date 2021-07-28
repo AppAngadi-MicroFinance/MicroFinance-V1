@@ -248,6 +248,11 @@ namespace MicroFinance
         {
             NavigationService.GoBack();
         }
+
+        private void xCloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new DashboardFieldOfficer());
+        }
     }
     public class DailyCollection: BindableBase
     {
