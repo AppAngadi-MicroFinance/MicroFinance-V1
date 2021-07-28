@@ -12,6 +12,7 @@ namespace MicroFinance.Modal
     {
         public List<Branch> BranchList = new List<Branch>();
         public List<string> RegionList = new List<string>();
+        public List<string> BranchListDetails = new List<string>();
         private string ConnectionString = Properties.Settings.Default.DBConnection;
         public Branch()
         {
@@ -414,8 +415,27 @@ namespace MicroFinance.Modal
             }
 
         }
+        public void GetBranchList(string RegionName)
+        {
+            BranchList = new List<Branch>();
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.Connection = sqlconn;
+                sqlcomm.CommandText = "select BranchName from BranchDetails where RegionName='"+RegionName+"'";
+                SqlDataReader reader = sqlcomm.ExecuteReader();
+                while (reader.Read())
+                {
+                    BranchListDetails.Add(reader.GetString(0).ToString());
+                }
+                reader.Close();
+                sqlconn.Close();
+            }
 
-        
+        }
+
+
         public int GetBranchCount()
         {
             int number = 1;
@@ -453,6 +473,47 @@ namespace MicroFinance.Modal
             }
             return Result;
         }
+        public string GetBranchID(string Name)
+        {
+            string Result = "";
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "Select Bid From BranchDetails where BranchName='" + Name + "'";
+                    Result = (string)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            return Result;
+        }
+
+        public List<string> ActiveEmployees(string Branchid)
+        {
+            List<string> ActiveEmployees = new List<string>();
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select Empid from BranchEmployees where Bid='"+Branchid+"' and IsActive="+1+"";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    while(reader.Read())
+                    {
+                        string Result = reader.GetString(0);
+                        ActiveEmployees.Add(Result);
+                    }
+                }
+                sqlconn.Close();
+            }
+            return ActiveEmployees;
+        }
+
         public string GetRegionName(string ID)
         {
             string Result = "";

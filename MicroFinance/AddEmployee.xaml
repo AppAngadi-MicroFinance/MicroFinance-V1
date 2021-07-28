@@ -49,25 +49,26 @@
                 <ComboBox Width="250" Style="{StaticResource combo}" x:Name="DesignationCombo" Grid.Column="2" Margin="40,0,0,0" Text="{Binding Designation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
             </Grid>
             <Grid Grid.Row="1" Grid.RowSpan="2">
-                <TextBlock Text="Basic Details*" Style="{StaticResource SubTitle}" Margin="90,-450,0,0"></TextBlock>
-                <Grid Height="470" Width="500" Panel.ZIndex="2">
+                <TextBlock Text="Basic Details*" Style="{StaticResource SubTitle}" Margin="90,-455,0,0"></TextBlock>
+                <Grid Height="520" Width="500" Panel.ZIndex="2">
                     <Grid x:Name="BasicDetailsGrid" VerticalAlignment="Center" ShowGridLines="False" Width="480" Margin="0,20,0,0" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40*"/>
                             <ColumnDefinition Width="60*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="45px"/>
-                            <RowDefinition Height="45px"/>
-                            <RowDefinition Height="45px"/>
-                            <RowDefinition Height="45px"/>
-                            <RowDefinition Height="45px"/>
-                            <RowDefinition Height="45px"/>
-                            <RowDefinition Height="45px"/>
-                            <RowDefinition Height="45px"/>
-                            <RowDefinition Height="45px"/>
-                            <RowDefinition Height="45px"/>
-                           
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="40px"/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
                             <TextBlock Text="Name" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
@@ -141,15 +142,35 @@
                         
                         <TextBlock Text="Religion" Grid.Row="7" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                         <ComboBox Grid.Row="7" Grid.Column="1" Style="{StaticResource combo}" Width="250" x:Name="Religioncombo" Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="Religioncombo_SelectionChanged"></ComboBox>
-                        <TextBlock Grid.Row="8" Text="Education" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <TextBox x:Name="EmployeeEducation" Grid.Row="8" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding Education,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Grid.Row="9" Text="Date of Joining" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <DatePicker x:Name="Employeejoiningdate" Grid.Row="9" Grid.Column="1" Style="{StaticResource DateSelecter}" SelectedDateFormat="Long"  Width="250" SelectedDate="{Binding DateOfJoining,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                        <TextBlock Text="Community" Style="{StaticResource Regular}" Grid.Row="8"></TextBlock>
+                        <TextBox x:Name="EmployeeCommunity" Grid.Row="8" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                            <TextBox.Text>
+                                <Binding Path="Community" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBlock Text="Caste" Style="{StaticResource Regular}" Grid.Row="9"></TextBlock>
+                        <TextBox x:Name="EmployeeCaste" Grid.Row="9" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
+                            <TextBox.Text>
+                                <Binding Path="Caste" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBlock Grid.Row="10" Text="Education" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="EmployeeEducation" Grid.Row="10" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding Education,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBlock Grid.Row="11" Text="Date of Joining" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                        <DatePicker x:Name="Employeejoiningdate" Grid.Row="11" Grid.Column="1" Style="{StaticResource DateSelecter}" SelectedDateFormat="Long"  Width="250" SelectedDate="{Binding DateOfJoining,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                     </Grid>
                 </Grid>
             </Grid>
             <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
-                <Grid Width="500" Name="EmployeeAddressDetails">
+                <Grid Width="550" Name="EmployeeAddressDetails">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40*"/>
                         <ColumnDefinition Width="60*"/>
