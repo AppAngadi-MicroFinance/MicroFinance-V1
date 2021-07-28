@@ -757,7 +757,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select EmpId,Name,DOB,Age,MobileNo,Region,EmailId,Education,AadhaarNo,DateOfJoin,BankName,BranchName,AccountNumber,IFSCCode,MICRCode,Address,PinCode,District,IsAddressProof,AddressProofName,AddressProof,IsPhotoProof,PhotoProofName,PhotoProof,IsProfilePhoto,ProfilePhoto,IsActive,Designation,Bid,FatherName,PanNumber from Employee where EmpId='"+EmpID+"'";
+                    sqlcomm.CommandText = "select EmpId,Name,DOB,Age,MobileNo,Region,EmailId,Education,AadhaarNo,DateOfJoin,BankName,BranchName,AccountNumber,IFSCCode,MICRCode,Address,PinCode,District,IsAddressProof,AddressProofName,AddressProof,IsPhotoProof,PhotoProofName,PhotoProof,IsProfilePhoto,ProfilePhoto,IsActive,Designation,Bid,FatherName,PanNumber,Community,Caste from Employee where EmpId='"+EmpID+"'";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
                     {
@@ -798,6 +798,14 @@ namespace MicroFinance.Modal
                             _branchID = reader.GetString(28);
                             _fathername = reader.GetString(29);
                             _pannumber = reader.GetString(30);
+                            if(!reader.IsDBNull(31))
+                            {
+                                _community = (reader.GetString(31));
+                            }
+                            if(!reader.IsDBNull(32))
+                            {
+                                _caste = reader.GetString(32);
+                            }
                             
                         }
                         reader.Close();

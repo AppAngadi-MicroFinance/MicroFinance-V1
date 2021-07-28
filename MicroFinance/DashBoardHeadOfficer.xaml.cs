@@ -57,7 +57,7 @@ namespace MicroFinance
 
         private void xPendingCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ModifyEmployee());
+            
         }
         private void xLoanRequestListBtn_Click(object sender, RoutedEventArgs e)
         {
