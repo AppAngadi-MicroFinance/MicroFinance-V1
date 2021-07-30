@@ -28,7 +28,7 @@ namespace MicroFinance.Modal
             }
             return toReturn;
         }
-        static public void InsertNewPeerGroup(string shgId, string groupId, string groupName)
+        public void InsertNewPeerGroup(string shgId, string groupId, string groupName)
         {
             using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
             {

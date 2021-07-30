@@ -28,7 +28,6 @@ namespace MicroFinance
         public static Guarantor guarantor = new Guarantor();
         public static Nominee nominee = new Nominee();
         public static StaticProperty CaptureImageMessage = new StaticProperty();
-
         string WhichClassButtonClick;
         public AddCustomer()
         {
@@ -107,21 +106,23 @@ namespace MicroFinance
             CaptureImageMessage.MessageType = Type;
             CaptureImageMessage.StatusMessage = Message;
         }
-        List<PeerGroup> PeerGroupDetails = new List<PeerGroup>();
+        List<string> PeerGroupDetails = new List<string>();
         void BranchAndGroupDetailsforFieldOfficer()
         {
-            string _officerBranchId = MainWindow.LoginDesignation.BranchId;
+            string BranchId = MainWindow.LoginDesignation.BranchId;
             string _officerEmpId = MainWindow.LoginDesignation.EmpId;
             string[] _branchName = new string[1];
             string[] _officerName = new string[1];
             string[] _regionName = new string[1];
-            List<string> SelfHelpGroupList = new List<string>();
+
+
+            List<SHG> SelfHelpGroupList = new List<SHG>();
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select BranchName,RegionName from BranchDetails where BranchDetails.Bid='" + _officerBranchId + "'";
+                sqlCommand.CommandText = "select BranchName,RegionName from BranchDetails where BranchDetails.Bid='" + BranchId + "'";
                 SqlDataReader sqlData = sqlCommand.ExecuteReader();
                 while (sqlData.Read())
                 {
@@ -129,27 +130,36 @@ namespace MicroFinance
                     _regionName[0] = sqlData.GetString(1);
                 }
                 sqlData.Close();
+
+
                 sqlCommand.CommandText = "select Name from Employee where EmpId='" + _officerEmpId + "'";
                 _officerName[0] = sqlCommand.ExecuteScalar().ToString();
-                sqlCommand.CommandText = "select distinct(SHGName) from SelfHelpGroup where EmpId='" + _officerEmpId + "'";
+
+
+                sqlCommand.CommandText = "select SHGid,SHGName from SelfHelpGroup where BranchId = '"+BranchId+"'";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
-                    SelfHelpGroupList.Add(sqlDataReader.GetString(0));
+                    SelfHelpGroupList.Add(new SHG(sqlDataReader.GetString(0), sqlDataReader.GetString(1)));
                 }
                 sqlDataReader.Close();
-                sqlCommand.CommandText = "select SHGName,SelfHelpGroup.PGId ,PeerGroupName,TotalMembers from PeerGroup join SelfHelpGroup on PeerGroup.PGId=SelfHelpGroup.PGId where SelfHelpGroup.EmpId='" + _officerEmpId + "'";
+
+
+
+                sqlCommand.CommandText = "select distinct(SelfHelpGroup.SHGName) from SelfHelpGroup join TimeTable on TimeTable.EmpId = '"+_officerEmpId+"'";
                 SqlDataReader sqlDataReader1 = sqlCommand.ExecuteReader();
                 while (sqlDataReader1.Read())
                 {
-                    PeerGroupDetails.Add(new PeerGroup { SHGName = sqlDataReader1.GetString(0), PG_Id = sqlDataReader1.GetString(1), Name = sqlDataReader1.GetString(2), GroupMembers = sqlDataReader1.GetInt32(3) });
+                    PeerGroupDetails.Add(sqlDataReader1.GetString(0));
+                    //PeerGroupDetails.Add(new PeerGroup { SHGName = sqlDataReader1.GetString(0), PG_Id = sqlDataReader1.GetString(1), Name = sqlDataReader1.GetString(2), GroupMembers = sqlDataReader1.GetInt32(3) });
                 }
                 sqlConnection.Close();
             }
             SelectRegion.ItemsSource = _regionName; SelectRegion.SelectedIndex = 0;
             SelectBranch.ItemsSource = _branchName; SelectBranch.SelectedIndex = 0;
             SelectFO.ItemsSource = _officerName; SelectFO.SelectedIndex = 0;
-            SelectSHG.ItemsSource = SelfHelpGroupList; SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
+            SelectSHG.ItemsSource = SelfHelpGroupList; 
+            SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
         }
         void SelectedBranchAndGroupDetails()
         {
@@ -182,45 +192,57 @@ namespace MicroFinance
 
         private void SelectSHG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<String> SelectedPG = new List<String>();
-
-            foreach (var item in PeerGroupDetails)
-            {
-                if (item.SHGName == SelectSHG.SelectedItem.ToString())
-                {
-                    SelectedPG.Add(item.Name);
-                }
-            }
-
-            SelectPG.ItemsSource = SelectedPG;
+            SHG selectedSHG = SelectSHG.SelectedItem as SHG;
+            SelectPG.ItemsSource = GetPeerGroupsList(selectedSHG.SHGid);
         }
 
+        List<string> GetPeerGroupsList(string SHGid)
+        {
+            List<string> PGList = new List<string>();
+
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sql.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sql;
+                command.CommandText = "select GroupId from PeerGroup where SHGid = '" + SHGid + "'";
+                SqlDataReader dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    PGList.Add(dataReader.GetString(0));
+                }
+                dataReader.Close();
+            }
+            return PGList;
+        }
+        string SelectedPeerGroupId = string.Empty;
         private void SelectPG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
-            {
-                if (SelectPG.SelectedItem != null)
-                {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand();
-                    command.Connection = connection;
-                    command.CommandText = "select IsLeader from CustomerGroup where BranchName='" + SelectBranch.SelectedItem.ToString() + "' and SelfHelpGroup='" + SelectSHG.SelectedItem.ToString() + "' and PeerGroup='" + SelectPG.SelectedItem.ToString() + "'";
+            SelectedPeerGroupId = (string)SelectPG.SelectedItem;
+            //using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            //{
+            //    if (SelectPG.SelectedItem != null)
+            //    {
+            //        connection.Open();
+            //        SqlCommand command = new SqlCommand();
+            //        command.Connection = connection;
+            //        command.CommandText = "select IsLeader from CustomerGroup where BranchName='" + SelectBranch.SelectedItem.ToString() + "' and SelfHelpGroup='" + SelectSHG.SelectedItem.ToString() + "' and PeerGroup='" + SelectPG.SelectedItem.ToString() + "'";
 
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        if (reader.GetBoolean(0) == true)
-                        {
-                            IsLeaderCheck.IsEnabled = false;
-                            break;
-                        }
-                        else
-                        {
-                            IsLeaderCheck.IsEnabled = true;
-                        }
-                    }
-                }
-            }
+            //        SqlDataReader reader = command.ExecuteReader();
+            //        while (reader.Read())
+            //        {
+            //            if (reader.GetBoolean(0) == true)
+            //            {
+            //                IsLeaderCheck.IsEnabled = false;
+            //                break;
+            //            }
+            //            else
+            //            {
+            //                IsLeaderCheck.IsEnabled = true;
+            //            }
+            //        }
+            //    }
+            //}
 
         }
         void IsEligible()

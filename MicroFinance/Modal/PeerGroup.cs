@@ -10,7 +10,5 @@ namespace MicroFinance.Modal
     {
         public string SHGName { get; set; }
         public string PG_Id { get; set; }
-        public string Name { get; set; }
-        public int GroupMembers { get; set; }
     }
 }

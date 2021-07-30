@@ -29,7 +29,7 @@ namespace MicroFinance
 
         public string GetRegionNumber()
         {
-            string Result = "";
+            int Result = 0;
             using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
@@ -37,16 +37,16 @@ namespace MicroFinance
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SNo from Region where RegionName='" + Region + "'";
-                    Result = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select RegionCode from Region where RegionName='" + Region + "'";
+                    Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();
-                return Result;
+                return Result.ToString();
             }
         }
         public string GetBranchNumber()
         {
-            string Result = "";
+            int Result = 0;
             using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
@@ -54,11 +54,11 @@ namespace MicroFinance
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SNo from BranchDetails where Bid='" + BranchId + "'";
-                    Result = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select BranchCode from BranchDetails where Bid='" + BranchId + "'";
+                    Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();
-                return Result;
+                return Result.ToString();
             }
         }
         public string DigitConvert(string digit, int place = 3)
@@ -83,23 +83,13 @@ namespace MicroFinance
         }
         public string GeneratePGID() // IDPattern 01002202106SHG-05 (01-Region+002-BranchName/2021-CurrentYear/06-CurrentMonth/05-(CountofShg+1))
         {
-            int count = 1;
             string Result = "";
             int year = DateTime.Now.Year;
             int mon = DateTime.Now.Month;
             string month = ((mon) < 10 ? "0" + mon : mon.ToString());
-            using (SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.DBConnection))
-            {
-                sqlcon.Open();
-                if (sqlcon.State == ConnectionState.Open)
-                {
-                    SqlCommand sqlcomm = new SqlCommand();
-                    sqlcomm.Connection = sqlcon;
-                    sqlcomm.CommandText = "Select Count( GroupId ) from PeerGroup2";
-                    count += (int)sqlcomm.ExecuteScalar();
-                }
-                sqlcon.Close();
-            }
+
+            int count = GetPeerGroupCount();
+
             string region = DigitConvert(GetRegionNumber(), 2);
             string branch = DigitConvert(GetBranchNumber());
             Result = region + branch + year + month + "PG-" + ((count < 10) ? "0" + count : count.ToString());
@@ -108,19 +98,35 @@ namespace MicroFinance
         public AddPg()
         {
             InitializeComponent();
-            xSHGcombo.ItemsSource = DatabaseMethods.GetSHG(BranchId);
+            xSHGcombo.ItemsSource = GetSHG(BranchId);
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
+        public int GetPeerGroupCount()
+        {
+            int count = 1;
+            using (SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlcon.Open();
+                if (sqlcon.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "select count(SHGid) from PeerGroup";
+                    count += (int)sqlcomm.ExecuteScalar();
+                }
+                sqlcon.Close();
+            }
+            return count;
+        }
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             if(BranchId != string.Empty && SHGid != string.Empty)
             {
-                DatabaseMethods.InsertNewPeerGroup(SHGid, GeneratePGID(), GroupNameBox.Text);
+                InsertNewPeerGroup(SHGid, GeneratePGID());
             }
             this.Close();
 
@@ -131,9 +137,37 @@ namespace MicroFinance
             //APG.SelfHelpGroup = addCustomer.SelectSHG.SelectedItem.ToString();
             //APG.PeerGroup = GroupNameBox.Text;
             
-
         }
-
+        public void InsertNewPeerGroup(string shgId, string groupId)
+        {
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "insert into PeerGroup(SHGid, GroupId, ActiveCustomers) values ('" + shgId + "','" + groupId + "'," + 0 + ")";
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+        static public List<SelfHelpGroupModal> GetSHG(string branchId)
+        {
+            List<SelfHelpGroupModal> toReturn = new List<SelfHelpGroupModal>();
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "select SHGId, SHGName from SelfHelpGroup where BranchId = '"+branchId+"'";
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    toReturn.Add(new SelfHelpGroupModal(reader.GetString(0), reader.GetString(1)));
+                }
+                con.Close();
+            }
+            return toReturn;
+        }
         private void xSHGcombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelfHelpGroupModal selectedSHG = xSHGcombo.SelectedItem as SelfHelpGroupModal;

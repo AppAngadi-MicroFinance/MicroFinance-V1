@@ -23,7 +23,7 @@ namespace MicroFinance
     /// </summary>
     public partial class AddNewSelfHelpGroup : Page
     {
-        string BranchId = "01202107001";
+        string BranchId = MainWindow.LoginDesignation.BranchId;
         string SHGname = string.Empty;
         string Day = string.Empty;
         string Time = string.Empty;
