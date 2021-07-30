@@ -22,14 +22,12 @@ namespace MicroFinance
     /// </summary>
     public partial class DashBoardHeadOfficer : Page
     {
-        string ConnectionString = "Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True";
-
 
         string BranchID = "01202106002";
         public DashBoardHeadOfficer()
         {
             InitializeComponent();
-            ManageApprovalNotification();
+            //ManageApprovalNotification(); Plese Unlock after test
         }
 
 

@@ -35,7 +35,7 @@ namespace MicroFinance
         public void AddEmployees()
         {
             emplist = new List<Employee>();
-            employee1.GetEmployeeList();
+            //employee1.GetEmployeeList();
             emplist = employee1.EmployeeList;
         }
 

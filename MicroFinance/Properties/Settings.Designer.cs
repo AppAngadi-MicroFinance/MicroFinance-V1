@@ -26,20 +26,30 @@ namespace MicroFinance.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("tcp:192.168.0.103\\SQLEXPRESS1.49172;Integrated Security=True")]
-        public string DBConnection {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=MicroFinance3;Integrated Security=True")]
+        public string db {
             get {
-                return ((string)(this["DBConnection"]));
+                return ((string)(this["db"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("tcp:192.168.0.103\\SQLEXPRESS1.49172;Integrated Security=True")]
-        public string db {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=MicroFinance3;Integrated Security=True")]
+        public string NewConnection {
             get {
-                return ((string)(this["db"]));
+                return ((string)(this["NewConnection"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=MicroFinance3;Integrated Security=True")]
+        public string DBConnection {
+            get {
+                return ((string)(this["DBConnection"]));
             }
         }
     }

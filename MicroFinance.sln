@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroFinance", "MicroFinance\MicroFinance.csproj", "{804A12AB-018B-4414-813B-0D09D93E558D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateID", "GenerateID\GenerateID.csproj", "{8A93AC61-1C6A-4D2A-81BD-D7563AB50F23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{804A12AB-018B-4414-813B-0D09D93E558D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{804A12AB-018B-4414-813B-0D09D93E558D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{804A12AB-018B-4414-813B-0D09D93E558D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A93AC61-1C6A-4D2A-81BD-D7563AB50F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A93AC61-1C6A-4D2A-81BD-D7563AB50F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A93AC61-1C6A-4D2A-81BD-D7563AB50F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A93AC61-1C6A-4D2A-81BD-D7563AB50F23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -486,8 +486,9 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.Connection = sqlcon;
-                    sqlCommand.CommandText = "select SNo from Region where RegionName='"+RegionName+"'";
-                    regionnumber = (string)sqlCommand.ExecuteScalar();
+                    sqlCommand.CommandText = "select RegionCode from Region where RegionName='" + RegionName+"'";
+                    var re = sqlCommand.ExecuteScalar();
+                    regionnumber = re.ToString();
                 }
                 sqlcon.Close();
             }
@@ -514,8 +515,9 @@ namespace MicroFinance.Modal
             return Result;
         }
 
-        public void AddBranch()
+        public void AddBranch(string regionId)
         {
+            int count = GetBranchCount() + 1;
            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
            {
                     sqlconn.Open();
@@ -523,12 +525,29 @@ namespace MicroFinance.Modal
                     {
                         SqlCommand sqlcomm = new SqlCommand();
                         sqlcomm.Connection = sqlconn;
-                        sqlcomm.CommandText = "insert into BranchDetails(SNo,Bid,RegionName,BranchName,Address,LandLineNumber,LandLineCost,AgreementStartDate,EBNumber,EBConnectionName,InternetConnectionName,InternetCost,BuildingOwnerName,OwnerContact,OwnerAddress,AdvancePaid,MonthlyRent,OwnerACBankName,OwnerACBranchName,AccountHolderName,AccountNumber,IFSCCode,MICRCode,AgreementEndDate,OwnerPanNumber)values('" + GetBranchCount() + "','" +GenerateBranchID()+ "','" + _regionName + "','" + _branchname + "','" + _branchaddress + "','" + _landlinenumber + "'," + _landlinecostpermonth + ",'" + _agreementstartdate.ToString("MM-dd-yyyy") + "','" + _ebconnectionnubmer + "','" + _ebconnectionname.ToUpper() + "','" + InternetConnectionName + "'," + _internetconnectioncost + ",'" + OwnerName + "','" + _ownercontactnumber + "','" + OwnerAddress + "'," + _advancepaid + "," + _rentpermonth + ",'" + _bankname + "','" + _bankbranchname + "','" + _accountholdername + "','" + _accountnumber + "','" + _ifsccode + "','" + MICRCode + "','"+_agreementenddate.ToString("MM-dd-yyyy")+"','"+_pannumber+"')";
+                        sqlcomm.CommandText = "insert into BranchDetails(BranchCode,RegionId,Bid,RegionName,BranchName,Address,LandLineNumber,LandLineCost,AgreementStartDate,EBNumber,EBConnectionName,InternetConnectionName,InternetCost,BuildingOwnerName,OwnerContact,OwnerAddress,AdvancePaid,MonthlyRent,OwnerACBankName,OwnerACBranchName,AccountHolderName,AccountNumber,IFSCCode,MICRCode,AgreementEndDate,OwnerPanNumber)values("+count+",'" + regionId + "','" + GenerateBranchID() + "','" + _regionName + "','" + _branchname + "','" + _branchaddress + "','" + _landlinenumber + "'," + _landlinecostpermonth + ",'" + _agreementstartdate.ToString("MM-dd-yyyy") + "','" + _ebconnectionnubmer + "','" + _ebconnectionname.ToUpper() + "','" + InternetConnectionName + "'," + _internetconnectioncost + ",'" + OwnerName + "','" + _ownercontactnumber + "','" + OwnerAddress + "'," + _advancepaid + "," + _rentpermonth + ",'" + _bankname + "','" + _bankbranchname + "','" + _accountholdername + "','" + _accountnumber + "','" + _ifsccode + "','" + MICRCode + "','" + _agreementenddate.ToString("MM-dd-yyyy") + "','" + _pannumber + "')";
                         sqlcomm.ExecuteNonQuery();
                     }
                     sqlconn.Close();
            }
             
+        }
+
+        public void GetBranchId(string branchName)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select Bid from BranchDetails where BranchName = '"+ branchName + "'";
+                    string branchId = (string)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+
         }
 
         public bool IsExists()

@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="Add Region" Grid.ColumnSpan="2" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
         <TextBlock Grid.Row="1" Text="Region Name" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
-        <TextBox x:Name="RegionnameBox" Grid.Row="1" Grid.Column="1" Width="260" Style="{StaticResource InputBox}" HorizontalAlignment="Left" Margin="10,0,0,0">
+        <TextBox x:Name="xRegionnameBox" Grid.Row="1" Grid.Column="1" Width="260" Style="{StaticResource InputBox}" HorizontalAlignment="Left" Margin="10,0,0,0">
             <TextBox.Text>
                 <Binding Path="RegionName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>

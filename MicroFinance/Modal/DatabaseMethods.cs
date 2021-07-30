@@ -40,6 +40,74 @@ namespace MicroFinance.Modal
                 con.Close();
             }
         }
+
+
+        //Region
+        public static bool IsExixtRegion(string regionName)
+        {
+            int Count = int.MaxValue;
+            using (SqlConnection sqlcon = new SqlConnection(MainWindow.NewConnectionString))
+            {
+                sqlcon.Open();
+                if (sqlcon.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "select count(RegionId) from Region where RegionName = '"+regionName+"'";
+                    Count = (int)sqlcomm.ExecuteScalar();
+                }
+                sqlcon.Close();
+            }
+            if (Count <= 0)
+                return false;
+            else
+                return true;
+        }
+        public static string GetRegionsCount()
+        {
+            int Count = 0;
+            using (SqlConnection sqlcon = new SqlConnection(MainWindow.NewConnectionString))
+            {
+                sqlcon.Open();
+                if (sqlcon.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "select count(RegionID) from Region";
+                    Count = (int)sqlcomm.ExecuteScalar();
+                }
+                sqlcon.Close();
+            }
+
+            if (Count < 10)
+                return "0" + (Count+1);
+            else
+            {
+                return Count.ToString();
+            }
+        }
+
+
+        //Branch
+        public static int GetBranchCount()
+        {
+            int number = 1;
+            using (SqlConnection sqlconn = new SqlConnection(MainWindow.NewConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlComm = new SqlCommand();
+                    sqlComm.Connection = sqlconn;
+                    sqlComm.CommandText = "select count(BranchName) from BranchDetails";
+                    int n = (int)sqlComm.ExecuteScalar();
+                    number += n;
+                }
+                sqlconn.Close();
+            }
+            return number;
+        }
+
     }
 
     public class SelfHelpGroupModal

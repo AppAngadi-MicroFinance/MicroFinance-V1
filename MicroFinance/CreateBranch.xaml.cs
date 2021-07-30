@@ -93,12 +93,12 @@ namespace MicroFinance
 
         private void CreateBr_Click(object sender, RoutedEventArgs e)
         {
+            ConfirmPanel.IsOpen = false;
             try
             {
                 if(!CB.IsExists())
                 {
-                    CB.AddBranch();
-                    ConfirmPanel.IsOpen = false;
+                    CB.AddBranch(RegionBox.Text);
                     MainGrid.IsEnabled = true;
                     MainGrid.Opacity = 1.0;
                     MainWindow.StatusMessageofPage(1, "Branch Created Successfully");

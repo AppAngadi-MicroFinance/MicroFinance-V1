@@ -32,7 +32,8 @@ namespace MicroFinance
 
         private void RegionSaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(!region.Isexist())
+            string regionName = xRegionnameBox.Text;
+            if (DatabaseMethods.IsExixtRegion(regionName) == false)
             {
                 region.AddRegion();
                 this.Close();
@@ -41,6 +42,22 @@ namespace MicroFinance
             else
             {
                 MainWindow.StatusMessageofPage(1, "The " + region.RegionName + " Region Is Already Exist... Please Check");
+            }
+        }
+
+        public void AddNewRegion(string regionName)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(MainWindow.NewConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "insert into Region (RegionId, RegionName) values('" + region.GenerateRegionID()+"','"+ regionName + "')";
+                    sqlcomm.ExecuteNonQuery();
+                }
+                sqlconn.Close();
             }
         }
     }

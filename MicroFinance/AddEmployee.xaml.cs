@@ -2,6 +2,8 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,7 @@ namespace MicroFinance
     /// </summary>
     public partial class AddEmployee : Page
     {
+        string ConnectionString = "Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True";
         public bool Isnew;
         public List<string> ProofTypes = new List<string> { "Aadhar Proof", "Family Card", "Licence", "VoterID" };
         public List<string> DesignationList = new List<string> { "Manager", "Region Manager","Accountant","Field Officer"};
@@ -224,12 +227,13 @@ namespace MicroFinance
 
         private void EmpAdd_Click(object sender, RoutedEventArgs e)
         {
+            ConfirmationPanel.IsOpen = false;
             try
             {
                 
                 if(EmployeeSaveBtn.Content.ToString()=="Save")
                 {
-                    ConfirmationPanel.IsOpen = false;
+                    
                     EmployeeMainGrid.IsEnabled = true;
                     addemployee.EmployeeAdd();
                     MainWindow.StatusMessageofPage(1, "Employee Added Successfully");
@@ -354,11 +358,12 @@ namespace MicroFinance
             }
         }
 
+        string SelectedRegionName = string.Empty;
         private void RegionCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BranchCombo.Items.Clear();
-            string regionname = RegionCombo.SelectedValue as string;
-            FetchBranch(regionname);
+            SelectedRegionName = RegionCombo.SelectedValue as string;
+            FetchBranch(SelectedRegionName);
         }
 
         public void FetchBranch(string regionname)
@@ -371,6 +376,8 @@ namespace MicroFinance
                 }
             }
         }
+
+        
 
         private void ProofDetailsviewcloseBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -456,6 +463,17 @@ namespace MicroFinance
         {
             if (this.NavigationService.CanGoBack)
                 this.NavigationService.GoBack();
+        }
+        string SelectedBranchName = string.Empty;
+        private void BranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedBranchName =  BranchCombo.SelectedItem as string;
+            string id = addemployee.GetBranchID(SelectedBranchName);
+        }
+        string SelectedDesignation = string.Empty;
+        private void DesignationCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedDesignation = DesignationCombo.SelectedItem as string;
         }
     }
 }

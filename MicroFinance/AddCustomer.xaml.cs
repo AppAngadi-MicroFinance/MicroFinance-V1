@@ -33,9 +33,9 @@ namespace MicroFinance
         public AddCustomer()
         {
             InitializeComponent();
-            IsEligible();
+            //IsEligible();
 
-            BranchAndGroupDetailsforFieldOfficer();
+            //BranchAndGroupDetailsforFieldOfficer();
             Assign();
         }
         void Assign()
@@ -89,7 +89,6 @@ namespace MicroFinance
             NomineeAddressDetails.DataContext = nominee;
             NomineeOtherDetails.DataContext = nominee;
             NomineeDetails.DataContext = nominee;
-
 
             SaveCustomer.Content = "Update";
         }
