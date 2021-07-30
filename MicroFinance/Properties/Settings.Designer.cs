@@ -26,7 +26,7 @@ namespace MicroFinance.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=MicroFinance3;Integrated Security=True")]
         public string DBConnection {
             get {
                 return ((string)(this["DBConnection"]));
@@ -36,7 +36,7 @@ namespace MicroFinance.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=MicroFinance3;Integrated Security=True")]
         public string db {
             get {
                 return ((string)(this["db"]));

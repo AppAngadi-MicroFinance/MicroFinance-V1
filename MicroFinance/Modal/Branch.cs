@@ -455,6 +455,23 @@ namespace MicroFinance.Modal
             
             return number;
         }
+        public string GetRegionID(string RegionName)
+        {
+            string Result = "";
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "Select RegionID From Region where RegionName='" + RegionName + "'";
+                    Result = (string)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            return Result;
+        }
 
         public string GetBranchName(string ID)
         {
@@ -501,7 +518,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select Empid from BranchEmployees where Bid='"+Branchid+"' and IsActive="+1+"";
+                    sqlcomm.CommandText = "select Empid from EmployeeBranch where Bid='"+Branchid+"' and IsActive="+1+"";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     while(reader.Read())
                     {
@@ -535,7 +552,7 @@ namespace MicroFinance.Modal
         public string GenerateBranchID()// IDPattern 01202106001 (01-RegionNumber/2021-CurrentYear/06-CurrentMonth/001-(CountOfBranch+1))
         {
             int count = GetBranchCount();
-            string regionnumber = "";
+            int regionnumber = 0;
             string Result = "";
             int year = DateTime.Now.Year;
             int mon = DateTime.Now.Month;
@@ -547,12 +564,12 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.Connection = sqlcon;
-                    sqlCommand.CommandText = "select SNo from Region where RegionName='"+RegionName+"'";
-                    regionnumber = (string)sqlCommand.ExecuteScalar();
+                    sqlCommand.CommandText = "select RegionCode from Region where RegionName='"+RegionName+"'";
+                    regionnumber = (int)sqlCommand.ExecuteScalar();
                 }
                 sqlcon.Close();
             }
-            Result = DigitConvert(regionnumber,2)+ year+ month+DigitConvert(count.ToString());
+            Result = DigitConvert(regionnumber.ToString(),2)+ year+ month+DigitConvert(count.ToString());
             return Result;
         }
         public string DigitConvert(string digit, int place=3)
@@ -575,8 +592,9 @@ namespace MicroFinance.Modal
             return Result;
         }
 
-        public void AddBranch()
+        public void AddBranch(string regionId)
         {
+            int count = GetBranchCount();
            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
            {
                     sqlconn.Open();
@@ -584,8 +602,9 @@ namespace MicroFinance.Modal
                     {
                         SqlCommand sqlcomm = new SqlCommand();
                         sqlcomm.Connection = sqlconn;
-                        sqlcomm.CommandText = "insert into BranchDetails(SNo,Bid,RegionName,BranchName,Address,LandLineNumber,LandLineCost,AgreementStartDate,EBNumber,EBConnectionName,InternetConnectionName,InternetCost,BuildingOwnerName,OwnerContact,OwnerAddress,AdvancePaid,MonthlyRent,OwnerACBankName,OwnerACBranchName,AccountHolderName,AccountNumber,IFSCCode,MICRCode,AgreementEndDate,OwnerPanNumber)values('" + GetBranchCount() + "','" +GenerateBranchID()+ "','" + _regionName + "','" + _branchname + "','" + _branchaddress + "','" + _landlinenumber + "'," + _landlinecostpermonth + ",'" + _agreementstartdate.ToString("MM-dd-yyyy") + "','" + _ebconnectionnubmer + "','" + _ebconnectionname.ToUpper() + "','" + InternetConnectionName + "'," + _internetconnectioncost + ",'" + OwnerName + "','" + _ownercontactnumber + "','" + OwnerAddress + "'," + _advancepaid + "," + _rentpermonth + ",'" + _bankname + "','" + _bankbranchname + "','" + _accountholdername + "','" + _accountnumber + "','" + _ifsccode + "','" + MICRCode + "','"+_agreementenddate.ToString("MM-dd-yyyy")+"','"+_pannumber+"')";
-                        sqlcomm.ExecuteNonQuery();
+                    sqlcomm.CommandText = "insert into BranchDetails(BranchCode,RegionId,Bid,RegionName,BranchName,Address,LandLineNumber,LandLineCost,AgreementStartDate,EBNumber,EBConnectionName,InternetConnectionName,InternetCost,BuildingOwnerName,OwnerContact,OwnerAddress,AdvancePaid,MonthlyRent,OwnerACBankName,OwnerACBranchName,AccountHolderName,AccountNumber,IFSCCode,MICRCode,AgreementEndDate,OwnerPanNumber)values(" + count + ",'" + GetRegionID(RegionName) + "','" + GenerateBranchID() + "','" + _regionName + "','" + _branchname + "','" + _branchaddress + "','" + _landlinenumber + "'," + _landlinecostpermonth + ",'" + _agreementstartdate.ToString("MM-dd-yyyy") + "','" + _ebconnectionnubmer + "','" + _ebconnectionname.ToUpper() + "','" + InternetConnectionName + "'," + _internetconnectioncost + ",'" + OwnerName + "','" + _ownercontactnumber + "','" + OwnerAddress + "'," + _advancepaid + "," + _rentpermonth + ",'" + _bankname + "','" + _bankbranchname + "','" + _accountholdername + "','" + _accountnumber + "','" + _ifsccode + "','" + MICRCode + "','" + _agreementenddate.ToString("MM-dd-yyyy") + "','" + _pannumber + "')";
+
+                    sqlcomm.ExecuteNonQuery();
                     }
                     sqlconn.Close();
            }

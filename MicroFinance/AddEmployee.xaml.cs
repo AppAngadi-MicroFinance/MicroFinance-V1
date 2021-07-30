@@ -226,16 +226,17 @@ namespace MicroFinance
 
         private void EmpAdd_Click(object sender, RoutedEventArgs e)
         {
+            ConfirmationPanel.IsOpen = false;
+            EmployeeMainGrid.IsEnabled = true;
+            addemployee.EmployeeAdd();
+            MainWindow.StatusMessageofPage(1, "Employee Added Successfully");
+            this.NavigationService.Navigate(new AddEmployee());
             try
             {
                 
                 if(EmployeeSaveBtn.Content.ToString()=="Save")
                 {
-                    ConfirmationPanel.IsOpen = false;
-                    EmployeeMainGrid.IsEnabled = true;
-                    addemployee.EmployeeAdd();
-                    MainWindow.StatusMessageofPage(1, "Employee Added Successfully");
-                    this.NavigationService.Navigate(new AddEmployee());
+                    
                 }
                 else if(EmployeeSaveBtn.Content.ToString()=="Update")
                 {

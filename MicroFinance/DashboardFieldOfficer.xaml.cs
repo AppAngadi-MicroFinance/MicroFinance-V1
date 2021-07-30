@@ -25,7 +25,7 @@ namespace MicroFinance
         public DashboardFieldOfficer()
         {
             InitializeComponent();
-            xCustomerPendings.Text = LoadPendingCustomers(MainWindow.LoginDesignation.BranchId).ToString();
+            //xCustomerPendings.Text = LoadPendingCustomers(MainWindow.LoginDesignation.BranchId).ToString();
         }
 
         int LoadPendingCustomers(string branchId)

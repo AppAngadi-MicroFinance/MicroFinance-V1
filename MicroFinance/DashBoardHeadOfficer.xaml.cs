@@ -29,11 +29,11 @@ namespace MicroFinance
         Branch branch = new Branch();
         List<string> RegionList = new List<string>();
         List<Branch> BranchList = new List<Branch>();
-        string BranchID = "01202106002";
+        string BranchID = "01202107002";
         public DashBoardHeadOfficer()
         {
             InitializeComponent();
-            ManageApprovalNotification();
+           // ManageApprovalNotification();
         }
 
 
