@@ -267,6 +267,8 @@
             <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Style="{StaticResource CancelBtn}" x:Name="CancelBtn" Click="CancelBtn_Click" Content="Cancel"></Button>
                 <Button Style="{StaticResource PrimaryBtn}" Margin="20,0,0,0" x:Name="EmployeeSaveBtn" Click="EmployeeSaveBtn_Click" Content="Save"></Button>
+                <Button x:Name="DeacativeBtn" Content="De-Active" Style="{StaticResource DangerBtn}" Margin="20,0,0,0" Visibility="Collapsed" Click="DecativeBtn_Click"></Button>
+                <Button x:Name="BackBtn" Content="Back" Style="{StaticResource CancelBtn}" Margin="20,0,0,0" Click="BackNtn_Click" Visibility="Collapsed"></Button>
             </StackPanel>
         </Grid>
         <Popup  Height="400" Width="500" x:Name="EmployeeAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
