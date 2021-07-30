@@ -83,7 +83,6 @@ namespace MicroFinance
             try
             {
                 LoginDesignation = new LoginDetails(_userName);
-                //int power = int.Parse(UserName);
                 string power = LoginDesignation.LoginDesignation;
                 power = power.ToUpper();
                 if (power.Equals("FIELD OFFICER"))
