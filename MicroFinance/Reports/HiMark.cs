@@ -43,7 +43,7 @@ namespace MicroFinance.Reports
                 
                 }
             }
-            private string _FIGname= "G Trust";
+            private string _FIGname = "G Trust";
             public string FIGName
             {
                 get
