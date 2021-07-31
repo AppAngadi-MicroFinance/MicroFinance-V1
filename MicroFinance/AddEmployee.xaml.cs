@@ -43,7 +43,6 @@ namespace MicroFinance
             RegionCombo.ItemsSource = branch.RegionList;
             DesignationCombo.ItemsSource = DesignationList;
             Religioncombo.ItemsSource = Religionlist;
-
             BranchCombo.Text = emp.BranchName;
             EmployeeMainGrid.DataContext = emp;
             emp.Region = branch.GetRegionName(emp.BranchID);
@@ -55,6 +54,9 @@ namespace MicroFinance
             capturepanel.Visibility = Visibility.Collapsed;
             Captureframe.NavigationService.Navigate(new Capture());
             Isnew = false;
+            CancelBtn.Visibility = Visibility.Collapsed;
+            DeacativeBtn.Visibility = Visibility.Visible;
+            BackBtn.Visibility = Visibility.Visible;
         }
         public AddEmployee()
         {
@@ -224,16 +226,17 @@ namespace MicroFinance
 
         private void EmpAdd_Click(object sender, RoutedEventArgs e)
         {
+            ConfirmationPanel.IsOpen = false;
+            EmployeeMainGrid.IsEnabled = true;
+            addemployee.EmployeeAdd();
+            MainWindow.StatusMessageofPage(1, "Employee Added Successfully");
+            this.NavigationService.Navigate(new AddEmployee());
             try
             {
                 
                 if(EmployeeSaveBtn.Content.ToString()=="Save")
                 {
-                    ConfirmationPanel.IsOpen = false;
-                    EmployeeMainGrid.IsEnabled = true;
-                    addemployee.EmployeeAdd();
-                    MainWindow.StatusMessageofPage(1, "Employee Added Successfully");
-                    this.NavigationService.Navigate(new AddEmployee());
+                    
                 }
                 else if(EmployeeSaveBtn.Content.ToString()=="Update")
                 {
@@ -455,7 +458,17 @@ namespace MicroFinance
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.NavigationService.CanGoBack)
-                this.NavigationService.GoBack();
+                this.NavigationService.Navigate(new DashBoardHeadOfficer());
+        }
+
+        private void DecativeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BackNtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new DashBoardHeadOfficer());
         }
     }
 }

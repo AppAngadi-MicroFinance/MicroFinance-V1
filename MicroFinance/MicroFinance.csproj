@@ -177,9 +177,6 @@
     <Compile Include="Modal\Region.cs" />
     <Compile Include="Modal\SelfHeadGroupModal.cs" />
     <Compile Include="Modal\StaticProperty.cs" />
-    <Compile Include="ModifyEmployee.xaml.cs">
-      <DependentUpon>ModifyEmployee.xaml</DependentUpon>
-    </Compile>
     <Compile Include="RegionManagerNotifyPanel.xaml.cs">
       <DependentUpon>RegionManagerNotifyPanel.xaml</DependentUpon>
     </Compile>
@@ -315,10 +312,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ModifyEmployee.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="RegionManagerNotifyPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

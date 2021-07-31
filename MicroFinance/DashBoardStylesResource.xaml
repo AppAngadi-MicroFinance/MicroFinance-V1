@@ -386,7 +386,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\notepad.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Loan Request"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="110" Style="{StaticResource DashboardBtnText}" Text="Loan Recommend"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -721,9 +721,16 @@
         </Setter>
     </Style>
 
-    
+
     <Style TargetType="{x:Type Button}" x:Key="BackButtonStyle">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="50"></Setter>
+                <Setter Property="BorderBrush" Value="Transparent"></Setter>
+            </Style>
+        </Style.Resources>
         <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
         <Setter Property="Content">
             <Setter.Value>
                 <ContentPresenter>
@@ -738,6 +745,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
 </ResourceDictionary>

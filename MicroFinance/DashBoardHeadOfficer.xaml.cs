@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Modal;
 
 namespace MicroFinance
 {
@@ -22,14 +23,17 @@ namespace MicroFinance
     /// </summary>
     public partial class DashBoardHeadOfficer : Page
     {
-        string ConnectionString = "Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True";
+       
+        string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
 
-
-        string BranchID = "01202106002";
+        Branch branch = new Branch();
+        List<string> RegionList = new List<string>();
+        List<Branch> BranchList = new List<Branch>();
+        string BranchID = "01202107002";
         public DashBoardHeadOfficer()
         {
             InitializeComponent();
-            ManageApprovalNotification();
+           // ManageApprovalNotification();
         }
 
 
@@ -53,7 +57,7 @@ namespace MicroFinance
 
         private void xPendingCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ModifyEmployee());
+            
         }
         private void xLoanRequestListBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -74,14 +78,20 @@ namespace MicroFinance
         private void xFindCustomer_Click(object sender, RoutedEventArgs e)
         {
             xSearchPersonPop.Visibility = Visibility.Visible;
-            xPopUpHeading.Text = "Find Customer";
         }
 
         private void xFindEmployee_Click(object sender, RoutedEventArgs e)
         {
+            branch = new Branch();
             xSearchPersonPop.Visibility = Visibility.Visible;
-            EmployeeSearchFrame.NavigationService.Navigate(new ModifyEmployee());
-            xPopUpHeading.Text = "Find Employee";
+            RegionCombo.ItemsSource = null;
+            branch.GetRegionList();
+            branch.GetBranchList();
+            RegionList = branch.RegionList;
+            BranchList = branch.BranchList;
+            RegionCombo.ItemsSource = RegionList;
+            BranchCombo.Items.Clear();
+            EmployeeList.Items.Clear();  
         }
 
         private void xAllowanceReportBtn_Click(object sender, RoutedEventArgs e)
@@ -117,6 +127,50 @@ namespace MicroFinance
         private void EmployeeSeachPanelCloseBtn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void RegionCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BranchCombo.Items.Clear();
+            string SelectedRegion = RegionCombo.SelectedValue as string;
+            FetchBranch(SelectedRegion);
+        }
+        public void FetchBranch(string regionname)
+        {
+            foreach (Branch b in BranchList)
+            {
+                if (b.RegionName == regionname)
+                {
+                    BranchCombo.Items.Add(b.BranchName);
+                }
+            }
+        }
+
+        private void BranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            EmployeeList.Items.Clear();
+            List<string> ActiveEmployees = new List<string>();
+            string selectedBrach = BranchCombo.SelectedValue as string;
+            ActiveEmployees= branch.ActiveEmployees(branch.GetBranchID(selectedBrach));
+            foreach(string s in ActiveEmployees)
+            {
+                Employee emp = new Employee();
+                emp.GetEmployeeDetails(s);
+                EmployeeList.Items.Add(emp);
+            }
+            
+            
+
+        }
+        private void xSearchPersonPopcloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            xSearchPersonPop.Visibility = Visibility.Collapsed;
+        }
+
+        private void EmployeeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Employee selectedEmployee = EmployeeList.SelectedValue as Employee;
+            this.NavigationService.Navigate(new AddEmployee(selectedEmployee));
         }
     }
 }

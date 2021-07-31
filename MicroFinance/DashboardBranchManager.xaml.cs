@@ -23,25 +23,26 @@ namespace MicroFinance
     /// </summary>
     public partial class DashboardBranchManager : Page
     {
-
-        string BranchId = MainWindow.LoginDesignation.BranchId;
+        Branch branch = new Branch();
+        string BranchId = "01202107002";
+        //string BranchId = MainWindow.LoginDesignation.BranchId;
         public DashboardBranchManager()
         {
             InitializeComponent();
-            ManageApprovalNotification();
+            //ManageApprovalNotification();
         }
-        void ManageApprovalNotification()
-        {
-            int forApprovals = GetCustomersStatus1(BranchId);
-            if (forApprovals > 0)
-            {
-                xCustApprovalsCount.Text = forApprovals.ToString();
-            }
-            else
-            {
-                xNotificationBatch.Visibility = Visibility.Collapsed;
-            }
-        }
+        //void ManageApprovalNotification()
+        //{
+        //    int forApprovals = GetCustomersStatus1(BranchId);
+        //    if (forApprovals > 0)
+        //    {
+        //        xCustApprovalsCount.Text = forApprovals.ToString();
+        //    }
+        //    else
+        //    {
+        //        xNotificationBatch.Visibility = Visibility.Collapsed;
+        //    }
+        //}
 
         private void xAddCustomerBtn_Click(object sender, RoutedEventArgs e)
         {

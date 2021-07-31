@@ -28,7 +28,7 @@ namespace MicroFinance.Modal
                     sql.Open();
                     SqlCommand command = new SqlCommand();
                     command.Connection = sql;
-                    command.CommandText = "select BranchDetails.RegionName,BranchEmployees.Bid,BranchEmployees.Empid,BranchEmployees.Designation from BranchEmployees join BranchDetails on BranchEmployees.Bid=BranchDetails.Bid where Empid=(select EmpId from Employee where Name='" + _userName + "')";
+                    command.CommandText = "select BranchDetails.RegionName,EmployeeBranch.Bid,EmployeeBranch.Empid,EmployeeBranch.Designation from EmployeeBranch join BranchDetails on EmployeeBranch.Bid=BranchDetails.Bid where Empid=(select EmpId from Employee where Name='" + _userName + "')";
                     SqlDataReader dataReader = command.ExecuteReader();
                     while(dataReader.Read())
                     {
