@@ -127,13 +127,13 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select * from CustomerDetails join LoanRequest on LoanRequest.BranchID='"+Bid+"' and LoanRequest.StatusCode=1 and LoanRequest.CustomerID=CustomerDetails.CustId";
+                    sqlcomm.CommandText = "select * from CustomerDetails join loanApplication on LoanApplication.BranchID='"+Bid+"' and LoanApplication.LoanStatus=1 and LoanApplication.CustId=CustomerDetails.CustId";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
                     {
                         while(reader.Read())
                         {
-                            string[] _fullAdress = reader.GetString(17).Split('|', '~');
+                            string[] _fullAdress = reader.GetString(18).Split('|', '~');
                             RequestList.Add(
                                 new LoanProcess
                                 {
@@ -145,54 +145,52 @@ namespace MicroFinance.Modal
                             Age = reader.GetInt32(5),
                             Gender = reader.GetString(6),
                             ContactNumber = reader.GetString(7),
-                            Religion = reader.GetString(8),
-                            Caste = reader.GetString(9),
-                            Community = reader.GetString(10),
-                            Education = reader.GetString(11),
-                            FamilyMembers = reader.GetInt32(12),
-                            EarningMembers = reader.GetInt32(13),
-                            Occupation = reader.GetString(14),
-                            MonthlyIncome = reader.GetInt32(15),
-                            MothlyExpenses = reader.GetInt32(16),
+                            AadharNo = reader.GetString(8),
+                            Religion = reader.GetString(9),
+                            Caste = reader.GetString(10),
+                            Community = reader.GetString(11),
+                            Education = reader.GetString(12),
+                            FamilyMembers = reader.GetInt32(13),
+                            EarningMembers = reader.GetInt32(14),
+                            Occupation = reader.GetString(15),
+                            MonthlyIncome = reader.GetInt32(16),
+                            MothlyExpenses = reader.GetInt32(17),
                             DoorNumber = _fullAdress[0],
                             StreetName = _fullAdress[2],
                             LocalityTown = _fullAdress[4],
                             City = _fullAdress[6],
                             State = _fullAdress[8],
-                            Pincode = reader.GetInt32(18),
-                            HousingType = reader.GetString(19),
-                            HousingIndex = reader.GetInt32(20).ToString(),
+                            Pincode = reader.GetInt32(19),
+                            HousingType = reader.GetString(20),
                             //if (reader.GetBoolean(23))
                             //{
                                 HavingBankDetails = true,
-                                AccountHolder = reader.GetString(27),
-                                AccountNumber = reader.GetString(28),
-                                BankName = reader.GetString(29),
-                                BankBranchName = reader.GetString(30),
-                                IFSCCode = reader.GetString(31),
-                                MICRCode = reader.GetString(32),
+                                AccountHolder = reader.GetString(28),
+                                AccountNumber = reader.GetString(29),
+                                BankName = reader.GetString(30),
+                                BankBranchName = reader.GetString(31),
+                                IFSCCode = reader.GetString(32),
+                                MICRCode = reader.GetString(33),
                             //}
                             //if (reader.GetBoolean(24))
                             //{
                                 NameofAddressProof = reader.GetString(21),
-                                AddressProof = ByteToBI((byte[])reader.GetValue(33)),
+                                AddressProof = ByteToBI((byte[])reader.GetValue(34)),
                             //}
                             //if (reader.GetBoolean(25))
                             //{
                                 NameofPhotoProof = reader.GetString(22),
-                                PhotoProof = ByteToBI((byte[])reader.GetValue(34)),
+                                PhotoProof = ByteToBI((byte[])reader.GetValue(35)),
                             //}
                             //if (reader.GetBoolean(26))
-                                ProfilePicture = ByteToBI((byte[])reader.GetValue(35)),
-                                AadharNo=reader.GetString(40),
-                           LoanRequestID=reader.GetString(41),
+                                ProfilePicture = ByteToBI((byte[])reader.GetValue(36)),  
+                           LoanRequestID=reader.GetString(42),
                            EmployeeID=reader.GetString(43),
                            LoanType=reader.GetString(44),
                            LoanAmount=reader.GetInt32(45),
                            LoanPeriod=reader.GetInt32(46),
                            LoanPurpose=reader.GetString(47),
                            EnrollDate=reader.GetDateTime(48),  
-
                         }) ;
 
                         }
