@@ -32,10 +32,107 @@ namespace MicroFinance
         public AddCustomer()
         {
             InitializeComponent();
-            IsEligible();
+            TempLoad();
 
+            IsEligible();
             BranchAndGroupDetailsforFieldOfficer();
             Assign();
+        }
+
+        void TempLoad()
+        {
+            customer.CustomerName = "Thirisa";
+            //CustomerNameBox.Text = "Thirisa";
+
+            customer.Gender = "Male";
+            //Female.IsChecked = true;
+
+            customer.DateofBirth = new DateTime(1990, 08, 12);
+            //SelectDOB.SelectedDate = new DateTime(1990, 08, 12);
+
+            customer.FatherName = "Aravind";
+            //FatherNameBox.Text = "Aravind";
+
+            customer.MotherName = "Kaviarasi";
+            //MotherNameBox.Text = "Kaviarasi";
+
+            customer.ContactNumber = "7897894564";
+            //ContactBox.Text = "7897894564";
+
+            customer.Religion = "Hindu";
+            //SelectReligion.SelectedIndex = 1;
+
+            customer.Caste = "MBC";
+            //CasteBox.Text = "MBC";
+
+            customer.Community = "Dhravidar";
+            //CommunityBox.Text = "Dhravidar";
+
+            customer.Education = "10";
+            //EducatinBox.Text = "10";
+
+            customer.FamilyMembers = 5;
+            //FamilyMemberBox.Text = "5";
+
+            customer.EarningMembers = 3;
+            //EarningMemberBox.Text = "3";
+
+            customer.Occupation = "Daily wages";
+            //OccupationBox.Text = "Daily wages";
+
+            customer.MonthlyIncome = 15000;
+            //MonthlyIncomeBox.Text = "15000";
+
+            customer.MothlyExpenses = 12000;
+            //MonthlyExpensesBox.Text = "12000";
+
+            customer.DoorNumber = "77 / W3";
+            //HouseNOBox.Text = "77 / W3";
+
+            customer.StreetName = "Thirunagar";
+            //StreetNameBox.Text = "Thirunagar";
+
+            customer.LocalityTown = "Karumandapam";
+            //LocalityBox.Text = "Karumandapam";
+
+            customer.Pincode = 620020;
+            //PincodeBox.Text = "620020";
+
+            customer.City = "Trichy";
+            //CityBox.Text = "Trichy";
+
+            customer.State = "Tamil Nadu";
+            //StateBox.Text = "Tamil Nadu";
+
+            customer.HousingType = "Own house";
+            //HouseTypeBox.Text = "Own house";
+
+            customer.HousingIndex = "10";
+            //HouseIndexBox.Text = "10";
+
+            customer.AadharNo = "987987987987";
+
+
+            
+
+            guarantor.GuarantorName = "Vicky";
+            guarantor.Gender = "Male";
+            guarantor.DateofBirth = new DateTime(1980, 08, 12);
+            guarantor.ContactNumber = "7894564562";
+            guarantor.Occupation = "Driver";
+            guarantor.RelationShip = "Husband";
+            guarantor.IsNominee = true;
+
+            guarantor.DoorNumber = "77 / W3";
+            guarantor.StreetName = "Thirunagar";
+            guarantor.LocalityTown = "Karumandapam";
+            guarantor.Pincode = "620020";
+            guarantor.City = "Trichy";
+            guarantor.State = "Tamil Nadu";
+
+            CustDetailsInputs.DataContext = customer;
+            AddressDetailGrid.DataContext = customer;
+            AddNomineepopup.DataContext = guarantor;
         }
         void Assign()
         {
@@ -533,9 +630,7 @@ namespace MicroFinance
             CaptureImageStatus.DataContext = CaptureImageMessage;
         }
 
-
-
-        //Guarantor 
+        //Guarantor
 
         private void AddGaurantor_Click(object sender, RoutedEventArgs e)
         {
