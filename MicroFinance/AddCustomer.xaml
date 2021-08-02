@@ -87,7 +87,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"  Text="Customer Details *" Style="{StaticResource STitle}"/>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
-                <Grid HorizontalAlignment="Left">
+                <Grid HorizontalAlignment="Left" x:Name="CustDetailsInputs">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10"/>
                         <RowDefinition Height="40"/>
@@ -289,7 +289,7 @@
 
             <TextBlock Text="Address Details *" Style="{StaticResource STitle}"/>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
-                <Grid>
+                <Grid x:Name="AddressDetailGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="130"/>
