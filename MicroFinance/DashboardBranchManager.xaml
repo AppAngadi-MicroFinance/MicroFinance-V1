@@ -67,8 +67,9 @@
             <Button x:Name="xDailyReportsBtn" Style="{StaticResource NavigateDailyReports}" Click="xDailyReportsBtn_Click"></Button>
         </Border>
         <!--Section D-->
-        <Grid Width="400" Height="170" Margin="0,0,150,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <Grid Width="600" Height="170" Margin="0,0,150,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -85,8 +86,87 @@
                 </Border.Effect>
                 <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
             </Border>
-            
+            <Button Grid.Column="2" Style="{StaticResource SecondaryBtn}" Content="Export Hi-Mark File" Width="150" x:Name="HimarkBtn" Click="HimarkBtn_Click"></Button>
             
         </Grid>
+        <Border Height="500" Width="900" Background="White" Visibility="Collapsed" CornerRadius="5" BorderThickness="2" BorderBrush="Gray" Panel.ZIndex="2" x:Name="HimarkExportPanel">
+            <Grid Height="490" Width="890">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Requested Customers" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="20,0,0,0"></TextBlock>
+                <Button Style="{StaticResource ModalClose}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,25,0" x:Name="HimarkPanelCloseBtn" Click="HimarkPanelCloseBtn_Click"></Button>
+                <Separator BorderBrush="Gray" BorderThickness="3" VerticalAlignment="Bottom"></Separator>
+                <Border Width="710" Height="30" Background="Blue" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,10,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="White" BorderThickness="1">
+                            <TextBlock Text="Request ID" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                        </Border>
+                        <Border Grid.Column="1" BorderBrush="White" BorderThickness="1">
+                            <TextBlock Text="Name" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                        </Border>
+                        <Border Grid.Column="2" BorderBrush="White" BorderThickness="1">
+                            <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                        </Border>
+                        <Border Grid.Column="3" BorderBrush="White" BorderThickness="1">
+                            <TextBlock Text="Loan Period" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                        </Border>
+                        <Border Grid.Column="4" BorderBrush="White" BorderThickness="1" Width="150">
+                            <TextBlock Text="Requested By" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                        </Border>
+                    </Grid>
+                </Border>
+                <ScrollViewer Grid.Row="1" Height="340" Margin="12,35,0,0" Width="710" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  Panel.ZIndex="2">
+                    <ItemsControl Grid.Row="1" Margin="-5,0,0,0" Height="340" Width="700" Name="RequestedListBoxNew">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="700" Height="30" Background="LightBlue" Grid.Row="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border BorderBrush="White" BorderThickness="2">
+                                            <TextBlock Text="{Binding LoanRequestID,Mode=OneWay}" FontSize="12" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                                        </Border>
+                                        <Border Grid.Column="1" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock Text="{Binding CustomerName,Mode=OneWay}" TextWrapping="WrapWithOverflow" FontSize="12" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                                        </Border>
+                                        <Border Grid.Column="2" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock Text="{Binding LoanAmount,Mode=OneWay}" Style="{StaticResource Regular}" FontSize="12" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                                        </Border>
+                                        <Border Grid.Column="3" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock Text="{Binding LoanPeriod,Mode=OneWay}" Style="{StaticResource Regular}" FontSize="12" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                                        </Border>
+                                        <Border Grid.Column="4" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock Text="{Binding EmployeeID,Mode=OneWay}" Style="{StaticResource Regular}" FontSize="12" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,50,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Style="{StaticResource PrimaryBtn}" Content="Export Himark File" Width="150" x:Name="ExportHimarkBtn" Click="ExportHimarkBtn_Click"></Button>
+                    <Button Style="{StaticResource CancelBtn}" Margin="20,0,0,0" Content="Cancel" Width="150"></Button>
+                </StackPanel>
+
+
+            </Grid>
+        </Border>
     </Grid>
 </Page>

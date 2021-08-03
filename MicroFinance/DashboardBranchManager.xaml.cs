@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Reports;
 
 namespace MicroFinance
 {
@@ -25,6 +26,11 @@ namespace MicroFinance
     {
         Branch branch = new Branch();
         string BranchId = "01202107002";
+        public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
+        public List<LoanProcess> loanDetails = new List<LoanProcess>();
+        public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
+        public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
+        LoanProcess loanProcess = new LoanProcess();
         //string BranchId = MainWindow.LoginDesignation.BranchId;
         public DashboardBranchManager()
         {
@@ -83,6 +89,42 @@ namespace MicroFinance
 
         private void xDailyReportsBtn_Click(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void HimarkPanelCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            HimarkExportPanel.Visibility = Visibility.Collapsed;
+    }
+
+        private void HimarkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            HimarkExportPanel.Visibility = Visibility.Visible;
+            loanProcess = new LoanProcess();
+            loanProcess.GetRequestList(LoginBranchID);
+            loanDetails = loanProcess.RequestList;
+            RequestedListBoxNew.ItemsSource = loanDetails;
+        }
+
+        private void ExportHimarkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<HiMark> Himarklist = new List<HiMark>();
+            HiMark himarkReport = new HiMark();
+            foreach (LoanProcess lp in loanDetails)
+            {
+                himarkReport = new HiMark(lp);
+                Himarklist.Add(himarkReport);
+            }
+            try
+            {
+                himarkReport = new HiMark();
+                himarkReport.hiMarksList = Himarklist;
+                himarkReport.createHimarkXls();
+                MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: D:\\");
+            }
+            catch
+            {
+
+            }
         }
     }
 }
