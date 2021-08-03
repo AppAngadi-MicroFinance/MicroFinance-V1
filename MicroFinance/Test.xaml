@@ -198,7 +198,7 @@
                                         <TextBlock Text="{Binding OutstandingAmount,Mode=OneWay}" Grid.Column="2" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text="Payment Summary" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text=":" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
-                                        <TextBlock Text="{Binding SHGName,Mode=OneWay}" Grid.Column="2" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+                                        <ToggleButton Style="{StaticResource ToggleShow}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="5" Margin="25,0,0,0" IsChecked="{Binding IsOpen,ElementName=HimarkSummaryPanel}"></ToggleButton>
                                     </Grid>
                                 </Border>
                                 <Border CornerRadius="2" Grid.Column="1" Grid.Row="1" BorderBrush="#707070" BorderThickness="1" Height="220" Width="400" Background="#E8FFF2">
@@ -267,6 +267,21 @@
                                     <Button Margin="10,0,0,0" Style="{StaticResource DangerBtn}" Content="Reject"></Button>
                                 </StackPanel>
                                 
+                            </Grid>
+                        </Border>
+                    </Popup>
+                    <Popup AllowsTransparency="True" x:Name="HimarkSummaryPanel" Placement="Center" PlacementTarget="{Binding ElementName=CustomerviewDetailsGrid}">
+                        <Border Height="300" Width="500" Background="White" CornerRadius="5" BorderBrush="Gray" BorderThickness="2">
+                            <Grid Height="290" Width="490">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15*"/>
+                                    <RowDefinition Height="90*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="DPD Payment Summary" Style="{StaticResource Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                                <ToggleButton Style="{StaticResource ToggleModalClose}" HorizontalAlignment="Right" Margin="0,0,20,0" IsChecked="{Binding IsOpen,ElementName=HimarkSummaryPanel}"></ToggleButton>
+                                <Separator BorderBrush="Gray" BorderThickness="3" VerticalAlignment="Bottom"></Separator>
+                                <TextBlock Text="Summary:" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Top" Margin="20,10,0,0"></TextBlock>
+                                <TextBlock HorizontalAlignment="Left" Width="400"   Text="{Binding DPDPaymentSummary,Mode=OneWay}" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Top" Margin="20,30,0,0" TextWrapping="Wrap"></TextBlock>
                             </Grid>
                         </Border>
                     </Popup>
