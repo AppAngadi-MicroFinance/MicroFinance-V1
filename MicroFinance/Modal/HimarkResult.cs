@@ -11,20 +11,22 @@ using System.Data.SqlClient;
 
 namespace MicroFinance.Modal
 {
-    class HimarkResult : LoanProcess
+    public class HimarkResult : LoanProcess
     {
        
-        List<HimarkResult> himarkResultslist = new List<HimarkResult>();
+       public List<HimarkResult> himarkResultslist = new List<HimarkResult>();
+       public List<string> CategoryList = new List<string>();
+        private string _requestid;
         public string RequestID
         {
             get
             {
-                return RequestID;
+                return _requestid;
             }
             set
             {
-                value = RequestID;
-                GetCustomerDetails(value);
+                _requestid = value;
+                GetCustomerDetails(_requestid);
             }
         }
         public string AadharNumber { get; set; }
@@ -41,7 +43,7 @@ namespace MicroFinance.Modal
         public string SheetName;
         public string ColumnNumber;
 
-        public string GetDetails(string Path)
+        public void GetDetails(string Path)
         {
             Excel.Application application;
             Excel.Workbook workbook;
@@ -67,15 +69,11 @@ namespace MicroFinance.Modal
                 }
 
             }
-            foreach (HimarkResult hm in himarkResultslist)
-            {
-                sb.Append(hm.ToString() + "\n");
-            }
             workbook.Close();
             System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
             application.Quit();
             System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
-            return sb.ToString();
+           
         }
 
 
@@ -230,7 +228,11 @@ namespace MicroFinance.Modal
                 string _dpdsummary = (worksheet.Cells[Rownumber, DPDSummaryColumn] as Excel.Range).Value;
                 string _himarkscore = Convert.ToString((worksheet.Cells[Rownumber, HimarkScoreValuecolumn] as Excel.Range).Value);
                 string _scoreCommend = (worksheet.Cells[Rownumber, ScoreCommend] as Excel.Range).Value;
-
+                string CategoryValue = _status.ToUpper();
+                if(!CategoryList.Contains(CategoryValue))
+                {
+                    CategoryList.Add(_status.ToUpper());
+                }
                 himarkResultslist.Add(
                     new HimarkResult
                     {

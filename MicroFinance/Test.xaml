@@ -183,16 +183,16 @@
                                         </Grid.RowDefinitions>
                                         <TextBlock Text="Himark Status" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text=":" Grid.Column="1" Style="{StaticResource Regular}"></TextBlock>
-                                        <TextBlock Text="{Binding HimarkStatus,Mode=TwoWay}"  Grid.Column="2" Style="{StaticResource Regular}"></TextBlock>
+                                        <TextBlock Text="{Binding Status,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Column="2" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text="Remark" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text=":" Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text="{Binding HiMarkRemark,Mode=OneWay}" Grid.Column="2" Grid.Row="1" Style="{StaticResource NumberRegular}"></TextBlock>
                                         <TextBlock Text="Active Loans" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text=":" Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
-                                        <TextBlock Text="{Binding ActiveLoans,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
+                                        <TextBlock Text="{Binding ActiveUnsecureLoan,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text="Active Loan in Last 6 Months" TextWrapping="Wrap" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text=":" Grid.Column="1" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                        <TextBlock Text="{Binding ActiveLoanin6Months,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
+                                        <TextBlock Text="{Binding ActiveUnsecureLoanin6Months,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text="Outstanding Amount" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text=":" Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
                                         <TextBlock Text="{Binding OutstandingAmount,Mode=OneWay}" Grid.Column="2" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
@@ -281,7 +281,7 @@
                                 <ToggleButton Style="{StaticResource ToggleModalClose}" HorizontalAlignment="Right" Margin="0,0,20,0" IsChecked="{Binding IsOpen,ElementName=HimarkSummaryPanel}"></ToggleButton>
                                 <Separator BorderBrush="Gray" BorderThickness="3" VerticalAlignment="Bottom"></Separator>
                                 <TextBlock Text="Summary:" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Top" Margin="20,10,0,0"></TextBlock>
-                                <TextBlock HorizontalAlignment="Left" Width="400"   Text="{Binding DPDPaymentSummary,Mode=OneWay}" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Top" Margin="20,30,0,0" TextWrapping="Wrap"></TextBlock>
+                                <TextBlock HorizontalAlignment="Left" Width="400"   Text="{Binding DPDSummary,Mode=OneWay}" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Top" Margin="20,30,0,0" TextWrapping="Wrap"></TextBlock>
                             </Grid>
                         </Border>
                     </Popup>

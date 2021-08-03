@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
 using MicroFinance.Reports;
+using Microsoft.Win32;
 
 namespace MicroFinance
 {
@@ -124,6 +125,22 @@ namespace MicroFinance
             catch
             {
 
+            }
+        }
+
+        private void ImportHimarkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDlg = new OpenFileDialog();
+            openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
+            openFileDlg.Title = "Choose File";
+            openFileDlg.InitialDirectory = @"C:\";
+            Nullable<bool> result = openFileDlg.ShowDialog();
+            if (result == true)
+            {
+                string FileFrom = openFileDlg.FileName;
+                var FilePath = FileFrom.Split('\\');
+                string FileName = FilePath[FilePath.Length - 1];
+                this.NavigationService.Navigate(new HimarkResultData(FileFrom));
             }
         }
     }

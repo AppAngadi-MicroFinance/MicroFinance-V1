@@ -265,6 +265,23 @@ namespace MicroFinance.Modal
                 }
             }
         }
+
+        public void ApproveLoanFromHimark(string ReqID)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "Update LoanApplication Set LoanStatus='2' where Requestid='" + ReqID+ "' ";
+                    sqlcomm.ExecuteNonQuery();
+                }
+            }
+        }
+
+
         public void ApproveLoan(string ID)
         {
             GetRequestDetails(ID);

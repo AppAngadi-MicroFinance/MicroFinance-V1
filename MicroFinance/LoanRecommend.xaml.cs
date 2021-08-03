@@ -31,7 +31,7 @@ namespace MicroFinance
         {
             InitializeComponent();
             //AddList();
-            RequestedListBoxNew.ItemsSource = dummylist;
+            //RequestedListBoxNew.ItemsSource = dummylist;
             loanProcess.GetRequestList(LoginBranchID);
             loanDetails=loanProcess.RequestList;
             Custlist.ItemsSource = loanDetails;
