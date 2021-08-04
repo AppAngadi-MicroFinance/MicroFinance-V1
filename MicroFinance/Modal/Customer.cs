@@ -774,14 +774,80 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "insert into CustomerDetails(CustId, Name, Dob, Age, Mobile, Religion, Community, Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, Address, Pincode, HousingType, HousingIndex,IsAddressProof, IsPhotoProof, IsProfilePhoto, GuarenteeStatus, NomineeStatus,IsActive,CustomerStatus,FatherName,MotherName,Gender,Caste,MonthlyExpenses,IsBankDetails,AadharNumber) values ('" + _customerId + "','" + CustomerName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Religion + "','" + Community + "','" + Education + "','" + FamilyMembers + "','" + EarningMembers + "','" + Occupation + "','" + MonthlyIncome + "','" + AddressofCustomer + "','" + Pincode + "','" + HousingType + "','" + HousingIndex + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + 0 + "','"+FatherName+"','"+MotherName+"','"+Gender+"','"+Caste+"','"+MothlyExpenses+"','"+false+"','"+null+"')";
-                sqlCommand.ExecuteNonQuery();
-                sqlCommand.CommandText = "select Bid from BranchDetails where BranchName='" + BranchName + "'";
-                string BranchId = sqlCommand.ExecuteScalar().ToString();
-                sqlCommand.CommandText = "insert into CustomerGroup(BranchId, BranchName, SelfHelpGroup, PeerGroup, CustId, IsLeader) values('" + BranchId + "','" + BranchName + "','" + SelfHelpGroup + "','" + PeerGroup + "','" + _customerId + "','" + IsLeader + "')";
-                sqlCommand.ExecuteNonQuery();
+//                sqlCommand.CommandText = @"insert into CustomerDetails(CustId, Name, Dob, Age, Mobile, Religion, Community, Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, Address, Pincode, HousingType, HousingIndex,IsAddressProof, IsPhotoProof, IsProfilePhoto, GuarenteeStatus, NomineeStatus,IsActive,CustomerStatus,FatherName,MotherName,Gender,Caste,MonthlyExpenses,IsBankDetails,AadharNumber) 
+//values ('" + _customerId + "','" + CustomerName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Religion + "','" + Community +
+//"','" + Education + "','" + FamilyMembers + "','" + EarningMembers + "','" + Occupation + "','" + MonthlyIncome + "','" + AddressofCustomer + "','" + Pincode + "','" +
+//HousingType + "','" + HousingIndex + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + 0 + "','" + FatherName + 
+//"','" + MotherName + "','" + Gender + "','" + Caste + "','" + MothlyExpenses + "','" + false + "','" + null + "')";
+
+                sqlCommand.CommandText = "insert into CustomerDetails(CustId, Name, FatherName, MotherName, Dob, Age, Gender, Mobile,AadharNumber,Religion, Caste, Community,Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, MonthlyExpenses, Address,Pincode, HousingType, AddressProofName, PhotoProofName, IsBankDetails, IsAddressProof, IsPhotoProof, IsProfilePhoto, BankACHolderName, BankAccountNo, BankName,BankBranchName, IFSCCode, MICRCode, AddressProof, PhotoProof, ProfilePhoto, GuarenteeStatus, NomineeStatus, CustomerStatus, IsActive)values(@custId, @name, @fatherName, @motherName, @dob, @age, @gender, @mobile, @aadhar, @religion, @caste, @community, @education, @familyMembers,@earningMembers, @occupation, @monthlyIncome, @monthlyExpence, @address, @pincode, @houseType, @addressProofName, @photoProffName, @isBankDetails,@isAddressProof, @isPhotoproof, @isProfilePhoto, @bankAccHolder, @bankAcNo, @banckName, @bankBranchName, @ifsc, @micr,@addressProof,@photoProof,@profilePhoto, @guarenteeStatus, @nomineeStatus, @customerStatus, @isActive)";
+
+                sqlCommand.Parameters.AddWithValue("@custId", _customerId);sqlCommand.Parameters.AddWithValue("@name", CustomerName);
+                sqlCommand.Parameters.AddWithValue("@fatherName",_fatherName);sqlCommand.Parameters.AddWithValue("@motherName",_motherName);
+                sqlCommand.Parameters.AddWithValue("@dob", DateofBirth.ToString("MM-dd-yyyy"));sqlCommand.Parameters.AddWithValue("@age",Age);
+
+                sqlCommand.Parameters.AddWithValue("@gender",Gender);sqlCommand.Parameters.AddWithValue("@mobile",ContactNumber);
+                sqlCommand.Parameters.AddWithValue("@aadhar",AadharNo);sqlCommand.Parameters.AddWithValue("@religion",Religion);
+                sqlCommand.Parameters.AddWithValue("@caste",Caste);sqlCommand.Parameters.AddWithValue("@community",Community);
+
+                sqlCommand.Parameters.AddWithValue("@education",Education);sqlCommand.Parameters.AddWithValue("@familyMembers",FamilyMembers);
+                sqlCommand.Parameters.AddWithValue("@earningMembers",EarningMembers);sqlCommand.Parameters.AddWithValue("@occupation",Occupation);
+                sqlCommand.Parameters.AddWithValue("@monthlyIncome",MonthlyIncome);sqlCommand.Parameters.AddWithValue("@monthlyExpence",_monthlyExpenses);
+                sqlCommand.Parameters.AddWithValue("@address", AddressofCustomer);sqlCommand.Parameters.AddWithValue("@pincode",Pincode);
+                sqlCommand.Parameters.AddWithValue("@houseType",HousingType);
+
+                sqlCommand.Parameters.AddWithValue("@addressProofName", NameofAddressProof); sqlCommand.Parameters.AddWithValue("@photoProffName",NameofPhotoProof);
+                sqlCommand.Parameters.AddWithValue("@isBankDetails",false); sqlCommand.Parameters.AddWithValue("@isAddressProof",false);
+                sqlCommand.Parameters.AddWithValue("@isPhotoproof",false); sqlCommand.Parameters.AddWithValue("@isProfilePhoto",false);
+                sqlCommand.Parameters.AddWithValue("@bankAccHolder", AccountHolder); sqlCommand.Parameters.AddWithValue("@bankAcNo",AccountNumber);
+                
+                sqlCommand.Parameters.AddWithValue("@banckName",BankName); sqlCommand.Parameters.AddWithValue("@bankBranchName",BankBranchName);
+                sqlCommand.Parameters.AddWithValue("@ifsc",IFSCCode);sqlCommand.Parameters.AddWithValue("@micr",MICRCode);
+
+                sqlCommand.Parameters.AddWithValue("@addressProof", Convertion(AddressProof)); sqlCommand.Parameters.AddWithValue("@photoProof", Convertion(PhotoProof));
+                sqlCommand.Parameters.AddWithValue("@profilePhoto", Convertion(ProfilePicture));
+                
+                sqlCommand.Parameters.AddWithValue("@guarenteeStatus",false);
+
+                sqlCommand.Parameters.AddWithValue("@nomineeStatus",false); sqlCommand.Parameters.AddWithValue("@customerStatus",0);
+                sqlCommand.Parameters.AddWithValue("@isActive",true);
+
+                if (sqlCommand.ExecuteNonQuery() == 1)
+                    InsertIntoCustomerGroup(_customerId, PeerGroup, false, GetMembersCountINPeerGroup(PeerGroup));
 
             }
+        }
+
+        void InsertIntoCustomerGroup(string custId, string pgId, bool isLeader, int cpId)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlConnection.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = sqlConnection;
+                cmd.CommandText = "insert into CutomerGroup (CustId, PeerGroupId, IsLeader, CPid)values(@custId, @pgId, @isLeader, @cPid)";
+                cmd.Parameters.AddWithValue("@custId", custId);
+                cmd.Parameters.AddWithValue("@pgId", pgId);
+                cmd.Parameters.AddWithValue("@isLeader", isLeader);
+                cmd.Parameters.AddWithValue("@cPid", cpId);
+                cmd.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+        }
+
+        int GetMembersCountINPeerGroup(string peerGroupId)
+        {
+            int Count = 1;
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sqlConnection.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = sqlConnection;
+                cmd.CommandText = "select COUNT(CustId) from CutomerGroup where PeerGroupId = '"+ peerGroupId + "'";
+                Count += (int)cmd.ExecuteScalar();
+                sqlConnection.Close();
+            }
+            return Count;
         }
         public void UpdateExistingDetails(string BranchName, string SelfHelpGroup, string PeerGroup, Guarantor guarantor, Nominee nominee)
         {

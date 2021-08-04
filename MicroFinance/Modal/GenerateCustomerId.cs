@@ -16,7 +16,7 @@ namespace MicroFinance.Modal
 
         public string GetRegionNumber()
         {
-            string Result = "";
+            int Result = 0;
             using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.db))
             {
                 sqlconn.Open();
@@ -24,16 +24,16 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SNo from Region where RegionName='" + Region + "'";
-                    Result = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select RegionCode from Region where RegionName='" + Region + "'";
+                    Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();
-                return Result;
+                return Result.ToString();
             }
         }
         public string GetBranchNumber()
         {
-            string Result = "";
+            int Result = 0;
             using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.db))
             {
                 sqlconn.Open();
@@ -41,11 +41,11 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SNo from BranchDetails where BranchName='" + BranchName + "'";
-                    Result = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select BranchCode from BranchDetails where BranchName='" + BranchName + "'";
+                    Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();
-                return Result;
+                return Result.ToString();
             }
         }
         public string GenerateCustomerID() // IDPattern 0100220210605 (01-Region+002-BranchName/2021-CurrentYear/06-CurrentMonth/05-(CountOfCustomers+1))

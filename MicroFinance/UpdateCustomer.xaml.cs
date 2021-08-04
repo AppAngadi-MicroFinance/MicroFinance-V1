@@ -113,7 +113,7 @@ namespace MicroFinance
                 SqlDataReader sqlDataReader1 = sqlCommand.ExecuteReader();
                 while (sqlDataReader1.Read())
                 {
-                    PeerGroupDetails.Add(new PeerGroup { SHGName = sqlDataReader1.GetString(0), PG_Id = sqlDataReader1.GetString(1), Name = sqlDataReader1.GetString(2), GroupMembers = sqlDataReader1.GetInt32(3) });
+                    //PeerGroupDetails.Add(new PeerGroup { SHGName = sqlDataReader1.GetString(0), PG_Id = sqlDataReader1.GetString(1), Name = sqlDataReader1.GetString(2), GroupMembers = sqlDataReader1.GetInt32(3) });
                 }
                 sqlConnection.Close();
             }
@@ -158,13 +158,13 @@ namespace MicroFinance
         {
             List<String> SelectedPG = new List<String>();
 
-            foreach (var item in PeerGroupDetails)
-            {
-                if (item.SHGName == SelectSHG.SelectedItem.ToString())
-                {
-                    SelectedPG.Add(item.Name);
-                }
-            }
+            //foreach (var item in PeerGroupDetails)
+            //{
+            //    if (item.SHGName == SelectSHG.SelectedItem.ToString())
+            //    {
+            //        SelectedPG.Add(item.Name);
+            //    }
+            //}
 
             SelectPG.ItemsSource = SelectedPG;
 

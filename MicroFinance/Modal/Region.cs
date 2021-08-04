@@ -51,13 +51,37 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "insert into Region (SNo,RegionName)values('"+GetRegionCount()+"','" + _regionname + "')";
+                    sqlcomm.CommandText = "insert into Region (RegionCode,RegionId,RegionName)values(" + GetRegionCount() + ",'" + GenerateRegionID() + "','" + _regionname + "')";
                     sqlcomm.ExecuteNonQuery();
                 }
                 sqlconn.Close();
             }
         }
-
+        public string GenerateRegionID()
+        {
+            int count = GetRegionCount();
+            string Result = "R"+DigitConvert(count.ToString(),2);
+            return Result;
+        }
+        public string DigitConvert(string digit, int place = 3)
+        {
+            StringBuilder sb = new StringBuilder();
+            string number = digit;
+            string Result = "";
+            if (number.Length < place)
+            {
+                for (int i = 0; i < (place - (number.Length)); i++)
+                {
+                    sb.Append(0);
+                }
+                Result = sb.ToString() + number;
+            }
+            else
+            {
+                Result = number;
+            }
+            return Result;
+        }
 
         public bool Isexist()
         {

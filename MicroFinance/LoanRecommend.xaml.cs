@@ -25,11 +25,13 @@ namespace MicroFinance
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public List<LoanProcess> loanDetails = new List<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
+        public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
         LoanProcess loanProcess = new LoanProcess();
         public LoanRecommend()
         {
             InitializeComponent();
             //AddList();
+            //RequestedListBoxNew.ItemsSource = dummylist;
             loanProcess.GetRequestList(LoginBranchID);
             loanDetails=loanProcess.RequestList;
             Custlist.ItemsSource = loanDetails;

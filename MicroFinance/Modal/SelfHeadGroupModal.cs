@@ -45,4 +45,26 @@ namespace MicroFinance.Modal
 
         }
     }
+
+    public class SHG
+    {
+        public string SHGid { get; set; }
+        public string SHGName { get; set; }
+
+        public SHG(string id, string name)
+        {
+            this.SHGid = id;
+            this.SHGName = name;
+        }
+        public SHG()
+        {
+
+        }
+
+        public override string ToString()
+        {
+            return SHGName;
+        }
+    }
+
 }

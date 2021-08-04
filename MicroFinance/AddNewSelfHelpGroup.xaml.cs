@@ -23,12 +23,12 @@ namespace MicroFinance
     /// </summary>
     public partial class AddNewSelfHelpGroup : Page
     {
-        string BranchId = "01202106002";
+        string BranchId = MainWindow.LoginDesignation.BranchId;
         string SHGname = string.Empty;
         string Day = string.Empty;
         string Time = string.Empty;
         string OfficerId = string.Empty;
-        string ConnectionString = "Data Source=.;Initial Catalog=MicroFinance;Integrated Security=True";
+        string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
         public AddNewSelfHelpGroup()
         {
             InitializeComponent();
@@ -60,10 +60,8 @@ namespace MicroFinance
             Day = xDayOfWeek.SelectedItem.ToString();
             Time = xTimeBox.Text;
             OfficerModal officer = xOfficerSelect.SelectedItem as OfficerModal;
-            if(InsertIntoSHG(SHGname, Day, Time, officer.FoID))
-            {
-                this.NavigationService.Navigate(new DashboardBranchManager());
-            }
+            InsertIntoSHG(SHGname, Day, Time, officer.FoID);
+           this.NavigationService.Navigate(new DashboardBranchManager());
         }
 
         List<OfficerModal> GetFieldOfficers(string branchId)
@@ -74,11 +72,11 @@ namespace MicroFinance
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 con.Open();
-                cmd.CommandText = "select Name,EmpId from Employee where Designation = 'Field Officer' and Bid = '" + branchId + "'";
+                cmd.CommandText = "select Employee.EmpId, Employee.Name from Employee join EmployeeBranch on Employee.EmpId = EmployeeBranch.Empid where EmployeeBranch.BranchId = '" + branchId + "'";
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    FieldOfficerNames.Add(new OfficerModal { Name = reader.GetString(0), FoID = reader.GetString(1) });
+                    FieldOfficerNames.Add(new OfficerModal { Name = reader.GetString(1), FoID = reader.GetString(0) });
                 }
                 con.Close();
             }
@@ -86,36 +84,50 @@ namespace MicroFinance
         }
 
 
-        bool InsertIntoSHG(string name, string day, string time, string officer)
+        public void InsertIntoSHG(string shgName, string day, string time, string officer)
         {
-            string Query = "insert Into SelfHelpGroup2(BranchId,SHGId, SHGName, CollectionDay, CollectionTime, Foid) values('" + BranchId + "', '"+ GenerateSHGID()+ "', '" + name + "', '" + day + "','" + time + "','" + officer + "')";
             List<OfficerModal> FieldOfficerNames = new List<OfficerModal>();
+
+            string SHGidGenerated = GenerateSHGID();
             using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 con.Open();
-                cmd.CommandText = Query;
-                if(cmd.ExecuteNonQuery() == 1)
-                {
-                    return true;                    
-                }
-                else
-                {
-                    return false;
-                }
+                cmd.CommandText = "insert into SelfHelpGroup(BranchId, SHGId, SHGName, DateOfCreation)values(@branchId,@shgID,@SHGName,@DOC)";
+                cmd.Parameters.AddWithValue("@branchId", BranchId);
+                cmd.Parameters.AddWithValue("@shgID", SHGidGenerated);
+                cmd.Parameters.AddWithValue("@SHGName", shgName);
+                cmd.Parameters.AddWithValue("@DOC", DateTime.Now.ToString("MM/dd/yyyy"));
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "insert into TimeTable(SHGId, CollectionTime, CollectionDay,EmpId)values(@shgId,@cTime,@cDay,@empId)";
+                cmd.Parameters.AddWithValue("@shgId", SHGidGenerated);
+                cmd.Parameters.AddWithValue("@cTime", time);
+                cmd.Parameters.AddWithValue("@cDay", day);
+                cmd.Parameters.AddWithValue("@empId", officer);
+                cmd.ExecuteNonQuery();
+                con.Close();
             }
         }
 
 
 
-        string BranchName = MainWindow.LoginDesignation.BranchId;
-        string Region = MainWindow.LoginDesignation.RegionName;
-        string Designation = string.Empty;
+
+        //string BranchName = MainWindow.LoginDesignation.BranchId;
+        //string Region = MainWindow.LoginDesignation.RegionName;
+        //string Designation = string.Empty;
 
         public string GetRegionNumber()
         {
-            string Result = "";
+            int Result = 0;
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
             {
                 sqlconn.Open();
@@ -123,16 +135,16 @@ namespace MicroFinance
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SNo from Region where RegionName='" + Region + "'";
-                    Result = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select RegionCode from region where RegionName=(select RegionName from BranchDetails where Bid='"+BranchId+"')";
+                    Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();
-                return Result;
+                return Result.ToString();
             }
         }
         public string GetBranchNumber()
         {
-            string Result = "";
+            int Result = 0;
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
             {
                 sqlconn.Open();
@@ -140,11 +152,11 @@ namespace MicroFinance
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SNo from BranchDetails where Bid='" + BranchId + "'";
-                    Result = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select BranchCode from BranchDetails where Bid='" + BranchId + "'";
+                    Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();
-                return Result;
+                return Result.ToString();
             }
         }
         public string GenerateSHGID() // IDPattern 01002202106SHG-05 (01-Region+002-BranchName/2021-CurrentYear/06-CurrentMonth/05-(CountofShg+1))
@@ -161,7 +173,7 @@ namespace MicroFinance
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlcon;
-                    sqlcomm.CommandText = "Select Count(SHGId) from SelfHelpGroup2";
+                    sqlcomm.CommandText = "Select Count(SHGId) from SelfHelpGroup";
                     count += (int)sqlcomm.ExecuteScalar();
                 }
                 sqlcon.Close();

@@ -77,9 +77,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="9" x:Name="PeerGroupCombo">
                 <TextBlock Text="Peer Group" Style="{StaticResource Regular}"/>
-                <ComboBox x:Name="SelectPG" SelectionChanged="SelectPG_SelectionChanged"   Style="{StaticResource combo}" Width="140" Margin="15,0,10,0">
-                </ComboBox>
-                <Button x:Name="AddPG" Click="AddPG_Click" Style="{StaticResource Add}"/>
+                <ComboBox x:Name="SelectPG" SelectionChanged="SelectPG_SelectionChanged"   Style="{StaticResource combo}" Width="140" Margin="15,0,10,0"></ComboBox>
             </StackPanel>
         </Grid>
         <Grid x:Name="CustomerGrid" Grid.Row="1" Grid.Column="1">
@@ -89,7 +87,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"  Text="Customer Details *" Style="{StaticResource STitle}"/>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
-                <Grid HorizontalAlignment="Left">
+                <Grid HorizontalAlignment="Left" x:Name="CustDetailsInputs">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10"/>
                         <RowDefinition Height="40"/>
@@ -296,7 +294,7 @@
 
             <TextBlock Text="Address Details *" Style="{StaticResource STitle}"/>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
-                <Grid>
+                <Grid x:Name="AddressDetailGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="130"/>

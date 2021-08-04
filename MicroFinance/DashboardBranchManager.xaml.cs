@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Reports;
+using Microsoft.Win32;
 
 namespace MicroFinance
 {
@@ -23,25 +25,31 @@ namespace MicroFinance
     /// </summary>
     public partial class DashboardBranchManager : Page
     {
-
-        string BranchId = MainWindow.LoginDesignation.BranchId;
+        Branch branch = new Branch();
+        string BranchId = "01202107002";
+        public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
+        public List<LoanProcess> loanDetails = new List<LoanProcess>();
+        public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
+        public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
+        LoanProcess loanProcess = new LoanProcess();
+        //string BranchId = MainWindow.LoginDesignation.BranchId;
         public DashboardBranchManager()
         {
             InitializeComponent();
-            ManageApprovalNotification();
+            //ManageApprovalNotification();
         }
-        void ManageApprovalNotification()
-        {
-            int forApprovals = GetCustomersStatus1(BranchId);
-            if (forApprovals > 0)
-            {
-                xCustApprovalsCount.Text = forApprovals.ToString();
-            }
-            else
-            {
-                xNotificationBatch.Visibility = Visibility.Collapsed;
-            }
-        }
+        //void ManageApprovalNotification()
+        //{
+        //    int forApprovals = GetCustomersStatus1(BranchId);
+        //    if (forApprovals > 0)
+        //    {
+        //        xCustApprovalsCount.Text = forApprovals.ToString();
+        //    }
+        //    else
+        //    {
+        //        xNotificationBatch.Visibility = Visibility.Collapsed;
+        //    }
+        //}
 
         private void xAddCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -82,6 +90,58 @@ namespace MicroFinance
 
         private void xDailyReportsBtn_Click(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void HimarkPanelCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            HimarkExportPanel.Visibility = Visibility.Collapsed;
+    }
+
+        private void HimarkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            HimarkExportPanel.Visibility = Visibility.Visible;
+            loanProcess = new LoanProcess();
+            loanProcess.GetRequestList(LoginBranchID);
+            loanDetails = loanProcess.RequestList;
+            RequestedListBoxNew.ItemsSource = loanDetails;
+        }
+
+        private void ExportHimarkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<HiMark> Himarklist = new List<HiMark>();
+            HiMark himarkReport = new HiMark();
+            foreach (LoanProcess lp in loanDetails)
+            {
+                himarkReport = new HiMark(lp);
+                Himarklist.Add(himarkReport);
+            }
+            try
+            {
+                himarkReport = new HiMark();
+                himarkReport.hiMarksList = Himarklist;
+                himarkReport.createHimarkXls();
+                MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: D:\\");
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void ImportHimarkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDlg = new OpenFileDialog();
+            openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
+            openFileDlg.Title = "Choose File";
+            openFileDlg.InitialDirectory = @"C:\";
+            Nullable<bool> result = openFileDlg.ShowDialog();
+            if (result == true)
+            {
+                string FileFrom = openFileDlg.FileName;
+                var FilePath = FileFrom.Split('\\');
+                string FileName = FilePath[FilePath.Length - 1];
+                this.NavigationService.Navigate(new HimarkResultData(FileFrom));
+            }
         }
     }
 }
