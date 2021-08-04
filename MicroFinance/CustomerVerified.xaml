@@ -1,0 +1,1516 @@
+﻿<Page x:Class="MicroFinance.CustomerVerified"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      xmlns:convert="clr-namespace:MicroFinance.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="630" d:DesignWidth="1366"
+      Title="CustomerVerified" Background="#FEF2E4">
+    <Page.Resources >
+        <convert:VisibilityConverter x:Key="Visible"/>
+        <convert:InverseVisible x:Key="Inverse"/>
+        <convert:VisiblityConverterByImage x:Key="VisibleByImage"/>
+        <convert:InverseVisiblityConverterbyImage x:Key="InverseVisibleImage"/>
+        <convert:StatusForegroundColor x:Key="StatusColor"/>
+        <convert:StatusImage x:Key="ImageConvert"/>
+        
+    </Page.Resources>
+
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions >
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="1" >
+            <StackPanel >
+                <Border Visibility="Visible" Width="700" Height="auto" BorderBrush="Black" BorderThickness="1" Background="#E6DDC6" CornerRadius="7">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius=".5"/>
+                    </Border.Effect>
+                    <StackPanel x:Name="customerNamegrid">
+                        <TextBlock Text="Customer Details" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+                        <Grid Grid.Row="1"  Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Customer Name"  Grid.Column="1" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustNameError"/>
+                            </StackPanel>
+                            <TextBox x:Name="CustNameBox"   Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource Textbox}" Margin="0.4,0,0,0.4" >
+                                <TextBox.Text>
+                                    <Binding Path="CustomerName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <Button x:Name="custNameVerfiedBtn" Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" Click="custNameVeriedBtn_Click" x:Name="custNameVeriedBtn"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Gender" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustGenderError"/>
+                            </StackPanel>
+                            <RadioButton Content="Male" Margin="0,10,0,0" FontWeight="Medium" x:Name="CustMale"  Grid.Column="2">
+                                <RadioButton.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                </RadioButton.LayoutTransform>
+                            </RadioButton>
+                            <RadioButton Content="Female" Margin="85,10,10,0" FontWeight="Medium" x:Name="CustFemale" Grid.Column="2">
+                                <RadioButton.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                </RadioButton.LayoutTransform>
+                            </RadioButton>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustGender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustGender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GenderVerification" Click="GenderVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Date of Birth" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustDobError"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                <DatePicker Grid.Column="2" x:Name="CustDOB" Width="120" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="15,0,20,0" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="Age" Style="{StaticResource Regular}"/>
+                                <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+
+                            </StackPanel>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustDateOfBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustDateOfBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustDobVeification" Click="CustDobVeification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Father Name" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustFatherError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding FatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  x:Name="CustFatherName">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustFatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustFatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustFatherVerification" Click="CustFatherVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                
+                                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                    <TextBlock Text="Mother Name" Grid.Row="1"  Style="{StaticResource Regular}"/>
+                                    <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustMotherError"/>
+                                </StackPanel>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding MotherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustMotherName">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustMotherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustMotherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustMotherVerification" Click="CustMotherVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="185"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Husband/Guardian Name" Grid.Row="1"  Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustHusbandError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding HusbandName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustHusbandName">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustHusbandName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustHusbandName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustHusbandVerification" Click="CustHusbandVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Contact Number" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustContactError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding ContactNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustContactNo">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustContactNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustContactNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustContactVerification" Click="CustContactVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Aadhar Number" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustAadharError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding AadharNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustAadharNo">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustAadharNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustAadharNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}"  x:Name="CustAadharVerification" Click="CustAadharVerification_Click"/>
+                </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Religion" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustReligionError"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="2" x:Name="CustReligion"  VerticalAlignment="Center" Width="140" Style="{StaticResource combo}" HorizontalAlignment="Left"  Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+                                <ComboBoxItem Content="Hindu"/>
+                                <ComboBoxItem Content="Muslim"/>
+                                <ComboBoxItem Content="Christian"/>
+                            </ComboBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustReligion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustReligion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustReligionVerification" Click="CustReligionVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Community" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustCommunityError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding Community,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustCommunity">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustCommunity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustCommunity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustCommunityVerification" Click="CustCommunityVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Caste" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustCasteError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding Caste,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustCaste"/>
+
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustCaste,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustCaste,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustCasteVerification" Click="CustCasteVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Education" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustEducationError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding Education,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustEducation"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustEducation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustEducation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" Click="CustEducationVerification_Click" x:Name="CustEducationVerification"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Family Members" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustFamilyMembersError"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Width="50" HorizontalAlignment="Left" Text="{Binding FamilyMembers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustFamilyMembers">
+                                </TextBox>
+                                <TextBlock Text="Earning Members" Style="{StaticResource Regular}" Margin="20,0,0,0"/>
+                                <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Width="50" HorizontalAlignment="Right" Text="{Binding EarningMembers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="30,0,0,0"/>
+                            </StackPanel>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustFamilyMember,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustFamilyMember,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustFamilyMemberVerification" Click="CustFamilyMemberVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Occupation" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustOccupationError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding Occupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustOccupation"/>
+
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustOccupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustOccupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}"  x:Name="CustOccupationVerification" Click="CustOccupationVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Monthly Income" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustmontlyIncomeError"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Width="80" HorizontalAlignment="Left" Text="{Binding MonthlyIncome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustMonthlyIncome">
+                                </TextBox>
+                                <TextBlock Text="Monthly Expenses" Style="{StaticResource Regular}" Margin="10,0,0,0"/>
+                                <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Width="80" HorizontalAlignment="Right" Text="{Binding MothlyExpenses,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="15,0,0,0" x:Name="CustMonthlyExpense"/>
+                            </StackPanel>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustMonthlyExpenses,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustMonthlyExpenses,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustMonthlyVerification" Click="CustMonthlyVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Family Yearly Income" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustYearlyIncomeError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding YearlyIncome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustYearlyIncome">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustFamilyYearlyIncome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustFamilyYearlyIncome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustYearlyVerification" Click="CustYearlyVerification_Click"/>
+
+
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Visibility="Visible" Width="700" Height="auto" BorderBrush="Black" BorderThickness="1" Margin="0,15,0,0" Background="#E6DDC6" CornerRadius="7">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius=".5"/>
+                    </Border.Effect>
+                    <StackPanel x:Name="customerAddressGrid">
+                        <TextBlock Text="Customer Address Details" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Door Number" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustDoorNoError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding DoorNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustDoorNo">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustomerDoorNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustomerDoorNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustDoorNoVerification" Click="CustDoorNoVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Street Name" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustStreetNameError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding StreetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustStreetName">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustStreetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustStreetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustStreetVerification" Click="CustStreetVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Locality/Town" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustLocalityError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding LocalityTown,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustLocality">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustomerLocality,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustomerLocality,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustLocalityVerification" Click="CustLocalityVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="City" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustCityError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustCity">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustomerCity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustomerCity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustCityVerification" Click="CustCityVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="State" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustStateError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustState">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustomerState,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustomerState,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustStateVerification" Click="CustStateVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Pincode" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustPincodeError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding Pincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustPincode">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustomerPincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustomerPincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustPincodeVerification" Click="CustPincodeVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Housing Type" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustHousingTypeError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding HousingType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustHousingType">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustomerHousingType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustomerHousingType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustHousingTypeVerification" Click="CustHousingTypeVerification_Click"/>
+
+
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Visibility="Visible" Width="700" Height="auto" BorderBrush="Black" BorderThickness="1" Margin="0,15,0,0" Background="#E6DDC6" CornerRadius="7">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius=".5"/>
+                    </Border.Effect>
+                    <StackPanel x:Name="Guarantorgrid">
+                        <TextBlock Text="Guarantor Details" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Name" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GNameError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding GuarantorName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GName">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GNameVerification" Click="GNameVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Gender" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GGenderError"/>
+                            </StackPanel>
+                            <RadioButton Content="Male" x:Name="GMALE" Margin="0,10,0,0" FontWeight="Medium"  Grid.Column="2">
+                                <RadioButton.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                </RadioButton.LayoutTransform>
+                            </RadioButton>
+                            <RadioButton Content="Female" x:Name="GFEMALE" Margin="85,10,10,0" FontWeight="Medium" Grid.Column="2">
+                                <RadioButton.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                </RadioButton.LayoutTransform>
+                            </RadioButton>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorGender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorGender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GGenderVerification" Click="GGenderVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Date of Birth" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GDObError"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                <DatePicker Grid.Column="2" x:Name="GDobSelect" Width="120" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="15,0,20,0" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="Age" Style="{StaticResource Regular}"/>
+                                <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+
+                            </StackPanel>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorDOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorDOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GDobVerification" Click="GDobVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Contact Number" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GContactError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding ContactNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GContact">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorContact,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorContact,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GContactVerification" Click="GContactVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Occupation" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GOccupationError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding Occupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GOccupation">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorOccupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorOccupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GOccupationVerification" Click="GOccupationVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Relationship" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GRelationshipError"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="140" Style="{StaticResource combo}" HorizontalAlignment="Left" x:Name="Gselectreligion"  Text="{Binding RelationShip,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+                                
+                            </ComboBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorRelationship,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorRelationship,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GRelationshipVerification" Click="GRelationshipVerification_Click"/>
+
+
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Door Number" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GDoorNoError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding DoorNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GDoorNo">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorDoorNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorDoorNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GDoorNoVerification" Click="GDoorNoVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Street Name" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GStreetNameError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding StreetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GStreetName">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorStreet,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorStreet,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GStreetVerification" Click="GStreetVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Locality/Town" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GLocalityError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding LocalityTown,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GLocality">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorLocality,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorLocality,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GLocalityVerification" Click="GLocalityVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="City" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GCityError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GCity">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorCity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorCity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GCityVerification" Click="GCityVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="State" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GStateError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GState">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorState,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorState,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GStateVerification" Click="GStateVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Pincode" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GPincodeError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding Pincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GPincode">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorPincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorPincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GPincodeVerification" Click="GPincodeVerification_Click"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <Border Visibility="Visible" Width="700" Height="auto" BorderBrush="Black" BorderThickness="1" Margin="0,15,0,0" Background="#E6DDC6" CornerRadius="7">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius=".5"/>
+                    </Border.Effect>
+                    <StackPanel x:Name="NomineeGrid">
+                        <TextBlock Text="Nominee Details" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Name" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NNameError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding NomineeName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NName">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NNameVerification" Click="NNameVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Gender" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NGenderError"/>
+                            </StackPanel>
+                            <RadioButton Content="Male" x:Name="NMALE" Margin="0,10,0,0" FontWeight="Medium"  Grid.Column="2">
+                                <RadioButton.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                </RadioButton.LayoutTransform>
+                            </RadioButton>
+                            <RadioButton Content="Female" x:Name="NFEMALE" Margin="85,10,10,0" FontWeight="Medium" Grid.Column="2">
+                                <RadioButton.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                </RadioButton.LayoutTransform>
+                            </RadioButton>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeGender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeGender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NGenderVerirication" Click="NGenderVerirication_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Date of Birth" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NDObError"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                <DatePicker Grid.Column="2" Width="120" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="15,0,20,0" x:Name="NDobSelect" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="Age" Style="{StaticResource Regular}"/>
+                                <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+
+                            </StackPanel>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeDOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeDOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NDobVerification" Click="NDobVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Contact Number" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NContactError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding ContactNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NContact">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeContact,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeContact,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NcontactVerification" Click="NcontactVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Occupation" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NOccupationError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding Occupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NOccupation">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeOccupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeOccupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NOccupationVerification" Click="NOccupationVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Relationship" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NRelationshipError"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="140" Style="{StaticResource combo}" HorizontalAlignment="Left" x:Name="NSELECTRELIGION"  Text="{Binding RelationShip,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+
+                            </ComboBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeRelationship,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeRelationship,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NRelationVerification" Click="NRelationVerification_Click"/>
+ 
+
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Door Number" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NDoorNoError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding DoorNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NDoorNo">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeDoorNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeDoorNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NDoorVerification" Click="NDoorVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Street Name" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NStreetNameError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding StreetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NStreetName">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeStreet,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeStreet,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NStreetVerification" Click="NStreetVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Locality/Town" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NLocalityError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding LocalityTown,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NLocality">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeLocality,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeLocality,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NLocalityVerification" Click="NLocalityVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="City" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NCityError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NCity">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeCity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeCity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NCityVErification" Click="NCityVErification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="State" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NStateError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NState">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeState,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeState,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NStateVerification" Click="NStateVerification_Click"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Pincode" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NPincodeError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding Pincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NPincode">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineePincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineePincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NPincodeVerification" Click="NPincodeVerification_Click"/>
+
+
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Visibility="Visible" Width="700" Height="auto" BorderBrush="Black" BorderThickness="1" Margin="0,15,0,0" Background="#E6DDC6" CornerRadius="7">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius=".5"/>
+                    </Border.Effect>
+                    <StackPanel x:Name="BankDetailsGrid">
+                        <TextBlock Text="Bank Details" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Account Holder Name" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="AccountHolderError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding AccountHolder,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="AccountHolder">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding BankHolderName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding BankHolderName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="HolderVerification" Click="HolderVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Account Number" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="AccountNoError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding AccountNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="AccountNo">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding BankAccountNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding BankAccountNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="AccountNoVerification" Click="AccountNoVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Bank Name" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="BAnkNameError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding BankName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="BAnkName">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding Bankname,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding Bankname,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="BankNameVerification" Click="BankNameVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Branch Name" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="BAnkBranchError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding BankBranchName
+,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="BAnkBranch">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="BranchNameVerification" Click="BranchNameVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="IFSC Code" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="IFSCError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding IFSCCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  x:Name="IFSC">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding BIfscCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding BIfscCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="IFscVerification" Click="IFscVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="MICR Code" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="MICRError"/>
+                            </StackPanel>
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding MICRCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="MICR">
+                            </TextBox>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding BMicrCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding BMicrCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="MicrVerification" Click="MicrVerification_Click"/>
+
+
+                        </Grid>
+                    </StackPanel>
+                </Border>
+                <Border Visibility="Visible" Width="700" Height="auto" BorderBrush="Black" BorderThickness="1" Margin="0,15,0,0" Background="#E6DDC6" CornerRadius="7">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius=".5"/>
+                    </Border.Effect>
+                    <StackPanel x:Name="DocumentGrid">
+                        <TextBlock Text="Document Details" Style="{StaticResource SubTitle}" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+                        <Grid Margin="0,0,0,10" >
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" >
+                                <TextBlock Text="Customer Address Proof" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustAddressProofError"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustNameofAddresProof">
+
+                            </ComboBox>
+                            <Grid Grid.Column="3" x:Name="customerAddressProofgrid">
+                                <Button  Style="{StaticResource Add}" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="AddCustAddressProof" Click="AddCustAddressProof_Click"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                    <Button  Style="{StaticResource Show}" x:Name="ShowCustAddressProof" Click="ShowCustAddressProof_Click"/>
+                                    <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="EditCustAddressProof" Click="EditCustAddressProof_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustomerAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustomerAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustAddressProofVerification" Click="CustAddressProofVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Customer Photo Proof" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustPhotoProofError"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+
+                            </ComboBox>
+                            <Grid Grid.Column="3" x:Name="customerPhotoProofGrid">
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="CustPhotoProofAdd" Click="CustPhotoProofAdd_Click"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                    <Button  Style="{StaticResource Show}" x:Name="CustPhotoProofView" Click="CustPhotoProofView_Click"/>
+                                    <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="CustPhotoProofEdit" Click="CustPhotoProofEdit_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustomerPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustomerPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustPhotoProofVerification" Click="CustPhotoProofVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Customer Profile Picture" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustProfilePictrueError"/>
+                            </StackPanel>
+
+                            <Grid Grid.Column="3" x:Name="customerProfileGrid">
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding ProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="CustProfileAdd" Click="CustProfileAdd_Click"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding ProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                    <Button  Style="{StaticResource Show}" x:Name="CustProfileView" Click="CustProfileView_Click"/>
+                                    <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="CustProfileEdit" Click="CustProfileEdit_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustomerProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding CustomerProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CustProfileVerification" Click="CustProfileVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Guarantor Address Proof" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GAddressProofError"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+
+                            </ComboBox>
+                            <Grid Grid.Column="3" x:Name="guarantorAddressProofGrid">
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="GAddressProofAdd" Click="GAddressProofAdd_Click"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                    <Button  Style="{StaticResource Show}" x:Name="GAddressProofShow" Click="GAddressProofShow_Click"/>
+                                    <Button Style="{StaticResource Edit}" x:Name="GAddressProofEdit" Click="GAddressProofEdit_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GAddressProofVerification" Click="GAddressProofVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Guarantor Photo Proof" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GPhotoProofError"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+
+                            </ComboBox>
+                            <Grid Grid.Column="3" x:Name="guarantorPhotoProofGrid">
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="GPhotoProofAdd" Click="GPhotoProofAdd_Click"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                    <Button  Style="{StaticResource Show}" x:Name="GPhotoProofShow" Click="GPhotoProofShow_Click"/>
+                                    <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="GphotoProof" Click="GphotoProof_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GPhotoProofVerification" Click="GPhotoProofVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10" >
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Guarantor Profile Photo" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GProfilePictureError"/>
+                            </StackPanel>
+
+                            <Grid Grid.Column="3" x:Name="guarantorprofilegrid">
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding ProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="GprofileAdd" Click="GprofileAdd_Click"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding ProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                    <Button  Style="{StaticResource Show}" x:Name="GProfileShow" Click="GProfileShow_Click"/>
+                                    <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="GprofileEdit" Click="GprofileEdit_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding GuarantorProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="GProfileVerification" Click="GProfileVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10" >
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Nominee Address Proof" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NAddressProofError"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+
+                            </ComboBox>
+                            <Grid Grid.Column="3" x:Name="nomieeAddressProofGrid">
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="NAddressProofAdd" Click="NAddressProofAdd_Click"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                    <Button  Style="{StaticResource Show}" x:Name="NAddressProofShow" Click="NAddressProofShow_Click"/>
+                                    <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="NAddressProofEdit" Click="NAddressProofEdit_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NAddressProofVerification" Click="NAddressProofVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10" >
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Nominee Photo Proof" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NPhotoProofError"/>
+                            </StackPanel>
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+
+                            </ComboBox>
+                            <Grid Grid.Column="3" x:Name="nomineePhotoproofGrid">
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="NPhotoProofAdd" Click="NPhotoProofAdd_Click"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                    <Button  Style="{StaticResource Show}" x:Name="NPhotoProofShow" Click="NPhotoProofShow_Click"/>
+                                    <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="NPhotoProofEdit" Click="NPhotoProofEdit_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineePhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineePhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NPhotoProofVerification" Click="NPhotoProofVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10" >
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Nominee Profile Photo" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NProfileError"/>
+                            </StackPanel>
+
+                            <Grid Grid.Column="3" x:Name="nomineeprofileGrid">
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding ProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}"  x:Name="NProfileAdd" Click="NProfileAdd_Click"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding ProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                    <Button  Style="{StaticResource Show}" x:Name="NProfileView" Click="NProfileView_Click" />
+                                    <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="NProfileEdit" Click="NProfileEdit_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding NomineeProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="NProfileVerification" Click="NProfileVerification_Click"/>
+
+
+                        </Grid>
+                        <Grid Margin="0,0,0,10" >
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Nominee and Customer Photo" Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CombinePhotoError"/>
+                            </StackPanel>
+
+                            <Grid Grid.Column="3" x:Name="combineGrid">
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding CombinePhoto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="CombinePhotoAdd" Click="CombinePhotoAdd_Click"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" x:Name="CombinePhotoviewEdit" Visibility="{Binding CombinePhoto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                    <Button  Style="{StaticResource Show}" x:Name="CombinePhotoShow" Click="CombinePhotoShow_Click"/>
+                                    <Button  Style="{StaticResource Edit}" x:Name="CombinePhotoEdit" Click="CombinePhotoEdit_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding Combinephoto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding Combinephoto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="CombinePhotoVerification" Click="CombinePhotoVerification_Click"/>
+
+
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+        </ScrollViewer>
+        <Button Grid.Row="2" Style="{StaticResource PrimaryBtn}" Content="Save"/>
+
+
+
+        <!--Capture Panel-->
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="7" Width="1366" Height="630" x:Name="CaptureImage" Visibility="Collapsed" Panel.ZIndex="1" >
+            <Border Background="#e8fff2" BorderBrush="Black" BorderThickness="2" Width="800" Height="450">
+                <Grid Height="450" Width="800" x:Name="capturepanel" >
+                    <Grid Height="450" Width="800">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40*"/>
+                            <RowDefinition Height="370*"/>
+                            <RowDefinition Height="40*"/>
+                            <RowDefinition Height="40*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="0,0,0,1.5" Height="40" VerticalAlignment="Top"  >
+                            <TextBlock  x:Name="PhotoProofNametxt" Style="{StaticResource SubTitle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                        </Border>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Style="{StaticResource CancelBtn}" Content="Cancel" Name="ImgCancelbtn" Click="ImgCancelbtn_Click" Margin="0,0,10,0"/>
+                            <Button Style="{StaticResource PrimaryBtn}" Name="ImageSavebtn" Click="ImageSavebtn_Click" Content="Save" FontSize="16"></Button>
+                        </StackPanel>
+                        <Border BorderBrush="Black" BorderThickness="0,1.5,0,0" Grid.Row="3">
+                            <StackPanel Orientation="Horizontal" x:Name="CaptureImageStatus">
+                                <Image Width="25" Height="25" Margin="5,-5,0,0" Source="{Binding MessageType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource ImageConvert}}"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" FontWeight="SemiBold" Text="{Binding StatusMessage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding MessageType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource StatusColor}}" Style="{StaticResource Regular}"/>
+                            </StackPanel>
+                        </Border>
+                        <Frame x:Name="Captureframe" Grid.Row="1">
+
+                        </Frame>
+                    </Grid>
+                </Grid>
+            </Border>
+
+        </Grid>
+
+        <!--View Image-->
+        <Popup x:Name="ViewImagePopup" Placement="Center" PlacementTarget="{Binding ElementName=MainGrid}">
+            <Border BorderBrush="Black" BorderThickness="2" Height="300" Width="300">
+                <Grid Background="#e8fff2" Height="300" Width="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="10 "/>
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Row="0">
+                        <TextBlock x:Name="ImageTitle" Text="Profile Picture" Style="{StaticResource SubTitle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                    </Border>
+                    <Border Width="250" Height="150" BorderThickness="2" BorderBrush="BlueViolet" Grid.Row="1">
+                        <Image x:Name="viewImage" Width="250" Height="150"/>
+                    </Border>
+                    <Button Style="{StaticResource SecondaryBtn}" Grid.Row="2" Content="OK" Name="ProfileImageOk" Click="ProfileImageOk_Click"/>
+                </Grid>
+            </Border>
+        </Popup>
+
+    </Grid>
+    
+</Page>

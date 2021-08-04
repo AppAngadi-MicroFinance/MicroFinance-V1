@@ -554,6 +554,7 @@ namespace MicroFinance
             }
             else
             {
+                GuarantorErrorCheck.Visibility = Visibility.Collapsed;
                 GuarantorWindow.Visibility = Visibility.Collapsed;
                 guarantor.IsGuarantorNull = true;
                 EnableDisableBackground(true);
@@ -561,7 +562,7 @@ namespace MicroFinance
                 MainWindow.StatusMessageofPage(1, "Successfully Guarantor Added...");
                 if (guarantor.IsNominee)
                 {
-
+                    NomineeErrorCheck.Visibility = Visibility.Collapsed;
                     NomineeNameBox.Text = guarantor.GuarantorName;
                     NomineeSelectDOB.SelectedDate = guarantor.DateofBirth;
                     if(guarantor.Gender=="Male")
@@ -749,6 +750,7 @@ namespace MicroFinance
             }
             else
             {
+                NomineeErrorCheck.Visibility = Visibility.Collapsed;
                 AddNomineepopup.Visibility = Visibility.Collapsed;
                 EnableDisableBackground(true);
                 nominee.IsNomineeNull = true;
@@ -928,7 +930,8 @@ namespace MicroFinance
             customer.HavingBankDetails = true;
             AccountdetailsPanel.IsOpen = false;
             EnableDisableBackground(true);
-            MainWindow.StatusMessageofPage(1, "Successfully Guarantor and Nominee Added...");
+            MainWindow.StatusMessageofPage(1, "Successfully BankDetails Added...");
+            BankErrorCheck.Visibility = Visibility.Collapsed;
         }
         void BankFieldValidation()
         {
@@ -1125,21 +1128,21 @@ namespace MicroFinance
                 GuarantorStateBox.BorderBrush = (Brush)bc.ConvertFrom("Red");
                 _chekcisValid = false;
             }
-            if (GuarantorAddressProofViewEditPanel.Visibility == Visibility.Hidden)
-            {
-                GAddressProofError.Visibility = Visibility.Visible;
-                _chekcisValid = false;
-            }
-            if (GuarantorPhotoProofViewEditPanel.Visibility == Visibility.Hidden)
-            {
-                GPhotoProofError.Visibility = Visibility.Visible;
-                _chekcisValid = false;
-            }
-            if (GuarantorProfilePictureViewEditPanel.Visibility == Visibility.Hidden)
-            {
-                GProfilePhotoError.Visibility = Visibility.Visible;
-                _chekcisValid = false;
-            }
+            //if (GuarantorAddressProofViewEditPanel.Visibility == Visibility.Hidden)
+            //{
+            //    GAddressProofError.Visibility = Visibility.Visible;
+            //    _chekcisValid = false;
+            //}
+            //if (GuarantorPhotoProofViewEditPanel.Visibility == Visibility.Hidden)
+            //{
+            //    GPhotoProofError.Visibility = Visibility.Visible;
+            //    _chekcisValid = false;
+            //}
+            //if (GuarantorProfilePictureViewEditPanel.Visibility == Visibility.Hidden)
+            //{
+            //    GProfilePhotoError.Visibility = Visibility.Visible;
+            //    _chekcisValid = false;
+            //}
             return _chekcisValid;
         }
 
@@ -1296,21 +1299,21 @@ namespace MicroFinance
                 NomineeAddressError.Visibility = Visibility.Visible;
                 _checkValid = false;
             }
-            if (NMale.IsChecked == false && NFemale.IsChecked == false)
-            {
-                NomineeGenderError.Visibility = Visibility.Visible;
-                _checkValid = false;
-            }
-            if (NomineePhotoProofViewEditPanel.Visibility == Visibility.Hidden)
-            {
-                NomineePhotoError.Visibility = Visibility.Visible;
-                _checkValid = false;
-            }
-            if (NomineeProfilePictureViewEditPanel.Visibility == Visibility.Hidden)
-            {
-                NomineeProfileError.Visibility = Visibility.Visible;
-                _checkValid = false;
-            }
+            //if (NMale.IsChecked == false && NFemale.IsChecked == false)
+            //{
+            //    NomineeGenderError.Visibility = Visibility.Visible;
+            //    _checkValid = false;
+            //}
+            //if (NomineePhotoProofViewEditPanel.Visibility == Visibility.Hidden)
+            //{
+            //    NomineePhotoError.Visibility = Visibility.Visible;
+            //    _checkValid = false;
+            //}
+            //if (NomineeProfilePictureViewEditPanel.Visibility == Visibility.Hidden)
+            //{
+            //    NomineeProfileError.Visibility = Visibility.Visible;
+            //    _checkValid = false;
+            //}
             return _checkValid;
         }
         Brush GrayColor = (Brush)new BrushConverter().ConvertFrom("Gray");
@@ -1563,11 +1566,25 @@ namespace MicroFinance
                 CustHousingTypeError.Visibility = Visibility.Visible;
                 _check = false;
             }
-            if(String.IsNullOrEmpty(HouseIndexBox.Text))
+            if(guarantor.IsGuarantorNull==false)
             {
-                CustHousingIndexError.Visibility = Visibility.Visible;
+                GuarantorErrorCheck.Visibility = Visibility.Visible;
                 _check = false;
-                HouseIndexBox.BorderBrush = Redcolor;
+            }
+            if(nominee.IsNomineeNull==false)
+            {
+                NomineeErrorCheck.Visibility = Visibility.Visible;
+                _check = false;
+            }
+            if(customer.HavingBankDetails==false)
+            {
+                BankErrorCheck.Visibility = Visibility.Visible;
+                _check = false;
+            }
+            if(String.IsNullOrEmpty(AadharNo.Text))
+            {
+                aadharErrorCheck.Visibility = Visibility.Visible;
+                _check = false;
             }
             return _check;
         }
@@ -1757,7 +1774,7 @@ namespace MicroFinance
             if (CustDoorError.Visibility == Visibility.Visible)
             {
                 CustDoorError.Visibility = Visibility.Collapsed;
-                HouseIndexBox.BorderBrush = GrayColor;
+                HouseNOBox.BorderBrush = GrayColor;
             }
         }
 
@@ -1815,19 +1832,47 @@ namespace MicroFinance
             }
         }
 
-        private void HouseIndexBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CustHousingIndexError.Visibility == Visibility.Visible)
-            {
-                CustHousingIndexError.Visibility = Visibility.Collapsed;
-                HouseIndexBox.BorderBrush = GrayColor;
-            }
-        }
-
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.NavigationService.CanGoBack)
                 this.NavigationService.GoBack();
+        }
+        bool AadharValidatin(string Aadhar)
+        {
+            if (Aadhar.Length <= 12)
+            {
+                for (int i = 0; i < Aadhar.Length; i++)
+                {
+                    if (char.IsDigit(Aadhar[i]) == false)
+                    {
+                        return false;
+                    }
+                }
+                if (Aadhar.Length == 12)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private void AadharNo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(AadharValidatin(AadharNo.Text))
+            {
+                aadharErrorCheck.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                aadharErrorCheck.Visibility = Visibility.Visible;
+            }
         }
     }
 }

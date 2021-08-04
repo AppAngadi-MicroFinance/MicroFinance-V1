@@ -106,6 +106,7 @@
     <Compile Include="Converters\GenderMaleCheck.cs" />
     <Compile Include="Converters\GuaranterName.cs" />
     <Compile Include="Converters\InverseVisible.cs" />
+    <Compile Include="Converters\InverseVisibleConvertedByString.cs" />
     <Compile Include="Converters\InverseVisiblityConverterbyImage.cs" />
     <Compile Include="Converters\LeaveCheck.cs" />
     <Compile Include="Converters\LoanRequestConverter.cs" />
@@ -115,7 +116,11 @@
     <Compile Include="Converters\StatusForegroundColor.cs" />
     <Compile Include="Converters\StatusImage.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="Converters\VisibleConverterByString.cs" />
     <Compile Include="Converters\VisiblityConverterByImage.cs" />
+    <Compile Include="CustomerVerified.xaml.cs">
+      <DependentUpon>CustomerVerified.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DashboardAccountant.xaml.cs">
       <DependentUpon>DashboardAccountant.xaml</DependentUpon>
     </Compile>
@@ -151,6 +156,7 @@
     <Compile Include="Modal\CameraCapture.cs" />
     <Compile Include="Modal\Customer.cs" />
     <Compile Include="Modal\DenominationModel.cs" />
+    <Compile Include="Modal\DetailsForCustomerVerification.cs" />
     <Compile Include="Modal\GenerateCustomerId.cs" />
     <Compile Include="Modal\Guarantor.cs" />
     <Compile Include="Modal\LoanDetails.cs" />
@@ -235,6 +241,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateBranch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomerVerified.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
