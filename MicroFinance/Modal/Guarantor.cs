@@ -10,10 +10,19 @@ using MicroFinance.Validations;
 
 namespace MicroFinance.Modal
 {
-    public class Guarantor:BindableBase
+    public class Guarantor:GuarantorDetailsForVerification
     {
         public string _customerId { get; set; }
-        private string _guarantorName;
+        Customer customer;
+        public Guarantor()
+        {
+            customer= new Customer();
+        }
+        public Guarantor(Customer cust)
+        {
+            customer = cust;
+        }
+        private string _guarantorName="Safdhh";
         public string GuarantorName
         {
             get
@@ -75,6 +84,7 @@ namespace MicroFinance.Modal
             set
             {
                 _contactNumber = value;
+                
             }
         }
         private string _gender;
@@ -379,33 +389,78 @@ namespace MicroFinance.Modal
         }
         public void AddGuarantorDetails()
         {
+            InsertGuarantorDetails();
+            if(AddressProof!=null)
+            {
+                AddGuarantorAddressProof();
+            }
+            if(PhotoProof!=null)
+            {
+                AddGuarantorPhotoProof();
+            }
+            if(ProfilePicture!=null)
+            {
+                AddGuarantorProfilePhoto();
+            }
+        }
+
+        void InsertGuarantorDetails()
+        {
             string Address = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" + City + "|~" + State;
             bool _isAddressProof = false;
             bool _isPhotoProof = false;
             bool _isProfilePhoto = false;
-            if(AddressProof!=null)
-            {
-                _isAddressProof = true;
-            }
-            if(PhotoProof!=null)
-            {
-                _isPhotoProof = true;
-            }
-            if(ProfilePicture!=null)
-            {
-                _isProfilePhoto = true;
-            }
-            using (SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
+
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
             {
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "insert into GuarenteeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,AddressProofName,PhotoProofName,IsAddressProof,IsPhotoProof,IsProfilePhoto,AddressProof,PhotoProof,ProfilePhoto,Gender) values('" + _customerId + "','"+GuarantorName+"','"+DateofBirth.ToString("yyyy-MM-dd")+"','"+Age+"','"+ContactNumber+"','"+Occupation+"','"+RelationShip+"','"+Address+"','"+Pincode+"','"+NameofAddressProof+"','"+NameofPhotoProof+"','"+_isAddressProof+"','"+_isPhotoProof+"','"+_isProfilePhoto+ "',@addressproof,@photoproof,@profileproof,'"+Gender+"')";
-                sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(AddressProof));
-                sqlCommand.Parameters.AddWithValue("@photoproof", Convertion(PhotoProof));
-                sqlCommand.Parameters.AddWithValue("@profileproof", Convertion(ProfilePicture));
+                sqlCommand.CommandText = "insert into GuarenteeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,IsAddressProof,IsPhotoProof,IsProfilePhoto,Gender) values('" + _customerId + "','" + GuarantorName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Occupation + "','" + RelationShip + "','" + Address + "','" + Pincode + "','" + _isAddressProof + "','" + _isPhotoProof + "','" + _isProfilePhoto + "','" + Gender + "')";
+
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "update CustomerDetails set GuarenteeStatus = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.ExecuteNonQuery();
+
+            }
+        }
+        void AddGuarantorAddressProof()
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "update GuarenteeDetails set AddressProof = @addressProof, IsAddressProof = 'True',AddressProofName='"+NameofAddressProof+"' where CustId = '" + _customerId + "'";
+                sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(AddressProof));
+                sqlCommand.ExecuteNonQuery();
+
+            }
+        }
+
+        void AddGuarantorPhotoProof()
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "update GuarenteeDetails set PhotoProof = @photoproof, IsPhotoProof = 'True',PhotoProofName='" + NameofPhotoProof + "' where CustId = '" + _customerId + "'";
+                sqlCommand.Parameters.AddWithValue("@photoproof", Convertion(PhotoProof));
+                sqlCommand.ExecuteNonQuery();
+
+            }
+        }
+
+        void AddGuarantorProfilePhoto()
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "update GuarenteeDetails set ProfilePhoto = @photoproof, IsProfilePhoto = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.Parameters.AddWithValue("@profileproof", Convertion(ProfilePicture));
                 sqlCommand.ExecuteNonQuery();
 
             }

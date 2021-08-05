@@ -119,6 +119,7 @@
     <Compile Include="Converters\GenderMaleCheck.cs" />
     <Compile Include="Converters\GuaranterName.cs" />
     <Compile Include="Converters\InverseVisible.cs" />
+    <Compile Include="Converters\InverseVisibleConvertedByString.cs" />
     <Compile Include="Converters\InverseVisiblityConverterbyImage.cs" />
     <Compile Include="Converters\LeaveCheck.cs" />
     <Compile Include="Converters\LoanRequestConverter.cs" />
@@ -128,7 +129,11 @@
     <Compile Include="Converters\StatusForegroundColor.cs" />
     <Compile Include="Converters\StatusImage.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="Converters\VisibleConverterByString.cs" />
     <Compile Include="Converters\VisiblityConverterByImage.cs" />
+    <Compile Include="CustomerVerified.xaml.cs">
+      <DependentUpon>CustomerVerified.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DashboardAccountant.xaml.cs">
       <DependentUpon>DashboardAccountant.xaml</DependentUpon>
     </Compile>
@@ -153,6 +158,9 @@
     <Compile Include="HimarkResultData.xaml.cs">
       <DependentUpon>HimarkResultData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HOLoanApproval.xaml.cs">
+      <DependentUpon>HOLoanApproval.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoanAfterHimark.xaml.cs">
       <DependentUpon>LoanAfterHimark.xaml</DependentUpon>
     </Compile>
@@ -167,8 +175,10 @@
     <Compile Include="Modal\CameraCapture.cs" />
     <Compile Include="Modal\CollectionDetails.cs" />
     <Compile Include="Modal\Customer.cs" />
+    <Compile Include="Modal\CustomerDetailsForVerification.cs" />
     <Compile Include="Modal\DatabaseMethods.cs" />
     <Compile Include="Modal\DenominationModel.cs" />
+    <Compile Include="Modal\GuarantorDetailsForVerification.cs" />
     <Compile Include="Modal\GenerateCustomerId.cs" />
     <Compile Include="Modal\Guarantor.cs" />
     <Compile Include="Modal\HimarkResult.cs" />
@@ -176,6 +186,7 @@
     <Compile Include="Modal\LoanProcess.cs" />
     <Compile Include="Modal\LoginDetails.cs" />
     <Compile Include="Modal\Nominee.cs" />
+    <Compile Include="Modal\NomineeDetailsForVerification.cs" />
     <Compile Include="Modal\Notification.cs" />
     <Compile Include="Modal\OfficerModal.cs" />
     <Compile Include="Modal\PeerGroup.cs" />
@@ -255,6 +266,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomerVerified.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DashboardAccountant.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -288,6 +303,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="HimarkResultData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HOLoanApproval.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

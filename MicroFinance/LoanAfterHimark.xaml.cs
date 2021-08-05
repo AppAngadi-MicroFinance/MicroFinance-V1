@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,13 +23,14 @@ namespace MicroFinance
     public partial class LoanAfterHimark : Page
     {
         LoanProcess loanprocess = new LoanProcess();
+        string BranchID = MainWindow.LoginDesignation.BranchId;
         public List<LoanProcess> RecommendList = new List<LoanProcess>();
         public LoanAfterHimark()
         {
             InitializeComponent();
-            loanprocess.GetRecommendList();
+            loanprocess.GetLoanDetailList(BranchID,7);
             RecommendList.Clear();
-            RecommendList = loanprocess.RecommendList;
+            RecommendList = loanprocess.LoanProcessList;
             Custlist.ItemsSource = RecommendList;
             setCount();
             setAmount();
@@ -84,7 +86,7 @@ namespace MicroFinance
                 loan = GetRecommendDetails(ID);
                 string ApprovedBy = MainWindow.LoginDesignation.EmpId;
                 loan.ApprovedBy = ApprovedBy;
-                loan.ApproveLoan(ID);
+                loan.RequestApproval(ID);
                 MainWindow.StatusMessageofPage(1, "Loan Approved Successfully...");
             }
             

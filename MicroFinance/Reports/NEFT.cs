@@ -15,7 +15,7 @@ namespace MicroFinance.Reports
 {
     public class NEFT : BindableBase
     {
-        private string _remitteraccno;
+        private string _remitteraccno= "09876554as";
         public string RemitterAccNo
         {
             get
@@ -27,7 +27,7 @@ namespace MicroFinance.Reports
                 _remitteraccno = "09876554as";
             }
         }
-        private string _remittername;
+        private string _remittername = "G-Trust";
         public string RemitterName
         {
             get
@@ -39,7 +39,7 @@ namespace MicroFinance.Reports
                 _remittername = "G-Trust";
             }
         }
-        private string _remitteraddress;
+        private string _remitteraddress="Trichy";
         public string RemitterAddress
         {
             get
@@ -61,6 +61,7 @@ namespace MicroFinance.Reports
             set
             {
                 _benificiaryacc = value;
+
             }
         }
         private string _benificiaryname;
@@ -68,11 +69,11 @@ namespace MicroFinance.Reports
         {
             get
             {
-                return _benificiaryacc;
+                return _benificiaryname;
             }
             set
             {
-                _benificiaryacc = value;
+                _benificiaryname = value;
             }
         }
         private string _benificiaryaddress;
@@ -161,32 +162,21 @@ namespace MicroFinance.Reports
         }
 
         public NEFT() { }
-        //public NEFT(string remitteracc,string remittername,string remitteraddress,string benificiaryacc,string benificiaryname,
-        //    string benificiaryifsc,string paymentdetails,string recievercode,string remittieremail,string refno,string amount)
-        //{
-        //    RemitterAccNo = remitteracc;
-        //    RemitterName = remittername;
-        //    RemitterAddress = remitteraddress;
-        //    BenificiaryAcc = benificiaryacc;
-        //    BenificiaryName = benificiaryname;
-        //    BenificiaryIFSC = benificiaryifsc;
-        //    PaymentDetails = paymentdetails;
-        //    RecieverCode = recievercode;
-        //    RemitterEmail = remittieremail;
-        //    RefNo = refno;
-        //    Amount = amount;
-        //}
-        LoanProcess loandetails = new LoanProcess();
-        Customer cus = new Customer();
-        public List<NEFT> neft = new List<NEFT>();
-        public NEFT(LoanProcess loan)
+        public NEFT( string benificiaryacc, string benificiaryname,
+            string benificiaryifsc, string paymentdetails, string recievercode, string refno, string amount)
         {
-            this.loandetails = loan;
-            cus._customerId = loandetails._customerId;
+            BenificiaryAcc = benificiaryacc;
+            BenificiaryName = benificiaryname;
+            BenificiaryIFSC = benificiaryifsc;
+            PaymentDetails = paymentdetails;
+            RecieverCode = recievercode;
+            RefNo = refno;
+            Amount = amount;
         }
+        LoanProcess loandetails = new LoanProcess();
 
 
-        public void neftXL()
+        public void GenerateNEFT_File(List<LoanProcess> loanList)
         {
             Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             Excel.Workbook xlWorkBook;
@@ -314,18 +304,21 @@ namespace MicroFinance.Reports
             amount.ColumnWidth = 24;
             amount.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             amount.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-
+            FillNEFT(xlWorkSheet, loanList);
             try
             {
-                string FileName = "D:\\NEFT_BULK_" + DateTime.Today.ToString("dd-MMM-yyyy (hh-mm)") + ".xlsx";
-                if (File.Exists(FileName) == true)
+                string dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Report\\NEFT Report");
+                if (Directory.Exists(dir))
                 {
-                    string FileNewname = "D:\\NEFT_BULK_" + DateTime.Today.ToString("MMM") + "_New" + ".xlsx";
-                    xlWorkBook.SaveAs(FileNewname);
+                    string FileName = dir + "\\NEFT_" + DateTime.Now.ToString("dd-MM-yyyy hh-mm") + ".xlsx";
+                    xlWorkBook.SaveAs(FileName);
                 }
                 else
                 {
+                    Directory.CreateDirectory(dir);
+                    string FileName = dir + "\\NEFT_" + DateTime.Now.ToString() + ".xlsx";
                     xlWorkBook.SaveAs(FileName);
+
                 }
 
             }
@@ -345,28 +338,60 @@ namespace MicroFinance.Reports
             }
         }
 
+        double DoucumentationCharge = 2;
+        int Insurence = 50;
+        double InsurenCharge = 3;
 
-        public void FillNEFT(Worksheet xlWorkSheet, List<NEFT> Neft)
+        public void FillNEFT(Worksheet xlWorkSheet, List<LoanProcess> loans)
         {
             int i = 1;
             int RowStart = 2;
-            foreach (NEFT x in Neft)
+            foreach (LoanProcess x in loans)
             {
+                // Gtrust Account Details
                 xlWorkSheet.Cells[RowStart, 1] = i;
-                xlWorkSheet.Cells[RowStart, 2] = x.RemitterAccNo;
-                xlWorkSheet.Cells[RowStart, 3] = x.RemitterName;
-                xlWorkSheet.Cells[RowStart, 4] = x.RemitterAddress;
-                xlWorkSheet.Cells[RowStart, 5] = x.BenificiaryAcc;
-                xlWorkSheet.Cells[RowStart, 6] = x.BenificiaryName;
-                xlWorkSheet.Cells[RowStart, 7] = x.BenificiaryAddress;
-                xlWorkSheet.Cells[RowStart, 8] = x.BenificiaryIFSC;
-                xlWorkSheet.Cells[RowStart, 9] = x.RecieverCode;
-                xlWorkSheet.Cells[RowStart, 10] = x.RemitterEmail;
-                xlWorkSheet.Cells[RowStart, 11] = x.RefNo;
-                xlWorkSheet.Cells[RowStart, 12] = x.Amount;
+                xlWorkSheet.Cells[RowStart, 2] = RemitterAccNo;
+                xlWorkSheet.Cells[RowStart, 3] = RemitterName;
+                xlWorkSheet.Cells[RowStart, 4] = RemitterAddress;
+
+                //Customer Account Detials
+                xlWorkSheet.Cells[RowStart, 5] = x.AccountNumber;
+                xlWorkSheet.Cells[RowStart, 6] = x.AccountHolder;
+                xlWorkSheet.Cells[RowStart, 7] = x.DoorNumber + "," + x.StreetName+x.City+","+x.State;
+                xlWorkSheet.Cells[RowStart, 8] = x.IFSCCode;
+                xlWorkSheet.Cells[RowStart, 10] =  "Fast";
+                xlWorkSheet.Cells[RowStart, 11] = "gtrust@gmail.com";
+                xlWorkSheet.Cells[RowStart, 12] = RefNo;
+                xlWorkSheet.Cells[RowStart, 13] =NetAmountCal(x.LoanAmount,DoucumentationCharge,Insurence,InsurenCharge);
                 RowStart++;
                 i++;
             }
         }
+
+
+        public double NetAmountCal(int amount,double Doc_Charge,int insurence,double Ins_Charge)
+        {
+            return (amount - (amount * Doc_Charge / 100) - (insurence * Ins_Charge / 100)) - insurence;
+        }
+        public static void Cusid()
+        {
+            SqlConnection sqlcon = new SqlConnection(MicroFinance.Properties.Settings.Default.db);
+            sqlcon.Open();
+            if (sqlcon.State == ConnectionState.Open)
+            { 
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = sqlcon;
+                cmd.CommandText = "select BankAccountNo,BankACHolderName,Address,IFSCCode from CustomerDetails where CustId in (select CustId from LoanApplication where LoanStatus = 10)";
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while(dataReader.Read())
+                {
+                    //CusID.Add();
+                }
+
+            }
+            sqlcon.Close();
+        }
     }
 }
+
+

@@ -54,7 +54,86 @@
                 </Setter>
             </Style>
             <!--Icons Buttons-->
-        <!--For Add-->
+            <!--For Verified Button-->
+            <Style TargetType="Button"  x:Key="Verified">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border Width="110" Height="30"  Background="Transparent" IsEnabled="False">
+                                <Grid>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Source="Asserts/Icons/Done-Shield-WF.png" Margin="0,0,5,0"  Width="25"/>
+                                        <TextBlock Text="VERIFIED" FontFamily="Roboto" FontSize="16" Margin="0,3,0,0" FontWeight="Medium"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="Verify" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#CF0000"></Setter>
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="FontSize" Value="16"></Setter>
+                <Setter Property="FontFamily" Value="Roboto"></Setter>
+                <Setter Property="FontWeight" Value="Medium"></Setter>
+                <Setter Property="Height" Value="30"></Setter>
+                <Setter Property="Width" Value="110"></Setter>
+                
+                
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Grid.Column="0" Width="25" Height="25" Source=".\Asserts\Icons\Warning-WF.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Text="VERIFY" FontFamily="ROBOTO" FontWeight="Bold" FontSize="16" Margin="0,3,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                    
+                </Setter>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
+            <!--For Verify Button-->
+            <!--<Style x:Key="Verify" TargetType="{x:Type Button}">
+               
+                <Setter Property="Background" Value="#CF0000"></Setter>
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="FontSize" Value="16"></Setter>
+                <Setter Property="FontFamily" Value="Roboto"></Setter>
+                <Setter Property="FontWeight" Value="Medium"></Setter>
+                <Setter Property="Height" Value="30"></Setter>
+                <Setter Property="Width" Value="110"></Setter>
+
+                <Setter Property="Content">
+                    
+                    <Setter.Value>
+                        <ContentPresenter>
+                            
+                        </ContentPresenter>
+                    </Setter.Value>
+                </Setter>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Style.Resources>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Value="#fcb372" Property="Background"/>
+                        <Setter Property="Foreground" Value="Black"></Setter>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Value="#fcb372" Property="Background"/>
+                    </Trigger>
+                </Style.Triggers>
+
+            </Style>-->
+            <!--For Add-->
         <Style TargetType="Button" x:Key="Add">
             <Setter Property="Template" >
                 <Setter.Value>

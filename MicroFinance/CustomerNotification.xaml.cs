@@ -61,7 +61,7 @@ namespace MicroFinance
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select distinct CustomerDetails.CustId,CustomerDetails.Name,CustomerGroup.BranchName from CustomerDetails join CustomerGroup on CustomerDetails.CustomerStatus = 0  where CustomerGroup.BranchId = '"+BranchId+"' ";
+                sqlCommand.CommandText = "select distinct CustomerDetails.CustId,CustomerDetails.Name,CustomerGroup.BranchName from CustomerDetails join CustomerGroup on CustomerDetails.CustId = CustomerGroup.CustId join SelfHelpGroup2 on SelfHelpGroup2.SHGName = CustomerGroup.SelfHelpGroup where CustomerDetails.CustomerStatus = 0 and SelfHelpGroup2.BranchId = '"+BranchId+"' and SelfHelpGroup2.FOid = '"+EmployeeId+"' ";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while(sqlDataReader.Read())
                 {
@@ -79,7 +79,7 @@ namespace MicroFinance
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select distinct CustomerDetails.CustId,CustomerDetails.Name,CustomerGroup.BranchName from CustomerDetails join CustomerGroup on CustomerDetails.CustomerStatus = 1  where CustomerGroup.BranchId = '" + BranchId + "' ";
+                sqlCommand.CommandText = "select distinct CustomerDetails.CustId,CustomerDetails.Name,CustomerGroup.BranchName from CustomerDetails join CustomerGroup on CustomerDetails.CustId = CustomerGroup.CustId join SelfHelpGroup2 on SelfHelpGroup2.SHGName = CustomerGroup.SelfHelpGroup where CustomerDetails.CustomerStatus = 1 and SelfHelpGroup2.BranchId = '" + BranchId + "' and SelfHelpGroup2.FOid = '" + EmployeeId + "' ";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
@@ -95,7 +95,7 @@ namespace MicroFinance
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select distinct CustomerDetails.CustId,CustomerDetails.Name,CustomerGroup.BranchName from CustomerDetails join CustomerGroup on CustomerDetails.CustomerStatus = 2  where CustomerGroup.BranchId = '" + BranchId + "' ";
+                sqlCommand.CommandText = "select distinct CustomerDetails.CustId,CustomerDetails.Name,CustomerGroup.BranchName from CustomerDetails join CustomerGroup on CustomerDetails.CustId = CustomerGroup.CustId join SelfHelpGroup2 on SelfHelpGroup2.SHGName = CustomerGroup.SelfHelpGroup where CustomerDetails.CustomerStatus = 2 and SelfHelpGroup2.BranchId = '" + BranchId + "' and SelfHelpGroup2.FOid = '" + EmployeeId + "' ";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {

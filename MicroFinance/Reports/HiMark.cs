@@ -2050,16 +2050,21 @@ namespace MicroFinance.Reports
             FillHimarkDate(xlWorkSheet, hiMarksList);
             try
             {
-                string FileName = "C:\\Documents\\Hi-Mark_" + DateTime.Today.ToString("dd-MMM-yyyy (hh-mm)") + " .xlsx";
-                if(File.Exists(FileName)==true)
+                string dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Report\\Hi-Mark Reports");
+                if(Directory.Exists(dir))
                 {
-                    string FileNewname = "C:\\Documents\\Hi - Mark_" + DateTime.Today.ToString("MMM") + "_New" + ".xlsx";
-                    xlWorkBook.SaveAs(FileNewname);
+                    string FileName = dir+"\\Hi-Mark_" + DateTime.Now.ToString("dd-MMM-yyyy (hh-mm)") + ".xlsx";
+                    xlWorkBook.SaveAs(FileName);
                 }
                 else
                 {
+                    Directory.CreateDirectory(dir);
+                    string FileName = dir + "\\Hi-Mark_" + DateTime.Now.ToString("dd-MMM-yyyy (hh:mm)") + ".xlsx";
                     xlWorkBook.SaveAs(FileName);
+
                 }
+                
+                
                
             }
             catch (Exception e)

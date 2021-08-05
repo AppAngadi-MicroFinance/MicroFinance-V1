@@ -63,7 +63,10 @@ namespace MicroFinance
 
         private void RetainBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            Button Btn = sender as Button;
+            HimarkResultList.Items.Refresh();
+            string ID = Btn.Uid.ToString();
+            loanProcess.RetainFromHimark(ID);
         }
 
         private void AcceptBtn_Click(object sender, RoutedEventArgs e)
@@ -77,7 +80,10 @@ namespace MicroFinance
 
         private void RejectBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            Button Btn = sender as Button;
+            HimarkResultList.Items.Refresh();
+            string ID = Btn.Uid.ToString();
+            loanProcess.RejectFromHimark(ID);
         }
     }
 }

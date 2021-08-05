@@ -143,6 +143,19 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("ApprovedBy");
             }
         }
+        private int _loanstatus;
+        public int LoanStatus
+        {
+            get
+            {
+                return _loanstatus;
+            }
+            set
+            {
+                _loanstatus = value;
+                RaisedPropertyChanged("LoanStatus");
+            }
+        }
         private string _branchId;
         public string BranchID
         {
@@ -185,7 +198,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "insert into LoanRequest(RequestID,CustomerID,EmpID,LoanType,LoanAmount,LoanPeriod,LoanPurpose,EnrollDate,StatusCode,Status,Remark,BranchID) values ('"+GenerateLoanRequestID()+"','"+_customerID+"','"+_employeeID+"','"+_loantype+"',"+_loanamount+","+_loanperiod+",'"+_loanPurpose+"','"+DateTime.Now.ToString("MM-dd-yyyy")+"','1','Requested','','"+_branchId+"')";
+                    sqlcomm.CommandText = "insert into LoanApplication(RequestID,CustId,EmployeeId,LoanType,LoanAmount,LoanPeriod,Purpose,EnrollDate,LoanStatus,Remark,BranchID) values  ('" + GenerateLoanRequestID()+"','"+_customerID+"','"+_employeeID+"','"+_loantype+"',"+_loanamount+","+_loanperiod+",'"+_loanPurpose+"','"+DateTime.Now.ToString("MM-dd-yyyy")+"','1','','"+_branchId+"')";
                     sqlcomm.ExecuteNonQuery();
                 }
                 sqlconn.Close();
@@ -200,7 +213,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "update LoanRequest set Status='Recommend',StatusCode='2' where RequestID='" + RequestId + "'";
+                    sqlcomm.CommandText = "update LoanApplication set LoanStatus='7' where RequestID='" + RequestId + "'";
                     sqlcomm.ExecuteNonQuery();
                 }
             }
@@ -215,8 +228,8 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SNo from Region where RegionName='" + _regionname + "'";
-                    Result = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select RegionCode from Region where RegionName='" + _regionname + "'";
+                    Result = ((int)sqlcomm.ExecuteScalar()).ToString();
                 }
                 sqlconn.Close();
                 return Result;
@@ -232,13 +245,13 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SNo,Bid from BranchDetails where BranchName='" + _branchname + "'";
+                    sqlcomm.CommandText = "select BranchCode,Bid from BranchDetails where BranchName='" + _branchname + "'";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
                     {
                         while(reader.Read())
                         {
-                            Result = reader.GetString(0);
+                            Result = (reader.GetInt32(0)).ToString();
                             _branchId = reader.GetString(1);
                         }
                         reader.Close();
@@ -282,7 +295,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlcon;
-                    sqlcomm.CommandText = "select Count(RequestID) from LoanRequest where RequestID like '%" + year + "%'";
+                    sqlcomm.CommandText = "select Count(RequestID) from LoanApplication where RequestID like '%" + year + "%'";
                     count += (int)sqlcomm.ExecuteScalar();
                 }
                 sqlcon.Close();
@@ -326,7 +339,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select BranchID from LoanRequest where RequestID='"+ID+"'";
+                    sqlcomm.CommandText = "select BranchID from LoanApplication where RequestId='"+ID+"'";
                     _branchId = (string)sqlcomm.ExecuteScalar();
                     sqlconn.Close();
                 }
@@ -359,7 +372,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "update LoanRequest set LoanAmount=" + LoanAmount + " ,Status='Approved',StatusCode='3' where RequestID='" + ID + "'";
+                    sqlcomm.CommandText = "update LoanApplication set LoanAmount=" + LoanAmount + ",LoanStatus='8' where RequestId='" + ID + "'";
                     sqlcomm.ExecuteNonQuery();
                 }
                 sqlconn.Close();
@@ -376,10 +389,10 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "Select Status from LoanRequest where RequestID='" + ID + "'";
+                    sqlcomm.CommandText = "Select LoanStatus from LoanApplication where RequestID='" + ID + "'";
                     sqlcomm.ExecuteNonQuery();
-                    string status = (string)sqlcomm.ExecuteScalar();
-                    if(status.Equals("Recommend"))
+                    int status = (int)sqlcomm.ExecuteScalar();
+                    if(status==7)
                     {
                         result = true;
                     }
@@ -398,10 +411,10 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "Select Status from LoanRequest where RequestID='" + ID + "'";
+                    sqlcomm.CommandText = "Select LoanStatus from LoanApplication where RequestId='" + ID + "'";
                     sqlcomm.ExecuteNonQuery();
-                    string status = (string)sqlcomm.ExecuteScalar();
-                    if (status.Equals("Approved"))
+                    int status = (int)sqlcomm.ExecuteScalar();
+                    if (status==8)
                     {
                         result = true;
                     }

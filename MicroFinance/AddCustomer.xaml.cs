@@ -28,17 +28,17 @@ namespace MicroFinance
         public static Guarantor guarantor = new Guarantor();
         public static Nominee nominee = new Nominee();
         public static StaticProperty CaptureImageMessage = new StaticProperty();
+        public static LoanDetails Loan = new LoanDetails();
+
         string WhichClassButtonClick;
         public AddCustomer()
         {
             InitializeComponent();
-            TempLoad();
-
             IsEligible();
+            TempLoad();
             BranchAndGroupDetailsforFieldOfficer();
             Assign();
         }
-
         void TempLoad()
         {
             customer.CustomerName = "Thirisa";
@@ -84,6 +84,8 @@ namespace MicroFinance
             //MonthlyIncomeBox.Text = "15000";
 
             customer.MothlyExpenses = 12000;
+
+            customer.YearlyIncome = 200000;
             //MonthlyExpensesBox.Text = "12000";
 
             customer.DoorNumber = "77 / W3";
@@ -113,7 +115,7 @@ namespace MicroFinance
             customer.AadharNo = "987987987987";
 
 
-            
+
 
             guarantor.GuarantorName = "Vicky";
             guarantor.Gender = "Male";
@@ -129,6 +131,14 @@ namespace MicroFinance
             guarantor.Pincode = "620020";
             guarantor.City = "Trichy";
             guarantor.State = "Tamil Nadu";
+
+            customer.AccountHolder = "Saffu";
+            customer.AccountNumber = "222222";
+            customer.BankName = "SBI";
+            customer.BankBranchName = "DPI";
+            customer.IFSCCode = "SBIN0032";
+            customer.MICRCode = "SBIN00832";
+            customer.HavingBankDetails = true;
 
             CustDetailsInputs.DataContext = customer;
             AddressDetailGrid.DataContext = customer;
@@ -155,6 +165,9 @@ namespace MicroFinance
             NomineeAddressDetails.DataContext = nominee;
             NomineeOtherDetails.DataContext = nominee;
             NomineeDetails.DataContext = nominee;
+
+
+            LoanRequestPanel.DataContext = customer;
         }
         string CustomerId;
         public AddCustomer(string CustomerID)
@@ -203,23 +216,21 @@ namespace MicroFinance
             CaptureImageMessage.MessageType = Type;
             CaptureImageMessage.StatusMessage = Message;
         }
-        List<string> PeerGroupDetails = new List<string>();
+        List<PeerGroup> PeerGroupDetails = new List<PeerGroup>();
         void BranchAndGroupDetailsforFieldOfficer()
         {
-            string BranchId = MainWindow.LoginDesignation.BranchId;
+            string _officerBranchId = MainWindow.LoginDesignation.BranchId;
             string _officerEmpId = MainWindow.LoginDesignation.EmpId;
             string[] _branchName = new string[1];
             string[] _officerName = new string[1];
             string[] _regionName = new string[1];
-
-
-            List<SHG> SelfHelpGroupList = new List<SHG>();
+            List<string> SelfHelpGroupList = new List<string>();
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select BranchName,RegionName from BranchDetails where BranchDetails.Bid='" + BranchId + "'";
+                sqlCommand.CommandText = "select BranchName,RegionName from BranchDetails where BranchDetails.Bid='" + _officerBranchId + "'";
                 SqlDataReader sqlData = sqlCommand.ExecuteReader();
                 while (sqlData.Read())
                 {
@@ -227,36 +238,27 @@ namespace MicroFinance
                     _regionName[0] = sqlData.GetString(1);
                 }
                 sqlData.Close();
-
-
                 sqlCommand.CommandText = "select Name from Employee where EmpId='" + _officerEmpId + "'";
                 _officerName[0] = sqlCommand.ExecuteScalar().ToString();
-
-
-                sqlCommand.CommandText = "select SHGid,SHGName from SelfHelpGroup where BranchId = '"+BranchId+"'";
+                sqlCommand.CommandText = "select distinct(SHGName) from SelfHelpGroup where BranchId=(select Bid from BranchEmployees where Empid='"+_officerEmpId+"')";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
-                    SelfHelpGroupList.Add(new SHG(sqlDataReader.GetString(0), sqlDataReader.GetString(1)));
+                    SelfHelpGroupList.Add(sqlDataReader.GetString(0));
                 }
                 sqlDataReader.Close();
-
-
-
-                sqlCommand.CommandText = "select distinct(SelfHelpGroup.SHGName) from SelfHelpGroup join TimeTable on TimeTable.EmpId = '"+_officerEmpId+"'";
+                sqlCommand.CommandText = "select SelfHelpGroup.SHGName,PeerGroup.GroupId  from PeerGroup join SelfHelpGroup on PeerGroup.SHGid=SelfHelpGroup.SHGId where SelfHelpGroup.BranchId='"+_officerBranchId+"'";
                 SqlDataReader sqlDataReader1 = sqlCommand.ExecuteReader();
                 while (sqlDataReader1.Read())
                 {
-                    PeerGroupDetails.Add(sqlDataReader1.GetString(0));
-                    //PeerGroupDetails.Add(new PeerGroup { SHGName = sqlDataReader1.GetString(0), PG_Id = sqlDataReader1.GetString(1), Name = sqlDataReader1.GetString(2), GroupMembers = sqlDataReader1.GetInt32(3) });
+                    PeerGroupDetails.Add(new PeerGroup { SHGName = sqlDataReader1.GetString(0), PG_Id = sqlDataReader1.GetString(1)});
                 }
                 sqlConnection.Close();
             }
             SelectRegion.ItemsSource = _regionName; SelectRegion.SelectedIndex = 0;
             SelectBranch.ItemsSource = _branchName; SelectBranch.SelectedIndex = 0;
             SelectFO.ItemsSource = _officerName; SelectFO.SelectedIndex = 0;
-            SelectSHG.ItemsSource = SelfHelpGroupList; 
-            SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
+            SelectSHG.ItemsSource = SelfHelpGroupList; SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
         }
         void SelectedBranchAndGroupDetails()
         {
@@ -289,57 +291,45 @@ namespace MicroFinance
 
         private void SelectSHG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SHG selectedSHG = SelectSHG.SelectedItem as SHG;
-            SelectPG.ItemsSource = GetPeerGroupsList(selectedSHG.SHGid);
-        }
+            List<String> SelectedPG = new List<String>();
 
-        List<string> GetPeerGroupsList(string SHGid)
-        {
-            List<string> PGList = new List<string>();
-
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
+            foreach (var item in PeerGroupDetails)
             {
-                sql.Open();
-                SqlCommand command = new SqlCommand();
-                command.Connection = sql;
-                command.CommandText = "select GroupId from PeerGroup where SHGid = '" + SHGid + "'";
-                SqlDataReader dataReader = command.ExecuteReader();
-                while (dataReader.Read())
+                if (item.SHGName == SelectSHG.SelectedItem.ToString())
                 {
-                    PGList.Add(dataReader.GetString(0));
+                    SelectedPG.Add(item.PG_Id);
                 }
-                dataReader.Close();
             }
-            return PGList;
+
+            SelectPG.ItemsSource = SelectedPG;
         }
-        string SelectedPeerGroupId = string.Empty;
+
         private void SelectPG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SelectedPeerGroupId = (string)SelectPG.SelectedItem;
-            //using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
-            //{
-            //    if (SelectPG.SelectedItem != null)
-            //    {
-            //        connection.Open();
-            //        SqlCommand command = new SqlCommand();
-            //        command.Connection = connection;
-            //        command.CommandText = "select IsLeader from CustomerGroup where BranchName='" + SelectBranch.SelectedItem.ToString() + "' and SelfHelpGroup='" + SelectSHG.SelectedItem.ToString() + "' and PeerGroup='" + SelectPG.SelectedItem.ToString() + "'";
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                if (SelectPG.SelectedItem != null)
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = connection;
+                    command.CommandText = "select IsLeader from CustomerGroup where PeerGroupId='" + SelectPG.SelectedItem.ToString() + "'";
 
-            //        SqlDataReader reader = command.ExecuteReader();
-            //        while (reader.Read())
-            //        {
-            //            if (reader.GetBoolean(0) == true)
-            //            {
-            //                IsLeaderCheck.IsEnabled = false;
-            //                break;
-            //            }
-            //            else
-            //            {
-            //                IsLeaderCheck.IsEnabled = true;
-            //            }
-            //        }
-            //    }
-            //}
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (reader.GetBoolean(0) == true)
+                        {
+                            IsLeaderCheck.IsEnabled = false;
+                            break;
+                        }
+                        else
+                        {
+                            IsLeaderCheck.IsEnabled = true;
+                        }
+                    }
+                }
+            }
 
         }
         void IsEligible()
@@ -393,6 +383,16 @@ namespace MicroFinance
             CasteBox.IsEnabled = true;
         }
 
+        //add peer group
+        private void AddPG_Click(object sender, RoutedEventArgs e)
+        {
+            // NavigationService.GetNavigationService(this).Navigate(new AddPg());
+            AddPg APG = new AddPg();
+            APG.ShowDialog();
+
+
+        }
+
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
@@ -411,21 +411,19 @@ namespace MicroFinance
             {
                 if(SaveCustomer.Content.Equals("Update"))
                 {
-
                     customer.UpdateExistingDetails(SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
                 }
                 else
                 {
-                    customer.SaveCustomerDetails(SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
+                    customer._customerId = customer.GetCustId(SelectBranch.Text, SelectRegion.Text);
+                    NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text));
+               //     customer.SaveCustomerDetails(SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
                 }
                 customer = new Customer();
                 nominee = new Nominee();
                 guarantor = new Guarantor();
                 Assign();
-                MainWindow.StatusMessageofPage(1, "Successfully Customer Details Added");
-                NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
-                Thread.Sleep(2000);
-                MainWindow.StatusMessageofPage(1, "Ready...");
+                
 
             }
             
@@ -630,7 +628,9 @@ namespace MicroFinance
             CaptureImageStatus.DataContext = CaptureImageMessage;
         }
 
-        //Guarantor
+
+
+        //Guarantor 
 
         private void AddGaurantor_Click(object sender, RoutedEventArgs e)
         {
@@ -661,6 +661,7 @@ namespace MicroFinance
             }
             else
             {
+                GuarantorErrorCheck.Visibility = Visibility.Collapsed;
                 GuarantorWindow.Visibility = Visibility.Collapsed;
                 guarantor.IsGuarantorNull = true;
                 EnableDisableBackground(true);
@@ -668,7 +669,7 @@ namespace MicroFinance
                 MainWindow.StatusMessageofPage(1, "Successfully Guarantor Added...");
                 if (guarantor.IsNominee)
                 {
-
+                    NomineeErrorCheck.Visibility = Visibility.Collapsed;
                     NomineeNameBox.Text = guarantor.GuarantorName;
                     NomineeSelectDOB.SelectedDate = guarantor.DateofBirth;
                     if(guarantor.Gender=="Male")
@@ -856,6 +857,7 @@ namespace MicroFinance
             }
             else
             {
+                NomineeErrorCheck.Visibility = Visibility.Collapsed;
                 AddNomineepopup.Visibility = Visibility.Collapsed;
                 EnableDisableBackground(true);
                 nominee.IsNomineeNull = true;
@@ -1035,7 +1037,8 @@ namespace MicroFinance
             customer.HavingBankDetails = true;
             AccountdetailsPanel.IsOpen = false;
             EnableDisableBackground(true);
-            MainWindow.StatusMessageofPage(1, "Successfully Guarantor and Nominee Added...");
+            MainWindow.StatusMessageofPage(1, "Successfully BankDetails Added...");
+            BankErrorCheck.Visibility = Visibility.Collapsed;
         }
         void BankFieldValidation()
         {
@@ -1232,21 +1235,21 @@ namespace MicroFinance
                 GuarantorStateBox.BorderBrush = (Brush)bc.ConvertFrom("Red");
                 _chekcisValid = false;
             }
-            if (GuarantorAddressProofViewEditPanel.Visibility == Visibility.Hidden)
-            {
-                GAddressProofError.Visibility = Visibility.Visible;
-                _chekcisValid = false;
-            }
-            if (GuarantorPhotoProofViewEditPanel.Visibility == Visibility.Hidden)
-            {
-                GPhotoProofError.Visibility = Visibility.Visible;
-                _chekcisValid = false;
-            }
-            if (GuarantorProfilePictureViewEditPanel.Visibility == Visibility.Hidden)
-            {
-                GProfilePhotoError.Visibility = Visibility.Visible;
-                _chekcisValid = false;
-            }
+            //if (GuarantorAddressProofViewEditPanel.Visibility == Visibility.Hidden)
+            //{
+            //    GAddressProofError.Visibility = Visibility.Visible;
+            //    _chekcisValid = false;
+            //}
+            //if (GuarantorPhotoProofViewEditPanel.Visibility == Visibility.Hidden)
+            //{
+            //    GPhotoProofError.Visibility = Visibility.Visible;
+            //    _chekcisValid = false;
+            //}
+            //if (GuarantorProfilePictureViewEditPanel.Visibility == Visibility.Hidden)
+            //{
+            //    GProfilePhotoError.Visibility = Visibility.Visible;
+            //    _chekcisValid = false;
+            //}
             return _chekcisValid;
         }
 
@@ -1403,21 +1406,21 @@ namespace MicroFinance
                 NomineeAddressError.Visibility = Visibility.Visible;
                 _checkValid = false;
             }
-            if (NMale.IsChecked == false && NFemale.IsChecked == false)
-            {
-                NomineeGenderError.Visibility = Visibility.Visible;
-                _checkValid = false;
-            }
-            if (NomineePhotoProofViewEditPanel.Visibility == Visibility.Hidden)
-            {
-                NomineePhotoError.Visibility = Visibility.Visible;
-                _checkValid = false;
-            }
-            if (NomineeProfilePictureViewEditPanel.Visibility == Visibility.Hidden)
-            {
-                NomineeProfileError.Visibility = Visibility.Visible;
-                _checkValid = false;
-            }
+            //if (NMale.IsChecked == false && NFemale.IsChecked == false)
+            //{
+            //    NomineeGenderError.Visibility = Visibility.Visible;
+            //    _checkValid = false;
+            //}
+            //if (NomineePhotoProofViewEditPanel.Visibility == Visibility.Hidden)
+            //{
+            //    NomineePhotoError.Visibility = Visibility.Visible;
+            //    _checkValid = false;
+            //}
+            //if (NomineeProfilePictureViewEditPanel.Visibility == Visibility.Hidden)
+            //{
+            //    NomineeProfileError.Visibility = Visibility.Visible;
+            //    _checkValid = false;
+            //}
             return _checkValid;
         }
         Brush GrayColor = (Brush)new BrushConverter().ConvertFrom("Gray");
@@ -1670,11 +1673,25 @@ namespace MicroFinance
                 CustHousingTypeError.Visibility = Visibility.Visible;
                 _check = false;
             }
-            if(String.IsNullOrEmpty(HouseIndexBox.Text))
+            if(guarantor.IsGuarantorNull==false)
             {
-                CustHousingIndexError.Visibility = Visibility.Visible;
+                GuarantorErrorCheck.Visibility = Visibility.Visible;
                 _check = false;
-                HouseIndexBox.BorderBrush = Redcolor;
+            }
+            if(nominee.IsNomineeNull==false)
+            {
+                NomineeErrorCheck.Visibility = Visibility.Visible;
+                _check = false;
+            }
+            if(customer.HavingBankDetails==false)
+            {
+                BankErrorCheck.Visibility = Visibility.Visible;
+                _check = false;
+            }
+            if(String.IsNullOrEmpty(AadharNo.Text))
+            {
+                aadharErrorCheck.Visibility = Visibility.Visible;
+                _check = false;
             }
             return _check;
         }
@@ -1864,7 +1881,7 @@ namespace MicroFinance
             if (CustDoorError.Visibility == Visibility.Visible)
             {
                 CustDoorError.Visibility = Visibility.Collapsed;
-                HouseIndexBox.BorderBrush = GrayColor;
+                HouseNOBox.BorderBrush = GrayColor;
             }
         }
 
@@ -1922,21 +1939,52 @@ namespace MicroFinance
             }
         }
 
-        private void HouseIndexBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
-            if (CustHousingIndexError.Visibility == Visibility.Visible)
+            if (this.NavigationService.CanGoBack)
+                this.NavigationService.GoBack();
+        }
+        bool AadharValidatin(string Aadhar)
+        {
+            if (Aadhar.Length <= 12)
             {
-                CustHousingIndexError.Visibility = Visibility.Collapsed;
-                HouseIndexBox.BorderBrush = GrayColor;
+                for (int i = 0; i < Aadhar.Length; i++)
+                {
+                    if (char.IsDigit(Aadhar[i]) == false)
+                    {
+                        return false;
+                    }
+                }
+                if (Aadhar.Length == 12)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private void AadharNo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(AadharValidatin(AadharNo.Text))
+            {
+                aadharErrorCheck.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                aadharErrorCheck.Visibility = Visibility.Visible;
             }
         }
 
-        private void xBackwardButton_Click(object sender, RoutedEventArgs e)
+        private void HusbandBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (this.NavigationService.CanGoBack)
-            //    this.NavigationService.GoBack();
 
-            this.NavigationService.Navigate(new DashboardFieldOfficer());
         }
     }
 }
