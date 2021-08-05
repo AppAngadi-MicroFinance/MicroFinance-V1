@@ -105,7 +105,7 @@ namespace MicroFinance
                     sql.Open();
                     SqlCommand command = new SqlCommand();
                     command.Connection = sql;
-                    command.CommandText = "select CustId from CutomerGroup where PeerGroupId='"+_peerGroup+"'";
+                    command.CommandText = "select CustId from CustomerGroup where PeerGroupId='"+_peerGroup+"'";
                     SqlDataReader sqlData = command.ExecuteReader();
                     while (sqlData.Read())
                     {
@@ -136,7 +136,7 @@ namespace MicroFinance
                     BitmapImage _profilePhoto;
                     foreach (string item in ActiveAndEligibleCustomerId)
                     {
-                        command.CommandText = "select a.Name,a.Age,a.ProfilePhoto,b.IsLeader,c.Name,d.Name from (select Name,Age,ProfilePhoto,CustId from  CustomerDetails where CustId='" + item + "') as a join (select isleader,CustId from CutomerGroup where CustId='" + item+ "') as b on a.CustId=b.CustId join (select Name,CustId from GuarenteeDetails where CustId='" + item + "') as c on a.CustId=c.CustId join (select Name,CustId from NomineeDetails where CustId='" + item + "') as d on a.CustId=d.CustId";
+                        command.CommandText = "select a.Name,a.Age,a.ProfilePhoto,b.IsLeader,c.Name,d.Name from (select Name,Age,ProfilePhoto,CustId from  CustomerDetails where CustId='" + item + "') as a join (select isleader,CustId from CustomerGroup where CustId='" + item+ "') as b on a.CustId=b.CustId join (select Name,CustId from GuarenteeDetails where CustId='" + item + "') as c on a.CustId=c.CustId join (select Name,CustId from NomineeDetails where CustId='" + item + "') as d on a.CustId=d.CustId";
                         sqlData = command.ExecuteReader();
                         while (sqlData.Read())
                         {

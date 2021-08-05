@@ -101,7 +101,7 @@ namespace MicroFinance.Modal
                     {
                         SqlCommand sqlcomm = new SqlCommand();
                         sqlcomm.Connection = sqlconn;
-                        sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid  from PeerGroup where GroupId=(select PeerGroupId from CutomerGroup where CustId='"+_customerId+"'))";
+                        sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid  from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+_customerId+"'))";
                         Result = (string)sqlcomm.ExecuteScalar();
                     }
                     sqlconn.Close();

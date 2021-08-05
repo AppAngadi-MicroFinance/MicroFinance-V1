@@ -15,7 +15,7 @@ namespace MicroFinance.Reports
 {
     public class NEFT : BindableBase
     {
-        private string _remitteraccno;
+        private string _remitteraccno= "09876554as";
         public string RemitterAccNo
         {
             get
@@ -27,7 +27,7 @@ namespace MicroFinance.Reports
                 _remitteraccno = "09876554as";
             }
         }
-        private string _remittername;
+        private string _remittername = "G-Trust";
         public string RemitterName
         {
             get
@@ -39,7 +39,7 @@ namespace MicroFinance.Reports
                 _remittername = "G-Trust";
             }
         }
-        private string _remitteraddress;
+        private string _remitteraddress="Trichy";
         public string RemitterAddress
         {
             get
@@ -174,11 +174,9 @@ namespace MicroFinance.Reports
             Amount = amount;
         }
         LoanProcess loandetails = new LoanProcess();
-        Customer cus = new Customer();
-        public List<NEFT> neft = new List<NEFT>();
 
 
-        public void neftXL()
+        public void GenerateNEFT_File(List<LoanProcess> loanList)
         {
             Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             Excel.Workbook xlWorkBook;
@@ -306,18 +304,21 @@ namespace MicroFinance.Reports
             amount.ColumnWidth = 24;
             amount.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             amount.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-            FillNEFT(xlWorkSheet, neft);
+            FillNEFT(xlWorkSheet, loanList);
             try
             {
-                string FileName = "D:\\NEFT_BULK_" + DateTime.Today.ToString("dd-MMM-yyyy (hh-mm)") + ".xlsx";
-                if (File.Exists(FileName) == true)
+                string dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Report\\NEFT Report");
+                if (Directory.Exists(dir))
                 {
-                    string FileNewname = "D:\\NEFT_BULK_" + DateTime.Today.ToString("MMM") + "_New" + ".xlsx";
-                    xlWorkBook.SaveAs(FileNewname);
+                    string FileName = dir + "\\NEFT_" + DateTime.Now.ToString("dd-MM-yyyy hh-mm") + ".xlsx";
+                    xlWorkBook.SaveAs(FileName);
                 }
                 else
                 {
+                    Directory.CreateDirectory(dir);
+                    string FileName = dir + "\\NEFT_" + DateTime.Now.ToString() + ".xlsx";
                     xlWorkBook.SaveAs(FileName);
+
                 }
 
             }
@@ -338,6 +339,8 @@ namespace MicroFinance.Reports
         }
 
         double DoucumentationCharge = 2;
+        int Insurence = 50;
+        double InsurenCharge = 3;
 
         public void FillNEFT(Worksheet xlWorkSheet, List<LoanProcess> loans)
         {
@@ -356,10 +359,10 @@ namespace MicroFinance.Reports
                 xlWorkSheet.Cells[RowStart, 6] = x.AccountHolder;
                 xlWorkSheet.Cells[RowStart, 7] = x.DoorNumber + "," + x.StreetName+x.City+","+x.State;
                 xlWorkSheet.Cells[RowStart, 8] = x.IFSCCode;
-                xlWorkSheet.Cells[RowStart, 9] =  "Fast";
-                xlWorkSheet.Cells[RowStart, 10] = "gtrust@gmail.com";
-                xlWorkSheet.Cells[RowStart, 11] = RefNo;
-                xlWorkSheet.Cells[RowStart, 12] = x.LoanAmount;
+                xlWorkSheet.Cells[RowStart, 10] =  "Fast";
+                xlWorkSheet.Cells[RowStart, 11] = "gtrust@gmail.com";
+                xlWorkSheet.Cells[RowStart, 12] = RefNo;
+                xlWorkSheet.Cells[RowStart, 13] =NetAmountCal(x.LoanAmount,DoucumentationCharge,Insurence,InsurenCharge);
                 RowStart++;
                 i++;
             }

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Reports;
 
 namespace MicroFinance
 {
@@ -26,6 +27,7 @@ namespace MicroFinance
         string BranchID = MainWindow.LoginDesignation.BranchId;
         public List<LoanProcess> RecommendList = new List<LoanProcess>();
         List<LoanProcess> ApprovedCustomerList = new List<LoanProcess>();
+        NEFT neft = new NEFT();
         public HOLoanApproval()
         {
             InitializeComponent();
@@ -122,7 +124,7 @@ namespace MicroFinance
 
         private void Generate_NEFTBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            neft.GenerateNEFT_File(ApprovedCustomerList);
         }
     }
 }
