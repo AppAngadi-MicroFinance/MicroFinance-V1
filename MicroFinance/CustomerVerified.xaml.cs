@@ -1,8 +1,10 @@
 ﻿using MicroFinance.Modal;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,19 +23,63 @@ namespace MicroFinance
     /// </summary>
     public partial class CustomerVerified : Page
     {
-        static DetailsForCustomerVerification verification = new DetailsForCustomerVerification();
-        public CustomerVerified()
+        string _branchName;
+        string _regionName;
+        string _shgName;
+        string _pgName;
+
+        public CustomerVerified(string CustId)
         {
             InitializeComponent();
+
             customerNamegrid.DataContext = customer;
             Guarantorgrid.DataContext = guarantor;
-          // Guarantorgrid.DataContext = guarantor;
-           // DataContextForPhotos();
-           // customerNamegrid.DataContext = customer;
+        }
+        int CustomerStatus;
+        public CustomerVerified(Customer Cs,Guarantor Gu,Nominee No,int status,string RegionName,string BranchName,string SHGName,string PG)
+        {
+            InitializeComponent();
+
+            _regionName = RegionName;
+            _branchName = BranchName;
+            _shgName = SHGName;
+            _pgName = PG;
+
+            Cs.GetAllDetailsofCustomers();
+            Gu.GetGuranteeDetails();
+            No.GetNomineeDetails();
+            customer = Cs;
+            guarantor = Gu;
+            nominee = No;
+            CustomerStatus = status;
+
+            ContextAssigning();
+            VisiblityOfPhotoPanel();
         }
         Customer customer = new Customer();
         Guarantor guarantor = new Guarantor();
         Nominee nominee = new Nominee();
+
+        void ContextAssigning()
+        {
+            customerNamegrid.DataContext = customer;
+            Guarantorgrid.DataContext = guarantor;
+            customerAddressGrid.DataContext = customer;
+            BankDetailsGrid.DataContext = customer;
+            NomineeGrid.DataContext = nominee;
+        }
+
+        void VisiblityOfPhotoPanel()
+        {
+            if(CustomerStatus==0)
+            {
+                DocumentPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                DocumentPanel.Visibility = Visibility.Visible;
+            }
+        }
 
         void DataContextForPhotos()
         {
@@ -163,7 +209,7 @@ namespace MicroFinance
 
         private void CustLocalityVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.CustStreetName = true;
+            customer.CustomerLocality = true;
         }
 
         private void CustCityVerification_Click(object sender, RoutedEventArgs e)
@@ -193,117 +239,117 @@ namespace MicroFinance
 
         private void GGenderVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorGender = true;
+            guarantor.GuarantorGender = true;
         }
 
         private void GDobVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorDOB = true;
+            guarantor.GuarantorDOB = true;
         }
 
         private void GContactVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorContact = true;
+            guarantor.GuarantorContact = true;
         }
 
         private void GOccupationVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorOccupation = true;
+            guarantor.GuarantorOccupation = true;
         }
 
         private void GRelationshipVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorRelationship = true;
+            guarantor.GuarantorRelationship = true;
         }
 
         private void GDoorNoVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorDoorNumber = true;
+            guarantor.GuarantorDoorNumber = true;
         }
 
         private void GStreetVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorStreet = true;
+            guarantor.GuarantorStreet = true;
         }
 
         private void GLocalityVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorLocality = true;
+            guarantor.GuarantorLocality = true;
         }
 
         private void GCityVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorCity = true;
+            guarantor.GuarantorCity = true;
         }
 
         private void GStateVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorState = true;
+            guarantor.GuarantorState = true;
         }
 
         private void GPincodeVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorPincode = true;
+            guarantor.GuarantorPincode = true;
         }
 
         private void NNameVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NName = true;
+            nominee.NName = true;
         }
 
         private void NGenderVerirication_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeGender = true;
+            nominee.NomineeGender = true;
         }
 
         private void NDobVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeDOB = true;
+            nominee.NomineeDOB = true;
         }
 
         private void NcontactVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeContact = true;
+            nominee.NomineeContact = true;
         }
 
         private void NOccupationVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeOccupation = true;
+            nominee.NomineeOccupation = true;
         }
 
         private void NRelationVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeRelationship = true;
+            nominee.NomineeRelationship = true;
         }
 
         private void NDoorVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeDoorNo = true;
+            nominee.NomineeDoorNo = true;
         }
 
         private void NStreetVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeStreet = true;
+            nominee.NomineeStreet = true;
         }
 
         private void NLocalityVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeLocality = true;
+            nominee.NomineeLocality = true;
         }
 
         private void NCityVErification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeCity = true;
+            nominee.NomineeCity = true;
         }
 
         private void NStateVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeState = true;
+            nominee.NomineeState = true;
         }
 
         private void NPincodeVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineePincode = true;
+            nominee.NomineePincode = true;
         }
 
         private void HolderVerification_Click(object sender, RoutedEventArgs e)
@@ -353,32 +399,32 @@ namespace MicroFinance
 
         private void GAddressProofVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorAddressProof = true;
+            guarantor.GuarantorAddressProof = true;
         }
 
         private void GPhotoProofVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorPhotoProof = true;
+            guarantor.GuarantorPhotoProof = true;
         }
 
         private void GProfileVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.GuarantorProfilePicture = true;
+            guarantor.GuarantorProfilePicture = true;
         }
 
         private void NAddressProofVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeAddressProof = true;
+            nominee.NomineeAddressProof = true;
         }
 
         private void NPhotoProofVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineePhotoProof = true;
+            nominee.NomineePhotoProof = true;
         }
 
         private void NProfileVerification_Click(object sender, RoutedEventArgs e)
         {
-            customer.NomineeProfilePicture = true;
+            nominee.NomineeProfilePicture = true;
         }
 
         private void CombinePhotoVerification_Click(object sender, RoutedEventArgs e)
@@ -789,6 +835,729 @@ namespace MicroFinance
             PhotoProofNametxt.Text = "Combine Photo";
             WhichClassButtonClick = "Customer";
             CaptureImage.Visibility = Visibility.Visible; CaptureImageStatus.DataContext = CaptureImageMessage;
+        }
+        bool GreenCheck = true;
+        private void VerifyNewCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            if(CustomerStatus==0)
+            {
+                CustomerCheck();
+                GuarantorCheck();
+                NomineeCheck();
+                BankCheck();
+            }
+            if(CustomerStatus==2)
+            {
+                CustomerCheck();
+                GuarantorCheck();
+                NomineeCheck();
+                BankCheck();
+                DocumentCheck();
+            }
+            if(GreenCheck)
+            {
+                if(CustomerStatus==0)
+                {
+                    InsertVerificationDetails();
+                    customer.SaveCustomerDetails(_regionName, _branchName, _shgName, _pgName, guarantor, nominee);
+                    MainWindow.StatusMessageofPage(1, "Successfully Customer Details Added");
+                    NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
+                    Thread.Sleep(2000);
+                    MainWindow.StatusMessageofPage(1, "Ready...");
+                }
+                else if(CustomerStatus==2)
+                {
+
+                }
+            }
+            else
+            {
+                MainWindow.StatusMessageofPage(0, "Please Verifiy Mandotory Fields.....");
+            }
+            
+        }
+        void CustomerCheck()
+        {
+            if (!customer.CustName)
+            {
+                CustNameError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustNameError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustGender)
+            {
+                CustGenderError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustGenderError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustDateOfBirth)
+            {
+                CustDobError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustDobError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustFatherName)
+            {
+                CustFatherError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustFatherError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustMotherName)
+            {
+                CustMotherError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustMotherError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustHusbandName)
+            {
+                CustHusbandError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustHusbandError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustContactNumber)
+            {
+                CustContactError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustContactError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustAadharNumber)
+            {
+                CustAadharError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustAadharError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustReligion)
+            {
+                CustReligionError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustReligionError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustCommunity)
+            {
+                CustCommunityError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustCommunityError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustCaste)
+            {
+                CustCasteError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustCasteError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustEducation)
+            {
+                CustEducationError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustEducationError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustFamilyMember)
+            {
+                CustFamilyMembersError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustFamilyMembersError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustEarningMember)
+            {
+                CustFamilyMembersError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustFamilyMembersError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustOccupation)
+            {
+                CustOccupationError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustOccupationError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustMonthlyIncome)
+            {
+                CustmontlyIncomeError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustmontlyIncomeError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustMonthlyExpenses)
+            {
+                CustmontlyIncomeError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustmontlyIncomeError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustFamilyYearlyIncome)
+            {
+                CustYearlyIncomeError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustYearlyIncomeError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustomerDoorNumber)
+            {
+                CustDoorNoError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustDoorNoError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustStreetName)
+            {
+                CustStreetNameError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustStreetNameError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustomerLocality)
+            {
+                CustLocalityError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustLocalityError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustomerCity)
+            {
+                CustCityError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustCityError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustomerState)
+            {
+                CustStateError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustStateError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustomerPincode)
+            {
+                CustPincodeError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustPincodeError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustomerHousingType)
+            {
+                CustHousingTypeError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustHousingTypeError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+        }
+        void GuarantorCheck()
+        {
+            if(!guarantor.GName)
+            {
+                GNameError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GNameError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            
+            if(!guarantor.GuarantorGender)
+            {
+                GGenderError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GGenderError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorDOB)
+            {
+                GDObError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GDObError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorContact)
+            {
+                GContactError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GContactError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorOccupation)
+            {
+                GOccupationError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GOccupationError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorRelationship)
+            {
+                GRelationshipError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GRelationshipError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorDoorNumber)
+            {
+                GDoorNoError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GDoorNoError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorStreet)
+            {
+                GStreetNameError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GStreetNameError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorLocality)
+            {
+                GLocalityError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GLocalityError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorCity)
+            {
+                GCityError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GCityError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorState)
+            {
+                GStateError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GStateError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorPincode)
+            {
+                GPincodeError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GPincodeError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+        }
+        void NomineeCheck()
+        {
+            if(!nominee.NName)
+            {
+                NNameError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NNameError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if(!nominee.NomineeGender)
+            {
+                NGenderError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NGenderError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineeDOB)
+            {
+                NDObError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NDObError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineeContact)
+            {
+                NContactError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NContactError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineeOccupation)
+            {
+                NOccupationError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NOccupationError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineeRelationship)
+            {
+                NRelationshipError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NRelationshipError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineeDoorNo)
+            {
+                NDoorNoError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NDoorNoError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineeStreet)
+            {
+                NStreetNameError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NStreetNameError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineeLocality)
+            {
+                NLocalityError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NLocalityError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineeCity)
+            {
+                NCityError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NCityError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineeState)
+            {
+                NStateError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NStateError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineePincode)
+            {
+                NPincodeError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NPincodeError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+        }
+        void BankCheck()
+        {
+            if(!customer.BankHolderName)
+            {
+               AccountHolderError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                AccountHolderError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if(!customer.BankAccountNo)
+            {
+                AccountNoError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                AccountNoError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.Bankname)
+            {
+                BAnkNameError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                BAnkNameError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.BIfscCode)
+            {
+                IFSCError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                IFSCError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.BMicrCode)
+            {
+                MICRError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                MICRError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.BranchName)
+            {
+                BAnkBranchError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                BAnkBranchError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+        }
+        void DocumentCheck()
+        {
+            if(!customer.CustomerAddressProof)
+            {
+                CustAddressProofError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustAddressProofError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if(!customer.CustomerPhotoProof)
+            {
+                CustPhotoProofError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustPhotoProofError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.CustomerProfilePicture)
+            {
+                CustProfilePictrueError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CustProfilePictrueError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorAddressProof)
+            {
+                GAddressProofError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GAddressProofError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorPhotoProof)
+            {
+                GPhotoProofError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GPhotoProofError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!guarantor.GuarantorProfilePicture)
+            {
+                GProfilePictureError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                GProfilePictureError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineeAddressProof)
+            {
+                NAddressProofError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NAddressProofError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineePhotoProof)
+            {
+                NPhotoProofError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NPhotoProofError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!nominee.NomineeProfilePicture)
+            {
+                NProfileError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                NProfileError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+            if (!customer.Combinephoto)
+            {
+                CombinePhotoError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CombinePhotoError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+        }
+
+        void InsertVerificationDetails()
+        {
+            using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.db))
+            {
+                sql.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sql;
+                command.CommandText = "insert into CustomerVerification(CustId,CustomerName,CustomerGender,CustomerDOB,FatherName,MotherName,Guardian,Contact,CAddress,Religion,Caste,Community,Education,FamilyMembers,EarningMembers,Occupation,MonthlyIncome,MonthlyExpence,FamilyAnnualIncome,CustomerDoorNo,CustomerStreet,CustomerLocality,CustomerCity,CustomerState,CustomerPincode,HouseType,GName,GGender,GDOB,GContact,GOccupation,GRelationship,GDoorNo,GStreet,GLocality,GCity,GState,GPincode,NName,NGender,NDOB,NContact,NOccupation,NRelationship,NDoorNo,NStreet,NLocality,NCity,NState,NPincode,AccountHolderName,AccountNo,BankName,BranchName,IFSC,MICR,CAddressProof,CPhotoProof,CProfilePic,GAddressProof,GPhotoProof,GProfilePic,NAddressProof,NPhotoProof,NProfilePic,CustomerCombinePhoto) values ('" + customer._customerId + "','" + customer.CustName + "','" + customer.CustGender + "','" + customer.CustDateOfBirth + "','" + customer.CustFatherName + "','" + customer.CustMotherName + "','" + customer.CustHusbandName + "','" + customer.CustContactNumber + "','" + customer.CustAadharNumber + "','" + customer.CustReligion + "','" + customer.CustCaste + "','" + customer.CustCommunity + "','" + customer.CustEducation + "','" + customer.CustFamilyMember + "','" + customer.CustEarningMember + "','" + customer.CustOccupation + "','" + customer.CustMonthlyIncome + "','" + customer.CustMonthlyExpenses + "','" + customer.CustFamilyYearlyIncome + "','" + customer.CustomerDoorNumber + "','" + customer.CustStreetName + "','" + customer.CustomerLocality + "','" + customer.CustomerCity + "','" + customer.CustomerState + "','" + customer.CustomerPincode + "','" + customer.CustomerHousingType + "','" + guarantor.GName + "','" + guarantor.GuarantorGender + "','" + guarantor.GuarantorDOB + "','" + guarantor.GuarantorContact + "','" + guarantor.GuarantorOccupation + "','" + guarantor.GuarantorRelationship + "','" + guarantor.GuarantorDoorNumber + "','" + guarantor.GuarantorStreet + "','" + guarantor.GuarantorLocality + "','" + guarantor.GuarantorCity + "','" + guarantor.GuarantorState + "','" + guarantor.GuarantorPincode + "','" + nominee.NName + "','" + nominee.NomineeGender + "','" + nominee.NomineeDOB + "','" + nominee.NomineeContact + "','" + nominee.NomineeOccupation + "','" + nominee.NomineeRelationship + "','" + nominee.NomineeDoorNo + "','" + nominee.NomineeStreet + "','" + nominee.NomineeLocality + "','" + nominee.NomineeCity + "','" + nominee.NomineeState + "','" + nominee.NomineePincode + "','" + customer.BankHolderName + "','" + customer.BankAccountNo + "','" + customer.Bankname + "','" + customer.BranchName + "','" + customer.BIfscCode + "','" + customer.BMicrCode + "','" + customer.CustomerAddressProof + "','" + customer.CustomerPhotoProof + "','" + customer.CustomerProfilePicture + "','" + guarantor.GuarantorAddressProof + "','" + guarantor.GuarantorPhotoProof + "','" + guarantor.GuarantorProfilePicture + "','" + nominee.NomineeAddressProof + "','" + nominee.NomineePhotoProof + "','" + nominee.NomineeProfilePicture + "','" + customer.Combinephoto + "')";
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private void CancelVerify_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
     

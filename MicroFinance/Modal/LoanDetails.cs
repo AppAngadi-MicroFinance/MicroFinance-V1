@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 namespace MicroFinance.Modal
 {
    
-    public class LoanDetails : DetailsForCustomerVerification
+    public class LoanDetails : BindableBase
     {
         public string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
         private string _customerID;

@@ -34,9 +34,114 @@ namespace MicroFinance
         {
             InitializeComponent();
             IsEligible();
-
+            TempLoad();
             BranchAndGroupDetailsforFieldOfficer();
             Assign();
+        }
+        void TempLoad()
+        {
+            customer.CustomerName = "Thirisa";
+            //CustomerNameBox.Text = "Thirisa";
+
+            customer.Gender = "Male";
+            //Female.IsChecked = true;
+
+            customer.DateofBirth = new DateTime(1990, 08, 12);
+            //SelectDOB.SelectedDate = new DateTime(1990, 08, 12);
+
+            customer.FatherName = "Aravind";
+            //FatherNameBox.Text = "Aravind";
+
+            customer.MotherName = "Kaviarasi";
+            //MotherNameBox.Text = "Kaviarasi";
+
+            customer.ContactNumber = "7897894564";
+            //ContactBox.Text = "7897894564";
+
+            customer.Religion = "Hindu";
+            //SelectReligion.SelectedIndex = 1;
+
+            customer.Caste = "MBC";
+            //CasteBox.Text = "MBC";
+
+            customer.Community = "Dhravidar";
+            //CommunityBox.Text = "Dhravidar";
+
+            customer.Education = "10";
+            //EducatinBox.Text = "10";
+
+            customer.FamilyMembers = 5;
+            //FamilyMemberBox.Text = "5";
+
+            customer.EarningMembers = 3;
+            //EarningMemberBox.Text = "3";
+
+            customer.Occupation = "Daily wages";
+            //OccupationBox.Text = "Daily wages";
+
+            customer.MonthlyIncome = 15000;
+            //MonthlyIncomeBox.Text = "15000";
+
+            customer.MothlyExpenses = 12000;
+
+            customer.YearlyIncome = 200000;
+            //MonthlyExpensesBox.Text = "12000";
+
+            customer.DoorNumber = "77 / W3";
+            //HouseNOBox.Text = "77 / W3";
+
+            customer.StreetName = "Thirunagar";
+            //StreetNameBox.Text = "Thirunagar";
+
+            customer.LocalityTown = "Karumandapam";
+            //LocalityBox.Text = "Karumandapam";
+
+            customer.Pincode = 620020;
+            //PincodeBox.Text = "620020";
+
+            customer.City = "Trichy";
+            //CityBox.Text = "Trichy";
+
+            customer.State = "Tamil Nadu";
+            //StateBox.Text = "Tamil Nadu";
+
+            customer.HousingType = "Own house";
+            //HouseTypeBox.Text = "Own house";
+
+            customer.HousingIndex = "10";
+            //HouseIndexBox.Text = "10";
+
+            customer.AadharNo = "987987987987";
+
+
+
+
+            guarantor.GuarantorName = "Vicky";
+            guarantor.Gender = "Male";
+            guarantor.DateofBirth = new DateTime(1980, 08, 12);
+            guarantor.ContactNumber = "7894564562";
+            guarantor.Occupation = "Driver";
+            guarantor.RelationShip = "Husband";
+            guarantor.IsNominee = true;
+
+            guarantor.DoorNumber = "77 / W3";
+            guarantor.StreetName = "Thirunagar";
+            guarantor.LocalityTown = "Karumandapam";
+            guarantor.Pincode = "620020";
+            guarantor.City = "Trichy";
+            guarantor.State = "Tamil Nadu";
+
+            customer.AccountHolder = "Saffu";
+            customer.AccountNumber = "222222";
+            customer.BankName = "SBI";
+            customer.BankBranchName = "DPI";
+            customer.IFSCCode = "SBIN0032";
+            customer.MICRCode = "SBIN00832";
+            customer.HavingBankDetails = true;
+
+            CustDetailsInputs.DataContext = customer;
+            AddressDetailGrid.DataContext = customer;
+            AddNomineepopup.DataContext = guarantor;
         }
         void Assign()
         {
@@ -131,18 +236,18 @@ namespace MicroFinance
                 sqlData.Close();
                 sqlCommand.CommandText = "select Name from Employee where EmpId='" + _officerEmpId + "'";
                 _officerName[0] = sqlCommand.ExecuteScalar().ToString();
-                sqlCommand.CommandText = "select distinct(SHGName) from SelfHelpGroup where EmpId='" + _officerEmpId + "'";
+                sqlCommand.CommandText = "select distinct(SHGName) from SelfHelpGroup where BranchId=(select Bid from BranchEmployees where Empid='"+_officerEmpId+"')";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
                     SelfHelpGroupList.Add(sqlDataReader.GetString(0));
                 }
                 sqlDataReader.Close();
-                sqlCommand.CommandText = "select SHGName,SelfHelpGroup.PGId ,PeerGroupName,TotalMembers from PeerGroup join SelfHelpGroup on PeerGroup.PGId=SelfHelpGroup.PGId where SelfHelpGroup.EmpId='" + _officerEmpId + "'";
+                sqlCommand.CommandText = "select SelfHelpGroup.SHGName,PeerGroup.GroupId  from PeerGroup join SelfHelpGroup on PeerGroup.SHGid=SelfHelpGroup.SHGId where SelfHelpGroup.BranchId='"+_officerBranchId+"'";
                 SqlDataReader sqlDataReader1 = sqlCommand.ExecuteReader();
                 while (sqlDataReader1.Read())
                 {
-                    PeerGroupDetails.Add(new PeerGroup { SHGName = sqlDataReader1.GetString(0), PG_Id = sqlDataReader1.GetString(1), Name = sqlDataReader1.GetString(2), GroupMembers = sqlDataReader1.GetInt32(3) });
+                    PeerGroupDetails.Add(new PeerGroup { SHGName = sqlDataReader1.GetString(0), PG_Id = sqlDataReader1.GetString(1)});
                 }
                 sqlConnection.Close();
             }
@@ -188,7 +293,7 @@ namespace MicroFinance
             {
                 if (item.SHGName == SelectSHG.SelectedItem.ToString())
                 {
-                    SelectedPG.Add(item.Name);
+                    SelectedPG.Add(item.PG_Id);
                 }
             }
 
@@ -204,7 +309,7 @@ namespace MicroFinance
                     connection.Open();
                     SqlCommand command = new SqlCommand();
                     command.Connection = connection;
-                    command.CommandText = "select IsLeader from CustomerGroup where BranchName='" + SelectBranch.SelectedItem.ToString() + "' and SelfHelpGroup='" + SelectSHG.SelectedItem.ToString() + "' and PeerGroup='" + SelectPG.SelectedItem.ToString() + "'";
+                    command.CommandText = "select IsLeader from CustomerGroup where PeerGroupId='" + SelectPG.SelectedItem.ToString() + "'";
 
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
@@ -302,21 +407,19 @@ namespace MicroFinance
             {
                 if(SaveCustomer.Content.Equals("Update"))
                 {
-
                     customer.UpdateExistingDetails(SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
                 }
                 else
                 {
-                    customer.SaveCustomerDetails(SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
+                    customer._customerId = customer.GetCustId(SelectBranch.Text, SelectRegion.Text);
+                    NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text));
+               //     customer.SaveCustomerDetails(SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
                 }
                 customer = new Customer();
                 nominee = new Nominee();
                 guarantor = new Guarantor();
                 Assign();
-                MainWindow.StatusMessageofPage(1, "Successfully Customer Details Added");
-                NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
-                Thread.Sleep(2000);
-                MainWindow.StatusMessageofPage(1, "Ready...");
+                
 
             }
             

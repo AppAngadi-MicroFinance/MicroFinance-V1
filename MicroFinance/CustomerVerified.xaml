@@ -15,7 +15,10 @@
         <convert:InverseVisiblityConverterbyImage x:Key="InverseVisibleImage"/>
         <convert:StatusForegroundColor x:Key="StatusColor"/>
         <convert:StatusImage x:Key="ImageConvert"/>
-        
+        <convert:GenderFemale x:Key="Femalecheck"/>
+        <convert:GenderMaleCheck x:Key="MaleCheck"/>
+        <convert:AgeConverter x:Key="AgeConvert"/>
+
     </Page.Resources>
 
     <Grid x:Name="MainGrid">
@@ -67,12 +70,12 @@
                                 <TextBlock Text="Gender" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}"/>
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustGenderError"/>
                             </StackPanel>
-                            <RadioButton Content="Male" Margin="0,10,0,0" FontWeight="Medium" x:Name="CustMale"  Grid.Column="2">
+                            <RadioButton Content="Male" Margin="0,10,0,0" FontWeight="Medium" x:Name="CustMale"  Grid.Column="2" IsChecked="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource MaleCheck }}">
                                 <RadioButton.LayoutTransform>
                                     <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                 </RadioButton.LayoutTransform>
                             </RadioButton>
-                            <RadioButton Content="Female" Margin="85,10,10,0" FontWeight="Medium" x:Name="CustFemale" Grid.Column="2">
+                            <RadioButton Content="Female" Margin="85,10,10,0" FontWeight="Medium" x:Name="CustFemale" Grid.Column="2" IsChecked="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Femalecheck }}">
                                 <RadioButton.LayoutTransform>
                                     <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                 </RadioButton.LayoutTransform>
@@ -99,7 +102,7 @@
                             <StackPanel Orientation="Horizontal" Grid.Column="2">
                                 <DatePicker Grid.Column="2" x:Name="CustDOB" Width="120" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="15,0,20,0" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock Text="Age" Style="{StaticResource Regular}"/>
-                                <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+                                <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource AgeConvert}}"  Margin="20,5,0,0"/>
 
                             </StackPanel>
                             <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding CustDateOfBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
@@ -570,12 +573,12 @@
                                 <TextBlock Text="Gender" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}"/>
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GGenderError"/>
                             </StackPanel>
-                            <RadioButton Content="Male" x:Name="GMALE" Margin="0,10,0,0" FontWeight="Medium"  Grid.Column="2">
+                            <RadioButton Content="Male" x:Name="GMALE" Margin="0,10,0,0" FontWeight="Medium"  Grid.Column="2" IsChecked="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource MaleCheck }}">
                                 <RadioButton.LayoutTransform>
                                     <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                 </RadioButton.LayoutTransform>
                             </RadioButton>
-                            <RadioButton Content="Female" x:Name="GFEMALE" Margin="85,10,10,0" FontWeight="Medium" Grid.Column="2">
+                            <RadioButton Content="Female" x:Name="GFEMALE" Margin="85,10,10,0" FontWeight="Medium" Grid.Column="2" IsChecked="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Femalecheck }}">
                                 <RadioButton.LayoutTransform>
                                     <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                 </RadioButton.LayoutTransform>
@@ -601,7 +604,7 @@
                             <StackPanel Orientation="Horizontal" Grid.Column="2">
                                 <DatePicker Grid.Column="2" x:Name="GDobSelect" Width="120" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="15,0,20,0" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock Text="Age" Style="{StaticResource Regular}"/>
-                                <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+                                <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource AgeConvert}}"  Margin="20,5,0,0"/>
 
                             </StackPanel>
                             <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorDOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
@@ -662,7 +665,11 @@
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GRelationshipError"/>
                             </StackPanel>
                             <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="140" Style="{StaticResource combo}" HorizontalAlignment="Left" x:Name="Gselectreligion"  Text="{Binding RelationShip,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
-                                
+                                <ComboBoxItem Content="Husband"/>
+                                <ComboBoxItem Content="Father"/>
+                                <ComboBoxItem Content="Mother"/>
+                                <ComboBoxItem Content="Sister"/>
+                                <ComboBoxItem Content="Brother"/>
                             </ComboBox>
 
                             <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding GuarantorRelationship,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
@@ -829,12 +836,12 @@
                                 <TextBlock Text="Gender" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}"/>
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NGenderError"/>
                             </StackPanel>
-                            <RadioButton Content="Male" x:Name="NMALE" Margin="0,10,0,0" FontWeight="Medium"  Grid.Column="2">
+                            <RadioButton Content="Male" x:Name="NMALE" Margin="0,10,0,0" FontWeight="Medium"  Grid.Column="2" IsChecked="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource MaleCheck }}">
                                 <RadioButton.LayoutTransform>
                                     <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                 </RadioButton.LayoutTransform>
                             </RadioButton>
-                            <RadioButton Content="Female" x:Name="NFEMALE" Margin="85,10,10,0" FontWeight="Medium" Grid.Column="2">
+                            <RadioButton Content="Female" x:Name="NFEMALE" Margin="85,10,10,0" FontWeight="Medium" Grid.Column="2" IsChecked="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Femalecheck }}">
                                 <RadioButton.LayoutTransform>
                                     <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                                 </RadioButton.LayoutTransform>
@@ -860,7 +867,7 @@
                             <StackPanel Orientation="Horizontal" Grid.Column="2">
                                 <DatePicker Grid.Column="2" Width="120" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="15,0,20,0" x:Name="NDobSelect" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock Text="Age" Style="{StaticResource Regular}"/>
-                                <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
+                                <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource AgeConvert}}" Style="{StaticResource NumberRegular}" FontWeight="Medium" Margin="20,0,0,5"/>
 
                             </StackPanel>
                             <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeDOB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
@@ -921,7 +928,11 @@
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NRelationshipError"/>
                             </StackPanel>
                             <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="140" Style="{StaticResource combo}" HorizontalAlignment="Left" x:Name="NSELECTRELIGION"  Text="{Binding RelationShip,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
-
+                                <ComboBoxItem Content="Husband"/>
+                                <ComboBoxItem Content="Father"/>
+                                <ComboBoxItem Content="Mother"/>
+                                <ComboBoxItem Content="Sister"/>
+                                <ComboBoxItem Content="Brother"/>
                             </ComboBox>
 
                             <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding NomineeRelationship,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
@@ -1180,7 +1191,7 @@
                         </Grid>
                     </StackPanel>
                 </Border>
-                <Border Visibility="Visible" Width="700" Height="auto" BorderBrush="Black" BorderThickness="1" Margin="0,15,0,0" Background="#E6DDC6" CornerRadius="7">
+                <Border Visibility="Visible" Width="700" Height="auto" BorderBrush="Black" BorderThickness="1" Margin="0,15,0,0" Background="#E6DDC6" CornerRadius="7" x:Name="DocumentPanel">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius=".5"/>
                     </Border.Effect>
@@ -1453,7 +1464,11 @@
             </StackPanel>
 
         </ScrollViewer>
-        <Button Grid.Row="2" Style="{StaticResource PrimaryBtn}" Content="Save"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+            <Button Style="{StaticResource CancelBtn}" x:Name="CancelVerify" Click="CancelVerify_Click" Content="Back"/>
+            <Button Grid.Row="2" Style="{StaticResource PrimaryBtn}" Content="Save" x:Name="VerifyNewCustomer" Click="VerifyNewCustomer_Click" Margin="30,0,0,0"/>
+        </StackPanel>
 
 
 

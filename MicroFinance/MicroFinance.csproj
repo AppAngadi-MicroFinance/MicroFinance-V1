@@ -171,9 +171,10 @@
     <Compile Include="Modal\Branch_Shg_PgDetails.cs" />
     <Compile Include="Modal\CameraCapture.cs" />
     <Compile Include="Modal\Customer.cs" />
+    <Compile Include="Modal\CustomerDetailsForVerification.cs" />
     <Compile Include="Modal\DatabaseMethods.cs" />
     <Compile Include="Modal\DenominationModel.cs" />
-    <Compile Include="Modal\DetailsForCustomerVerification.cs" />
+    <Compile Include="Modal\GuarantorDetailsForVerification.cs" />
     <Compile Include="Modal\GenerateCustomerId.cs" />
     <Compile Include="Modal\Guarantor.cs" />
     <Compile Include="Modal\HimarkResult.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="Modal\LoanProcess.cs" />
     <Compile Include="Modal\LoginDetails.cs" />
     <Compile Include="Modal\Nominee.cs" />
+    <Compile Include="Modal\NomineeDetailsForVerification.cs" />
     <Compile Include="Modal\Notification.cs" />
     <Compile Include="Modal\OfficerModal.cs" />
     <Compile Include="Modal\PeerGroup.cs" />

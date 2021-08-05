@@ -10,7 +10,7 @@ using MicroFinance.Validations;
 
 namespace MicroFinance.Modal
 {
-    public class Nominee:BindableBase
+    public class Nominee:NomineeDetailsForVerification
     {
         public string _customerId { get; set; }
 
@@ -305,33 +305,78 @@ namespace MicroFinance.Modal
 
         public void AddNomineeDetails()
         {
+            InsertGuarantorDetails();
+            if (AddressProof != null)
+            {
+                AddGuarantorAddressProof();
+            }
+            if (PhotoProof != null)
+            {
+                AddGuarantorPhotoProof();
+            }
+            if (ProfilePicture != null)
+            {
+                AddGuarantorProfilePhoto();
+            }
+        }
+
+        void InsertGuarantorDetails()
+        {
             string Address = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" + City + "|~" + State;
             bool _isAddressProof = false;
             bool _isPhotoProof = false;
             bool _isProfilePhoto = false;
-            if (AddressProof != null)
-            {
-                _isAddressProof = true;
-            }
-            if (PhotoProof != null)
-            {
-                _isPhotoProof = true;
-            }
-            if (ProfilePicture != null)
-            {
-                _isProfilePhoto = true;
-            }
+
             using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
             {
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "insert into NomineeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,AddressProofName,PhotoProofName,IsAddressProof,IsPhotoProof,IsProfilePhoto,AddressProof,PhotoProof,ProfilePhoto,Gender) values('" + _customerId + "','" + NomineeName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Occupation + "','" + RelationShip + "','" + Address + "','" + Pincode + "','" + NameofAddressProof + "','" + NameofPhotoProof + "','" + _isAddressProof + "','" + _isPhotoProof + "','" + _isProfilePhoto + "',@addressproof,@photoproof,@profileproof,'"+Gender+"')";
-                sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(AddressProof));
-                sqlCommand.Parameters.AddWithValue("@photoproof", Convertion(PhotoProof));
-                sqlCommand.Parameters.AddWithValue("@profileproof", Convertion(ProfilePicture));
+                sqlCommand.CommandText = "insert into GuarenteeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,IsAddressProof,IsPhotoProof,IsProfilePhoto,Gender) values('" + _customerId + "','" + NomineeName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Occupation + "','" + RelationShip + "','" + Address + "','" + Pincode + "','" + _isAddressProof + "','" + _isPhotoProof + "','" + _isProfilePhoto + "','" + Gender + "')";
+
                 sqlCommand.ExecuteNonQuery();
-                sqlCommand.CommandText = "update CustomerDetails set NomineeStatus = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.CommandText = "update CustomerDetails set GuarenteeStatus = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.ExecuteNonQuery();
+
+            }
+        }
+        void AddGuarantorAddressProof()
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "update NomineeDetails set AddressProof = @addressProof, IsAddressProof = 'True',AddressProofName='" + NameofAddressProof + "' where CustId = '" + _customerId + "'";
+                sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(AddressProof));
+                sqlCommand.ExecuteNonQuery();
+
+            }
+        }
+
+        void AddGuarantorPhotoProof()
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "update NomineeDetails set PhotoProof = @photoproof, IsPhotoProof = 'True',PhotoProofName='" + NameofPhotoProof + "' where CustId = '" + _customerId + "'";
+                sqlCommand.Parameters.AddWithValue("@photoproof", Convertion(PhotoProof));
+                sqlCommand.ExecuteNonQuery();
+
+            }
+        }
+
+        void AddGuarantorProfilePhoto()
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "update NomineeDetails set ProfilePhoto = @photoproof, IsProfilePhoto = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.Parameters.AddWithValue("@profileproof", Convertion(ProfilePicture));
                 sqlCommand.ExecuteNonQuery();
 
             }
@@ -360,12 +405,22 @@ namespace MicroFinance.Modal
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "update NomineeDetails set Name='" + NomineeName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Occupation='" + Occupation + "',RelationShip='" + RelationShip + "',Address='" + Address + "',Pincode='" + Pincode + "',AddressProofName='" + NameofAddressProof + "',PhotoProofName='" + NameofPhotoProof + "',IsAddressProof='" + _isAddressProof + "',IsPhotoProof='" + _isPhotoProof + "',IsProfilePhoto='" + _isProfilePhoto + "',AddressProof=@addressproof,PhotoProof=@photoproof,ProfilePhoto=@profileproof,Gender='"+Gender+"' where CustId='"+_customerId+"'";
-                sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(AddressProof));
-                sqlCommand.Parameters.AddWithValue("@photoproof", Convertion(PhotoProof));
-                sqlCommand.Parameters.AddWithValue("@profileproof", Convertion(ProfilePicture));
+                sqlCommand.CommandText = "update NomineeDetails set Name='" + NomineeName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Occupation='" + Occupation + "',RelationShip='" + RelationShip + "',Address='" + Address + "',Pincode='" + Pincode + "',Gender='"+Gender+"' where CustId='"+_customerId+"'";
                 sqlCommand.ExecuteNonQuery();
             }
+            if (AddressProof != null)
+            {
+                AddGuarantorAddressProof();
+            }
+            if (PhotoProof != null)
+            {
+                AddGuarantorPhotoProof();
+            }
+            if (ProfilePicture != null)
+            {
+                AddGuarantorProfilePhoto();
+            }
+
         }
 
         public void GetNomineeDetails()

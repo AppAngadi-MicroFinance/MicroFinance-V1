@@ -713,6 +713,11 @@
                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,30,0"/>
                         <ComboBox x:Name="LoanAmountcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" SelectedValue="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="180">
+                            <ComboBoxItem Content="10000"/>
+                            <ComboBoxItem Content="15000"/>
+                            <ComboBoxItem Content="20000"/>
+                            <ComboBoxItem Content="25000"/>
+                            <ComboBoxItem Content="30000"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
@@ -938,7 +943,7 @@
                                 </TextBox.Text>
                             </TextBox>
                         </Grid>
-                        <Grid x:Name="GuarantorOtherDetailsGrid" Grid.Row="1">
+                        <Grid x:Name="GuarantorOtherDetailsGrid" Grid.Row="1" Visibility="Collapsed">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10"/>
                                 <RowDefinition Height="30"/>
@@ -1317,7 +1322,7 @@
                             </StackPanel>
                             <TextBox x:Name="NomineeStateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="NomineeStateBox_TextChanged"/>
                         </Grid>
-                        <Grid Grid.Row="1" x:Name="NomineeOtherDetails">
+                        <Grid Grid.Row="1" x:Name="NomineeOtherDetails" Visibility="Collapsed">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10"/>
                                 <RowDefinition Height="30"/>
