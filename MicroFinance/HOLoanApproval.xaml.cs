@@ -119,5 +119,10 @@ namespace MicroFinance
                 }
             }
         }
+
+        private void Generate_NEFTBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
