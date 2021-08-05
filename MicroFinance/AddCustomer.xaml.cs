@@ -28,6 +28,7 @@ namespace MicroFinance
         public static Guarantor guarantor = new Guarantor();
         public static Nominee nominee = new Nominee();
         public static StaticProperty CaptureImageMessage = new StaticProperty();
+        public static LoanDetails Loan = new LoanDetails();
 
         string WhichClassButtonClick;
         public AddCustomer()
@@ -164,6 +165,9 @@ namespace MicroFinance
             NomineeAddressDetails.DataContext = nominee;
             NomineeOtherDetails.DataContext = nominee;
             NomineeDetails.DataContext = nominee;
+
+
+            LoanRequestPanel.DataContext = customer;
         }
         string CustomerId;
         public AddCustomer(string CustomerID)
@@ -1976,6 +1980,11 @@ namespace MicroFinance
             {
                 aadharErrorCheck.Visibility = Visibility.Visible;
             }
+        }
+
+        private void HusbandBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

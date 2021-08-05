@@ -28,9 +28,11 @@ namespace MicroFinance
         string _shgName;
         string _pgName;
 
-        public CustomerVerified(string CustId)
+        public CustomerVerified(string CustId,int status)
         {
             InitializeComponent();
+
+            CustomerStatus = status;
 
             customerNamegrid.DataContext = customer;
             Guarantorgrid.DataContext = guarantor;
@@ -45,9 +47,11 @@ namespace MicroFinance
             _shgName = SHGName;
             _pgName = PG;
 
-            Cs.GetAllDetailsofCustomers();
-            Gu.GetGuranteeDetails();
-            No.GetNomineeDetails();
+            //Cs.GetAllDetailsofCustomers();
+            //Gu.GetGuranteeDetails();
+            //No.GetNomineeDetails();
+
+
             customer = Cs;
             guarantor = Gu;
             nominee = No;
@@ -75,8 +79,18 @@ namespace MicroFinance
             {
                 DocumentPanel.Visibility = Visibility.Collapsed;
             }
+            else if(CustomerStatus==1)
+            {
+                MainGrid.IsEnabled = false;
+                DocumentPanel.Visibility = Visibility.Collapsed;
+            }
+            else if(CustomerStatus==2)
+            {
+                DocumentPanel.Visibility = Visibility.Visible;
+            }
             else
             {
+                MainGrid.IsEnabled = false;
                 DocumentPanel.Visibility = Visibility.Visible;
             }
         }
@@ -866,6 +880,10 @@ namespace MicroFinance
                     MainWindow.StatusMessageofPage(1, "Ready...");
                 }
                 else if(CustomerStatus==2)
+                {
+
+                }
+                else
                 {
 
                 }

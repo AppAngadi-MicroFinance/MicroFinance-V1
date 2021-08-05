@@ -374,7 +374,7 @@ namespace MicroFinance.Reports
                 SqlDataReader dataReader = cmd.ExecuteReader();
                 while(dataReader.Read())
                 {
-                    CusID.Add();
+                    //CusID.Add();
                 }
 
             }
