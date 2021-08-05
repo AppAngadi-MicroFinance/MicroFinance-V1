@@ -241,7 +241,7 @@ namespace MicroFinance.Modal
                         Name = _name,
                         EligibleLoanAmount = _eligibleAmount,
                         Status = _status,
-                        Remark = _remark,
+                        HiMarkRemark = _remark,
                         ActiveUnsecureLoan = _activeUnsecureLoan,
                         ActiveUnsecureLoanin6Months = _activeunsecureloan6months,
                         OutstandingAmount = _outstandingamount,

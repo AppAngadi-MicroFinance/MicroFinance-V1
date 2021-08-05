@@ -99,8 +99,9 @@
         
         
         <!--Section D-->         <!--Loan Recomendation | Notification-->
-        <Grid Width="400" Height="170" Margin="0,0,130,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <Grid Width="500" Height="170" Margin="0,0,130,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -117,6 +118,7 @@
                 </Border.Effect>
                 <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
             </Border>
+            <Button x:Name="LoanDesposment" Content="Loan Disposment" Grid.Column="2" Style="{StaticResource SecondaryBtn}" Width="150" Click="LoanDesposment_Click"></Button>
         </Grid>
 
 
