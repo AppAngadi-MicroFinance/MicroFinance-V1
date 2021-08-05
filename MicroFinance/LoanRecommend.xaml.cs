@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace MicroFinance
     public partial class LoanRecommend : Page
     {
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
-        public List<LoanProcess> loanDetails = new List<LoanProcess>();
+        public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
         public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
         LoanProcess loanProcess = new LoanProcess();
@@ -32,13 +33,20 @@ namespace MicroFinance
             InitializeComponent();
             //AddList();
             //RequestedListBoxNew.ItemsSource = dummylist;
-            loanProcess.GetRequestList(LoginBranchID);
-            loanDetails=loanProcess.RequestList;
-            Custlist.ItemsSource = loanDetails;
+            loanProcess.GetRecommendList(LoginBranchID);
+            loanDetails = loanProcess.RecommendList;
+            LoadCustData();
             setCount();
             SelectedCustomersView.ItemsSource = RecommenedList;
         }
-
+        public void LoadCustData()
+        {
+            Custlist.Items.Clear();
+            foreach(LoanProcess lp in loanDetails)
+            {
+                Custlist.Items.Add(lp);
+            }
+        }
         //private void Custlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
         //    Cust SelectedCustomer = Custlist.SelectedItem as Cust;
@@ -91,13 +99,29 @@ namespace MicroFinance
             }
             else
             {
+                Custlist.Items.Refresh();
+                SelectedCustomersView.Items.Refresh();
                 loanProcess.RecommendLoan(ID);
                 AddtoRecommendList(ID);
-                SelectedCustomersView.Items.Refresh();
+                //RemoveItemFromList(ID);
+                LoadCustData();
+               
+
                 MainWindow.StatusMessageofPage(1, "loan Recommend Successfully...");
 
             }
             
+        }
+
+        void RemoveItemFromList(string ID)
+        {
+            foreach(LoanProcess lp in loanDetails)
+            {
+                if(lp.LoanRequestID.Equals(ID))
+                {
+                    loanDetails.Remove(lp);
+                }
+            }
         }
 
 

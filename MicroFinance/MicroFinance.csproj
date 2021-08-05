@@ -153,6 +153,9 @@
     <Compile Include="HimarkResultData.xaml.cs">
       <DependentUpon>HimarkResultData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HOLoanApproval.xaml.cs">
+      <DependentUpon>HOLoanApproval.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoanAfterHimark.xaml.cs">
       <DependentUpon>LoanAfterHimark.xaml</DependentUpon>
     </Compile>
@@ -287,6 +290,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="HimarkResultData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HOLoanApproval.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

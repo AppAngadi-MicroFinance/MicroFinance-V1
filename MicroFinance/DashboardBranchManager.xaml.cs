@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace MicroFinance
         Branch branch = new Branch();
         string BranchId = "01202107002";
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
-        public List<LoanProcess> loanDetails = new List<LoanProcess>();
+        public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
         public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
         LoanProcess loanProcess = new LoanProcess();
@@ -120,7 +121,7 @@ namespace MicroFinance
                 himarkReport = new HiMark();
                 himarkReport.hiMarksList = Himarklist;
                 himarkReport.createHimarkXls();
-                MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: D:\\");
+                MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: Doucuments\\Reports\\Hi-Mark Report");
             }
             catch
             {

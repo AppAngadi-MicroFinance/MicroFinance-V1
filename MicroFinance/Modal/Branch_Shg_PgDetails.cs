@@ -40,7 +40,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select RegionName from BranchDetails where Bid = (select Bid from BranchEmployees where Empid = '" + EmpId + "')";
+                sqlCommand.CommandText = "select RegionName from BranchDetails where Bid = (select Bid from EmployeeBranch where Empid = '"+EmpId+"')";
                 RegionName = sqlCommand.ExecuteScalar().ToString();
             }
             return RegionName;
@@ -53,7 +53,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select BranchName from BranchDetails where Bid = (select Bid from BranchEmployees where Empid = '" + EmpId + "')";
+                sqlCommand.CommandText = "select BranchName from BranchDetails where Bid = (select Bid from EmployeeBranch where Empid = '" + EmpId + "')";
                 Name = sqlCommand.ExecuteScalar().ToString();
             }
             return Name;
@@ -71,6 +71,20 @@ namespace MicroFinance.Modal
             }
             return Name;
         }
+
+        public string GetBranchID()
+        {
+            string ID = "";
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                sqlConnection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "select BranchID from EmployeeBranch where EmpId='"+EmpId+"'";
+                ID = sqlCommand.ExecuteScalar().ToString();
+            }
+            return ID;
+        }
         public List<string> GetSelfHelpGroup()
         {
             List<String> SHG = new List<string>();
@@ -80,7 +94,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select distinct SHGName from SelfHelpGroup where EmpId='" + EmpId + "'";
+                sqlCommand.CommandText = "select SHGName from SelfHelpGroup where SHGId in(select SHGId from TimeTable where EmpId='"+EmpId+"')";
                 SqlDataReader dataReader = sqlCommand.ExecuteReader();
                 while(dataReader.Read())
                 {
@@ -98,7 +112,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select PeerGroup.PeerGroupName from PeerGroup join SelfHelpGroup on PeerGroup.PGId = SelfHelpGroup.PGId where SHGName = '"+SHGName+"'";
+                sqlCommand.CommandText = "select GroupID from PeerGroup where SHGid=(select distinct SHGId from SelfHelpGroup where SHGName='"+SHGName+"' and BranchId='"+GetBranchID()+"')";
                 SqlDataReader dataReader = sqlCommand.ExecuteReader();
                 while (dataReader.Read())
                 {

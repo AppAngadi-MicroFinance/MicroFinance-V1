@@ -29,7 +29,7 @@ namespace MicroFinance
 
         Branch_Shg_PgDetails GetDetails = new Branch_Shg_PgDetails();
         LoanDetails loanRequest = new LoanDetails();
-        List<int> Months = new List<int> { 12, 24, 36, 48 };
+        List<int> Months = new List<int> { 25,50,100 };
         List<int> Amountlist = new List<int> { 10000, 15000, 20000, 30000 };
         List<string> SelfHelpGroups = new List<string>();
         List<string> PeerGroups = new List<string>();
@@ -105,7 +105,7 @@ namespace MicroFinance
                     sql.Open();
                     SqlCommand command = new SqlCommand();
                     command.Connection = sql;
-                    command.CommandText = "select CustId from CustomerGroup where BranchId=(select BId from BranchDetails where BranchName='" + _branchName + "' and RegionName='" + _regionName + "') and SelfHelpGroup='" + _selfHelpGroup + "' and PeerGroup='" + _peerGroup + "'";
+                    command.CommandText = "select CustId from CutomerGroup where PeerGroupId='"+_peerGroup+"'";
                     SqlDataReader sqlData = command.ExecuteReader();
                     while (sqlData.Read())
                     {
@@ -118,8 +118,9 @@ namespace MicroFinance
                     List<string> ActiveAndEligibleCustomerId = new List<string>();
                     foreach(string id in CustomerIds)
                     {
-                        command.CommandText = "select count(CustId) from CustomerDetails where CustomerDetails.CustId='" + id + "' and CustomerDetails.CustomerStatus='3' and (select count(LoanDisposement.Active) from LoanDisposement where LoanDisposement.CustID='" + id + "')<2";
-                        if((int)command.ExecuteScalar()>0)
+                        command.CommandText = "(select Count(CustomerID) from LoanDetails where IsActive='1' and CustomerID='"+id+"')";
+                        int Count =(int) command.ExecuteScalar();
+                        if(Count<2)
                         {
                             ActiveAndEligibleCustomerId.Add(id);
                         }
@@ -135,7 +136,7 @@ namespace MicroFinance
                     BitmapImage _profilePhoto;
                     foreach (string item in ActiveAndEligibleCustomerId)
                     {
-                        command.CommandText = "select CustomerDetails.Name,CustomerDetails.Age,CustomerDetails.ProfilePhoto,GuarenteeDetails.Name,NomineeDetails.Name,CustomerGroup.IsLeader from CustomerDetails join GuarenteeDetails on CustomerDetails.CustId = GuarenteeDetails.CustId join NomineeDetails on CustomerDetails.CustId = NomineeDetails.CustId join CustomerGroup on CustomerDetails.CustId = CustomerGroup.CustId where CustomerDetails.CustId = '" + item + "'";
+                        command.CommandText = "select a.Name,a.Age,a.ProfilePhoto,b.IsLeader,c.Name,d.Name from (select Name,Age,ProfilePhoto,CustId from  CustomerDetails where CustId='" + item + "') as a join (select isleader,CustId from CutomerGroup where CustId='" + item+ "') as b on a.CustId=b.CustId join (select Name,CustId from GuarenteeDetails where CustId='" + item + "') as c on a.CustId=c.CustId join (select Name,CustId from NomineeDetails where CustId='" + item + "') as d on a.CustId=d.CustId";
                         sqlData = command.ExecuteReader();
                         while (sqlData.Read())
                         {
@@ -143,9 +144,10 @@ namespace MicroFinance
                             _customerName = sqlData.GetString(0);
                             _age = sqlData.GetInt32(1);
                             _profilePhoto = ByteToBI((byte[])sqlData.GetValue(2));
-                            _guarantorName = sqlData.GetString(3);
-                            _nomineeName = sqlData.GetString(4);
-                            _isleader = sqlData.GetBoolean(5);
+                            _isleader = sqlData.GetBoolean(3);
+                            _guarantorName = sqlData.GetString(4);
+                            _nomineeName = sqlData.GetString(5);
+                            
                             MembersList.Add(new GroupMembers { CustomerID=_customerID, CustomerName = _customerName, Age = _age, ProfilePhoto = _profilePhoto, GuarantorName = _guarantorName, NomineeName = _nomineeName, IsLeader = _isleader, PendingStatus = "Week 9", PendingAmount = 1200 });
                         }
                         sqlData.Close();

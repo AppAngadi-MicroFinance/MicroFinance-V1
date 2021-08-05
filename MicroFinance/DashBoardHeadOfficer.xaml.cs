@@ -172,5 +172,10 @@ namespace MicroFinance
             Employee selectedEmployee = EmployeeList.SelectedValue as Employee;
             this.NavigationService.Navigate(new AddEmployee(selectedEmployee));
         }
+
+        private void LoanDesposment_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new HOLoanApproval());
+        }
     }
 }
