@@ -89,28 +89,30 @@
             <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
                 <Grid HorizontalAlignment="Left" x:Name="CustDetailsInputs">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="10"/>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="10"/>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="10"/>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="10"/>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="10"/>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="10"/>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="10"/>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="10"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="5"/>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="35"/>
                         <RowDefinition Height="5"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="35"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"/>
@@ -161,7 +163,12 @@
                         <TextBlock x:Name="CustMotherError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
                     <TextBox x:Name="MotherNameBox" Style="{StaticResource Textbox}" Grid.Row="7" Grid.Column="2" Text="{Binding MotherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="MotherNameBox_TextChanged"/>
-                    <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1">
+                        <TextBlock Text="Husband/Guardian" FontWeight="Medium" FontSize="14" Style="{StaticResource Regular}" Grid.Row="7" Grid.Column="1"/>
+                        <TextBlock x:Name="CustHusbandError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
+                    </StackPanel>
+                    <TextBox x:Name="HusbandBox" Style="{StaticResource Textbox}" Grid.Row="9" Grid.Column="2" Text="{Binding HusbandName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="HusbandBox_TextChanged"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Contact Number" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}" Margin="0,0,15,0"/>
                             <TextBlock x:Name="CustContactError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-15,0,0,0"/>
@@ -182,7 +189,7 @@
                             <ComboBoxItem Content="Christian"/>
                         </ComboBox>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Caste" Style="{StaticResource Regular}" Margin="0,0,93,0"/>
                             <TextBlock x:Name="CustCasteError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-93,0,0,0"/>
@@ -196,11 +203,11 @@
                         <TextBox x:Name="CommunityBox"  VerticalAlignment="Center" Width="120" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding Community,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" TextChanged="CommunityBox_TextChanged"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Grid.Row="15" Grid.Column="1">
                         <TextBlock Text="Education" Grid.Column="1" Grid.Row="13" Style="{StaticResource Regular}"/>
                         <TextBlock x:Name="CustEducationError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="EducatinBox" Grid.Row="13" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="EducatinBox_TextChanged">
+                    <TextBox x:Name="EducatinBox" Grid.Row="15" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="EducatinBox_TextChanged">
                         <TextBox.Text>
                             <Binding Path="Education" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -208,7 +215,7 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <StackPanel Orientation="Horizontal" Grid.Row="15" Grid.Column="1" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Family Members" Style="{StaticResource Regular}" Margin="0,0,15,0"/>
                             <TextBlock x:Name="CustFamilyMemberError" Visibility="Collapsed" Style="{StaticResource ErrorStar}" Margin="-15,0,0,0"/>
@@ -233,11 +240,11 @@
                     </StackPanel>
 
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="17" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Grid.Row="19" Grid.Column="1">
                         <TextBlock Text="Occupation" Grid.Column="1" Grid.Row="17" Style="{StaticResource Regular}"/>
                         <TextBlock x:Name="CustOccupationError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="OccupationBox" Grid.Row="17" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="OccupationBox_TextChanged">
+                    <TextBox x:Name="OccupationBox" Grid.Row="19" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="OccupationBox_TextChanged">
                         <TextBox.Text>
                             <Binding Path="Occupation" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 <Binding.ValidationRules>
@@ -245,7 +252,7 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <StackPanel Orientation="Horizontal" Grid.Row="19" Grid.Column="1" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal" Grid.Row="21" Grid.Column="1" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Montyly Income"  Style="{StaticResource Regular}" Margin="0,0,15,0"/>
                             <TextBlock x:Name="CustMonthlyIncomeError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-15,0,0,0"/>
@@ -263,7 +270,7 @@
                             <TextBlock Text="Montyly Expenses"  Style="{StaticResource Regular}" Margin="10,0,15,0"/>
                             <TextBlock x:Name="CustMonthlyExpensesError" Style="{StaticResource ErrorStar}" Margin="-15,0,0,0" Visibility="Collapsed"/>
                         </StackPanel>
-                        <TextBox x:Name="MonthlyExpensesBox" Grid.Row="19" Grid.Column="2" VerticalAlignment="Center" Width="100" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="MonthlyExpensesBox_TextChanged">
+                        <TextBox x:Name="MonthlyExpensesBox" Grid.Row="21" Grid.Column="2" VerticalAlignment="Center" Width="100" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="MonthlyExpensesBox_TextChanged">
                             <TextBox.Text>
                                 <Binding Path="MothlyExpenses" UpdateSourceTrigger="LostFocus" Mode="TwoWay">
                                     <Binding.Converter>
@@ -276,7 +283,7 @@
                             </TextBox.Text>
                         </TextBox>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="21" Grid.Column="1" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal" Grid.Row="23" Grid.Column="1" Grid.ColumnSpan="2">
                         <TextBlock Text="Family Yearly Income" Style="{StaticResource Regular}" Grid.Row="21" Grid.Column="1" Grid.ColumnSpan="2"/>
                         <TextBox x:Name="FamilyYearIncomeBox" Style="{StaticResource InputBox}" Margin="30,0,30,0" Width="150"/>
                     </StackPanel>
@@ -712,7 +719,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,30,0"/>
-                        <ComboBox x:Name="LoanAmountcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" SelectedValue="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="180">
+                        <ComboBox x:Name="LoanAmountcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="180">
                             <ComboBoxItem Content="10000"/>
                             <ComboBoxItem Content="15000"/>
                             <ComboBoxItem Content="20000"/>
@@ -722,16 +729,16 @@
                     </StackPanel>
                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Time Period" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,45,0"/>
-                        <ComboBox x:Name="TimePeriodcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Width="180" >
-                            <ComboBoxItem Content="25 Weeks"/>
-                            <ComboBoxItem Content="50 Weeks"/>
-                            <ComboBoxItem Content="75 Weeks"/>
-                            <ComboBoxItem Content="100 Weeks"/>
+                        <ComboBox x:Name="TimePeriodcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Width="180" Text="{Binding LoanPeriod,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem Content="25"/>
+                            <ComboBoxItem Content="50"/>
+                            <ComboBoxItem Content="75"/>
+                            <ComboBoxItem Content="100"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Loan Purpose" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,35,0"/>
-                        <TextBox Style="{StaticResource InputBox}" Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Black" Width="180" HorizontalAlignment="Left"></TextBox>
+                        <TextBox Style="{StaticResource InputBox}" Text="{Binding  LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Black" Width="180" HorizontalAlignment="Left"></TextBox>
                     </StackPanel>
                 </Grid>
             </Border>

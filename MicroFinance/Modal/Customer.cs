@@ -700,7 +700,11 @@ namespace MicroFinance.Modal
             {
                 AddAadharNumber();
             }
-            CheckAndChangeStatus();
+            EmployeeID = MainWindow.LoginDesignation.EmpId;
+            CustomerID = _customerId;
+            BranchID = MainWindow.LoginDesignation.BranchId;
+            SendRequest(Region, BranchName);
+            //CheckAndChangeStatus();
 
         }
         void AddBankDetails()
@@ -812,7 +816,7 @@ namespace MicroFinance.Modal
                 
                 sqlCommand.Parameters.AddWithValue("@guarenteeStatus",false);
 
-                sqlCommand.Parameters.AddWithValue("@nomineeStatus",false); sqlCommand.Parameters.AddWithValue("@customerStatus",0);
+                sqlCommand.Parameters.AddWithValue("@nomineeStatus",false); sqlCommand.Parameters.AddWithValue("@customerStatus",1);
                 sqlCommand.Parameters.AddWithValue("@isActive",true);
 
                 if (sqlCommand.ExecuteNonQuery() == 1)
