@@ -80,10 +80,8 @@
                 <Border BorderBrush="Black" BorderThickness="1" Background="AliceBlue" Grid.Column="0" >
                     <TextBlock Text="S.No." Grid.Column="0" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium"/>
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="1" Background="AliceBlue" Grid.Column="1" >
-                    <TextBlock Text="Group Name" Grid.Column="1" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium"/>
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="1" Background="AliceBlue" Grid.Column="2" >
+                
+                <Border BorderBrush="Black" BorderThickness="1" Background="AliceBlue" Grid.Column="1" Grid.ColumnSpan="2">
                     <TextBlock Text="Customer Name" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium"/>
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="1" Background="AliceBlue" Grid.Column="3" >
@@ -137,25 +135,25 @@
                                         <TextBlock Text="{Binding GroupName}" Grid.Column="1" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1"  Grid.Column="2" >
-                                        <TextBlock Text="{Binding Name}" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium"/>
+                                        <TextBlock Text="{Binding CustomerName}" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1"  Grid.Column="3" >
                                         <TextBlock Text="{Binding LoanType}" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="Medium"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1" Grid.Column="4" >
-                                        <TextBox Background="Transparent" Text="{Binding Principal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Height="40" Style="{StaticResource Textbox}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        <TextBox x:Name="xPrincipal" TextChanged="xPrincipal_TextChanged" Text="{Binding Principal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Height="40" Style="{StaticResource InputBox}" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1"  Grid.Column="5" >
-                                        <TextBox Background="Transparent"  Text="{Binding Interest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Height="40" Style="{StaticResource Textbox}" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center"/>
+                                        <TextBox x:Name="xInterest" TextChanged="xInterest_TextChanged" Text="{Binding Interest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Height="40" Style="{StaticResource InputBox}" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextAlignment="Center"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1" Grid.Column="6" >
                                         <TextBox Text="{Binding Security,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Height="40" Style="{StaticResource  InputBox}" HorizontalContentAlignment="Center"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1"  Grid.Column="7" >
-                                        <TextBox Background="Transparent" IsReadOnly="True" Text="{Binding Total,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Height="40" Width="120" HorizontalContentAlignment="Center" Style="{StaticResource Textbox}" HorizontalAlignment="Center" FontWeight="Medium" TextChanged="TextBox_TextChanged"/>
+                                        <TextBox x:Name="xTotal" TextChanged="xTotal_TextChanged" Text="{Binding Total ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C0,ConverterCulture=hi-IN}" Height="40" Width="120" HorizontalContentAlignment="Center" Style="{StaticResource Textbox}" HorizontalAlignment="Center" FontWeight="Medium"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1" Grid.Column="8">
-                                        <TextBox Text="{Binding NOOfPayment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="40" Width="50" HorizontalAlignment="Center" Style="{StaticResource Textbox}" HorizontalContentAlignment="Center" FontWeight="Medium"/>
+                                        <TextBox Text="{Binding PaymentCount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="40" Width="50" HorizontalAlignment="Center" Style="{StaticResource Textbox}" HorizontalContentAlignment="Center" FontWeight="Medium"/>
                                     </Border>
                                     <Border BorderBrush="Black" BorderThickness="1"  Grid.Column="9" >
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -242,7 +240,7 @@
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
                     <StackPanel>
-                        <Button x:Name="AddDenomination" Content="Add Denomination" IsEnabled="False" Style="{StaticResource SecondaryBtn}" Width="140" Click="AddDenomination_Click"/>
+                        <Button x:Name="AddDenomination" Content="Add Denomination" IsEnabled="True" Style="{StaticResource SecondaryBtn}" Width="140" Click="AddDenomination_Click"/>
                         <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
                             <Button x:Name="Cancel" Content="Cancel" Style="{ StaticResource CancelBtn}" Click="Cancel_Click"/>
                             <Button x:Name="SaveCollection" Content="Save" Style="{StaticResource PrimaryBtn}" Margin="15,0,0,0" Click="SaveCollection_Click" IsEnabled="False"/>

@@ -37,7 +37,7 @@
                 <Grid>
                     <Button x:Name="xRecommendCustomer" Click="xRecommendCustome_Click" Style="{StaticResource NavigatePendingCustomer}"></Button>
                     <Border x:Name="xNotificationBatch" Margin="0,-10,-10,0" Style="{StaticResource NotifyCount}" Width="25" Height="25" Grid.ColumnSpan="2">
-                        <TextBlock x:Name="xCustApprovalsCount" Style="{StaticResource NotifyText}" Text="12" FontSize="14"></TextBlock>
+                        <TextBlock x:Name="xCustApprovalsCount" Style="{StaticResource NotifyText}" Text="0" FontSize="14"></TextBlock>
                     </Border>
                 </Grid>
             </Border>
