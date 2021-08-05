@@ -337,31 +337,39 @@ namespace MicroFinance.Reports
             }
         }
 
+        double DoucumentationCharge = 2;
 
-        public void FillNEFT(Worksheet xlWorkSheet, List<NEFT> Neft)
+        public void FillNEFT(Worksheet xlWorkSheet, List<LoanProcess> loans)
         {
             int i = 1;
             int RowStart = 2;
-            foreach (NEFT x in Neft)
+            foreach (LoanProcess x in loans)
             {
+                // Gtrust Account Details
                 xlWorkSheet.Cells[RowStart, 1] = i;
-                xlWorkSheet.Cells[RowStart, 2] = x.RemitterAccNo;
-                xlWorkSheet.Cells[RowStart, 3] = x.RemitterName;
-                xlWorkSheet.Cells[RowStart, 4] = x.RemitterAddress;
-                xlWorkSheet.Cells[RowStart, 5] = x.BenificiaryAcc;
-                xlWorkSheet.Cells[RowStart, 6] = x.BenificiaryName;
-                xlWorkSheet.Cells[RowStart, 7] = x.BenificiaryAddress;
-                xlWorkSheet.Cells[RowStart, 8] = x.BenificiaryIFSC;
-                xlWorkSheet.Cells[RowStart, 9] = x.RecieverCode;
-                xlWorkSheet.Cells[RowStart, 10] = x.RemitterEmail;
-                xlWorkSheet.Cells[RowStart, 11] = x.RefNo;
-                xlWorkSheet.Cells[RowStart, 12] = x.Amount;
+                xlWorkSheet.Cells[RowStart, 2] = RemitterAccNo;
+                xlWorkSheet.Cells[RowStart, 3] = RemitterName;
+                xlWorkSheet.Cells[RowStart, 4] = RemitterAddress;
+
+                //Customer Account Detials
+                xlWorkSheet.Cells[RowStart, 5] = x.AccountNumber;
+                xlWorkSheet.Cells[RowStart, 6] = x.AccountHolder;
+                xlWorkSheet.Cells[RowStart, 7] = x.DoorNumber + "," + x.StreetName+x.City+","+x.State;
+                xlWorkSheet.Cells[RowStart, 8] = x.IFSCCode;
+                xlWorkSheet.Cells[RowStart, 9] =  "Fast";
+                xlWorkSheet.Cells[RowStart, 10] = "gtrust@gmail.com";
+                xlWorkSheet.Cells[RowStart, 11] = RefNo;
+                xlWorkSheet.Cells[RowStart, 12] = x.LoanAmount;
                 RowStart++;
                 i++;
             }
         }
 
 
+        public double NetAmountCal(int amount,double Doc_Charge,int insurence,double Ins_Charge)
+        {
+            return (amount - (amount * Doc_Charge / 100) - (insurence * Ins_Charge / 100)) - insurence;
+        }
         public static void Cusid()
         {
             SqlConnection sqlcon = new SqlConnection(MicroFinance.Properties.Settings.Default.db);

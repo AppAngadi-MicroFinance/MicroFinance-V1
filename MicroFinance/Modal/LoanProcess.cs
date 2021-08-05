@@ -13,7 +13,7 @@ namespace MicroFinance.Modal
     {
         public ObservableCollection<LoanProcess> RequestList = new ObservableCollection<LoanProcess>();
         public ObservableCollection<LoanProcess> RecommendList = new ObservableCollection<LoanProcess>();
-        public ObservableCollection<LoanProcess> LoanProcessList = new ObservableCollection<LoanProcess>();
+        public List<LoanProcess> LoanProcessList = new List<LoanProcess>();
         private string[] _guaranterDetails = new string[2];
         //string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
 
@@ -161,8 +161,8 @@ namespace MicroFinance.Modal
                                     State = _fullAdress[8],
                                     Pincode = reader.GetInt32(19),
                                     HousingType = reader.GetString(20),
-                                    NameofAddressProof = reader.GetString(21),
-                                    NameofPhotoProof = reader.GetString(22),
+                                    NameofAddressProof = (DBNull.Value.Equals(reader.GetString(21))?null:reader.GetString(21)),
+                                    NameofPhotoProof =(DBNull.Value.Equals(reader.GetString(22))?null:reader.GetString(22)),
                                     AccountHolder = reader.GetString(26),
                                     AccountNumber = reader.GetString(27),
                                     BankBranchName = reader.GetString(28),
@@ -177,11 +177,10 @@ namespace MicroFinance.Modal
                                     LoanPeriod = reader.GetInt32(37),
                                     LoanPurpose = reader.GetString(38),
                                     EnrollDate = reader.GetDateTime(39),
+                                    LoanStatus=reader.GetInt32(40),
                                     EmployeeID = reader.GetString(41),
                                     BranchID = reader.GetString(42),
                                     BankName=reader.GetString(43)
-
-
                                 }) ;
 
                         }
@@ -465,8 +464,6 @@ namespace MicroFinance.Modal
                 }
             }
         }
-
-
         public void ApproveLoan(string ID)
         {
             GetRequestDetails(ID);
@@ -504,7 +501,6 @@ namespace MicroFinance.Modal
                 }
             }
         }
-
         public int InstallmentWeek(int month)
         {
             int Result = 0;

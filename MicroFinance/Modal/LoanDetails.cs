@@ -143,6 +143,19 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("ApprovedBy");
             }
         }
+        private int _loanstatus;
+        public int LoanStatus
+        {
+            get
+            {
+                return _loanstatus;
+            }
+            set
+            {
+                _loanstatus = value;
+                RaisedPropertyChanged("LoanStatus");
+            }
+        }
         private string _branchId;
         public string BranchID
         {
