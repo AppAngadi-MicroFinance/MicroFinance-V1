@@ -29,6 +29,8 @@ namespace MicroFinance
         List<DailyCollection> DailyCollectionsDetails = new List<DailyCollection>();
 
 
+        List<string> ActiveLoanList = new List<string>();
+        List<CollectionDetails> LoanCollectionDetailList = new List<CollectionDetails>();
         public CollectionEntry(String BranchName,String SelfHelpGroupName,String Date,String Day)
         {
             InitializeComponent();
@@ -36,15 +38,127 @@ namespace MicroFinance
             CenterBlck.Text = SelfHelpGroupName;
             DateBlck.Text = Date;
             DayBlck.Text = Day;
+
             GroupNameUnderShg(SelfHelpGroupName);
-            GetActiveCustomers(SelfHelpGroupName);
-            GetLoanDetails();
-            CollectionDetails();
-            CollectionList.ItemsSource = DailyCollectionsDetails;
-            GetTotalEachGroup();
-            if(DailyCollectionsDetails.Count>0)
+
+            foreach(string item in GroupNames)
             {
-                AddDenomination.IsEnabled = true;
+                GetActiveLoanIdForGroupId(item);
+                foreach (string loanId in ActiveLoanList)
+                {
+                    LoanCollectionDetailList.Add(LoadLoanDetails(loanId));
+                }
+                ActiveLoanList.Clear();
+            }
+            FILL_GroupData();
+
+            
+            CollectionList.ItemsSource = LoanCollectionDetailList;
+            
+
+            //GetLoanDetails();
+            //CollectionDetails();
+            //CollectionList.ItemsSource = DailyCollectionsDetails;
+            //GetTotalEachGroup();
+            //if(DailyCollectionsDetails.Count>0)
+            //{
+            //    AddDenomination.IsEnabled = true;
+            //}
+        }
+        void FILL_GroupData()
+        {
+            ///Get GroupName and Total
+            List<GroupTotal> ALLGroupsAndAmount = new List<GroupTotal>();
+            foreach (string item in GroupNames)
+            {
+                var sumForGroup = LoanCollectionDetailList.Where(o => o.CustGroupId == item).Select(o => o.Total).Sum();
+                GroupTotal oobj = new GroupTotal();
+                oobj.GName = item;
+                oobj.Amount = (int)sumForGroup;
+                ALLGroupsAndAmount.Add(oobj);
+            }
+            
+            int TotalAmountToCollect = 0;
+            foreach (GroupTotal item in ALLGroupsAndAmount)
+            {
+                TotalAmountToCollect += item.Amount;
+            }
+            OverAllCollectionList.ItemsSource = ALLGroupsAndAmount;
+            TotalAmountAll.Text = TotalAmountToCollect.ToString();
+        }
+        List<CollectionDetails> GetSingleGroupRecord(string groupID)
+        {
+            List<CollectionDetails> SingleGroupCollectionList = new List<CollectionDetails>();
+            var ooo = LoanCollectionDetailList.Where(o => o.CustGroupId == groupID).Select(o => o);
+            foreach (CollectionDetails ii in ooo)
+            {
+                SingleGroupCollectionList.Add(ii);
+            }
+            return SingleGroupCollectionList;
+        }
+        void GetGroupsUnderEmployee(string groupName)
+        {
+            GroupTotal obj = new GroupTotal();
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "select CustId from CustomerGroup where PeerGroupId = '" + groupName + "'";
+                SqlDataReader reader2 = command.ExecuteReader();
+                List<string> CustomerIDlist = new List<string>();
+                while (reader2.Read())
+                {
+                    CustomerIDlist.Add(reader2.GetString(0));
+                }
+
+                int TotalCollectionAmountForGroup = 0;
+                foreach (string custId in CustomerIDlist)
+                {
+                    TotalCollectionAmountForGroup += LoanCollectionDetailList.Where(m => m.CustID == custId).Select(o => o.Total).FirstOrDefault();
+                }
+                obj.Amount = TotalCollectionAmountForGroup;
+            }
+        }
+        CollectionDetails LoadLoanDetails(string loanID)
+        {
+            CollectionDetails obj = new CollectionDetails();
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                string BranchId = MainWindow.LoginDesignation.BranchId;
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "select CustomerID, LoanType, LoanAmount,ApproveDate from LoanDetails where LoanID = '"+loanID+"'";
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    obj.LoanId = loanID;
+                    obj.CustID = reader.GetString(0);
+                    obj.LoanType = reader.GetString(1);
+                    obj.LoanAmount = reader.GetInt32(2);
+                    obj.ApprovedDate = reader.GetDateTime(3);
+                }
+                reader.Close();
+            }
+            return obj;
+        }
+
+        void GetActiveLoanIdForGroupId(string groupId)
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                string BranchId = MainWindow.LoginDesignation.BranchId;
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "select LoanDetails.LoanID from LoanDetails join CustomerGroup on CustomerGroup.CustId = LoanDetails.CustomerID where CustomerGroup.PeerGroupId = '"+groupId+"' and LoanDetails.IsActive = 1";
+                SqlDataReader dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    ActiveLoanList.Add(dataReader.GetString(0));
+                }
+                dataReader.Close();
             }
         }
 
@@ -57,7 +171,7 @@ namespace MicroFinance
                 string BranchId = MainWindow.LoginDesignation.BranchId;
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "select PeerGroupName from PeerGroup join SelfHelpGroup on PeerGroup.PGId = SelfHelpGroup.PGId where SHGName = '" + SHGName + "' and BId='"+BranchId+"'";
+                command.CommandText = "select GroupId from PeerGroup join SelfHelpGroup on SelfHelpGroup.SHGId = PeerGroup.SHGid where SelfHelpGroup.SHGName = '"+SHGName+"'";
                 SqlDataReader dataReader = command.ExecuteReader();
                 while(dataReader.Read())
                 {
@@ -195,53 +309,83 @@ namespace MicroFinance
         }
         void InsertCollections()
         {
-            try
+
+            foreach(CollectionDetails item in LoanCollectionDetailList)
             {
-                foreach (DailyCollection loan in DailyCollectionsDetails)
+                DateTime actualDueDate = new DateTime();
+                int actualDueAmount = 0;
+                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
                 {
-                    using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+                    connection.Open();
+                    string BranchId = MainWindow.LoginDesignation.BranchId;
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = connection;
+                    command.CommandText = "select DueDate,Total from LoanCollectionMaster where WeekNo = ((select count(CustId) from LoanCollectionEntry where LoanId = '"+item.LoanId+"' and Attendance > 0) + 1) and LoanId = '"+item.LoanId+"'";
+                    SqlDataReader reader3 = command.ExecuteReader();
+                    while(reader3.Read())
                     {
-                        connection.Open();
-                        SqlCommand command = new SqlCommand();
-                        command.Connection = connection;
-                        command.CommandText = "select sum(Principal) from LoanCollection where LoanId='" + loan.LoanId + "'";
-                        int _remainingDue = 0;
-                        SqlDataReader dataReader = command.ExecuteReader();
-                        while (dataReader.Read())
-                        {
-                            if (!dataReader.IsDBNull(0))
-                            {
-                                _remainingDue = dataReader.GetInt32(0);
-                            }
-                        }
-                        dataReader.Close();
-                        _remainingDue = loan.Amount - _remainingDue - loan.Principal;
-                        string _todayDate = Convert.ToDateTime(DateBlck.Text).ToString("yyyy-MM-dd");
-                        command.CommandText = "insert into LoanCollection values('" + loan.CustId + "','" + loan.LoanId + "'," + loan.Principal + "," + loan.Interest + "," + loan.Security + "," + loan.Total + "," + loan.Attendance + ",'" + _todayDate + "'," + loan.NOOfPayment + "," + _remainingDue + ",'"+Convert.ToDateTime(DateBlck.Text).DayOfWeek+"')";
-                        command.ExecuteNonQuery();
-                        if (_remainingDue <= 0)
-                        {
-                            command.CommandText = "update LoanDisposement set Active = 'False', EndDate = '" + _todayDate + "'  where LoanID = '" + loan.LoanId + "'";
-                            command.ExecuteNonQuery();
-                        }
-                        command.CommandText = "select COUNT(LoanID) from LoanDisposement where CustID='" + loan.CustId + "' and Active='True'";
-                        int _activeLoans = (int)command.ExecuteScalar();
-                        if (_activeLoans == 0)
-                        {
-                            command.CommandText = "UPDATE CustomerDetails SET IsActive='FALSE' WHERE CustId='" + loan.CustId + "'";
-                            command.ExecuteNonQuery();
-                        }
+                        actualDueDate = reader3.GetDateTime(0);
+                        actualDueAmount = (int)reader3.GetInt32(1);
                     }
+                    reader3.Close();
+                    actualDueAmount += item.Security;
                 }
+                int balance = GetBalanceForLoanId(item.LoanId);
+                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = connection; string BranchId = MainWindow.LoginDesignation.BranchId;
+                    command.CommandText = "insert into LoanCollectionEntry(BranchId, CustId, LoanId, Principal, Interest, Total, SecurityDeposite, ActualDue, PaidDue, Balance, ActualPaymentDate, CollectedOn, Attendance,Extras) values(@BranchId, @CustId, @LoanId, @Principal, @Interest, @Total, @SecurityDeposite, @ActualDue, @PaidDue, @Balance, @ActualPaymentDate, @CollectedOn, @Attendance, @Extras)";
+                    command.Parameters.AddWithValue("@BranchId", BranchId);
+                    command.Parameters.AddWithValue("@CustId", item.CustID);
+                    command.Parameters.AddWithValue("@LoanId", item.LoanId);
+                    command.Parameters.AddWithValue("@Principal", item.Principal);
+                    command.Parameters.AddWithValue("@Interest", item.Interest);
+                    command.Parameters.AddWithValue("@Total", item.Total);
+                    command.Parameters.AddWithValue("@SecurityDeposite", item.Security);
 
-                denomination.InsertDenomination();
+                    command.Parameters.AddWithValue("@ActualDue", actualDueAmount);
+                    command.Parameters.AddWithValue("@PaidDue",item.Total);
+                    command.Parameters.AddWithValue("@Balance",(balance - item.Total));
+                    command.Parameters.AddWithValue("@ActualPaymentDate", actualDueDate);
 
-                NavigationService.GetNavigationService(this).Navigate(new CollectionStartPage());
+                    command.Parameters.AddWithValue("@CollectedOn", DateTime.Now);
+                    command.Parameters.AddWithValue("@Attendance", item.Attendance);
+                    
+                    command.Parameters.AddWithValue("@Extras", item.Total - actualDueAmount);
+
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
             }
-            catch
+            NavigationService.GetNavigationService(this).Navigate(new CollectionStartPage());
+            denomination.InsertDenomination();
+
+        }
+
+        int GetBalanceForLoanId(string loanID)
+        {
+            int balance = 0;
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
             {
-                MainWindow.StatusMessageofPage(2, "Enter Proper value.....");
+                connection.Open();
+                string BranchId = MainWindow.LoginDesignation.BranchId;
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "select min(Balance) from LoanCollectionEntry where LoanId = '"+ loanID + "'";
+                var ball = command.ExecuteScalar();
+                if(DBNull.Value.Equals(ball))
+                {
+                    command.CommandText = "select LoanAmount from LoanDetails where LoanID = '"+loanID+"'";
+                    balance = (int)command.ExecuteScalar();
+                }
+                else
+                {
+                    balance = (int)ball;
+                }
             }
+            return balance;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -253,7 +397,26 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new DashboardFieldOfficer());
         }
+
+        private void xPrincipal_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FILL_GroupData();
+        }
+
+        private void xInterest_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FILL_GroupData();
+        }
+
+
+        private void xTotal_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FILL_GroupData();
+        }
     }
+
+
+
     public class DailyCollection: BindableBase
     {
         public string CustId { get; set; }
@@ -409,7 +572,19 @@ namespace MicroFinance
             set
             {
                 _amount = value;
-                RaisedPropertyChanged("Amount");
+                //RaisedPropertyChanged("Amount");
+            }
+        }
+
+        void GetgroupTotal()
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "select BranchName from BranchDetails where Bid = '" + MainWindow.LoginDesignation.BranchId + "'";
+                //_BranchName = command.ExecuteScalar().ToString();
             }
         }
     }

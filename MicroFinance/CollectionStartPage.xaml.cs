@@ -50,7 +50,7 @@ namespace MicroFinance
                 sqlData.Close();
                 sqlCommand.CommandText = "select Name from Employee where EmpId='" + _officerEmpId + "'";
                 _officerName[0] = sqlCommand.ExecuteScalar().ToString();
-                sqlCommand.CommandText = "select distinct(SHGName) from SelfHelpGroup where EmpId='" + _officerEmpId + "'";
+                sqlCommand.CommandText = "select SHGName from SelfHelpGroup join TimeTable on TimeTable.SHGId = SelfHelpGroup.SHGId where EmpId = '"+_officerEmpId+"'";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {

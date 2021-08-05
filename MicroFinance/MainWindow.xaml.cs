@@ -76,46 +76,55 @@ namespace MicroFinance
             //    LoggedInState();
             //    MainWindow.StatusMessageofPage(1, "Ready...");
             //}
-            try
+            if(UserName.ToLower() == "Admin".ToLower())
             {
-                LoginDesignation = new LoginDetails(_userName);
-                //int power = int.Parse(UserName);
-                string power = LoginDesignation.LoginDesignation;
-                power = power.ToUpper();
-                if (power.Equals("FIELD OFFICER"))
+                LoginBorder.Visibility = Visibility.Collapsed;
+                mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
+                LoggedInState();
+                MainWindow.StatusMessageofPage(1, "Ready...");
+            }
+            else
+            {
+                try
                 {
-                    LoginBorder.Visibility = Visibility.Collapsed;
-                    mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
-                    LoggedInState();
-                    MainWindow.StatusMessageofPage(1, "Ready...");
+                    LoginDesignation = new LoginDetails(_userName);
+                    //int power = int.Parse(UserName);
+                    string power = LoginDesignation.LoginDesignation;
+                    power = power.ToUpper();
+                    if (power.Equals("FIELD OFFICER"))
+                    {
+                        LoginBorder.Visibility = Visibility.Collapsed;
+                        mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
+                        LoggedInState();
+                        MainWindow.StatusMessageofPage(1, "Ready...");
+                    }
+                    else if (power.Equals("ACCOUNTANT"))
+                    {
+                        LoginBorder.Visibility = Visibility.Collapsed;
+                        mainframe.NavigationService.Navigate(new DashboardAccountant());
+                        LoggedInState();
+                        MainWindow.StatusMessageofPage(1, "Ready...");
+                    }
+                    else if (power.Equals("MANAGER"))
+                    {
+                        LoginBorder.Visibility = Visibility.Collapsed;
+                        mainframe.NavigationService.Navigate(new DashboardBranchManager());
+                        LoggedInState();
+                        MainWindow.StatusMessageofPage(1, "Ready...");
+                    }
+                    else if (power.Equals("REGION MANAGER"))
+                    {
+                        LoginBorder.Visibility = Visibility.Collapsed;
+                        mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
+                        LoggedInState();
+                        MainWindow.StatusMessageofPage(1, "Ready...");
+                    }
                 }
-                else if (power.Equals("ACCOUNTANT"))
+                catch
                 {
-                    LoginBorder.Visibility = Visibility.Collapsed;
-                    mainframe.NavigationService.Navigate(new DashboardAccountant());
-                    LoggedInState();
-                    MainWindow.StatusMessageofPage(1, "Ready...");
-                }
-                else if (power.Equals("MANAGER"))
-                {
-                    LoginBorder.Visibility = Visibility.Collapsed;
-                    mainframe.NavigationService.Navigate(new DashboardBranchManager());
-                    LoggedInState();
-                    MainWindow.StatusMessageofPage(1, "Ready...");
-                }
-                else if (power.Equals("REGION MANAGER"))
-                {
-                    LoginBorder.Visibility = Visibility.Collapsed;
-                    mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
-                    LoggedInState();
-                    MainWindow.StatusMessageofPage(1, "Ready...");
+                    StatusMessageofPage(0, "Please Valid User Name.....");
                 }
             }
-            catch
-            {
-                StatusMessageofPage(0, "Please Valid User Name.....");
-            }
-
         }
 
         void LoggedInState()

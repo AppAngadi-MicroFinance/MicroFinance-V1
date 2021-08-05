@@ -410,10 +410,6 @@ namespace MicroFinance.Modal
             }
             return result;
         }
-
-
-
-
         public override string ToString()
         {
             return _customerID + " |" + _employeeID + " | " + _loantype + "|" + LoanAmount + "|" + _loanperiod + "|" + LoanPurpose;
