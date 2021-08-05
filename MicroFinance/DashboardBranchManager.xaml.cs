@@ -144,5 +144,10 @@ namespace MicroFinance
                 this.NavigationService.Navigate(new HimarkResultData(FileFrom));
             }
         }
+
+        private void RequestedListBoxNew_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
