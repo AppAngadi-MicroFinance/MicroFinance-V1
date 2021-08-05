@@ -77,8 +77,9 @@ namespace MicroFinance.Modal
                 GetPaidDetails(_loanId);
                 GetNextDueDetails(_loanId);
                 GetCustomerName(_loanId);
-                GetExtraBalance(_loanId);
                 GetGroupId(CustID);
+                GetExtraBalance(_loanId);
+                
             }
         }
 
@@ -183,7 +184,19 @@ namespace MicroFinance.Modal
             }
         }
 
-
+        int _actualDueAmount = 0;
+        public int ActualDueAmount
+        {
+            get
+            {
+                return _actualDueAmount;
+            }
+            set
+            {
+                _actualDueAmount = value;
+                RaisedPropertyChanged("ActualDueAmount");
+            }
+        }
         int _defaultPrincipal = 0;
         int _defaultInterest = 0;
         int _principal;
@@ -200,6 +213,7 @@ namespace MicroFinance.Modal
                     _defaultPrincipal = _principal;
 
                 Total = Principal + Interest + Security;
+                ActualDueAmount = Total;
                 RaisedPropertyChanged("Principal");
             }
         }
@@ -219,6 +233,7 @@ namespace MicroFinance.Modal
                     _defaultInterest = _interest;
 
                 Total = Principal + Interest + Security;
+                ActualDueAmount = Total;
                 RaisedPropertyChanged("Interest");
             }
         }
@@ -259,6 +274,8 @@ namespace MicroFinance.Modal
             set
             {
                 _extra = value;
+                Total = Total - _extra;
+                ActualDueAmount -= _extra;
                 RaisedPropertyChanged("Extras");
             }
         }
@@ -337,9 +354,10 @@ namespace MicroFinance.Modal
                 sql.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = sql;
-                command.CommandText = "select Sum(Extras) from LoanCollectionEntry where LoanId = '"+loanID+"'";
+                command.CommandText = "select Top 1 Extras from LoanCollectionEntry where LoanId = '"+loanID+"' order by CollectedOn desc";
                 var res = command.ExecuteScalar();
-                if(DBNull.Value.Equals(res))
+                
+                if(res == null)
                 {
                     Extras = 0; 
                 }

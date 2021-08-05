@@ -118,7 +118,13 @@
                 </Border.Effect>
                 <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
             </Border>
-            <Button x:Name="LoanDesposment" Content="Loan Disposment" Grid.Column="2" Style="{StaticResource SecondaryBtn}" Width="150" Click="LoanDesposment_Click"></Button>
+            <Border Width="150" Height="150" Grid.Column="2" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="LoanDesposment" Style="{StaticResource NavigateLoanDisposment}" Click="LoanDesposment_Click"></Button>
+            </Border>
+            
         </Grid>
 
 

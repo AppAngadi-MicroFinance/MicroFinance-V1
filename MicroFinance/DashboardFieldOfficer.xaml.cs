@@ -15,6 +15,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Microsoft.Reporting;
+using Microsoft.Reporting.WinForms;
+using System.ComponentModel;
+using System.IO;
+using System.Data;
+
 namespace MicroFinance
 {
     /// <summary>
@@ -84,5 +90,100 @@ namespace MicroFinance
             AddPg APG = new AddPg();
             APG.ShowDialog();
         }
+
+        private void xCollectionSheet_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        void FillData3(List<CollectionDetails> collectionList)
+        {
+            //string filedate = showDate.Text;
+            DataTable dt1 = new DataTable();
+            dt1 = ConvertToDataTable(collectionList.ToList());
+            ReportDataSource reportDataSource1 = new ReportDataSource();
+            reportDataSource1.Name = "DataSet1"; // Name of the DataSet we set in .rdlc
+            reportDataSource1.Value = dt1;
+            ReportViewer reportViewer1 = new ReportViewer();
+            reportViewer1.LocalReport.ReportEmbeddedResource = "CollectionPDF.LoanCollection.rdlc";
+            reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
+            reportViewer1.RefreshReport();
+            reportViewer1.ProcessingMode = ProcessingMode.Local;
+
+            Warning[] warnings1;
+            string[] streamids1;
+            string mimeType1;
+            string encoding1;
+            string extension1;
+            try
+            {
+                string dir = string.Empty;
+                //string showdatess = Changeformat(showDate.Text);
+                byte[] bytes = reportViewer1.LocalReport.Render(
+                  "PDF", null, out mimeType1, out encoding1, out extension1,
+                  out streamids1, out warnings1);
+                dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "REPORTS\\");
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+                if (Directory.Exists(dir))
+                {
+                    //var temp = "" + data + "" + "_WeeklyReport"+showDate+"";
+
+                    //var temp = "" + data + "" + "_" + "" + SelectedCluster + "";
+
+                    FileStream fs = new FileStream(dir + "1" + ".pdf", FileMode.Create);
+
+                    var temps = fs.ToString();
+                    fs.Write(bytes, 0, bytes.Length);
+                    fs.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public DataTable ConvertToDataTable<T>(IList<T> data)
+        {
+            PropertyDescriptorCollection properties =
+               TypeDescriptor.GetProperties(typeof(T));
+            DataTable table = new DataTable();
+            foreach (PropertyDescriptor prop in properties)
+                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            foreach (T item in data)
+            {
+                DataRow row = table.NewRow();
+                foreach (PropertyDescriptor prop in properties)
+                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                table.Rows.Add(row);
+            }
+            return table;
+
+        }
+        //void GetActiveLoanCustomer(string empId)
+        //{
+        //    using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+        //    {
+        //        sql.Open();
+        //        SqlCommand command = new SqlCommand();
+        //        command.Connection = sql;
+        //        command.CommandText = "select LoanDetails.CustomerID, LoanDetails.LoanID, LoanDetails.LoanType, LoanDetails.LoanAmount,LoanDetails.ApproveDate from LoanDetails  join CustomerGroup on CustomerGroup.CustId = LoanDetails.CustomerID join PeerGroup on PeerGroup.GroupId = CustomerGroup.PeerGroupId join TimeTable on TimeTable.SHGId = PeerGroup.SHGid and TimeTable.EmpId = '" + empId + "' where LoanDetails.IsActive = 1";
+        //        SqlDataReader reader = command.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+        //            CollectionDetails temp = new CollectionDetails();
+        //            temp.CustID = reader.GetString(0);
+        //            temp.LoanId = reader.GetString(1);
+        //            temp.LoanType = reader.GetString(2);
+        //            temp.LoanAmount = reader.GetInt32(3);
+        //            temp.SanctionDate = reader.GetDateTime(4);
+        //            temp.Attendance = string.Empty;
+
+        //            ActiveLoanCustomer.Add(temp);
+        //        }
+        //        sql.Close();
+        //    }
+        //}
     }
 }
