@@ -24,7 +24,7 @@ namespace MicroFinance
     {
         LoanProcess loanprocess = new LoanProcess();
         string BranchID = MainWindow.LoginDesignation.BranchId;
-        public ObservableCollection<LoanProcess> RecommendList = new ObservableCollection<LoanProcess>();
+        public List<LoanProcess> RecommendList = new List<LoanProcess>();
         List<LoanProcess> ApprovedCustomerList = new List<LoanProcess>();
         public HOLoanApproval()
         {

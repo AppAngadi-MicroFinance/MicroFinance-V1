@@ -13,7 +13,7 @@ namespace MicroFinance.Modal
     {
         public ObservableCollection<LoanProcess> RequestList = new ObservableCollection<LoanProcess>();
         public ObservableCollection<LoanProcess> RecommendList = new ObservableCollection<LoanProcess>();
-        public ObservableCollection<LoanProcess> LoanProcessList = new ObservableCollection<LoanProcess>();
+        public List<LoanProcess> LoanProcessList = new List<LoanProcess>();
         private string[] _guaranterDetails = new string[2];
         //string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
 
@@ -465,8 +465,6 @@ namespace MicroFinance.Modal
                 }
             }
         }
-
-
         public void ApproveLoan(string ID)
         {
             GetRequestDetails(ID);
@@ -504,7 +502,6 @@ namespace MicroFinance.Modal
                 }
             }
         }
-
         public int InstallmentWeek(int month)
         {
             int Result = 0;
