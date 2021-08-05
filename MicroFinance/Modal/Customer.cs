@@ -12,9 +12,15 @@ namespace MicroFinance.Modal
 {
     public class Customer : LoanDetails
     {
+        DetailsForCustomerVerification Verification = new DetailsForCustomerVerification();
+       
+        public Customer(DetailsForCustomerVerification customerVerification)
+        {
+            Verification = customerVerification;
+        }
         public string _customerId { get; set; }
 
-        private string _customerName;
+        private string _customerName="Safdhar";
         public string CustomerName
         {
             get
@@ -24,6 +30,7 @@ namespace MicroFinance.Modal
             set
             {
                 _customerName = value;
+                CustName = false;
             }
         }
         private DateTime _dateofBirth = DateTime.Now;
@@ -332,6 +339,22 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("ProfilePicture");
             }
         }
+
+        private BitmapImage _combinePhoto;
+        public BitmapImage 
+            CombinePhoto
+        {
+            get
+            {
+                return _combinePhoto;
+            }
+            set
+            {
+                _combinePhoto = value;
+                RaisedPropertyChanged("CombinePhoto");
+            }
+        }
+
         public byte[] Convertion(BitmapImage image)
         {
             byte[] Data;
@@ -509,6 +532,19 @@ namespace MicroFinance.Modal
             }
         }
 
+        private string _husbandName;
+        public string HusbandName
+        {
+            get
+            {
+                return _husbandName;
+            }
+            set
+            {
+                _husbandName = value;
+            }
+        }
+
         private string _caste;
         public string Caste
         {
@@ -532,6 +568,19 @@ namespace MicroFinance.Modal
             set
             {
                 _monthlyExpenses = value;
+            }
+        }
+
+        private int _yearIncome;
+        public int YearlyIncome
+        {
+            get
+            {
+                return _yearIncome;
+            }
+            set
+            {
+                _yearIncome = value;
             }
         }
 

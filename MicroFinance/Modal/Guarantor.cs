@@ -10,10 +10,19 @@ using MicroFinance.Validations;
 
 namespace MicroFinance.Modal
 {
-    public class Guarantor:BindableBase
+    public class Guarantor:DetailsForCustomerVerification
     {
         public string _customerId { get; set; }
-        private string _guarantorName;
+        Customer customer;
+        public Guarantor()
+        {
+            customer= new Customer();
+        }
+        public Guarantor(Customer cust)
+        {
+            customer = cust;
+        }
+        private string _guarantorName="Safdhh";
         public string GuarantorName
         {
             get
@@ -75,6 +84,7 @@ namespace MicroFinance.Modal
             set
             {
                 _contactNumber = value;
+                
             }
         }
         private string _gender;

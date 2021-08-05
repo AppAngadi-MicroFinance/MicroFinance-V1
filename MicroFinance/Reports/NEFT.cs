@@ -61,6 +61,7 @@ namespace MicroFinance.Reports
             set
             {
                 _benificiaryacc = value;
+
             }
         }
         private string _benificiaryname;
@@ -68,11 +69,11 @@ namespace MicroFinance.Reports
         {
             get
             {
-                return _benificiaryacc;
+                return _benificiaryname;
             }
             set
             {
-                _benificiaryacc = value;
+                _benificiaryname = value;
             }
         }
         private string _benificiaryaddress;
@@ -161,29 +162,20 @@ namespace MicroFinance.Reports
         }
 
         public NEFT() { }
-        //public NEFT(string remitteracc,string remittername,string remitteraddress,string benificiaryacc,string benificiaryname,
-        //    string benificiaryifsc,string paymentdetails,string recievercode,string remittieremail,string refno,string amount)
-        //{
-        //    RemitterAccNo = remitteracc;
-        //    RemitterName = remittername;
-        //    RemitterAddress = remitteraddress;
-        //    BenificiaryAcc = benificiaryacc;
-        //    BenificiaryName = benificiaryname;
-        //    BenificiaryIFSC = benificiaryifsc;
-        //    PaymentDetails = paymentdetails;
-        //    RecieverCode = recievercode;
-        //    RemitterEmail = remittieremail;
-        //    RefNo = refno;
-        //    Amount = amount;
-        //}
+        public NEFT( string benificiaryacc, string benificiaryname,
+            string benificiaryifsc, string paymentdetails, string recievercode, string refno, string amount)
+        {
+            BenificiaryAcc = benificiaryacc;
+            BenificiaryName = benificiaryname;
+            BenificiaryIFSC = benificiaryifsc;
+            PaymentDetails = paymentdetails;
+            RecieverCode = recievercode;
+            RefNo = refno;
+            Amount = amount;
+        }
         LoanProcess loandetails = new LoanProcess();
         Customer cus = new Customer();
         public List<NEFT> neft = new List<NEFT>();
-        public NEFT(LoanProcess loan)
-        {
-            this.loandetails = loan;
-            cus._customerId = loandetails._customerId;
-        }
 
 
         public void neftXL()
@@ -314,7 +306,7 @@ namespace MicroFinance.Reports
             amount.ColumnWidth = 24;
             amount.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             amount.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-
+            FillNEFT(xlWorkSheet, neft);
             try
             {
                 string FileName = "D:\\NEFT_BULK_" + DateTime.Today.ToString("dd-MMM-yyyy (hh-mm)") + ".xlsx";
@@ -368,5 +360,27 @@ namespace MicroFinance.Reports
                 i++;
             }
         }
+
+
+        public static void Cusid()
+        {
+            SqlConnection sqlcon = new SqlConnection(MicroFinance.Properties.Settings.Default.db);
+            sqlcon.Open();
+            if (sqlcon.State == ConnectionState.Open)
+            { 
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = sqlcon;
+                cmd.CommandText = "select BankAccountNo,BankACHolderName,Address,IFSCCode from CustomerDetails where CustId in (select CustId from LoanApplication where LoanStatus = 10)";
+                SqlDataReader dataReader = cmd.ExecuteReader();
+                while(dataReader.Read())
+                {
+                    CusID.Add();
+                }
+
+            }
+            sqlcon.Close();
+        }
     }
 }
+
+
