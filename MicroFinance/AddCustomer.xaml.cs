@@ -225,29 +225,20 @@ namespace MicroFinance
             string[] _officerName = new string[1];
             string[] _regionName = new string[1];
             List<string> SelfHelpGroupList = new List<string>();
+
+            Branch_Shg_PgDetails branch_Shg_Pg = new Branch_Shg_PgDetails();
+            branch_Shg_Pg.EmpId = _officerEmpId;
+            _branchName[0] = branch_Shg_Pg.GetBranchNameofEmployee();
+            _regionName[0] = branch_Shg_Pg.GetRegionNameofEmployee();
+            _officerName[0] = branch_Shg_Pg.GetEmployeeName();
+            SelfHelpGroupList = branch_Shg_Pg.GetSelfHelpGroup();
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select BranchName,RegionName from BranchDetails where BranchDetails.Bid='" + _officerBranchId + "'";
-                SqlDataReader sqlData = sqlCommand.ExecuteReader();
-                while (sqlData.Read())
-                {
-                    _branchName[0] = sqlData.GetString(0);
-                    _regionName[0] = sqlData.GetString(1);
-                }
-                sqlData.Close();
-                sqlCommand.CommandText = "select Name from Employee where EmpId='" + _officerEmpId + "'";
-                _officerName[0] = sqlCommand.ExecuteScalar().ToString();
-                sqlCommand.CommandText = "select distinct(SHGName) from SelfHelpGroup where BranchId=(select Bid from BranchEmployees where Empid='"+_officerEmpId+"')";
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                while (sqlDataReader.Read())
-                {
-                    SelfHelpGroupList.Add(sqlDataReader.GetString(0));
-                }
-                sqlDataReader.Close();
-                sqlCommand.CommandText = "select SelfHelpGroup.SHGName,PeerGroup.GroupId  from PeerGroup join SelfHelpGroup on PeerGroup.SHGid=SelfHelpGroup.SHGId where SelfHelpGroup.BranchId='"+_officerBranchId+"'";
+                
+                sqlCommand.CommandText = "select SelfHelpGroup.SHGName,PeerGroup.GroupId  from PeerGroup join SelfHelpGroup on PeerGroup.SHGid=SelfHelpGroup.SHGId where SelfHelpGroup.SHGid=(select SHGId from TimeTable where EmpId='" + _officerEmpId + "')";
                 SqlDataReader sqlDataReader1 = sqlCommand.ExecuteReader();
                 while (sqlDataReader1.Read())
                 {
@@ -416,13 +407,14 @@ namespace MicroFinance
                 else
                 {
                     customer._customerId = customer.GetCustId(SelectBranch.Text, SelectRegion.Text);
-                    NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text));
+                    CustomerVerified verified = new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text);
+                    customer = new Customer();
+                    nominee = new Nominee();
+                    guarantor = new Guarantor();
+                    Assign();
+                    NavigationService.GetNavigationService(this).Navigate(verified);
                //     customer.SaveCustomerDetails(SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
                 }
-                customer = new Customer();
-                nominee = new Nominee();
-                guarantor = new Guarantor();
-                Assign();
                 
 
             }

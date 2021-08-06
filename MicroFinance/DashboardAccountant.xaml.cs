@@ -34,5 +34,10 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new CollectionVerify());
         }
+
+        private void xNotificationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new CustomerNotification(1));
+        }
     }
 }

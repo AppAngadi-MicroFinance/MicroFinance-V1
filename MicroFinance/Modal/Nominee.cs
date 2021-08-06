@@ -332,7 +332,7 @@ namespace MicroFinance.Modal
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "insert into GuarenteeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,IsAddressProof,IsPhotoProof,IsProfilePhoto,Gender) values('" + _customerId + "','" + NomineeName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Occupation + "','" + RelationShip + "','" + Address + "','" + Pincode + "','" + _isAddressProof + "','" + _isPhotoProof + "','" + _isProfilePhoto + "','" + Gender + "')";
+                sqlCommand.CommandText = "insert into NomineeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,IsAddressProof,IsPhotoProof,IsProfilePhoto,Gender) values('" + _customerId + "','" + NomineeName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Occupation + "','" + RelationShip + "','" + Address + "','" + Pincode + "','" + _isAddressProof + "','" + _isPhotoProof + "','" + _isProfilePhoto + "','" + Gender + "')";
 
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "update CustomerDetails set GuarenteeStatus = 'True' where CustId = '" + _customerId + "'";
@@ -375,7 +375,7 @@ namespace MicroFinance.Modal
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "update NomineeDetails set ProfilePhoto = @photoproof, IsProfilePhoto = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.CommandText = "update NomineeDetails set ProfilePhoto = @profileproof, IsProfilePhoto = 'True' where CustId = '" + _customerId + "'";
                 sqlCommand.Parameters.AddWithValue("@profileproof", Convertion(ProfilePicture));
                 sqlCommand.ExecuteNonQuery();
 
@@ -461,6 +461,36 @@ namespace MicroFinance.Modal
                         ProfilePicture = ByteToBI((byte[])sqlDataReader.GetValue(16));
                     IsNomineeNull = true;
                     Gender = sqlDataReader.GetString(17);
+                }
+            }
+        }
+
+        public void GetNomineeVerifiedDetails()
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sqlConnection.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sqlConnection;
+                command.CommandText = "select NName,NGender,NDOB,NContact,NOccupation,NRelationship,NDoorNo,NStreet,NLocality,NCity,NState,NPincode,NAddressProof,NPhotoProof,NProfilePic from CustomerVerification where CustId='" + _customerId + "'";
+                SqlDataReader dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    NName = dataReader.GetBoolean(0);
+                    NomineeGender = dataReader.GetBoolean(1);
+                    NomineeDOB = dataReader.GetBoolean(2);
+                    NomineeContact = dataReader.GetBoolean(3);
+                    NomineeOccupation = dataReader.GetBoolean(4);
+                    NomineeRelationship = dataReader.GetBoolean(5);
+                    NomineeDoorNo = dataReader.GetBoolean(6);
+                    NomineeStreet = dataReader.GetBoolean(7);
+                    NomineeLocality = dataReader.GetBoolean(8);
+                    NomineeCity = dataReader.GetBoolean(9);
+                    NomineeState = dataReader.GetBoolean(10);
+                    NomineePincode = dataReader.GetBoolean(11);
+                    NomineeAddressProof = dataReader.GetBoolean(12);
+                    NomineePhotoProof = dataReader.GetBoolean(13);
+                    NomineeProfilePicture = dataReader.GetBoolean(14);
                 }
             }
         }

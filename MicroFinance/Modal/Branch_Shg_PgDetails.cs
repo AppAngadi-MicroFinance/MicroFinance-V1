@@ -121,5 +121,23 @@ namespace MicroFinance.Modal
             }
             return PG;
         }
+
+        public string GetCustomerPG(string CustId)
+        {
+            string PgName = "";
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                sqlConnection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "select PeerGroupId from CustomerGroup where CustId='"+CustId+"'";
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    PgName = dataReader.GetString(0);
+                }
+            }
+            return PgName;
+        }
     }
 }

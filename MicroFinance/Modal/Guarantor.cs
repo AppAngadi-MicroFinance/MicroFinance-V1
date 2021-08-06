@@ -537,5 +537,35 @@ namespace MicroFinance.Modal
                 }
             }
         }
+
+        public void GetGuarantorVerifedDetails()
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sqlConnection.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sqlConnection;
+                command.CommandText = "select GName,GGender,GDOB,GContact,GOccupation,GRelationship,GDoorNo,GStreet,GLocality,GCity,GState,GPincode,GAddressProof,GPhotoProof,GProfilePic from CustomerVerification where CustId='" + _customerId + "'";
+                SqlDataReader dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    GName = dataReader.GetBoolean(0);
+                    GuarantorGender = dataReader.GetBoolean(1);
+                    GuarantorDOB = dataReader.GetBoolean(2);
+                    GuarantorContact = dataReader.GetBoolean(3);
+                    GuarantorOccupation = dataReader.GetBoolean(4);
+                    GuarantorRelationship = dataReader.GetBoolean(5);
+                    GuarantorDoorNumber = dataReader.GetBoolean(6);
+                    GuarantorStreet = dataReader.GetBoolean(7);
+                    GuarantorLocality = dataReader.GetBoolean(8);
+                    GuarantorCity = dataReader.GetBoolean(9);
+                    GuarantorState = dataReader.GetBoolean(10);
+                    GuarantorPincode = dataReader.GetBoolean(11);
+                    GuarantorAddressProof = dataReader.GetBoolean(12);
+                    GuarantorPhotoProof = dataReader.GetBoolean(13);
+                    GuarantorProfilePicture = dataReader.GetBoolean(14);
+                }
+            }
+        }
     }
 }

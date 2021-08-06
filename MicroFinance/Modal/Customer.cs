@@ -39,6 +39,7 @@ namespace MicroFinance.Modal
                 _dateofBirth = value;
                 Age = AgeCalculator(_dateofBirth);
                 RaisedPropertyChanged("DateofBirth");
+                CustDateOfBirth = false;
             }
         }
         int AgeCalculator(DateTime dob)
@@ -77,6 +78,7 @@ namespace MicroFinance.Modal
             {
                 _contactNumber = value;
                 RaisedPropertyChanged("ContactBox");
+                CustContactNumber = false;
             }
         }
 
@@ -90,6 +92,7 @@ namespace MicroFinance.Modal
             set
             {
                 _community = value;
+                CustCommunity = false;
             }
         }
         private string _education;
@@ -102,6 +105,7 @@ namespace MicroFinance.Modal
             set
             {
                 _education = value;
+                CustEducation = false;
             }
         }
         private int _familymembers;
@@ -114,6 +118,7 @@ namespace MicroFinance.Modal
             set
             {
                 _familymembers = value;
+                CustFamilyMember = false;
             }
         }
         private int _earningmembers;
@@ -126,6 +131,7 @@ namespace MicroFinance.Modal
             set
             {
                 _earningmembers = value;
+                CustEarningMember = false;
             }
         }
         private string _occupation;
@@ -138,6 +144,7 @@ namespace MicroFinance.Modal
             set
             {
                 _occupation = value;
+                CustOccupation = false;
             }
         }
         private int _monthlyIncome;
@@ -150,6 +157,7 @@ namespace MicroFinance.Modal
             set
             {
                 _monthlyIncome = value;
+                CustMonthlyIncome = false;
             }
         }
         private string _doorNumber;
@@ -162,6 +170,7 @@ namespace MicroFinance.Modal
             set
             {
                 _doorNumber = value;
+                CustomerDoorNumber = false;
             }
         }
         private string _streetName;
@@ -174,6 +183,7 @@ namespace MicroFinance.Modal
             set
             {
                 _streetName = value;
+                CustStreetName = false;
             }
         }
         private string _localityTown;
@@ -186,6 +196,7 @@ namespace MicroFinance.Modal
             set
             {
                 _localityTown = value;
+                CustomerLocality = false;
             }
         }
         private int _pincode;
@@ -198,6 +209,7 @@ namespace MicroFinance.Modal
             set
             {
                 _pincode = value;
+                CustomerPincode = false;
             }
         }
 
@@ -211,6 +223,7 @@ namespace MicroFinance.Modal
             set
             {
                 _city = value;
+                CustomerCity = false;
             }
         }
         private string _state;
@@ -223,6 +236,7 @@ namespace MicroFinance.Modal
             set
             {
                 _state = value;
+                CustomerState = false;
             }
         }
         private string _housingType;
@@ -235,6 +249,7 @@ namespace MicroFinance.Modal
             set
             {
                 _housingType = value;
+                CustomerHousingType = false;
             }
         }
         private string _housingIndex;
@@ -259,6 +274,7 @@ namespace MicroFinance.Modal
             set
             {
                 _aadharNumber = value;
+                CustAadharNumber = false;
             }
         }
         private bool _isLeader;
@@ -292,6 +308,7 @@ namespace MicroFinance.Modal
             set
             {
                 _religion = value;
+                CustReligion = false;
             }
         }
         private BitmapImage _addressProof;
@@ -305,6 +322,7 @@ namespace MicroFinance.Modal
             {
                 _addressProof = value;
                 RaisedPropertyChanged("AddressProof");
+                CustomerAddressProof = false;
             }
         }
         private BitmapImage _photoProof;
@@ -318,6 +336,7 @@ namespace MicroFinance.Modal
             {
                 _photoProof = value;
                 RaisedPropertyChanged("PhotoProof");
+                CustomerAddressProof = false;
             }
         }
         private BitmapImage _profilePicture;
@@ -331,6 +350,7 @@ namespace MicroFinance.Modal
             {
                 _profilePicture = value;
                 RaisedPropertyChanged("ProfilePicture");
+                CustomerProfilePicture = false;
             }
         }
 
@@ -346,6 +366,7 @@ namespace MicroFinance.Modal
             {
                 _combinePhoto = value;
                 RaisedPropertyChanged("CombinePhoto");
+                Combinephoto = false;
             }
         }
 
@@ -412,6 +433,7 @@ namespace MicroFinance.Modal
             {
                 _accountHolderName = value;
                 RaisedPropertyChanged("AccountHolder");
+                BankHolderName = false;
             }
         }
 
@@ -426,6 +448,7 @@ namespace MicroFinance.Modal
             {
                 _accountnumber = value;
                 RaisedPropertyChanged("AccountNumber");
+                BankAccountNo = false;
             }
         }
         private string _bankname;
@@ -439,6 +462,7 @@ namespace MicroFinance.Modal
             {
                 _bankname = value;
                 RaisedPropertyChanged("BankName");
+                Bankname = false;
             }
         }
         private string _bankbranchname;
@@ -452,6 +476,7 @@ namespace MicroFinance.Modal
             {
                 _bankbranchname = value;
                 RaisedPropertyChanged("BankBranchName");
+                BranchName = false;
             }
         }
         private string _ifsccode;
@@ -467,6 +492,7 @@ namespace MicroFinance.Modal
                 {
                     _ifsccode = value.ToUpper();
                     RaisedPropertyChanged("IFSCCODE");
+                    BIfscCode = false;
                 }
             }
         }
@@ -483,6 +509,7 @@ namespace MicroFinance.Modal
                 {
                     _micrcode = value.ToUpper();
                     RaisedPropertyChanged("MICRCode");
+                    BMicrCode = false;
                 }
             }
         }
@@ -497,6 +524,7 @@ namespace MicroFinance.Modal
             set
             {
                 _gender = value;
+                CustGender = false;
             }
         }
 
@@ -510,6 +538,7 @@ namespace MicroFinance.Modal
             set
             {
                 _fatherName = value;
+                CustFatherName = false;
             }
         }
 
@@ -523,6 +552,7 @@ namespace MicroFinance.Modal
             set
             {
                 _motherName = value;
+                CustMotherName = false;
             }
         }
 
@@ -536,6 +566,7 @@ namespace MicroFinance.Modal
             set
             {
                 _husbandName = value;
+                CustHusbandName = false;
             }
         }
 
@@ -549,6 +580,7 @@ namespace MicroFinance.Modal
             set
             {
                 _caste = value;
+                CustCaste = false;
             }
         }
 
@@ -562,6 +594,7 @@ namespace MicroFinance.Modal
             set
             {
                 _monthlyExpenses = value;
+                CustMonthlyExpenses = false;
             }
         }
 
@@ -575,6 +608,7 @@ namespace MicroFinance.Modal
             set
             {
                 _yearIncome = value;
+                CustFamilyYearlyIncome = false;
             }
         }
 
@@ -653,7 +687,11 @@ namespace MicroFinance.Modal
                         _ishavingGuarantorAlready = true;
                     if (sqlData.GetBoolean(37))
                         _ishavingNomineeAlready = true;
-                    
+                    _husbandName = sqlData.GetString(40);
+                    _yearIncome = sqlData.GetInt32(41);
+                    if(sqlData.GetBoolean(42))
+                        _combinePhoto = ByteToBI((byte[])sqlData.GetValue(43));
+
 
                 }
                 sqlData.Close();
@@ -699,6 +737,10 @@ namespace MicroFinance.Modal
             if(AadharNo!="")
             {
                 AddAadharNumber();
+            }
+            if(CombinePhoto!=null)
+            {
+                AddCombinePhoto();
             }
             EmployeeID = MainWindow.LoginDesignation.EmpId;
             CustomerID = _customerId;
@@ -749,6 +791,18 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "update CustomerDetails set CombinePhoto = @combinephoto, IsCombinePhoto = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.Parameters.AddWithValue("@combinephoto", Convertion(CombinePhoto));
+                sqlCommand.ExecuteNonQuery();
+            }
+        }
+        void AddCombinePhoto()
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sqlConnection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = "update CustomerDetails set ProfilePhoto = @addressProof, IsProfilePhoto = 'True' where CustId = '" + _customerId + "'";
                 sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(ProfilePicture));
                 sqlCommand.ExecuteNonQuery();
@@ -787,7 +841,7 @@ namespace MicroFinance.Modal
 //HousingType + "','" + HousingIndex + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + 0 + "','" + FatherName + 
 //"','" + MotherName + "','" + Gender + "','" + Caste + "','" + MothlyExpenses + "','" + false + "','" + null + "')";
 
-                sqlCommand.CommandText = "insert into CustomerDetails(CustId, Name, FatherName, MotherName, Dob, Age, Gender, Mobile,AadharNumber,Religion, Caste, Community,Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, MonthlyExpenses, Address,Pincode, HousingType, IsBankDetails, IsAddressProof, IsPhotoProof, IsProfilePhoto, BankACHolderName, BankAccountNo, BankName,BankBranchName, IFSCCode, MICRCode, GuarenteeStatus, NomineeStatus, CustomerStatus, IsActive)values(@custId, @name, @fatherName, @motherName, @dob, @age, @gender, @mobile, @aadhar, @religion, @caste, @community, @education, @familyMembers,@earningMembers, @occupation, @monthlyIncome, @monthlyExpence, @address, @pincode, @houseType,  @isBankDetails,@isAddressProof, @isPhotoproof, @isProfilePhoto, @bankAccHolder, @bankAcNo, @banckName, @bankBranchName, @ifsc, @micr, @guarenteeStatus, @nomineeStatus, @customerStatus, @isActive)";
+                sqlCommand.CommandText = "insert into CustomerDetails(CustId, Name, FatherName, MotherName, Dob, Age, Gender, Mobile,AadharNumber,Religion, Caste, Community,Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, MonthlyExpenses, Address,Pincode, HousingType, IsBankDetails, IsAddressProof, IsPhotoProof, IsProfilePhoto, BankACHolderName, BankAccountNo, BankName,BankBranchName, IFSCCode, MICRCode, GuarenteeStatus, NomineeStatus, CustomerStatus, IsActive,HusbandName,YearlyIncome,IsCombinePhoto)values(@custId, @name, @fatherName, @motherName, @dob, @age, @gender, @mobile, @aadhar, @religion, @caste, @community, @education, @familyMembers,@earningMembers, @occupation, @monthlyIncome, @monthlyExpence, @address, @pincode, @houseType,  @isBankDetails,@isAddressProof, @isPhotoproof, @isProfilePhoto, @bankAccHolder, @bankAcNo, @banckName, @bankBranchName, @ifsc, @micr, @guarenteeStatus, @nomineeStatus, @customerStatus, @isActive,'"+HusbandName+"','"+YearlyIncome+"','"+false+"')";
 
                 sqlCommand.Parameters.AddWithValue("@custId", _customerId);sqlCommand.Parameters.AddWithValue("@name", CustomerName);
                 sqlCommand.Parameters.AddWithValue("@fatherName",_fatherName);sqlCommand.Parameters.AddWithValue("@motherName",_motherName);
@@ -895,8 +949,13 @@ namespace MicroFinance.Modal
             {
                 AddAadharNumber();
             }
-            CheckAndChangeStatus();
+            if(CombinePhoto!=null)
+            {
+                AddCombinePhoto();
+            }
+            //CheckAndChangeStatus();
         }
+        
         public void ChangeCustomerDetails(string BranchName, string SelfHelpGroup, string PeerGroup)
         {
             string AddressofCustomer = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" + City + "|~" + State;
@@ -905,12 +964,61 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "update CustomerDetails set Name='" + CustomerName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Religion='" + Religion + "',Community='" + Community + "',Education='" + Education + "',FamilyMembers='" + FamilyMembers + "',EarningMembers='" + EarningMembers + "',Occupation='" + Occupation + "',MonthlyIncome='" + MonthlyIncome + "',Address='" + AddressofCustomer + "',Pincode='" + Pincode + "',HousingType='" + HousingType + "',HousingIndex='" + HousingIndex + "',FatherName='"+FatherName+"',MotherName='"+MotherName+"',Gender='"+Gender+"',Caste='"+Caste+"',MonthlyExpenses='"+MothlyExpenses+"' where CustId='" + _customerId + "'";
+                sqlCommand.CommandText = "update CustomerDetails set Name='" + CustomerName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Religion='" + Religion + "',Community='" + Community + "',Education='" + Education + "',FamilyMembers='" + FamilyMembers + "',EarningMembers='" + EarningMembers + "',Occupation='" + Occupation + "',MonthlyIncome='" + MonthlyIncome + "',Address='" + AddressofCustomer + "',Pincode='" + Pincode + "',HousingType='" + HousingType + "',FatherName='"+FatherName+"',MotherName='"+MotherName+"',Gender='"+Gender+"',Caste='"+Caste+"',MonthlyExpenses='"+MothlyExpenses+"',HusbandName='"+HusbandName+"',YearlyIncome='"+YearlyIncome+"' where CustId='" + _customerId + "'";
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "select Bid from BranchDetails where BranchName='" + BranchName + "'";
                 string BranchId = sqlCommand.ExecuteScalar().ToString();
-                sqlCommand.CommandText = "update CustomerGroup set BranchId='" + BranchId + "', SelfHelpGroup='" + SelfHelpGroup + "',BranchName='" + BranchName + "',PeerGroup='" + PeerGroup + "',IsLeader='" + IsLeader + "' where CustId='"+_customerId+"'";
+                sqlCommand.CommandText = "update CustomerGroup set PeerGroupId='" + PeerGroup + "',IsLeader='" + IsLeader + "' where CustId='"+_customerId+"'";
                 sqlCommand.ExecuteNonQuery();
+            }
+        }
+        public void GetVerfiedDetailsofCustomer()
+        {
+            using(SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sqlConnection.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sqlConnection;
+                command.CommandText = "select CustomerName,CustomerGender,CustomerDOB,FatherName,MotherName,Guardian,Contact,CAddress,Religion,Caste,Community,Education,FamilyMembers,EarningMembers,Occupation,MonthlyIncome,MonthlyExpence,FamilyAnnualIncome,CustomerDoorNo,CustomerStreet,CustomerLocality,CustomerCity,CustomerState,CustomerPincode,HouseType,CAddressProof,CPhotoProof,CProfilePic,CustomerCombinePhoto,AccountHolderName,AccountNo,BankName,BranchName,IFSC,MICR from CustomerVerification where CustId='" + _customerId + "'";
+                SqlDataReader dataReader = command.ExecuteReader();
+                while(dataReader.Read())
+                {
+                    CustName = dataReader.GetBoolean(0);
+                    CustGender= dataReader.GetBoolean(1);
+                    CustDateOfBirth= dataReader.GetBoolean(2);
+                    CustFatherName= dataReader.GetBoolean(3);
+                    CustMotherName= dataReader.GetBoolean(4);
+                    CustHusbandName= dataReader.GetBoolean(5);
+                    CustContactNumber= dataReader.GetBoolean(6);
+                    CustAadharNumber= dataReader.GetBoolean(7);
+                    CustReligion= dataReader.GetBoolean(8);
+                    CustCaste = dataReader.GetBoolean(9);
+                    CustCommunity= dataReader.GetBoolean(10);
+                    CustEducation= dataReader.GetBoolean(11);
+                    CustFamilyMember= dataReader.GetBoolean(12);
+                    CustEarningMember= dataReader.GetBoolean(13);
+                    CustOccupation= dataReader.GetBoolean(14);
+                    CustMonthlyIncome= dataReader.GetBoolean(15);
+                    CustMonthlyExpenses= dataReader.GetBoolean(16);
+                    CustFamilyYearlyIncome= dataReader.GetBoolean(17);
+                    CustomerDoorNumber= dataReader.GetBoolean(18);
+                    CustStreetName= dataReader.GetBoolean(19);
+                    CustomerLocality= dataReader.GetBoolean(20);
+                    CustomerCity= dataReader.GetBoolean(21);
+                    CustomerState= dataReader.GetBoolean(22);
+                    CustomerPincode= dataReader.GetBoolean(23);
+                    CustomerHousingType= dataReader.GetBoolean(24);
+                    CustomerAddressProof= dataReader.GetBoolean(25);
+                    CustomerPhotoProof= dataReader.GetBoolean(26);
+                    CustomerProfilePicture= dataReader.GetBoolean(27);
+                    Combinephoto= dataReader.GetBoolean(28);
+                    BankHolderName = dataReader.GetBoolean(29);
+                    BankAccountNo = dataReader.GetBoolean(30);
+                    Bankname = dataReader.GetBoolean(31);
+                    BranchName = dataReader.GetBoolean(32);
+                    BIfscCode = dataReader.GetBoolean(33);
+                    BMicrCode = dataReader.GetBoolean(34);
+                }
             }
         }
         public void CheckAndChangeStatus()

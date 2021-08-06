@@ -85,10 +85,13 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
+                <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}" ></Button>
             </Border>
             <Button Grid.Column="2" Style="{StaticResource SecondaryBtn}" Content="Export Hi-Mark File" Width="150" x:Name="HimarkBtn" Click="HimarkBtn_Click"></Button>
-            <Button Grid.Column="3" Style="{StaticResource SecondaryBtn}" Content="Import Himark File" Width="150" x:Name="ImportHimarkBtn" Click="ImportHimarkBtn_Click"></Button>
+            <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                <Button Grid.Column="3" Style="{StaticResource SecondaryBtn}" Content="Import Himark File" Width="150" x:Name="ImportHimarkBtn" Click="ImportHimarkBtn_Click"></Button>
+                <Button Grid.Column="3" Style="{StaticResource SecondaryBtn}" Content="Document Verify" Width="150" x:Name="DocumentVerify" Click="xRecommendCustome_Click" Margin="0,30,0,0"></Button>
+            </StackPanel>
         </Grid>
         <Border Height="500" Width="900" Background="White" Visibility="Collapsed" CornerRadius="5" BorderThickness="2" BorderBrush="Gray" Panel.ZIndex="2" x:Name="HimarkExportPanel">
             <Grid Height="490" Width="890">

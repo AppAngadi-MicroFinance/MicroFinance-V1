@@ -17,6 +17,7 @@ namespace MicroFinance.Modal
         public string NotificationPurpose { get; set; }
         public string CustomerStatus { get; set; }
         public string NotificationDate { get; set; }
+        public string LoanRequestId { get; set; }
 
 
        

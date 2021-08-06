@@ -306,7 +306,7 @@ namespace MicroFinance.Reports
             amount.ColumnWidth = 24;
             amount.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             amount.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-            FillNEFT(xlWorkSheet, neft);
+          //  FillNEFT(xlWorkSheet, neft);
             try
             {
                 string FileName = "D:\\NEFT_BULK_" + DateTime.Today.ToString("dd-MMM-yyyy (hh-mm)") + ".xlsx";
