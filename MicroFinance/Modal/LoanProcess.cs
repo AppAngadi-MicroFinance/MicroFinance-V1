@@ -481,7 +481,11 @@ namespace MicroFinance.Modal
                     sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
                     sqlcomm.CommandText = "update CustomerDetails set IsActive='true' where CustId='" + _customerId + "'";
-                    sqlcomm.ExecuteNonQuery();
+                    int Result=(int)sqlcomm.ExecuteNonQuery();
+                    if(Result==1)
+                    {
+                        LoadData1(LoanId);
+                    }
                 }
                 sqlconn.Close();
             }
@@ -521,16 +525,39 @@ namespace MicroFinance.Modal
 
 
         //--Loan Master Table Entry Section--
+        public DayOfWeek GetSHGCollectionDay(string CustomerID)
+        {
+            DayOfWeek Result = default;
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId=(select SHGid  from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + CustomerID + "'))";
+                    string Value = (string)sqlcomm.ExecuteScalar();
+                    Result = WeekDay(Value);
+                }
+                sqlconn.Close();
+            }
+            return Result;
+        }
 
-        //void LoadData1()
-        //{
-        //    GetLoanDetails(CustId);
-        //    List<Loan> LoanCollectionList = Interestcc(LoanAmount, LoanPeriod, ApprovedDate, DateTime.Now.AddDays(3), 3);
-        //    foreach (Loan item in LoanCollectionList)
-        //    {
-        //        InsertIntoLoanMaster(BrachId, CustId, LoanId, item.WeekNo, item.DueDate, item.Amount, item.Interest, item.Total);
-        //    }
-        //}
+
+        void LoadData1(string LoanID)
+        {
+            // GetLoanDetails(CustId);
+            DateTime ApproveDate = DateTime.Now;
+            DayOfWeek CollectionDay = GetSHGCollectionDay(_customerId);
+            DateTime NextCollectionDate = CollectionDate(CollectionDay);
+            List<Loan> LoanCollectionList = Interestcc(LoanAmount, LoanPeriod, ApproveDate, NextCollectionDate);
+            foreach (Loan item in LoanCollectionList)
+            {
+                InsertIntoLoanMaster(BranchID, _customerId, LoanID, item.WeekNo, item.DueDate, item.Amount, item.Interest, item.Total);
+            }
+        }
+       
         //void GetLoanDetails(string CustomerID)
         //{
         //    using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -551,11 +578,11 @@ namespace MicroFinance.Modal
         //        reader.Close();
         //    }
         //}
-        public static List<Loan> Interestcc(int amount, int weeksCount, DateTime loanIssuedDate, DateTime nextDueDate, int excuseDays)
+        public static List<Loan> Interestcc(int amount, int weeksCount, DateTime loanIssuedDate, DateTime nextDueDate)
         {
-            int days = (nextDueDate - loanIssuedDate).Days;
-            if (days >= excuseDays)
-                nextDueDate = nextDueDate.AddDays(7);
+            //int days = (nextDueDate - loanIssuedDate).Days;
+            //if (days >= excuseDays)
+            //    nextDueDate = nextDueDate.AddDays(7);
 
             int[] InterestSeq = new int[] { 5, 4, 2, 1, 0 };
             int interval = weeksCount / 5;
@@ -595,6 +622,69 @@ namespace MicroFinance.Modal
             decimal cal = amount / 100;
             decimal cal2 = cal * percent;
             return Convert.ToInt32(cal2);
+        }
+        public DateTime CollectionDate(DayOfWeek day)
+        {
+            DateTime ResultDate = default;
+            DayOfWeek Today = DateTime.Now.DayOfWeek;
+            int calValue = ((int)day - (int)Today);
+            if (calValue == 0)
+            {
+                ResultDate = DateTime.Now.AddDays(7);
+            }
+            else if (calValue > 3)
+            {
+                ResultDate = DateTime.Now.AddDays(calValue);
+            }
+            else if (calValue <= 3 && calValue > 0)
+            {
+                ResultDate = DateTime.Now.AddDays(calValue + 7);
+            }
+            else if (calValue < 0)
+            {
+                int a = 7 - Math.Abs(calValue);
+                if (Math.Abs(calValue) > 3)
+                {
+                    ResultDate = DateTime.Now.AddDays(7 + a);
+                }
+                else
+                {
+                    ResultDate = DateTime.Now.AddDays(a);
+                }
+
+
+            }
+            return ResultDate;
+        }
+        public DayOfWeek WeekDay(string Value)
+        {
+            DayOfWeek result = default;
+            Value = Value.ToLower();
+            switch (Value)
+            {
+                case "monday":
+                    result = DayOfWeek.Monday;
+                    break;
+                case "tuesday":
+                    result = DayOfWeek.Tuesday;
+                    break;
+                case "wednesday":
+                    result = DayOfWeek.Wednesday;
+                    break;
+                case "thursday":
+                    result = DayOfWeek.Thursday;
+                    break;
+                case "friday":
+                    result = DayOfWeek.Friday;
+                    break;
+                case "saturday":
+                    result = DayOfWeek.Saturday;
+                    break;
+                case "sunday":
+                    result = DayOfWeek.Sunday;
+                    break;
+            }
+            return result;
         }
 
 
