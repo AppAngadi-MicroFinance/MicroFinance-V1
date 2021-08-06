@@ -22,7 +22,7 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("CustGroupId");
             }
         }
-        int _attendance;
+        int _attendance = 1;
         public int Attendance
         {
             get

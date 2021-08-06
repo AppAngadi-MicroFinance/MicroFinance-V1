@@ -387,6 +387,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="CollectionSheet.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -394,6 +395,11 @@
     <Compile Include="Modal\CollectionSheet.cs" />
     <EmbeddedResource Include="Report1.rdlc" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Capture.datasource" />
+    <None Include="Properties\DataSources\CollectionEntry.datasource" />
+    <None Include="Properties\DataSources\CollectionStartPage.datasource" />
+    <None Include="Properties\DataSources\CollectionVerify.datasource" />
+    <None Include="Properties\DataSources\CreateBranch.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

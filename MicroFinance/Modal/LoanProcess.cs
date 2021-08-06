@@ -522,35 +522,35 @@ namespace MicroFinance.Modal
 
         //--Loan Master Table Entry Section--
 
-        void LoadData1()
-        {
-            GetLoanDetails(CustId);
-            List<Loan> LoanCollectionList = Interestcc(LoanAmount, LoanPeriod, ApprovedDate, DateTime.Now.AddDays(3), 3);
-            foreach (Loan item in LoanCollectionList)
-            {
-                InsertIntoLoanMaster(BrachId, CustId, LoanId, item.WeekNo, item.DueDate, item.Amount, item.Interest, item.Total);
-            }
-        }
-        void GetLoanDetails(string CustomerID)
-        {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
-            {
-                sql.Open();
-                SqlCommand command = new SqlCommand();
-                command.Connection = sql;
-                command.CommandText = "select LoanAmount, LoanPeriod, InterestRate,ApproveDate, LoanId from LoanDetails where IsActive = 1 and CustomerID = '" + CustomerID + "'";
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    LoanAmount = reader.GetInt32(0);
-                    LoanPeriod = reader.GetInt32(1);
-                    InterestRate = reader.GetInt32(2);
-                    ApprovedDate = reader.GetDateTime(3);
-                    LoanId = reader.GetString(4);
-                }
-                reader.Close();
-            }
-        }
+        //void LoadData1()
+        //{
+        //    GetLoanDetails(CustId);
+        //    List<Loan> LoanCollectionList = Interestcc(LoanAmount, LoanPeriod, ApprovedDate, DateTime.Now.AddDays(3), 3);
+        //    foreach (Loan item in LoanCollectionList)
+        //    {
+        //        InsertIntoLoanMaster(BrachId, CustId, LoanId, item.WeekNo, item.DueDate, item.Amount, item.Interest, item.Total);
+        //    }
+        //}
+        //void GetLoanDetails(string CustomerID)
+        //{
+        //    using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
+        //    {
+        //        sql.Open();
+        //        SqlCommand command = new SqlCommand();
+        //        command.Connection = sql;
+        //        command.CommandText = "select LoanAmount, LoanPeriod, InterestRate,ApproveDate, LoanId from LoanDetails where IsActive = 1 and CustomerID = '" + CustomerID + "'";
+        //        SqlDataReader reader = command.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+        //            LoanAmount = reader.GetInt32(0);
+        //            LoanPeriod = reader.GetInt32(1);
+        //            InterestRate = reader.GetInt32(2);
+        //            ApprovedDate = reader.GetDateTime(3);
+        //            LoanId = reader.GetString(4);
+        //        }
+        //        reader.Close();
+        //    }
+        //}
         public static List<Loan> Interestcc(int amount, int weeksCount, DateTime loanIssuedDate, DateTime nextDueDate, int excuseDays)
         {
             int days = (nextDueDate - loanIssuedDate).Days;
