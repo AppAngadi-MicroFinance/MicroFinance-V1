@@ -65,6 +65,7 @@ namespace MicroFinance
             loanprocess.ApprovedBy = MainWindow.LoginDesignation.EmpId;
             loanprocess.ApproveLoan(ID);
             AddtoApprovalList(ID);
+            MainWindow.StatusMessageofPage(1, "Loan Approved SuccessFully!..");
         }
 
 
@@ -124,7 +125,16 @@ namespace MicroFinance
 
         private void Generate_NEFTBtn_Click(object sender, RoutedEventArgs e)
         {
-            neft.GenerateNEFT_File(ApprovedCustomerList);
+            try
+            {
+                neft.GenerateNEFT_File(ApprovedCustomerList);
+                MainWindow.StatusMessageofPage(1, "Excel Generate Successfully!...");
+            }
+            catch
+            {
+
+            }
+            
         }
     }
 }

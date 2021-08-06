@@ -238,7 +238,7 @@ namespace MicroFinance
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
                 
-                sqlCommand.CommandText = "select SelfHelpGroup.SHGName,PeerGroup.GroupId  from PeerGroup join SelfHelpGroup on PeerGroup.SHGid=SelfHelpGroup.SHGId where SelfHelpGroup.SHGid=(select SHGId from TimeTable where EmpId='" + _officerEmpId + "')";
+                sqlCommand.CommandText = "select SelfHelpGroup.SHGName,PeerGroup.GroupId  from PeerGroup join SelfHelpGroup on PeerGroup.SHGid=SelfHelpGroup.SHGId where SelfHelpGroup.SHGid in (select SHGId from TimeTable where EmpId='" + _officerEmpId + "')";
                 SqlDataReader sqlDataReader1 = sqlCommand.ExecuteReader();
                 while (sqlDataReader1.Read())
                 {
