@@ -31,9 +31,31 @@ namespace MicroFinance
             loanprocess.GetLoanDetailList(BranchID,8);
             RecommendList.Clear();
             RecommendList = loanprocess.LoanProcessList;
-            Custlist.ItemsSource = RecommendList;
+            LoadData();
             setCount();
             setAmount();
+        }
+
+        void LoadData()
+        {
+            Custlist.Items.Clear();
+            foreach(LoanProcess lp in RecommendList)
+            {
+                Custlist.Items.Add(lp);
+            }
+        }
+
+        void RemoveItem(string ID)
+        {
+            Custlist.Items.Clear();
+            foreach (LoanProcess lp in RecommendList)
+            {
+                if(lp.LoanRequestID.Equals(ID)!=true)
+                {
+                    Custlist.Items.Add(lp);
+                }
+                
+            }
         }
         void setCount()
         {
@@ -42,7 +64,7 @@ namespace MicroFinance
             foreach (LoanProcess c in RecommendList)
             {
 
-                if (c.LoanType == "General Loan")
+                if (c.LoanType == "General Loan"||c.LoanType=="General")
                 {
                     count1++;
                 }
@@ -87,6 +109,7 @@ namespace MicroFinance
                 string ApprovedBy = MainWindow.LoginDesignation.EmpId;
                 loan.ApprovedBy = ApprovedBy;
                 loan.RequestApproval(ID);
+                RemoveItem(ID);
                 MainWindow.StatusMessageofPage(1, "Loan Approved Successfully...");
             }
             

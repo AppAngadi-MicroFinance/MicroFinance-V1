@@ -160,6 +160,7 @@ namespace MicroFinance
             if (CapturedImage.Source != null)
             {
                 CapturePhoto.Content = "Re-Take";
+                Savebtn.Visibility = Visibility.Visible;
             }
 
         }

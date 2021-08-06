@@ -61,12 +61,26 @@ namespace MicroFinance
             }
         }
 
+
+        void RemoveItem(string UId)
+        {
+            HimarkResultList.Items.Clear();
+            foreach(HimarkResult hm in HMResultList)
+            {
+                if(hm.RequestID.Equals(UId)!=true)
+                {
+                    HimarkResultList.Items.Add(hm);
+                }
+            }
+        }
+
         private void RetainBtn_Click(object sender, RoutedEventArgs e)
         {
             Button Btn = sender as Button;
             HimarkResultList.Items.Refresh();
             string ID = Btn.Uid.ToString();
             loanProcess.RetainFromHimark(ID);
+            RemoveItem(ID);
         }
 
         private void AcceptBtn_Click(object sender, RoutedEventArgs e)
@@ -76,6 +90,7 @@ namespace MicroFinance
             HimarkResultList.Items.Refresh();
             string ID = Btn.Uid.ToString();
             loanProcess.ApproveLoanFromHimark(ID);
+            RemoveItem(ID);
         }
 
         private void RejectBtn_Click(object sender, RoutedEventArgs e)

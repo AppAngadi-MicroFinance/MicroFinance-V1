@@ -1666,6 +1666,36 @@ namespace MicroFinance
         {
             NavigationService.GoBack();
         }
+
+        private void CustNameofAddresProof_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AddCustAddressProof.IsEnabled = true;
+        }
+
+        private void CustNameofPhotoProof_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CustPhotoProofAdd.IsEnabled = true;
+        }
+
+        private void GNameofAddressProof_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GAddressProofAdd.IsEnabled = true;
+        }
+
+        private void GNamePhotoProof_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GPhotoProofAdd.IsEnabled = true;
+        }
+
+        private void NNameofAddressProof_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NAddressProofAdd.IsEnabled = true;
+        }
+
+        private void NNameofPhotoProof_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NPhotoProofAdd.IsEnabled = true;
+        }
     }
     
 }

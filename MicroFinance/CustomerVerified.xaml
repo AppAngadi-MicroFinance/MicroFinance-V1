@@ -1212,11 +1212,11 @@
                                 <TextBlock Text="Customer Address Proof" Style="{StaticResource Regular}"/>
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustAddressProofError"/>
                             </StackPanel>
-                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustNameofAddresProof">
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustNameofAddresProof" SelectionChanged="CustNameofAddresProof_SelectionChanged">
 
                             </ComboBox>
                             <Grid Grid.Column="3" >
-                                <Button  Style="{StaticResource Add}" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="AddCustAddressProof" Click="AddCustAddressProof_Click"/>
+                                <Button  Style="{StaticResource Add}" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="AddCustAddressProof" Click="AddCustAddressProof_Click" IsEnabled="False"/>
                                 <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
                                     <Button  Style="{StaticResource Show}" x:Name="ShowCustAddressProof" Click="ShowCustAddressProof_Click"/>
                                     <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="EditCustAddressProof" Click="EditCustAddressProof_Click"/>
@@ -1239,11 +1239,11 @@
                                 <TextBlock Text="Customer Photo Proof" Style="{StaticResource Regular}"/>
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustPhotoProofError"/>
                             </StackPanel>
-                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustNameofPhotoProof">
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustNameofPhotoProof" SelectionChanged="CustNameofPhotoProof_SelectionChanged">
 
                             </ComboBox>
                             <Grid Grid.Column="3">
-                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="CustPhotoProofAdd" Click="CustPhotoProofAdd_Click"/>
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="CustPhotoProofAdd" Click="CustPhotoProofAdd_Click" IsEnabled="False"/>
                                 <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
                                     <Button  Style="{StaticResource Show}" x:Name="CustPhotoProofView" Click="CustPhotoProofView_Click"/>
                                     <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="CustPhotoProofEdit" Click="CustPhotoProofEdit_Click"/>
@@ -1291,11 +1291,11 @@
                                 <TextBlock Text="Guarantor Address Proof" Style="{StaticResource Regular}"/>
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GAddressProofError"/>
                             </StackPanel>
-                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GNameofAddressProof">
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GNameofAddressProof" SelectionChanged="GNameofAddressProof_SelectionChanged">
 
                             </ComboBox>
                             <Grid Grid.Column="3" >
-                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="GAddressProofAdd" Click="GAddressProofAdd_Click"/>
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="GAddressProofAdd" Click="GAddressProofAdd_Click" IsEnabled="False"/>
                                 <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
                                     <Button  Style="{StaticResource Show}" x:Name="GAddressProofShow" Click="GAddressProofShow_Click"/>
                                     <Button Style="{StaticResource Edit}" x:Name="GAddressProofEdit" Click="GAddressProofEdit_Click"/>
@@ -1318,11 +1318,11 @@
                                 <TextBlock Text="Guarantor Photo Proof" Style="{StaticResource Regular}"/>
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GPhotoProofError"/>
                             </StackPanel>
-                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GNamePhotoProof">
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GNamePhotoProof" SelectionChanged="GNamePhotoProof_SelectionChanged">
 
                             </ComboBox>
                             <Grid Grid.Column="3" >
-                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="GPhotoProofAdd" Click="GPhotoProofAdd_Click"/>
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="GPhotoProofAdd" Click="GPhotoProofAdd_Click" IsEnabled="False"/>
                                 <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
                                     <Button  Style="{StaticResource Show}" x:Name="GPhotoProofShow" Click="GPhotoProofShow_Click"/>
                                     <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="GphotoProof" Click="GphotoProof_Click"/>
@@ -1370,11 +1370,11 @@
                                 <TextBlock Text="Nominee Address Proof" Style="{StaticResource Regular}"/>
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NAddressProofError"/>
                             </StackPanel>
-                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NNameofAddressProof">
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NNameofAddressProof" SelectionChanged="NNameofAddressProof_SelectionChanged">
 
                             </ComboBox>
                             <Grid Grid.Column="3" >
-                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="NAddressProofAdd" Click="NAddressProofAdd_Click"/>
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="NAddressProofAdd" Click="NAddressProofAdd_Click" IsEnabled="False"/>
                                 <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
                                     <Button  Style="{StaticResource Show}" x:Name="NAddressProofShow" Click="NAddressProofShow_Click"/>
                                     <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="NAddressProofEdit" Click="NAddressProofEdit_Click"/>
@@ -1397,11 +1397,11 @@
                                 <TextBlock Text="Nominee Photo Proof" Style="{StaticResource Regular}"/>
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="NPhotoProofError"/>
                             </StackPanel>
-                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NNameofPhotoProof">
+                            <ComboBox Grid.Column="2"  VerticalAlignment="Center" Width="200" Style="{StaticResource combo}" HorizontalAlignment="Left" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="NNameofPhotoProof" SelectionChanged="NNameofPhotoProof_SelectionChanged">
 
                             </ComboBox>
                             <Grid Grid.Column="3" >
-                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="NPhotoProofAdd" Click="NPhotoProofAdd_Click"/>
+                                <Button Grid.Column="3" Style="{StaticResource Add}" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="NPhotoProofAdd" Click="NPhotoProofAdd_Click" IsEnabled="False"/>
                                 <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
                                     <Button  Style="{StaticResource Show}" x:Name="NPhotoProofShow" Click="NPhotoProofShow_Click"/>
                                     <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="NPhotoProofEdit" Click="NPhotoProofEdit_Click"/>
