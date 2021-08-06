@@ -316,7 +316,7 @@ namespace MicroFinance.Reports
                 else
                 {
                     Directory.CreateDirectory(dir);
-                    string FileName = dir + "\\NEFT_" + DateTime.Now.ToString() + ".xlsx";
+                    string FileName = dir + "\\NEFT_" + DateTime.Now.ToString("dd-MM-yyyy hh-mm") + ".xlsx";
                     xlWorkBook.SaveAs(FileName);
 
                 }
