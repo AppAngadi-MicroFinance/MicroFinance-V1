@@ -66,6 +66,8 @@
             </Border.Effect>
             <Button x:Name="xDailyReportsBtn" Style="{StaticResource NavigateDailyReports}" Click="xDailyReportsBtn_Click"></Button>
         </Border>
+
+        <Button Style="{StaticResource SecondaryBtn}" Grid.Row="2" Content="Document Verify" Click="xRecommendCustome_Click"/>
         <!--Section D-->
         <Grid Width="700" Height="170" Margin="0,0,150,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
@@ -176,6 +178,7 @@
                     <Button Style="{StaticResource PrimaryBtn}" Content="Export Himark File" Width="150" x:Name="ExportHimarkBtn" Click="ExportHimarkBtn_Click"></Button>
                     <Button Style="{StaticResource CancelBtn}" Margin="20,0,0,0" Content="Cancel" Width="150"></Button>
                 </StackPanel>
+
 
 
             </Grid>
