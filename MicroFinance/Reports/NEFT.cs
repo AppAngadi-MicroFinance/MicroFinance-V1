@@ -318,9 +318,7 @@ namespace MicroFinance.Reports
                     Directory.CreateDirectory(dir);
                     string FileName = dir + "\\NEFT_" + DateTime.Now.ToString("dd-MM-yyyy hh-mm") + ".xlsx";
                     xlWorkBook.SaveAs(FileName);
-
                 }
-
             }
             catch (Exception e)
             {
