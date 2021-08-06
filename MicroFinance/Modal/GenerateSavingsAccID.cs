@@ -22,7 +22,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select RegionCode from Region where RegionName='" + ld.RegionName + "'";
+                    sqlcomm.CommandText = "select RegionCode from Region where RegionName='" + MainWindow.LoginDesignation.RegionName + "'";
                     Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();
@@ -40,7 +40,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select BranchCode from BranchDetails where BranchName='" + ld.BranchId + "'";
+                    sqlcomm.CommandText = "select BranchCode from BranchDetails where Bid='" + MainWindow.LoginDesignation.BranchId + "'";
                     Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();

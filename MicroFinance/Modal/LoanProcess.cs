@@ -499,7 +499,7 @@ namespace MicroFinance.Modal
         {
             GenerateSavingsAccID SA = new GenerateSavingsAccID();
             int res = 0;
-            var date = DateTime.Now;
+            var date = DateTime.Now.ToString("MM-dd-yyyy");
             using (SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.db))
             {
                 sqlcon.Open();
@@ -507,11 +507,12 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlcon;
-                    sqlcomm.CommandText = "IF (EXISTS (SELECT * FROM SavingsAccount WHERE CustId = '" + id + "' ))SELECT 1 AS res ELSE SELECT 0 AS res;";
+                    sqlcomm.CommandText = "IF (EXISTS (SELECT CustId FROM SavingsAccount WHERE CustId = '" + id + "' ))SELECT 1 AS res ELSE SELECT 0 AS res;";
                     res = (int)sqlcomm.ExecuteScalar();
                     if (res == 0)
                     {
                         sqlcomm.CommandText = "insert into SavingsAccount values ('" + id + "','" + SA.GenerateSavingAccID() + "','" + date + "'," + 1 + ")";
+                        sqlcomm.ExecuteNonQuery();
                     }
                 }
                 sqlcon.Close();
