@@ -485,12 +485,41 @@ namespace MicroFinance.Modal
                     if(Result==1)
                     {
                         LoadData1(LoanId);
+                        NewSavingAcc(_customerId);
+
                     }
                 }
                 sqlconn.Close();
             }
 
         }
+
+        public void NewSavingAcc(string id)
+        {
+            GenerateSavingsAccID SA = new GenerateSavingsAccID();
+            int res = 0;
+            var date = DateTime.Now;
+            using (SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sqlcon.Open();
+                if (sqlcon.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "IF (EXISTS (SELECT * FROM SavingsAccount WHERE CustId = '" + id + "' ))SELECT 1 AS res ELSE SELECT 0 AS res;";
+                    res = (int)sqlcomm.ExecuteScalar();
+                    if (res == 0)
+                    {
+                        sqlcomm.CommandText = "insert into SavingsAccount values ('" + id + "','" + SA.GenerateSavingAccID() + "','" + date + "'," + 1 + ")";
+                    }
+                }
+                sqlcon.Close();
+            }
+        }
+
+
+
+
         public void RejectLoan(string ID)
         {
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))

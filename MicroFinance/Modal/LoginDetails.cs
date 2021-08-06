@@ -21,6 +21,7 @@ namespace MicroFinance.Modal
             GetBranchAndRegionNameForEmployee(_userName);
             GetDesignation(_userName);
         }
+        public LoginDetails() { }
         void GetBranchAndRegionNameForEmployee(string userName)
         {
             try
