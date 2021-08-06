@@ -77,82 +77,128 @@ namespace MicroFinance
         {
             DenominationList.Items.Clear();
             DenominationGrid.Visibility = Visibility.Hidden;
-
         }
 
         Dictionary<string, string> FieldOfficerIdAndName = new Dictionary<string, string>();
+        List<string> FieldOfficerList = new List<string>();  /*<<<>>>*/
         List<string> FOName = new List<string>();
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateChanges();
         }
 
-        void DateChanges()
+        
+        void GetFieldOfficers(string branchId)
         {
-            DayText.Text = Convert.ToDateTime(DatePic.SelectedDate).DayOfWeek.ToString();
-            GetFieldOfficers();
-            FieldOfficerBox.ItemsSource = FieldOfficerIdAndName.Values;
-            FieldOfficerBox.Items.Refresh();
-            FieldOfficerBox.IsEnabled = true;
-            DenominationGrid.Visibility = Visibility.Hidden;
-        }
-
-        void GetFieldOfficers()
-        {
-            FieldOfficerIdAndName.Clear();
-            Dictionary<string, string> ShgAndBranchId = new Dictionary<string, string>();
-            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "select SHGName,BId from DenominationTable where BId=(select BId from BranchDetails where BranchName='" + BranchName.Text + "' and RegionName='" + RegionName.Text + "') and CollectionDate='" + Convert.ToDateTime( DatePic.SelectedDate).ToString("yyyy-MM-dd") + "' and IsVerified=0";
-                SqlDataReader dataReader = command.ExecuteReader();
-                while(dataReader.Read())
-                {
-                    ShgAndBranchId.Add(dataReader.GetString(1), dataReader.GetString(0));
-                }
-                dataReader.Close();
-                foreach(var item in ShgAndBranchId)
-                {
-                    command.CommandText = "select EmpId, Name from Employee where EmpId = (select distinct EmpId from SelfHelpGroup where SHGName = '" + item.Value + "' and BranchId = '" + item.Key + "')";
-                    //command.CommandText= 'select EmpId from EmployeeBranch where Designation='Field officer' and BranchId='01202108001' '
-                    dataReader = command.ExecuteReader();
-                    while(dataReader.Read())
-                    {
-                        string _Temp = dataReader.GetString(1);
-                        FieldOfficerIdAndName.Add(dataReader.GetString(0), _Temp);
-                    }
-                    dataReader.Close();
-                }
-            }
-        }
-        List<string> SHGNameList = new List<string>();
-        private void FieldOfficerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SHGNameList.Clear();
-            string _empId = "";
-             foreach(var item in FieldOfficerIdAndName)
-            {
-                if(item.Value==FieldOfficerBox.SelectedItem)
-                {
-                    _empId = item.Key;
-                }
-            }
+            
             using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "select SHGName from DenominationTable where BId=(select BId from BranchDetails where BranchName='" + BranchName.Text + "' and RegionName='" + RegionName.Text + "') and CollectionDate='" + Convert.ToDateTime(DatePic.Text).ToString("yyyy-MM-dd") + "' and IsVerified=0 and EmpId='" + _empId + "'";
+                command.CommandText = "select Name from Employee where EmpId in (select EmpId from EmployeeBranch where BranchId = '"+ branchId + "' and Designation = 'Field Officer')";
                 SqlDataReader dataReader = command.ExecuteReader();
-                while(dataReader.Read())
+                while (dataReader.Read())
+                {
+                    FieldOfficerList.Add(dataReader.GetString(0));
+                }
+                dataReader.Close();
+            }
+        }
+
+        void DateChanges()
+        {
+            FieldOfficerList.Clear();
+            DayText.Text = Convert.ToDateTime(DatePic.SelectedDate).DayOfWeek.ToString();
+            GetFieldOfficers(MainWindow.LoginDesignation.BranchId);
+            FieldOfficerBox.ItemsSource = FieldOfficerList;
+
+            FieldOfficerBox.Items.Refresh();
+            FieldOfficerBox.IsEnabled = true;
+            DenominationGrid.Visibility = Visibility.Hidden;
+        }
+
+        //void GetFieldOfficers()
+        //{
+        //    FieldOfficerIdAndName.Clear();
+        //    Dictionary<string, string> ShgAndBranchId = new Dictionary<string, string>();
+        //    using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
+        //    {
+        //        connection.Open();
+        //        SqlCommand command = new SqlCommand();
+        //        command.Connection = connection;
+        //        command.CommandText = "select SHGName,BId from DenominationTable where BId=(select BId from BranchDetails where BranchName='" + BranchName.Text + "' and RegionName='" + RegionName.Text + "') and CollectionDate='" + Convert.ToDateTime( DatePic.SelectedDate).ToString("yyyy-MM-dd") + "' and IsVerified=0";
+        //        SqlDataReader dataReader = command.ExecuteReader();
+        //        while(dataReader.Read())
+        //        {
+        //            ShgAndBranchId.Add(dataReader.GetString(1), dataReader.GetString(0));
+        //        }
+        //        dataReader.Close();
+        //        foreach(var item in ShgAndBranchId)
+        //        {
+        //            command.CommandText = "select EmpId, Name from Employee where EmpId = (select distinct EmpId from SelfHelpGroup where SHGName = '" + item.Value + "' and BranchId = '" + item.Key + "')";
+        //            //command.CommandText= 'select EmpId from EmployeeBranch where Designation='Field officer' and BranchId='01202108001' '
+        //            dataReader = command.ExecuteReader();
+        //            while(dataReader.Read())
+        //            {
+        //                string _Temp = dataReader.GetString(1);
+        //                FieldOfficerIdAndName.Add(dataReader.GetString(0), _Temp);
+        //            }
+        //            dataReader.Close();
+        //        }
+        //    }
+        //}
+
+
+
+        List<string> SHGNameList = new List<string>();
+
+        void GetSHGList(string empName)
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "select SHGName from SelfHelpGroup where SHGId in (select SHGId from TimeTable where EmpId in (select EmpId from Employee where Name = '"+ empName + "'))";
+                SqlDataReader dataReader = command.ExecuteReader();
+                while (dataReader.Read())
                 {
                     SHGNameList.Add(dataReader.GetString(0));
                 }
                 dataReader.Close();
             }
+        }
+
+        private void FieldOfficerBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SHGNameList.Clear();
+            GetSHGList(FieldOfficerBox.SelectedItem as string);
             ShgBox.ItemsSource = SHGNameList;
+
+            //string _empId = "";
+            // foreach(var item in FieldOfficerIdAndName)
+            //{
+            //    if(item.Value==FieldOfficerBox.SelectedItem)
+            //    {
+            //        _empId = item.Key;
+            //    }
+            //}
+            //using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            //{
+            //    connection.Open();
+            //    SqlCommand command = new SqlCommand();
+            //    command.Connection = connection;
+            //    command.CommandText = "select SHGName from DenominationTable where BId=(select BId from BranchDetails where BranchName='" + BranchName.Text + "' and RegionName='" + RegionName.Text + "') and CollectionDate='" + Convert.ToDateTime(DatePic.Text).ToString("yyyy-MM-dd") + "' and IsVerified=0 and EmpId='" + _empId + "'";
+            //    SqlDataReader dataReader = command.ExecuteReader();
+            //    while(dataReader.Read())
+            //    {
+            //        SHGNameList.Add(dataReader.GetString(0));
+            //    }
+            //    dataReader.Close();
+            //}
+            //ShgBox.ItemsSource = SHGNameList;
+
             ShgBox.Items.Refresh();
             ShgBox.IsEnabled = true;
             DenominationGrid.Visibility = Visibility.Hidden;
