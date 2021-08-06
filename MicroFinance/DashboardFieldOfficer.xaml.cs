@@ -15,6 +15,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Microsoft.Reporting;
+using Microsoft.Reporting.WinForms;
+using System.ComponentModel;
+using System.IO;
+using System.Data;
+
 namespace MicroFinance
 {
     /// <summary>
@@ -22,6 +28,7 @@ namespace MicroFinance
     /// </summary>
     public partial class DashboardFieldOfficer : Page
     {
+        public static LoginDetails LoginDesignation;
         public DashboardFieldOfficer()
         {
             InitializeComponent();
@@ -83,6 +90,12 @@ namespace MicroFinance
         {
             AddPg APG = new AddPg();
             APG.ShowDialog();
+        }
+
+        private void xCollectionSheet_Click(object sender, RoutedEventArgs e)
+        {
+            string empid = "E0100220210704";
+            CollectionShceduleSheet.GenerateShceduleSheet(empid);
         }
     }
 }

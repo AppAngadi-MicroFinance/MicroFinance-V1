@@ -358,14 +358,11 @@
 
         </Popup>
         
-            <Grid Height="460" Width="802" x:Name="capturepanel" Visibility="Collapsed">
-            <Border Height="460" Width="802" BorderBrush="Blue" BorderThickness="2">
-                <Border.Effect>
-                    <DropShadowEffect/>
-                </Border.Effect>
-                <Grid Height="450" Width="800" Background="White">
+            <Grid Height="460" Width="802" x:Name="capturepanel" Visibility="Visible" Background="White">
+            <Border Height="460" Width="802" BorderBrush="Gray" BorderThickness="2" CornerRadius="5">
+                <Grid Height="450" Width="790" Background="White">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="370*"/>
                         <RowDefinition Height="60*"/>
                     </Grid.RowDefinitions>

@@ -213,7 +213,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "update LoanApplication set LoanStatus='7' where RequestID='" + RequestId + "'";
+                    sqlcomm.CommandText = "update LoanApplication set LoanStatus='8' where RequestID='" + RequestId + "'";
                     sqlcomm.ExecuteNonQuery();
                 }
             }
@@ -372,7 +372,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "update LoanApplication set LoanAmount=" + LoanAmount + ",LoanStatus='8' where RequestId='" + ID + "'";
+                    sqlcomm.CommandText = "update LoanApplication set LoanAmount=" + LoanAmount + ",LoanStatus='9' where RequestId='" + ID + "'";
                     sqlcomm.ExecuteNonQuery();
                 }
                 sqlconn.Close();
@@ -392,7 +392,7 @@ namespace MicroFinance.Modal
                     sqlcomm.CommandText = "Select LoanStatus from LoanApplication where RequestID='" + ID + "'";
                     sqlcomm.ExecuteNonQuery();
                     int status = (int)sqlcomm.ExecuteScalar();
-                    if(status==7)
+                    if(status==8)
                     {
                         result = true;
                     }
@@ -414,7 +414,7 @@ namespace MicroFinance.Modal
                     sqlcomm.CommandText = "Select LoanStatus from LoanApplication where RequestId='" + ID + "'";
                     sqlcomm.ExecuteNonQuery();
                     int status = (int)sqlcomm.ExecuteScalar();
-                    if (status==8)
+                    if (status==9)
                     {
                         result = true;
                     }
@@ -423,10 +423,6 @@ namespace MicroFinance.Modal
             }
             return result;
         }
-
-
-
-
         public override string ToString()
         {
             return _customerID + " |" + _employeeID + " | " + _loantype + "|" + LoanAmount + "|" + _loanperiod + "|" + LoanPurpose;

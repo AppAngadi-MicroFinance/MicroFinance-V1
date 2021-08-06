@@ -152,7 +152,7 @@ namespace MicroFinance
 
         private void CapturePhoto_Click(object sender, RoutedEventArgs e)
         {
-            CapturedImage.Source = default;
+            CapturedImage.Source = null;
             tempimg = new BitmapImage();
             tempimg = LiveImage.Source as BitmapImage;
             CapturedImage.Source = tempimg; 

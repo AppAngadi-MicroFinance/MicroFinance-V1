@@ -37,7 +37,7 @@
                 <Grid>
                     <Button x:Name="xRecommendCustomer" Click="xRecommendCustome_Click" Style="{StaticResource NavigatePendingCustomer}"></Button>
                     <Border x:Name="xNotificationBatch" Margin="0,-10,-10,0" Style="{StaticResource NotifyCount}" Width="25" Height="25" Grid.ColumnSpan="2">
-                        <TextBlock x:Name="xCustApprovalsCount" Style="{StaticResource NotifyText}" Text="12" FontSize="14"></TextBlock>
+                        <TextBlock x:Name="xCustApprovalsCount" Style="{StaticResource NotifyText}" Text="0" FontSize="14"></TextBlock>
                     </Border>
                 </Grid>
             </Border>
@@ -87,8 +87,19 @@
                 </Border.Effect>
                 <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
             </Border>
-            <Button Grid.Column="2" Style="{StaticResource SecondaryBtn}" Content="Export Hi-Mark File" Width="150" x:Name="HimarkBtn" Click="HimarkBtn_Click"></Button>
-            <Button Grid.Column="3" Style="{StaticResource SecondaryBtn}" Content="Import Himark File" Width="150" x:Name="ImportHimarkBtn" Click="ImportHimarkBtn_Click"></Button>
+            <Border Width="150" Height="150" Grid.Column="2" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button  Style="{StaticResource NavigateExportHiMark}" x:Name="HimarkBtn" Click="HimarkBtn_Click"></Button>
+            </Border>
+            <Border Width="150" Height="150" Grid.Column="3" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button Style="{StaticResource NavigateImportHiMark}" x:Name="ImportHimarkBtn" Click="ImportHimarkBtn_Click"></Button>
+            </Border>
+            
         </Grid>
         <Border Height="500" Width="900" Background="White" Visibility="Collapsed" CornerRadius="5" BorderThickness="2" BorderBrush="Gray" Panel.ZIndex="2" x:Name="HimarkExportPanel">
             <Grid Height="490" Width="890">
