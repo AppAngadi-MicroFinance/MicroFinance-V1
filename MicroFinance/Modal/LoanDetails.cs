@@ -213,7 +213,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "update LoanApplication set LoanStatus='7' where RequestID='" + RequestId + "'";
+                    sqlcomm.CommandText = "update LoanApplication set LoanStatus='8' where RequestID='" + RequestId + "'";
                     sqlcomm.ExecuteNonQuery();
                 }
             }
@@ -372,7 +372,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "update LoanApplication set LoanAmount=" + LoanAmount + ",LoanStatus='8' where RequestId='" + ID + "'";
+                    sqlcomm.CommandText = "update LoanApplication set LoanAmount=" + LoanAmount + ",LoanStatus='9' where RequestId='" + ID + "'";
                     sqlcomm.ExecuteNonQuery();
                 }
                 sqlconn.Close();
