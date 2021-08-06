@@ -230,7 +230,7 @@
                     <TextBlock Text="Address Proof" Grid.Row="6" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <StackPanel x:Name="AddressPanelofEmployee" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1">
                         <ComboBox Width="230" Style="{StaticResource combo}" x:Name="AddressProofcombo" SelectedIndex="0" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                        <Button Style="{StaticResource Add}" x:Name="AddressproofBtn" Click="AddressproofBtn_Click" Visibility="{Binding AddressProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"></Button>
+                        <Button Style="{StaticResource Add}" x:Name="AddressproofBtn"  Click="AddressproofBtn_Click" Visibility="{Binding AddressProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"></Button>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="AddressProofViewEditPanel" Visibility="{Binding AddressProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}" >
                             <Button x:Name="ViewAddressProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewAddressProof_Click" />
                             <Button x:Name="EditAddressProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditAddressProof_Click"/>
