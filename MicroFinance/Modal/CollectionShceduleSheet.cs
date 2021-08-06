@@ -84,8 +84,8 @@ namespace MicroFinance.Modal
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    NoOfPayments = reader.GetInt32(0);
-                    if (NoOfPayments == 0)
+                    NoOfPayments = reader.GetInt32(0) + 1;
+                    if (NoOfPayments <= 1)
                     {
                         PaidPrincipal = 0;
                         RemaingLoanAmount = LoanAmount;
@@ -114,6 +114,7 @@ namespace MicroFinance.Modal
                     Principal = reader.GetInt32(0);
                     Interest = reader.GetInt32(1);
                     Total = reader.GetInt32(2);
+                    
                 }
                 sql.Close();
             }
@@ -213,12 +214,11 @@ namespace MicroFinance.Modal
                 {
                     CollectionShceduleSheet temp = new CollectionShceduleSheet();
                     temp.CustID = reader.GetString(0);
-                    temp.LoanId = reader.GetString(1);
                     temp.LoanType = reader.GetString(2);
                     temp.LoanAmount = reader.GetInt32(3);
                     temp.SanctionDate = reader.GetDateTime(4);
                     temp.Attendance = string.Empty;
-
+                    temp.LoanId = reader.GetString(1);
                     ActiveLoanCustomer.Add(temp);
                 }
                 sql.Close();

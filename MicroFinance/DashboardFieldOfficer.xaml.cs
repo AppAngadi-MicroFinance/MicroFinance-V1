@@ -95,8 +95,8 @@ namespace MicroFinance
 
         private void xCollectionSheet_Click(object sender, RoutedEventArgs e)
         {
-            string empid = "E0100220210704";
-            CollectionShceduleSheet.GenerateShceduleSheet(empid);
+            CollectionShceduleSheet.GenerateShceduleSheet(MainWindow.LoginDesignation.EmpId);
+            MainWindow.StatusMessageofPage(1, "Downloaded into Documents\\REPORTS folder..!");
         }
     }
 }

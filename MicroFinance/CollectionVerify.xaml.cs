@@ -115,7 +115,8 @@ namespace MicroFinance
                 dataReader.Close();
                 foreach(var item in ShgAndBranchId)
                 {
-                    command.CommandText = "select EmpId, Name from Employee where EmpId = (select distinct EmpId from SelfHelpGroup where SHGName = '" + item.Value + "' and Bid = '" + item.Key + "')";
+                    command.CommandText = "select EmpId, Name from Employee where EmpId = (select distinct EmpId from SelfHelpGroup where SHGName = '" + item.Value + "' and BranchId = '" + item.Key + "')";
+                    //command.CommandText= 'select EmpId from EmployeeBranch where Designation='Field officer' and BranchId='01202108001' '
                     dataReader = command.ExecuteReader();
                     while(dataReader.Read())
                     {
@@ -178,7 +179,7 @@ namespace MicroFinance
                 connection.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "select TwoThousand,FiveHundred,TwoHundred,Hundred,Fifty,Twenty,Ten,Five,Two,One,TotalCollectin from DenominationTable where BId=(select BId from BranchDetails where BranchName='" + BranchName.Text + "' and RegionName='" + RegionName.Text + "') and CollectionDate='" + Convert.ToDateTime(DatePic.Text).ToString("yyyy-MM-dd") + "' and IsVerified=0 and SHGName='" + ShgBox.Text + "'";
+                command.CommandText = "select TwoThousand,FiveHundred,TwoHundred,Hundred,Fifty,Twenty,Ten,Five,Two,One,TotalCollection from DenominationTable where BId=(select BId from BranchDetails where BranchName='" + BranchName.Text + "' and RegionName='" + RegionName.Text + "') and CollectionDate='" + Convert.ToDateTime(DatePic.Text).ToString("yyyy-MM-dd") + "' and IsVerified=0 and SHGName='" + ShgBox.Text + "'";
                 SqlDataReader dataReader = command.ExecuteReader();
                 while(dataReader.Read())
                 {
@@ -192,7 +193,7 @@ namespace MicroFinance
                     Dlist[7].Multiples = dataReader.GetInt32(7).ToString();
                     Dlist[8].Multiples = dataReader.GetInt32(8).ToString();
                     Dlist[9].Multiples = dataReader.GetInt32(9).ToString();
-                    TotalBox.Text = dataReader.GetInt32(10).ToString("C0,hi-IN");
+                    TotalBox.Text = dataReader.GetInt32(10).ToString();
                 }
                 dataReader.Close();
             }
