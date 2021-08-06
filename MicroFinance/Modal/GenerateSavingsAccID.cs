@@ -10,8 +10,7 @@ namespace MicroFinance.Modal
 {
     class GenerateSavingsAccID
     {
-        public string BranchName { get; set; }
-        public string Region { get; set; }
+        LoginDetails ld = new LoginDetails();
 
         public string GetRegionNumber()
         {
@@ -23,7 +22,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select RegionCode from Region where RegionName='" + Region + "'";
+                    sqlcomm.CommandText = "select RegionCode from Region where RegionName='" + ld.RegionName + "'";
                     Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();
@@ -32,6 +31,7 @@ namespace MicroFinance.Modal
         }
         public string GetBranchNumber()
         {
+
             int Result = 0;
             using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.db))
             {
@@ -40,7 +40,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select BranchCode from BranchDetails where BranchName='" + BranchName + "'";
+                    sqlcomm.CommandText = "select BranchCode from BranchDetails where BranchName='" + ld.BranchId + "'";
                     Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();
@@ -73,9 +73,6 @@ namespace MicroFinance.Modal
             return Result;
         }
 
-
-
-
         public string DigitConvert(string digit, int place = 3)
         {
             StringBuilder sb = new StringBuilder();
@@ -96,5 +93,27 @@ namespace MicroFinance.Modal
 
             return Result;
         }
+
+        //public void NewSavingAcc(string id)
+        //{
+        //    int res = 0;
+        //    var date = DateTime.Now;
+        //    using (SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.db))
+        //    {
+        //        sqlcon.Open();
+        //        if (sqlcon.State == ConnectionState.Open)
+        //        {
+        //            SqlCommand sqlcomm = new SqlCommand();
+        //            sqlcomm.Connection = sqlcon;
+        //            sqlcomm.CommandText = "IF (EXISTS (SELECT * FROM SavingsAccount WHERE CustId = '"+id+"' ))SELECT 1 AS res ELSE SELECT 0 AS res;";
+        //            res = (int)sqlcomm.ExecuteScalar();
+        //            if(res == 0)
+        //            {
+        //                sqlcomm.CommandText = "insert into SavingsAccount values ('" + id + "','" + GenerateSavingAccID() + "','" + date + "',"+1+")";
+        //            }
+        //        }
+        //        sqlcon.Close();
+        //    }
+        //}
     }
 }
