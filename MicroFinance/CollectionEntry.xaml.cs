@@ -362,7 +362,7 @@ namespace MicroFinance
                     {
                         item.Extras = item.Total - item.ActualDueAmount;
                     }
-                    command.Parameters.AddWithValue("@Balance", (balance - item.Total));
+                    command.Parameters.AddWithValue("@Balance", (balance - item.Principal));
                     if (balance - item.Total <= 0)
                     {
                         DeactivateLoan(item.LoanId);
@@ -448,8 +448,6 @@ namespace MicroFinance
             FILL_GroupData();
         }
     }
-
-
 
     public class DailyCollection: BindableBase
     {
