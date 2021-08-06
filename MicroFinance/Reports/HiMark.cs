@@ -2059,7 +2059,7 @@ namespace MicroFinance.Reports
                 else
                 {
                     Directory.CreateDirectory(dir);
-                    string FileName = dir + "\\Hi-Mark_" + DateTime.Now.ToString("dd-MMM-yyyy (hh:mm)") + ".xlsx";
+                    string FileName = dir + "\\Hi-Mark_" + DateTime.Now.ToString("dd-MMM-yyyy (hh-mm)") + ".xlsx";
                     xlWorkBook.SaveAs(FileName);
 
                 }
