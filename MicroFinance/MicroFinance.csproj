@@ -173,6 +173,7 @@
     <Compile Include="Modal\AddPeerGroup.cs" />
     <Compile Include="Modal\Branch_Shg_PgDetails.cs" />
     <Compile Include="Modal\CameraCapture.cs" />
+    <Compile Include="Modal\SavingsAccount.cs" />
     <Compile Include="Modal\Customer.cs" />
     <Compile Include="Modal\CustomerDetailsForVerification.cs" />
     <Compile Include="Modal\DatabaseMethods.cs" />
