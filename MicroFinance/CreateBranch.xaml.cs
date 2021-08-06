@@ -80,8 +80,9 @@ namespace MicroFinance
         private void Cancelbtn_Click(object sender, RoutedEventArgs e)
         {
             ConfirmPanel.IsOpen = false;
-            MainGrid.Opacity = 1.0;
             MainGrid.IsEnabled = true;
+            MainGrid.Opacity = 1.0;
+            
         }
 
         private void PanelCloseBtn_Click(object sender, RoutedEventArgs e)
@@ -114,6 +115,7 @@ namespace MicroFinance
             catch(Exception ex)
             {
                 ConfirmPanel.IsOpen = false;
+                MainGrid.IsEnabled = true;
                 MainWindow.StatusMessageofPage(1,ex.Message);
                // MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
