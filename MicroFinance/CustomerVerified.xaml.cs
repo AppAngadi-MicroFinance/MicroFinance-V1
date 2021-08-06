@@ -27,15 +27,36 @@ namespace MicroFinance
         string _regionName;
         string _shgName;
         string _pgName;
+        static string _loanReqId;
 
-        public CustomerVerified(string CustId,int status)
+        Customer customer = new Customer();
+        Guarantor guarantor = new Guarantor();
+        Nominee nominee = new Nominee();
+        Branch_Shg_PgDetails Branch_Shg_Pg = new Branch_Shg_PgDetails();
+
+        public CustomerVerified(string CustId,int status,string LoanRequestId,string EmpId)
         {
             InitializeComponent();
 
             CustomerStatus = status;
+            _loanReqId = LoanRequestId;
+            Branch_Shg_Pg.EmpId = EmpId;
+            _regionName = Branch_Shg_Pg.GetRegionNameofEmployee();
+            _branchName = Branch_Shg_Pg.GetBranchNameofEmployee();
+            _pgName = Branch_Shg_Pg.GetCustomerPG(CustId);
 
-            customerNamegrid.DataContext = customer;
-            Guarantorgrid.DataContext = guarantor;
+            customer._customerId = CustId;
+            guarantor._customerId = CustId;
+            nominee._customerId = CustId;
+            customer.GetAllDetailsofCustomers();
+            customer.GetVerfiedDetailsofCustomer();
+            guarantor.GetGuranteeDetails();
+            guarantor.GetGuarantorVerifedDetails();
+            nominee.GetNomineeDetails();
+            nominee.GetNomineeVerifiedDetails();
+
+            ContextAssigning();
+            VisiblityOfPhotoPanel();
         }
         int CustomerStatus;
         public CustomerVerified(Customer Cs,Guarantor Gu,Nominee No,int status,string RegionName,string BranchName,string SHGName,string PG)
@@ -60,10 +81,28 @@ namespace MicroFinance
             ContextAssigning();
             VisiblityOfPhotoPanel();
         }
-        Customer customer = new Customer();
-        Guarantor guarantor = new Guarantor();
-        Nominee nominee = new Nominee();
-
+        void EnableDisableGrid(bool state)
+        {
+            customerNamegrid.IsEnabled = state;
+            Guarantorgrid.IsEnabled = state;
+            customerAddressGrid.IsEnabled = state;
+            BankDetailsGrid.IsEnabled = state;
+            NomineeGrid.IsEnabled = state;
+        }
+        void DocumentDisbale()
+        {
+            CustNameofAddresProof.IsEnabled = false; EditCustAddressProof.Visibility = Visibility.Collapsed;
+            CustNameofPhotoProof.IsEnabled = false; CustPhotoProofEdit.Visibility = Visibility.Collapsed;
+            CustProfileEdit.Visibility = Visibility.Collapsed;
+            GNameofAddressProof.IsEnabled = false; GAddressProofEdit.Visibility = Visibility.Collapsed;
+            GNamePhotoProof.IsEnabled = false; GphotoProof.Visibility = Visibility.Collapsed;
+            GprofileEdit.Visibility = Visibility.Collapsed;
+            NNameofAddressProof.IsEnabled = false; NAddressProofEdit.Visibility = Visibility.Collapsed;
+            NNameofPhotoProof.IsEnabled = false; NPhotoProofEdit.Visibility = Visibility.Collapsed;
+            NProfileEdit.Visibility = Visibility.Collapsed;
+            CombinePhotoEdit.Visibility = Visibility.Collapsed;
+           
+        }
         void ContextAssigning()
         {
             customerNamegrid.DataContext = customer;
@@ -71,6 +110,7 @@ namespace MicroFinance
             customerAddressGrid.DataContext = customer;
             BankDetailsGrid.DataContext = customer;
             NomineeGrid.DataContext = nominee;
+            DataContextForPhotos();
         }
 
         void VisiblityOfPhotoPanel()
@@ -79,19 +119,23 @@ namespace MicroFinance
             {
                 DocumentPanel.Visibility = Visibility.Collapsed;
             }
-            else if(CustomerStatus==1)
-            {
-                MainGrid.IsEnabled = false;
-                DocumentPanel.Visibility = Visibility.Collapsed;
-            }
             else if(CustomerStatus==2)
             {
                 DocumentPanel.Visibility = Visibility.Visible;
             }
-            else
+            else if(CustomerStatus==5)
             {
-                MainGrid.IsEnabled = false;
+                EnableDisableGrid(false);
+                DocumentDisbale();
                 DocumentPanel.Visibility = Visibility.Visible;
+                VerifyNewCustomer.Content = "Verify";
+            }
+            else if(CustomerStatus==6)
+            {
+                EnableDisableGrid(false);
+                DocumentDisbale();
+                DocumentPanel.Visibility = Visibility.Visible;
+                VerifyNewCustomer.Content = "Approve";
             }
         }
 
@@ -126,6 +170,13 @@ namespace MicroFinance
 
            // combineGrid.DataContext = verification;
             combineGrid.DataContext = customer;
+
+            CustNameofAddresProof.ItemsSource = customer.AddressProofName;
+            CustNameofPhotoProof.ItemsSource = customer.AddressProofName;
+            GNameofAddressProof.ItemsSource = customer.AddressProofName;
+            GNamePhotoProof.ItemsSource = customer.AddressProofName;
+            NNameofAddressProof.ItemsSource = customer.AddressProofName;
+            NNameofPhotoProof.ItemsSource = customer.AddressProofName;
         }
      
 
@@ -558,7 +609,7 @@ namespace MicroFinance
 
         private void ProfileImageOk_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewImagePopup.IsOpen = false;
         }
 
         private void AddCustAddressProof_Click(object sender, RoutedEventArgs e)
@@ -622,14 +673,12 @@ namespace MicroFinance
 
         private void CustProfileEdit_Click(object sender, RoutedEventArgs e)
         {
-            CaptureImageMessage = new StaticProperty();
-            CapturePhoto = new Capture();
-            ImageSavebtn.Content = "Save";
+            ImageSavebtn.Content = "Update";
             Captureframe.NavigationService.Navigate(CapturePhoto);
+            CapturePhoto.CapImg.Source = customer.ProfilePicture;
             PhotoProofNametxt.Text = "Profile Picture";
             WhichClassButtonClick = "Customer";
             CaptureImage.Visibility = Visibility.Visible;
-            CaptureImageStatus.DataContext = CaptureImageMessage;
         }
 
         private void CustProfileView_Click(object sender, RoutedEventArgs e)
@@ -641,12 +690,15 @@ namespace MicroFinance
 
         private void CustProfileAdd_Click(object sender, RoutedEventArgs e)
         {
-            ImageSavebtn.Content = "Update";
+            CaptureImageMessage = new StaticProperty();
+            CapturePhoto = new Capture();
+            ImageSavebtn.Content = "Save";
             Captureframe.NavigationService.Navigate(CapturePhoto);
-            CapturePhoto.CapImg.Source = customer.ProfilePicture;
             PhotoProofNametxt.Text = "Profile Picture";
             WhichClassButtonClick = "Customer";
             CaptureImage.Visibility = Visibility.Visible;
+            CaptureImageStatus.DataContext = CaptureImageMessage;
+            
         }
 
         private void GAddressProofAdd_Click(object sender, RoutedEventArgs e)
@@ -657,7 +709,8 @@ namespace MicroFinance
             Captureframe.NavigationService.Navigate(CapturePhoto);
             PhotoProofNametxt.Text = "Address Proof";
             WhichClassButtonClick = "Guarantor";
-            CaptureImage.Visibility = Visibility.Visible; CaptureImageStatus.DataContext = CaptureImageMessage;
+            CaptureImage.Visibility = Visibility.Visible; 
+            CaptureImageStatus.DataContext = CaptureImageMessage;
         }
 
         private void GAddressProofShow_Click(object sender, RoutedEventArgs e)
@@ -806,13 +859,6 @@ namespace MicroFinance
 
         private void NProfileEdit_Click(object sender, RoutedEventArgs e)
         {
-            ImageTitle.Text = "Profile Picture";
-            ViewImagePopup.IsOpen = true;
-            viewImage.Source = nominee.ProfilePicture;
-        }
-
-        private void NProfileView_Click(object sender, RoutedEventArgs e)
-        {
             CaptureImageMessage = new StaticProperty();
             ImageSavebtn.Content = "Update";
             Captureframe.NavigationService.Navigate(CapturePhoto);
@@ -820,6 +866,14 @@ namespace MicroFinance
             PhotoProofNametxt.Text = "Profile Picture";
             WhichClassButtonClick = "Nominee";
             CaptureImage.Visibility = Visibility.Visible; CaptureImageStatus.DataContext = CaptureImageMessage;
+        }
+
+        private void NProfileView_Click(object sender, RoutedEventArgs e)
+        {
+            ImageTitle.Text = "Profile Picture";
+            ViewImagePopup.IsOpen = true;
+            viewImage.Source = nominee.ProfilePicture;
+            
         }
 
         private void CombinePhotoAdd_Click(object sender, RoutedEventArgs e)
@@ -853,6 +907,7 @@ namespace MicroFinance
         bool GreenCheck = true;
         private void VerifyNewCustomer_Click(object sender, RoutedEventArgs e)
         {
+            
             if(CustomerStatus==0)
             {
                 CustomerCheck();
@@ -868,6 +923,8 @@ namespace MicroFinance
                 BankCheck();
                 DocumentCheck();
             }
+
+
             if(GreenCheck)
             {
                 if(CustomerStatus==0)
@@ -881,11 +938,20 @@ namespace MicroFinance
                 }
                 else if(CustomerStatus==2)
                 {
-
+                    UpdateVerification();
+                   customer.UpdateExistingDetails(_branchName, _shgName, _pgName, guarantor, nominee);
+                    ChangeLoanStatus(_loanReqId, 5);
+                    NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
                 }
-                else
+                else if(CustomerStatus==5)
                 {
-
+                    ChangeLoanStatus(_loanReqId, 6);
+                    NavigationService.GetNavigationService(this).Navigate(new DashboardAccountant());
+                }
+                else if(CustomerStatus==6)
+                {
+                    ChangeLoanStatus(_loanReqId, 7);
+                    NavigationService.GetNavigationService(this).Navigate(new DashboardBranchManager());
                 }
             }
             else
@@ -893,6 +959,17 @@ namespace MicroFinance
                 MainWindow.StatusMessageofPage(0, "Please Verifiy Mandotory Fields.....");
             }
             
+        }
+        void ChangeLoanStatus(string ReqID, int StatusCode)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sqlconn.Open();
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "Update LoanApplication Set LoanStatus='" + StatusCode + "' where Requestid='" + ReqID + "' ";
+                    sqlcomm.ExecuteNonQuery();
+            }
         }
         void CustomerCheck()
         {
@@ -1569,6 +1646,18 @@ namespace MicroFinance
                 SqlCommand command = new SqlCommand();
                 command.Connection = sql;
                 command.CommandText = "insert into CustomerVerification(CustId,CustomerName,CustomerGender,CustomerDOB,FatherName,MotherName,Guardian,Contact,CAddress,Religion,Caste,Community,Education,FamilyMembers,EarningMembers,Occupation,MonthlyIncome,MonthlyExpence,FamilyAnnualIncome,CustomerDoorNo,CustomerStreet,CustomerLocality,CustomerCity,CustomerState,CustomerPincode,HouseType,GName,GGender,GDOB,GContact,GOccupation,GRelationship,GDoorNo,GStreet,GLocality,GCity,GState,GPincode,NName,NGender,NDOB,NContact,NOccupation,NRelationship,NDoorNo,NStreet,NLocality,NCity,NState,NPincode,AccountHolderName,AccountNo,BankName,BranchName,IFSC,MICR,CAddressProof,CPhotoProof,CProfilePic,GAddressProof,GPhotoProof,GProfilePic,NAddressProof,NPhotoProof,NProfilePic,CustomerCombinePhoto) values ('" + customer._customerId + "','" + customer.CustName + "','" + customer.CustGender + "','" + customer.CustDateOfBirth + "','" + customer.CustFatherName + "','" + customer.CustMotherName + "','" + customer.CustHusbandName + "','" + customer.CustContactNumber + "','" + customer.CustAadharNumber + "','" + customer.CustReligion + "','" + customer.CustCaste + "','" + customer.CustCommunity + "','" + customer.CustEducation + "','" + customer.CustFamilyMember + "','" + customer.CustEarningMember + "','" + customer.CustOccupation + "','" + customer.CustMonthlyIncome + "','" + customer.CustMonthlyExpenses + "','" + customer.CustFamilyYearlyIncome + "','" + customer.CustomerDoorNumber + "','" + customer.CustStreetName + "','" + customer.CustomerLocality + "','" + customer.CustomerCity + "','" + customer.CustomerState + "','" + customer.CustomerPincode + "','" + customer.CustomerHousingType + "','" + guarantor.GName + "','" + guarantor.GuarantorGender + "','" + guarantor.GuarantorDOB + "','" + guarantor.GuarantorContact + "','" + guarantor.GuarantorOccupation + "','" + guarantor.GuarantorRelationship + "','" + guarantor.GuarantorDoorNumber + "','" + guarantor.GuarantorStreet + "','" + guarantor.GuarantorLocality + "','" + guarantor.GuarantorCity + "','" + guarantor.GuarantorState + "','" + guarantor.GuarantorPincode + "','" + nominee.NName + "','" + nominee.NomineeGender + "','" + nominee.NomineeDOB + "','" + nominee.NomineeContact + "','" + nominee.NomineeOccupation + "','" + nominee.NomineeRelationship + "','" + nominee.NomineeDoorNo + "','" + nominee.NomineeStreet + "','" + nominee.NomineeLocality + "','" + nominee.NomineeCity + "','" + nominee.NomineeState + "','" + nominee.NomineePincode + "','" + customer.BankHolderName + "','" + customer.BankAccountNo + "','" + customer.Bankname + "','" + customer.BranchName + "','" + customer.BIfscCode + "','" + customer.BMicrCode + "','" + customer.CustomerAddressProof + "','" + customer.CustomerPhotoProof + "','" + customer.CustomerProfilePicture + "','" + guarantor.GuarantorAddressProof + "','" + guarantor.GuarantorPhotoProof + "','" + guarantor.GuarantorProfilePicture + "','" + nominee.NomineeAddressProof + "','" + nominee.NomineePhotoProof + "','" + nominee.NomineeProfilePicture + "','" + customer.Combinephoto + "')";
+                command.ExecuteNonQuery();
+            }
+        }
+
+        void UpdateVerification()
+        {
+            using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.db))
+            {
+                sql.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sql;
+                command.CommandText = "update CustomerVerification set CAddressProof = '" + customer.CustomerAddressProof + "', CPhotoProof = '" + customer.CustomerPhotoProof + "', CProfilePic = '" + customer.CustomerProfilePicture + "', GAddressProof = '" + guarantor.GuarantorAddressProof + "', GPhotoProof = '" + guarantor.GuarantorPhotoProof + "', GProfilePic = '" + guarantor.GuarantorProfilePicture + "', NAddressProof = '" + nominee.NomineeAddressProof + "', NPhotoProof = '" + nominee.NomineePhotoProof + "', NProfilePic = '" + nominee.NomineeProfilePicture + "', CustomerCombinePhoto = '" + customer.Combinephoto + "' where CustId = '" + customer._customerId + "' ";
                 command.ExecuteNonQuery();
             }
         }

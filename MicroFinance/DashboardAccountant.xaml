@@ -45,7 +45,9 @@
             <Border.Effect>
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>
-            <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
+            <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}" ></Button>
         </Border>
+
+        <Button Grid.Column="1" Style="{StaticResource SecondaryBtn}" Content="Document Verify" Width="150" x:Name="DocumentVerify" Click="xNotificationBtn_Click" Margin="0,30,0,0"></Button>
     </Grid>
 </Page>

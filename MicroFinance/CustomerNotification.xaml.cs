@@ -42,7 +42,7 @@ namespace MicroFinance
         {
             if(_status==0)
             {
-                GetPendingCustomerDetails();
+                GetDocumentPendingCustomerDetails();
             }
             else if(_status==1)
             {
@@ -54,18 +54,18 @@ namespace MicroFinance
             }
         }
 
-        void GetPendingCustomerDetails()
+        void GetDocumentPendingCustomerDetails()
         {
             using (SqlConnection sqlConnection=new SqlConnection(Properties.Settings.Default.db))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select distinct CustomerDetails.CustId,CustomerDetails.Name,CustomerGroup.BranchName from CustomerDetails join CustomerGroup on CustomerDetails.CustId = CustomerGroup.CustId join SelfHelpGroup2 on SelfHelpGroup2.SHGName = CustomerGroup.SelfHelpGroup where CustomerDetails.CustomerStatus = 0 and SelfHelpGroup2.BranchId = '"+BranchId+"' and SelfHelpGroup2.FOid = '"+EmployeeId+"' ";
+                sqlCommand.CommandText = "select LoanApplication.CustId,CustomerDetails.Name,LoanApplication.RequestId from LoanApplication join CustomerDetails on CustomerDetails.CustId = LoanApplication.CustId where LoanApplication.EmployeeId='" + EmployeeId+ "' and LoanApplication.BranchId='" + BranchId+ "' and LoanApplication.LoanStatus = 2 ";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while(sqlDataReader.Read())
                 {
-                    PendingCustomer.Add(new Notification { CustomerId = sqlDataReader.GetString(0), EmpId = EmployeeId, NotificationFrom = sqlDataReader.GetString(1), NotificationPurpose = "Update Remain Details", NotificationDate = DateTime.Now.ToString("dd-MM-yyyy"), CustomerStatus = "Pending",BranchName=sqlDataReader.GetString(2) });
+                    PendingCustomer.Add(new Notification { CustomerId = sqlDataReader.GetString(0), EmpId = EmployeeId, NotificationFrom = sqlDataReader.GetString(1), NotificationPurpose = "Update Document Details", NotificationDate = DateTime.Now.ToString("dd-MM-yyyy"), CustomerStatus = "Pending",LoanRequestId=sqlDataReader.GetString(2) });
                 }
                 sqlDataReader.Close();
             }
@@ -79,11 +79,11 @@ namespace MicroFinance
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select distinct CustomerDetails.CustId,CustomerDetails.Name,CustomerGroup.BranchName from CustomerDetails join CustomerGroup on CustomerDetails.CustId = CustomerGroup.CustId join SelfHelpGroup2 on SelfHelpGroup2.SHGName = CustomerGroup.SelfHelpGroup where CustomerDetails.CustomerStatus = 1 and SelfHelpGroup2.BranchId = '" + BranchId + "' and SelfHelpGroup2.FOid = '" + EmployeeId + "' ";
+                sqlCommand.CommandText = "select LoanApplication.CustId,CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.EmployeeId from LoanApplication join CustomerDetails on CustomerDetails.CustId = LoanApplication.CustId where  LoanApplication.BranchId='" + BranchId + "' and LoanApplication.LoanStatus = 5 ";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
-                    PendingCustomer.Add(new Notification { CustomerId = sqlDataReader.GetString(0), EmpId = EmployeeId, NotificationFrom = sqlDataReader.GetString(1), NotificationPurpose = "Update Remain Details", NotificationDate = DateTime.Now.ToString("dd-MM-yyyy"), CustomerStatus = "Pending", BranchName = sqlDataReader.GetString(2) });
+                    PendingCustomer.Add(new Notification { CustomerId = sqlDataReader.GetString(0), EmpId = sqlDataReader.GetString(3), NotificationFrom = sqlDataReader.GetString(1), NotificationPurpose = "Update Document Details", NotificationDate = DateTime.Now.ToString("dd-MM-yyyy"), CustomerStatus = "Pending", LoanRequestId = sqlDataReader.GetString(2) });
                 }
                 sqlDataReader.Close();
             }
@@ -95,11 +95,11 @@ namespace MicroFinance
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select distinct CustomerDetails.CustId,CustomerDetails.Name,CustomerGroup.BranchName from CustomerDetails join CustomerGroup on CustomerDetails.CustId = CustomerGroup.CustId join SelfHelpGroup2 on SelfHelpGroup2.SHGName = CustomerGroup.SelfHelpGroup where CustomerDetails.CustomerStatus = 2 and SelfHelpGroup2.BranchId = '" + BranchId + "' and SelfHelpGroup2.FOid = '" + EmployeeId + "' ";
+                sqlCommand.CommandText = "select LoanApplication.CustId,CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.EmployeeId  from LoanApplication join CustomerDetails on CustomerDetails.CustId = LoanApplication.CustId where  LoanApplication.BranchId='" + BranchId + "' and LoanApplication.LoanStatus = 6 ";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
-                    PendingCustomer.Add(new Notification { CustomerId = sqlDataReader.GetString(0), EmpId = EmployeeId, NotificationFrom = sqlDataReader.GetString(1), NotificationPurpose = "Update Remain Details", NotificationDate = DateTime.Now.ToString("dd-MM-yyyy"), CustomerStatus = "Pending", BranchName = sqlDataReader.GetString(2) });
+                    PendingCustomer.Add(new Notification { CustomerId = sqlDataReader.GetString(0), EmpId = sqlDataReader.GetString(3), NotificationFrom = sqlDataReader.GetString(1), NotificationPurpose = "Update Document Details", NotificationDate = DateTime.Now.ToString("dd-MM-yyyy"), CustomerStatus = "Pending", LoanRequestId = sqlDataReader.GetString(2) });
                 }
                 sqlDataReader.Close();
             }
@@ -111,15 +111,15 @@ namespace MicroFinance
             notification = (Notification)NotificationList.SelectedItem;
             if (_status==0)
             {
-                NavigationService.GetNavigationService(this).Navigate(new AddCustomer(notification.CustomerId));
+                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId,2,notification.LoanRequestId,notification.EmpId));
             }
             else if(_status==1)
             {
-                NavigationService.GetNavigationService(this).Navigate(new VerifyCustomer(notification,1));
+                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId, 5, notification.LoanRequestId, notification.EmpId));
             }
             else
             {
-                NavigationService.GetNavigationService(this).Navigate(new VerifyCustomer(notification,2));
+                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId, 6, notification.LoanRequestId, notification.EmpId));
             }
         }
 
