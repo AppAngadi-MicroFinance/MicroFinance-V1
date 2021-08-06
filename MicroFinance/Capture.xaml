@@ -50,7 +50,7 @@
                     
                     <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Style="{StaticResource SecondaryBtn}" Content="Capture" Name="CapturePhoto" Click="CapturePhoto_Click" Margin="0,0,0,0"></Button>
-                        <Button x:Name="Savebtn" Style="{StaticResource PrimaryBtn}" Grid.Row="3" Click="Savebtn_Click" Margin="20,0,0,0" Content="Save"></Button>
+                        <Button x:Name="Savebtn" Style="{StaticResource PrimaryBtn}" Visibility="Collapsed" Grid.Row="3" Click="Savebtn_Click" Margin="20,0,0,0" Content="Save"></Button>
                     </StackPanel>
 
                 </Grid>
