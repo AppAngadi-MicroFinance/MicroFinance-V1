@@ -392,7 +392,7 @@ namespace MicroFinance.Modal
                     sqlcomm.CommandText = "Select LoanStatus from LoanApplication where RequestID='" + ID + "'";
                     sqlcomm.ExecuteNonQuery();
                     int status = (int)sqlcomm.ExecuteScalar();
-                    if(status==7)
+                    if(status==8)
                     {
                         result = true;
                     }
@@ -414,7 +414,7 @@ namespace MicroFinance.Modal
                     sqlcomm.CommandText = "Select LoanStatus from LoanApplication where RequestId='" + ID + "'";
                     sqlcomm.ExecuteNonQuery();
                     int status = (int)sqlcomm.ExecuteScalar();
-                    if (status==8)
+                    if (status==9)
                     {
                         result = true;
                     }

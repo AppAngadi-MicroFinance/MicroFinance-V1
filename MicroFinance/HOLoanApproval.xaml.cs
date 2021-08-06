@@ -31,7 +31,7 @@ namespace MicroFinance
         public HOLoanApproval()
         {
             InitializeComponent();
-            loanprocess.GetLoanDetailList(BranchID, 8);
+            loanprocess.GetLoanDetailList(BranchID, 9);
             RecommendList.Clear();
             RecommendList = loanprocess.LoanProcessList;
             Custlist.ItemsSource = RecommendList;
