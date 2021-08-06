@@ -195,10 +195,10 @@
             <Button Style="{StaticResource Add}" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Margin="20,1.6,0,-2" Click="Button_Click"></Button>
         </Grid>
         <Button  VerticalAlignment="Bottom" Margin="0,0,0,20" Style="{StaticResource PrimaryBtn}"  Content="Save" Click="Savebtn_Click" x:Name="Savebtn"></Button>
-        <Popup  Height="400" Width="500" x:Name="BranchAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">
-            <Border BorderBrush="Blue" BorderThickness="2">
+        <Popup  Height="400" Width="550" x:Name="BranchAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center" AllowsTransparency="True">
+            <Border BorderBrush="Gray" BorderThickness="2" Width="550" Height="400" CornerRadius="5" Background="White">
                 
-                    <Grid Background="White">
+                    <Grid Background="White" Height="390" Width="540" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="70*"/>
@@ -206,7 +206,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="Add BankDetails" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Title}"></TextBlock>
                     <Button Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="PanelCloseBtn" Click="PanelCloseBtn_Click"></Button>
-                    <Separator BorderThickness="5" BorderBrush="Black" VerticalAlignment="Bottom"></Separator>
+                    <Separator BorderThickness="5" BorderBrush="Gray" VerticalAlignment="Bottom"></Separator>
                     <Grid Grid.Row="1" Width="480">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40*"/>
@@ -270,10 +270,10 @@
             </Border>
             
         </Popup>
-        <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center" Height="400" Width="600" x:Name="ConfirmPanel" IsOpen="False">
-            <Border BorderBrush="Blue" BorderThickness="2" >
+        <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center" Height="400" Width="600" x:Name="ConfirmPanel" IsOpen="False" AllowsTransparency="True">
+            <Border BorderBrush="Gray" BorderThickness="2"  CornerRadius="5">
                
-            <Grid Background="White" >
+            <Grid Background="White"  Height="390" Width="590">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10*"/>
                     <RowDefinition Height="70*"/>
