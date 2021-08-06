@@ -240,7 +240,7 @@ namespace MicroFinance
                 sqlData.Close();
                 sqlCommand.CommandText = "select Name from Employee where EmpId='" + _officerEmpId + "'";
                 _officerName[0] = sqlCommand.ExecuteScalar().ToString();
-                sqlCommand.CommandText = "select distinct(SHGName) from SelfHelpGroup where BranchId=(select Bid from BranchEmployees where Empid='"+_officerEmpId+"')";
+                sqlCommand.CommandText = "select SHGName from SelfHelpGroup where SHGId in (select SHGId from TimeTable where Empid='"+_officerEmpId+"')";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
