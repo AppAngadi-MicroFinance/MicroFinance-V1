@@ -89,14 +89,11 @@ namespace MicroFinance
             return value;
         }
 
-        private void xDailyReportsBtn_Click(object sender, RoutedEventArgs e)
-        {
-        }
 
         private void HimarkPanelCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             HimarkExportPanel.Visibility = Visibility.Collapsed;
-    }
+        }
 
         private void HimarkBtn_Click(object sender, RoutedEventArgs e)
         {

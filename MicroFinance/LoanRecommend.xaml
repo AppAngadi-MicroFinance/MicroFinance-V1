@@ -9,6 +9,8 @@
       Title="LoanRecommend" Background="#FEF2E4">
 
     <Grid x:Name="mainGrid">
+        <Button x:Name="xBackwardButton" Click="xBackwardButton_Click"
+                Style="{StaticResource BackButtonStyle}" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60*"/>
