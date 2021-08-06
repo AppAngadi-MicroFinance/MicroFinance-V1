@@ -28,7 +28,7 @@ namespace MicroFinance
         public LoanAfterHimark()
         {
             InitializeComponent();
-            loanprocess.GetLoanDetailList(BranchID,7);
+            loanprocess.GetLoanDetailList(BranchID,8);
             RecommendList.Clear();
             RecommendList = loanprocess.LoanProcessList;
             Custlist.ItemsSource = RecommendList;

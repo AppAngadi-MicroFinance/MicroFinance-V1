@@ -40,10 +40,11 @@ namespace MicroFinance
             List<string> DaysOfWeeks = new List<string>();
             DaysOfWeeks.Add("MONDAY");
             DaysOfWeeks.Add("TUESDAY");
-            DaysOfWeeks.Add("WEDNESSDAY");
+            DaysOfWeeks.Add("WEDNESDAY");
             DaysOfWeeks.Add("THURSDAY");
             DaysOfWeeks.Add("FRIDAY");
             DaysOfWeeks.Add("SATURDAY");
+            DaysOfWeeks.Add("SUNDAY");
 
             xSHGname.Text = "Periyakulam";
             xDayOfWeek.SelectedIndex = 2;

@@ -120,14 +120,14 @@ namespace MicroFinance
             string _five = Dlist[7].Multiples;
             string _two = Dlist[8].Multiples;
             string _one = Dlist[9].Multiples;
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "insert into DenominationTable values('" + _regionName + "','" + _branchId + "','" + _date + "','" + _empId + "'," + _twoThousand + "," + _fiveHundred + "," + _twoHundred + "," + _hundred + "," + _fifty + "," + _twenty + "," + _ten + "," + _five + "," + _two + "," + _one + ","+initialAmt+",'"+CenterBlock.Text+"',0)";
-                command.ExecuteNonQuery();
-            }
+            //using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            //{
+            //    connection.Open();
+            //    SqlCommand command = new SqlCommand();
+            //    command.Connection = connection;
+            //    command.CommandText = "insert into DenominationTable values('" + _regionName + "','" + _branchId + "','" + _date + "','" + _empId + "'," + _twoThousand + "," + _fiveHundred + "," + _twoHundred + "," + _hundred + "," + _fifty + "," + _twenty + "," + _ten + "," + _five + "," + _two + "," + _one + ","+initialAmt+",'"+CenterBlock.Text+"',0)";
+            //    command.ExecuteNonQuery();
+            //}
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
