@@ -309,7 +309,6 @@ namespace MicroFinance
         }
         void InsertCollections()
         {
-
             foreach(CollectionDetails item in LoanCollectionDetailList)
             {
                 DateTime actualDueDate = new DateTime();
@@ -329,6 +328,16 @@ namespace MicroFinance
                     }
                     reader3.Close();
                     actualDueAmount += item.Security;
+                    actualDueAmount -= item.Extras;
+                    if(actualDueAmount == item.Total && actualDueAmount < 0)
+                    {
+                        item.Extras = actualDueAmount;
+                    }
+                    else
+                    {
+                        item.Extras = 0;
+                    }
+                    item.ActualDueAmount = actualDueAmount;
                 }
                 int balance = GetBalanceForLoanId(item.LoanId);
                 using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
@@ -342,18 +351,30 @@ namespace MicroFinance
                     command.Parameters.AddWithValue("@LoanId", item.LoanId);
                     command.Parameters.AddWithValue("@Principal", item.Principal);
                     command.Parameters.AddWithValue("@Interest", item.Interest);
-                    command.Parameters.AddWithValue("@Total", item.Total);
-                    command.Parameters.AddWithValue("@SecurityDeposite", item.Security);
+                    command.Parameters.AddWithValue("@Total", item.ActualDueAmount);
+                    
 
-                    command.Parameters.AddWithValue("@ActualDue", actualDueAmount);
-                    command.Parameters.AddWithValue("@PaidDue",item.Total);
-                    command.Parameters.AddWithValue("@Balance",(balance - item.Total));
+                    command.Parameters.AddWithValue("@SecurityDeposite", item.Security);
+                    command.Parameters.AddWithValue("@ActualDue", item.ActualDueAmount);
+
+                    command.Parameters.AddWithValue("@PaidDue", item.Total);
+                    if((item.Total - item.ActualDueAmount) != 0)
+                    {
+                        item.Extras = item.Total - item.ActualDueAmount;
+                    }
+                    command.Parameters.AddWithValue("@Balance", (balance - item.Total));
+                    if (balance - item.Total <= 0)
+                    {
+                        DeactivateLoan(item.LoanId);
+                    }
+
                     command.Parameters.AddWithValue("@ActualPaymentDate", actualDueDate);
 
                     command.Parameters.AddWithValue("@CollectedOn", DateTime.Now);
                     command.Parameters.AddWithValue("@Attendance", item.Attendance);
                     
-                    command.Parameters.AddWithValue("@Extras", item.Total - actualDueAmount);
+                    
+                    command.Parameters.AddWithValue("@Extras", item.Extras);
 
                     command.ExecuteNonQuery();
                     connection.Close();
@@ -362,6 +383,19 @@ namespace MicroFinance
             NavigationService.GetNavigationService(this).Navigate(new CollectionStartPage());
             denomination.InsertDenomination();
 
+        }
+        void DeactivateLoan(string loanId)
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                connection.Open();
+                string BranchId = MainWindow.LoginDesignation.BranchId;
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = "update LoanDetails set IsActive = 0 where LoanID = '"+loanId+"'";
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
         }
 
         int GetBalanceForLoanId(string loanID)
