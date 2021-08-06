@@ -23,20 +23,29 @@ namespace MicroFinance.Modal
         }
         void GetBranchAndRegionNameForEmployee(string userName)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
+            try
+
             {
-                sql.Open();
-                SqlCommand command = new SqlCommand();
-                command.Connection = sql;
-                command.CommandText = "select RegionName,Bid ,BranchName from BranchDetails where Bid = (select BranchId from EmployeeBranch where EmpId = (select EmpId from Employee where Name = '" + userName + "'))";
-                SqlDataReader dataReader = command.ExecuteReader();
-                while (dataReader.Read())
+                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
                 {
-                    RegionName = dataReader.GetString(0);
-                    BranchId = dataReader.GetString(1);
+                    sql.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = sql;
+                    command.CommandText = "select RegionName,Bid ,BranchName from BranchDetails where Bid = (select BranchId from EmployeeBranch where EmpId = (select EmpId from Employee where Name = '" + userName + "'))";
+                    SqlDataReader dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        RegionName = dataReader.GetString(0);
+                        BranchId = dataReader.GetString(1);
+                    }
+                    dataReader.Close();
                 }
-                dataReader.Close();
             }
+            catch(Exception ex)
+            {
+
+            }
+           
         }
 
         void GetDesignation(string userName)
