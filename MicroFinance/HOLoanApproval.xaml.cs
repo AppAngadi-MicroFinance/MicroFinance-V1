@@ -52,7 +52,11 @@ namespace MicroFinance
             Custlist.Items.Clear();
             foreach (LoanProcess lp in RecommendList)
             {
-                if(lp.LoanRequestID.Equals(ID)!=true)
+                if(lp.LoanRequestID.Equals(ID)==true)
+                {
+                    RecommendList.Remove(lp);
+                }
+                else
                 {
                     Custlist.Items.Add(lp);
                 }

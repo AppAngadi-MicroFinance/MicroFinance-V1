@@ -430,7 +430,7 @@ namespace MicroFinance.Modal
             set
             {
               _accountnumber = value;
-              RaisedPropertyChanged("Account Number");
+              RaisedPropertyChanged("AccountNumber");
             }
         }
         private string _bankname;

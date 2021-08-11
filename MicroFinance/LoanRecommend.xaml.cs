@@ -117,9 +117,14 @@ namespace MicroFinance
             {
                 if(lp.LoanRequestID.Equals(ID)!=true)
                 {
+                    loanDetails.Remove(lp);
+                }
+                else
+                {
                     Custlist.Items.Add(lp);
                 }
                 
+
             }
         }
         public LoanProcess GetRecommendDetails(string ID)
