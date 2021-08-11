@@ -139,7 +139,28 @@ namespace MicroFinance
                 string FileFrom = openFileDlg.FileName;
                 var FilePath = FileFrom.Split('\\');
                 string FileName = FilePath[FilePath.Length - 1];
-                this.NavigationService.Navigate(new HimarkResultData(FileFrom));
+                HimarkResult HMResult = new HimarkResult();
+                if(HMResult.IsAlreadyUpload(FileName))
+                {
+                    HMResult.GetDetails(FileFrom);
+                    LoanHimarkData(HMResult.himarkResultslist);
+                    MainWindow.StatusMessageofPage(1, "File Upload Successfully!...");
+
+                }
+                else
+                {
+                    MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
+                }
+                
+
+            }
+        }
+        void LoanHimarkData(List<HimarkResult> himarkResultslist)
+        {
+            HimarkResult himark = new HimarkResult();
+            foreach (HimarkResult hm in himarkResultslist)
+            {
+                himark.InsertHimarkDate(hm);
             }
         }
 

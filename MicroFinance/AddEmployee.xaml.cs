@@ -191,7 +191,7 @@ namespace MicroFinance
 
         private void BankDetailsBtn_Click(object sender, RoutedEventArgs e)
         {
-            proofDetailsBtn.IsEnabled = false;
+            //proofDetailsBtn.IsEnabled = false;
             BankDetailsPanel.IsOpen = true;
         }
 
