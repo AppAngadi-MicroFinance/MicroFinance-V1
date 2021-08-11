@@ -20,12 +20,13 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="84.8"></RowDefinition>
             </Grid.RowDefinitions>
-            
-            
 
-            
-            
-            <!--Find Customer--><!-- Collapsed-->
+
+
+
+
+            <!--Find Customer-->
+            <!-- Collapsed-->
             <Border  Width="180" Height="70" Grid.Column="1" Style="{StaticResource MainBorder}" Visibility="Collapsed">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
@@ -33,7 +34,7 @@
                 <Button x:Name="xFindCustomerBtn" Click="xFindCustomerBtn_Click" Style="{StaticResource NavigateFindCustomer}"></Button>
             </Border>
 
-            
+
 
 
         </Grid>
@@ -52,7 +53,7 @@
                 </Border.Effect>
                 <Button x:Name="xAddCustomerBtn" Click="xAddCustomerBtn_Click" Style="{StaticResource NavigateAddCustomer}"></Button>
             </Border>
-            
+
             <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" Visibility="Collapsed">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
@@ -93,8 +94,8 @@
                 </Grid>
             </Border>
         </Grid>
-        
-        
+
+
 
         <Grid Width="400" Height="170" Margin="0,0,150,50" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Grid.ColumnDefinitions>
@@ -114,7 +115,7 @@
                     </Border>
                 </Grid>
             </Border>
-            
+
             <!--Download Collection Sheet-->
             <Border Width="150" Grid.Column="0" Height="150" Style="{StaticResource MainBorder}">
                 <Border.Effect>
@@ -124,7 +125,7 @@
                     <Button x:Name="xCollectionSheet" Click="xCollectionSheet_Click" Style="{StaticResource NavigateCollectionShcedule}"></Button>
                 </Grid>
             </Border>
-            
+
             <!--Collection Entry-->
             <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
@@ -132,11 +133,11 @@
                 </Border.Effect>
                 <Button x:Name="xCollectionEntryBtn" Click="xCollectionEntryBtn_Click" Style="{StaticResource NavigateCollectionEntry}"></Button>
             </Border>
-            
+
         </Grid>
-        
+
         <!--Section D-->
-        
+
 
         <!--Search person Pop-Up-->
         <Border x:Name="xSearchPersonPop" Width="700" Height="500" BorderThickness="5,30,5,3" BorderBrush="Gray" Visibility="Collapsed">
@@ -160,13 +161,42 @@
                         Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"></Button>
 
                 <!--Exit Button-->
-                
+
 
                 <ListView Grid.Row="1" Width="600" Height="400" Background="LightGreen">
 
                 </ListView>
             </Grid>
+        </Border>
 
+        <!--Select Day to download CollectionSheet-->
+        <Border x:Name="xDaySelectionPopup" Width="400" Height="250" BorderThickness="10,50,10,10" BorderBrush="#781F9F" Visibility="Collapsed">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+            </Border.Effect>
+            <Grid Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Width="250" Height="60" Grid.ColumnSpan="2" Margin="65,18,65.8,17.2">
+                    <TextBlock Style="{StaticResource Regular}" FontSize="20" Text="Select Day"></TextBlock>
+                    <ComboBox x:Name="xDaysList" SelectionChanged="xDaysList_SelectionChanged" Width="250" Height="50" Panel.ZIndex="3">
+                        <ComboBoxItem>Sunday</ComboBoxItem>
+                        <ComboBoxItem>Monday</ComboBoxItem>
+                        <ComboBoxItem>Tuesday</ComboBoxItem>
+                        <ComboBoxItem>Wednesday</ComboBoxItem>
+                        <ComboBoxItem>Thursday</ComboBoxItem>
+                        <ComboBoxItem>Friday</ComboBoxItem>
+                        <ComboBoxItem>Saturday</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <Button x:Name="xCancelDaySelection" Click="xCancelDaySelection_Click" Grid.Row="1" HorizontalAlignment="Left" Width="100" Style="{StaticResource CancelBtn}" Height="40" Content="Cancel" Grid.ColumnSpan="2" Margin="30,0,0,0"></Button>
+                <Button x:Name="xDownloadBtn" Click="xDownloadBtn_Click" Grid.Row="1" HorizontalAlignment="Right" Width="200" Style="{StaticResource PrimaryBtn}" Height="40" Content="Download Now" Grid.ColumnSpan="2" Margin="0,0,20,0"></Button>
+                
+            </Grid>
         </Border>
     </Grid>
 </Page>

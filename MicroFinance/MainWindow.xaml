@@ -58,11 +58,45 @@
 
             </Grid>
         </Border>
-        
-
         <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#e8fff2" x:Name="MessageStatus">
             <Image Width="25" Height="25" Source="{Binding MessageType,Converter={StaticResource ImageConvert},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
             <TextBlock  Text="{Binding StatusMessage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" FontWeight="Medium" Foreground="{Binding MessageType,Converter={StaticResource StatusColor},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" VerticalAlignment="Center"/>
         </StackPanel>
+
+
+        <!--Setting New Password-->
+        <Border x:Name="xSetNewPasswordPopUP" Background="Gray" Width="600" Height="500" Grid.Row="1" CornerRadius="10"  BorderThickness="10,50,10,10" 
+                BorderBrush="Gray" Visibility="Collapsed">
+            <Grid Width="550" Background="Gray">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Set new Password" Style="{StaticResource Title}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                           Margin="0,-30,0,0" FontSize="26" FontWeight="SemiBold"></TextBlock>
+                <StackPanel VerticalAlignment="Bottom" Grid.Row="0" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource Title}" Foreground="White" Text="Username" FontWeight="SemiBold" FontSize="16"></TextBlock>
+                    <TextBox x:Name="xUserNameP" Width="400" Margin="0,0,0,0" Height="50" Style="{StaticResource InputBox}" HorizontalAlignment="Left"></TextBox>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Bottom" Grid.Row="1" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource Title}" Foreground="White" Text="Phone Number" FontWeight="SemiBold" FontSize="16"></TextBlock>
+                    <TextBox x:Name="xPhoneNumberP" Width="400" Margin="0,0,0,0" Height="50" Style="{StaticResource InputBox}" HorizontalAlignment="Left"></TextBox>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Bottom" Grid.Row="2" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource Title}" Foreground="White" Text="New Password" FontWeight="SemiBold" FontSize="16"></TextBlock>
+                    <TextBox x:Name="xNewPassword1" Width="400" Margin="0,0,0,0" Height="50" Style="{StaticResource InputBox}" HorizontalAlignment="Left"></TextBox>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Bottom" Grid.Row="3" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource Title}" Foreground="White" Text="Re-Enter Password" FontWeight="SemiBold" FontSize="16"></TextBlock>
+                    <TextBox x:Name="xNewPassword2" Width="400" Margin="0,0,0,0" Height="50" Style="{StaticResource InputBox}" HorizontalAlignment="Left"></TextBox>
+                </StackPanel>
+
+                <Button x:Name="xLoginButtonP" Click="xLoginButtonP_Click" Width="200" Height="50" Grid.Row="5" Style="{StaticResource LoginButton}" Content="Login" FontSize="25" FontWeight="Bold"></Button>
+            </Grid>
+        </Border>
+        
     </Grid>
 </Window>
