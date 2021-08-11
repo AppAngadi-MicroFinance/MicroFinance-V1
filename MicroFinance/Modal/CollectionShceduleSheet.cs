@@ -199,31 +199,130 @@ namespace MicroFinance.Modal
                 
             }
         }
+        //static List<CollectionShceduleSheet> GetActiveLoanCustomer(string empId)
+        //{
+        //    List<CollectionShceduleSheet> ActiveLoanCustomer = new List<CollectionShceduleSheet>();
+        //    using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+        //    {
+        //        sql.Open();
+        //        SqlCommand command = new SqlCommand();
+        //        command.Connection = sql;
+        //        command.CommandText = "select LoanDetails.CustomerID, LoanDetails.LoanID, LoanDetails.LoanType, LoanDetails.LoanAmount,LoanDetails.ApproveDate from LoanDetails  join CustomerGroup on CustomerGroup.CustId = LoanDetails.CustomerID join PeerGroup on PeerGroup.GroupId = CustomerGroup.PeerGroupId join TimeTable on TimeTable.SHGId = PeerGroup.SHGid and TimeTable.EmpId = '" + empId + "' where LoanDetails.IsActive = 1";
+        //        SqlDataReader reader = command.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+        //            CollectionShceduleSheet temp = new CollectionShceduleSheet();
+        //            temp.CustID = reader.GetString(0);
+        //            temp.LoanType = reader.GetString(2);
+        //            temp.LoanAmount = reader.GetInt32(3);
+        //            temp.SanctionDate = reader.GetDateTime(4);
+        //            temp.Attendance = string.Empty;
+        //            temp.LoanId = reader.GetString(1);
+        //            ActiveLoanCustomer.Add(temp);
+        //        }
+        //        sql.Close();
+        //    }
+        //    return ActiveLoanCustomer;
+        //}
 
-        static List<CollectionShceduleSheet> GetActiveLoanCustomer(string empId)
+
+        static List<CollectionShceduleSheet> GetActiveLoanCustomer(string empID)
         {
-            List<CollectionShceduleSheet> ActiveLoanCustomer = new List<CollectionShceduleSheet>();
+            List<string> EmployeeSHG = new List<string>();
             using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = sql;
-                command.CommandText = "select LoanDetails.CustomerID, LoanDetails.LoanID, LoanDetails.LoanType, LoanDetails.LoanAmount,LoanDetails.ApproveDate from LoanDetails  join CustomerGroup on CustomerGroup.CustId = LoanDetails.CustomerID join PeerGroup on PeerGroup.GroupId = CustomerGroup.PeerGroupId join TimeTable on TimeTable.SHGId = PeerGroup.SHGid and TimeTable.EmpId = '" + empId + "' where LoanDetails.IsActive = 1";
+                command.CommandText = "select SHGId from TimeTable where EmpId = '"+empID+"'";
                 SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    CollectionShceduleSheet temp = new CollectionShceduleSheet();
-                    temp.CustID = reader.GetString(0);
-                    temp.LoanType = reader.GetString(2);
-                    temp.LoanAmount = reader.GetInt32(3);
-                    temp.SanctionDate = reader.GetDateTime(4);
-                    temp.Attendance = string.Empty;
-                    temp.LoanId = reader.GetString(1);
-                    ActiveLoanCustomer.Add(temp);
+                    EmployeeSHG.Add(reader.GetString(0));
                 }
                 sql.Close();
+            }
+
+            List<string> PeerGroupForSHG = new List<string>();
+            foreach(string shgID in EmployeeSHG)
+            {
+                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                {
+                    sql.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = sql;
+                    command.CommandText = "select GroupId from PeerGroup where SHGid = '"+ shgID + "'";
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        PeerGroupForSHG.Add(reader.GetString(0));
+                    }
+                    sql.Close();
+                }
+            }
+
+            List<CustomersInPG> CustomersINPeerGroup = new List<CustomersInPG>();
+
+            int initLeft = 0;
+            int initRight = 0;
+            foreach(string pgID in PeerGroupForSHG)
+            {
+                initLeft++;
+                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                {
+                    sql.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = sql;
+                    command.CommandText = "select CustId from CustomerGroup where PeerGroupId = '"+pgID+"'";
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        initRight++;
+                        string idd = initLeft + "." + initRight;
+                        CustomersINPeerGroup.Add(new CustomersInPG(reader.GetString(0), idd));
+                    }
+                    sql.Close();
+                }
+            }
+
+            List<CollectionShceduleSheet> ActiveLoanCustomer = new List<CollectionShceduleSheet>();
+            List<string> LoanIdForCustomerID = new List<string>();
+            foreach(CustomersInPG item in CustomersINPeerGroup)
+            {
+                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                {
+                    sql.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = sql;
+                    command.CommandText = "select CustomerID, LoanID, LoanType, LoanAmount,ApproveDate from LoanDetails where CustomerID = '"+item.CustomerId+"' and IsActive = 1";
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        CollectionShceduleSheet temp = new CollectionShceduleSheet();
+                        temp.CustGroupId = item.PgId;
+                        temp.CustID = reader.GetString(0);
+                        temp.LoanType = reader.GetString(2);
+                        temp.LoanAmount = reader.GetInt32(3);
+                        temp.SanctionDate = reader.GetDateTime(4);
+                        temp.Attendance = string.Empty;
+                        temp.LoanId = reader.GetString(1);
+                        ActiveLoanCustomer.Add(temp);
+                    }
+                    sql.Close();
+                }
             }
             return ActiveLoanCustomer;
         }
     }
+    public class CustomersInPG
+    {
+        public string CustomerId { get; set; }
+        public string PgId { get; set; }
+        public CustomersInPG(string cid, string pid)
+        {
+            CustomerId = cid;
+            PgId = pid;
+        }
+    }
+
 }
