@@ -41,31 +41,31 @@ namespace MicroFinance
         }
         void TempLoad()
         {
-            customer.CustomerName = "Thirisa";
+            customer.CustomerName = "THENMOZHI";
             //CustomerNameBox.Text = "Thirisa";
 
-            customer.Gender = "Male";
+            customer.Gender = "MALE";
             //Female.IsChecked = true;
 
             customer.DateofBirth = new DateTime(1990, 08, 12);
             //SelectDOB.SelectedDate = new DateTime(1990, 08, 12);
 
-            customer.FatherName = "Aravind";
+            customer.FatherName = "ARAVIND";
             //FatherNameBox.Text = "Aravind";
 
-            customer.MotherName = "Kaviarasi";
+            customer.MotherName = "KAVIARASI";
             //MotherNameBox.Text = "Kaviarasi";
 
             customer.ContactNumber = "7897894564";
             //ContactBox.Text = "7897894564";
 
-            customer.Religion = "Hindu";
+            customer.Religion = "HINDU";
             //SelectReligion.SelectedIndex = 1;
 
-            customer.Caste = "MBC";
+            customer.Caste = "DHRAVIDAR";
             //CasteBox.Text = "MBC";
 
-            customer.Community = "Dhravidar";
+            customer.Community = "MBC";
             //CommunityBox.Text = "Dhravidar";
 
             customer.Education = "10";
@@ -77,7 +77,7 @@ namespace MicroFinance
             customer.EarningMembers = 3;
             //EarningMemberBox.Text = "3";
 
-            customer.Occupation = "Daily wages";
+            customer.Occupation = "DAILY WAGES";
             //OccupationBox.Text = "Daily wages";
 
             customer.MonthlyIncome = 15000;
@@ -91,46 +91,65 @@ namespace MicroFinance
             customer.DoorNumber = "77 / W3";
             //HouseNOBox.Text = "77 / W3";
 
-            customer.StreetName = "Thirunagar";
+            customer.StreetName = "THIRUNAGAR";
             //StreetNameBox.Text = "Thirunagar";
 
-            customer.LocalityTown = "Karumandapam";
+            customer.LocalityTown = "KARUMANDABAM";
             //LocalityBox.Text = "Karumandapam";
 
             customer.Pincode = 620020;
             //PincodeBox.Text = "620020";
 
-            customer.City = "Trichy";
+            customer.City = "TRICHY";
             //CityBox.Text = "Trichy";
 
-            customer.State = "Tamil Nadu";
+            customer.State = "TAMILNADU";
             //StateBox.Text = "Tamil Nadu";
 
-            customer.HousingType = "Own house";
+            customer.HousingType = "OWN HOUSE";
             //HouseTypeBox.Text = "Own house";
 
             customer.HousingIndex = "10";
             //HouseIndexBox.Text = "10";
 
             customer.AadharNo = "987987987987";
+            customer.HusbandName = "PRAKSH"
+                ;
 
 
 
-
-            guarantor.GuarantorName = "Vicky";
-            guarantor.Gender = "Male";
+            guarantor.GuarantorName = "VICKY";
+            guarantor.Gender = "MALE";
             guarantor.DateofBirth = new DateTime(1980, 08, 12);
             guarantor.ContactNumber = "7894564562";
-            guarantor.Occupation = "Driver";
-            guarantor.RelationShip = "Husband";
+            guarantor.Occupation = "DRIVER";
+            guarantor.RelationShip = "HUSBAND";
             guarantor.IsNominee = true;
 
             guarantor.DoorNumber = "77 / W3";
-            guarantor.StreetName = "Thirunagar";
-            guarantor.LocalityTown = "Karumandapam";
+            guarantor.StreetName = "THIRUNAGAR";
+            guarantor.LocalityTown = "KARUMANDAPAM";
             guarantor.Pincode = "620020";
-            guarantor.City = "Trichy";
-            guarantor.State = "Tamil Nadu";
+            guarantor.City = "TRIHCY";
+            guarantor.State = "TAMILNADU";
+
+            nominee.NomineeName = "VICKY";
+            nominee.Gender = "MALE";
+            nominee.DateofBirth = new DateTime(1980, 08, 12);
+            nominee.ContactNumber = "7894564562";
+            nominee.Occupation = "DRIVER";
+            nominee.RelationShip = "HUSBAND";
+
+            nominee.DoorNumber = "77 / W3";
+            nominee.StreetName = "THIRUNAGAR";
+            nominee.LocalityTown = "KARUMANDAPAM";
+            nominee.Pincode = "620020";
+            nominee.City = "TRIHCY";
+            nominee.State = "TAMILNADU";
+
+            guarantor.IsGuarantorNull = true;
+            nominee.IsNomineeNull = true;
+
 
             customer.AccountHolder = "Saffu";
             customer.AccountNumber = "222222";
@@ -293,6 +312,7 @@ namespace MicroFinance
             }
 
             SelectPG.ItemsSource = SelectedPG;
+            SelectPG.SelectedIndex = 0;
         }
 
         private void SelectPG_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1685,6 +1705,16 @@ namespace MicroFinance
                 aadharErrorCheck.Visibility = Visibility.Visible;
                 _check = false;
             }
+            if(string.IsNullOrEmpty(HusbandBox.Text))
+            {
+                CustHusbandError.Visibility = Visibility.Visible;
+                _check = false;
+            }
+            if(customer.YearlyIncome<=150000)
+            {
+                CustYearlyExpensesError.Visibility = Visibility.Visible;
+                _check = false;
+            }
             return _check;
         }
         private void CustomerNameBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -1976,7 +2006,35 @@ namespace MicroFinance
 
         private void HusbandBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(NameValidation(HusbandBox.Text))
+            {
+                CustHusbandError.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                CustHusbandError.Visibility = Visibility.Visible;
+            }
+        }
 
+        private void CommunityBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CustCommunityError.Visibility == Visibility.Visible)
+            {
+                CustCommunityError.Visibility = Visibility.Collapsed;
+                CommunityBox.BorderBrush = GrayColor;
+            }
+        }
+
+        private void FamilyYearIncomeBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(MoneyValidation(FamilyYearIncomeBox.Text))
+            {
+                CustYearlyExpensesError.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                CustYearlyExpensesError.Visibility = Visibility.Visible;
+            }
         }
     }
 }
