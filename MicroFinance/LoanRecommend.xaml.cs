@@ -192,7 +192,7 @@ namespace MicroFinance
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.NavigationService.CanGoBack)
-                this.NavigationService.Navigate(new DashboardBranchManager());
+                this.NavigationService.Navigate(new DashBoardRegionOfficer());
         }
 
         private void BulkRecommend_Click(object sender, RoutedEventArgs e)
@@ -204,7 +204,7 @@ namespace MicroFinance
                 count++;
             }
             MainWindow.StatusMessageofPage(1, count.ToString() + " Loan Recommend Successfully!...");
-            this.NavigationService.Navigate(new DashboardBranchManager());
+            this.NavigationService.Navigate(new DashBoardRegionOfficer());
         }
 
         

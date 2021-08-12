@@ -152,6 +152,9 @@
     <Compile Include="DashBoardHeadOfficer.xaml.cs">
       <DependentUpon>DashBoardHeadOfficer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DashBoardRegionOfficer.xaml.cs">
+      <DependentUpon>DashBoardRegionOfficer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DenominationPage.xaml.cs">
       <DependentUpon>DenominationPage.xaml</DependentUpon>
     </Compile>
@@ -200,6 +203,7 @@
     <Compile Include="Modal\OfficerModal.cs" />
     <Compile Include="Modal\PeerGroup.cs" />
     <Compile Include="Modal\Region.cs" />
+    <Compile Include="Modal\SamunnatiResult.cs" />
     <Compile Include="Modal\SelfHeadGroupModal.cs" />
     <Compile Include="Modal\StaticProperty.cs" />
     <Compile Include="RegionManagerNotifyPanel.xaml.cs">
@@ -209,6 +213,7 @@
       <DependentUpon>RegionManagerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reports\HiMark.cs" />
+    <Compile Include="Reports\NoOfLoansDis.cs" />
     <Compile Include="Reports\NEFT.cs" />
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
@@ -292,6 +297,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DashBoardHeadOfficer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DashBoardRegionOfficer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

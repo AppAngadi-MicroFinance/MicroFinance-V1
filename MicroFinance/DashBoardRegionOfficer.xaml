@@ -1,4 +1,4 @@
-﻿<Page x:Class="MicroFinance.DashboardBranchManager"
+﻿<Page x:Class="MicroFinance.DashBoardRegionOfficer"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,63 +6,74 @@
       xmlns:local="clr-namespace:MicroFinance"
       mc:Ignorable="d" 
       d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
-      Title="DashboardBranchManager">
+      Title="DashBoardRegionOfficer">
 
     <Grid>
         <!--Section A-->
-        <Grid Width="400" Height="170" Margin="130,100,0,0"
+        <!-- 1. Find Customer | 2. Find Employee | 3. Add New Employee-->
+        <Grid Width="400" Height="170" Margin="130,100,0,0" Visibility="Collapsed"
               HorizontalAlignment="Left" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
 
-            <!--Add New Customer Button-->
-            <!--<Border Grid.Row="0" Grid.Column="0" Width="180" Height="70" Style="{StaticResource MainBorder}">
+
+
+            <!--Find Customer Button-->
+            <Border Grid.Row="0" Grid.Column="0" Width="180" Height="70" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button  Style="{StaticResource NavigateAddCustomer}"></Button>
-            </Border>-->
+                <Button x:Name="xFindCustomer" Click="xFindCustomer_Click" Style="{StaticResource NavigateFindCustomerSmall}"></Button>
+            </Border>
 
-            <!--Pending Customers-->
-            <Border Width="150" Height="150" Grid.Column="0" Grid.RowSpan="2" Style="{StaticResource MainBorder}">
+            <!--Find Employee Customers-->
+            <Border Grid.Row="1" Grid.Column="0" Width="180" Height="70" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Grid>
-                    <Button x:Name="xRecommendCustomer" Click="xRecommendCustome_Click" Style="{StaticResource NavigatePendingCustomer}"></Button>
-                    <Border x:Name="xNotificationBatch" Margin="0,-10,-10,0" Style="{StaticResource NotifyCount}" Width="25" Height="25" Grid.ColumnSpan="2">
-                        <TextBlock x:Name="xCustApprovalsCount" Style="{StaticResource NotifyText}" Text="0" FontSize="14"></TextBlock>
-                    </Border>
-                </Grid>
+                <Button x:Name="xFindEmployee" Click="xFindEmployee_Click" Style="{StaticResource NavigateFindEmployeeSmall}"></Button>
+            </Border>
+
+
+
+        </Grid>
+
+
+        <!--Section B-->
+        <!--Add New Branch | Add New Region-->
+        <Grid Width="500" Height="170" Margin="0,100,130,0" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!--Add New Employee Customer-->
+            <Border Width="150" Height="150"  Grid.Column="0" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xAddNewEmployee"  Click="xAddNewEmployee_Click" Style="{StaticResource NavigateAddEmployee}"></Button>
             </Border>
             <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button Style="{StaticResource NavigateDocumentVerify}"  Click="xRecommendCustome_Click"/>
+                <Button x:Name="xAddNewBranch" Click="xAddNewBranch_Click" Style="{StaticResource NavigateAddBranch}"></Button>
             </Border>
-            
-            
-
-            <!--Find Customer-->
-            <Border  Width="150" Height="150" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource MainBorder}" Visibility="Collapsed">
+            <Border Width="150" Height="150" Grid.Column="2" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xFindCustomerBtn" Style="{StaticResource NavigateFindCustomer}"></Button>
+                <Button x:Name="xAllowanceReportBtn" Style="{StaticResource NavigateAddRegion}" Click="xAllowanceReportBtn_Click"></Button>
             </Border>
         </Grid>
-        <!--Section B-->
-        <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" 
-                Margin="0,100,170,0" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-            </Border.Effect>
-            <Button x:Name="xAddSHGBtn" Click="xAddSHGBtn_Click" Style="{StaticResource NavigateAddSHG}"></Button>
-        </Border>
-        <!--Section C-->
+<!--Section C-->
         <Grid Width="600" Height="170" Margin="130,0,0,50" 
               HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
@@ -83,32 +94,123 @@
                 <Button Style="{StaticResource NavigateImportHiMark}" x:Name="ImportHimarkBtn" Click="ImportHimarkBtn_Click"></Button>
             </Border>
         </Grid>
-        <Button Grid.Column="2" Style="{StaticResource SecondaryBtn}" Content="Himark Result" Click="HimarkResultBtn_Click" x:Name="HimarkResultBtn"></Button>
-
-        
-        <!--Section D-->
-        <Grid Width="400" Height="170" Margin="0,0,150,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <Grid Width="400" Height="170" Margin="130,0,0,50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xDailyReportsBtn" Style="{StaticResource NavigateDailyReports}"></Button>
+            </Border>
+        </Grid>
+        <!--Section C-->
+        <!--Daily Reports-->
+
+
+        <!--Section D-->
+        <!--Loan Recomendation | Notification-->
+        <Grid Width="500" Height="170" Margin="0,0,130,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!--New Customer Approvals Button-->
+            <Border Grid.Row="0" Grid.Column="0" Width="150" Height="150" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Grid>
+                    <Button x:Name="xCustomerApproval"  Style="{StaticResource CustomerApprovalSmallSmall}" Click="xCustomerApproval_Click"></Button>
+                    <Border x:Name="xNotificationBatch" Margin="0,-10,-10,0" Style="{StaticResource NotifyCount}" Width="25" Height="25" Grid.ColumnSpan="2">
+                        <TextBlock x:Name="xCustApprovalsCount" Style="{StaticResource NotifyText}" Text="0" FontSize="14"></TextBlock>
+                    </Border>
+                </Grid>
+            </Border>
             <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xLoanRequestListBtn" Click="xLoanRequestListBtn_Click" Style="{StaticResource NavigateLoanRequestList}"></Button>
+                <Button x:Name="xLoanRequestListBtn" Click="xLoanRequestListBtn_Click" Style="{StaticResource NavigateLoanRecomandationList}"></Button>
             </Border>
-            
+
             <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" Visibility="Collapsed">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
             </Border>
-            
-            
-            
+            <Border Width="150" Height="150" Grid.Column="2" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="LoanDesposment" Style="{StaticResource NavigateLoanDisposment}" Click="LoanDesposment_Click"></Button>
+            </Border>
+
         </Grid>
+
+
+        <!--Search person Pop-Up-->
+        <Border x:Name="xSearchPersonPop" Width="700" Height="560" BorderThickness="2" CornerRadius="5" BorderBrush="Gray" Visibility="Collapsed" Background="White">
+            <Grid Height="550" Width="  690">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50px"/>
+                    <RowDefinition Height="20px"></RowDefinition>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="80*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Search Employee" Style="{StaticResource Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"></TextBlock>
+                <Button Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,20,0" Name="xSearchPersonPopcloseBtn" Click="xSearchPersonPopcloseBtn_Click"></Button>
+                <Separator BorderBrush="gray" BorderThickness="5" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></Separator>
+                <TextBlock Text="Region" Grid.Row="1" Style="{StaticResource Regular}" Margin="50,0,0,0"></TextBlock>
+                <ComboBox x:Name="RegionCombo" Grid.Row="2" Style="{StaticResource combo}" HorizontalAlignment="Left" Margin="50,0,0,0" SelectionChanged="RegionCombo_SelectionChanged"></ComboBox>
+                <TextBlock Text="Branch" Style="{StaticResource Regular}" Grid.Column="1" Grid.Row="1" Margin="50,0,0,0"></TextBlock>
+                <ComboBox x:Name="BranchCombo" Style="{StaticResource combo}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="50,0,0,0" SelectionChanged="BranchCombo_SelectionChanged"></ComboBox>
+                <TextBlock Text="Employee List" Style="{StaticResource SubTitle}" Grid.Row="3" VerticalAlignment="Top" Margin="85,0,0,0"></TextBlock>
+                <ListBox x:Name="EmployeeList" Grid.Row="3" Grid.ColumnSpan="2" Height="370" Width="520" Background="Gray" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Left" SelectionChanged="EmployeeList_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Grid.Row="2" Height="50" Width="490" Background="White" CornerRadius="5" BorderThickness="1" BorderBrush="Blue">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="60*"/>
+                                        <RowDefinition Height="40*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60px"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="150px"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.RowSpan="2" CornerRadius="50" Height="45" Width="45" BorderBrush="Blue" BorderThickness="0.5">
+                                        <Border.Background>
+                                            <ImageBrush Stretch="Fill" ImageSource="{Binding ProfileImage,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Left" Text="{Binding EmployeeName,Mode=OneWay}" Style="{StaticResource SubTitle}"></TextBlock>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <TextBlock Text="{Binding Age,Mode=OneWay}" Style="{StaticResource Regular}"></TextBlock>
+                                        <TextBlock Text="/" Style="{StaticResource Regular}"></TextBlock>
+                                        <TextBlock Text="Yr" Style="{StaticResource Regular}"></TextBlock>
+                                    </StackPanel>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Designation,Mode=OneWay}" Style="{StaticResource Regular}" ></TextBlock>
+                                    <TextBlock Grid.Row="1" Grid.Column="3"  Text="{Binding BranchID,Mode=OneWay}" Style="{StaticResource Regular}" ></TextBlock>
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
         <Border Height="500" Width="900" Background="White" Visibility="Collapsed" CornerRadius="5" BorderThickness="2" BorderBrush="Gray" Panel.ZIndex="2" x:Name="HimarkExportPanel">
             <Grid Height="490" Width="890">
                 <Grid.RowDefinitions>
@@ -184,9 +286,6 @@
                     <Button Style="{StaticResource PrimaryBtn}" Content="Export Himark File" Width="150" x:Name="ExportHimarkBtn" Click="ExportHimarkBtn_Click"></Button>
                     <Button Style="{StaticResource CancelBtn}" Margin="20,0,0,0" Content="Cancel" Width="150"></Button>
                 </StackPanel>
-
-
-
             </Grid>
         </Border>
     </Grid>

@@ -558,6 +558,7 @@ namespace MicroFinance.Modal
         //--Loan Master Table Entry Section--
         public DayOfWeek GetSHGCollectionDay(string CustomerID)
         {
+            DayOfWeek Result = new DayOfWeek();
             DayOfWeek Result = 0;
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
             {
@@ -656,7 +657,7 @@ namespace MicroFinance.Modal
         }
         public DateTime CollectionDate(DayOfWeek day)
         {
-            DateTime ResultDate = default;
+            DateTime ResultDate = new DateTime();
             DayOfWeek Today = DateTime.Now.DayOfWeek;
             int calValue = ((int)day - (int)Today);
             if (calValue == 0)
@@ -689,7 +690,7 @@ namespace MicroFinance.Modal
         }
         public DayOfWeek WeekDay(string Value)
         {
-            DayOfWeek result = default;
+            DayOfWeek result = new DayOfWeek();
             Value = Value.ToLower();
             switch (Value)
             {
