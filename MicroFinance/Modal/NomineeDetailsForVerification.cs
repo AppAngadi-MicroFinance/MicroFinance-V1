@@ -219,5 +219,33 @@ namespace MicroFinance.Modal
             }
         }
 
+        private bool _overAllBasicDetailsofNominee;
+        public bool OverAllBasicDetailsofNominee
+        {
+            get
+            {
+                return _overAllBasicDetailsofNominee;
+            }
+            set
+            {
+                _overAllBasicDetailsofNominee = value;
+                RaisedPropertyChanged("OverAllBasicDetailsofNominee");
+            }
+        }
+
+        private bool _overAllPhotoVerification;
+        public bool OverAllNomineePhotoVerification
+        {
+            get
+            {
+                return _overAllPhotoVerification;
+            }
+            set
+            {
+                _overAllPhotoVerification = value;
+                RaisedPropertyChanged("OverAllNomineePhotoVerification");
+            }
+        }
+
     }
 }

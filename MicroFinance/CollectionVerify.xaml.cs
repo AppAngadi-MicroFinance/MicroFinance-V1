@@ -192,7 +192,7 @@ namespace MicroFinance
                     Dlist[7].Multiples = dataReader.GetInt32(7).ToString();
                     Dlist[8].Multiples = dataReader.GetInt32(8).ToString();
                     Dlist[9].Multiples = dataReader.GetInt32(9).ToString();
-                    TotalBox.Text = dataReader.GetInt32(10).ToString("C0,hi-IN");
+                    TotalBox.Text = dataReader.GetInt32(10).ToString();
                 }
                 dataReader.Close();
             }

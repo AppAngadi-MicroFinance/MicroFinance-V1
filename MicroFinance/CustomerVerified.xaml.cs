@@ -171,6 +171,10 @@ namespace MicroFinance
            // combineGrid.DataContext = verification;
             combineGrid.DataContext = customer;
 
+            CustDocumentGrid.DataContext = customer;
+            GuarantorDocumentGrid.DataContext = guarantor;
+            NomineeDocumentGrid.DataContext = nominee;
+
             CustNameofAddresProof.ItemsSource = customer.AddressProofName;
             CustNameofPhotoProof.ItemsSource = customer.AddressProofName;
             GNameofAddressProof.ItemsSource = customer.AddressProofName;
@@ -1534,9 +1538,9 @@ namespace MicroFinance
                 GreenCheck = true;
             }
         }
-        void DocumentCheck()
+        void CustomerDocumentCheck()
         {
-            if(!customer.CustomerAddressProof)
+            if (!customer.CustomerAddressProof)
             {
                 CustAddressProofError.Visibility = Visibility.Visible;
                 GreenCheck = false;
@@ -1546,7 +1550,7 @@ namespace MicroFinance
                 CustAddressProofError.Visibility = Visibility.Collapsed;
                 GreenCheck = true;
             }
-            if(!customer.CustomerPhotoProof)
+            if (!customer.CustomerPhotoProof)
             {
                 CustPhotoProofError.Visibility = Visibility.Visible;
                 GreenCheck = false;
@@ -1566,6 +1570,20 @@ namespace MicroFinance
                 CustProfilePictrueError.Visibility = Visibility.Collapsed;
                 GreenCheck = true;
             }
+
+            if (!customer.Combinephoto)
+            {
+                CombinePhotoError.Visibility = Visibility.Visible;
+                GreenCheck = false;
+            }
+            else
+            {
+                CombinePhotoError.Visibility = Visibility.Collapsed;
+                GreenCheck = true;
+            }
+        }
+        void GuarantorDocumentCheck()
+        {
             if (!guarantor.GuarantorAddressProof)
             {
                 GAddressProofError.Visibility = Visibility.Visible;
@@ -1596,6 +1614,10 @@ namespace MicroFinance
                 GProfilePictureError.Visibility = Visibility.Collapsed;
                 GreenCheck = true;
             }
+
+        }
+        void NomineeDocumentCheck()
+        {
             if (!nominee.NomineeAddressProof)
             {
                 NAddressProofError.Visibility = Visibility.Visible;
@@ -1626,16 +1648,12 @@ namespace MicroFinance
                 NProfileError.Visibility = Visibility.Collapsed;
                 GreenCheck = true;
             }
-            if (!customer.Combinephoto)
-            {
-                CombinePhotoError.Visibility = Visibility.Visible;
-                GreenCheck = false;
-            }
-            else
-            {
-                CombinePhotoError.Visibility = Visibility.Collapsed;
-                GreenCheck = true;
-            }
+        }
+        void DocumentCheck()
+        {
+            CustomerDocumentCheck();
+            GuarantorDocumentCheck();
+            NomineeDocumentCheck();
         }
 
         void InsertVerificationDetails()
@@ -1670,6 +1688,7 @@ namespace MicroFinance
         private void CustNameofAddresProof_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             AddCustAddressProof.IsEnabled = true;
+            
         }
 
         private void CustNameofPhotoProof_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1695,6 +1714,144 @@ namespace MicroFinance
         private void NNameofPhotoProof_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             NPhotoProofAdd.IsEnabled = true;
+        }
+
+        private void custDetailsVerifiedbtn_Click(object sender, RoutedEventArgs e)
+        {
+                custNameVeriedBtn_Click(sender, e);
+                CustDobVeification_Click(sender, e);
+                GenderVerification_Click(sender, e);
+                CustFatherVerification_Click(sender, e);
+                CustMotherVerification_Click(sender, e);
+                CustHusbandVerification_Click(sender, e);
+                CustContactVerification_Click(sender, e);
+                CustAadharVerification_Click(sender, e);
+                CustReligionVerification_Click(sender, e);
+                CustCommunityVerification_Click(sender, e);
+                CustCasteVerification_Click(sender, e);
+                CustEducationVerification_Click(sender, e);
+                CustFamilyMemberVerification_Click(sender, e);
+                CustOccupationVerification_Click(sender, e);
+                CustMonthlyVerification_Click(sender, e);
+                CustYearlyVerification_Click(sender, e);
+                customer.CustDetailsOverAll = true;
+        }
+
+        private void custAddressVerifiedbtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+                CustDoorNoVerification_Click(sender, e);
+                CustStreetVerification_Click(sender, e);
+                CustLocalityVerification_Click(sender, e);
+                CustPincodeVerification_Click(sender, e);
+                CustCityVerification_Click(sender, e);
+                CustStateVerification_Click(sender, e);
+                customer.CustAddressOverAll = true;
+           
+            
+
+        }
+
+        private void CommunityBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void GuarantorOverAllVerifiedbtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+                GNameVerification_Click(sender, e);
+                GGenderVerification_Click(sender, e);
+                GDobVerification_Click(sender, e);
+                GContactVerification_Click(sender, e);
+                GOccupationVerification_Click(sender, e);
+                GRelationshipVerification_Click(sender, e);
+                GDoorNoVerification_Click(sender, e);
+                GStreetVerification_Click(sender, e);
+                GLocalityVerification_Click(sender, e);
+                GCityVerification_Click(sender, e);
+                GStateVerification_Click(sender, e);
+                GPincodeVerification_Click(sender, e);
+                guarantor.OverAllBasicDetailsofGuarantor = true;
+            
+           
+
+        }
+
+        private void NomineeOverAllVerifiedbtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+                NNameVerification_Click(sender, e);
+                NGenderVerirication_Click(sender, e);
+                NDobVerification_Click(sender, e);
+                NcontactVerification_Click(sender, e);
+                NOccupationVerification_Click(sender, e);
+                NRelationVerification_Click(sender, e);
+                NDoorVerification_Click(sender, e);
+                NStreetVerification_Click(sender, e);
+                NLocalityVerification_Click(sender, e);
+                NCityVErification_Click(sender, e);
+                NStateVerification_Click(sender, e);
+                NPincodeVerification_Click(sender, e);
+                nominee.OverAllBasicDetailsofNominee = true;
+           
+            
+        }
+
+        private void BankOverAllVerifiedbtn_Click(object sender, RoutedEventArgs e)
+        {
+                HolderVerification_Click(sender, e);
+                AccountNoVerification_Click(sender, e);
+                BankNameVerification_Click(sender, e);
+                BranchNameVerification_Click(sender, e);
+                IFscVerification_Click(sender, e);
+                MicrVerification_Click(sender, e);
+                customer.CustBankDetailsOverAll = true;
+           
+        }
+
+        private void OverAllDocumentVerifiedBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(customer.AddressProof!=null & customer.PhotoProof!=null && customer.ProfilePicture!=null && customer.Combinephoto!=null)
+            {
+                CustAddressProofVerification_Click(sender, e);
+                CustPhotoProofVerification_Click(sender, e);
+                CustProfileVerification_Click(sender, e);
+                CombinePhotoVerification_Click(sender, e);
+                customer.OverAllPhotoVerification = true;
+            }
+            else
+            {
+            }
+        }
+
+        private void OverAllNomineeDocumentVerifiedBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (nominee.AddressProof != null & nominee.PhotoProof != null && nominee.ProfilePicture != null )
+            {
+                NAddressProofVerification_Click(sender, e);
+                NPhotoProofVerification_Click(sender, e);
+                NProfileVerification_Click(sender, e);
+                nominee.OverAllNomineePhotoVerification = true;
+            }
+            else
+            {
+            }
+        }
+
+        private void OverAllGuarantorDocumentVerifiedBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (guarantor.AddressProof != null & guarantor.PhotoProof != null && guarantor.ProfilePicture != null)
+            {
+                GAddressProofVerification_Click(sender, e);
+                GPhotoProofVerification_Click(sender, e);
+                GProfileVerification_Click(sender, e);
+                guarantor.OverAllGuarantorPhotoVerification = true;
+            }
+            else
+            {
+            }
+            
         }
     }
     

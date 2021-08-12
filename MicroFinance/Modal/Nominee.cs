@@ -25,6 +25,8 @@ namespace MicroFinance.Modal
             {
                 _nomineeName = value;
                 RaisedPropertyChanged("NomineeName");
+                NName = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
         private DateTime _dateofBirth=DateTime.Today;
@@ -39,6 +41,8 @@ namespace MicroFinance.Modal
                 _dateofBirth = value;
                 Age = AgeCalculator(_dateofBirth);
                 RaisedPropertyChanged("DateofBirth");
+                NomineeDOB = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
         int AgeCalculator(DateTime dob)
@@ -76,6 +80,8 @@ namespace MicroFinance.Modal
             set
             {
                 _contactNumber = value;
+                NomineeContact = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
         private string _occupation;
@@ -88,6 +94,8 @@ namespace MicroFinance.Modal
             set
             {
                 _occupation = value;
+                NomineeOccupation = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
         private string _gender;
@@ -100,6 +108,8 @@ namespace MicroFinance.Modal
             set
             {
                 _gender = value;
+                NomineeGender = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
         private string _relationship;
@@ -112,6 +122,8 @@ namespace MicroFinance.Modal
             set
             {
                 _relationship = value;
+                NomineeRelationship = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
         private bool _isNomineeNull;
@@ -138,6 +150,8 @@ namespace MicroFinance.Modal
             {
                 _addressProof = value;
                 RaisedPropertyChanged("AddressProof");
+                NomineeAddressProof = false;
+                OverAllNomineePhotoVerification = false;
             }
         }
         private BitmapImage _photoProof;
@@ -151,6 +165,8 @@ namespace MicroFinance.Modal
             {
                 _photoProof = value;
                 RaisedPropertyChanged("PhotoProof");
+                NomineePhotoProof = false;
+                OverAllNomineePhotoVerification = false;
             }
         }
         private BitmapImage _profilePicture;
@@ -164,6 +180,8 @@ namespace MicroFinance.Modal
             {
                 _profilePicture = value;
                 RaisedPropertyChanged("ProfilePicture");
+                NomineeProfilePicture = false;
+                OverAllNomineePhotoVerification = false;
             }
         }
         private string _doorNumber;
@@ -176,6 +194,8 @@ namespace MicroFinance.Modal
             set
             {
                 _doorNumber = value;
+                NomineeDoorNo = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
         private string _streetName;
@@ -188,6 +208,8 @@ namespace MicroFinance.Modal
             set
             {
                 _streetName = value;
+                NomineeStreet = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
         private string _localityTown;
@@ -200,6 +222,8 @@ namespace MicroFinance.Modal
             set
             {
                 _localityTown = value;
+                NomineeLocality = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
         private string _pincode;
@@ -212,6 +236,8 @@ namespace MicroFinance.Modal
             set
             {
                 _pincode = value;
+                NomineePincode = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
 
@@ -225,6 +251,8 @@ namespace MicroFinance.Modal
             set
             {
                 _city = value;
+                NomineeCity = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
         private string _state;
@@ -237,6 +265,8 @@ namespace MicroFinance.Modal
             set
             {
                 _state = value;
+                NomineeState = false;
+                OverAllBasicDetailsofNominee = false;
             }
         }
         public byte[] Convertion(BitmapImage image)
@@ -287,6 +317,7 @@ namespace MicroFinance.Modal
             {
                 _nameofAddressProof = value;
                 RaisedPropertyChanged("NameofAddressProof");
+                OverAllNomineePhotoVerification = false;
             }
         }
         private string _nameofPhotoProof;
@@ -300,6 +331,7 @@ namespace MicroFinance.Modal
             {
                 _nameofPhotoProof = value;
                 RaisedPropertyChanged("NameofPhotoProof");
+                OverAllNomineePhotoVerification = false;
             }
         }
 
