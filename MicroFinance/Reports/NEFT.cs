@@ -336,10 +336,6 @@ namespace MicroFinance.Reports
             }
         }
 
-        double DoucumentationCharge = 2;
-        int Insurence = 50;
-        double InsurenCharge = 3;
-
         public void FillNEFT(Worksheet xlWorkSheet, List<LoanProcess> loans)
         {
             int i = 1;
@@ -360,16 +356,17 @@ namespace MicroFinance.Reports
                 xlWorkSheet.Cells[RowStart, 10] =  "Fast";
                 xlWorkSheet.Cells[RowStart, 11] = "gtrust@gmail.com";
                 xlWorkSheet.Cells[RowStart, 12] = RefNo;
-                xlWorkSheet.Cells[RowStart, 13] =NetAmountCal(x.LoanAmount,DoucumentationCharge,Insurence,InsurenCharge);
+                xlWorkSheet.Cells[RowStart, 13] =NetAmountCal(x.LoanAmount);
                 RowStart++;
                 i++;
             }
         }
 
 
-        public double NetAmountCal(int amount,double Doc_Charge,int insurence,double Ins_Charge)
+        public double NetAmountCal(int amount, double LLP = 1, double GST = 18, int subs = 300, int ins = 225)
         {
-            return (amount - (amount * Doc_Charge / 100) - (insurence * Ins_Charge / 100)) - insurence;
+            //return (amount - (amount * doc / 100) - (ins * InsPer / 100)) - ins;
+            return (amount - (amount * LLP / 100) - ((amount * LLP / 100) * GST / 100) - ins - subs);
         }
         public static void Cusid()
         {
