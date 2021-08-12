@@ -24,7 +24,7 @@ namespace MicroFinance
     public partial class LoanRecommend : Page
     {
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
-        public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
+        public List<LoanProcess> loanDetails = new List<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
         public static List<LoanProcess> SelectedCustomerList = new List<LoanProcess>();
         public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
@@ -35,7 +35,7 @@ namespace MicroFinance
             //AddList();
             //RequestedListBoxNew.ItemsSource = dummylist;
             loanProcess.GetLoanDetailList(LoginBranchID,8);
-            loanDetails = loanProcess.RecommendList;
+            loanDetails = loanProcess.LoanProcessList;
             LoadCustData();
             setCount();
             BulkRecommend.Visibility = Visibility.Collapsed;
