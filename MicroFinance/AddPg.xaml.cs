@@ -126,11 +126,23 @@ namespace MicroFinance
         {
             if(BranchId != string.Empty && SHGid != string.Empty)
             {
-                InsertNewPeerGroup(SHGid, GeneratePGID());
+                if (!CheckGroupNameExists(SHGid,GroupNameBox.Text))
+                {
+                    if (GroupNameBox.Text != string.Empty)
+                        InsertNewPeerGroup(SHGid, GeneratePGID(), GroupNameBox.Text);
+                    else
+                        MessageBox.Show("Please enter group name before click.");
+                }
+                else
+                {
+                    MessageBox.Show("Group name already exist in this Selfhelpgroup..!");
+                }
+                
             }
             this.Close();
 
             //AddCustomer addCustomer = new AddCustomer();
+
             //AddPeerGroup APG = new AddPeerGroup();
             //APG.Branch= addCustomer.SelectBranch.SelectedItem.ToString();
             //APG.FieldOfficer = addCustomer.SelectFO.SelectedItem.ToString();
@@ -138,14 +150,32 @@ namespace MicroFinance
             //APG.PeerGroup = GroupNameBox.Text;
             
         }
-        public void InsertNewPeerGroup(string shgId, string groupId)
+        bool CheckGroupNameExists(string shg, string grpName)
         {
             using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 con.Open();
-                cmd.CommandText = "insert into PeerGroup(SHGid, GroupId, ActiveCustomers) values ('" + shgId + "','" + groupId + "'," + 0 + ")";
+                cmd.CommandText = "select Count(GroupName) from PeerGroup where SHGid = '" + shg + "' and GroupName = '" + grpName + "'";
+                var c = cmd.ExecuteScalar();
+                con.Close();
+
+                if (int.Parse(c.ToString()) > 0)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        public void InsertNewPeerGroup(string shgId, string groupId, string groupName)
+        {
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "insert into PeerGroup(SHGid, GroupId, GroupName, ActiveCustomers) values ('" + shgId + "','" + groupId + "','" + groupName + "'," + 0 + ")";
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
@@ -172,6 +202,11 @@ namespace MicroFinance
         {
             SelfHelpGroupModal selectedSHG = xSHGcombo.SelectedItem as SelfHelpGroupModal;
             SHGid = selectedSHG.SHGid;
+
+            if(SHGid.Length > 0)
+                GroupNameBox.IsEnabled = true;
+            else
+                GroupNameBox.IsEnabled = false;
         }
     }
 }

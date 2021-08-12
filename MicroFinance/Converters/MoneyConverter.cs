@@ -14,6 +14,10 @@ namespace MicroFinance.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string s = "₹. ";
+            if (string.IsNullOrEmpty(value.ToString()))
+            {
+                return s + "0";
+            }
             int price = (int)value;
             return s + price;
 
@@ -21,6 +25,10 @@ namespace MicroFinance.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if(string.IsNullOrEmpty(value.ToString()))
+            {
+                return 0;
+            }
             string _money = (string)value;
             if (_money[0] == '₹')
             {

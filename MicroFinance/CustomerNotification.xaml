@@ -42,7 +42,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock x:Name="NotificationFrom" Text="{Binding NotificationFrom}" FontSize="20" FontWeight="Bold"/>
+                    <!--<TextBlock x:Name="NotificationFrom" Text="{Binding NotificationFrom}" FontSize="20" FontWeight="Bold"/>-->
                     <TextBlock Text=" Notification" FontSize="20" FontWeight="Bold"/>
                 </StackPanel>
                 <ListView x:Name="NotificationList" Grid.Row="1" Grid.Column="1" Width="650" Height="470" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible" Background="#e8fff2" MouseDoubleClick="NotificationList_MouseDoubleClick">

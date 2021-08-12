@@ -123,7 +123,7 @@ namespace MicroFinance.Modal
             }
         }
 
-        private bool _aadharNumber;
+        private bool _aadharNumber = true;
         public bool CustAadharNumber
         {
             get
@@ -516,6 +516,61 @@ namespace MicroFinance.Modal
             {
                 _combinePhoto = value;
                 RaisedPropertyChanged("Combinephoto");
+            }
+        }
+
+        private bool _custDetailsOverAllVerified;
+        public bool CustDetailsOverAll
+        {
+            get
+            {
+                return _custDetailsOverAllVerified;
+            }
+            set
+            {
+                _custDetailsOverAllVerified = value;
+                RaisedPropertyChanged("CustDetailsOverAll");
+            }
+        }
+        private bool _custAddressOverAllVerified;
+        public bool CustAddressOverAll
+        {
+            get
+            {
+                return _custAddressOverAllVerified;
+            }
+            set
+            {
+                _custAddressOverAllVerified = value;
+                RaisedPropertyChanged("CustAddressOverAll");
+            }
+        }
+
+        private bool _custBankOverAllVerified;
+        public bool CustBankDetailsOverAll
+        {
+            get
+            {
+                return _custBankOverAllVerified;
+            }
+            set
+            {
+                _custBankOverAllVerified = value;
+                RaisedPropertyChanged("CustBankDetailsOverAll");
+            }
+        }
+
+        private bool _overAllPhotoVerification;
+        public bool OverAllPhotoVerification
+        {
+            get
+            {
+                return _overAllPhotoVerification;
+            }
+            set
+            {
+                _overAllPhotoVerification = value;
+                RaisedPropertyChanged("OverAllPhotoVerification");
             }
         }
     }

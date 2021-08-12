@@ -25,6 +25,7 @@ namespace MicroFinance.Modal
             {
                 _customerName = value;
                 CustName = false;
+                CustDetailsOverAll = false;
             }
         }
         private DateTime _dateofBirth = DateTime.Now;
@@ -40,6 +41,7 @@ namespace MicroFinance.Modal
                 Age = AgeCalculator(_dateofBirth);
                 RaisedPropertyChanged("DateofBirth");
                 CustDateOfBirth = false;
+                CustDetailsOverAll = false;
             }
         }
         int AgeCalculator(DateTime dob)
@@ -79,6 +81,7 @@ namespace MicroFinance.Modal
                 _contactNumber = value;
                 RaisedPropertyChanged("ContactBox");
                 CustContactNumber = false;
+                CustDetailsOverAll = false;
             }
         }
 
@@ -93,6 +96,7 @@ namespace MicroFinance.Modal
             {
                 _community = value;
                 CustCommunity = false;
+                CustDetailsOverAll = false;
             }
         }
         private string _education;
@@ -106,6 +110,7 @@ namespace MicroFinance.Modal
             {
                 _education = value;
                 CustEducation = false;
+                CustDetailsOverAll = false;
             }
         }
         private int _familymembers;
@@ -119,6 +124,7 @@ namespace MicroFinance.Modal
             {
                 _familymembers = value;
                 CustFamilyMember = false;
+                CustDetailsOverAll = false;
             }
         }
         private int _earningmembers;
@@ -132,6 +138,7 @@ namespace MicroFinance.Modal
             {
                 _earningmembers = value;
                 CustEarningMember = false;
+                CustDetailsOverAll = false;
             }
         }
         private string _occupation;
@@ -145,6 +152,7 @@ namespace MicroFinance.Modal
             {
                 _occupation = value;
                 CustOccupation = false;
+                CustDetailsOverAll = false;
             }
         }
         private int _monthlyIncome;
@@ -158,6 +166,7 @@ namespace MicroFinance.Modal
             {
                 _monthlyIncome = value;
                 CustMonthlyIncome = false;
+                CustDetailsOverAll = false;
             }
         }
         private string _doorNumber;
@@ -171,6 +180,7 @@ namespace MicroFinance.Modal
             {
                 _doorNumber = value;
                 CustomerDoorNumber = false;
+                CustAddressOverAll = false;
             }
         }
         private string _streetName;
@@ -184,6 +194,7 @@ namespace MicroFinance.Modal
             {
                 _streetName = value;
                 CustStreetName = false;
+                CustAddressOverAll = false;
             }
         }
         private string _localityTown;
@@ -197,6 +208,7 @@ namespace MicroFinance.Modal
             {
                 _localityTown = value;
                 CustomerLocality = false;
+                CustAddressOverAll = false;
             }
         }
         private int _pincode;
@@ -210,6 +222,7 @@ namespace MicroFinance.Modal
             {
                 _pincode = value;
                 CustomerPincode = false;
+                CustAddressOverAll = false;
             }
         }
 
@@ -224,6 +237,7 @@ namespace MicroFinance.Modal
             {
                 _city = value;
                 CustomerCity = false;
+                CustAddressOverAll = false;
             }
         }
         private string _state;
@@ -237,6 +251,7 @@ namespace MicroFinance.Modal
             {
                 _state = value;
                 CustomerState = false;
+                CustAddressOverAll = false;
             }
         }
         private string _housingType;
@@ -250,6 +265,7 @@ namespace MicroFinance.Modal
             {
                 _housingType = value;
                 CustomerHousingType = false;
+                CustAddressOverAll = false;
             }
         }
         private string _housingIndex;
@@ -275,6 +291,7 @@ namespace MicroFinance.Modal
             {
                 _aadharNumber = value;
                 CustAadharNumber = false;
+                CustDetailsOverAll = false;
             }
         }
         private bool _isLeader;
@@ -309,6 +326,7 @@ namespace MicroFinance.Modal
             {
                 _religion = value;
                 CustReligion = false;
+                CustDetailsOverAll = false;
             }
         }
         private BitmapImage _addressProof;
@@ -323,6 +341,7 @@ namespace MicroFinance.Modal
                 _addressProof = value;
                 RaisedPropertyChanged("AddressProof");
                 CustomerAddressProof = false;
+                OverAllPhotoVerification = false;
             }
         }
         private BitmapImage _photoProof;
@@ -337,6 +356,7 @@ namespace MicroFinance.Modal
                 _photoProof = value;
                 RaisedPropertyChanged("PhotoProof");
                 CustomerAddressProof = false;
+                OverAllPhotoVerification = false;
             }
         }
         private BitmapImage _profilePicture;
@@ -351,6 +371,7 @@ namespace MicroFinance.Modal
                 _profilePicture = value;
                 RaisedPropertyChanged("ProfilePicture");
                 CustomerProfilePicture = false;
+                OverAllPhotoVerification = false;
             }
         }
 
@@ -367,6 +388,7 @@ namespace MicroFinance.Modal
                 _combinePhoto = value;
                 RaisedPropertyChanged("CombinePhoto");
                 Combinephoto = false;
+                OverAllPhotoVerification = false;
             }
         }
 
@@ -406,8 +428,32 @@ namespace MicroFinance.Modal
                 return _addressProofNames;
             }
         }
-        public string NameofAddressProof { get; set; }
-        public string NameofPhotoProof { get; set; }
+        private string _nameofAddressProof;
+        public string NameofAddressProof 
+        { 
+            get
+            {
+                return _nameofAddressProof;
+            }
+            set
+            {
+                _nameofAddressProof = value;
+                OverAllPhotoVerification = false;
+            }
+        }
+        private string _nameofPhotoProof;
+        public string NameofPhotoProof
+        {
+            get
+            {
+                return _nameofPhotoProof;
+            }
+            set
+            {
+                _nameofPhotoProof = value;
+                OverAllPhotoVerification = false;
+            }
+        }
 
         private bool _havingBankDetails;
         public bool HavingBankDetails
@@ -420,6 +466,7 @@ namespace MicroFinance.Modal
             {
                 _havingBankDetails = value;
                 RaisedPropertyChanged("HavingBankDetails");
+                
             }
         }
         private string _accountHolderName;
@@ -434,6 +481,7 @@ namespace MicroFinance.Modal
                 _accountHolderName = value;
                 RaisedPropertyChanged("AccountHolder");
                 BankHolderName = false;
+                CustBankDetailsOverAll = false;
             }
         }
 
@@ -449,6 +497,7 @@ namespace MicroFinance.Modal
                 _accountnumber = value;
                 RaisedPropertyChanged("AccountNumber");
                 BankAccountNo = false;
+                CustBankDetailsOverAll = false;
             }
         }
         private string _bankname;
@@ -463,6 +512,7 @@ namespace MicroFinance.Modal
                 _bankname = value;
                 RaisedPropertyChanged("BankName");
                 Bankname = false;
+                CustBankDetailsOverAll = false;
             }
         }
         private string _bankbranchname;
@@ -477,6 +527,7 @@ namespace MicroFinance.Modal
                 _bankbranchname = value;
                 RaisedPropertyChanged("BankBranchName");
                 BranchName = false;
+                CustBankDetailsOverAll = false;
             }
         }
         private string _ifsccode;
@@ -493,6 +544,7 @@ namespace MicroFinance.Modal
                     _ifsccode = value.ToUpper();
                     RaisedPropertyChanged("IFSCCODE");
                     BIfscCode = false;
+                    CustBankDetailsOverAll = false;
                 }
             }
         }
@@ -510,6 +562,7 @@ namespace MicroFinance.Modal
                     _micrcode = value.ToUpper();
                     RaisedPropertyChanged("MICRCode");
                     BMicrCode = false;
+                    CustBankDetailsOverAll = false;
                 }
             }
         }
@@ -525,6 +578,7 @@ namespace MicroFinance.Modal
             {
                 _gender = value;
                 CustGender = false;
+                CustDetailsOverAll = false;
             }
         }
 
@@ -539,6 +593,7 @@ namespace MicroFinance.Modal
             {
                 _fatherName = value;
                 CustFatherName = false;
+                CustDetailsOverAll = false;
             }
         }
 
@@ -553,6 +608,7 @@ namespace MicroFinance.Modal
             {
                 _motherName = value;
                 CustMotherName = false;
+                CustDetailsOverAll = false;
             }
         }
 
@@ -567,6 +623,7 @@ namespace MicroFinance.Modal
             {
                 _husbandName = value;
                 CustHusbandName = false;
+                CustDetailsOverAll = false;
             }
         }
 
@@ -581,6 +638,7 @@ namespace MicroFinance.Modal
             {
                 _caste = value;
                 CustCaste = false;
+                CustDetailsOverAll = false;
             }
         }
 
@@ -595,6 +653,7 @@ namespace MicroFinance.Modal
             {
                 _monthlyExpenses = value;
                 CustMonthlyExpenses = false;
+                CustDetailsOverAll = false;
             }
         }
 
@@ -609,6 +668,7 @@ namespace MicroFinance.Modal
             {
                 _yearIncome = value;
                 CustFamilyYearlyIncome = false;
+                CustDetailsOverAll = false;
             }
         }
 
