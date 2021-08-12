@@ -268,6 +268,7 @@ namespace MicroFinance.Modal
         public string GroupId { get; set; }
         public string CustomerId { get; set; }
         public string CustomerPGId { get; set; }
+        
         public CustomerIDinGroup(string gId, string cId, string cPgId)
         {
             GroupId = gId;
@@ -278,11 +279,21 @@ namespace MicroFinance.Modal
 
     public class GroupWiseDetails
     {
+        string _groupName;
+        public string GroupName 
+        {
+            get { return _groupName; }
+            set { _groupName = value; }
+        }
         string _groupId;
         public string GroupId
         {
             get { return _groupId; }
-            set { _groupId= value; }
+            set 
+            { 
+                _groupId= value;
+                GetGroupName(_groupId);
+            }
         }
 
         int _amount;
@@ -299,6 +310,18 @@ namespace MicroFinance.Modal
         public GroupWiseDetails()
         {
 
+        }
+        void GetGroupName(string groupId)
+        {
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sql.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sql;
+                command.CommandText = "select GroupName from PeerGroup where GroupId = '" + groupId +"'";
+                GroupName = (string)command.ExecuteScalar();
+                sql.Close();
+            }
         }
     }
 

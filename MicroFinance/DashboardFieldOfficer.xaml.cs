@@ -133,7 +133,7 @@ namespace MicroFinance
 
             //Setting Report Viewer
             ReportViewer reportViewer1 = new ReportViewer();
-            reportViewer1.LocalReport.ReportEmbeddedResource = "MicroFinance.CollectionSheet.rdlc";
+            reportViewer1.LocalReport.ReportEmbeddedResource = "MicroFinance.CollectionSheetFO.rdlc";
             reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
             reportViewer1.LocalReport.DataSources.Add(reportDataSource2);
             reportViewer1.RefreshReport();

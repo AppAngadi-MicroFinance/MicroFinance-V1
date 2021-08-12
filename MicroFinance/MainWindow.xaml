@@ -22,7 +22,18 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="#E8FAFF">
-            <Button x:Name="xLogoutButton" Width="30" Height="30" Style="{StaticResource LogoutButtonStyle}"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="xHeaderUsername" Grid.Column="0" FontSize="16" FontWeight="SemiBold"
+                       Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Blue"></TextBlock>
+            <TextBlock x:Name="xHeaderDate" Grid.Column="2" FontSize="16" FontWeight="SemiBold"
+                       HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Blue"></TextBlock>
+            <Button Grid.Column="3" x:Name="xLogoutButton" Width="30" Height="30" Style="{StaticResource LogoutButtonStyle}"
                     HorizontalAlignment="Right" Click="xLogoutButton_Click" Margin="0,0,20,0" Visibility="Collapsed"></Button>
         </Grid>
 
