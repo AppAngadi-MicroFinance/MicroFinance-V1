@@ -120,7 +120,7 @@
             </Grid.ColumnDefinitions>
 
             <!--New Customer Approvals Button-->
-            <Border Grid.Row="0" Grid.Column="0" Width="150" Height="150" Style="{StaticResource MainBorder}">
+            <Border Visibility="Collapsed" Grid.Row="0" Grid.Column="0" Width="150" Height="150" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
@@ -144,7 +144,7 @@
                 </Border.Effect>
                 <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
             </Border>
-            <Border Width="150" Height="150" Grid.Column="2" Style="{StaticResource MainBorder}">
+            <Border Width="150" Height="150" Grid.Column="2" Visibility="Collapsed" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>

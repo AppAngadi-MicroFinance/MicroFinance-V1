@@ -96,7 +96,7 @@
             </Grid.ColumnDefinitions>
 
             <!--New Customer Approvals Button-->
-            <Border Grid.Row="0" Grid.Column="0" Width="150" Height="150" Style="{StaticResource MainBorder}">
+            <Border Grid.Row="0" Visibility="Collapsed" Grid.Column="0" Width="150" Height="150" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
@@ -107,7 +107,7 @@
                     </Border>
                 </Grid>
             </Border>
-            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
+            <Border Width="150" Height="150" Visibility="Collapsed" Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
