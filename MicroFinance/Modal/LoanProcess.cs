@@ -558,7 +558,7 @@ namespace MicroFinance.Modal
         //--Loan Master Table Entry Section--
         public DayOfWeek GetSHGCollectionDay(string CustomerID)
         {
-            DayOfWeek Result = default;
+            DayOfWeek Result = 0;
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
             {
                 sqlconn.Open();

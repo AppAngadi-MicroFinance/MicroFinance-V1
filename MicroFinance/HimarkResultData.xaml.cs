@@ -26,7 +26,6 @@ namespace MicroFinance
         List<HimarkResult> HMResultList = new List<HimarkResult>();
         List<string> CategoryList = new List<string>();
         LoanProcess loanProcess = new LoanProcess();
-
         public HimarkResultData()
         {
             InitializeComponent();
