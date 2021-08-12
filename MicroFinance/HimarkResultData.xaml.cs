@@ -21,26 +21,52 @@ namespace MicroFinance
     /// </summary>
     public partial class HimarkResultData : Page
     {
+        string BranchID = MainWindow.LoginDesignation.BranchId;
         HimarkResult HMResult = new HimarkResult();
         List<HimarkResult> HMResultList = new List<HimarkResult>();
         List<string> CategoryList = new List<string>();
         LoanProcess loanProcess = new LoanProcess();
 
-        public HimarkResultData(string FilePath)
-        {
-            InitializeComponent();
-           
-            HMResultList = HMResult.himarkResultslist;
-            CategoryList = HMResult.CategoryList;
-            CategoryCombo.ItemsSource = CategoryList;
-            CategoryCombo.SelectedIndex = 0;
-            string selectedvalue = "ACCEPT";
-            UpdateData(selectedvalue);
-
-        }
         public HimarkResultData()
         {
             InitializeComponent();
+            HMResultList= HMResult.GetBranchRequest(BranchID);
+            CategoryList = HMResult.CategoryList;
+            if (CategoryList.Count()!=0)
+            {
+                CategoryCombo.ItemsSource = CategoryList;
+                BulkAcceptBtn.Visibility = Visibility.Collapsed;
+                BulkRejectBtn.Visibility = Visibility.Collapsed;
+                CategoryCombo.SelectedIndex = 1;
+                string selectedvalue = CategoryCombo.SelectedValue as string;
+                UpdateData(selectedvalue);
+                buttonVisibility(selectedvalue);
+            }
+            else
+            {
+                HimarkResultList.Visibility = Visibility.Collapsed;
+                StatusText.Visibility = Visibility.Collapsed;
+                CategoryCombo.Visibility = Visibility.Collapsed;
+                CategoryText.Visibility = Visibility.Collapsed;
+                BulkAcceptBtn.Visibility = Visibility.Collapsed;
+                BulkRejectBtn.Visibility = Visibility.Collapsed;
+                NotifyText.Visibility = Visibility.Visible;
+            }
+           
+
+        }
+        void buttonVisibility(string value)
+        {
+            if(value.Equals("Accept"))
+            {
+                BulkAcceptBtn.Visibility = Visibility.Visible;
+                BulkRejectBtn.Visibility = Visibility.Collapsed;
+            }
+            else if(value.Equals("Reject"))
+            {
+                BulkAcceptBtn.Visibility = Visibility.Collapsed;
+                BulkRejectBtn.Visibility = Visibility.Visible;
+            }
         }
 
         void LoanHimarkData(List<HimarkResult> himarkResultslist)
@@ -54,7 +80,9 @@ namespace MicroFinance
         private void CategoryCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string SelectedValue = CategoryCombo.SelectedItem as string;
+            StatusText.Text = SelectedValue.ToUpper() + "ED CUSTOMERS";
             UpdateData(SelectedValue);
+            buttonVisibility(SelectedValue);
         }
 
         void UpdateData(string CategoryType)
@@ -116,6 +144,36 @@ namespace MicroFinance
             HimarkResultList.Items.Refresh();
             string ID = Btn.Uid.ToString();
             loanProcess.RejectFromHimark(ID);
+        }
+
+        private void BulkAcceptBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int count = 0;
+            foreach(HimarkResult hm in HMResultList)
+            {
+                if(hm.Status.Equals("Accept"))
+                {
+                    loanProcess.ChangeLoanStatus(hm.RequestID, 2);
+                    count++;
+                }
+            }
+            string Message = "" + count.ToString() + " Loan Approved Successfully!...";
+            MainWindow.StatusMessageofPage(1, Message);
+            this.NavigationService.Navigate(new HimarkResultData());
+
+        }
+
+        private void BulkRejectBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            foreach (HimarkResult hm in HMResultList)
+            {
+                if (hm.Status.Equals("Reject"))
+                {
+                    loanProcess.ChangeLoanStatus(hm.RequestID, 3);
+                }
+            }
+            this.NavigationService.Navigate(new HimarkResultData());
         }
     }
 }

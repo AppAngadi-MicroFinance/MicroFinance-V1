@@ -25,6 +25,7 @@ namespace MicroFinance
         LoanProcess loanprocess = new LoanProcess();
         string BranchID = MainWindow.LoginDesignation.BranchId;
         public List<LoanProcess> RecommendList = new List<LoanProcess>();
+        public List<LoanProcess> SelectedCustomerList = new List<LoanProcess>();
         public LoanAfterHimark()
         {
             InitializeComponent();
@@ -34,6 +35,7 @@ namespace MicroFinance
             LoadData();
             setCount();
             setAmount();
+            BulkRecommendBtn.Visibility = Visibility.Collapsed;
         }
 
         void LoadData()
@@ -94,7 +96,30 @@ namespace MicroFinance
 
         private void Custlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            LoanProcess SelectedCustomer = Custlist.SelectedItem as LoanProcess;
+            if (SelectedCustomerList.Contains(SelectedCustomer) == true)
+            {
+                SelectedCustomerList.Remove(SelectedCustomer);
+                SelectedCustomersView.Items.Refresh();
+                SelectedCustomersView.ItemsSource = SelectedCustomerList;
+                if (SelectedCustomerList.Count > 0)
+                    BulkRecommendBtn.Visibility = Visibility.Visible;
+                else
+                    BulkRecommendBtn.Visibility = Visibility.Collapsed;
 
+            }
+            else
+            {
+                SelectedCustomerList.Add(SelectedCustomer);
+                //RecommededcustomerList.Items.Clear();
+                SelectedCustomersView.ItemsSource = SelectedCustomerList;
+                SelectedCustomersView.Items.Refresh();
+                if (SelectedCustomerList.Count > 0)
+                    BulkRecommendBtn.Visibility = Visibility.Visible;
+                else
+                    BulkRecommendBtn.Visibility = Visibility.Collapsed;
+
+            }
         }
 
         private void ApproveLoanBtn_Click(object sender, RoutedEventArgs e)
@@ -154,6 +179,18 @@ namespace MicroFinance
         {
             if (this.NavigationService.CanGoBack)
                 this.NavigationService.GoBack();
+        }
+
+        private void BulkRecommendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int Count = 0;
+            foreach(LoanProcess lp in SelectedCustomerList)
+            {
+                loanprocess.ChangeLoanStatus(lp.LoanRequestID, 9);
+                Count++;
+            }
+            MainWindow.StatusMessageofPage(1, Count.ToString() + " Loans Recommend Successfully!...");
+            this.NavigationService.Navigate(new DashBoardHeadOfficer());
         }
     }
 }

@@ -96,17 +96,18 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
+                        
                     </Grid>
 
                 </Border>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3">
-                   
+                    <Button Grid.Row="2" Style="{StaticResource PrimaryBtn}" Content="Approve" x:Name="BulkRecommend" Click="BulkRecommend_Click"></Button>
                     <!--<Button x:Name="SendToHiMarkBtn" Content="Send To Hi-Mark" Style="{StaticResource PrimaryBtn}" Margin="0,10,0,0" Width="150" Click="SendToHiMarkBtn_Click" />-->
 
                 </StackPanel>
             </Grid>
             <TextBlock Text="Requested Customer" Style="{StaticResource SubTitle}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,25,0,0"></TextBlock>
-                <ListBox Height="530" Width="630" x:Name="Custlist" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible"  ScrollViewer.IsDeferredScrollingEnabled="True" BorderBrush="Gray" BorderThickness="2" >
+                <ListBox Height="530" Width="630" x:Name="Custlist" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible"  ScrollViewer.IsDeferredScrollingEnabled="True" BorderBrush="Gray" BorderThickness="2" SelectionChanged="Custlist_SelectionChanged" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                         <Border Background="Beige" Height="100" Width="600" CornerRadius="10">

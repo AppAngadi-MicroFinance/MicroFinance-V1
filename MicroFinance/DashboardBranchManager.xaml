@@ -63,10 +63,11 @@
             <Button x:Name="xAddSHGBtn" Click="xAddSHGBtn_Click" Style="{StaticResource NavigateAddSHG}"></Button>
         </Border>
         <!--Section C-->
-        <Grid Width="400" Height="170" Margin="130,0,0,50" 
+        <Grid Width="600" Height="170" Margin="130,0,0,50" 
               HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
@@ -81,7 +82,7 @@
                 </Border.Effect>
                 <Button Style="{StaticResource NavigateImportHiMark}" x:Name="ImportHimarkBtn" Click="ImportHimarkBtn_Click"></Button>
             </Border>
-            
+            <Button Grid.Column="2" Style="{StaticResource SecondaryBtn}" Content="Himark Result" Click="HimarkResultBtn_Click" x:Name="HimarkResultBtn"></Button>
         </Grid>
 
         

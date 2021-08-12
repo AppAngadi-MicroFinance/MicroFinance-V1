@@ -109,7 +109,7 @@ namespace MicroFinance
             loanprocess = GetRecommendDetails(ID);
             loanprocess.ApprovedBy = MainWindow.LoginDesignation.EmpId;
             loanprocess.ApproveLoan(ID);
-            AddtoApprovalList(ID);
+            //AddtoApprovalList(ID);
             RemoveItemFromList(ID);
             MainWindow.StatusMessageofPage(1, "Loan Approved SuccessFully!..");
         }
@@ -152,22 +152,22 @@ namespace MicroFinance
             }
             return index;
         }
-        public void AddtoApprovalList(string ID)
-        {
+        //public void AddtoApprovalList(string ID)
+        //{
             
-            foreach (LoanProcess l in RecommendList)
-            {
-                if (l.LoanRequestID.Equals(ID))
-                {
-                    if(!SelectedCustomersView.Items.Contains(l))
-                    {
-                        SelectedCustomersView.Items.Add(l);
-                        ApprovedCustomerList.Add(l);
-                    }
+        //    foreach (LoanProcess l in RecommendList)
+        //    {
+        //        if (l.LoanRequestID.Equals(ID))
+        //        {
+        //            if(!SelectedCustomersView.Items.Contains(l))
+        //            {
+        //                SelectedCustomersView.Items.Add(l);
+        //                ApprovedCustomerList.Add(l);
+        //            }
                     
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
         private void Generate_NEFTBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -181,6 +181,22 @@ namespace MicroFinance
 
             }
             
+        }
+
+        private void BulkApprovalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int Count = 0;
+            foreach(LoanProcess lp in RecommendList)
+            {
+                loanprocess = new LoanProcess();
+                string ID = lp.LoanRequestID;
+                loanprocess = GetRecommendDetails(ID);
+                loanprocess.ApprovedBy = MainWindow.LoginDesignation.EmpId;
+                loanprocess.ApproveLoan(ID);
+                Count++;
+            }
+            MainWindow.StatusMessageofPage(1, Count.ToString() + " Loans Approved Successfully!...");
+        
         }
     }
 }
