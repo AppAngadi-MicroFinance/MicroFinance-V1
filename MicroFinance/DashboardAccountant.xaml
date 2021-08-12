@@ -10,24 +10,16 @@
 
     <Grid>
 
-        <!--Section A-->                <!-- CreateScedule-->
+        <!--Section A-->
         <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" 
                 Margin="130,100,0,0"
               HorizontalAlignment="Left" VerticalAlignment="Top">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>
-            <Button x:Name="xCreateSchedule" Click="xCreateSchedule_Click" Style="{StaticResource NavigateCreateSchedule}"></Button>
+            <Button Style="{StaticResource NavigateDocumentVerify}" x:Name="DocumentVerify" Click="xNotificationBtn_Click"></Button>
         </Border>
-
-        <!--Section B-->                <!-- Petty Cash-->
-        <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" 
-                Margin="0,100,130,0" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-            </Border.Effect>
-            <Button x:Name="xPettyCash" Style="{StaticResource NavigatePettyCash}"></Button>
-        </Border>
+        
 
 
         <!--Section C-->                <!-- Daily Collection-->
@@ -40,14 +32,12 @@
         </Border>
 
         <!--Section D-->                <!--Notification-->
-        <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" 
+        <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" Visibility="Collapsed"
                 Margin="0,0,150,50" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>
             <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}" ></Button>
         </Border>
-
-        <Button Grid.Column="1" Style="{StaticResource SecondaryBtn}" Content="Document Verify" Width="150" x:Name="DocumentVerify" Click="xNotificationBtn_Click" Margin="0,30,0,0"></Button>
     </Grid>
 </Page>

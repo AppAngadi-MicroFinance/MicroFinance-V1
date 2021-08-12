@@ -29,7 +29,7 @@
         
         <!--Section B-->
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Group Name" Style="{StaticResource Regular}" HorizontalAlignment="Center" Margin="30,15.6,29.2,14"/>
-        <TextBox Grid.Row="2" x:Name="GroupNameBox" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Width="200" Grid.ColumnSpan="3" Margin="151,9.6,0,10"/>
+        <TextBox Grid.Row="2" x:Name="GroupNameBox" IsEnabled="False" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Width="200" Grid.ColumnSpan="3" Margin="151,9.6,0,10"/>
         
         <!--Section C-->
         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">

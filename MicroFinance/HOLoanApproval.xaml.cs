@@ -33,10 +33,55 @@ namespace MicroFinance
             InitializeComponent();
             loanprocess.GetLoanDetailList(BranchID, 9);
             RecommendList.Clear();
+            
             RecommendList = loanprocess.LoanProcessList;
-            Custlist.ItemsSource = RecommendList;
+            // Custlist.ItemsSource = RecommendList;
+            LoadData();
+            setCount();
         }
+        void LoadData()
+        {
+            Custlist.Items.Clear();
+            foreach(LoanProcess lp in RecommendList)
+            {
+                Custlist.Items.Add(lp);
+            }
+        }
+        void RemoveItemFromList(string ID)
+        {
+            Custlist.Items.Clear();
+            foreach (LoanProcess lp in RecommendList)
+            {
+                if(lp.LoanRequestID.Equals(ID)==true)
+                {
+                    RecommendList.Remove(lp);
+                }
+                else
+                {
+                    Custlist.Items.Add(lp);
+                }
+            
+            }
+        }
+        void setCount()
+        {
+            int count1 = 0;
+            int count2 = 0;
+            foreach (LoanProcess c in RecommendList)
+            {
 
+                if (c.LoanType == "General Loan" || c.LoanType == "General")
+                {
+                    count1++;
+                }
+                else if (c.LoanType == "Special")
+                {
+                    count2++;
+                }
+            }
+            GeneralLoanCount.Text = count1.ToString();
+            SpecialLoanCount.Text = count2.ToString();
+        }
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.NavigationService.CanGoBack)
@@ -64,7 +109,8 @@ namespace MicroFinance
             loanprocess = GetRecommendDetails(ID);
             loanprocess.ApprovedBy = MainWindow.LoginDesignation.EmpId;
             loanprocess.ApproveLoan(ID);
-            AddtoApprovalList(ID);
+            //AddtoApprovalList(ID);
+            RemoveItemFromList(ID);
             MainWindow.StatusMessageofPage(1, "Loan Approved SuccessFully!..");
         }
 
@@ -106,22 +152,22 @@ namespace MicroFinance
             }
             return index;
         }
-        public void AddtoApprovalList(string ID)
-        {
+        //public void AddtoApprovalList(string ID)
+        //{
             
-            foreach (LoanProcess l in RecommendList)
-            {
-                if (l.LoanRequestID.Equals(ID))
-                {
-                    if(!SelectedCustomersView.Items.Contains(l))
-                    {
-                        SelectedCustomersView.Items.Add(l);
-                        ApprovedCustomerList.Add(l);
-                    }
+        //    foreach (LoanProcess l in RecommendList)
+        //    {
+        //        if (l.LoanRequestID.Equals(ID))
+        //        {
+        //            if(!SelectedCustomersView.Items.Contains(l))
+        //            {
+        //                SelectedCustomersView.Items.Add(l);
+        //                ApprovedCustomerList.Add(l);
+        //            }
                     
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
         private void Generate_NEFTBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -135,6 +181,22 @@ namespace MicroFinance
 
             }
             
+        }
+
+        private void BulkApprovalBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int Count = 0;
+            foreach(LoanProcess lp in RecommendList)
+            {
+                loanprocess = new LoanProcess();
+                string ID = lp.LoanRequestID;
+                loanprocess = GetRecommendDetails(ID);
+                loanprocess.ApprovedBy = MainWindow.LoginDesignation.EmpId;
+                loanprocess.ApproveLoan(ID);
+                Count++;
+            }
+            MainWindow.StatusMessageofPage(1, Count.ToString() + " Loans Approved Successfully!...");
+        
         }
     }
 }

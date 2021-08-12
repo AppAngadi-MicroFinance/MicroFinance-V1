@@ -41,7 +41,7 @@
         </Style.Triggers>
     </Style>
 
-    
+
     <!--Add Customer Template-->
     <Style TargetType="{x:Type Button}" x:Key="NavigateAddCustomer">
         <Style.Resources>
@@ -57,12 +57,12 @@
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\addCustomer.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Column="1"  Width="110"  Text="Add Customer" Style="{StaticResource DashboardBtnText}"></TextBlock>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\addCustomer.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Width="100" Text="Add Customer" Style="{StaticResource DashboardBtnText}"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -71,7 +71,7 @@
         </Setter>
     </Style>
 
-    <!--Add Customer Template-->
+    <!--Document Verify Template-->
     <Style TargetType="{x:Type Button}" x:Key="PendingCustomerStyle">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
@@ -86,12 +86,12 @@
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\Pendings.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Column="1"  Width="110"  Text="Pending Customer" Style="{StaticResource DashboardBtnText}"></TextBlock>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\Pendings.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Width="100" Text="Document Verify" Style="{StaticResource DashboardBtnText}"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -115,12 +115,12 @@
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\Pendings.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Column="1"  Width="110"  Text="Add PeerGroup" Style="{StaticResource DashboardBtnText}"></TextBlock>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\Pendings.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Width="100" Text="Add PeerGroup" Style="{StaticResource DashboardBtnText}"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -158,7 +158,7 @@
         </Setter>
     </Style>
 
-    <!--Find Customer template +--> 
+    <!--Find Customer template +-->
     <Style TargetType="{x:Type Button}" x:Key="NavigateFindCustomer">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
@@ -415,7 +415,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\import.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Export Hi-Mark"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Import Hi-Mark"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -425,7 +425,7 @@
     </Style>
 
     <!--Add SHG Button-->
-    
+
     <Style TargetType="{x:Type Button}" x:Key="NavigateAddSHG">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
@@ -591,12 +591,12 @@
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\team.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Column="1"  Width="110" Style="{StaticResource DashboardBtnText}" Text="Add New Employee"></TextBlock>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\team.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1"  Width="100" Style="{StaticResource DashboardBtnText}" Text="Add New Employee"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -699,7 +699,7 @@
 
 
     <!--Create Scheduling Button-->
-    
+
     <Style TargetType="{x:Type Button}" x:Key="NavigateCreateSchedule">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
@@ -791,7 +791,36 @@
         </Setter>
     </Style>
 
-    
+    <!--Document Verify Button-->
+    <Style TargetType="{x:Type Button}" x:Key="NavigateDocumentVerify">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="Background" Value="#FEF8F1"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Content">
+            <Setter.Value>
+                <ContentPresenter>
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\money.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Document Verify"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--Logout Button-->
     <Style TargetType="{x:Type Button}" x:Key="LogoutButtonStyle">
         <Setter Property="BorderThickness" Value="0"></Setter>
@@ -811,8 +840,8 @@
     </Style>
 
 
-    <!--New Customer Approval small Template-->
-    
+    <!--New Customer Approval Template-->
+
     <Style TargetType="{x:Type Button}" x:Key="CustomerApprovalSmallSmall">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
@@ -827,12 +856,12 @@
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\rubberstamp.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Column="1"  Width="120"  Text="Customer Approvals" Style="{StaticResource DashboardBtnText}"></TextBlock>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Column="0" Width="65" Height="65"  Source=".\Asserts\Icons\rubberstamp.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Width="100"  Text="Customer Approvals" Style="{StaticResource DashboardBtnText}"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>

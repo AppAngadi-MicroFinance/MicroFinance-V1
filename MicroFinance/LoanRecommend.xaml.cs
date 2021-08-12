@@ -26,6 +26,7 @@ namespace MicroFinance
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
+        public static List<LoanProcess> SelectedCustomerList = new List<LoanProcess>();
         public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
         LoanProcess loanProcess = new LoanProcess();
         public LoanRecommend()
@@ -37,6 +38,7 @@ namespace MicroFinance
             loanDetails = loanProcess.RecommendList;
             LoadCustData();
             setCount();
+            BulkRecommend.Visibility = Visibility.Collapsed;
         }
         public void LoadCustData()
         {
@@ -46,27 +48,34 @@ namespace MicroFinance
                 Custlist.Items.Add(lp);
             }
         }
-        //private void Custlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    Cust SelectedCustomer = Custlist.SelectedItem as Cust;
-        //   if(RecommenedList.Contains(SelectedCustomer)==true)
-        //    {
-        //        RecommenedList.Remove(SelectedCustomer);
-        //        SelectedCustomersView.Items.Refresh();
-        //        SelectedCustomersView.ItemsSource = RecommenedList;
-                
-               
-        //    }
-        //    else
-        //    {
-        //        RecommenedList.Add(SelectedCustomer);
-        //        //RecommededcustomerList.Items.Clear();
-        //        SelectedCustomersView.ItemsSource = RecommenedList;
-        //        SelectedCustomersView.Items.Refresh();
+        private void Custlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoanProcess SelectedCustomer = Custlist.SelectedItem as LoanProcess;
+            if (RecommenedList.Contains(SelectedCustomer) == true)
+            {
+                RecommenedList.Remove(SelectedCustomer);
+                SelectedCustomersView.Items.Refresh();
+                SelectedCustomersView.ItemsSource = RecommenedList;
+                if(RecommenedList.Count>0)
+                    BulkRecommend.Visibility = Visibility.Visible;
+                else
+                    BulkRecommend.Visibility = Visibility.Collapsed;
 
-        //    }
+            }
+            else
+            {
+                RecommenedList.Add(SelectedCustomer);
+                //RecommededcustomerList.Items.Clear();
+                SelectedCustomersView.ItemsSource = RecommenedList;
+                SelectedCustomersView.Items.Refresh();
+                if (RecommenedList.Count > 0)
+                    BulkRecommend.Visibility = Visibility.Visible;
+                else
+                    BulkRecommend.Visibility = Visibility.Collapsed;
 
-        //}
+            }
+
+        }
         void setCount()
         {
             int count1 = 0;
@@ -117,9 +126,14 @@ namespace MicroFinance
             {
                 if(lp.LoanRequestID.Equals(ID)!=true)
                 {
+                    loanDetails.Remove(lp);
+                }
+                else
+                {
                     Custlist.Items.Add(lp);
                 }
                 
+
             }
         }
         public LoanProcess GetRecommendDetails(string ID)
@@ -174,5 +188,25 @@ namespace MicroFinance
             }
             
         }
+
+        private void xBackwardButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.NavigationService.CanGoBack)
+                this.NavigationService.Navigate(new DashboardBranchManager());
+        }
+
+        private void BulkRecommend_Click(object sender, RoutedEventArgs e)
+        {
+            int count = 0;
+            foreach(LoanProcess lp in RecommenedList)
+            {
+                loanProcess.ChangeLoanStatus(lp.LoanRequestID, 8);
+                count++;
+            }
+            MainWindow.StatusMessageofPage(1, count.ToString() + " Loan Recommend Successfully!...");
+            this.NavigationService.Navigate(new DashboardBranchManager());
+        }
+
+        
     }
 }

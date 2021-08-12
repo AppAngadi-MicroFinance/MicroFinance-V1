@@ -27,7 +27,7 @@ namespace MicroFinance
     public partial class DashboardBranchManager : Page
     {
         Branch branch = new Branch();
-        string BranchId = "01202107002";
+       // string BranchId = "01202107002";
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
@@ -89,14 +89,11 @@ namespace MicroFinance
             return value;
         }
 
-        private void xDailyReportsBtn_Click(object sender, RoutedEventArgs e)
-        {
-        }
 
         private void HimarkPanelCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             HimarkExportPanel.Visibility = Visibility.Collapsed;
-    }
+        }
 
         private void HimarkBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -142,13 +139,39 @@ namespace MicroFinance
                 string FileFrom = openFileDlg.FileName;
                 var FilePath = FileFrom.Split('\\');
                 string FileName = FilePath[FilePath.Length - 1];
-                this.NavigationService.Navigate(new HimarkResultData(FileFrom));
+                HimarkResult HMResult = new HimarkResult();
+                if(HMResult.IsAlreadyUpload(FileName))
+                {
+                    HMResult.GetFileDetails(FileFrom);
+                    LoanHimarkData(HMResult.himarkResultslist);
+                    MainWindow.StatusMessageofPage(1, "File Upload Successfully!...");
+
+                }
+                else
+                {
+                    MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
+                }
+                
+
+            }
+        }
+        void LoanHimarkData(List<HimarkResult> himarkResultslist)
+        {
+            HimarkResult himark = new HimarkResult();
+            foreach (HimarkResult hm in himarkResultslist)
+            {
+                himark.InsertHimarkDate(hm);
             }
         }
 
         private void RequestedListBoxNew_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void HimarkResultBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new HimarkResultData());
         }
     }
 }
