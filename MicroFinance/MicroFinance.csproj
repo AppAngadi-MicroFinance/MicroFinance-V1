@@ -181,6 +181,7 @@
     <Compile Include="Modal\CameraCapture.cs" />
     <Compile Include="Modal\CollectionDetails.cs" />
     <Compile Include="Modal\CollectionShceduleSheet.cs" />
+    <Compile Include="Modal\CollectionSheetModelPDF.cs" />
     <Compile Include="Modal\Customer.cs" />
     <Compile Include="Modal\CustomerDetailsForVerification.cs" />
     <Compile Include="Modal\DatabaseMethods.cs" />
@@ -395,11 +396,8 @@
     <Compile Include="Modal\CollectionSheet.cs" />
     <EmbeddedResource Include="Report1.rdlc" />
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\Capture.datasource" />
-    <None Include="Properties\DataSources\CollectionEntry.datasource" />
-    <None Include="Properties\DataSources\CollectionStartPage.datasource" />
-    <None Include="Properties\DataSources\CollectionVerify.datasource" />
-    <None Include="Properties\DataSources\CreateBranch.datasource" />
+    <None Include="Properties\DataSources\MicroFinance.Modal.CollectionSheetModelPDF.datasource" />
+    <None Include="Properties\DataSources\MicroFinance.Modal.GroupWiseDetails.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -498,6 +496,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Asserts\Icons\disposment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\DocumentVerify.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

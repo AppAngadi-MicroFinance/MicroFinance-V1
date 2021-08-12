@@ -192,7 +192,13 @@
                 </TextBox.Text>
             </TextBox>
             <TextBlock Text="Owner Account Details" Grid.Row="10" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-            <Button Style="{StaticResource Add}" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Margin="20,1.6,0,-2" Click="Button_Click"></Button>
+            <StackPanel Grid.Column="1" Grid.Row="10" Orientation="Horizontal" Margin="55,0,0,0">
+                <TextBlock x:Name="AccountNumberText" Text="{Binding AccountNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberSubTitle}" VerticalAlignment="Center" Visibility="Collapsed"></TextBlock>
+                <Button Style="{StaticResource Add}" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Left" Margin="20,1.6,0,-2" Click="Button_Click" x:Name="AddAccountDetailsBtn"></Button>
+                <Button Style="{StaticResource Show}" Margin="10,0,0,0" x:Name="AccountDetailsShowBtn" Click="AccountDetailsShowBtn_Click" Visibility="Collapsed"></Button>
+                <Button Style="{StaticResource Edit}" Margin="10,0,0,0" x:Name="AccountDetailsEditBtn" Click="AccountDetailsEditBtn_Click" Visibility="Collapsed"></Button>
+            </StackPanel>
+            
         </Grid>
         <Button  VerticalAlignment="Bottom" Margin="0,0,0,20" Style="{StaticResource PrimaryBtn}"  Content="Save" Click="Savebtn_Click" x:Name="Savebtn"></Button>
         <Popup  Height="400" Width="550" x:Name="BranchAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center" AllowsTransparency="True">
@@ -265,10 +271,82 @@
                         <TextBlock Text="MICR Code" Style="{StaticResource Regular}" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
                         <TextBox x:Name="micrbox" Grid.Column="1" Grid.Row="5" Style="{StaticResource InputBox}" Text="{Binding MICRCode,Mode=TwoWay,ValidatesOnExceptions=True,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Width="250"></TextBox>
                     </Grid>
-                    <Button Grid.Row="2" Height="40" Width="150" Content="OK" Click="PanelCloseBtn_Click" x:Name="AccountDetialsOkBtn" Style="{StaticResource PrimaryBtn}"></Button>
+                    <Button Grid.Row="2" Height="40" Width="150" Content="OK" Click="AccountDetialsOkBtn_Click" x:Name="AccountDetialsOkBtn" Style="{StaticResource PrimaryBtn}"></Button>
                 </Grid>
             </Border>
             
+        </Popup>
+        <Popup  Height="400" Width="550" x:Name="BranchAccountdetailsViewPanel" IsOpen="False" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center" AllowsTransparency="True">
+            <Border BorderBrush="Gray" BorderThickness="2" Width="550" Height="400" CornerRadius="5" Background="White">
+
+                <Grid Background="White" Height="390" Width="540" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="70*"/>
+                        
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Add BankDetails" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Title}"></TextBlock>
+                    <Button Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="PanelCloseBtn1" Click="PanelCloseBtn_Click"></Button>
+                    <Separator BorderThickness="5" BorderBrush="Gray" VerticalAlignment="Bottom"></Separator>
+                    <Grid Grid.Row="1" Width="480">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40*"/>
+                            <ColumnDefinition Width="60*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Account Holder Name" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock  Grid.Column="1" Style="{StaticResource Regular}"  Width="250">
+                            <TextBlock.Text>
+                                <Binding Path="AccountHolderName" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text="Account Number" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock  Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"   Width="250">
+                            <TextBlock.Text>
+                                <Binding Path="AccountNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text="Bank Name" Style="{StaticResource Regular}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock  Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}" Width="250">
+                            <TextBlock.Text>
+                                <Binding Path="BankName" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text="Branch Name" Style="{StaticResource Regular}" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock  Grid.Column="1" Grid.Row="3" Style="{StaticResource Regular}" Width="250">
+                            <TextBlock.Text>
+                                <Binding Path="BankBranchName" Mode="TwoWay">
+                                    <Binding.ValidationRules>
+                                        <validation:NameValidation/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text="IFSC Code" Style="{StaticResource Regular}" Grid.Row="4" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock  Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}" Text="{Binding IFSCCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,ValidatesOnExceptions=True,NotifyOnSourceUpdated=True}" Width="250"></TextBlock>
+                        <TextBlock Text="MICR Code" Style="{StaticResource Regular}" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock  Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}" Text="{Binding MICRCode,Mode=TwoWay,ValidatesOnExceptions=True,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" Width="250"></TextBlock>
+                    </Grid>
+                    <!--<Button Grid.Row="2" Height="40" Width="150" Content="OK" Click="PanelCloseBtn_Click" x:Name="AccountDetialsOkBtn1" Style="{StaticResource PrimaryBtn}"></Button>-->
+                </Grid>
+            </Border>
+
         </Popup>
         <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center" Height="400" Width="600" x:Name="ConfirmPanel" IsOpen="False" AllowsTransparency="True">
             <Border BorderBrush="Gray" BorderThickness="2"  CornerRadius="5">

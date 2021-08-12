@@ -41,6 +41,7 @@ namespace MicroFinance
             BranchAccountdetailsPanel.IsOpen = true;
             MainGrid.IsEnabled = false;
             MainGrid.Opacity = 0.4;
+            
         }
 
         private void close_Click(object sender, RoutedEventArgs e)
@@ -90,6 +91,8 @@ namespace MicroFinance
             BranchAccountdetailsPanel.IsOpen = false;
             MainGrid.IsEnabled = true;
             MainGrid.Opacity = 1.0;
+            AccountNumberText.Visibility = Visibility.Visible;
+            BranchAccountdetailsViewPanel.IsOpen = false;
         }
 
         private void CreateBr_Click(object sender, RoutedEventArgs e)
@@ -230,6 +233,33 @@ namespace MicroFinance
         {
             if (this.NavigationService.CanGoBack)
                 this.NavigationService.GoBack();
+        }
+
+        private void AccountDetailsShowBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BranchAccountdetailsViewPanel.IsOpen = true;
+            MainGrid.IsEnabled = false;
+        }
+
+        private void AccountDetailsEditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BranchAccountdetailsPanel.IsOpen = true;
+            MainGrid.IsEnabled = false;
+            MainGrid.Opacity = 0.4;
+            
+        }
+
+        private void AccountDetialsOkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BranchAccountdetailsPanel.IsOpen = false;
+            MainGrid.IsEnabled = true;
+            MainGrid.Opacity = 1.0;
+            AccountNumberText.Visibility = Visibility.Visible;
+            BranchAccountdetailsViewPanel.IsOpen = false;
+            AccountDetailsShowBtn.Visibility = Visibility.Visible;
+            AccountDetailsEditBtn.Visibility = Visibility.Visible;
+            AddAccountDetailsBtn.Visibility = Visibility.Collapsed;
+
         }
     }
 }

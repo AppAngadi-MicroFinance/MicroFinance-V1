@@ -308,7 +308,7 @@ namespace MicroFinance.Modal
                 if(value!=_accountnumber)
                 {
                    _accountnumber = value;
-                   RaisedPropertyChanged("Account Number");
+                   RaisedPropertyChanged("AccountNumber");
                 }
             }
         }

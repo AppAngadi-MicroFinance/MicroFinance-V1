@@ -29,7 +29,7 @@ namespace MicroFinance
         public HimarkResultData(string FilePath)
         {
             InitializeComponent();
-            HMResult.GetDetails(FilePath);
+           
             HMResultList = HMResult.himarkResultslist;
             CategoryList = HMResult.CategoryList;
             CategoryCombo.ItemsSource = CategoryList;
@@ -41,6 +41,14 @@ namespace MicroFinance
         public HimarkResultData()
         {
             InitializeComponent();
+        }
+
+        void LoanHimarkData(List<HimarkResult> himarkResultslist)
+        {
+            foreach(HimarkResult hm in himarkResultslist)
+            {
+                HMResult.InsertHimarkDate(hm);
+            }
         }
 
         private void CategoryCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -61,12 +69,35 @@ namespace MicroFinance
             }
         }
 
+
+        void RemoveItem(string UId)
+        {
+            HimarkResultList.Items.Clear();
+            RemoveItemFromLsit(UId);
+            foreach(HimarkResult hm in HMResultList)
+            { 
+                    HimarkResultList.Items.Add(hm);  
+            }
+        }
+
+        void RemoveItemFromLsit(string UId)
+        {
+            foreach (HimarkResult hm in HMResultList)
+            {
+                if (hm.RequestID.Equals(UId) == true)
+                {
+                    HMResultList.Remove(hm);
+                    break;
+                }
+            }
+        }
         private void RetainBtn_Click(object sender, RoutedEventArgs e)
         {
             Button Btn = sender as Button;
             HimarkResultList.Items.Refresh();
             string ID = Btn.Uid.ToString();
             loanProcess.RetainFromHimark(ID);
+            RemoveItem(ID);
         }
 
         private void AcceptBtn_Click(object sender, RoutedEventArgs e)
@@ -76,6 +107,7 @@ namespace MicroFinance
             HimarkResultList.Items.Refresh();
             string ID = Btn.Uid.ToString();
             loanProcess.ApproveLoanFromHimark(ID);
+            RemoveItem(ID);
         }
 
         private void RejectBtn_Click(object sender, RoutedEventArgs e)

@@ -165,7 +165,7 @@
                         <TextBlock Grid.Row="10" Text="Education" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                         <TextBox x:Name="EmployeeEducation" Grid.Row="10" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding Education,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBlock Grid.Row="11" Text="Date of Joining" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                        <DatePicker x:Name="Employeejoiningdate" Grid.Row="11" Grid.Column="1" Style="{StaticResource DateSelecter}" SelectedDateFormat="Long"  Width="250" SelectedDate="{Binding DateOfJoining,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                        <DatePicker x:Name="Employeejoiningdate" Grid.Row="11" Grid.Column="1" Style="{StaticResource DateSelecter}" SelectedDateFormat="Short"  Width="250" SelectedDate="{Binding DateOfJoining,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                     </Grid>
                 </Grid>
             </Grid>
@@ -230,7 +230,7 @@
                     <TextBlock Text="Address Proof" Grid.Row="6" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <StackPanel x:Name="AddressPanelofEmployee" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1">
                         <ComboBox Width="230" Style="{StaticResource combo}" x:Name="AddressProofcombo" SelectedIndex="0" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                        <Button Style="{StaticResource Add}" x:Name="AddressproofBtn" Click="AddressproofBtn_Click" Visibility="{Binding AddressProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"></Button>
+                        <Button Style="{StaticResource Add}" x:Name="AddressproofBtn"  Click="AddressproofBtn_Click" Visibility="{Binding AddressProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"></Button>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="AddressProofViewEditPanel" Visibility="{Binding AddressProofImage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}" >
                             <Button x:Name="ViewAddressProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewAddressProof_Click" />
                             <Button x:Name="EditAddressProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditAddressProof_Click"/>
@@ -256,10 +256,12 @@
             </Border>
             <Border Grid.Row="3" Width="500">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    
                     <TextBlock Text="Add Bank Details" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                    <Button x:Name="BankDetails" Click="BankDetails_Click" Margin="100,0,0,0" Style="{StaticResource Add}" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleBool}}"/>
+                    <Button x:Name="BankDetails" Click="BankDetails_Click" Margin="80,0,0,0" Style="{StaticResource Add}" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleBool}}"/>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,0" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource  VisibleByBool}}" >
-                        <Button x:Name="ViewBank" Style="{StaticResource Show}"  Margin="0,0,10,0" Click="ViewBank_Click" />
+                        <TextBlock Text="{Binding AccountNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberSubTitle}" VerticalAlignment="Center"></TextBlock>
+                        <Button x:Name="ViewBank" Style="{StaticResource Show}"  Margin="10,0,10,0" Click="ViewBank_Click" />
                         <Button x:Name="EditBank" Style="{StaticResource Edit}" Click="EditBank_Click" />
                     </StackPanel>
                 </StackPanel>
@@ -271,10 +273,10 @@
                 <Button x:Name="BackBtn" Content="Back" Style="{StaticResource CancelBtn}" Margin="20,0,0,0" Click="BackNtn_Click" Visibility="Collapsed"></Button>
             </StackPanel>
         </Grid>
-        <Popup  Height="400" Width="500" x:Name="EmployeeAccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
-            <Border BorderBrush="Blue" BorderThickness="2">
+        <Popup  Height="400" Width="500" x:Name="EmployeeAccountdetailsPanel" AllowsTransparency="True" IsOpen="False" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
+            <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="5" Background="White">
 
-                <Grid Background="White">
+                <Grid Background="White" Width="490" Height="390">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="70*"/>
@@ -299,7 +301,7 @@
                         <TextBlock Text="Account Holder Name" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                         <TextBox x:Name="accountholdername" Grid.Column="1" Style="{StaticResource InputBox}"  Width="250">
                             <TextBox.Text>
-                                <Binding Path="AccountHolderName" Mode="TwoWay">
+                                <Binding Path="EmployeeName" Mode="TwoWay">
                                     <Binding.ValidationRules>
                                         <validation:NameValidation/>
                                     </Binding.ValidationRules>
@@ -379,9 +381,9 @@
         </Grid>
        
             
-        <Popup x:Name="ConfirmationPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center" Height="600" Width="1000" Style="{x:Null}">
-            <Border  BorderBrush="Gray" BorderThickness="2" Background="White">
-                <Grid Background="#E8FFF2" Height="600" Width="1000">
+        <Popup x:Name="ConfirmationPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center" Height="600" Width="1000" Style="{x:Null}" AllowsTransparency="True">
+            <Border  BorderBrush="Gray" BorderThickness="2" Background="White" CornerRadius="5">
+                <Grid Background="#E8FFF2" Height="590" Width="990">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -441,8 +443,8 @@
             </Border>
             
         </Popup>
-        <Popup x:Name="BankDetailsPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
-            <Border BorderBrush="Blue" BorderThickness="2">
+        <Popup x:Name="BankDetailsPanel" AllowsTransparency="True" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
+            <Border BorderBrush="Gray" BorderThickness="2" Height="310" Width="460" Background="White" CornerRadius="5">
                 <Grid Background="White" Height="300" Width="450">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -461,7 +463,7 @@
                     <Separator BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></Separator>
                     <Button Style="{StaticResource ModalClose}" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,15,0" x:Name="bankdetailspanelclosebtn" Click="bankdetailspanelclosebtn_Click"></Button>
                     <TextBlock Text="Account Holder Name" Grid.Row="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
-                    <TextBlock Text="{Binding AccountHolderName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding EmployeeName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
                     <TextBlock Text="Account Number" Grid.Row="2" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
                     <TextBlock Text="{Binding AccountNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
                     <TextBlock Text="IFSC Code" Grid.Row="3" Style="{StaticResource Regular}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
@@ -477,9 +479,9 @@
             </Border>
             
         </Popup>
-        <Popup Height="250" Width="500"  x:Name="ProofDetailsPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
-            <Border BorderBrush="Blue" BorderThickness="2">
-                <Grid Background="White">
+        <Popup Height="250" Width="500"  x:Name="ProofDetailsPanel" AllowsTransparency="True" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
+            <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="5" Background="White">
+                <Grid Background="White" Height="240" Width="490">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50px"/>
                         <RowDefinition Height="20px"/>
@@ -508,8 +510,8 @@
             </Border>
         </Popup>
         <Popup Height="250" Width="400"  x:Name="AddressProofViewPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
-            <Border BorderBrush="Blue" BorderThickness="2">
-                <Grid Background="White">
+            <Border BorderBrush="Gray" BorderThickness="2" Background="White" CornerRadius="5"> 
+                <Grid Background="White" Width="390" Height="240">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50px"/>
                         <RowDefinition Height="20px"/>
@@ -529,9 +531,9 @@
                 </Grid>
             </Border>
         </Popup>
-        <Popup Height="250" Width="400"  x:Name="PhotoProofViewPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
-            <Border BorderBrush="Blue" BorderThickness="2">
-                <Grid Background="White">
+        <Popup Height="250" Width="400"  x:Name="PhotoProofViewPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center" AllowsTransparency="True">
+            <Border BorderBrush="gray" BorderThickness="2" CornerRadius="5" Background="White">
+                <Grid Background="White" Height="240" Width="390">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50px"/>
                         <RowDefinition Height="20px"/>
@@ -551,9 +553,9 @@
                 </Grid>
             </Border>
         </Popup>
-        <Popup Height="250" Width="400"  x:Name="ProfilePictureViewPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
-            <Border BorderBrush="Blue" BorderThickness="2">
-                <Grid Background="White">
+        <Popup Height="250" Width="400"  x:Name="ProfilePictureViewPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center" AllowsTransparency="True">
+            <Border BorderBrush="Gray" Background="White" CornerRadius="5" BorderThickness="2">
+                <Grid Background="White" Width="390" Height="240">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50px"/>
                         <RowDefinition Height="20px"/>
@@ -573,9 +575,9 @@
                 </Grid>
             </Border>
         </Popup>
-        <Popup x:Name="BankDetailsviewPanel" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
-            <Border BorderBrush="Blue" BorderThickness="2">
-                <Grid Background="White" Height="300" Width="400">
+        <Popup x:Name="BankDetailsviewPanel" AllowsTransparency="True" PlacementTarget="{Binding ElementName=EmployeeMainGrid}" Placement="Center">
+            <Border BorderBrush="Gray" BorderThickness="2" Height="300" Width="500" CornerRadius="5"> 
+                <Grid Background="White" Height="290" Width="490">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>

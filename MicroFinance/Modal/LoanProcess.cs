@@ -132,6 +132,7 @@ namespace MicroFinance.Modal
                     {
                         while (reader.Read())
                         {
+                           
                             string[] _fullAdress = reader.GetString(18).Split('|', '~');
                             RequestList.Add(
                                 new LoanProcess
@@ -161,15 +162,15 @@ namespace MicroFinance.Modal
                                     State = _fullAdress[8],
                                     Pincode = reader.GetInt32(19),
                                     HousingType = reader.GetString(20),
-                                    NameofAddressProof = (DBNull.Value.Equals(reader.GetString(21)) ? "" : reader.GetString(21)),
-                                    NameofPhotoProof = (DBNull.Value.Equals(reader.GetString(22)) ? "" : reader.GetString(22)),
+                                    NameofAddressProof =(DBNull.Value.Equals(reader["AddressProofName"]))?"":reader.GetString(21),
+                                    NameofPhotoProof = (DBNull.Value.Equals(reader["PhotoProofName"])) ? "" : reader.GetString(22),
                                     AccountHolder = reader.GetString(26),
                                     AccountNumber = reader.GetString(27),
                                     BankBranchName = reader.GetString(28),
                                     IFSCCode = reader.GetString(29),
                                     MICRCode = reader.GetString(30),
                                     AddressProof = (reader.GetBoolean(23)) ? ByteToBI((byte[])reader.GetValue(31)) : null,
-                                    PhotoProof = (reader.GetBoolean(24)) ? ByteToBI((byte[])reader.GetValue(32)) : null,
+                                    PhotoProof =(reader.GetBoolean(24)) ? ByteToBI((byte[])reader.GetValue(32)) : null,
                                     ProfilePicture = (reader.GetBoolean(25)) ? ByteToBI((byte[])reader.GetValue(33)) : null,
                                     LoanRequestID = reader.GetString(34),
                                     LoanAmount = reader.GetInt32(35),
@@ -233,8 +234,8 @@ namespace MicroFinance.Modal
                                     State = _fullAdress[8],
                                     Pincode = reader.GetInt32(19),
                                     HousingType = reader.GetString(20),
-                                    NameofAddressProof = (DBNull.Value.Equals(reader.GetString(21)) ? "" : reader.GetString(21)),
-                                    NameofPhotoProof = (DBNull.Value.Equals(reader.GetString(22)) ? "" : reader.GetString(22)),
+                                    NameofAddressProof = (DBNull.Value.Equals(reader["AddressProofName"])) ? "" : reader.GetString(21),
+                                    NameofPhotoProof = (DBNull.Value.Equals(reader["PhotoProofName"])) ? "" : reader.GetString(22),
                                     AccountHolder = reader.GetString(26),
                                     AccountNumber = reader.GetString(27),
                                     BankBranchName = reader.GetString(28),
@@ -306,8 +307,8 @@ namespace MicroFinance.Modal
                                     State = _fullAdress[8],
                                     Pincode = reader.GetInt32(19),
                                     HousingType = reader.GetString(20),
-                                    NameofAddressProof = reader.GetString(21),
-                                    NameofPhotoProof = reader.GetString(22),
+                                    NameofAddressProof = (DBNull.Value.Equals(reader["AddressProofName"])) ? "" : reader.GetString(21),
+                                    NameofPhotoProof = (DBNull.Value.Equals(reader["PhotoProofName"])) ? "" : reader.GetString(22),
                                     AccountHolder = reader.GetString(26),
                                     AccountNumber = reader.GetString(27),
                                     BankBranchName = reader.GetString(28),
@@ -485,12 +486,42 @@ namespace MicroFinance.Modal
                     if(Result==1)
                     {
                         LoadData1(LoanId);
+                        NewSavingAcc(_customerId);
+
                     }
                 }
                 sqlconn.Close();
             }
 
         }
+
+        public void NewSavingAcc(string id)
+        {
+            GenerateSavingsAccID SA = new GenerateSavingsAccID();
+            int res = 0;
+            var date = DateTime.Now.ToString("MM-dd-yyyy");
+            using (SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sqlcon.Open();
+                if (sqlcon.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "IF (EXISTS (SELECT CustId FROM SavingsAccount WHERE CustId = '" + id + "' ))SELECT 1 AS res ELSE SELECT 0 AS res;";
+                    res = (int)sqlcomm.ExecuteScalar();
+                    if (res == 0)
+                    {
+                        sqlcomm.CommandText = "insert into SavingsAccount values ('" + id + "','" + SA.GenerateSavingAccID() + "','" + date + "'," + 1 + ")";
+                        sqlcomm.ExecuteNonQuery();
+                    }
+                }
+                sqlcon.Close();
+            }
+        }
+
+
+
+
         public void RejectLoan(string ID)
         {
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))

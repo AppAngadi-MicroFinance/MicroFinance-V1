@@ -37,7 +37,6 @@ namespace MicroFinance
             loanDetails = loanProcess.RecommendList;
             LoadCustData();
             setCount();
-            SelectedCustomersView.ItemsSource = RecommenedList;
         }
         public void LoadCustData()
         {
@@ -75,7 +74,7 @@ namespace MicroFinance
             foreach (LoanProcess c in loanDetails)
             {
 
-                if (c.LoanType == "General Loan")
+                if (c.LoanType == "General Loan"||c.LoanType== "General")
                 {
                     count1++;
                 }
@@ -100,13 +99,11 @@ namespace MicroFinance
             else
             {
                 Custlist.Items.Refresh();
-                SelectedCustomersView.Items.Refresh();
                 loanProcess.RecommendLoan(ID);
-                AddtoRecommendList(ID);
-                //RemoveItemFromList(ID);
-                LoadCustData();
-               
-
+                //AddtoRecommendList(ID);
+                RemoveItemFromList(ID);
+                SelectedCustomersView.Items.Add(GetRecommendDetails(ID));
+                //LoadCustData();
                 MainWindow.StatusMessageofPage(1, "loan Recommend Successfully...");
 
             }
@@ -115,15 +112,38 @@ namespace MicroFinance
 
         void RemoveItemFromList(string ID)
         {
-            foreach(LoanProcess lp in loanDetails)
+            Custlist.Items.Clear();
+            foreach (LoanProcess lp in loanDetails)
             {
-                if(lp.LoanRequestID.Equals(ID))
+                if(lp.LoanRequestID.Equals(ID)!=true)
                 {
                     loanDetails.Remove(lp);
                 }
+                else
+                {
+                    Custlist.Items.Add(lp);
+                }
+                
+
             }
         }
-
+        public LoanProcess GetRecommendDetails(string ID)
+        {
+            LoanProcess selectedLoan = new LoanProcess();
+            int i = 0;
+            foreach (LoanProcess process in loanDetails)
+            {
+                if (process.LoanRequestID == ID)
+                {
+                    selectedLoan = loanDetails.ElementAt(i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            return selectedLoan;
+        }
 
         public void AddtoRecommendList(string ID)
         {
@@ -158,6 +178,12 @@ namespace MicroFinance
 
             }
             
+        }
+
+        private void xBackwardButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.NavigationService.CanGoBack)
+                this.NavigationService.Navigate(new DashboardBranchManager());
         }
     }
 }

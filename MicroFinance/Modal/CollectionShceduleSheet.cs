@@ -14,26 +14,45 @@ namespace MicroFinance.Modal
     public class CollectionShceduleSheet
     {
         string EmpId;
-        public string CustGroupId { get; set; }
 
-        public string Attendance { get; set; }
-        string _custID;
-        public string CustID
+        public string GroupId { get; set; }
+
+        public string SheetId
+        {
+            get; set;
+        }
+
+        string _customerId;
+        public string CustomerId
         {
             get
             {
-                return _custID;
+                return _customerId;
             }
             set
             {
-                _custID = value;
-                GetCustomerName(_custID);
+                _customerId = value;
+                CustomerName = GetCustomerName(_customerId);
             }
         }
-        public string CustomerName { get; set; }
+
+        string _customerName;
+        public string CustomerName
+        {
+            get
+            {
+                return _customerName;
+            }
+            set
+            {
+                _customerName = value;
+            }
+        }
+
+        public string Attendance { get; set; }
 
         string _loanId;
-        public string LoanId
+        public string LoanID
         {
             get
             {
@@ -46,17 +65,23 @@ namespace MicroFinance.Modal
                 GetNextDueDetails(_loanId);
             }
         }
-        public DateTime SanctionDate { get; set; }
-        public string LoanType { get; set; }
-        public int LoanAmount { get; set; }
+        public DateTime LoanDate { get; set; }
 
-        public int NoOfPayments { get; set; }
-        public int PaidPrincipal { get; set; }
-        public int RemaingLoanAmount { get; set; }
+        public int CurrentWeekNo { get; set; }
+        public int SecurityDeposite { get; set; }
+        public int TotalSD { get; set; }
+
+        public int LoanAmount { get; set; }
+        public int WeeksPaid { get; set; }
+        public int PrincipalPaid { get; set; }
+        public int OutStandingAmount { get; set; }
 
         public int Principal { get; set; }
         public int Interest { get; set; }
-        public int Total { get; set; }
+
+        public int TotalAmonut { get; set; }
+
+
 
         public CollectionShceduleSheet()
         {
@@ -69,10 +94,22 @@ namespace MicroFinance.Modal
         public static void  GenerateShceduleSheet(string employeeID)
         {
             List<CollectionShceduleSheet> ActiveLoans = new List<CollectionShceduleSheet>();
-            ActiveLoans = GetActiveLoanCustomer(employeeID);
-            FillData3(ActiveLoans);
+            ActiveLoans = GetActiveLoanCustomer(employeeID, "WEDNESSDAY");
         }
-
+        string SetGroupID(string custID)
+        {
+            string groupId = string.Empty;
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sql.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sql;
+                command.CommandText = "select PeerGroupId from CustomerGroup where CustId = '" + custID + "'";
+                GroupId = (string)command.ExecuteScalar();
+                sql.Close();
+            }
+            return groupId;
+        }
         void GetPaidDetails(string loanId)
         {
             using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
@@ -80,22 +117,23 @@ namespace MicroFinance.Modal
                 sql.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = sql;
-                command.CommandText = "select Count(Principal), SUM(Principal), MIN(Balance) from LoanCollectionEntry where LoanId = '" + loanId + "' and Attendance > 0";
+                command.CommandText = "select Count(Principal), SUM(Principal), MIN(Balance), SUM(SecurityDeposite) from LoanCollectionEntry where LoanId = '" + loanId + "' and Attendance > 0";
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    NoOfPayments = reader.GetInt32(0);
-                    if (NoOfPayments == 0)
+                    WeeksPaid = reader.GetInt32(0) + 1;
+                    if (WeeksPaid <= 1)
                     {
-                        PaidPrincipal = 0;
-                        RemaingLoanAmount = LoanAmount;
+                        PrincipalPaid = 0;
+                        OutStandingAmount = LoanAmount;
+                        SecurityDeposite = 0;
                     }
                     else
                     {
-                        PaidPrincipal = reader.GetInt32(1);
-                        RemaingLoanAmount = reader.GetInt32(2);
+                        PrincipalPaid = reader.GetInt32(1);
+                        OutStandingAmount = reader.GetInt32(2);
+                        SecurityDeposite = reader.GetInt32(3);
                     }
-
                 }
                 sql.Close();
             }
@@ -113,117 +151,155 @@ namespace MicroFinance.Modal
                 {
                     Principal = reader.GetInt32(0);
                     Interest = reader.GetInt32(1);
-                    Total = reader.GetInt32(2);
+                    TotalAmonut = reader.GetInt32(2);
                 }
                 sql.Close();
             }
         }
 
 
-        void GetCustomerName(string custId)
+        string GetCustomerName(string custId)
         {
+            
+            string name = string.Empty;
             using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = sql;
                 command.CommandText = "select Name from CustomerDetails where CustId = '" + custId + "'";
-                CustomerName = (string)command.ExecuteScalar();
+                name = (string)command.ExecuteScalar();
                 sql.Close();
             }
-        }
-        static public DataTable ConvertToDataTable<T>(IList<T> data)
-        {
-            PropertyDescriptorCollection properties =
-               TypeDescriptor.GetProperties(typeof(T));
-            DataTable table = new DataTable();
-            foreach (PropertyDescriptor prop in properties)
-                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
-            foreach (T item in data)
-            {
-                DataRow row = table.NewRow();
-                foreach (PropertyDescriptor prop in properties)
-                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
-                table.Rows.Add(row);
-            }
-            return table;
-
-        }
-        static void FillData3(List<CollectionShceduleSheet> collectionList)
-        {
-            //string filedate = showDate.Text;
-            DataTable dt1 = new DataTable();
-            dt1 = ConvertToDataTable(collectionList.ToList());
-            ReportDataSource reportDataSource1 = new ReportDataSource();
-            reportDataSource1.Name = "DataSet1"; // Name of the DataSet we set in .rdlc
-            reportDataSource1.Value = dt1;
-            ReportViewer reportViewer1 = new ReportViewer();
-            reportViewer1.LocalReport.ReportEmbeddedResource = "MicroFinance.CollectionSheet.rdlc";
-            reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-            reportViewer1.RefreshReport();
-            reportViewer1.ProcessingMode = ProcessingMode.Local;
-
-            Warning[] warnings1;
-            string[] streamids1;
-            string mimeType1;
-            string encoding1;
-            string extension1;
-            try
-            {
-                string dir = string.Empty;
-                //string showdatess = Changeformat(showDate.Text);
-                byte[] bytes = reportViewer1.LocalReport.Render(
-                  "PDF", null, out mimeType1, out encoding1, out extension1,
-                  out streamids1, out warnings1);
-                dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "REPORTS\\");
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-                if (Directory.Exists(dir))
-                {
-                    //var temp = "" + data + "" + "_WeeklyReport"+showDate+"";
-
-                    //var temp = "" + data + "" + "_" + "" + SelectedCluster + "";
-
-                    FileStream fs = new FileStream(dir + "Collection_Sheet_"+DateTime.Now.ToShortDateString() + ".pdf", FileMode.Create);
-
-                    var temps = fs.ToString();
-                    fs.Write(bytes, 0, bytes.Length);
-                    fs.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                
-            }
+            return name;
         }
 
-        static List<CollectionShceduleSheet> GetActiveLoanCustomer(string empId)
+        public static List<CollectionShceduleSheet> GetActiveLoanCustomer(string empID, string day)
         {
-            List<CollectionShceduleSheet> ActiveLoanCustomer = new List<CollectionShceduleSheet>();
+            string idd = string.Empty;
+            List<string> EmployeeSHG = new List<string>();
             using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = sql;
-                command.CommandText = "select LoanDetails.CustomerID, LoanDetails.LoanID, LoanDetails.LoanType, LoanDetails.LoanAmount,LoanDetails.ApproveDate from LoanDetails  join CustomerGroup on CustomerGroup.CustId = LoanDetails.CustomerID join PeerGroup on PeerGroup.GroupId = CustomerGroup.PeerGroupId join TimeTable on TimeTable.SHGId = PeerGroup.SHGid and TimeTable.EmpId = '" + empId + "' where LoanDetails.IsActive = 1";
+                command.CommandText = "select SHGId from TimeTable where EmpId = '" + empID + "' and CollectionDay ='" + day + "'";
                 SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    CollectionShceduleSheet temp = new CollectionShceduleSheet();
-                    temp.CustID = reader.GetString(0);
-                    temp.LoanId = reader.GetString(1);
-                    temp.LoanType = reader.GetString(2);
-                    temp.LoanAmount = reader.GetInt32(3);
-                    temp.SanctionDate = reader.GetDateTime(4);
-                    temp.Attendance = string.Empty;
-
-                    ActiveLoanCustomer.Add(temp);
+                    EmployeeSHG.Add(reader.GetString(0));
                 }
                 sql.Close();
+            }
+
+            List<string> PeerGroupForSHG = new List<string>();
+            foreach(string shgID in EmployeeSHG)
+            {
+                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                {
+                    sql.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = sql;
+                    command.CommandText = "select GroupId from PeerGroup where SHGid = '"+ shgID + "'";
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        PeerGroupForSHG.Add(reader.GetString(0));
+                    }
+                    sql.Close();
+                }
+            }
+
+            List<CustomerIDinGroup> CustomersINPeerGroup = new List<CustomerIDinGroup>();
+            int initLeft = 0;
+            int initRight = 0;
+            foreach(string pgID in PeerGroupForSHG)
+            {
+                initLeft++;
+                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                {
+                    sql.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = sql;
+                    command.CommandText = "select CustId from CustomerGroup where PeerGroupId = '"+pgID+"'";
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        initRight++;
+                        idd = initLeft + "." + initRight;
+                        CustomersINPeerGroup.Add(new CustomerIDinGroup(pgID, reader.GetString(0), idd)); 
+                    }
+                    sql.Close();
+                }
+            }
+
+            List<CollectionShceduleSheet> ActiveLoanCustomer = new List<CollectionShceduleSheet>();
+            List<string> LoanIdForCustomerID = new List<string>();
+            foreach(CustomerIDinGroup item in CustomersINPeerGroup)
+            {
+                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                {
+                    sql.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = sql;
+                    command.CommandText = "select CustomerID, LoanID, LoanAmount,ApproveDate from LoanDetails where CustomerID = '"+item.CustomerId+"' and IsActive = 1";
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        CollectionShceduleSheet temp = new CollectionShceduleSheet();
+                        temp.SheetId = item.CustomerPGId;
+                        temp.GroupId = item.GroupId;
+                        temp.CustomerId = reader.GetString(0);
+                        temp.LoanAmount = reader.GetInt32(2);
+                        temp.LoanDate = reader.GetDateTime(3);
+                        temp.Attendance = string.Empty;
+                        temp.LoanID = reader.GetString(1);
+                        ActiveLoanCustomer.Add(temp);
+                    }
+                    sql.Close();
+                }
             }
             return ActiveLoanCustomer;
         }
     }
+
+    public class CustomerIDinGroup
+    {
+        public string GroupId { get; set; }
+        public string CustomerId { get; set; }
+        public string CustomerPGId { get; set; }
+        public CustomerIDinGroup(string gId, string cId, string cPgId)
+        {
+            GroupId = gId;
+            CustomerId = cId;
+            CustomerPGId = cPgId;
+        }
+    }
+
+    public class GroupWiseDetails
+    {
+        string _groupId;
+        public string GroupId
+        {
+            get { return _groupId; }
+            set { _groupId= value; }
+        }
+
+        int _amount;
+        public int Amount
+        {
+            get { return _amount; }
+            set { _amount = value; }
+        }
+        public GroupWiseDetails(string gid, int amt)
+        {
+            GroupId = gid;
+            Amount = amt;
+        }
+        public GroupWiseDetails()
+        {
+
+        }
+    }
+
 }
