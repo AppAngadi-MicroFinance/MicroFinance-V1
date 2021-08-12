@@ -27,7 +27,7 @@ namespace MicroFinance
     public partial class DashboardBranchManager : Page
     {
         Branch branch = new Branch();
-        string BranchId = "01202107002";
+       // string BranchId = "01202107002";
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
@@ -142,7 +142,7 @@ namespace MicroFinance
                 HimarkResult HMResult = new HimarkResult();
                 if(HMResult.IsAlreadyUpload(FileName))
                 {
-                    HMResult.GetDetails(FileFrom);
+                    HMResult.GetFileDetails(FileFrom);
                     LoanHimarkData(HMResult.himarkResultslist);
                     MainWindow.StatusMessageofPage(1, "File Upload Successfully!...");
 
@@ -167,6 +167,11 @@ namespace MicroFinance
         private void RequestedListBoxNew_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void HimarkResultBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new HimarkResultData());
         }
     }
 }

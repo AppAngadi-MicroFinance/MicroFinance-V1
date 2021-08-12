@@ -327,50 +327,13 @@
                 </Border>
             </Grid>
         </Border>
-        <Button Grid.Column="1" Style="{StaticResource SecondaryBtn}" VerticalAlignment="Bottom" Margin="0,0,0,80" Width="170" Content="Generate NEFT File" Panel.ZIndex="2" Click="Generate_NEFTBtn_Click" x:Name="Generate_NEFTBtn"></Button>
-        <Border  Grid.Row="1" Grid.Column="1" Height="300" Width="500" Margin="0,150,0,0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="280"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="#781f9f">
-                        <TextBlock Text="Customer Name" Style="{StaticResource Regular}" FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
-                    </Border>
-                    <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Background="#781f9f">
-                        <TextBlock Text="Amount" Style="{StaticResource Regular}" FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
-                    </Border>
-                </Grid>
-                <ListView Grid.Row="1" x:Name="SelectedCustomersView" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel HorizontalAlignment="Center" Height="200" Width="510"></StackPanel>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="280"/>
-                                    <ColumnDefinition Width="220"/>
-                                </Grid.ColumnDefinitions>
-                                <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1,0,0,1"  Height="30">
-                                    <TextBlock Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center"/>
-                                </Border>
-                                <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1,0,0,1"  Height="30">
-                                    <TextBlock Text="{Binding LoanAmount,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center"/>
-                                </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
-        </Border>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,100" HorizontalAlignment="Center">
+            <Button Grid.Column="1" Style="{StaticResource SecondaryBtn}" VerticalAlignment="Bottom" Margin="0,0,0,0" Width="170" Content="Generate NEFT File" Panel.ZIndex="2" Click="Generate_NEFTBtn_Click" x:Name="Generate_NEFTBtn"></Button>
+            <Button Style="{StaticResource PrimaryBtn}" Margin="20,0,0,0" Content="Approval" x:Name="BulkApprovalBtn" Click="BulkApprovalBtn_Click"></Button>
+        </StackPanel>
+
+       
+        
         
     </Grid>
 </Page>
