@@ -81,7 +81,19 @@ namespace MicroFinance
             //    MainWindow.StatusMessageofPage(1, "Ready...");
             //}
             #endregion
-            GetLogin();
+
+            if (_userName.ToLower() == "Admin".ToLower())
+            {
+                LoginBorder.Visibility = Visibility.Collapsed;
+                mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
+                LoggedInState();
+                MainWindow.StatusMessageofPage(1, "Ready...");
+            }
+            else
+            {
+                GetLogin();
+            }
+            
 
 
             //LoginDesignation = new LoginDetails(GetEmployeeName(_userName));
@@ -176,7 +188,7 @@ namespace MicroFinance
                 else if (power.Equals("REGION MANAGER"))
                 {
                     LoginBorder.Visibility = Visibility.Collapsed;
-                    mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
+                    mainframe.NavigationService.Navigate(new DashBoardRegionOfficer());
                     LoggedInState();
                     MainWindow.StatusMessageofPage(1, "Ready...");
                 }
@@ -197,6 +209,7 @@ namespace MicroFinance
         }
         void LogOutState()
         {
+            xHeaderUsername.Text = string.Empty;
             xLogoutButton.Visibility = Visibility.Collapsed;
             xLoginWindow.Visibility = Visibility.Visible;
             LoginBorder.Visibility = Visibility.Visible;
