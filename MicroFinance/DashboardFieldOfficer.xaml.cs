@@ -53,10 +53,8 @@ namespace MicroFinance
 
         private void xAddCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(new AddCustomer());
-            GTtoSamunnati gt = new GTtoSamunnati();
-            gt.GenerateSamunnati_File();
-            
+            this.NavigationService.Navigate(new AddCustomer());
+                        
         }
 
         private void xCollectionEntryBtn_Click(object sender, RoutedEventArgs e)
