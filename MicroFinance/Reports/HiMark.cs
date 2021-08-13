@@ -2048,9 +2048,10 @@ namespace MicroFinance.Reports
             SLDated.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             SLDated.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             FillHimarkDate(xlWorkSheet, hiMarksList);
+            string dir = "";
             try
             {
-                string dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Report\\Hi-Mark Reports");
+                dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Report\\Hi-Mark Reports");
                 if(Directory.Exists(dir))
                 {
                     string FileName = dir+"\\Hi-Mark_" + DateTime.Now.ToString("dd-MMM-yyyy (hh-mm)") + ".xlsx";
@@ -2079,7 +2080,7 @@ namespace MicroFinance.Reports
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlApp);
                 xlApp = null;
                 xlWorkBook = null;
-                File.Delete(@"D:\temp.xlsx");
+                File.Delete(dir+"\\temp.xlsx");
             }
         }
 
