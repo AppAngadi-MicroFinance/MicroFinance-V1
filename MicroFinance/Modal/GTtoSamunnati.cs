@@ -20,7 +20,7 @@ namespace MicroFinance.Modal
         {
             get
             {
-                return OperatingUnit;
+                return _operatingUnit;
             }
             set
             {
@@ -694,72 +694,74 @@ namespace MicroFinance.Modal
                 reader.Close();
                 foreach(string id in CustomerIdList)
                 {
+                    GTtoSamunnati gs = new GTtoSamunnati();
                     command.CommandText = "select Name,Dob,Mobile,Address,Pincode,AadharNumber,BankName,BankBranchName,IFSCCode,BankACHolderName,BankAccountNo,Gender from CustomerDetails where CustId='"+id+"'";
                     reader = command.ExecuteReader();
                     while(reader.Read())
                     {
-                        CustomerName = reader.GetString(0);
-                        DOB = reader.GetDateTime(1).ToString("dd-MMMM-yyyy");
-                        Phone = reader.GetString(2);
+                        gs.CustomerName = reader.GetString(0);
+                        gs.DOB = reader.GetDateTime(1).ToString("dd-MMMM-yyyy");
+                        gs.Phone = reader.GetString(2);
                         string[] _fullAdress = reader.GetString(3).Split('|', '~');
-                        Address1 = _fullAdress[0];
-                        Address2 = _fullAdress[2];
-                        Address3 = _fullAdress[4];
-                        City = _fullAdress[6];
-                        State = _fullAdress[8];
-                        PostalCode = reader.GetInt32(4).ToString();
-                        AadharNo = reader.GetString(5);
-                        BankName = reader.GetString(6);
-                        BankBranchName = reader.GetString(7);
-                        IFSCcode = reader.GetString(8);
-                        BankAccName = reader.GetString(9);
-                        BankAccNo = reader.GetString(10);
-                        Gender = reader.GetString(11);
+                        gs.Address1 = _fullAdress[0];
+                        gs.Address2 = _fullAdress[2];
+                        gs.Address3 = _fullAdress[4];
+                        gs.City = _fullAdress[6];
+                        gs.State = _fullAdress[8];
+                        gs.PostalCode = reader.GetInt32(4).ToString();
+                        gs.AadharNo = reader.GetString(5);
+                        gs.BankName = reader.GetString(6);
+                        gs.BankBranchName = reader.GetString(7);
+                        gs.IFSCcode = reader.GetString(8);
+                        gs.BankAccName = reader.GetString(9);
+                        gs.BankAccNo = reader.GetString(10);
+                        gs.Gender = reader.GetString(11);
                     }
                     reader.Close();
                     command.CommandText = "select Mobile from GuarenteeDetails where CustId = '"+id+"'";
-                    PANTANno = command.ExecuteScalar().ToString();
+                    gs.PANTANno = command.ExecuteScalar().ToString();
                     command.CommandText = "select LoanAmount,RequestId from LoanApplication where CustId='" + id+"'";
                     reader = command.ExecuteReader();
                     while(reader.Read())
                     {
-                        LoanAmount = reader.GetInt32(0);
-                        ReportID = reader.GetString(1);
+                        gs.LoanAmount = reader.GetInt32(0);
+                        gs.ReportID = reader.GetString(1);
                     }
                     reader.Close();
                     //default values
 
-                    OperatingUnit = "Samunnati_OU";
-                    HMRefernceNo = DateTime.Today.ToString("yyyy") + "_" + DateTime.Today.ToString("MM") + "_" + DateTime.Today.ToString("dd");
-                    SamunnatiBranchMapping = "Thiruvanmiyur - BAID";
-                    CustomerType = "CBO";
-                    CustomerSubtype = "CBO MEMBER";
-                    BusinessCategory = "Micro";
-                    BusinessIndustryType = "Agriculture";
-                    Sector = "AGRI INPUT";
-                    PrimaryValueChain = "SEEDS";
-                    SecondaryValueChain = "SEEDS";
-                    EmailID = "gtrust2007@yahoo.in";
-                    Constitution = "Individual";
-                    ExistingRelationshipValue = "S0628";
-                    NewCustomerAcquisition = "S0628";
-                    BankAccLevel = "Member Bank";
-                    SalesPesonName = "S0628";
-                    LoanProduct = "STL-DL";
-                    LoanTenure = "12";
-                    LoanTermPeriod = "MONTHS";
-                    LoanType = "DIRECT";
-                    LoanStartDate = DateTime.Today.ToString("dd-MMMM-yyyy");
-                    AmortizationMethod = "EQUAL_PAYMENT";
-                    PaymentStartDate = DateTime.Today.AddDays(7).ToString("dd-MMMM-yyyy");
-                    PaymentFrequency = "WEEKLY";
-                    IntrestStartDate= DateTime.Today.AddDays(7).ToString("dd-MMMM-yyyy");
-                    IntrestFrequency="WEEKLY";
-                    LoanIntrestRate = "24";
-                    ProcessingFeesPercentage = "1";
-                    InsuranceFees1 = "PAI";
-                    InsuranceFees2 = "GPL";
-                    PenalIntrestRate = "2";
+                    gs.OperatingUnit = "Samunnati_OU";
+                    gs.HMRefernceNo = DateTime.Today.ToString("yyyy") + "_" + DateTime.Today.ToString("MM") + "_" + DateTime.Today.ToString("dd");
+                    gs.SamunnatiBranchMapping = "Thiruvanmiyur - BAID";
+                    gs.CustomerType = "CBO";
+                    gs.CustomerSubtype = "CBO MEMBER";
+                    gs.BusinessCategory = "Micro";
+                    gs.BusinessIndustryType = "Agriculture";
+                    gs.Sector = "AGRI INPUT";
+                    gs.PrimaryValueChain = "SEEDS";
+                    gs.SecondaryValueChain = "SEEDS";
+                    gs.EmailID = "gtrust2007@yahoo.in";
+                    gs.Constitution = "Individual";
+                    gs.ExistingRelationshipValue = "S0628";
+                    gs.NewCustomerAcquisition = "S0628";
+                    gs.BankAccLevel = "Member Bank";
+                    gs.SalesPesonName = "S0628";
+                    gs.LoanProduct = "STL-DL";
+                    gs.LoanTenure = "12";
+                    gs.LoanTermPeriod = "MONTHS";
+                    gs.LoanType = "DIRECT";
+                    gs.LoanStartDate = DateTime.Today.ToString("dd-MMMM-yyyy");
+                    gs.AmortizationMethod = "EQUAL_PAYMENT";
+                    gs.PaymentStartDate = DateTime.Today.AddDays(7).ToString("dd-MMMM-yyyy");
+                    gs.PaymentFrequency = "WEEKLY";
+                    gs.IntrestStartDate = DateTime.Today.AddDays(7).ToString("dd-MMMM-yyyy");
+                    gs.IntrestFrequency ="WEEKLY";
+                    gs.LoanIntrestRate = "24";
+                    gs.ProcessingFeesPercentage = "1";
+                    gs.InsuranceFees1 = "PAI";
+                    gs.InsuranceFees2 = "GPL";
+                    gs.PenalIntrestRate = "2";
+                    CustomerDetails.Add(gs);
                 }
 
             }
@@ -982,7 +984,7 @@ namespace MicroFinance.Modal
             custype.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Customer Subtype
             var cussubtype = xlWorkSheet.Cells.Range["H1"];
-            cussubtype.Value = "Customer Type";
+            cussubtype.Value = "Customer SubType";
             cussubtype.Font.Bold = true;
             cussubtype.Font.Size = 11;
             cussubtype.RowHeight = 15;
@@ -1059,7 +1061,7 @@ namespace MicroFinance.Modal
             primaryvaluechain.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Secondary Value Chain
             var secondaryvaluechain = xlWorkSheet.Cells.Range["O1"];
-            secondaryvaluechain.Value = "Primary Value Chain";
+            secondaryvaluechain.Value = "Secondary Value Chain";
             secondaryvaluechain.Font.Bold = true;
             secondaryvaluechain.Font.Size = 11;
             secondaryvaluechain.RowHeight = 15;
@@ -1268,7 +1270,7 @@ namespace MicroFinance.Modal
             ifsccode.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Bank Account Name
             var BankAccName = xlWorkSheet.Cells.Range["AH1"];
-            BankAccName.Value = "IFSC Code";
+            BankAccName.Value = "Bank Account Name";
             BankAccName.Font.Bold = true;
             BankAccName.Font.Size = 11;
             BankAccName.RowHeight = 15;
@@ -1378,7 +1380,7 @@ namespace MicroFinance.Modal
             loanstartdate.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Amortization Method
             var amortization = xlWorkSheet.Cells.Range["AR1"];
-            amortization.Value = "Loan Start Date";
+            amortization.Value = "Amortization Method";
             amortization.Font.Bold = true;
             amortization.Font.Size = 11;
             amortization.RowHeight = 15;
@@ -1393,18 +1395,18 @@ namespace MicroFinance.Modal
             paymentstartdate.Font.Bold = true;
             paymentstartdate.Font.Size = 11;
             paymentstartdate.RowHeight = 15;
-            paymentstartdate.Columns.ColumnWidth = 24;
+            paymentstartdate.Columns.ColumnWidth = 34;
             paymentstartdate.Borders.ColorIndex = 15;
             paymentstartdate.Cells.Interior.ColorIndex = 6;
             paymentstartdate.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             paymentstartdate.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Payment | Principal Frequency
             var paymentfrequency = xlWorkSheet.Cells.Range["AT1"];
-            paymentfrequency.Value = "Payment | Principal State Date";
+            paymentfrequency.Value = "Payment | Principal Frequency";
             paymentfrequency.Font.Bold = true;
             paymentfrequency.Font.Size = 11;
             paymentfrequency.RowHeight = 15;
-            paymentfrequency.Columns.ColumnWidth = 24;
+            paymentfrequency.Columns.ColumnWidth = 36;
             paymentfrequency.Borders.ColorIndex = 15;
             paymentfrequency.Cells.Interior.ColorIndex = 6;
             paymentfrequency.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
@@ -1444,11 +1446,11 @@ namespace MicroFinance.Modal
             loanintrestrate.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Processing Fees Percentage
             var processingfee = xlWorkSheet.Cells.Range["AX1"];
-            processingfee.Value = "Loan Intrest Rate";
+            processingfee.Value = "Processing Fees Percentage";
             processingfee.Font.Bold = true;
             processingfee.Font.Size = 11;
             processingfee.RowHeight = 15;
-            processingfee.Columns.ColumnWidth = 24;
+            processingfee.Columns.ColumnWidth = 26;
             processingfee.Borders.ColorIndex = 15;
             processingfee.Cells.Interior.ColorIndex = 6;
             processingfee.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
@@ -1508,6 +1510,7 @@ namespace MicroFinance.Modal
             penalintrestrate.Cells.Interior.ColorIndex = 6;
             penalintrestrate.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             penalintrestrate.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            FillGTXL(xlWorkSheet, GetDetails());
             try
             {
                 string dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Report\\LOAN DIS FORM");
@@ -1523,9 +1526,6 @@ namespace MicroFinance.Modal
                     xlWorkBook.SaveAs(FileName);
 
                 }
-
-
-
             }
             catch (Exception e)
             {
@@ -1542,6 +1542,72 @@ namespace MicroFinance.Modal
                 File.Delete(@"D:\temp.xlsx");
             }
 
+        }
+
+
+
+        public void FillGTXL(Worksheet xlWorkSheet, List<GTtoSamunnati> loans)
+        {
+            int RowStart = 2;
+            foreach (GTtoSamunnati x in loans)
+            {
+                xlWorkSheet.Cells[RowStart, 1] = x.OperatingUnit;
+                xlWorkSheet.Cells[RowStart, 2] = x.CustomerNumber;
+                xlWorkSheet.Cells[RowStart, 3] = x.ReportID;
+                xlWorkSheet.Cells[RowStart, 4] = x.HMRefernceNo;
+                xlWorkSheet.Cells[RowStart, 5] = x.CustomerName;
+                xlWorkSheet.Cells[RowStart, 6] = x.SamunnatiBranchMapping;
+                xlWorkSheet.Cells[RowStart, 7] = x.CustomerType;
+                xlWorkSheet.Cells[RowStart, 8] = x.CustomerSubtype;
+                xlWorkSheet.Cells[RowStart, 9] = x.Gender;
+                xlWorkSheet.Cells[RowStart, 10] = x.DOB;
+                xlWorkSheet.Cells[RowStart, 11] = x.BusinessCategory;
+                xlWorkSheet.Cells[RowStart, 12] = x.BusinessIndustryType;
+                xlWorkSheet.Cells[RowStart, 13] = x.Sector;
+                xlWorkSheet.Cells[RowStart, 14] = x.PrimaryValueChain;
+                xlWorkSheet.Cells[RowStart, 15] = x.SecondaryValueChain;
+                xlWorkSheet.Cells[RowStart, 16] = x.Phone;
+                xlWorkSheet.Cells[RowStart, 17] = x.Address1;
+                xlWorkSheet.Cells[RowStart, 18] = x.Address2;
+                xlWorkSheet.Cells[RowStart, 19] = x.Address3;
+                xlWorkSheet.Cells[RowStart, 20] = x.Address4;
+                xlWorkSheet.Cells[RowStart, 21] = x.City;
+                xlWorkSheet.Cells[RowStart, 22] = x.PostalCode;
+                xlWorkSheet.Cells[RowStart, 24] = x.State;
+                xlWorkSheet.Cells[RowStart, 25] = x.EmailID;
+                xlWorkSheet.Cells[RowStart, 26] = x.Constitution;
+                xlWorkSheet.Cells[RowStart, 27] = x.GSTINno;
+                xlWorkSheet.Cells[RowStart, 28] = x.PANTANno;
+                xlWorkSheet.Cells[RowStart, 29] = x.AadharNo;
+                xlWorkSheet.Cells[RowStart, 30] = x.ExistingRelationshipValue;
+                xlWorkSheet.Cells[RowStart, 31] = x.NewCustomerAcquisition;
+                xlWorkSheet.Cells[RowStart, 32] = x.BankName;
+                xlWorkSheet.Cells[RowStart, 33] = x.BankBranchName;
+                xlWorkSheet.Cells[RowStart, 34] = x.IFSCcode;
+                xlWorkSheet.Cells[RowStart, 35] = x.BankAccName;
+                xlWorkSheet.Cells[RowStart, 36] = x.BankAccLevel;
+                xlWorkSheet.Cells[RowStart, 37] = x.BankAccNo;
+                xlWorkSheet.Cells[RowStart, 38] = x.SalesPesonName;
+                xlWorkSheet.Cells[RowStart, 39] = x.LoanProduct;
+                xlWorkSheet.Cells[RowStart, 40] = x.LoanAmount;
+                xlWorkSheet.Cells[RowStart, 41] = x.LoanTenure;
+                xlWorkSheet.Cells[RowStart, 42] = x.LoanTermPeriod;
+                xlWorkSheet.Cells[RowStart, 43] = x.LoanType;
+                xlWorkSheet.Cells[RowStart, 44] = x.LoanStartDate;
+                xlWorkSheet.Cells[RowStart, 45] = x.AmortizationMethod;
+                xlWorkSheet.Cells[RowStart, 46] = x.PaymentStartDate;
+                xlWorkSheet.Cells[RowStart, 47] = x.PaymentFrequency;
+                xlWorkSheet.Cells[RowStart, 48] = x.IntrestStartDate;
+                xlWorkSheet.Cells[RowStart, 49] = x.IntrestFrequency;
+                xlWorkSheet.Cells[RowStart, 50] = x.LoanIntrestRate;
+                xlWorkSheet.Cells[RowStart, 51] = x.ProcessingFeesPercentage;
+                xlWorkSheet.Cells[RowStart, 52] = x.InsuranceFees1;
+                xlWorkSheet.Cells[RowStart, 53] = x.InsuranceFees1Amt;
+                xlWorkSheet.Cells[RowStart, 54] = x.InsuranceFees2;
+                xlWorkSheet.Cells[RowStart, 55] = x.InsuranceFees2Amt;
+                xlWorkSheet.Cells[RowStart, 56] = x.PenalIntrestRate;
+                RowStart++;
+            }
         }
     }
 }
