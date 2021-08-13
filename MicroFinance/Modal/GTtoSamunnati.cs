@@ -676,7 +676,95 @@ namespace MicroFinance.Modal
             }
         }
 
+        public List<GTtoSamunnati> GetDetails()
+        {
+            List<GTtoSamunnati> CustomerDetails = new List<GTtoSamunnati>();
+            List<String> CustomerIdList = new List<string>();
+            using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.db))
+            {
+                sql.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sql;
+                command.CommandText = "select CustId from LoanApplication where LoanStatus = '9'";
+                SqlDataReader reader = command.ExecuteReader();
+                while(reader.Read())
+                {
+                    CustomerIdList.Add(reader.GetString(0));
+                }
+                reader.Close();
+                foreach(string id in CustomerIdList)
+                {
+                    command.CommandText = "select Name,Dob,Mobile,Address,Pincode,AadharNumber,BankName,BankBranchName,IFSCCode,BankACHolderName,BankAccountNo,Gender from CustomerDetails where CustId='"+id+"'";
+                    reader = command.ExecuteReader();
+                    while(reader.Read())
+                    {
+                        CustomerName = reader.GetString(0);
+                        DOB = reader.GetDateTime(1).ToString("dd-MMMM-yyyy");
+                        Phone = reader.GetString(2);
+                        string[] _fullAdress = reader.GetString(3).Split('|', '~');
+                        Address1 = _fullAdress[0];
+                        Address2 = _fullAdress[2];
+                        Address3 = _fullAdress[4];
+                        City = _fullAdress[6];
+                        State = _fullAdress[8];
+                        PostalCode = reader.GetInt32(4).ToString();
+                        AadharNo = reader.GetString(5);
+                        BankName = reader.GetString(6);
+                        BankBranchName = reader.GetString(7);
+                        IFSCcode = reader.GetString(8);
+                        BankAccName = reader.GetString(9);
+                        BankAccNo = reader.GetString(10);
+                        Gender = reader.GetString(11);
+                    }
+                    reader.Close();
+                    command.CommandText = "select Mobile from GuarenteeDetails where CustId = '"+id+"'";
+                    PANTANno = command.ExecuteScalar().ToString();
+                    command.CommandText = "select LoanAmount,RequestId from LoanApplication where CustId='" + id+"'";
+                    reader = command.ExecuteReader();
+                    while(reader.Read())
+                    {
+                        LoanAmount = reader.GetInt32(0);
+                        ReportID = reader.GetString(1);
+                    }
+                    reader.Close();
+                    //default values
 
+                    OperatingUnit = "Samunnati_OU";
+                    HMRefernceNo = DateTime.Today.ToString("yyyy") + "_" + DateTime.Today.ToString("MM") + "_" + DateTime.Today.ToString("dd");
+                    SamunnatiBranchMapping = "Thiruvanmiyur - BAID";
+                    CustomerType = "CBO";
+                    CustomerSubtype = "CBO MEMBER";
+                    BusinessCategory = "Micro";
+                    BusinessIndustryType = "Agriculture";
+                    Sector = "AGRI INPUT";
+                    PrimaryValueChain = "SEEDS";
+                    SecondaryValueChain = "SEEDS";
+                    EmailID = "gtrust2007@yahoo.in";
+                    Constitution = "Individual";
+                    ExistingRelationshipValue = "S0628";
+                    NewCustomerAcquisition = "S0628";
+                    BankAccLevel = "Member Bank";
+                    SalesPesonName = "S0628";
+                    LoanProduct = "STL-DL";
+                    LoanTenure = "12";
+                    LoanTermPeriod = "MONTHS";
+                    LoanType = "DIRECT";
+                    LoanStartDate = DateTime.Today.ToString("dd-MMMM-yyyy");
+                    AmortizationMethod = "EQUAL_PAYMENT";
+                    PaymentStartDate = DateTime.Today.AddDays(7).ToString("dd-MMMM-yyyy");
+                    PaymentFrequency = "WEEKLY";
+                    IntrestStartDate= DateTime.Today.AddDays(7).ToString("dd-MMMM-yyyy");
+                    IntrestFrequency="WEEKLY";
+                    LoanIntrestRate = "24";
+                    ProcessingFeesPercentage = "1";
+                    InsuranceFees1 = "PAI";
+                    InsuranceFees2 = "GPL";
+                    PenalIntrestRate = "2";
+                }
+
+            }
+            return CustomerDetails;
+        }
 
 
         //public List<SamunnatiResult> samunnatiList = new List<SamunnatiResult>();
@@ -872,22 +960,5 @@ namespace MicroFinance.Modal
 
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

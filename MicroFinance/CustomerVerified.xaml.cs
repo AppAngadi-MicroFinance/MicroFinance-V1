@@ -56,6 +56,7 @@ namespace MicroFinance
             nominee.GetNomineeVerifiedDetails();
 
             ContextAssigning();
+            GetBlockWiseVerifiedorNot();
             VisiblityOfPhotoPanel();
         }
         int CustomerStatus;
@@ -80,6 +81,42 @@ namespace MicroFinance
 
             ContextAssigning();
             VisiblityOfPhotoPanel();
+        }
+
+        void GetBlockWiseVerifiedorNot()
+        {
+            if(customer.CustName && customer.CustDateOfBirth && customer.CustGender && customer.CustFatherName && customer.CustMotherName && customer.CustHusbandName && customer.CustContactNumber && customer.CustAadharNumber && customer.CustReligion && customer.CustCommunity && customer.CustCaste && customer.CustEducation && customer.CustFamilyMember && customer.CustEarningMember && customer.CustMonthlyIncome && customer.CustMonthlyExpenses && customer.CustFamilyYearlyIncome && customer.CustOccupation )
+            {
+                customer.CustDetailsOverAll = true;
+            }
+            if( customer.CustomerDoorNumber && customer.CustStreetName && customer.CustomerLocality && customer.CustomerPincode && customer.CustomerCity && customer.CustomerState && customer.CustomerHousingType)
+            {
+                customer.CustAddressOverAll = true;
+            }
+            if(customer.BankHolderName && customer.BankAccountNo && customer.BranchName && customer.BMicrCode && customer.BIfscCode && customer.Bankname)
+            {
+                customer.CustBankDetailsOverAll = true;
+            }
+            if(guarantor.GName && guarantor.GuarantorDOB && guarantor.GuarantorGender && guarantor.GuarantorOccupation && guarantor.GuarantorRelationship  && guarantor.GuarantorContact && guarantor.GuarantorDoorNumber && guarantor.GuarantorStreet && guarantor.GuarantorLocality && guarantor.GuarantorCity && guarantor.GuarantorState && guarantor.GuarantorPincode)
+            {
+                guarantor.OverAllBasicDetailsofGuarantor = true;
+            }
+            if(nominee.NName && nominee.NomineeDOB && nominee.NomineeGender && nominee.NomineeOccupation && nominee.NomineeRelationship && nominee.NomineeContact && nominee.NomineeDoorNo && nominee.NomineeStreet && nominee.NomineeLocality && nominee.NomineeCity && nominee.NomineeState && nominee.NomineePincode)
+            {
+                nominee.OverAllBasicDetailsofNominee = true;
+            }
+            if(customer.CustomerAddressProof && customer.CustomerPhotoProof && customer.CustomerProfilePicture && customer.Combinephoto)
+            {
+                customer.OverAllPhotoVerification = true;
+            }
+            if(guarantor.GuarantorAddressProof && guarantor.GuarantorPhotoProof && guarantor.GuarantorProfilePicture)
+            {
+                guarantor.OverAllGuarantorPhotoVerification = true;
+            }
+            if(nominee.NomineeAddressProof && nominee.NomineePhotoProof && nominee.NomineeProfilePicture)
+            {
+                nominee.OverAllNomineePhotoVerification = true;
+            }
         }
         void EnableDisableGrid(bool state)
         {

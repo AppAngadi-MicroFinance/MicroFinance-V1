@@ -73,14 +73,14 @@
                                         <TextBlock Text="Customer Name : " FontSize="16" FontWeight="Bold"/>
                                         <TextBlock  Text="{Binding NotificationFrom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <!--<StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
                                         <TextBlock Text="Branch : " FontSize="16" FontWeight="Bold"/>
                                         <TextBlock x:Name="BranchName" Text="{Binding BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
-                                    </StackPanel>
-                                    <StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal" VerticalAlignment="Center">
+                                    </StackPanel>-->
+                                    <!--<StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal" VerticalAlignment="Center">
                                         <TextBlock Text="Date : " FontSize="16" FontWeight="Bold"/>
                                         <TextBlock x:Name="NotificationDate" Text="{Binding NotificationDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
-                                    </StackPanel>
+                                    </StackPanel>-->
                                 </Grid>
                             </Border>
                         </DataTemplate>

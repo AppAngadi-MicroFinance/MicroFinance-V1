@@ -520,7 +520,7 @@
                             <TextBlock Text="Bank Details" Style="{StaticResource Regular}" VerticalAlignment="Center" Grid.Column="1"></TextBlock>
                             <TextBlock x:Name="BankErrorCheck" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                         </StackPanel>
-                        <TextBox x:Name="AccountHoldeBox" Style="{StaticResource Textbox}" Grid.Column="2" Width="140" HorizontalAlignment="Left" Text="{Binding AccountHolder, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsReadOnly="True" CharacterCasing="Upper" />
+                        <TextBox x:Name="AccountHoldeBox" Style="{StaticResource Textbox}" Grid.Column="2" Width="140" HorizontalAlignment="Left" Text="{Binding AccountNumber, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsReadOnly="True" CharacterCasing="Upper" />
 
                         <Button x:Name="BankDetails" HorizontalAlignment="Left" Click="BankDetails_Click" Style="{StaticResource Add}" Grid.Column="3" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleConverter}}"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="BankViewEditPanel" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleConverter}}">
