@@ -894,7 +894,7 @@ namespace MicroFinance.Modal
             custype.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Customer Subtype
             var cussubtype = xlWorkSheet.Cells.Range["H1"];
-            cussubtype.Value = "Customer Type";
+            cussubtype.Value = "Customer SubType";
             cussubtype.Font.Bold = true;
             cussubtype.Font.Size = 11;
             cussubtype.RowHeight = 15;
@@ -971,7 +971,7 @@ namespace MicroFinance.Modal
             primaryvaluechain.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Secondary Value Chain
             var secondaryvaluechain = xlWorkSheet.Cells.Range["O1"];
-            secondaryvaluechain.Value = "Primary Value Chain";
+            secondaryvaluechain.Value = "Secondary Value Chain";
             secondaryvaluechain.Font.Bold = true;
             secondaryvaluechain.Font.Size = 11;
             secondaryvaluechain.RowHeight = 15;
@@ -1180,7 +1180,7 @@ namespace MicroFinance.Modal
             ifsccode.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Bank Account Name
             var BankAccName = xlWorkSheet.Cells.Range["AH1"];
-            BankAccName.Value = "IFSC Code";
+            BankAccName.Value = "Bank Account Name";
             BankAccName.Font.Bold = true;
             BankAccName.Font.Size = 11;
             BankAccName.RowHeight = 15;
@@ -1290,7 +1290,7 @@ namespace MicroFinance.Modal
             loanstartdate.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Amortization Method
             var amortization = xlWorkSheet.Cells.Range["AR1"];
-            amortization.Value = "Loan Start Date";
+            amortization.Value = "Amortization Method";
             amortization.Font.Bold = true;
             amortization.Font.Size = 11;
             amortization.RowHeight = 15;
@@ -1305,18 +1305,18 @@ namespace MicroFinance.Modal
             paymentstartdate.Font.Bold = true;
             paymentstartdate.Font.Size = 11;
             paymentstartdate.RowHeight = 15;
-            paymentstartdate.Columns.ColumnWidth = 24;
+            paymentstartdate.Columns.ColumnWidth = 34;
             paymentstartdate.Borders.ColorIndex = 15;
             paymentstartdate.Cells.Interior.ColorIndex = 6;
             paymentstartdate.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             paymentstartdate.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Payment | Principal Frequency
             var paymentfrequency = xlWorkSheet.Cells.Range["AT1"];
-            paymentfrequency.Value = "Payment | Principal State Date";
+            paymentfrequency.Value = "Payment | Principal Frequency";
             paymentfrequency.Font.Bold = true;
             paymentfrequency.Font.Size = 11;
             paymentfrequency.RowHeight = 15;
-            paymentfrequency.Columns.ColumnWidth = 24;
+            paymentfrequency.Columns.ColumnWidth = 36;
             paymentfrequency.Borders.ColorIndex = 15;
             paymentfrequency.Cells.Interior.ColorIndex = 6;
             paymentfrequency.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
@@ -1356,11 +1356,11 @@ namespace MicroFinance.Modal
             loanintrestrate.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Processing Fees Percentage
             var processingfee = xlWorkSheet.Cells.Range["AX1"];
-            processingfee.Value = "Loan Intrest Rate";
+            processingfee.Value = "Processing Fees Percentage";
             processingfee.Font.Bold = true;
             processingfee.Font.Size = 11;
             processingfee.RowHeight = 15;
-            processingfee.Columns.ColumnWidth = 24;
+            processingfee.Columns.ColumnWidth = 26;
             processingfee.Borders.ColorIndex = 15;
             processingfee.Cells.Interior.ColorIndex = 6;
             processingfee.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
@@ -1420,6 +1420,7 @@ namespace MicroFinance.Modal
             penalintrestrate.Cells.Interior.ColorIndex = 6;
             penalintrestrate.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             penalintrestrate.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
             try
             {
                 string dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Report\\LOAN DIS FORM");
@@ -1435,9 +1436,6 @@ namespace MicroFinance.Modal
                     xlWorkBook.SaveAs(FileName);
 
                 }
-
-
-
             }
             catch (Exception e)
             {
@@ -1458,8 +1456,69 @@ namespace MicroFinance.Modal
 
 
 
-
-
+        public void FillGTXL(Worksheet xlWorkSheet, List<GTtoSamunnati> loans)
+        {
+            int RowStart = 2;
+            foreach (GTtoSamunnati x in loans)
+            {
+                xlWorkSheet.Cells[RowStart, 1] = x.OperatingUnit;
+                xlWorkSheet.Cells[RowStart, 2] = x.CustomerNumber;
+                xlWorkSheet.Cells[RowStart, 3] = x.ReportID;
+                xlWorkSheet.Cells[RowStart, 4] = x.HMRefernceNo;
+                xlWorkSheet.Cells[RowStart, 5] = x.CustomerName;
+                xlWorkSheet.Cells[RowStart, 6] = x.SamunnatiBranchMapping;
+                xlWorkSheet.Cells[RowStart, 7] = x.CustomerType;
+                xlWorkSheet.Cells[RowStart, 8] = x.CustomerSubtype;
+                xlWorkSheet.Cells[RowStart, 9] = x.Gender;
+                xlWorkSheet.Cells[RowStart, 10] = x.DOB;
+                xlWorkSheet.Cells[RowStart, 11] = x.BusinessCategory;
+                xlWorkSheet.Cells[RowStart, 12] = x.BusinessIndustryType;
+                xlWorkSheet.Cells[RowStart, 13] = x.Sector;
+                xlWorkSheet.Cells[RowStart, 14] = x.PrimaryValueChain;
+                xlWorkSheet.Cells[RowStart, 15] = x.SecondaryValueChain;
+                xlWorkSheet.Cells[RowStart, 16] = x.Phone;
+                xlWorkSheet.Cells[RowStart, 17] = x.Address1;
+                xlWorkSheet.Cells[RowStart, 18] = x.Address2;
+                xlWorkSheet.Cells[RowStart, 19] = x.Address3;
+                xlWorkSheet.Cells[RowStart, 20] = x.Address4;
+                xlWorkSheet.Cells[RowStart, 21] = x.City;
+                xlWorkSheet.Cells[RowStart, 22] = x.PostalCode;
+                xlWorkSheet.Cells[RowStart, 24] = x.State;
+                xlWorkSheet.Cells[RowStart, 25] = x.EmailID;
+                xlWorkSheet.Cells[RowStart, 26] = x.Constitution;
+                xlWorkSheet.Cells[RowStart, 27] = x.GSTINno;
+                xlWorkSheet.Cells[RowStart, 28] = x.PANTANno;
+                xlWorkSheet.Cells[RowStart, 29] = x.AadharNo;
+                xlWorkSheet.Cells[RowStart, 30] = x.ExistingRelationshipValue;
+                xlWorkSheet.Cells[RowStart, 31] = x.NewCustomerAcquisition;
+                xlWorkSheet.Cells[RowStart, 32] = x.BankName;
+                xlWorkSheet.Cells[RowStart, 33] = x.BankBranchName;
+                xlWorkSheet.Cells[RowStart, 34] = x.IFSCcode;
+                xlWorkSheet.Cells[RowStart, 35] = x.BankAccName;
+                xlWorkSheet.Cells[RowStart, 36] = x.BankAccLevel;
+                xlWorkSheet.Cells[RowStart, 37] = x.BankAccNo;
+                xlWorkSheet.Cells[RowStart, 38] = x.SalesPesonName;
+                xlWorkSheet.Cells[RowStart, 39] = x.LoanProduct;
+                xlWorkSheet.Cells[RowStart, 40] = x.LoanAmount;
+                xlWorkSheet.Cells[RowStart, 41] = x.LoanTenure;
+                xlWorkSheet.Cells[RowStart, 42] = x.LoanTermPeriod;
+                xlWorkSheet.Cells[RowStart, 43] = x.LoanType;
+                xlWorkSheet.Cells[RowStart, 44] = x.LoanStartDate;
+                xlWorkSheet.Cells[RowStart, 45] = x.AmortizationMethod;
+                xlWorkSheet.Cells[RowStart, 46] = x.PaymentStartDate;
+                xlWorkSheet.Cells[RowStart, 47] = x.PaymentFrequency;
+                xlWorkSheet.Cells[RowStart, 48] = x.IntrestStartDate;
+                xlWorkSheet.Cells[RowStart, 49] = x.IntrestFrequency;
+                xlWorkSheet.Cells[RowStart, 50] = x.LoanIntrestRate;
+                xlWorkSheet.Cells[RowStart, 51] = x.ProcessingFeesPercentage;
+                xlWorkSheet.Cells[RowStart, 52] = x.InsuranceFees1;
+                xlWorkSheet.Cells[RowStart, 53] = x.InsuranceFees1Amt;
+                xlWorkSheet.Cells[RowStart, 54] = x.InsuranceFees2;
+                xlWorkSheet.Cells[RowStart, 55] = x.InsuranceFees2Amt;
+                xlWorkSheet.Cells[RowStart, 56] = x.PenalIntrestRate;
+                RowStart++;
+            }
+        }
 
 
 
