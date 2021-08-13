@@ -1421,9 +1421,10 @@ namespace MicroFinance.Modal
             penalintrestrate.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             penalintrestrate.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
 
+            string dir = "";
             try
             {
-                string dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Report\\LOAN DIS FORM");
+                dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Report\\LOAN DIS FORM");
                 if (Directory.Exists(dir))
                 {
                     string FileName = dir + "\\LOAN DIS FORM" + DateTime.Now.ToString("dd-MMM-yyyy (hh-mm)") + ".xlsx";
@@ -1449,7 +1450,7 @@ namespace MicroFinance.Modal
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlApp);
                 xlApp = null;
                 xlWorkBook = null;
-                File.Delete(@"D:\temp.xlsx");
+                File.Delete(dir+"\\temp.xlsx");
             }
 
         }
