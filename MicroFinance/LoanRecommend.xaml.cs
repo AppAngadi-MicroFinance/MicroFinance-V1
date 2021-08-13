@@ -191,7 +191,6 @@ namespace MicroFinance
             {
 
             }
-            
         }
 
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)

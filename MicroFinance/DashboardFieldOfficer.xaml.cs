@@ -120,6 +120,9 @@ namespace MicroFinance
         {
             //string filedate = showDate.Text;
             DataTable dt1 = new DataTable();
+            dt1 = ConvertToDataTable(obj.GroupWiseTotal);
+
+            DataTable dt2 = new DataTable();
             dt1 = ConvertToDataTable(obj.CollectionList);
 
             //For table 1
@@ -130,7 +133,7 @@ namespace MicroFinance
             //For table 2
             ReportDataSource reportDataSource2 = new ReportDataSource();
             reportDataSource2.Name = "DataSet2"; // Name of the DataSet we set in .rdlc
-            reportDataSource2.Value = dt1;
+            reportDataSource2.Value = dt2;
 
             //Setting Report Viewer
             ReportViewer reportViewer1 = new ReportViewer();
