@@ -559,7 +559,6 @@ namespace MicroFinance.Modal
         public DayOfWeek GetSHGCollectionDay(string CustomerID)
         {
             DayOfWeek Result = new DayOfWeek();
-            DayOfWeek Result = 0;
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
             {
                 sqlconn.Open();
