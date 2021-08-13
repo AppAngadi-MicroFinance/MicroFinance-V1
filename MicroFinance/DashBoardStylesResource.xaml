@@ -821,6 +821,36 @@
         </Setter>
     </Style>
 
+    <!--HiMark Result Button-->
+    <Style TargetType="{x:Type Button}" x:Key="NavigateHiMarkVerify">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="Background" Value="#FEF8F1"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Content">
+            <Setter.Value>
+                <ContentPresenter>
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\result.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="HiMark Result"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--Logout Button-->
     <Style TargetType="{x:Type Button}" x:Key="LogoutButtonStyle">
         <Setter Property="BorderThickness" Value="0"></Setter>
