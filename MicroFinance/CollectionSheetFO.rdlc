@@ -162,8 +162,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>5.52167in</Top>
-        <Left>4.905in</Left>
+        <Top>2.03in</Top>
+        <Left>5.05501in</Left>
         <Height>0.5in</Height>
         <Width>2in</Width>
         <Style>
@@ -179,13 +179,13 @@
               <Width>0.43333in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.84167in</Width>
+              <Width>1.11667in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.33333in</Width>
+              <Width>0.3in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.45833in</Width>
+              <Width>0.55833in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.35in</Width>
@@ -203,10 +203,10 @@
               <Width>0.64167in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.34167in</Width>
+              <Width>0.45834in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.50833in</Width>
+              <Width>0.7in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.5in</Width>
@@ -228,7 +228,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Sheet Id</Value>
+                              <Value>S.No</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -258,7 +258,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Customer Name</Value>
+                              <Value>Member Name</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -288,7 +288,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Attendance</Value>
+                              <Value>Att</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -318,7 +318,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Loan Date</Value>
+                              <Value>Date</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -348,7 +348,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Security Deposite</Value>
+                              <Value>SD</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -408,7 +408,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Loan Amount</Value>
+                              <Value>Loan Amt</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -438,7 +438,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Weeks Paid</Value>
+                              <Value>Nos</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -498,7 +498,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Out Standing Amount</Value>
+                              <Value>O/s</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -558,7 +558,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Interest</Value>
+                              <Value>Int</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -1036,10 +1036,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet2</DataSetName>
-        <Top>1.98833in</Top>
-        <Left>0.39667in</Left>
+        <Top>0.91333in</Top>
+        <Left>0.19667in</Left>
         <Height>0.5in</Height>
-        <Width>6.4in</Width>
+        <Width>7.05001in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -1048,15 +1048,17 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>7.20833in</Height>
+    <Height>2.95in</Height>
     <Style />
   </Body>
   <Width>7.725in</Width>
   <Page>
-    <LeftMargin>1in</LeftMargin>
-    <RightMargin>1in</RightMargin>
-    <TopMargin>1in</TopMargin>
-    <BottomMargin>1in</BottomMargin>
+    <PageHeight>11.69in</PageHeight>
+    <PageWidth>8.27in</PageWidth>
+    <LeftMargin>0.25in</LeftMargin>
+    <RightMargin>0.25in</RightMargin>
+    <TopMargin>0.25in</TopMargin>
+    <BottomMargin>0.25in</BottomMargin>
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>
