@@ -184,9 +184,9 @@
                             <TextBlock x:Name="CustReligionError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-15,0,0,0"/>
                         </StackPanel>
                         <ComboBox x:Name="SelectReligion"  VerticalAlignment="Center" Width="140" Style="{StaticResource combo}" HorizontalAlignment="Left"  Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="SelectReligion_SelectionChanged" >
+                            <ComboBoxItem Content="CHRISTIAN"/>
                             <ComboBoxItem Content="HINDU"/>
                             <ComboBoxItem Content="MUSLIM"/>
-                            <ComboBoxItem Content="CHRISTIAN"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2">
@@ -195,12 +195,12 @@
                             <TextBlock x:Name="CustCommunityError" Style="{StaticResource ErrorStar}" Margin="0,0,0,0" Visibility="Collapsed"/>
                         </StackPanel>
                         <ComboBox x:Name="CommunityBox" VerticalAlignment="Center" Width="120" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding Community,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" Margin="35,0,0,0" SelectionChanged="CommunityBox_SelectionChanged">
-                            <ComboBoxItem Content="SC"/>
-                            <ComboBoxItem Content="ST"/>
-                            <ComboBoxItem Content="MBC"/>
-                            <ComboBoxItem Content="DC"/>
                             <ComboBoxItem Content="BC"/>
                             <ComboBoxItem Content="BCM"/>
+                            <ComboBoxItem Content="DC"/>
+                            <ComboBoxItem Content="MBC"/>
+                            <ComboBoxItem Content="SC"/>
+                            <ComboBoxItem Content="ST"/>
                         </ComboBox>
                         
                         
@@ -520,7 +520,7 @@
                             <TextBlock Text="Bank Details" Style="{StaticResource Regular}" VerticalAlignment="Center" Grid.Column="1"></TextBlock>
                             <TextBlock x:Name="BankErrorCheck" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                         </StackPanel>
-                        <TextBox x:Name="AccountHoldeBox" Style="{StaticResource Textbox}" Grid.Column="2" Width="140" HorizontalAlignment="Left" Text="{Binding AccountHolder, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsReadOnly="True" CharacterCasing="Upper" />
+                        <TextBox x:Name="AccountHoldeBox" Style="{StaticResource Textbox}" Grid.Column="2" Width="140" HorizontalAlignment="Left" Text="{Binding AccountNumber, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsReadOnly="True" CharacterCasing="Upper" />
 
                         <Button x:Name="BankDetails" HorizontalAlignment="Left" Click="BankDetails_Click" Style="{StaticResource Add}" Grid.Column="3" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleConverter}}"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="BankViewEditPanel" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleConverter}}">
