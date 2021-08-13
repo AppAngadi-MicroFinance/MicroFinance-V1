@@ -24,18 +24,23 @@ namespace MicroFinance
     public partial class LoanRecommend : Page
     {
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
-        public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
+        public List<LoanProcess> loanDetails = new List<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
         public static List<LoanProcess> SelectedCustomerList = new List<LoanProcess>();
         public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
         LoanProcess loanProcess = new LoanProcess();
-        public LoanRecommend()
+        public int CurrentStatus=0;
+        public LoanRecommend(int StatusCode)
         {
             InitializeComponent();
+            CurrentStatus = StatusCode;
             //AddList();
             //RequestedListBoxNew.ItemsSource = dummylist;
-            loanProcess.GetLoanDetailList(LoginBranchID,8);
-            loanDetails = loanProcess.RecommendList;
+            loanDetails = new List<LoanProcess>();
+            RecommenedList = new List<LoanProcess>();
+            SelectedCustomerList = new List<LoanProcess>();
+            loanProcess.GetLoanDetailList(LoginBranchID,StatusCode);
+            loanDetails = loanProcess.LoanProcessList;
             LoadCustData();
             setCount();
             BulkRecommend.Visibility = Visibility.Collapsed;
@@ -190,8 +195,17 @@ namespace MicroFinance
 
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.NavigationService.CanGoBack)
-                this.NavigationService.Navigate(new DashboardBranchManager());
+            if(CurrentStatus==7)
+            {
+                if (this.NavigationService.CanGoBack)
+                    this.NavigationService.Navigate(new DashboardBranchManager());
+            }
+            else if(CurrentStatus==8)
+            {
+                if (this.NavigationService.CanGoBack)
+                    this.NavigationService.Navigate(new DashBoardRegionOfficer());
+            }
+            
         }
 
         private void BulkRecommend_Click(object sender, RoutedEventArgs e)
@@ -199,11 +213,20 @@ namespace MicroFinance
             int count = 0;
             foreach(LoanProcess lp in RecommenedList)
             {
-                loanProcess.ChangeLoanStatus(lp.LoanRequestID, 8);
+                loanProcess.ChangeLoanStatus(lp.LoanRequestID, CurrentStatus+1);
                 count++;
             }
             MainWindow.StatusMessageofPage(1, count.ToString() + " Loan Recommend Successfully!...");
-            this.NavigationService.Navigate(new DashboardBranchManager());
+            if (CurrentStatus == 7)
+            {
+                if (this.NavigationService.CanGoBack)
+                    this.NavigationService.Navigate(new DashboardBranchManager());
+            }
+            else if (CurrentStatus == 8)
+            {
+                if (this.NavigationService.CanGoBack)
+                    this.NavigationService.Navigate(new DashBoardRegionOfficer());
+            }
         }
 
         

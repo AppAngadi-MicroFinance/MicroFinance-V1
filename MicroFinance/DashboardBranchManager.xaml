@@ -26,7 +26,7 @@
             </Border>-->
 
             <!--Pending Customers-->
-            <Border Width="150" Height="150" Grid.Column="0" Grid.RowSpan="2" Style="{StaticResource MainBorder}">
+            <Border Width="150" Visibility="Collapsed" Height="150" Grid.Column="0" Grid.RowSpan="2" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
@@ -70,13 +70,13 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
+            <Border Width="150" Visibility="Collapsed" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Button  Style="{StaticResource NavigateExportHiMark}" x:Name="HimarkBtn" Click="HimarkBtn_Click"></Button>
             </Border>
-            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
+            <Border Width="150" Visibility="Collapsed" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
