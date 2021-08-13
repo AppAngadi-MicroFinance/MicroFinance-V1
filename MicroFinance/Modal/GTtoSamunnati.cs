@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft = Microsoft.Office.Interop;
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Win32;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Reflection;
+using MicroFinance.Modal;
+using Microsoft.Office.Interop.Excel;
 
 namespace MicroFinance.Modal
 {
-    class SamunnatiResult
+    class GTtoSamunnati
     {
         private string _operatingUnit;
         public string OperatingUnit
@@ -798,5 +800,94 @@ namespace MicroFinance.Modal
         //        }
         //    }
         //}
+
+
+
+        public void GenerateSamunnati_File()
+        {
+            Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+            Excel.Workbook xlWorkBook;
+            Excel.Worksheet xlWorkSheet;
+            object misValue = System.Reflection.Missing.Value;
+            xlWorkBook = xlApp.Workbooks.Add(misValue);
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+            xlWorkSheet.Columns.AutoFit();
+            xlWorkSheet.Cells.WrapText = true;
+            xlWorkSheet.Columns.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            xlWorkSheet.Columns.VerticalAlignment = XlHAlign.xlHAlignCenter;
+            //Operating Unit
+            var operatingunit = xlWorkSheet.Cells.Range["A1"];
+            operatingunit.Value = "Operating Unit";
+            operatingunit.Font.Bold = true;
+            operatingunit.Font.Size = 11;
+            operatingunit.RowHeight = 46;
+            operatingunit.Interior.Color = 6;
+            operatingunit.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            operatingunit.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            //Customer Number
+            var CusNo = xlWorkSheet.Cells.Range["B1"];
+            CusNo.Value = "Customer Number";
+            CusNo.Font.Bold = true;
+            CusNo.Font.Size = 11;
+            CusNo.RowHeight = 15;
+            CusNo.Interior.Color = 6;
+            CusNo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            CusNo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            //Report ID
+            var reportid = xlWorkSheet.Cells.Range["C1"];
+            reportid.Value = "Report ID";
+            reportid.Font.Bold = true;
+            reportid.Font.Size = 11;
+            reportid.RowHeight = 15;
+            reportid.Interior.Color = 6;
+            reportid.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            reportid.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            //H.M Reference no
+            var hmrefernce = xlWorkSheet.Cells.Range["D1"];
+            hmrefernce.Value = "H.M Reference No";
+            hmrefernce.Font.Bold = true;
+            hmrefernce.Font.Size = 11;
+            hmrefernce.RowHeight = 15;
+            hmrefernce.Interior.Color = 6;
+            hmrefernce.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            hmrefernce.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            //Customer Name
+            var cusname = xlWorkSheet.Cells.Range["E1"];
+            cusname.Value = "Customer Name";
+            cusname.Font.Bold = true;
+            cusname.Font.Size = 11;
+            cusname.RowHeight = 15;
+            cusname.Interior.Color = 6;
+            cusname.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            cusname.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            //Samunnati Branch Mapping
+            var Samunnatibranchmapping = xlWorkSheet.Cells.Range["E1"];
+            cusname.Value = "Customer Name";
+            cusname.Font.Bold = true;
+            cusname.Font.Size = 11;
+            cusname.RowHeight = 15;
+            cusname.Interior.Color = 6;
+            cusname.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            cusname.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
