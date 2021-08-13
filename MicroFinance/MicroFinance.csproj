@@ -512,5 +512,14 @@
   <ItemGroup>
     <Resource Include="Asserts\Icons\result.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\DocumentVerifyBM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\DocumentVerifyAC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="group.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -324,7 +324,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\disposment.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Loan Disposment"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="110" Style="{StaticResource DashboardBtnText}" Text="Loan Disbursement"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -687,7 +687,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\loan.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="130" Style="{StaticResource DashboardBtnText}" Text="Loan Recomnads"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="130" Style="{StaticResource DashboardBtnText}" Text="Loan Recommend"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -791,8 +791,8 @@
         </Setter>
     </Style>
 
-    <!--Document Verify Button-->
-    <Style TargetType="{x:Type Button}" x:Key="NavigateDocumentVerify">
+    <!--Document Verify Button--><!-- For Field Officer-->
+    <Style TargetType="{x:Type Button}" x:Key="NavigateDocumentVerifyFO">
         <Style.Resources>
             <Style TargetType="{x:Type Border}">
                 <Setter Property="CornerRadius" Value="10"></Setter>
@@ -811,7 +811,65 @@
                                     <RowDefinition Height="55"></RowDefinition>
                                 </Grid.RowDefinitions>
 
-                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\money.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\DocumentVerifyAC.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Document Verify"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--Document Verify Button--><!-- For Accountant-->
+    <Style TargetType="{x:Type Button}" x:Key="NavigateDocumentVerifyAC">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="Background" Value="#FEF8F1"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Content">
+            <Setter.Value>
+                <ContentPresenter>
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\DocumentVerifyAC.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Document Verify"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--Document Verify Button--><!-- Branch Manager-->
+    <Style TargetType="{x:Type Button}" x:Key="NavigateDocumentVerifyBM">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="Background" Value="#FEF8F1"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Content">
+            <Setter.Value>
+                <ContentPresenter>
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\DocumentVerifyBM.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
                                 <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Document Verify"></TextBlock>
                             </Grid>
                         </DataTemplate>

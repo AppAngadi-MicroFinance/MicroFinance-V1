@@ -32,6 +32,7 @@ namespace MicroFinance
         {
             RegionName.Text = MainWindow.LoginDesignation.RegionName;
             BranchName.Text = GetBranchName();
+            DatePic.SelectedDate = DateTime.Today;
         }
         string GetBranchName()
         {
@@ -108,14 +109,21 @@ namespace MicroFinance
 
         void DateChanges()
         {
-            FieldOfficerList.Clear();
-            DayText.Text = Convert.ToDateTime(DatePic.SelectedDate).DayOfWeek.ToString();
-            GetFieldOfficers(MainWindow.LoginDesignation.BranchId);
-            FieldOfficerBox.ItemsSource = FieldOfficerList;
+            if(DatePic.SelectedDate <= DateTime.Today)
+            {
+                FieldOfficerList.Clear();
+                DayText.Text = Convert.ToDateTime(DatePic.SelectedDate).DayOfWeek.ToString();
+                GetFieldOfficers(MainWindow.LoginDesignation.BranchId);
+                FieldOfficerBox.ItemsSource = FieldOfficerList;
 
-            FieldOfficerBox.Items.Refresh();
-            FieldOfficerBox.IsEnabled = true;
-            DenominationGrid.Visibility = Visibility.Hidden;
+                FieldOfficerBox.Items.Refresh();
+                FieldOfficerBox.IsEnabled = true;
+                DenominationGrid.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                DatePic.SelectedDate = DateTime.Today;
+            }
         }
 
         //void GetFieldOfficers()
@@ -250,6 +258,11 @@ namespace MicroFinance
         }
 
         private void CncBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
