@@ -152,6 +152,9 @@
     <Compile Include="DashBoardHeadOfficer.xaml.cs">
       <DependentUpon>DashBoardHeadOfficer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DashBoardRegionOfficer.xaml.cs">
+      <DependentUpon>DashBoardRegionOfficer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DenominationPage.xaml.cs">
       <DependentUpon>DenominationPage.xaml</DependentUpon>
     </Compile>
@@ -294,6 +297,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DashBoardHeadOfficer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DashBoardRegionOfficer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

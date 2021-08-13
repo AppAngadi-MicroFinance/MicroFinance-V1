@@ -506,7 +506,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\notepad.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="110" Style="{StaticResource DashboardBtnText}" Text="Loan Recommend"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="110" Style="{StaticResource DashboardBtnText}" Text="Recommend Loan"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>

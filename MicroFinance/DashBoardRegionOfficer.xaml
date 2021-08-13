@@ -1,4 +1,4 @@
-﻿<Page x:Class="MicroFinance.DashBoardHeadOfficer"
+﻿<Page x:Class="MicroFinance.DashBoardRegionOfficer"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,11 +6,12 @@
       xmlns:local="clr-namespace:MicroFinance"
       mc:Ignorable="d" 
       d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
-      Title="DashBoardHeadOfficer">
+      Title="DashBoardRegionOfficer">
 
     <Grid>
-        <!--Section A-->        <!-- 1. Find Customer | 2. Find Employee | 3. Add New Employee-->
-        <Grid Width="400" Height="170" Margin="130,100,0,0"
+        <!--Section A-->
+        <!-- 1. Find Customer | 2. Find Employee | 3. Add New Employee-->
+        <Grid Width="400" Height="170" Margin="130,100,0,0" Visibility="Collapsed"
               HorizontalAlignment="Left" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"></ColumnDefinition>
@@ -21,8 +22,8 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            
-            
+
+
             <!--Find Customer Button-->
             <Border Grid.Row="0" Grid.Column="0" Width="180" Height="70" Style="{StaticResource MainBorder}">
                 <Border.Effect>
@@ -40,12 +41,13 @@
             </Border>
 
 
-            
+
         </Grid>
 
-        
-        <!--Section B-->        <!--Add New Branch | Add New Region-->
-        <Grid Width="500" Height="170" Margin="0,100,130,0" HorizontalAlignment="Right" VerticalAlignment="Top">
+
+        <!--Section B-->
+        <!--Add New Branch | Add New Region-->
+        <Grid Width="500" Height="170" Margin="0,100,130,0" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -71,7 +73,27 @@
                 <Button x:Name="xAllowanceReportBtn" Style="{StaticResource NavigateAddRegion}" Click="xAllowanceReportBtn_Click"></Button>
             </Border>
         </Grid>
-
+<!--Section C-->
+        <Grid Width="600" Height="170" Margin="130,0,0,50" 
+              HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button  Style="{StaticResource NavigateExportHiMark}" x:Name="HimarkBtn" Click="HimarkBtn_Click"></Button>
+            </Border>
+            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button Style="{StaticResource NavigateImportHiMark}" x:Name="ImportHimarkBtn" Click="ImportHimarkBtn_Click"></Button>
+            </Border>
+        </Grid>
         <Grid Width="400" Height="170" Margin="130,0,0,50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -84,10 +106,12 @@
                 <Button x:Name="xDailyReportsBtn" Style="{StaticResource NavigateDailyReports}"></Button>
             </Border>
         </Grid>
-        <!--Section C-->         <!--Daily Reports-->
-        
-        
-        <!--Section D-->         <!--Loan Recomendation | Notification-->
+        <!--Section C-->
+        <!--Daily Reports-->
+
+
+        <!--Section D-->
+        <!--Loan Recomendation | Notification-->
         <Grid Width="500" Height="170" Margin="0,0,130,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -96,7 +120,7 @@
             </Grid.ColumnDefinitions>
 
             <!--New Customer Approvals Button-->
-            <Border Grid.Row="0" Visibility="Collapsed" Grid.Column="0" Width="150" Height="150" Style="{StaticResource MainBorder}">
+            <Border Visibility="Collapsed" Grid.Row="0" Grid.Column="0" Width="150" Height="150" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
@@ -107,7 +131,7 @@
                     </Border>
                 </Grid>
             </Border>
-            <Border Width="150" Height="150" Visibility="Collapsed" Grid.Column="1" Style="{StaticResource MainBorder}">
+            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
@@ -120,13 +144,13 @@
                 </Border.Effect>
                 <Button x:Name="xNotificationBtn" Style="{StaticResource NavigateNotification}"></Button>
             </Border>
-            <Border Width="150" Height="150" Grid.Column="2" Style="{StaticResource MainBorder}">
+            <Border Width="150" Height="150" Grid.Column="2" Visibility="Collapsed" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Button x:Name="LoanDesposment" Style="{StaticResource NavigateLoanDisposment}" Click="LoanDesposment_Click"></Button>
             </Border>
-            
+
         </Grid>
 
 
@@ -186,10 +210,83 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
-                
-           
-            
         </Border>
-        
+        <Border Height="500" Width="900" Background="White" Visibility="Collapsed" CornerRadius="5" BorderThickness="2" BorderBrush="Gray" Panel.ZIndex="2" x:Name="HimarkExportPanel">
+            <Grid Height="490" Width="890">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Requested Customers" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="20,0,0,0"></TextBlock>
+                <Button Style="{StaticResource ModalClose}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,25,0" x:Name="HimarkPanelCloseBtn" Click="HimarkPanelCloseBtn_Click"></Button>
+                <Separator BorderBrush="Gray" BorderThickness="3" VerticalAlignment="Bottom"></Separator>
+                <Border Width="710" Height="30" Background="Blue" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,10,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="White" BorderThickness="1">
+                            <TextBlock Text="Request ID" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                        </Border>
+                        <Border Grid.Column="1" BorderBrush="White" BorderThickness="1">
+                            <TextBlock Text="Name" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                        </Border>
+                        <Border Grid.Column="2" BorderBrush="White" BorderThickness="1">
+                            <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                        </Border>
+                        <Border Grid.Column="3" BorderBrush="White" BorderThickness="1">
+                            <TextBlock Text="Loan Period" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                        </Border>
+                        <Border Grid.Column="4" BorderBrush="White" BorderThickness="1" Width="150">
+                            <TextBlock Text="Requested By" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                        </Border>
+                    </Grid>
+                </Border>
+                <ScrollViewer Grid.Row="1" Height="340" Margin="12,35,0,0" Width="710" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  Panel.ZIndex="2">
+                    <ItemsControl Grid.Row="1" Margin="-5,0,0,0" Height="340" Width="700" Name="RequestedListBoxNew" MouseDoubleClick="RequestedListBoxNew_MouseDoubleClick">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="700" Height="30" Background="LightBlue" Grid.Row="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border BorderBrush="White" BorderThickness="2">
+                                            <TextBlock Text="{Binding LoanRequestID,Mode=OneWay}" FontSize="12" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                                        </Border>
+                                        <Border Grid.Column="1" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock Text="{Binding CustomerName,Mode=OneWay}" TextWrapping="WrapWithOverflow" FontSize="12" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                                        </Border>
+                                        <Border Grid.Column="2" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock Text="{Binding LoanAmount,Mode=OneWay}" Style="{StaticResource Regular}" FontSize="12" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                                        </Border>
+                                        <Border Grid.Column="3" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock Text="{Binding LoanPeriod,Mode=OneWay}" Style="{StaticResource Regular}" FontSize="12" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                                        </Border>
+                                        <Border Grid.Column="4" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock Text="{Binding EmployeeID,Mode=OneWay}" Style="{StaticResource Regular}" FontSize="12" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,50,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Style="{StaticResource PrimaryBtn}" Content="Export Himark File" Width="150" x:Name="ExportHimarkBtn" Click="ExportHimarkBtn_Click"></Button>
+                    <Button Style="{StaticResource CancelBtn}" Margin="20,0,0,0" Content="Cancel" Width="150"></Button>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

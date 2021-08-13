@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -18,40 +19,28 @@ using System.Windows.Shapes;
 using MicroFinance.Modal;
 using MicroFinance.Reports;
 using Microsoft.Win32;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace MicroFinance
 {
     /// <summary>
-    /// Interaction logic for DashboardBranchManager.xaml
+    /// Interaction logic for DashBoardRegionOfficer.xaml
     /// </summary>
-    public partial class DashboardBranchManager : Page
+    public partial class DashBoardRegionOfficer : Page
     {
         Branch branch = new Branch();
-       // string BranchId = "01202107002";
+        // string BranchId = "01202107002";
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
         public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
         LoanProcess loanProcess = new LoanProcess();
-        //string BranchId = MainWindow.LoginDesignation.BranchId;
-        public DashboardBranchManager()
+        public DashBoardRegionOfficer()
         {
             InitializeComponent();
-            //ManageApprovalNotification();
         }
-        //void ManageApprovalNotification()
-        //{
-        //    int forApprovals = GetCustomersStatus1(BranchId);
-        //    if (forApprovals > 0)
-        //    {
-        //        xCustApprovalsCount.Text = forApprovals.ToString();
-        //    }
-        //    else
-        //    {
-        //        xNotificationBatch.Visibility = Visibility.Collapsed;
-        //    }
-        //}
 
+        
         private void xAddCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new AddCustomer());
@@ -59,7 +48,7 @@ namespace MicroFinance
 
         private void xLoanRequestListBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new LoanRecommend(7));
+            this.NavigationService.Navigate(new LoanRecommend(8));
         }
 
         private void xRecommendCustome_Click(object sender, RoutedEventArgs e)
@@ -140,7 +129,7 @@ namespace MicroFinance
                 var FilePath = FileFrom.Split('\\');
                 string FileName = FilePath[FilePath.Length - 1];
                 HimarkResult HMResult = new HimarkResult();
-                if(HMResult.IsAlreadyUpload(FileName))
+                if (HMResult.IsAlreadyUpload(FileName))
                 {
                     HMResult.GetFileDetails(FileFrom);
                     LoanHimarkData(HMResult.himarkResultslist);
@@ -151,7 +140,7 @@ namespace MicroFinance
                 {
                     MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
                 }
-                
+
 
             }
         }
@@ -172,6 +161,60 @@ namespace MicroFinance
         private void HimarkResultBtn_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new HimarkResultData());
+        }
+        private void xCustomerApproval_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new CustomerNotification(2));
+        }
+        
+        private void LoanDesposment_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new HOLoanApproval());
+        }
+
+        private void xAddNewEmployee_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void xFindCustomer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void xFindEmployee_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void xAllowanceReportBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void xAddNewBranch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RegionCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void xSearchPersonPopcloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EmployeeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
