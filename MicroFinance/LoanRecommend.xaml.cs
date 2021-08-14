@@ -185,7 +185,7 @@ namespace MicroFinance
                 himarkReport = new HiMark();
                 himarkReport.hiMarksList = Himarklist;
                 himarkReport.createHimarkXls();
-                MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: D:\\");
+                MainWindow.StatusMessageofPage(1, "Excel Exported Successfully...");
             }
             catch 
             {
@@ -216,7 +216,7 @@ namespace MicroFinance
                 loanProcess.ChangeLoanStatus(lp.LoanRequestID, CurrentStatus+1);
                 count++;
             }
-            MainWindow.StatusMessageofPage(1, count.ToString() + " Loan Recommend Successfully!...");
+            MainWindow.StatusMessageofPage(1, count.ToString() + " Loan(s) Recommend Successfully!...");
             if (CurrentStatus == 7)
             {
                 if (this.NavigationService.CanGoBack)

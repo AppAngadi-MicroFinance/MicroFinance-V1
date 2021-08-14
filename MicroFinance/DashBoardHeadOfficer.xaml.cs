@@ -27,7 +27,7 @@ namespace MicroFinance
     {
        
         string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
-
+        GTtoSamunnati GTtoSAMU = new GTtoSamunnati();
         Branch branch = new Branch();
         List<string> RegionList = new List<string>();
         List<Branch> BranchList = new List<Branch>();
@@ -199,6 +199,21 @@ namespace MicroFinance
 
 
             }
+            
+        }
+
+        private void SAMUSendRequestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                GTtoSAMU.GenerateSamunnati_File();
+                MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
+            }
+            catch
+            {
+                MainWindow.StatusMessageofPage(0, "Error...");
+            }
+            
             
         }
     }

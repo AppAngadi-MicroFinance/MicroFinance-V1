@@ -94,7 +94,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
+            <Button Style="{StaticResource SecondaryBtn}" Content="Send to SAMU" Grid.Column="1" x:Name="SAMUSendRequestBtn" Click="SAMUSendRequestBtn_Click"></Button>
             <!--New Customer Approvals Button-->
             <Border Grid.Row="0" Visibility="Collapsed" Grid.Column="0" Width="150" Height="150" Style="{StaticResource MainBorder}">
                 <Border.Effect>
