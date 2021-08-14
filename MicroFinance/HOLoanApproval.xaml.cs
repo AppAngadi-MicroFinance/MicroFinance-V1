@@ -83,22 +83,22 @@ namespace MicroFinance
         }
         void setCount()
         {
-            int count1 = 0;
-            int count2 = 0;
-            foreach (LoanProcess c in RecommendList)
-            {
+            //int count1 = 0;
+            //int count2 = 0;
+            //foreach (LoanProcess c in RecommendList)
+            //{
 
-                if (c.LoanType == "General Loan" || c.LoanType == "General")
-                {
-                    count1++;
-                }
-                else if (c.LoanType == "Special")
-                {
-                    count2++;
-                }
-            }
-            GeneralLoanCount.Text = count1.ToString();
-            SpecialLoanCount.Text = count2.ToString();
+            //    if (c.LoanType == "General Loan" || c.LoanType == "General")
+            //    {
+            //        count1++;
+            //    }
+            //    else if (c.LoanType == "Special")
+            //    {
+            //        count2++;
+            //    }
+            //}
+            GeneralLoanCount.Text = RecommendList.Count().ToString();
+            SpecialLoanCount.Text = SumaApprovalList.Count().ToString();
         }
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
