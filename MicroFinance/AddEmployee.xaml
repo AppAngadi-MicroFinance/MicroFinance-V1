@@ -150,6 +150,7 @@
                             <ComboBoxItem Content="MBC"/>
                             <ComboBoxItem Content="SC"/>
                             <ComboBoxItem Content="ST"/>
+                            <ComboBoxItem Content="Others"/>
                         </ComboBox>
                         <TextBlock Text="Caste" Style="{StaticResource Regular}" Grid.Row="9"></TextBlock>
                         <TextBox x:Name="EmployeeCaste" Grid.Row="9" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
