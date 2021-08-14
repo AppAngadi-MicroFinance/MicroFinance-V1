@@ -76,7 +76,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button Style="{StaticResource NavigateDocumentVerify}"  Click="xRecommendCustome_Click"/>
+                <Button Style="{StaticResource NavigateDocumentVerifyBM}"  Click="xRecommendCustome_Click"/>
             </Border>
             <Border Width="150" Visibility="Collapsed" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
                 <Border.Effect>

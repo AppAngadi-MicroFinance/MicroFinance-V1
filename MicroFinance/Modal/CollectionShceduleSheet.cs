@@ -81,35 +81,46 @@ namespace MicroFinance.Modal
 
         public int TotalAmonut { get; set; }
 
+        public string BranchName { get; set; }
+        public string CenterSHGName { get; set; }
 
-
-        public CollectionShceduleSheet()
+        void GetBrachName4EMPid(string empId)
         {
-
-        }
-        public CollectionShceduleSheet(string empId)
-        {
-            EmpId = empId;
-        }
-        public static void  GenerateShceduleSheet(string employeeID)
-        {
-            List<CollectionShceduleSheet> ActiveLoans = new List<CollectionShceduleSheet>();
-            ActiveLoans = GetActiveLoanCustomer(employeeID, "WEDNESSDAY");
-        }
-        string SetGroupID(string custID)
-        {
-            string groupId = string.Empty;
             using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = sql;
-                command.CommandText = "select PeerGroupId from CustomerGroup where CustId = '" + custID + "'";
-                GroupId = (string)command.ExecuteScalar();
+                command.CommandText = "select BranchName from BranchDetails where Bid = (select BranchId from EmployeeBranch where EmpId = '" + empId + "')";
+                BranchName = (string)command.ExecuteScalar();
                 sql.Close();
             }
-            return groupId;
         }
+        void GetCenterName4EMPid(string empId, string collectionDay)
+        {
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sql.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sql;
+                command.CommandText = "select SHGName from SelfHelpGroup where SHGId =(select SHGId from TimeTable where EmpId = '"+empId+"' and CollectionDay= '"+collectionDay+"')";
+                CenterSHGName = (string)command.ExecuteScalar();
+                sql.Close();
+            }
+        }
+
+        public CollectionShceduleSheet()
+        {
+
+        }
+        public CollectionShceduleSheet(string empId, string collectionDay)
+        {
+            EmpId = empId;
+            GetBrachName4EMPid(EmpId);
+            GetCenterName4EMPid(EmpId, collectionDay);
+        }
+     
+      
         void GetPaidDetails(string loanId)
         {
             using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
@@ -237,6 +248,7 @@ namespace MicroFinance.Modal
             List<string> LoanIdForCustomerID = new List<string>();
             foreach(CustomerIDinGroup item in CustomersINPeerGroup)
             {
+                CollectionShceduleSheet temp = new CollectionShceduleSheet(empID, day);
                 using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
                 {
                     sql.Open();
@@ -246,7 +258,6 @@ namespace MicroFinance.Modal
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        CollectionShceduleSheet temp = new CollectionShceduleSheet();
                         temp.SheetId = item.CustomerPGId;
                         temp.GroupId = item.GroupId;
                         temp.CustomerId = reader.GetString(0);

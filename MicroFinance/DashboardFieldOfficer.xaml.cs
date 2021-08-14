@@ -122,8 +122,10 @@ namespace MicroFinance
             DataTable dt1 = new DataTable();
             dt1 = ConvertToDataTable(obj.GroupWiseTotal);
 
+
             DataTable dt2 = new DataTable();
-            dt1 = ConvertToDataTable(obj.CollectionList);
+            dt2 = ConvertToDataTable(obj.CollectionList);
+
 
             //For table 1
             ReportDataSource reportDataSource1 = new ReportDataSource();

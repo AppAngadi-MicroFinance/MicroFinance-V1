@@ -17,7 +17,7 @@
             <Border.Effect>
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>
-            <Button Style="{StaticResource NavigateDocumentVerify}" x:Name="DocumentVerify" Click="xNotificationBtn_Click"></Button>
+            <Button Style="{StaticResource NavigateDocumentVerifyAC}" x:Name="DocumentVerify" Click="xNotificationBtn_Click"></Button>
         </Border>
         
 
