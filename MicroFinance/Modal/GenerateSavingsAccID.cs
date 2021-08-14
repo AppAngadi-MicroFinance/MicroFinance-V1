@@ -14,7 +14,7 @@ namespace MicroFinance.Modal
 
         public string GetRegionNumber()
         {
-            int Result = 0;
+            int Result = 1;
             using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.db))
             {
                 sqlconn.Open();
@@ -22,8 +22,8 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select RegionCode from Region where RegionName='" + MainWindow.LoginDesignation.RegionName + "'";
-                    Result = (int)sqlcomm.ExecuteScalar();
+                    //sqlcomm.CommandText = "select RegionCode from Region where RegionName='" + MainWindow.LoginDesignation.RegionName + "'";
+                    //Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();
                 return Result.ToString();
@@ -32,7 +32,7 @@ namespace MicroFinance.Modal
         public string GetBranchNumber()
         {
 
-            int Result = 0;
+            int Result = 1;
             using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.db))
             {
                 sqlconn.Open();
@@ -40,8 +40,8 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select BranchCode from BranchDetails where Bid='" + MainWindow.LoginDesignation.BranchId + "'";
-                    Result = (int)sqlcomm.ExecuteScalar();
+                    //sqlcomm.CommandText = "select BranchCode from BranchDetails where Bid='" + MainWindow.LoginDesignation.BranchId + "'";
+                    //Result = (int)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();
                 return Result.ToString();

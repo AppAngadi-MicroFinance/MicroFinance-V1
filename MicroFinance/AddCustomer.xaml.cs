@@ -257,11 +257,11 @@ namespace MicroFinance
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
                 
-                sqlCommand.CommandText = "select SelfHelpGroup.SHGName,PeerGroup.GroupId  from PeerGroup join SelfHelpGroup on PeerGroup.SHGid=SelfHelpGroup.SHGId where SelfHelpGroup.SHGid in (select SHGId from TimeTable where EmpId='" + _officerEmpId + "')";
+                sqlCommand.CommandText = "select SelfHelpGroup.SHGName, PeerGroup.GroupName, PeerGroup.GroupId from PeerGroup join SelfHelpGroup on PeerGroup.SHGid=SelfHelpGroup.SHGId where SelfHelpGroup.SHGid in (select SHGId from TimeTable where EmpId='" + _officerEmpId + "')";
                 SqlDataReader sqlDataReader1 = sqlCommand.ExecuteReader();
                 while (sqlDataReader1.Read())
                 {
-                    PeerGroupDetails.Add(new PeerGroup { SHGName = sqlDataReader1.GetString(0), PG_Id = sqlDataReader1.GetString(1)});
+                    PeerGroupDetails.Add(new PeerGroup { SHGName = sqlDataReader1.GetString(0),Name=sqlDataReader1.GetString(1), PG_Id = sqlDataReader1.GetString(2)});
                 }
                 sqlConnection.Close();
             }
@@ -307,7 +307,7 @@ namespace MicroFinance
             {
                 if (item.SHGName == SelectSHG.SelectedItem.ToString())
                 {
-                    SelectedPG.Add(item.PG_Id);
+                    SelectedPG.Add(item.Name);
                 }
             }
 
@@ -412,7 +412,11 @@ namespace MicroFinance
         //save customer
         private void SaveCustomer_Click(object sender, RoutedEventArgs e)
         {
-            if (CustomerValidation() == false)
+            if(IsAadharAlreadeyExists)
+            {
+                MessageBox.Show("Aadhar Card Already Exists..");
+            }
+            else if (CustomerValidation() == false)
             {
                 MainWindow.StatusMessageofPage(0, "Please Enter Require Fields....");
                 Thread.Sleep(2000);
@@ -1992,8 +1996,33 @@ namespace MicroFinance
                 return false;
             }
         }
+        public bool IsAadharAlreadeyExists;
+        void CheckAadharAlreadyExist()
+        {
+            using(SqlConnection sql =new SqlConnection(Properties.Settings.Default.db))
+            {
+                sql.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sql;
+                command.CommandText = "select Count(AadharNumber) from CustomerDetails where AadharNumber = '" + AadharNo.Text + "'";
+                int getCount =(int)command.ExecuteScalar();
+                if(getCount==0)
+                {
+                    IsAadharAlreadeyExists = false;
+                }
+                else
+                {
+                    IsAadharAlreadeyExists = true;
+                }
+            }
+        }
         private void AadharNo_TextChanged(object sender, TextChangedEventArgs e)
         {
+            CheckAadharAlreadyExist();
+            if(IsAadharAlreadeyExists)
+            {
+                MessageBox.Show("Aadhar Number is Already Exist..");
+            }
             if(AadharValidatin(AadharNo.Text))
             {
                 aadharErrorCheck.Visibility = Visibility.Collapsed;

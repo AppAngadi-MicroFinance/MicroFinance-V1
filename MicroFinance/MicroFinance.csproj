@@ -203,7 +203,7 @@
     <Compile Include="Modal\OfficerModal.cs" />
     <Compile Include="Modal\PeerGroup.cs" />
     <Compile Include="Modal\Region.cs" />
-    <Compile Include="Modal\SamunnatiResult.cs" />
+    <Compile Include="Modal\GTtoSamunnati.cs" />
     <Compile Include="Modal\SelfHeadGroupModal.cs" />
     <Compile Include="Modal\StaticProperty.cs" />
     <Compile Include="RegionManagerNotifyPanel.xaml.cs">
@@ -509,6 +509,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Asserts\Icons\DocumentVerify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\result.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\DocumentVerifyBM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\DocumentVerifyAC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="group.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

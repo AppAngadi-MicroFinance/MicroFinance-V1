@@ -134,9 +134,10 @@ namespace MicroFinance.Reports
             BOM.ColumnWidth = 11;
             BOM.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             BOM.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            string dir = "";
             try
             {
-                string dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Report\\Loan Disbursement Report");
+                dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Report\\Loan Disbursement Report");
                 if (Directory.Exists(dir))
                 {
                     string FileName = dir + "\\LoanDis_" + DateTime.Now.ToString("dd-MM-yyyy hh-mm") + ".xlsx";
@@ -161,17 +162,17 @@ namespace MicroFinance.Reports
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlApp);
                 xlApp = null;
                 xlWorkBook = null;
-                File.Delete(@"D:\temp.xlsx");
+                File.Delete(dir+"\\temp.xlsx");
             }
 
         }
 
-        public void FillLoanDis(Worksheet xlWorkSheet, List<SamunnatiResult> loans)
+        public void FillLoanDis(Worksheet xlWorkSheet, List<GTtoSamunnati> loans)
         {
             int LLP = 1;
             int GST = 18;
             int RowStart = 2;
-            foreach (SamunnatiResult x in loans)
+            foreach (GTtoSamunnati x in loans)
             {
                 xlWorkSheet.Cells[RowStart, 1] = x.LoanStartDate;
                 xlWorkSheet.Cells[RowStart, 2] = "";
