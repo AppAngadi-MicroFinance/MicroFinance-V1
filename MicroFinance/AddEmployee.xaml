@@ -143,15 +143,14 @@
                         <TextBlock Text="Religion" Grid.Row="7" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                         <ComboBox Grid.Row="7" Grid.Column="1" Style="{StaticResource combo}" Width="250" x:Name="Religioncombo" Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="Religioncombo_SelectionChanged"></ComboBox>
                         <TextBlock Text="Community" Style="{StaticResource Regular}" Grid.Row="8"></TextBlock>
-                        <TextBox x:Name="EmployeeCommunity" Grid.Row="8" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
-                            <TextBox.Text>
-                                <Binding Path="Community" Mode="TwoWay">
-                                    <Binding.ValidationRules>
-                                        <validation:NameValidation/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                        <ComboBox x:Name="EmployeeCommunity" VerticalAlignment="Center"  Grid.Row="8" Grid.Column="1" Style="{StaticResource combo}" HorizontalAlignment="Center" Width="250" Text="{Binding Community,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem Content="BC"/>
+                            <ComboBoxItem Content="BCM"/>
+                            <ComboBoxItem Content="DC"/>
+                            <ComboBoxItem Content="MBC"/>
+                            <ComboBoxItem Content="SC"/>
+                            <ComboBoxItem Content="ST"/>
+                        </ComboBox>
                         <TextBlock Text="Caste" Style="{StaticResource Regular}" Grid.Row="9"></TextBlock>
                         <TextBox x:Name="EmployeeCaste" Grid.Row="9" Grid.Column="1" Style="{StaticResource InputBox}" Width="250">
                             <TextBox.Text>
@@ -257,7 +256,7 @@
             <Border Grid.Row="3" Width="500">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     
-                    <TextBlock Text="Add Bank Details" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="Add Bank A/C Details" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
                     <Button x:Name="BankDetails" Click="BankDetails_Click" Margin="80,0,0,0" Style="{StaticResource Add}" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleBool}}"/>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,0" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource  VisibleByBool}}" >
                         <TextBlock Text="{Binding AccountNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberSubTitle}" VerticalAlignment="Center"></TextBlock>

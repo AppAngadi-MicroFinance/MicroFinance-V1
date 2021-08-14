@@ -324,7 +324,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\disposment.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Loan Disposment"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="110" Style="{StaticResource DashboardBtnText}" Text="Disbursement Loan"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>

@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Reports;
+using Microsoft.Win32;
 
 namespace MicroFinance
 {
@@ -175,7 +177,29 @@ namespace MicroFinance
 
         private void LoanDesposment_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new HOLoanApproval());
+            OpenFileDialog openFileDlg = new OpenFileDialog();
+            openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
+            openFileDlg.Title = "Choose File";
+            openFileDlg.InitialDirectory = @"C:\";
+            Nullable<bool> result = openFileDlg.ShowDialog();
+            if (result == true)
+            {
+                string FileFrom = openFileDlg.FileName;
+                var FilePath = FileFrom.Split('\\');
+                string FileName = FilePath[FilePath.Length - 1];
+                SUMAtoHO SUMA = new SUMAtoHO();
+                if (!SUMA.IsFileExists(FileName))
+                {
+                    this.NavigationService.Navigate(new HOLoanApproval(FileFrom));
+                }
+                else
+                {
+                    MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
+                }
+
+
+            }
+            
         }
     }
 }

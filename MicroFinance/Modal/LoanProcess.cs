@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections.ObjectModel;
+using MicroFinance.Reports;
 
 namespace MicroFinance.Modal
 {
     public class LoanProcess : Customer
     {
+        SUMAtoHO Suma = new SUMAtoHO();
         public ObservableCollection<LoanProcess> RequestList = new ObservableCollection<LoanProcess>();
         public ObservableCollection<LoanProcess> RecommendList = new ObservableCollection<LoanProcess>();
         public List<LoanProcess> LoanProcessList = new List<LoanProcess>();
@@ -538,7 +540,7 @@ namespace MicroFinance.Modal
                 }
             }
         }
-        public void ApproveLoan(string ID)
+        public void ApproveLoan(string ID,SUMAtoHO SUMAObj)
         {
             GetRequestDetails(ID);
             ChangeLoanStatus(ID, 11);
@@ -560,6 +562,7 @@ namespace MicroFinance.Modal
                     {
                         LoadData1(LoanId);
                         NewSavingAcc(_customerId);
+                        Suma.InsertData(SUMAObj, LoanId);
 
                     }
                 }
@@ -568,8 +571,12 @@ namespace MicroFinance.Modal
 
         }
 
+        
+
         public void NewSavingAcc(string id)
         {
+            string regionCode = BranchID.Substring(0, 2);
+            string branchCode = BranchID.Substring(8);
             GenerateSavingsAccID SA = new GenerateSavingsAccID();
             int res = 0;
             var date = DateTime.Now.ToString("MM-dd-yyyy");
@@ -584,7 +591,7 @@ namespace MicroFinance.Modal
                     res = (int)sqlcomm.ExecuteScalar();
                     if (res == 0)
                     {
-                        sqlcomm.CommandText = "insert into SavingsAccount values ('" + id + "','" + SA.GenerateSavingAccID() + "','" + date + "'," + 1 + ")";
+                        sqlcomm.CommandText = "insert into SavingsAccount values ('" + id + "','" + SA.GenerateSavingAccID(regionCode,branchCode) + "','" + date + "'," + 1 + ")";
                         sqlcomm.ExecuteNonQuery();
                     }
                 }
