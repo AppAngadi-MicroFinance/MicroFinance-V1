@@ -215,6 +215,7 @@
     <Compile Include="Reports\HiMark.cs" />
     <Compile Include="Reports\NoOfLoansDis.cs" />
     <Compile Include="Reports\NEFT.cs" />
+    <Compile Include="Reports\SUMAtoHO.cs" />
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>

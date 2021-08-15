@@ -201,6 +201,7 @@
                             <ComboBoxItem Content="MBC"/>
                             <ComboBoxItem Content="SC"/>
                             <ComboBoxItem Content="ST"/>
+                            <ComboBoxItem Content="Others"/>
                         </ComboBox>
                         
                         
@@ -264,7 +265,7 @@
                     </TextBox>
                     <StackPanel Orientation="Horizontal" Grid.Row="21" Grid.Column="1" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Montyly Income"  Style="{StaticResource Regular}" Margin="0,0,15,0"/>
+                            <TextBlock Text="Monthly Income"  Style="{StaticResource Regular}" Margin="0,0,15,0"/>
                             <TextBlock x:Name="CustMonthlyIncomeError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-15,0,0,0"/>
                         </StackPanel>
                         <TextBox x:Name="MonthlyIncomeBox" VerticalAlignment="Center" Width="100" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="MonthlyIncomeBox_TextChanged">
@@ -277,7 +278,7 @@
                             </TextBox.Text>
                         </TextBox>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Montyly Expenses"  Style="{StaticResource Regular}" Margin="10,0,15,0"/>
+                            <TextBlock Text="Monthly Expenses"  Style="{StaticResource Regular}" Margin="10,0,15,0"/>
                             <TextBlock x:Name="CustMonthlyExpensesError" Style="{StaticResource ErrorStar}" Margin="-15,0,0,0" Visibility="Collapsed"/>
                         </StackPanel>
                         <TextBox x:Name="MonthlyExpensesBox" Grid.Row="21" Grid.Column="2" VerticalAlignment="Center" Width="100" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="MonthlyExpensesBox_TextChanged">

@@ -48,7 +48,7 @@ namespace MicroFinance.Modal
             }
         }
 
-        public string GenerateSavingAccID() // Savings Account IDPattern SA0100220210605 (SA-SavingsAccount + 01-Region+002-BranchName/2021-CurrentYear/06-CurrentMonth/05-(CountOfCustomers+1))
+        public string GenerateSavingAccID(string RegionCode,string BranchCode) // Savings Account IDPattern SA0100220210605 (SA-SavingsAccount + 01-Region+002-BranchName/2021-CurrentYear/06-CurrentMonth/05-(CountOfCustomers+1))
         {
             int count = 1;
             string Result = "";
@@ -67,8 +67,8 @@ namespace MicroFinance.Modal
                 }
                 sqlcon.Close();
             }
-            string region = DigitConvert(GetRegionNumber(), 2);
-            string branch = DigitConvert(GetBranchNumber());
+            string region = RegionCode;
+            string branch = BranchCode;
             Result = "SA" + region + branch + year + month + ((count < 10) ? "0" + count : count.ToString());
             return Result;
         }
