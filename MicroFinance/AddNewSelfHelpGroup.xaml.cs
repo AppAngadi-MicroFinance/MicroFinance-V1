@@ -45,10 +45,8 @@ namespace MicroFinance
             DaysOfWeeks.Add("FRIDAY");
             DaysOfWeeks.Add("SATURDAY");
             DaysOfWeeks.Add("SUNDAY");
-
-            xSHGname.Text = "Periyakulam";
+;
             xDayOfWeek.SelectedIndex = 2;
-            xTimeBox.Text = "8:00";
             xOfficerSelect.SelectedIndex = 1;
 
             xDayOfWeek.ItemsSource = DaysOfWeeks;
@@ -62,7 +60,7 @@ namespace MicroFinance
             Time = xTimeBox.Text;
             OfficerModal officer = xOfficerSelect.SelectedItem as OfficerModal;
             InsertIntoSHG(SHGname, Day, Time, officer.FoID);
-           this.NavigationService.Navigate(new DashboardBranchManager());
+            this.NavigationService.Navigate(new DashboardBranchManager());
         }
 
         List<OfficerModal> GetFieldOfficers(string branchId)
@@ -118,8 +116,6 @@ namespace MicroFinance
                 con.Close();
             }
         }
-
-
 
 
         //string BranchName = MainWindow.LoginDesignation.BranchId;
@@ -211,5 +207,79 @@ namespace MicroFinance
             if (this.NavigationService.CanGoBack)
                 this.NavigationService.GoBack();
         }
+
+        private void xOfficerSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            OfficerModal obj = xOfficerSelect.SelectedItem as OfficerModal;
+            List<FieldOfficerWorkload> FOworkLoad = GetDaysForFieldOfficer(obj.FoID);
+            //xFOworkLoadList.DataContext = FOworkLoad;
+            xOfficerName.Text = obj.Name;
+            xFOworkLoadList.ItemsSource = FOworkLoad;
+        }
+
+        List<FieldOfficerWorkload> GetDaysForFieldOfficer(string empId)
+        {
+            List<string> ListOfDays = new List<string>();
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "select CollectionDay from TimeTable where EmpId = '" + empId + "'";
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ListOfDays.Add(reader.GetString(0));
+                }
+                con.Close();
+            }
+
+            List<FieldOfficerWorkload> ListToBind = new List<FieldOfficerWorkload>();
+            foreach (string item in ListOfDays)
+            {
+                using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.CommandText = "select CollectionTime from TimeTable where EmpId = '" + empId + "' and CollectionDay = '" + item + "'";
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    FieldOfficerWorkload obj = new FieldOfficerWorkload();
+                    obj.TimeList = new List<Timestring>();
+                    while (reader.Read())
+                    {   
+                        obj.WeekDay = item;
+                        obj.TimeList.Add(new Timestring(reader.GetTimeSpan(0).ToString(@"hh\:mm")));
+                    }
+                    ListToBind.Add(obj);
+                    con.Close();
+                }
+            }
+            return ListToBind;
+        }
     }
+
+    public class FieldOfficerWorkload
+    {
+        public string WeekDay { get; set; }
+        public List<Timestring> TimeList { get; set; }
+
+
+        
+        public FieldOfficerWorkload()
+        {
+            
+        }
+    }
+
+    public class Timestring
+    {
+        public string Time { get; set; }
+
+        public Timestring(string time)
+        {
+            Time = time;
+        }
+    }
+
 }

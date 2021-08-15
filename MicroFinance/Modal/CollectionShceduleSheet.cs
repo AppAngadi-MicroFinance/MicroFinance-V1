@@ -84,6 +84,9 @@ namespace MicroFinance.Modal
         public string BranchName { get; set; }
         public string CenterSHGName { get; set; }
 
+        public DateTime SheetDate { get; set; }
+        public string SheetDay { get; set; }
+
         void GetBrachName4EMPid(string empId)
         {
             using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
@@ -185,6 +188,19 @@ namespace MicroFinance.Modal
             return name;
         }
 
+        static DateTime GetDateForDay(string day)
+        {
+            DateTime thisDate = DateTime.Today;
+            for(int i =0; i<= 7; i++)
+            {
+                if (thisDate.DayOfWeek.ToString().ToUpper() == day.ToUpper())
+                    return thisDate;
+                else
+                    thisDate.AddDays(i+1);
+            }
+            return thisDate;
+        }
+
         public static List<CollectionShceduleSheet> GetActiveLoanCustomer(string empID, string day)
         {
             string idd = string.Empty;
@@ -258,6 +274,8 @@ namespace MicroFinance.Modal
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
+                        temp.SheetDay = day;
+                        temp.SheetDate = GetDateForDay(temp.SheetDay);
                         temp.SheetId = item.CustomerPGId;
                         temp.GroupId = item.GroupId;
                         temp.CustomerId = reader.GetString(0);
