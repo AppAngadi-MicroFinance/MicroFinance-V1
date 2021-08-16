@@ -12,8 +12,8 @@
         <Button x:Name="xBackwardButton" Click="xBackwardButton_Click"
                 Style="{StaticResource BackButtonStyle}" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
 
-        <Border Width="300" Height="300" Background="Gray" HorizontalAlignment="Left" Margin="50,0,0,0">
-            <Grid Width="300">
+        <Border Width="300" Height="300" Background="WhiteSmoke" HorizontalAlignment="Left" Margin="50,0,0,0">
+            <Grid Width="300" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -22,22 +22,29 @@
                     <TextBlock x:Name="xOfficerName" Margin="10,0,0,0" Foreground="White" Style="{StaticResource Regular}" FontSize="22" FontWeight="SemiBold"></TextBlock>
                 </Border>
 
-                <ListView x:Name="xFOworkLoadList"  Grid.Row="1" Background="WhiteSmoke">
-                    <ListView.ItemTemplate>
+                <ItemsControl x:Name="xFOworkLoadList"  Grid.Row="1" Background="WhiteSmoke">
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding WeekDay}"></TextBlock>
-                                <ListView ItemsSource="{Binding TimeList}">
-                                    <ListView.ItemTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="{Binding WeekDay}" FontSize="18" FontWeight="SemiBold" Foreground="Black"></TextBlock>
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding TimeList}" HorizontalAlignment="Left" Margin="0,10,0,0">
+                                    <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Time}"></TextBlock>
+                                            <Grid Width="40" Height="auto" Background="Orange">
+                                                <TextBlock Text="{Binding Time}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                           TextAlignment="Center" Foreground="DarkBlue" FontWeight="SemiBold" FontSize="14"></TextBlock>
+                                            </Grid>
                                         </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
         </Border>
         <Border Width="600" Height="400" BorderThickness="5" BorderBrush="#781f9f" Margin="400,0,0,0">
@@ -57,7 +64,7 @@
 
                 <!--Heading-->
                 <Rectangle Fill="#781f9f" Grid.Row="0" Grid.ColumnSpan="2"></Rectangle>
-                <TextBlock Text="Branch" Foreground="White" FontSize="22" Grid.ColumnSpan="2" Margin="20,0,0,0" FontWeight="SemiBold" VerticalAlignment="Center"></TextBlock>
+                <TextBlock x:Name="xBranchName" Foreground="White" FontSize="22" Grid.ColumnSpan="2" Margin="20,0,0,0" FontWeight="SemiBold" VerticalAlignment="Center"></TextBlock>
                 <Rectangle Fill="WhiteSmoke" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="8"></Rectangle>
 
                 <!--SHG Name--><!--collapsed-->
@@ -74,7 +81,7 @@
                 <!--Time-->
                 <TextBlock Text="Time" Grid.Column="0" Grid.Row="3" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
                            VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
-                <TextBox x:Name="xTimeBox" Width="300" Grid.Column="1" Grid.Row="3" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBox>
+                <TextBox x:Name="xTimeBox" Width="300" Grid.Column="1" TextAlignment="Center" Grid.Row="3" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBox>
                 
                 <!--Field Officer-->
                 <TextBlock Text="Field Officer" Grid.Column="0" Grid.Row="1" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"

@@ -13,7 +13,7 @@
         <Convert:StatusImage x:Key="ImageConvert"></Convert:StatusImage>
         
     </Window.Resources>
-    <Grid Height="768" Width="1366" ShowGridLines="False">
+    <Grid Height="768" Width="1366">
         <Grid.RowDefinitions>
            
             <RowDefinition Height="30"/>
@@ -26,15 +26,15 @@
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <TextBlock x:Name="xHeaderUsername" Grid.Column="0" FontSize="16" FontWeight="SemiBold"
-                       Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Blue"></TextBlock>
+                       Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkBlue"></TextBlock>
             <TextBlock x:Name="xHeaderDate" Grid.Column="2" FontSize="16" FontWeight="SemiBold"
-                       HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Blue"></TextBlock>
-            <Button Grid.Column="3" x:Name="xLogoutButton" Width="30" Height="30" Style="{StaticResource LogoutButtonStyle}"
-                    HorizontalAlignment="Right" Click="xLogoutButton_Click" Margin="0,0,20,0" Visibility="Collapsed"></Button>
+                       HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="DarkBlue"></TextBlock>
+            <Button Grid.Column="3" x:Name="xLogoutButton" Style="{StaticResource LogoutButtonStyle}" Background="#E8FAFF"
+                    HorizontalAlignment="Right" Click="xLogoutButton_Click" Margin="0,0,15,0" Visibility="Collapsed"></Button>
         </Grid>
 
         <Frame Grid.Row="1" x:Name="mainframe" NavigationUIVisibility="Hidden"></Frame>

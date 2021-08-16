@@ -525,5 +525,8 @@
   <ItemGroup>
     <Resource Include="Asserts\Icons\intermediary.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\powerbutton.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
