@@ -280,8 +280,6 @@ namespace MicroFinance
         public string WeekDay { get; set; }
         public List<Timestring> TimeList { get; set; }
 
-
-        
         public FieldOfficerWorkload()
         {
             
