@@ -88,7 +88,7 @@
                 </Border.Effect>
                 <Grid>
                     <Button x:Name="xPendingCustomerBtn" Style="{StaticResource NavigateDocumentVerifyFO}" Click="xPendingCustomerBtn_Click"></Button>
-                    <Border x:Name="xNotificationBatch" Margin="0,-15,-15,0" Style="{StaticResource NotifyCount}" Width="35" Height="35">
+                    <Border x:Name="xNotificationBatch" Margin="0,-15,-15,0" Style="{StaticResource NotifyCount}" Width="35" Height="35" Visibility="Collapsed">
                         <TextBlock x:Name="xCustomerPendings" Style="{StaticResource NotifyText}" Text="0" FontSize="14"></TextBlock>
                     </Border>
                 </Grid>

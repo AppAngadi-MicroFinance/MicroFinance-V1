@@ -10,7 +10,7 @@
 
     <Grid>
         <!--Section A-->        <!-- 1. Find Customer | 2. Find Employee | 3. Add New Employee-->
-        <Grid Width="400" Height="170" Margin="130,100,0,0"
+        <Grid Width="400" Height="170" Margin="130,100,0,0" Visibility="Collapsed"
               HorizontalAlignment="Left" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"></ColumnDefinition>
@@ -94,7 +94,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource SecondaryBtn}" Content="Send to SAMU" Grid.Column="1" x:Name="SAMUSendRequestBtn" Click="SAMUSendRequestBtn_Click"></Button>
+            
             <!--New Customer Approvals Button-->
             <Border Grid.Row="0" Visibility="Collapsed" Grid.Column="0" Width="150" Height="150" Style="{StaticResource MainBorder}">
                 <Border.Effect>
@@ -125,6 +125,12 @@
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Button x:Name="LoanDesposment" Style="{StaticResource NavigateLoanDisposment}" Click="LoanDesposment_Click"></Button>
+            </Border>
+            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button Style="{StaticResource NavigateSendToSammu}" Grid.Column="1" x:Name="SAMUSendRequestBtn" Click="SAMUSendRequestBtn_Click"></Button>
             </Border>
             
         </Grid>
