@@ -6,7 +6,7 @@
         xmlns:Convert="clr-namespace:MicroFinance.Converters"
         xmlns:local="clr-namespace:MicroFinance" xmlns:modal="clr-namespace:MicroFinance.Modal" d:DataContext="{d:DesignInstance Type=modal:StaticProperty}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024" Background="#FEF2E4" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="768" Width="1366" Background="#FEF2E4" WindowStartupLocation="CenterScreen">
     <Window.Resources>
        
         <Convert:StatusForegroundColor x:Key="StatusColor"></Convert:StatusForegroundColor>
