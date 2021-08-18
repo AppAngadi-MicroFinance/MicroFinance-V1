@@ -11,7 +11,43 @@
     <Grid>
         <Button x:Name="xBackwardButton" Click="xBackwardButton_Click"
                 Style="{StaticResource BackButtonStyle}" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
-        <Border Width="600" Height="400" BorderThickness="5" BorderBrush="#781f9f">
+
+        <Border Width="300" Height="300" Background="WhiteSmoke" HorizontalAlignment="Left" Margin="50,0,0,0">
+            <Grid Width="300" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border Background="#781f9f">
+                    <TextBlock x:Name="xOfficerName" Margin="10,0,0,0" Foreground="White" Style="{StaticResource Regular}" FontSize="22" FontWeight="SemiBold"></TextBlock>
+                </Border>
+
+                <ItemsControl x:Name="xFOworkLoadList"  Grid.Row="1" Background="WhiteSmoke">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="{Binding WeekDay}" FontSize="18" FontWeight="SemiBold" Foreground="Black"></TextBlock>
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding TimeList}" HorizontalAlignment="Left" Margin="0,10,0,0">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Width="40" Height="auto" Background="Orange">
+                                                <TextBlock Text="{Binding Time}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                           TextAlignment="Center" Foreground="DarkBlue" FontWeight="SemiBold" FontSize="14"></TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Border>
+        <Border Width="600" Height="400" BorderThickness="5" BorderBrush="#781f9f" Margin="400,0,0,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"></RowDefinition>
@@ -26,27 +62,31 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
+                <!--Heading-->
                 <Rectangle Fill="#781f9f" Grid.Row="0" Grid.ColumnSpan="2"></Rectangle>
-                <TextBlock Text="Branch" Foreground="White" FontSize="22" Grid.ColumnSpan="2" Margin="20,0,0,0" FontWeight="SemiBold" VerticalAlignment="Center"></TextBlock>
-
+                <TextBlock x:Name="xBranchName" Foreground="White" FontSize="22" Grid.ColumnSpan="2" Margin="20,0,0,0" FontWeight="SemiBold" VerticalAlignment="Center"></TextBlock>
                 <Rectangle Fill="WhiteSmoke" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="8"></Rectangle>
 
-                <TextBlock Text="SHG name" Grid.Column="0" Grid.Row="1" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
+                <!--SHG Name--><!--collapsed-->
+                <TextBlock Text="SHG name" Grid.Column="0" Grid.Row="4" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
                            VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
-                <TextBox x:Name="xSHGname" Width="300" Grid.Column="1" Grid.Row="1" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBox>
+                <TextBox x:Name="xSHGname" Width="300" Grid.Column="1" Grid.Row="4" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBox>
 
 
+                <!--Collection Day-->
                 <TextBlock Text="Collection Day" Grid.Column="0" Grid.Row="2" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
                            VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
                 <ComboBox x:Name="xDayOfWeek" Width="300" Height="40" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left"></ComboBox>
 
+                <!--Time-->
                 <TextBlock Text="Time" Grid.Column="0" Grid.Row="3" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
                            VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
-                <TextBox x:Name="xTimeBox" Width="300" Grid.Column="1" Grid.Row="3" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBox>
+                <TextBox x:Name="xTimeBox" Width="300" Grid.Column="1" TextAlignment="Center" Grid.Row="3" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBox>
                 
-                <TextBlock Text="Field Officer" Grid.Column="0" Grid.Row="4" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
+                <!--Field Officer-->
+                <TextBlock Text="Field Officer" Grid.Column="0" Grid.Row="1" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
                            VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
-                <ComboBox x:Name="xOfficerSelect" Width="300" Height="40" Grid.Column="1" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                <ComboBox x:Name="xOfficerSelect" SelectionChanged="xOfficerSelect_SelectionChanged" Width="300" Height="40" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="#0eabf2" BorderThickness="1" Width="200" Height="35">

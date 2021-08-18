@@ -215,6 +215,7 @@
     <Compile Include="Reports\HiMark.cs" />
     <Compile Include="Reports\NoOfLoansDis.cs" />
     <Compile Include="Reports\NEFT.cs" />
+    <Compile Include="Reports\SUMAtoHO.cs" />
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
@@ -520,6 +521,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\intermediary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\powerbutton.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

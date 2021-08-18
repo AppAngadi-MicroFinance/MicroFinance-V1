@@ -189,7 +189,7 @@ namespace MicroFinance
                 loanprocess.ChangeLoanStatus(lp.LoanRequestID, 9);
                 Count++;
             }
-            MainWindow.StatusMessageofPage(1, Count.ToString() + " Loans Recommend Successfully!...");
+            MainWindow.StatusMessageofPage(1, Count.ToString() + " Loan(s) Recommend Successfully!...");
             this.NavigationService.Navigate(new DashBoardHeadOfficer());
         }
     }

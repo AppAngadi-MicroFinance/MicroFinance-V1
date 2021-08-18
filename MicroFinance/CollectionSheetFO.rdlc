@@ -229,7 +229,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>S.No</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -259,7 +261,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Member Name</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -289,7 +293,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Att</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -319,7 +325,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Date</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -349,7 +357,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>This Week</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -379,7 +389,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Cum.</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -388,7 +400,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Total</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -418,7 +432,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Loan Amt</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -448,7 +464,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Nos</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -478,7 +496,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>PLE</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -508,7 +528,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>O/s</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -538,7 +560,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>PLE</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -568,7 +592,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Int</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -598,7 +624,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Total</Value>
-                              <Style />
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -1048,7 +1076,7 @@
         <Top>0.53833in</Top>
         <Left>0.50332in</Left>
         <Height>0.6in</Height>
-        <Width>6.85834in</Width>
+        <Width>6.85833in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -1064,7 +1092,9 @@
             <TextRuns>
               <TextRun>
                 <Value>SD</Value>
-                <Style />
+                <Style>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style>
@@ -1108,7 +1138,9 @@
             <TextRuns>
               <TextRun>
                 <Value>Paid upto last week</Value>
-                <Style />
+                <Style>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style>
@@ -1152,7 +1184,9 @@
             <TextRuns>
               <TextRun>
                 <Value>Paid this week</Value>
-                <Style />
+                <Style>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style>
@@ -1200,9 +1234,25 @@
           </Border>
         </Style>
       </Line>
+      <Line Name="Line2">
+        <Top>0.26055in</Top>
+        <Left>0.51443in</Left>
+        <Height>0.26389in</Height>
+        <Width>0in</Width>
+        <ZIndex>6</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
     </ReportItems>
     <Height>2.95in</Height>
-    <Style />
+    <Style>
+      <Border>
+        <Style>None</Style>
+      </Border>
+    </Style>
   </Body>
   <Width>8.03165in</Width>
   <Page>
@@ -1221,6 +1271,7 @@
                   <Value>Center Collection Format</Value>
                   <Style>
                     <FontSize>14pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
               </TextRuns>
@@ -1251,8 +1302,10 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Branch</Value>
-                  <Style />
+                  <Value>Branch:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -1281,8 +1334,10 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Date</Value>
-                  <Style />
+                  <Value>Date:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -1311,8 +1366,10 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Center</Value>
-                  <Style />
+                  <Value>Center:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -1341,8 +1398,10 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Day</Value>
-                  <Style />
+                  <Value>Day:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -1431,7 +1490,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Date</Value>
+                  <Value>=CDate(First(Fields!SheetDate.Value, "DataSet2")).ToString("dd-MM-yyyy")</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -1442,7 +1501,7 @@
           <Top>0.56667in</Top>
           <Left>6.19832in</Left>
           <Height>0.25in</Height>
-          <Width>0.45334in</Width>
+          <Width>1.06167in</Width>
           <ZIndex>7</ZIndex>
           <Style>
             <Border>
@@ -1461,7 +1520,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Date</Value>
+                  <Value>=First(Fields!SheetDay.Value, "DataSet2")</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -1472,7 +1531,7 @@
           <Top>1.005in</Top>
           <Left>6.19832in</Left>
           <Height>0.25in</Height>
-          <Width>0.45334in</Width>
+          <Width>1.06167in</Width>
           <ZIndex>8</ZIndex>
           <Style>
             <Border>
@@ -1515,6 +1574,13 @@
       </ConnectionProperties>
       <rd:DataSourceID>ba5cb4cb-47ef-4b4f-a86b-c2e5e7127e48</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="MicroFinanceModal2">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>b76f9e54-ea41-49f8-9925-7c95e1c70482</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DataSet1">
@@ -1544,7 +1610,7 @@
     </DataSet>
     <DataSet Name="DataSet2">
       <Query>
-        <DataSourceName>MicroFinanceModal1</DataSourceName>
+        <DataSourceName>MicroFinanceModal2</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -1607,6 +1673,14 @@
         <Field Name="SecurityDeposite">
           <DataField>SecurityDeposite</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="SheetDate">
+          <DataField>SheetDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="SheetDay">
+          <DataField>SheetDay</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="SheetId">
           <DataField>SheetId</DataField>

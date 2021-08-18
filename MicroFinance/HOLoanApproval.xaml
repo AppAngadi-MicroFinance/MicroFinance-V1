@@ -308,19 +308,19 @@
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 <Border Background="#781f9f" BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="0" >
-                    <TextBlock Text="Loan Type" Style="{StaticResource Regular}" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="" Style="{StaticResource Regular}" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
                 </Border>
                 <Border Background="#781f9f" BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.Column="1" >
                     <TextBlock Text="Count" Style="{StaticResource Regular}" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
                 </Border>
                 <Border  BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="1" Grid.Column="0" >
-                    <TextBlock Text="General" Style="{StaticResource Regular}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Request List in GTrust" Style="{StaticResource Regular}" HorizontalAlignment="Center"/>
                 </Border>
                 <Border  BorderBrush="Black" BorderThickness="1,0,0,1" Grid.Row="1" Grid.Column="1" >
                     <TextBlock x:Name="GeneralLoanCount" Style="{StaticResource NumberRegular}" HorizontalAlignment="Center"/>
                 </Border>
                 <Border  BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="2" Grid.Column="0" >
-                    <TextBlock Text="Special" Style="{StaticResource Regular}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Response Form SAMU" Style="{StaticResource Regular}" HorizontalAlignment="Center"/>
                 </Border>
                 <Border  BorderBrush="Black" BorderThickness="1,0,0,1" Grid.Row="2" Grid.Column="1" >
                     <TextBlock x:Name="SpecialLoanCount" Style="{StaticResource NumberRegular}" HorizontalAlignment="Center"/>

@@ -24,10 +24,22 @@ namespace MicroFinance
     public partial class HOLoanApproval : Page
     {
         LoanProcess loanprocess = new LoanProcess();
+        SUMAtoHO Suma = new SUMAtoHO();
+        List<SUMAtoHO> SumaApprovalList = new List<SUMAtoHO>();
         string BranchID = MainWindow.LoginDesignation.BranchId;
         public List<LoanProcess> RecommendList = new List<LoanProcess>();
         List<LoanProcess> ApprovedCustomerList = new List<LoanProcess>();
         NEFT neft = new NEFT();
+        public HOLoanApproval(string FileName)
+        {
+            InitializeComponent();
+            loanprocess.GetLoanDetailList(9);
+            RecommendList.Clear();
+            RecommendList = loanprocess.LoanProcessList;
+            SumaApprovalList=Suma.ImportSamuFile(FileName);
+            LoadData();
+            setCount();
+        }
         public HOLoanApproval()
         {
             InitializeComponent();
@@ -41,45 +53,52 @@ namespace MicroFinance
         void LoadData()
         {
             Custlist.Items.Clear();
-            foreach(LoanProcess lp in RecommendList)
+            foreach(SUMAtoHO SM in SumaApprovalList)
             {
-                Custlist.Items.Add(lp);
+                string AadharNumber = SM.AadharNumber;
+                string name = SM.Name;
+                foreach(LoanProcess lp in RecommendList)
+                {
+                    if(lp.AadharNo.Equals(AadharNumber, StringComparison.CurrentCultureIgnoreCase) &&lp.CustomerName.Equals(name,StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        ApprovedCustomerList.Add(lp);
+                        Custlist.Items.Add(lp);
+                    }
+                }
             }
         }
         void RemoveItemFromList(string ID)
         {
             Custlist.Items.Clear();
-            foreach (LoanProcess lp in RecommendList)
+            foreach (LoanProcess lp in ApprovedCustomerList)
             {
                 if(lp.LoanRequestID.Equals(ID)==true)
                 {
                     RecommendList.Remove(lp);
+                    break;
                 }
-                else
-                {
-                    Custlist.Items.Add(lp);
-                }
+               
             
             }
         }
         void setCount()
         {
-            int count1 = 0;
-            int count2 = 0;
-            foreach (LoanProcess c in RecommendList)
-            {
+            //int count1 = 0;
+            //int count2 = 0;
+            //foreach (LoanProcess c in RecommendList)
+            //{
 
-                if (c.LoanType == "General Loan" || c.LoanType == "General")
-                {
-                    count1++;
-                }
-                else if (c.LoanType == "Special")
-                {
-                    count2++;
-                }
-            }
-            GeneralLoanCount.Text = count1.ToString();
-            SpecialLoanCount.Text = count2.ToString();
+            //    if (c.LoanType == "General Loan" || c.LoanType == "General")
+            //    {
+            //        count1++;
+            //    }
+            //    else if (c.LoanType == "Special")
+            //    {
+            //        count2++;
+            //    }
+            //}
+            GeneralLoanCount.Text = RecommendList.Count().ToString();
+            SpecialLoanCount.Text = SumaApprovalList.Count().ToString();
         }
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
@@ -107,7 +126,10 @@ namespace MicroFinance
             string ID = btn.Uid.ToString();
             loanprocess = GetRecommendDetails(ID);
             loanprocess.ApprovedBy = MainWindow.LoginDesignation.EmpId;
-            loanprocess.ApproveLoan(ID);
+            string AadharNumber = loanprocess.AadharNo;
+            string Name = loanprocess.CustomerName;
+            SUMAtoHO Data = GetSumuDate(AadharNumber, Name);
+            loanprocess.ApproveLoan(ID, Data);
             //AddtoApprovalList(ID);
             RemoveItemFromList(ID);
             MainWindow.StatusMessageofPage(1, "Loan Approved SuccessFully!..");
@@ -173,7 +195,7 @@ namespace MicroFinance
             try
             {
                 neft.GenerateNEFT_File(ApprovedCustomerList);
-                MainWindow.StatusMessageofPage(1, "Excel Generate Successfully!...");
+                MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
             }
             catch
             {
@@ -185,17 +207,35 @@ namespace MicroFinance
         private void BulkApprovalBtn_Click(object sender, RoutedEventArgs e)
         {
             int Count = 0;
-            foreach(LoanProcess lp in RecommendList)
-            {
+            foreach(LoanProcess lp in ApprovedCustomerList)
+            { 
                 loanprocess = new LoanProcess();
                 string ID = lp.LoanRequestID;
                 loanprocess = GetRecommendDetails(ID);
                 loanprocess.ApprovedBy = MainWindow.LoginDesignation.EmpId;
-                loanprocess.ApproveLoan(ID);
+                
+                string AadharNumber = lp.AadharNo;
+                string Name = lp.CustomerName;
+                SUMAtoHO Data = GetSumuDate(AadharNumber, Name);
+                loanprocess.ApproveLoan(ID,Data);
                 Count++;
             }
-            MainWindow.StatusMessageofPage(1, Count.ToString() + " Loans Approved Successfully!...");
+            MainWindow.StatusMessageofPage(1, Count.ToString() + " Loan(s) Approved Successfully!...");
         
+        }
+
+        private SUMAtoHO GetSumuDate(string AadharNo,string Name)
+        {
+            SUMAtoHO Result = new SUMAtoHO();
+            foreach (SUMAtoHO sm in SumaApprovalList)
+            {
+                if (sm.AadharNumber.Equals(AadharNo) && sm.Name.Equals(Name))
+                {
+                    Result = sm;
+                    break;
+                }
+            }
+            return Result;
         }
     }
 }
