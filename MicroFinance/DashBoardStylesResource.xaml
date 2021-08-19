@@ -120,7 +120,7 @@
                                     <RowDefinition Height="55"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\Pendings.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Text="Add PeerGroup" Style="{StaticResource DashboardBtnText}"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="100" Text="Add Peer Group" Style="{StaticResource DashboardBtnText}"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -332,6 +332,35 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <!--Send to Summuanti-->
+    <Style TargetType="{x:Type Button}" x:Key="NavigateSendToSammu">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="Background" Value="#FEF8F1"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Content">
+            <Setter.Value>
+                <ContentPresenter>
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\intermediary.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Width="110" Style="{StaticResource DashboardBtnText}" Text="Send to Samunnati"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <!--Notification Button-->
     <Style TargetType="{x:Type Button}" x:Key="NavigateNotification">
@@ -384,7 +413,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\export.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Export Hi-Mark"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Export       Hi-Mark"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -415,7 +444,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\import.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Import Hi-Mark"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Import        Hi-Mark"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -596,7 +625,7 @@
                                     <RowDefinition Height="55"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\team.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1"  Width="100" Style="{StaticResource DashboardBtnText}" Text="Add New Employee"></TextBlock>
+                                <TextBlock Grid.Row="1"  Width="100" Style="{StaticResource DashboardBtnText}" Text="Add Employee"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -626,7 +655,7 @@
                                     <RowDefinition Height="55"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\branch.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Add New Branch"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Add     Branch"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -655,7 +684,7 @@
                                     <RowDefinition Height="55"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\map.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Add New Region"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Add      Region"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -686,8 +715,8 @@
                                     <RowDefinition Height="55"></RowDefinition>
                                 </Grid.RowDefinitions>
 
-                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\loan.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="130" Style="{StaticResource DashboardBtnText}" Text="Loan Recommend"></TextBlock>
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\notepad.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Width="130" Style="{StaticResource DashboardBtnText}" Text="Recommend Loan"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -870,7 +899,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\DocumentVerifyBM.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Document Verify"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Verify Document"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -917,8 +946,9 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <Image Grid.Column="0" Width="28" Height="28" Source=".\Asserts\Icons\logout.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                            <Grid Background="#E8FAFF" Width="25" Height="25">
+                                <Image Grid.Column="0" Width="24" Height="24" Source=".\Asserts\Icons\powerbutton.png" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>

@@ -284,7 +284,7 @@
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,50,0" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button Style="{StaticResource PrimaryBtn}" Content="Export Himark File" Width="150" x:Name="ExportHimarkBtn" Click="ExportHimarkBtn_Click"></Button>
-                    <Button Style="{StaticResource CancelBtn}" Margin="20,0,0,0" Content="Cancel" Width="150"></Button>
+                    <Button Style="{StaticResource CancelBtn}" Margin="20,0,0,0" Content="Cancel" Width="150" Click="HimarkPanelCloseBtn_Click"></Button>
                 </StackPanel>
             </Grid>
         </Border>

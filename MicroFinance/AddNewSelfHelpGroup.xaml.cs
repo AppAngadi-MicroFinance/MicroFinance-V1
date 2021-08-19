@@ -32,6 +32,7 @@ namespace MicroFinance
         public AddNewSelfHelpGroup()
         {
             InitializeComponent();
+            xBranchName.Text = GetBranchName(BranchId);
             LoadData();
         }
 
@@ -71,7 +72,7 @@ namespace MicroFinance
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 con.Open();
-                cmd.CommandText = "select Employee.EmpId, Employee.Name from Employee join EmployeeBranch on Employee.EmpId = EmployeeBranch.Empid where EmployeeBranch.BranchId = '" + branchId + "'";
+                cmd.CommandText = "select Employee.EmpId, Employee.Name from Employee join EmployeeBranch on Employee.EmpId = EmployeeBranch.Empid where EmployeeBranch.BranchId = '" + branchId + "' and EmployeeBranch.Designation = 'Field Officer'";
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -80,6 +81,21 @@ namespace MicroFinance
                 con.Close();
             }
             return FieldOfficerNames;
+        }
+
+        string GetBranchName(string branchId)
+        {
+            string branchName = string.Empty;
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "select BranchName from BranchDetails where Bid = '" + branchId + "'";
+                branchName = (string)cmd.ExecuteScalar();
+                con.Close();
+            }
+            return branchName;
         }
 
 
@@ -264,8 +280,6 @@ namespace MicroFinance
         public string WeekDay { get; set; }
         public List<Timestring> TimeList { get; set; }
 
-
-        
         public FieldOfficerWorkload()
         {
             
