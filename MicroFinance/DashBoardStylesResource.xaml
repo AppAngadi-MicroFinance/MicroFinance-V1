@@ -946,8 +946,8 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid Background="#E8FAFF" Width="28" Height="28">
-                                <Image Grid.Column="0" Width="28" Height="28" Source=".\Asserts\Icons\powerbutton.png" 
+                            <Grid Background="#E8FAFF" Width="25" Height="25">
+                                <Image Grid.Column="0" Width="24" Height="24" Source=".\Asserts\Icons\powerbutton.png" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
                             </Grid>
                         </DataTemplate>

@@ -90,6 +90,16 @@ namespace MicroFinance
         }
 
 
+        private void xDailyCollection_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new CollectionVerify());
+        }
+
+        private void xNotificationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new CustomerNotification(1));
+        }
+
         private void HimarkPanelCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             HimarkExportPanel.Visibility = Visibility.Collapsed;
