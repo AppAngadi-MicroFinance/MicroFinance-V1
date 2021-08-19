@@ -196,8 +196,6 @@ namespace MicroFinance
                 {
                     MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
                 }
-
-
             }
             
         }
