@@ -33,6 +33,14 @@ namespace MicroFinance
         public Capture()
         {
             InitializeComponent();
+            if(IsCameraAvailable())
+            {
+                CaptureBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CaptureBtn.Visibility = Visibility.Collapsed;
+            }
         }
         private void closebtn_Click(object sender, RoutedEventArgs e)
         {
@@ -57,6 +65,15 @@ namespace MicroFinance
                 captureDevice.NewFrame += CaptureDevice_NewFrame;
                
             }
+        }
+        private bool IsCameraAvailable()
+        {
+            FilterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            if (FilterInfoCollection.Count == 0)
+                return false;
+            else
+                return true;
+
         }
         private void CaptureDevice_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {

@@ -110,9 +110,9 @@ namespace MicroFinance
                 MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: Doucuments\\Reports\\Hi-Mark Report");
                 HimarkExportPanel.Visibility = Visibility.Collapsed;
             }
-            catch
+            catch (Exception ex)
             {
-                MainWindow.StatusMessageofPage(0, "Error Occured");
+                MainWindow.StatusMessageofPage(0, ex.Message);
             }
         }
 
@@ -213,6 +213,11 @@ namespace MicroFinance
         }
 
         private void EmployeeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }

@@ -137,7 +137,7 @@
 
 
         <!--Search person Pop-Up-->
-        <Border x:Name="xSearchPersonPop" Width="700" Height="560" BorderThickness="2" CornerRadius="5" BorderBrush="Gray" Visibility="Collapsed" Background="White">
+        <Border x:Name="xSearchPersonPop" Width="700" Height="560" BorderThickness="2" CornerRadius="5" BorderBrush="Gray" Visibility="Visible" Background="White">
             <Grid Height="550" Width="  690">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50px"/>
