@@ -58,7 +58,10 @@ namespace MicroFinance
         {
             SHGname = xSHGname.Text;
             Day = xDayOfWeek.SelectedItem.ToString();
-            Time = xTimeBox.Text;
+            string Hour = xTimeBoxH.Text;
+            string Minute = xTimeBoxM.Text;
+            Minute = Minute == string.Empty ? "00" : Minute;
+            Time = Hour + ":" + Minute;
             OfficerModal officer = xOfficerSelect.SelectedItem as OfficerModal;
             InsertIntoSHG(SHGname, Day, Time, officer.FoID);
             this.NavigationService.Navigate(new DashboardBranchManager());
@@ -103,33 +106,40 @@ namespace MicroFinance
         {
             List<OfficerModal> FieldOfficerNames = new List<OfficerModal>();
 
-            string SHGidGenerated = GenerateSHGID();
-            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            try
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con;
-                con.Open();
-                cmd.CommandText = "insert into SelfHelpGroup(BranchId, SHGId, SHGName, DateOfCreation)values(@branchId,@shgID,@SHGName,@DOC)";
-                cmd.Parameters.AddWithValue("@branchId", BranchId);
-                cmd.Parameters.AddWithValue("@shgID", SHGidGenerated);
-                cmd.Parameters.AddWithValue("@SHGName", shgName);
-                cmd.Parameters.AddWithValue("@DOC", DateTime.Now.ToString("MM/dd/yyyy"));
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
+                string SHGidGenerated = GenerateSHGID();
+                using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.CommandText = "insert into SelfHelpGroup(BranchId, SHGId, SHGName, DateOfCreation)values(@branchId,@shgID,@SHGName,@DOC)";
+                    cmd.Parameters.AddWithValue("@branchId", BranchId);
+                    cmd.Parameters.AddWithValue("@shgID", SHGidGenerated);
+                    cmd.Parameters.AddWithValue("@SHGName", shgName);
+                    cmd.Parameters.AddWithValue("@DOC", DateTime.Now.ToString("MM/dd/yyyy"));
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
 
-            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+                using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
+                    con.Open();
+                    cmd.CommandText = "insert into TimeTable(SHGId, CollectionTime, CollectionDay,EmpId)values(@shgId,@cTime,@cDay,@empId)";
+                    cmd.Parameters.AddWithValue("@shgId", SHGidGenerated);
+                    cmd.Parameters.AddWithValue("@cTime", time);
+                    cmd.Parameters.AddWithValue("@cDay", day);
+                    cmd.Parameters.AddWithValue("@empId", officer);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch(Exception ex)
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con;
-                con.Open();
-                cmd.CommandText = "insert into TimeTable(SHGId, CollectionTime, CollectionDay,EmpId)values(@shgId,@cTime,@cDay,@empId)";
-                cmd.Parameters.AddWithValue("@shgId", SHGidGenerated);
-                cmd.Parameters.AddWithValue("@cTime", time);
-                cmd.Parameters.AddWithValue("@cDay", day);
-                cmd.Parameters.AddWithValue("@empId", officer);
-                cmd.ExecuteNonQuery();
-                con.Close();
+
             }
         }
 
