@@ -40,7 +40,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select RegionName from BranchDetails where Bid = (select Bid from EmployeeBranch where Empid = '"+EmpId+"')";
+                sqlCommand.CommandText = "select RegionName from BranchDetails where Bid = (select BranchId from EmployeeBranch where Empid = '"+EmpId+"')";
                 RegionName = sqlCommand.ExecuteScalar().ToString();
             }
             return RegionName;
@@ -53,7 +53,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select BranchName from BranchDetails where Bid = (select Bid from EmployeeBranch where Empid = '" + EmpId + "')";
+                sqlCommand.CommandText = "select BranchName from BranchDetails where Bid = (select BranchId from EmployeeBranch where Empid = '" + EmpId + "')";
                 Name = sqlCommand.ExecuteScalar().ToString();
             }
             return Name;
