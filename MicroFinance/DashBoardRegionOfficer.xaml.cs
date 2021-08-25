@@ -88,7 +88,7 @@ namespace MicroFinance
         {
             HimarkExportPanel.Visibility = Visibility.Visible;
             loanProcess = new LoanProcess();
-            loanProcess.GetRequestList(LoginBranchID);
+            loanProcess.GetRequestList();
             loanDetails = loanProcess.RequestList;
             RequestedListBoxNew.ItemsSource = loanDetails;
         }
