@@ -36,7 +36,7 @@ namespace MicroFinance
                 CategoryCombo.ItemsSource = CategoryList;
                 BulkAcceptBtn.Visibility = Visibility.Collapsed;
                 BulkRejectBtn.Visibility = Visibility.Collapsed;
-                CategoryCombo.SelectedIndex = 1;
+                CategoryCombo.SelectedIndex = 0;
                 string selectedvalue = CategoryCombo.SelectedValue as string;
                 UpdateData(selectedvalue);
                 buttonVisibility(selectedvalue);
