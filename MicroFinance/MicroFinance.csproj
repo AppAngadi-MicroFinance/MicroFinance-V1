@@ -213,6 +213,7 @@
       <DependentUpon>RegionManagerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reports\HiMark.cs" />
+    <Compile Include="Reports\HimarkModel.cs" />
     <Compile Include="Reports\NoOfLoansDis.cs" />
     <Compile Include="Reports\NEFT.cs" />
     <Compile Include="Reports\SUMAtoHO.cs" />

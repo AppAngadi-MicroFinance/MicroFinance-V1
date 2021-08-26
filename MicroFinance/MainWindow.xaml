@@ -28,7 +28,7 @@
                 <ColumnDefinition Width="100"></ColumnDefinition>
                 <ColumnDefinition Width="60"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
+            
             <TextBlock x:Name="xHeaderUsername" Grid.Column="0" FontSize="16" FontWeight="SemiBold"
                        Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Blue"></TextBlock>
             <TextBlock x:Name="xHeaderDate" Grid.Column="2" FontSize="16" FontWeight="SemiBold"
@@ -38,7 +38,19 @@
         </Grid>
 
         <Frame Grid.Row="1" x:Name="mainframe" NavigationUIVisibility="Hidden"></Frame>
-
+        
+            <Border Grid.Row="1" Grid.Column="2" Visibility="Collapsed" Height="200" Width="400" Background="White" Panel.ZIndex="2" CornerRadius="10" >
+            <Grid x:Name="TimeWindow" Height="180" Width="380">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Processing Time" Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="1" Text="00:25" Style="{StaticResource NumberTitle}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </Grid>
+            </Border>
+       
         <!--Login window-->
         <Border Background="Gray" Width="500" Height="300" BorderBrush="White" BorderThickness="2" CornerRadius="10" Grid.Row="1" Name="LoginBorder">
             <Grid x:Name="xLoginWindow" Grid.Row="1" Width="450" Height="280" VerticalAlignment="Center" ShowGridLines="False">

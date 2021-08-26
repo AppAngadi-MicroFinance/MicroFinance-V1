@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,6 +88,7 @@ namespace MicroFinance
 
         private void HimarkBtn_Click(object sender, RoutedEventArgs e)
         {
+           
             HimarkExportPanel.Visibility = Visibility.Visible;
             loanProcess = new LoanProcess();
             loanProcess.GetRequestList();
@@ -95,6 +98,9 @@ namespace MicroFinance
 
         private void ExportHimarkBtn_Click(object sender, RoutedEventArgs e)
         {
+            Stopwatch stopwatch2 = new Stopwatch();
+            stopwatch2.Start();
+            MainWindow.TimeBuilder.Append("\nStarting Time for CreateHimarkFile : " + stopwatch2.Elapsed.Milliseconds.ToString());
             List<HiMark> Himarklist = new List<HiMark>();
             HiMark himarkReport = new HiMark();
             foreach (LoanProcess lp in loanDetails)
@@ -109,6 +115,9 @@ namespace MicroFinance
                 himarkReport.createHimarkXls();
                 MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: Doucuments\\Reports\\Hi-Mark Report");
                 HimarkExportPanel.Visibility = Visibility.Collapsed;
+                MainWindow.TimeBuilder.Append("\nStarting Time for CreateHimarkFile : " + stopwatch2.Elapsed.Milliseconds.ToString());
+                stopwatch2.Stop();
+                System.Windows.MessageBox.Show(MainWindow.TimeBuilder.ToString());
             }
             catch (Exception ex)
             {
@@ -118,6 +127,9 @@ namespace MicroFinance
 
         private void ImportHimarkBtn_Click(object sender, RoutedEventArgs e)
         {
+            //Stopwatch SW = new Stopwatch();
+            //SW.Start();
+            //MainWindow.TimeBuilder.Append("\nStarting Time for Read Himark File : " + SW.Elapsed.Ticks.ToString());
             OpenFileDialog openFileDlg = new OpenFileDialog();
             openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
             openFileDlg.Title = "Choose File";
@@ -126,32 +138,65 @@ namespace MicroFinance
             if (result == true)
             {
                 string FileFrom = openFileDlg.FileName;
-                var FilePath = FileFrom.Split('\\');
-                string FileName = FilePath[FilePath.Length - 1];
-                HimarkResult HMResult = new HimarkResult();
-                if (HMResult.IsAlreadyUpload(FileName))
+                if(!IsFileUsed(FileFrom))
                 {
-                    HMResult.GetFileDetails(FileFrom);
-                    LoanHimarkData(HMResult.himarkResultslist);
-                    MainWindow.StatusMessageofPage(1, "File Upload Successfully!...");
+                    var FilePath = FileFrom.Split('\\');
+                    string FileName = FilePath[FilePath.Length - 1];
+                    HimarkResultModel HMResult = new HimarkResultModel();
+                    HimarkResult HmResultList = new HimarkResult();
+                    if (HimarkResult.IsAlreadyUpload(FileName))
+                    {
+                        try
+                        {
+                            List<HimarkResultModel> resultList = new List<HimarkResultModel>();
+                            HmResultList.BulkInsertData(FileFrom, 0);
+                            //MainWindow.TimeBuilder.Append("\n time After Read Data : " + SW.Elapsed.Ticks.ToString());
+                            //MainWindow.TimeBuilder.Append("\n time start to insert data : " + SW.Elapsed.Ticks.ToString());
+                            //HmResultList.InsertHimarkDate(resultList);
+                            //MainWindow.TimeBuilder.Append("\n time when data inserted : " + SW.Elapsed.Ticks.ToString());
+                            MainWindow.StatusMessageofPage(1, "File Upload Successfully!...");
+                            //MainWindow.TimeBuilder.Append("\n Total Time Process : " + SW.Elapsed.Ticks.ToString());
+                            //SW.Stop();
+                            // System.Windows.MessageBox.Show(MainWindow.TimeBuilder.ToString());
+                        }
+                        catch (Exception ex)
+                        {
+                            System.Windows.MessageBox.Show(ex.Message);
+                        }
+
+
+                    }
+                    else
+                    {
+                        MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
+                    }
 
                 }
                 else
                 {
-                    MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
+                    MainWindow.StatusMessageofPage(0, "The process Cant't Access "+FileFrom+" It is used by another process");
                 }
 
 
             }
         }
-        void LoanHimarkData(List<HimarkResult> himarkResultslist)
+
+        private bool IsFileUsed(string FilePath)
         {
-            HimarkResult himark = new HimarkResult();
-            foreach (HimarkResult hm in himarkResultslist)
+            try
             {
-                himark.InsertHimarkDate(hm);
+                using(FileStream stream=new FileStream(FilePath,FileMode.Open))
+                {
+                    stream.Close();
+                }
             }
+            catch (IOException)
+            {
+                return true;
+            }
+            return false;
         }
+        
 
         private void RequestedListBoxNew_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
