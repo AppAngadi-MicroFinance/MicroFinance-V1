@@ -2094,7 +2094,8 @@ namespace MicroFinance.Reports
                 xlWorkSheet.Cells[RowStart, 2] = hm.CBOName;
                 xlWorkSheet.Cells[RowStart, 3] = hm.FIGName;
                 xlWorkSheet.Cells[RowStart, 4] = DateTime.Today.ToString("dd-MM-yyyy");
-                xlWorkSheet.Cells[RowStart, 5] = hm.loandetails.SHGName.ToUpper();
+                //xlWorkSheet.Cells[RowStart, 5] = hm.loandetails.SHGName.ToUpper();
+                xlWorkSheet.Cells[RowStart, 5] = "Null";
                 xlWorkSheet.Cells[RowStart, 6] = "Null";
                 xlWorkSheet.Cells[RowStart, 7] = "Null";
                 xlWorkSheet.Cells[RowStart, 8] = "Null";
