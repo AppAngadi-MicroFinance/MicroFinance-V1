@@ -10,6 +10,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using MicroFinance.Modal;
 using Microsoft.Office.Interop.Excel;
+using System.Diagnostics;
 
 namespace MicroFinance.Reports
 {
@@ -2047,6 +2048,7 @@ namespace MicroFinance.Reports
             SLDated.WrapText = true;
             SLDated.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             SLDated.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
             FillHimarkDate(xlWorkSheet, hiMarksList);
             string dir = "";
             try
@@ -2086,6 +2088,7 @@ namespace MicroFinance.Reports
 
         public void FillHimarkDate(Worksheet xlWorkSheet, List<HiMark> himarkdate)
         {
+           
             int i = 1;
             int RowStart = 2;
             foreach(HiMark hm in himarkdate)
@@ -2160,7 +2163,7 @@ namespace MicroFinance.Reports
                 RowStart++;
                 i++;
             }
-            
+
         }
 
 
