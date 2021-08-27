@@ -23,6 +23,7 @@ namespace MicroFinance
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static StringBuilder TimeBuilder = new StringBuilder();
         public static StaticProperty StatusMsg = new StaticProperty();
         string _userName;
         public static LoginDetails LoginDesignation;

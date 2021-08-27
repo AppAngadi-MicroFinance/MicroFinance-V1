@@ -9,125 +9,23 @@ using Microsoft.Win32;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Office.Interop.Excel;
+using System.Diagnostics;
 
 namespace MicroFinance.Modal
 {
     public class HimarkResult
     {
        public string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
-       public List<HimarkResult> himarkResultslist = new List<HimarkResult>();
+       public List<HimarkResultModel> himarkResultslist = new List<HimarkResultModel>();
        public List<string> CategoryList = new List<string>();
-        private string _requestid;
-        public string RequestID
-        {
-            get
-            {
-                return _requestid;
-            }
-            set
-            {
-                _requestid = value;
-                GetCustomerDetails(value);
-            }
-        }
-        private string _aadharnumber;
-        public string AadharNumber
-        {
-            get
-            {
-                return _aadharnumber;
-            }
-            set
-            {
-                _aadharnumber = value;
-                //GetCustomerDetails(_aadharnumber, Name);
-            }
-        }
-        public string Name { get; set; }
-        public int EligibleLoanAmount { get; set; }
-        public string Status { get; set; }
-        public string HiMarkRemark { get; set; }
-        public int ActiveUnsecureLoan { get; set; }
-        public int ActiveUnsecureLoanin6Months { get; set; }
-        public int OutstandingAmount { get; set; }
-        public string DPDSummary { get; set; }
-        public string HIMarkScore { get; set; }
-        public string ScoreCommend { get; set; }
-        private string _bname;
-        public string BName
-        {
-            get
-            {
-                return _bname;
-            }
-            set
-            {
-                string id = value;
-                using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
-                {
-                    sqlconn.Open();
-                    if(sqlconn.State==ConnectionState.Open)
-                    {
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.Connection = sqlconn;
-                        sqlcomm.CommandText = "select Bid from BranchDetails where BranchName='"+id+"'";
-                        _bname = (string)sqlcomm.ExecuteScalar();
-                    }
-                    sqlconn.Close();
-                }
-            }
-        }
-        public string CustomerName { get; set; }
-        public string GroupName { get; set; }
-        public DateTime ReportDate { get; set; }
-        public int DPDAmount { get; set; }
-        public string FileName { get; set; }
-        public string ReportID { get; set; }
-        public string CustomerID { get; set; }
-        public string SheetName;
-        public string ColumnNumber;
 
-        public void GetCustomerDetails(string RequestID)
+        Stopwatch SW = new Stopwatch();
+        public List<HimarkResultModel> GetFileDetails(string Path)
         {
-            using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
-            {
-                sqlconn.Open();
-                if(sqlconn.State==ConnectionState.Open)
-                {
-                    SqlCommand sqlcomm = new SqlCommand();
-                    sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustId from LoanApplication where RequestId='" + RequestID + "'";
-                    CustomerID = (string)sqlcomm.ExecuteScalar();
-                    sqlcomm = new SqlCommand();
-                    sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name from CustomerDetails where CustId='"+ CustomerID + "'";
-                    CustomerName = (string)sqlcomm.ExecuteScalar();
-                    sqlcomm = new SqlCommand();
-                    sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+CustomerID+"'))";
-                    GroupName = (string)sqlcomm.ExecuteScalar();
-                }
-            }
-        }
-        public string GetRequestId()
-        {
-            string Result = "";
-            using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
-            {
-                sqlconn.Open();
-                if(ConnectionState.Open==sqlconn.State)
-                {
-                    SqlCommand sqlcomm = new SqlCommand();
-                    sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select LoanApplication.RequestId from LoanApplication,CustomerDetails where LoanApplication.CustId=CustomerDetails.CustId and CustomerDetails.AadharNumber='"+ _aadharnumber + "' and CustomerDetails.Name='"+ Name + "' and LoanApplication.LoanStatus=1";
-                    Result =(string)sqlcomm.ExecuteScalar();
-                }
-                sqlconn.Close();
-            }
-            return Result;
-        }
-        public void GetFileDetails(string Path)
-        {
+            List<HimarkResultModel> ResultList = new List<HimarkResultModel>();
+           
+            SW.Start();
+            MainWindow.TimeBuilder.Append("\n GetSheet Name : " + SW.Elapsed.Ticks.ToString());
             var FilePath = Path.Split('\\');
             string FileName = FilePath[FilePath.Length - 1];
             Excel.Application application;
@@ -138,9 +36,10 @@ namespace MicroFinance.Modal
            // int RC = 0;
            // int CC = 0;
             string Sheetname = null;
-
+            MainWindow.TimeBuilder.Append("\n open Application time start : " + SW.Elapsed.Ticks.ToString());
             application = new Excel.Application();
             workbook = application.Workbooks.Open(Path);
+            MainWindow.TimeBuilder.Append("\n application Opened Time : " + SW.Elapsed.Ticks.ToString());
             try
             {
                 SC = workbook.Worksheets.Count;
@@ -148,12 +47,14 @@ namespace MicroFinance.Modal
                 {
                     if (sheet.Name.Equals("Analytics", StringComparison.CurrentCultureIgnoreCase))
                     {
+                        MainWindow.TimeBuilder.Append("\n time When Sheet Found : " + SW.Elapsed.Ticks.ToString());
                         Excel.Range usedrange = sheet.UsedRange;
                         Sheetname = sheet.Name;
                         GetDataFromExcel(sheet, FileName);
                         break;
                     }
                 }
+
             }
             catch
             {
@@ -161,82 +62,78 @@ namespace MicroFinance.Modal
             }
             finally
             {
+               MainWindow.TimeBuilder.Append("\n time for xl App Close start : " + SW.Elapsed.Ticks.ToString());
                 workbook.Close();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
                 application.Quit();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
+               /// GC.Collect();
+                MainWindow.TimeBuilder.Append("\n time for xl App Close end : " + SW.Elapsed.Ticks.ToString());
+                SW.Stop();
             }
+            return ResultList;
         }
-        //public void GetCustomerDetails(string AadharNumber,string CustName)
-        //{
-        //    using (SqlConnection sqlconn=new SqlConnection(ConnectionString))
-        //    {
-        //        sqlconn.Open();
-        //        if(sqlconn.State==ConnectionState.Open)
-        //        {
-        //            SqlCommand sqlcomm = new SqlCommand();
-        //            sqlcomm.Connection = sqlconn;
-        //            sqlcomm.CommandText = "select CustomerDetails.CustId,Name,FatherName,MotherName,Dob,age,Gender,Mobile,AadharNumber,Religion,Caste,Community,Education,FamilyMembers,EarningMembers,Occupation,MonthlyIncome,MonthlyExpenses,Address,Pincode,HousingType,AddressProofName,PhotoProofName,IsAddressProof,IsPhotoProof,IsProfilePhoto,BankACHolderName,BankAccountNo,BankBranchName,IFSCCode,MICRCode,AddressProof,PhotoProof,ProfilePhoto,LoanApplication.RequestId,LoanApplication.LoanAmount,LoanApplication.LoanType,LoanApplication.LoanPeriod,LoanApplication.Purpose,LoanApplication.EnrollDate,LoanApplication.LoanStatus,LoanApplication.EmployeeId,LoanApplication.BranchId, CustomerDetails.BankName from CustomerDetails,LoanApplication where CustomerDetails.CustId=LoanApplication.CustId and CustomerDetails.AadharNumber='"+AadharNumber+"'and CustomerDetails.Name='"+CustName+"' and LoanStatus=1";
-        //            SqlDataReader reader = sqlcomm.ExecuteReader();
-        //            if (reader.HasRows)
-        //            {
-        //                while (reader.Read())
-        //                {
-        //                    string[] _fullAdress = reader.GetString(18).Split('|', '~');
-        //                    _customerId = reader.GetString(0);
-        //                    CustomerName = reader.GetString(1);
-        //                    FatherName = reader.GetString(2);
-        //                    MotherName = reader.GetString(3);
-        //                    DateofBirth = reader.GetDateTime(4);
-        //                    Age = reader.GetInt32(5);
-        //                    Gender = reader.GetString(6);
-        //                    ContactNumber = reader.GetString(7);
-        //                    AadharNo = reader.GetString(8);
-        //                    Religion = reader.GetString(9);
-        //                    Caste = reader.GetString(10);
-        //                    Community = reader.GetString(11);
-        //                    Education = reader.GetString(12);
-        //                    FamilyMembers = reader.GetInt32(13);
-        //                    EarningMembers = reader.GetInt32(14);
-        //                    Occupation = reader.GetString(15);
-        //                    MonthlyIncome = reader.GetInt32(16);
-        //                    MothlyExpenses = reader.GetInt32(17);
-        //                    DoorNumber = _fullAdress[0];
-        //                    StreetName = _fullAdress[1];
-        //                    LocalityTown = _fullAdress[2];
-        //                    City = _fullAdress[3];
-        //                    State = _fullAdress[4];
-        //                    Pincode = reader.GetInt32(19);
-        //                    HousingType = reader.GetString(20);
-        //                    NameofAddressProof = (DBNull.Value.Equals(reader["AddressProofName"])) ? "" : reader.GetString(21);
-        //                    NameofPhotoProof = (DBNull.Value.Equals(reader["PhotoProofName"])) ? "" : reader.GetString(22);
-        //                    AccountHolder = reader.GetString(26);
-        //                    AccountNumber = reader.GetString(27);
-        //                    BankBranchName = reader.GetString(28);
-        //                    IFSCCode = reader.GetString(29);
-        //                    MICRCode = reader.GetString(30);
-        //                    AddressProof = (reader.GetBoolean(23)) ? ByteToBI((byte[])reader.GetValue(31)) : null;
-        //                    PhotoProof = (reader.GetBoolean(24)) ? ByteToBI((byte[])reader.GetValue(32)) : null;
-        //                    ProfilePicture = (reader.GetBoolean(25)) ? ByteToBI((byte[])reader.GetValue(33)) : null;
-        //                    LoanRequestID = reader.GetString(34);
-        //                    LoanAmount = reader.GetInt32(35);
-        //                    LoanType = reader.GetString(36);
-        //                    LoanPeriod = reader.GetInt32(37);
-        //                    LoanPurpose = reader.GetString(38);
-        //                    EnrollDate = reader.GetDateTime(39);
-        //                    EmployeeID = reader.GetString(41);
-        //                    BranchID = reader.GetString(42);
-        //                    BankName = reader.GetString(43);
-        //                }
-        //            }
-        //        }
-        //        sqlconn.Close();
-        //    }
-        //}
-        public bool IsAlreadyUpload(string InputFile)
+
+
+
+        public void BulkInsertData(string Path,int Value)
+        {
+            
+
+            //SW.Start();
+            //MainWindow.TimeBuilder.Append("\n GetSheet Name : " + SW.Elapsed.Ticks.ToString());
+            var FilePath = Path.Split('\\');
+            string FileName = FilePath[FilePath.Length - 1];
+            Excel.Application application;
+            Excel.Workbook workbook;
+            // Excel.Worksheet worksheet;
+            StringBuilder sb = new StringBuilder();
+            int SC;
+            // int RC = 0;
+            // int CC = 0;
+            string Sheetname = null;
+            //MainWindow.TimeBuilder.Append("\n open Application time start : " + SW.Elapsed.Ticks.ToString());
+            application = new Excel.Application();
+            workbook = application.Workbooks.Open(Path);
+            //MainWindow.TimeBuilder.Append("\n application Opened Time : " + SW.Elapsed.Ticks.ToString());
+            try
+            {
+                SC = workbook.Worksheets.Count;
+                foreach (Excel.Worksheet sheet in workbook.Worksheets)
+                {
+                    if (sheet.Name.Equals("Analytics", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        //MainWindow.TimeBuilder.Append("\n time When Sheet Found : " + SW.Elapsed.Ticks.ToString());
+                        Excel.Range usedrange = sheet.UsedRange;
+                        Sheetname = sheet.Name;
+                        GetDataFromExcel(sheet, FileName);
+                        break;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
+            finally
+            {
+                //MainWindow.TimeBuilder.Append("\n time for xl App Close start : " + SW.Elapsed.Ticks.ToString());
+                workbook.Close();
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+                application.Quit();
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
+                /// GC.Collect();
+                //MainWindow.TimeBuilder.Append("\n time for xl App Close end : " + SW.Elapsed.Ticks.ToString());
+                //SW.Stop();
+            }
+            
+        }
+
+        public static bool IsAlreadyUpload(string InputFile)
         {
             bool Result = false;
-            using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
+            using(SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
                 if(sqlconn.State==ConnectionState.Open)
@@ -252,7 +149,7 @@ namespace MicroFinance.Modal
             }
             return Result;
         }
-        public void InsertHimarkDate(HimarkResult result)
+        public void InsertHimarkDate(List<HimarkResultModel> ResultList)
         {
             using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
             {
@@ -261,14 +158,40 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName)values('"+result.GetRequestId() +"','"+result.ReportID+"','"+result.ReportDate.ToString("MM-dd-yyyy")+"','"+result.EligibleLoanAmount+"','"+result.Status+"','"+result.HiMarkRemark+"','"+result.ActiveUnsecureLoan+"','"+result.ActiveUnsecureLoanin6Months+"','"+result.OutstandingAmount+"','"+result.DPDSummary+"','"+result.HIMarkScore+"','"+result.ScoreCommend+"','"+result.DPDAmount+"','"+result.BName+"','"+result.FileName+"')";
-                    sqlcomm.ExecuteNonQuery();
+                    foreach(HimarkResultModel result in ResultList)
+                    {
+                        sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName)values('" + result.GetRequestId(result.AadharNumber) + "','" + result.ReportID + "','" + result.ReportDate.ToString("MM-dd-yyyy") + "','" + result.EligibleLoanAmount + "','" + result.Status + "','" + result.HiMarkRemark + "','" + result.ActiveUnsecureLoan + "','" + result.ActiveUnsecureLoanin6Months + "','" + result.OutstandingAmount + "','" + result.DPDSummary + "','" + result.HIMarkScore + "','" + result.ScoreCommend + "','" + result.DPDAmount + "','" + result.BName + "','" + result.FileName + "')";
+                        sqlcomm.ExecuteNonQuery();
+                    }
+                    
+                }
+                sqlconn.Close();
+            }
+        }
+
+        public void InsertHimarkDate(HimarkResultModel result)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    
+                        sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName)values('" + result.GetRequestId(result.AadharNumber) + "','" + result.ReportID + "','" + result.ReportDate.ToString("MM-dd-yyyy") + "','" + result.EligibleLoanAmount + "','" + result.Status + "','" + result.HiMarkRemark + "','" + result.ActiveUnsecureLoan + "','" + result.ActiveUnsecureLoanin6Months + "','" + result.OutstandingAmount + "','" + result.DPDSummary + "','" + result.HIMarkScore + "','" + result.ScoreCommend + "','" + result.DPDAmount + "','" + result.BName + "','" + result.FileName + "')";
+                        sqlcomm.ExecuteNonQuery();
+               
+
                 }
                 sqlconn.Close();
             }
         }
         public void GetDataFromExcel(Excel.Worksheet worksheet,string Filename)
         {
+           
+          
+            MainWindow.TimeBuilder.Append("\n start Readfile : " + SW.Elapsed.Ticks.ToString());
             Excel.Range userange = worksheet.UsedRange;
             int rowcount = userange.Rows.Count;
             int ColumnCount = userange.Columns.Count;
@@ -352,61 +275,123 @@ namespace MicroFinance.Modal
                     ScoreCommend = i;
                 }
             }
-            for (int Rownumber = 2; Rownumber <= rowcount; Rownumber++)
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
             {
-                var IsNull=(worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range);
-                if (IsNull.Text=="")
+                sqlconn.Open();
+                if (ConnectionState.Open == sqlconn.State)
                 {
-                    break;
-                }
-                else
-                {
-                    DateTime _reportDate = (DateTime)(worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range).Value;
-                    string _reqID = ((worksheet.Cells[Rownumber, requestIDColumn] as Excel.Range).Value);
-                    string _aadharno = (worksheet.Cells[Rownumber, AadharNoColumn] as Excel.Range).Value;
-                    string _branchname = (worksheet.Cells[Rownumber, BranchNameColumn] as Excel.Range).Value;
-                    string _name = (worksheet.Cells[Rownumber, NameColumn] as Excel.Range).Value;
-                    int _eligibleAmount = (int)(worksheet.Cells[Rownumber, EligibleLoanAmountColumn] as Excel.Range).Value;
-                    string _status = (worksheet.Cells[Rownumber, HimarkStatusColumn] as Excel.Range).Value;
-                    string _remark = (worksheet.Cells[Rownumber, RemarkColumn] as Excel.Range).Value;
-                    int _activeUnsecureLoan = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoanColumn] as Excel.Range).Value;
-                    int _activeunsecureloan6months = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoan6MonthsColumn] as Excel.Range).Value;
-                    int _outstandingamount = (int)(worksheet.Cells[Rownumber, outstandingamountcolumn] as Excel.Range).Value;
-                    string _dpdsummary = (worksheet.Cells[Rownumber, DPDSummaryColumn] as Excel.Range).Value;
-                    string _himarkscore = Convert.ToString((worksheet.Cells[Rownumber, HimarkScoreValuecolumn] as Excel.Range).Value);
-                    string _scoreCommend = (worksheet.Cells[Rownumber, ScoreCommend] as Excel.Range).Value;
-                    string CategoryValue = _status.ToUpper();
-                    int _dpdamount = (int)(worksheet.Cells[Rownumber, DPDColumn] as Excel.Range).Value;
-                    if (!CategoryList.Contains(CategoryValue))
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+
+                    for (int Rownumber = 2; Rownumber <= rowcount; Rownumber++)
                     {
-                        CategoryList.Add(_status.ToUpper());
-                    }
-                    himarkResultslist.Add(
-                        new HimarkResult
+
+                        var IsNull = (worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range);
+                        if (IsNull.Text == "")
                         {
-                            ReportID = (_reqID).Trim(),
-                            Name = (_name).Trim(),
-                            AadharNumber = _aadharno.Trim(),
-                            EligibleLoanAmount = _eligibleAmount,
-                            Status = _status,
-                            HiMarkRemark = _remark,
-                            ActiveUnsecureLoan = _activeUnsecureLoan,
-                            ActiveUnsecureLoanin6Months = _activeunsecureloan6months,
-                            OutstandingAmount = _outstandingamount,
-                            DPDSummary = _dpdsummary,
-                            HIMarkScore = _himarkscore,
-                            ScoreCommend = _scoreCommend,
-                            BName = _branchname.Trim(),
-                            DPDAmount = _dpdamount,
-                            ReportDate = _reportDate,
-                            FileName = Filename
-                        });
+                            break;
+                        }
+                        else
+                        {
+                            DateTime _reportDate = (DateTime)(worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range).Value;
+                            string _reqID = ((worksheet.Cells[Rownumber, requestIDColumn] as Excel.Range).Value);
+                            string _aadharno = (worksheet.Cells[Rownumber, AadharNoColumn] as Excel.Range).Value;
+                            string _branchname = (worksheet.Cells[Rownumber, BranchNameColumn] as Excel.Range).Value;
+                            string _name = (worksheet.Cells[Rownumber, NameColumn] as Excel.Range).Value;
+                            int _eligibleAmount = (int)(worksheet.Cells[Rownumber, EligibleLoanAmountColumn] as Excel.Range).Value;
+                            string _status = (worksheet.Cells[Rownumber, HimarkStatusColumn] as Excel.Range).Value;
+                            string _remark = (worksheet.Cells[Rownumber, RemarkColumn] as Excel.Range).Value;
+                            int _activeUnsecureLoan = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoanColumn] as Excel.Range).Value;
+                            int _activeunsecureloan6months = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoan6MonthsColumn] as Excel.Range).Value;
+                            int _outstandingamount = (int)(worksheet.Cells[Rownumber, outstandingamountcolumn] as Excel.Range).Value;
+                            string _dpdsummary = (worksheet.Cells[Rownumber, DPDSummaryColumn] as Excel.Range).Value;
+                            string _himarkscore = Convert.ToString((worksheet.Cells[Rownumber, HimarkScoreValuecolumn] as Excel.Range).Value);
+                            string _scoreCommend = (worksheet.Cells[Rownumber, ScoreCommend] as Excel.Range).Value;
+                            string CategoryValue = _status.ToUpper();
+                            int _dpdamount = (int)(worksheet.Cells[Rownumber, DPDColumn] as Excel.Range).Value;
+                            if (!CategoryList.Contains(CategoryValue))
+                            {
+                                CategoryList.Add(_status.ToUpper());
+                            }
+                            HimarkResultModel result = new HimarkResultModel();
+                            result.ReportID = (_reqID).Trim();
+                            result.Name = (_name).Trim();
+                            result.AadharNumber = _aadharno.Trim();
+                            result.EligibleLoanAmount = _eligibleAmount;
+                            result.Status = _status;
+                            result.HiMarkRemark = _remark;
+                            result.ActiveUnsecureLoan = _activeUnsecureLoan;
+                            result.ActiveUnsecureLoanin6Months = _activeunsecureloan6months;
+                            result.OutstandingAmount = _outstandingamount;
+                            result.DPDSummary = _dpdsummary;
+                            result.HIMarkScore = _himarkscore;
+                            result.ScoreCommend = _scoreCommend;
+                            result.BName = _branchname.Trim();
+                            result.DPDAmount = _dpdamount;
+                            result.ReportDate = _reportDate;
+                            result.FileName = Filename;
+                            sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName)values('" + result.GetRequestId(result.AadharNumber) + "','" + result.ReportID + "','" + result.ReportDate.ToString("MM-dd-yyyy") + "','" + result.EligibleLoanAmount + "','" + result.Status + "','" + result.HiMarkRemark + "','" + result.ActiveUnsecureLoan + "','" + result.ActiveUnsecureLoanin6Months + "','" + result.OutstandingAmount + "','" + result.DPDSummary + "','" + result.HIMarkScore + "','" + result.ScoreCommend + "','" + result.DPDAmount + "','" + result.BName + "','" + result.FileName + "')";
+                            sqlcomm.ExecuteNonQuery();
+                        }
+                    }
                 }
             }
+            //for (int Rownumber = 2; Rownumber <= rowcount; Rownumber++)
+            //{
+               
+            //    var IsNull=(worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range);
+            //    if (IsNull.Text=="")
+            //    {
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        DateTime _reportDate = (DateTime)(worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range).Value;
+            //        string _reqID = ((worksheet.Cells[Rownumber, requestIDColumn] as Excel.Range).Value);
+            //        string _aadharno = (worksheet.Cells[Rownumber, AadharNoColumn] as Excel.Range).Value;
+            //        string _branchname = (worksheet.Cells[Rownumber, BranchNameColumn] as Excel.Range).Value;
+            //        string _name = (worksheet.Cells[Rownumber, NameColumn] as Excel.Range).Value;
+            //        int _eligibleAmount = (int)(worksheet.Cells[Rownumber, EligibleLoanAmountColumn] as Excel.Range).Value;
+            //        string _status = (worksheet.Cells[Rownumber, HimarkStatusColumn] as Excel.Range).Value;
+            //        string _remark = (worksheet.Cells[Rownumber, RemarkColumn] as Excel.Range).Value;
+            //        int _activeUnsecureLoan = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoanColumn] as Excel.Range).Value;
+            //        int _activeunsecureloan6months = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoan6MonthsColumn] as Excel.Range).Value;
+            //        int _outstandingamount = (int)(worksheet.Cells[Rownumber, outstandingamountcolumn] as Excel.Range).Value;
+            //        string _dpdsummary = (worksheet.Cells[Rownumber, DPDSummaryColumn] as Excel.Range).Value;
+            //        string _himarkscore = Convert.ToString((worksheet.Cells[Rownumber, HimarkScoreValuecolumn] as Excel.Range).Value);
+            //        string _scoreCommend = (worksheet.Cells[Rownumber, ScoreCommend] as Excel.Range).Value;
+            //        string CategoryValue = _status.ToUpper();
+            //        int _dpdamount = (int)(worksheet.Cells[Rownumber, DPDColumn] as Excel.Range).Value;
+            //        if (!CategoryList.Contains(CategoryValue))
+            //        {
+            //            CategoryList.Add(_status.ToUpper());
+            //        }
+            //        HimarkResultModel HmModel = new HimarkResultModel();
+            //        HmModel.ReportID = (_reqID).Trim();
+            //        HmModel.Name = (_name).Trim();
+            //        HmModel.AadharNumber = _aadharno.Trim();
+            //        HmModel.EligibleLoanAmount = _eligibleAmount;
+            //        HmModel.Status = _status;
+            //        HmModel.HiMarkRemark = _remark;
+            //        HmModel.ActiveUnsecureLoan = _activeUnsecureLoan;
+            //        HmModel.ActiveUnsecureLoanin6Months = _activeunsecureloan6months;
+            //        HmModel.OutstandingAmount = _outstandingamount;
+            //        HmModel.DPDSummary = _dpdsummary;
+            //        HmModel.HIMarkScore = _himarkscore;
+            //        HmModel.ScoreCommend = _scoreCommend;
+            //        HmModel.BName = _branchname.Trim();
+            //        HmModel.DPDAmount = _dpdamount;
+            //        HmModel.ReportDate = _reportDate;
+            //        HmModel.FileName = Filename;
+            //        InsertHimarkDate(HmModel);
+                        
+            //    }
+            //}
+            MainWindow.TimeBuilder.Append("\n time to read all data from file : " + SW.Elapsed.Ticks.ToString());
         }
-        public List<HimarkResult> GetBranchRequest(string BranchId)
+        public List<HimarkResultModel> GetBranchRequest(string BranchId)
         {
-            List<HimarkResult> RequestList = new List<HimarkResult>();
+            List<HimarkResultModel> RequestList = new List<HimarkResultModel>();
             using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
             {
                 sqlconn.Open();
@@ -429,7 +414,7 @@ namespace MicroFinance.Modal
                                 CategoryList.Add(_category);
                             }
                             RequestList.Add(
-                                new HimarkResult
+                                new HimarkResultModel
                                 {
                                     //Change Value assign ReportId to RequestID
                                     RequestID = reader.GetString(0),
@@ -534,5 +519,117 @@ namespace MicroFinance.Modal
 
 
 
+    }
+
+
+
+    public class HimarkResultModel
+    {
+        private string _requestid;
+        public string RequestID
+        {
+            get
+            {
+                return _requestid;
+            }
+            set
+            {
+                _requestid = value;
+                GetCustomerDetails(value);
+            }
+        }
+        private string _aadharnumber;
+        public string AadharNumber
+        {
+            get
+            {
+                return _aadharnumber;
+            }
+            set
+            {
+                _aadharnumber = value;
+                //GetCustomerDetails(_aadharnumber, Name);
+            }
+        }
+        public string Name { get; set; }
+        public int EligibleLoanAmount { get; set; }
+        public string Status { get; set; }
+        public string HiMarkRemark { get; set; }
+        public int ActiveUnsecureLoan { get; set; }
+        public int ActiveUnsecureLoanin6Months { get; set; }
+        public int OutstandingAmount { get; set; }
+        public string DPDSummary { get; set; }
+        public string HIMarkScore { get; set; }
+        public string ScoreCommend { get; set; }
+        private string _bname;
+        public string BName
+        {
+            get
+            {
+                return _bname;
+            }
+            set
+            {
+                string id = value;
+                using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+                {
+                    sqlconn.Open();
+                    if (sqlconn.State == ConnectionState.Open)
+                    {
+                        SqlCommand sqlcomm = new SqlCommand();
+                        sqlcomm.Connection = sqlconn;
+                        sqlcomm.CommandText = "select Bid from BranchDetails where BranchName='" + id + "'";
+                        _bname = (string)sqlcomm.ExecuteScalar();
+                    }
+                    sqlconn.Close();
+                }
+            }
+        }
+        public string CustomerName { get; set; }
+        public string GroupName { get; set; }
+        public DateTime ReportDate { get; set; }
+        public int DPDAmount { get; set; }
+        public string FileName { get; set; }
+        public string ReportID { get; set; }
+        public string CustomerID { get; set; }
+        public void GetCustomerDetails(string RequestID)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select CustId from LoanApplication where RequestId='" + RequestID + "'";
+                    CustomerID = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select CustomerDetails.Name from CustomerDetails where CustId='" + CustomerID + "'";
+                    CustomerName = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + CustomerID + "'))";
+                    GroupName = (string)sqlcomm.ExecuteScalar();
+                }
+            }
+        }
+        public string GetRequestId(string Aadharnumber)
+        {
+            string Result = "";
+            using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if (ConnectionState.Open == sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select LoanApplication.RequestId from LoanApplication where CustId=(select CustId from CustomerDetails where AadharNumber='"+Aadharnumber+"') and LoanStatus='1'";
+                    Result = (string)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            return Result;
+        }
     }
 }
