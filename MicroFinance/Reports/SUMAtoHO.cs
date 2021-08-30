@@ -49,9 +49,9 @@ namespace MicroFinance.Reports
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
-
+                var s = ex.Message;
             }
             finally
             {
@@ -113,8 +113,9 @@ namespace MicroFinance.Reports
                 else
                 {
                     DateTime _reportDate = (DateTime)(worksheet.Cells[Rownumber, DateColumn] as Excel.Range).Value;
-                    
-                    string _aadharNumber = (worksheet.Cells[Rownumber, AadharColumn] as Excel.Range).Value;
+                    var aadhar= (worksheet.Cells[Rownumber, AadharColumn] as Excel.Range).Value;
+                    string _aadharNumber = aadhar.ToString();
+                    //string _aadharNumber = (worksheet.Cells[Rownumber, AadharColumn] as Excel.Range).Value;
                     string _loanacno = (worksheet.Cells[Rownumber, LoanAcNoColumn] as Excel.Range).Value;
                     string _customername= (worksheet.Cells[Rownumber, CustomerNameColumn] as Excel.Range).Value;
                     int _disbursement=(int) (worksheet.Cells[Rownumber, DisbursementColumn] as Excel.Range).Value;
