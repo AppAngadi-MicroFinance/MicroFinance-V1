@@ -580,14 +580,14 @@ namespace MicroFinance.Modal
                     _city = Address[6];
                     _state = Address[8];
                     _pincode = sqlDataReader.GetInt32(8).ToString();
-                    if(sqlDataReader.GetBoolean(11))
+                    NameofAddressProof = sqlDataReader.GetString(9);
+                    if (sqlDataReader.GetBoolean(11))
                     {
-                        NameofAddressProof = sqlDataReader.GetString(9);
                         AddressProof = ByteToBI((byte[])sqlDataReader.GetValue(14));
                     }
-                    if(sqlDataReader.GetBoolean(12))
+                    NameofPhotoProof = sqlDataReader.GetString(10);
+                    if (sqlDataReader.GetBoolean(12))
                     {
-                        NameofPhotoProof = sqlDataReader.GetString(10);
                         PhotoProof = ByteToBI((byte[])sqlDataReader.GetValue(15));
                     }
                     if (sqlDataReader.GetBoolean(13))
