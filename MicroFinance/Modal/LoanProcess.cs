@@ -793,16 +793,24 @@ namespace MicroFinance.Modal
            
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
             {
-                sqlconn.Open();
-                if (sqlconn.State == ConnectionState.Open)
+                try
                 {
-                    SqlCommand sqlcomm = new SqlCommand();
-                    sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId=(select SHGid  from PeerGroup where GroupName=(select PeerGroupId from CustomerGroup where CustId='" + CustomerID + "'))";
-                    string Value = (string)sqlcomm.ExecuteScalar();
-                    Result = WeekDay(Value);
+                    sqlconn.Open();
+                    if (sqlconn.State == ConnectionState.Open)
+                    {
+                        SqlCommand sqlcomm = new SqlCommand();
+                        sqlcomm.Connection = sqlconn;
+                        sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId=(select SHGid  from PeerGroup where GroupName=(select PeerGroupId from CustomerGroup where CustId='" + CustomerID + "'))";
+                        string Value = (string)sqlcomm.ExecuteScalar();
+                        Result = WeekDay(Value);
+                    }
+                    sqlconn.Close();
                 }
-                sqlconn.Close();
+                catch(Exception ex)
+                {
+
+                }
+                
             }
             return Result;
         }

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Utils;
 
 namespace MicroFinance
 {
@@ -50,95 +51,64 @@ namespace MicroFinance
         {
             string UserName = xUserName.Text;
             string Password = xPassword.Password;
-            _userName = UserName;
             LoginDesignation = new LoginDetails(UserName);
-            #region Temp code 1,2,3,4 Login
-            //if (UserName == "1")
-            //{
-            //    LoginBorder.Visibility = Visibility.Collapsed;
-            //    mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
-            //    LoggedInState();
-            //    MainWindow.StatusMessageofPage(1, "Ready...");
-            //}
-            //else if (UserName == "2")
-            //{
-            //    LoginBorder.Visibility = Visibility.Collapsed;
-            //    mainframe.NavigationService.Navigate(new DashboardAccountant());
-            //    LoggedInState();
-            //    MainWindow.StatusMessageofPage(1, "Ready...");
-            //}
-            //else if (UserName == "3")
-            //{
-            //    LoginBorder.Visibility = Visibility.Collapsed;
-            //    mainframe.NavigationService.Navigate(new DashboardBranchManager());
-            //    LoggedInState();
-            //    MainWindow.StatusMessageofPage(1, "Ready...");
-            //}
-            //else if (UserName == "4")
-            //{
-            //    LoginBorder.Visibility = Visibility.Collapsed;
-            //    mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
-            //    LoggedInState();
-            //    MainWindow.StatusMessageofPage(1, "Ready...");
-            //}
-            #endregion
-
-            if (_userName.ToLower() == "Admin".ToLower())
+            if (LoginDesignation.IsRegisteredSystem()==true)
             {
-                LoginBorder.Visibility = Visibility.Collapsed;
-                mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
-                LoggedInState();
-                MainWindow.StatusMessageofPage(1, "Ready...");
+                
+                _userName = UserName;
+               
+               
+                #region Temp code 1,2,3,4 Login
+                //if (UserName == "1")
+                //{
+                //    LoginBorder.Visibility = Visibility.Collapsed;
+                //    mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
+                //    LoggedInState();
+                //    MainWindow.StatusMessageofPage(1, "Ready...");
+                //}
+                //else if (UserName == "2")
+                //{
+                //    LoginBorder.Visibility = Visibility.Collapsed;
+                //    mainframe.NavigationService.Navigate(new DashboardAccountant());
+                //    LoggedInState();
+                //    MainWindow.StatusMessageofPage(1, "Ready...");
+                //}
+                //else if (UserName == "3")
+                //{
+                //    LoginBorder.Visibility = Visibility.Collapsed;
+                //    mainframe.NavigationService.Navigate(new DashboardBranchManager());
+                //    LoggedInState();
+                //    MainWindow.StatusMessageofPage(1, "Ready...");
+                //}
+                //else if (UserName == "4")
+                //{
+                //    LoginBorder.Visibility = Visibility.Collapsed;
+                //    mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
+                //    LoggedInState();
+                //    MainWindow.StatusMessageofPage(1, "Ready...");
+                //}
+                #endregion
+
+                if (_userName.ToLower() == "Admin".ToLower())
+                {
+                    LoginBorder.Visibility = Visibility.Collapsed;
+                    mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
+                    LoggedInState();
+                    MainWindow.StatusMessageofPage(1, "Ready...");
+                }
+                else
+                {
+                    GetLogin();
+                }
+
             }
             else
             {
-                GetLogin();
+                StatusMessageofPage(0, "Unauthorized System .....");
             }
-            
 
 
-            //LoginDesignation = new LoginDetails(GetEmployeeName(_userName));
-            //if (_userName.ToLower() == "Admin".ToLower())
-            //{
-            //    LoginBorder.Visibility = Visibility.Collapsed;
-            //    mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
-            //    LoggedInState();
-            //    MainWindow.StatusMessageofPage(1, "Ready...");
-            //}
-            //else
-            //{
-            //    if (CheckUserExist(_userName))
-            //    {
-            //        string dbPassword = GetPassword(_userName);
-            //        if (Password == "GTrust")
-            //        {
-            //            if (dbPassword == "GTrust")
-            //            {
-            //                xUserNameP.Text = _userName;
-            //                xSetNewPasswordPopUP.Visibility = Visibility.Visible;
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("Your password has been already changed.");
-            //            }
-            //        }
-            //        else
-            //        {
-            //            if (dbPassword == Password)
-            //            {
-            //                GetLogin();
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("Incorrect Password");
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Invalid Username..!");
-            //    }
-            //}
+
         }
 
 
@@ -156,6 +126,8 @@ namespace MicroFinance
             }
             return thisPassword;
         }
+
+      
         
         void GetLogin()
         {

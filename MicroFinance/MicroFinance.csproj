@@ -223,6 +223,7 @@
     <Compile Include="UpdateCustomer.xaml.cs">
       <DependentUpon>UpdateCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\SystemFunction.cs" />
     <Compile Include="Validations\AadharValidation.cs" />
     <Compile Include="Validations\AccountNumberValidation.cs" />
     <Compile Include="Validations\EbNumberValidation.cs" />
