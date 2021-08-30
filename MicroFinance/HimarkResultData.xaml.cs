@@ -23,7 +23,7 @@ namespace MicroFinance
     {
         string BranchID = MainWindow.LoginDesignation.BranchId;
         HimarkResult HMResult = new HimarkResult();
-        List<HimarkResult> HMResultList = new List<HimarkResult>();
+        List<HimarkResultModel> HMResultList = new List<HimarkResultModel>();
         List<string> CategoryList = new List<string>();
         LoanProcess loanProcess = new LoanProcess();
         public HimarkResultData()
@@ -36,7 +36,7 @@ namespace MicroFinance
                 CategoryCombo.ItemsSource = CategoryList;
                 BulkAcceptBtn.Visibility = Visibility.Collapsed;
                 BulkRejectBtn.Visibility = Visibility.Collapsed;
-                CategoryCombo.SelectedIndex = 1;
+                CategoryCombo.SelectedIndex = 0;
                 string selectedvalue = CategoryCombo.SelectedValue as string;
                 UpdateData(selectedvalue);
                 buttonVisibility(selectedvalue);
@@ -68,13 +68,13 @@ namespace MicroFinance
             }
         }
 
-        void LoanHimarkData(List<HimarkResult> himarkResultslist)
-        {
-            foreach(HimarkResult hm in himarkResultslist)
-            {
-                HMResult.InsertHimarkDate(hm);
-            }
-        }
+        //void LoanHimarkData(List<HimarkResultModel> himarkResultslist)
+        //{
+        //    foreach(HimarkResultModel hm in himarkResultslist)
+        //    {
+        //        HMResult.InsertHimarkDate(hm);
+        //    }
+        //}
 
         private void CategoryCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -87,7 +87,7 @@ namespace MicroFinance
         void UpdateData(string CategoryType)
         {
             HimarkResultList.Items.Clear();
-            foreach (HimarkResult hm in HMResultList)
+            foreach (HimarkResultModel hm in HMResultList)
             {
                 if(hm.Status.Equals(CategoryType,StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -101,7 +101,7 @@ namespace MicroFinance
         {
             HimarkResultList.Items.Clear();
             RemoveItemFromLsit(UId);
-            foreach(HimarkResult hm in HMResultList)
+            foreach(HimarkResultModel hm in HMResultList)
             { 
                     HimarkResultList.Items.Add(hm);  
             }
@@ -109,7 +109,7 @@ namespace MicroFinance
 
         void RemoveItemFromLsit(string UId)
         {
-            foreach (HimarkResult hm in HMResultList)
+            foreach (HimarkResultModel hm in HMResultList)
             {
                 if (hm.RequestID.Equals(UId) == true)
                 {
@@ -148,7 +148,7 @@ namespace MicroFinance
         private void BulkAcceptBtn_Click(object sender, RoutedEventArgs e)
         {
             int count = 0;
-            foreach(HimarkResult hm in HMResultList)
+            foreach(HimarkResultModel hm in HMResultList)
             {
                 if(hm.Status.Equals("Accept"))
                 {
@@ -165,7 +165,7 @@ namespace MicroFinance
         private void BulkRejectBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            foreach (HimarkResult hm in HMResultList)
+            foreach (HimarkResultModel hm in HMResultList)
             {
                 if (hm.Status.Equals("Reject"))
                 {

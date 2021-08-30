@@ -149,11 +149,15 @@ namespace MicroFinance
                 string FileFrom = openFileDlg.FileName;
                 var FilePath = FileFrom.Split('\\');
                 string FileName = FilePath[FilePath.Length - 1];
-                HimarkResult HMResult = new HimarkResult();
-                if(HMResult.IsAlreadyUpload(FileName))
+                HimarkResultModel HMResult = new HimarkResultModel();
+                HimarkResult HmResultList = new HimarkResult();
+                if (HimarkResult.IsAlreadyUpload(FileName))
                 {
-                    HMResult.GetFileDetails(FileFrom);
-                    LoanHimarkData(HMResult.himarkResultslist);
+                    List<HimarkResultModel> resultList = new List<HimarkResultModel>();
+                    resultList = HmResultList.GetFileDetails(FileFrom);
+                   
+                   // LoanHimarkData(resultList);
+                   
                     MainWindow.StatusMessageofPage(1, "File Upload Successfully!...");
 
                 }
@@ -165,14 +169,14 @@ namespace MicroFinance
 
             }
         }
-        void LoanHimarkData(List<HimarkResult> himarkResultslist)
-        {
-            HimarkResult himark = new HimarkResult();
-            foreach (HimarkResult hm in himarkResultslist)
-            {
-                himark.InsertHimarkDate(hm);
-            }
-        }
+        //void LoanHimarkData(List<HimarkResultModel> himarkResultslist)
+        //{
+        //    HimarkResult himark = new HimarkResult();
+        //    foreach (HimarkResultModel hm in himarkResultslist)
+        //    {
+        //        himark.InsertHimarkDate(hm);
+        //    }
+        //}
 
         private void RequestedListBoxNew_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

@@ -215,15 +215,74 @@ namespace MicroFinance
             {
                 string FileFrom = openFileDlg.FileName;
                 var FilePath = FileFrom.Split('\\');
+                
+                var sk = ResizeImageQuality(FileFrom);
                 string FileName = FilePath[FilePath.Length - 1];
-                tempimg.BeginInit();
-                tempimg.UriSource = new Uri(FileFrom);
-                tempimg.EndInit();
-                CapImg.Source = tempimg;
-                SavedImage = tempimg;
+                //tempimg.BeginInit();
+                //tempimg.UriSource = new Uri(FileFrom);
+                //tempimg.EndInit();
+                //CapImg.Source = tempimg;
+                //SavedImage = tempimg;
+                CapImg.Source = sk;
+                SavedImage = sk;
             }
             
         }
 
+      private  BitmapImage ResizeImageQuality(string filepathwithextension)
+        {
+            Bitmap myBitmap;
+            ImageCodecInfo myImageCodecInfo;
+            System.Drawing.Imaging.Encoder myEncoder;
+            EncoderParameter myEncoderParameter;
+            EncoderParameters myEncoderParameters;
+            myBitmap = new Bitmap(filepathwithextension);
+            myImageCodecInfo = GetEncoderInfo("image/jpeg");
+            myEncoder = System.Drawing.Imaging.Encoder.Quality;
+            myEncoderParameters = new EncoderParameters(1);
+            myEncoderParameter = new EncoderParameter(myEncoder, 10L);
+            myEncoderParameters.Param[0] = myEncoderParameter;
+          //myBitmap.Save("Shapes025.jpg", myImageCodecInfo, myEncoderParameters);
+          return  MyExtension.ToBitmapImage(myBitmap);
+
+        }
+        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        {
+            int j;
+            ImageCodecInfo[] encoders;
+            encoders = ImageCodecInfo.GetImageEncoders();
+            for (j = 0; j < encoders.Length; ++j)
+            {
+                if (encoders[j].MimeType == mimeType)
+                    return encoders[j];
+            }
+            return null;
+        }
+
+        
+
     }
+
+    public static class MyExtension
+    {
+        public static BitmapImage ToBitmapImage(this Bitmap bitmap)
+        {
+            using (var memory = new MemoryStream())
+            {
+                bitmap.Save(memory, ImageFormat.Png);
+                memory.Position = 0;
+
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
+
+                return bitmapImage;
+            }
+        }
+    }
+    
+
 }

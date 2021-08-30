@@ -10,11 +10,13 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using MicroFinance.Modal;
 using Microsoft.Office.Interop.Excel;
+using System.Diagnostics;
 
 namespace MicroFinance.Reports
 {
     public class HiMark : BindableBase
     {
+        public static StringBuilder TimeBuilder = new StringBuilder();
         public HiMark()
         {
 
@@ -29,7 +31,7 @@ namespace MicroFinance.Reports
             Guarantordetails._customerId = loandetails._customerId;
             Guarantordetails.GetGuranteeDetails();
         }
-        private string _CBOname= "G Trust";
+        private string _CBOname;
             public string CBOName
             {
                 get
@@ -1153,6 +1155,9 @@ namespace MicroFinance.Reports
         //}
         public void createHimarkXls()
         {
+            Stopwatch time = new Stopwatch();
+            time.Start();
+            MainWindow.TimeBuilder.Append("\nStarting Time for CreateHimarkFile : " +time.Elapsed.Milliseconds.ToString());
             Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             Excel.Workbook xlWorkBook;
             Excel.Worksheet xlWorkSheet;
@@ -2047,6 +2052,8 @@ namespace MicroFinance.Reports
             SLDated.WrapText = true;
             SLDated.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             SLDated.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            MainWindow.TimeBuilder.Append("\nEnd Time for CreateHimarkFile : " + time.Elapsed.Milliseconds.ToString());
+            time.Stop();
             FillHimarkDate(xlWorkSheet, hiMarksList);
             string dir = "";
             try
@@ -2086,6 +2093,9 @@ namespace MicroFinance.Reports
 
         public void FillHimarkDate(Worksheet xlWorkSheet, List<HiMark> himarkdate)
         {
+            Stopwatch stopwatch1 = new Stopwatch();
+            stopwatch1.Start();
+            MainWindow.TimeBuilder.Append("\nStarting Time for Write HimarkFile : " + stopwatch1.Elapsed.Milliseconds.ToString());
             int i = 1;
             int RowStart = 2;
             foreach(HiMark hm in himarkdate)
@@ -2094,7 +2104,8 @@ namespace MicroFinance.Reports
                 xlWorkSheet.Cells[RowStart, 2] = hm.CBOName;
                 xlWorkSheet.Cells[RowStart, 3] = hm.FIGName;
                 xlWorkSheet.Cells[RowStart, 4] = DateTime.Today.ToString("dd-MM-yyyy");
-                xlWorkSheet.Cells[RowStart, 5] = hm.loandetails.SHGName.ToUpper();
+                //xlWorkSheet.Cells[RowStart, 5] = hm.loandetails.SHGName.ToUpper();
+                xlWorkSheet.Cells[RowStart, 5] = "Null";
                 xlWorkSheet.Cells[RowStart, 6] = "Null";
                 xlWorkSheet.Cells[RowStart, 7] = "Null";
                 xlWorkSheet.Cells[RowStart, 8] = "Null";
@@ -2159,7 +2170,8 @@ namespace MicroFinance.Reports
                 RowStart++;
                 i++;
             }
-            
+            MainWindow.TimeBuilder.Append("\nStarting Time for CreateHimarkFile : " + stopwatch1.Elapsed.Milliseconds.ToString());
+            stopwatch1.Stop();
         }
 
 
