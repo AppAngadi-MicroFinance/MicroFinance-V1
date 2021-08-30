@@ -1890,6 +1890,11 @@ namespace MicroFinance
             }
             
         }
+
+        private void PhotoProofNoVerification_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
     
 }

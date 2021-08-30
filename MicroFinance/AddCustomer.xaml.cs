@@ -35,7 +35,7 @@ namespace MicroFinance
         {
             InitializeComponent();
             IsEligible();
-            //TempLoad();
+            TempLoad();
             BranchAndGroupDetailsforFieldOfficer();
             Assign();
         }
@@ -115,6 +115,9 @@ namespace MicroFinance
             customer.AadharNo = "987987987987";
             customer.HusbandName = "PRAKSH"
                 ;
+            customer.Taluk = "Kurinji";
+            customer.PhotoProofNo = "823932893";
+            customer.AddressProofNo = "8329823";
 
 
 
@@ -132,6 +135,9 @@ namespace MicroFinance
             guarantor.Pincode = "620020";
             guarantor.City = "TRIHCY";
             guarantor.State = "TAMILNADU";
+            guarantor.AddressProofNo = "28391872323";
+            guarantor.PhotoProofNo = "2314078923";
+            
 
             nominee.NomineeName = "VICKY";
             nominee.Gender = "MALE";
@@ -412,6 +418,7 @@ namespace MicroFinance
         //save customer
         private void SaveCustomer_Click(object sender, RoutedEventArgs e)
         {
+            CheckAadharAlreadyExist();
             if(IsAadharAlreadeyExists)
             {
                 MessageBox.Show("Aadhar Card Already Exists..");
@@ -437,7 +444,6 @@ namespace MicroFinance
                     guarantor = new Guarantor();
                     Assign();
                     NavigationService.GetNavigationService(this).Navigate(verified);
-               //     customer.SaveCustomerDetails(SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
                 }
                 
 
@@ -1717,6 +1723,31 @@ namespace MicroFinance
             if(customer.YearlyIncome<=150000)
             {
                 CustYearlyExpensesError.Visibility = Visibility.Visible;
+                _check = false;
+            }
+            if(string.IsNullOrEmpty(customer.Taluk))
+            {
+                CustTalukError.Visibility = Visibility.Visible;
+                _check = false;
+            }
+            if(PhotoProofNoBox.SelectedItem==null)
+            {
+                photoProofNoErrorCheck.Visibility = Visibility.Visible;
+                _check = false;
+            }
+            if(AddressProofNoBox.SelectedItem==null)
+            {
+                photoProofNoErrorCheck.Visibility = Visibility.Visible;
+                _check = false;
+            }
+            if(string.IsNullOrEmpty(PhotoProofNo.Text))
+            {
+                addressNoErrorCheck.Visibility = Visibility.Visible;
+                _check = false;
+            }
+            if(String.IsNullOrEmpty(AddressProofNoTextBox.Text))
+            {
+                addressNoErrorCheck.Visibility = Visibility.Visible;
                 _check = false;
             }
             return _check;

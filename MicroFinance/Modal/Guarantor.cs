@@ -291,6 +291,32 @@ namespace MicroFinance.Modal
                 OverAllBasicDetailsofGuarantor = false;
             }
         }
+        private string _photoProofNo;
+        public string PhotoProofNo
+        {
+            get
+            {
+                return _photoProofNo;
+            }
+            set
+            {
+                _photoProofNo = value;
+                OverAllBasicDetailsofGuarantor = false;
+            }
+        }
+        private string _AddressProofNo;
+        public string AddressProofNo
+        {
+            get
+            {
+                return _AddressProofNo;
+            }
+            set
+            {
+                _AddressProofNo = value;
+                OverAllBasicDetailsofGuarantor = false;
+            }
+        }
         public byte[] Convertion(BitmapImage image)
         {
             byte[] Data;
@@ -450,7 +476,7 @@ namespace MicroFinance.Modal
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "insert into GuarenteeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,IsAddressProof,IsPhotoProof,IsProfilePhoto,Gender) values('" + _customerId + "','" + GuarantorName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Occupation + "','" + RelationShip + "','" + Address + "','" + Pincode + "','" + _isAddressProof + "','" + _isPhotoProof + "','" + _isProfilePhoto + "','" + Gender + "')";
+                sqlCommand.CommandText = "insert into GuarenteeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,IsAddressProof,IsPhotoProof,IsProfilePhoto,Gender,AddressProofName,AddressProofNo,PhotoProofName,PhotoProofNo) values('" + _customerId + "','" + GuarantorName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Occupation + "','" + RelationShip + "','" + Address + "','" + Pincode + "','" + _isAddressProof + "','" + _isPhotoProof + "','" + _isProfilePhoto + "','" + Gender + "','"+NameofAddressProof+"','"+AddressProofNo+"','"+NameofPhotoProof+"','"+PhotoProofNo+"')";
 
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "update CustomerDetails set GuarenteeStatus = 'True' where CustId = '" + _customerId + "'";
@@ -522,7 +548,7 @@ namespace MicroFinance.Modal
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "update GuarenteeDetails Set Name='" + GuarantorName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Occupation='" + Occupation + "',RelationShip='" + RelationShip + "',Address='" + Address + "',Pincode='" + Pincode + "',AddressProofName='" + NameofAddressProof + "',PhotoProofName='" + NameofPhotoProof + "',IsAddressProof='" + _isAddressProof + "',IsPhotoProof='" + _isPhotoProof + "',IsProfilePhoto='" + _isProfilePhoto + "',AddressProof=@addressproof,PhotoProof=@photoproof,ProfilePhoto=@profileproof,Gender='" + Gender + "' where CustId='" + _customerId + "'";
+                sqlCommand.CommandText = "update GuarenteeDetails Set Name='" + GuarantorName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Occupation='" + Occupation + "',RelationShip='" + RelationShip + "',Address='" + Address + "',Pincode='" + Pincode + "',AddressProofName='" + NameofAddressProof + "',PhotoProofName='" + NameofPhotoProof + "',IsAddressProof='" + _isAddressProof + "',IsPhotoProof='" + _isPhotoProof + "',IsProfilePhoto='" + _isProfilePhoto + "',AddressProof=@addressproof,PhotoProof=@photoproof,ProfilePhoto=@profileproof,Gender='" + Gender + "',AddressProofName='"+NameofAddressProof+"',AddressProofNo='"+AddressProofNo+"',PhotoProofName='"+NameofPhotoProof+"',PhotoProofNo='"+PhotoProofNo+"' where CustId='" + _customerId + "'";
                 sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(AddressProof));
                 sqlCommand.Parameters.AddWithValue("@photoproof", Convertion(PhotoProof));
                 sqlCommand.Parameters.AddWithValue("@profileproof", Convertion(ProfilePicture));
@@ -568,6 +594,8 @@ namespace MicroFinance.Modal
                         ProfilePicture = ByteToBI((byte[])sqlDataReader.GetValue(16));
                     IsGuarantorNull = true;
                     Gender = sqlDataReader.GetString(17);
+                    AddressProofNo = sqlDataReader.GetString(18);
+                    PhotoProofNo = sqlDataReader.GetString(19);
                 }
             }
         }

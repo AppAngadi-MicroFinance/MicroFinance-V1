@@ -453,6 +453,32 @@ namespace MicroFinance.Modal
                 OverAllPhotoVerification = false;
             }
         }
+        private string _photoProofNo;
+        public string PhotoProofNo 
+        { 
+            get
+            {
+                return _photoProofNo;
+            }
+            set
+            {
+                _photoProofNo = value;
+                OverAllPhotoVerification = false;
+            }
+        }
+        private string _AddressProofNo;
+        public string AddressProofNo
+        {
+            get
+            {
+                return _AddressProofNo;
+            }
+            set
+            {
+                _AddressProofNo = value;
+                OverAllPhotoVerification = false;
+            }
+        }
         private string _nameofPhotoProof;
         public string NameofPhotoProof
         {
@@ -732,6 +758,7 @@ namespace MicroFinance.Modal
                     _taluk = _fullAdress[6];
                     _city = _fullAdress[8];
                     _state = _fullAdress[10];
+                    
                     _pincode = sqlData.GetInt32(19);
                     _housingType = sqlData.GetString(20);
                     if (sqlData.GetBoolean(23))
@@ -744,14 +771,14 @@ namespace MicroFinance.Modal
                         _ifsccode = sqlData.GetString(31);
                         _micrcode = sqlData.GetString(32);
                     }
+                    NameofAddressProof = sqlData.GetString(21);
                     if (sqlData.GetBoolean(24))
                     {
-                        NameofAddressProof = sqlData.GetString(21);
                         _addressProof = ByteToBI((byte[])sqlData.GetValue(33));
                     }
+                    NameofPhotoProof = sqlData.GetString(22);
                     if (sqlData.GetBoolean(25))
                     {
-                        NameofPhotoProof = sqlData.GetString(22);
                         _photoProof = ByteToBI((byte[])sqlData.GetValue(34));
                     }
                     if (sqlData.GetBoolean(26))
@@ -764,6 +791,8 @@ namespace MicroFinance.Modal
                     _yearIncome = sqlData.GetInt32(41);
                     if(sqlData.GetBoolean(42))
                         _combinePhoto = ByteToBI((byte[])sqlData.GetValue(43));
+                    _photoProofNo = sqlData.GetString(44);
+                    _AddressProofNo = sqlData.GetString(45);
 
 
                 }
@@ -902,7 +931,7 @@ namespace MicroFinance.Modal
         public void AddCustomerDetails(string Region, string BranchName, string SelfHelpGroup, string PeerGroup)
         {
             
-            string AddressofCustomer = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" + City + "|~" + State;
+            string AddressofCustomer = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" + Taluk + "|~" + City + "|~" + State;
             using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
             {
                 sqlConnection.Open();
@@ -914,7 +943,7 @@ namespace MicroFinance.Modal
 //HousingType + "','" + HousingIndex + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + 0 + "','" + FatherName + 
 //"','" + MotherName + "','" + Gender + "','" + Caste + "','" + MothlyExpenses + "','" + false + "','" + null + "')";
 
-                sqlCommand.CommandText = "insert into CustomerDetails(CustId, Name, FatherName, MotherName, Dob, Age, Gender, Mobile,AadharNumber,Religion, Caste, Community,Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, MonthlyExpenses, Address,Pincode, HousingType, IsBankDetails, IsAddressProof, IsPhotoProof, IsProfilePhoto, BankACHolderName, BankAccountNo, BankName,BankBranchName, IFSCCode, MICRCode, GuarenteeStatus, NomineeStatus, CustomerStatus, IsActive,HusbandName,YearlyIncome,IsCombinePhoto)values(@custId, @name, @fatherName, @motherName, @dob, @age, @gender, @mobile, @aadhar, @religion, @caste, @community, @education, @familyMembers,@earningMembers, @occupation, @monthlyIncome, @monthlyExpence, @address, @pincode, @houseType,  @isBankDetails,@isAddressProof, @isPhotoproof, @isProfilePhoto, @bankAccHolder, @bankAcNo, @banckName, @bankBranchName, @ifsc, @micr, @guarenteeStatus, @nomineeStatus, @customerStatus, @isActive,'"+HusbandName+"','"+YearlyIncome+"','"+false+"')";
+                sqlCommand.CommandText = "insert into CustomerDetails(CustId, Name, FatherName, MotherName, Dob, Age, Gender, Mobile,AadharNumber,Religion, Caste, Community,Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, MonthlyExpenses, Address,Pincode, HousingType, IsBankDetails, IsAddressProof, IsPhotoProof, IsProfilePhoto, BankACHolderName, BankAccountNo, BankName,BankBranchName, IFSCCode, MICRCode, GuarenteeStatus, NomineeStatus, CustomerStatus, IsActive,HusbandName,YearlyIncome,IsCombinePhoto,PhotoProofName,PhotoProofNo,AddressProofName,AddressProofNo)values(@custId, @name, @fatherName, @motherName, @dob, @age, @gender, @mobile, @aadhar, @religion, @caste, @community, @education, @familyMembers,@earningMembers, @occupation, @monthlyIncome, @monthlyExpence, @address, @pincode, @houseType,  @isBankDetails,@isAddressProof, @isPhotoproof, @isProfilePhoto, @bankAccHolder, @bankAcNo, @banckName, @bankBranchName, @ifsc, @micr, @guarenteeStatus, @nomineeStatus, @customerStatus, @isActive,'"+HusbandName+"','"+YearlyIncome+"','"+false+ "','" + _nameofPhotoProof + "','" + _photoProofNo+"','"+_nameofAddressProof+"','"+_AddressProofNo+"')";
 
                 sqlCommand.Parameters.AddWithValue("@custId", _customerId);sqlCommand.Parameters.AddWithValue("@name", CustomerName);
                 sqlCommand.Parameters.AddWithValue("@fatherName",_fatherName);sqlCommand.Parameters.AddWithValue("@motherName",_motherName);
@@ -1031,13 +1060,13 @@ namespace MicroFinance.Modal
         
         public void ChangeCustomerDetails(string BranchName, string SelfHelpGroup, string PeerGroup)
         {
-            string AddressofCustomer = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" +Taluk+ "|~" + City + "|~" + State;
+            string AddressofCustomer = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" + Taluk + "|~" + City + "|~" + State;
             using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "update CustomerDetails set Name='" + CustomerName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Religion='" + Religion + "',Community='" + Community + "',Education='" + Education + "',FamilyMembers='" + FamilyMembers + "',EarningMembers='" + EarningMembers + "',Occupation='" + Occupation + "',MonthlyIncome='" + MonthlyIncome + "',Address='" + AddressofCustomer + "',Pincode='" + Pincode + "',HousingType='" + HousingType + "',FatherName='"+FatherName+"',MotherName='"+MotherName+"',Gender='"+Gender+"',Caste='"+Caste+"',MonthlyExpenses='"+MothlyExpenses+"',HusbandName='"+HusbandName+"',YearlyIncome='"+YearlyIncome+"' where CustId='" + _customerId + "'";
+                sqlCommand.CommandText = "update CustomerDetails set Name='" + CustomerName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Religion='" + Religion + "',Community='" + Community + "',Education='" + Education + "',FamilyMembers='" + FamilyMembers + "',EarningMembers='" + EarningMembers + "',Occupation='" + Occupation + "',MonthlyIncome='" + MonthlyIncome + "',Address='" + AddressofCustomer + "',Pincode='" + Pincode + "',HousingType='" + HousingType + "',FatherName='"+FatherName+"',MotherName='"+MotherName+"',Gender='"+Gender+"',Caste='"+Caste+"',MonthlyExpenses='"+MothlyExpenses+"',HusbandName='"+HusbandName+"',YearlyIncome='"+YearlyIncome+"',AddressProofName='"+_nameofAddressProof+"',AddressProofNo='"+_AddressProofNo+"',PhotoProofName='"+_nameofPhotoProof+"',PhotoProofNo='"+_photoProofNo+"' where CustId='" + _customerId + "'";
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "select Bid from BranchDetails where BranchName='" + BranchName + "'";
                 string BranchId = sqlCommand.ExecuteScalar().ToString();

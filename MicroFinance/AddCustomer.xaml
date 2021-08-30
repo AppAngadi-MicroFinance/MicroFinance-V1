@@ -313,9 +313,9 @@
         <Grid x:Name="AddressGrid" Grid.Row="1" Grid.Column="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="400"/>
-                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="Address Details *" Style="{StaticResource STitle}"/>
@@ -334,11 +334,10 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="10"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="10"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
@@ -389,11 +388,11 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
                         <TextBlock Text="Pincode" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"/>
                         <TextBlock x:Name="CustPincodeError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="PincodeBox" Style="{StaticResource Textbox}" Grid.Row="8" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="PincodeBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox x:Name="PincodeBox" Style="{StaticResource Textbox}" Grid.Row="7" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="PincodeBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="Pincode" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -425,11 +424,11 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="1">
                         <TextBlock Text="Housing Type" Style="{StaticResource Regular}" Grid.Row="8" Grid.Column="1" />
                         <TextBlock x:Name="CustHousingTypeError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="HouseTypeBox" Style="{StaticResource Textbox}" Grid.Row="10" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="HouseTypeBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox x:Name="HouseTypeBox" Style="{StaticResource Textbox}" Grid.Row="8" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="HouseTypeBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="HousingType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -437,7 +436,7 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <Grid x:Name="AadharNoGrid" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Grid x:Name="AadharNoGrid" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="130"/>
                             <ColumnDefinition Width="150"/>
@@ -447,8 +446,41 @@
                             <TextBlock Text="Aadhar No." Style="{StaticResource Regular}" VerticalAlignment="Center" Grid.Column="1"></TextBlock>
                             <TextBlock Style="{StaticResource ErrorStar}" x:Name="aadharErrorCheck" Visibility="Collapsed"/>
                         </StackPanel>
-                        <TextBox x:Name="AadharNo" Text="{Binding AadharNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontFamily="Segoe UI" Style="{StaticResource Textbox}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Grid.ColumnSpan="2" Width="250" TextChanged="AadharNo_TextChanged" CharacterCasing="Upper"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+
+                            <TextBox x:Name="AadharNo" Style="{StaticResource InputBox}" Text="{Binding AadharNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="250"  CharacterCasing="Upper"/>
+                        </StackPanel>
                     </Grid>
+                    <Grid x:Name="PhotoProofNoGrid" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                            <TextBlock Text="ID Proof No." Style="{StaticResource Regular}" VerticalAlignment="Center" Grid.Column="1"></TextBlock>
+                            <TextBlock Style="{StaticResource ErrorStar}" x:Name="photoProofNoErrorCheck" Visibility="Collapsed"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                            <ComboBox x:Name="PhotoProofNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="100" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="PhotoProofNo" Style="{StaticResource InputBox}" Text="{Binding PhotoProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="140" Margin="15,0,0,0" CharacterCasing="Upper"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid x:Name="AddressProofNoGrid" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                            <TextBlock Text="AddressProof No." Style="{StaticResource Regular}" Grid.Row="10" Grid.Column="0"/>
+                            <TextBlock Style="{StaticResource ErrorStar}" x:Name="addressNoErrorCheck" Visibility="Collapsed"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2">
+                            <ComboBox x:Name="AddressProofNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="100" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="AddressProofNoTextBox" Text="{Binding AddressProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InputBox}" Width="140" Margin="15,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                    
                 </Grid>
             </Border>
             <CheckBox x:Name="IsLeaderCheck" Grid.Row="2" Content="Make As Leader" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,10" IsChecked="{Binding IsLeader,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
@@ -904,7 +936,7 @@
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="2" >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="270"/>
+                            <RowDefinition Height="400"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Border BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="0"/>
@@ -916,6 +948,8 @@
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="40"/>
@@ -984,68 +1018,95 @@
                                     </Binding>
                                 </TextBox.Text>
                             </TextBox>
-                        </Grid>
-                        <Grid x:Name="GuarantorOtherDetailsGrid" Grid.Row="1" Visibility="Collapsed">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="10"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="10"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="10"/>
-                                <RowDefinition Height="30"/>
-                            </Grid.RowDefinitions>
-                            <Grid x:Name="GuarantorAddressProofGrid" Grid.Row="1">
+
+                            <Grid x:Name="GPhotoProofNoGrid" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="10"/>
-                                    <ColumnDefinition Width="160"/>
-                                    <ColumnDefinition Width="190"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                    <TextBlock Text="Address Proof" Style="{StaticResource Regular}" Grid.Column="1"  />
-                                    <TextBlock x:Name="GAddressProofError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
-                                </StackPanel>
-                                <ComboBox Name="GuarantorAddressProofBox" Style="{StaticResource combo}" Grid.Column="2" Width="180" ItemsSource="{Binding AddressProofName,Mode=OneWay}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
-                                <Button x:Name="GuarantorAddAddressProof" Style="{StaticResource Add}" HorizontalAlignment="Left" Grid.Column="3" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}" Click="GuarantorAddAddressProof_Click"/>
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="GuarantorAddressProofViewEditPanel" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
-                                    <Button x:Name="ViewAddressProofOfGuarantor" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewAddressProofOfGuarantor_Click"/>
-                                    <Button x:Name="EditAddressProofofGuarantor" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditAddressProofofGuarantor_Click" />
-                                </StackPanel>
-                            </Grid>
-                            <Grid x:Name="GuarantorPhotoProofGrid" Grid.Row="3">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="10"/>
-                                    <ColumnDefinition Width="160"/>
-                                    <ColumnDefinition Width="190"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                    <TextBlock Text="Photo Proof" Style="{StaticResource Regular}" Grid.Column="1"  />
-                                    <TextBlock x:Name="GPhotoProofError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
-                                </StackPanel>
-                                <ComboBox x:Name="GuarantorPhotoProofBox" ItemsSource="{Binding AddressProofName}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource combo}" Grid.Column="2" Width="180" HorizontalAlignment="Left"/>
-                                <Button x:Name="GuarantorAddPhotoProof" Style="{StaticResource Add}" HorizontalAlignment="Left" Grid.Column="3" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}" Click="GuarantorAddPhotoProof_Click"/>
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="GuarantorPhotoProofViewEditPanel" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}" >
-                                    <Button x:Name="GuarantorViewPhotoProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="GuarantorViewPhotoProof_Click"/>
-                                    <Button x:Name="GuarantorEditPhototProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="GuarantorEditPhototProof_Click" />
-                                </StackPanel>
-                            </Grid>
-                            <Grid x:Name="GuarantorPhotoProfileGrid" Grid.Row="5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="10"/>
-                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="130"/>
                                     <ColumnDefinition Width="150"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                    <TextBlock Text="Profile Photo" Style="{StaticResource Regular}" Grid.Column="1" />
-                                    <TextBlock x:Name="GProfilePhotoError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
+                                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                                    <TextBlock Text="ID Proof No." Style="{StaticResource Regular}" VerticalAlignment="Center" Grid.Column="1"></TextBlock>
+                                    <TextBlock Style="{StaticResource ErrorStar}" x:Name="GphotoProofNoErrorCheck" Visibility="Collapsed"/>
                                 </StackPanel>
-                                <Button x:Name="GuarantorAddProfilePhoto" Style="{StaticResource Add}" HorizontalAlignment="Left"  Grid.Column="2" Click="GuarantorAddProfilePhoto_Click" Visibility="{Binding ProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"/>
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" x:Name="GuarantorProfilePictureViewEditPanel" Visibility="{Binding ProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
-                                    <Button x:Name="GuarantorViewProfilePicture" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="GuarantorViewProfilePicture_Click"/>
-                                    <Button x:Name="GuarantorEditProfilePicture" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="GuarantorEditProfilePicture_Click" />
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                                    <ComboBox x:Name="GAadharNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="100" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox x:Name="GPhotoProofNo" Style="{StaticResource InputBox}" Text="{Binding PhotoProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="140" Margin="15,0,0,0" CharacterCasing="Upper"/>
                                 </StackPanel>
+                            </Grid>
+                            <Grid x:Name="GAddressProofNoGrid" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="130"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="AddressProof No." Style="{StaticResource Regular}" Grid.Row="10" Grid.Column="0"/>
+                                <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2">
+                                    <ComboBox x:Name="GAddressProofNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="100" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox x:Name="GAddressProofNoTextBox" Text="{Binding AddressProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InputBox}" Width="140" Margin="15,0,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid x:Name="GuarantorOtherDetailsGrid" Grid.Row="1" Visibility="Collapsed">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Grid x:Name="GuarantorAddressProofGrid" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="160"/>
+                                        <ColumnDefinition Width="190"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                        <TextBlock Text="Address Proof" Style="{StaticResource Regular}" Grid.Column="1"  />
+                                        <TextBlock x:Name="GAddressProofError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
+                                    </StackPanel>
+                                    <ComboBox Name="GuarantorAddressProofBox" Style="{StaticResource combo}" Grid.Column="2" Width="180" ItemsSource="{Binding AddressProofName,Mode=OneWay}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"/>
+                                    <Button x:Name="GuarantorAddAddressProof" Style="{StaticResource Add}" HorizontalAlignment="Left" Grid.Column="3" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}" Click="GuarantorAddAddressProof_Click"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="GuarantorAddressProofViewEditPanel" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                        <Button x:Name="ViewAddressProofOfGuarantor" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewAddressProofOfGuarantor_Click"/>
+                                        <Button x:Name="EditAddressProofofGuarantor" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditAddressProofofGuarantor_Click" />
+                                    </StackPanel>
+                                </Grid>
+                                <Grid x:Name="GuarantorPhotoProofGrid" Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="160"/>
+                                        <ColumnDefinition Width="190"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                        <TextBlock Text="Photo Proof" Style="{StaticResource Regular}" Grid.Column="1"  />
+                                        <TextBlock x:Name="GPhotoProofError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
+                                    </StackPanel>
+                                    <ComboBox x:Name="GuarantorPhotoProofBox" ItemsSource="{Binding AddressProofName}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource combo}" Grid.Column="2" Width="180" HorizontalAlignment="Left"/>
+                                    <Button x:Name="GuarantorAddPhotoProof" Style="{StaticResource Add}" HorizontalAlignment="Left" Grid.Column="3" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}" Click="GuarantorAddPhotoProof_Click"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="GuarantorPhotoProofViewEditPanel" Visibility="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}" >
+                                        <Button x:Name="GuarantorViewPhotoProof" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="GuarantorViewPhotoProof_Click"/>
+                                        <Button x:Name="GuarantorEditPhototProof" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="GuarantorEditPhototProof_Click" />
+                                    </StackPanel>
+                                </Grid>
+                                <Grid x:Name="GuarantorPhotoProfileGrid" Grid.Row="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="160"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                        <TextBlock Text="Profile Photo" Style="{StaticResource Regular}" Grid.Column="1" />
+                                        <TextBlock x:Name="GProfilePhotoError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
+                                    </StackPanel>
+                                    <Button x:Name="GuarantorAddProfilePhoto" Style="{StaticResource Add}" HorizontalAlignment="Left"  Grid.Column="2" Click="GuarantorAddProfilePhoto_Click" Visibility="{Binding ProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleByImage}}"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" x:Name="GuarantorProfilePictureViewEditPanel" Visibility="{Binding ProfilePicture,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
+                                        <Button x:Name="GuarantorViewProfilePicture" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="GuarantorViewProfilePicture_Click"/>
+                                        <Button x:Name="GuarantorEditProfilePicture" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="GuarantorEditProfilePicture_Click" />
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -1123,7 +1184,7 @@
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="2" x:Name="ViewGuarantorAddressDetails">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="270"/>
+                            <RowDefinition Height="400"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Border BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="0"/>
@@ -1135,6 +1196,8 @@
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="40"/>
@@ -1154,6 +1217,10 @@
                             <TextBlock x:Name="ViewGuarantorCity" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding City,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock Text="State : " Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="1"/>
                             <TextBlock x:Name="ViewGuarantorState" Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding State,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="ID Proof No. : " Style="{StaticResource Regular}" Grid.Row="7" Grid.Column="1"/>
+                            <TextBlock x:Name="ViewIDProofNo" Style="{StaticResource Regular}" Grid.Row="7" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding PhotoProofNo,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="Address Proof No. : " Style="{StaticResource Regular}" Grid.Row="9" Grid.Column="1"/>
+                            <TextBlock x:Name="ViewAddressProofNoState" Style="{StaticResource Regular}" Grid.Row="9" Grid.Column="2" Width="250" HorizontalAlignment="Left" Text="{Binding AddressProofNo,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                         <Grid x:Name="GuarantorViewOtherDetails" Grid.Row="1">
                             <Grid.RowDefinitions>

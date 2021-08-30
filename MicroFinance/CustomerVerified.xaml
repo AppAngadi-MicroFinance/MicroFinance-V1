@@ -562,6 +562,53 @@
 
 
                         </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Id Proof No." Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="PhotoProofNoError"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                <ComboBox x:Name="AadharNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="100" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding PhotoProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="PhotoProofNO" Width="160" Margin="10,0,0,0">
+                                </TextBox>
+                            </StackPanel>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="Collapsed"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="Collapsed" x:Name="PhotoProofNoVerification" Click="PhotoProofNoVerification_Click"/>
+
+
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Address Proof No." Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="addressProofNoError"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                <ComboBox x:Name="AddressProofNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="100" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding AddressProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="AddressProofNO" Width="160" Margin="10,0,0,0">
+                                </TextBox>
+                            </StackPanel>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="Collapsed"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="Collapsed" x:Name="AddressProofNoVerification" Click="PhotoProofNoVerification_Click"/>
+
+
+                        </Grid>
                     </StackPanel>
                 </Border>
 
@@ -838,6 +885,53 @@
 
                             <Button Grid.Column="4" Style="{StaticResource Verified}"  Visibility="Collapsed"/>
                             <Button Grid.Column="4" Style="{StaticResource Verify}"  Visibility="Collapsed" x:Name="GPincodeVerification" Click="GPincodeVerification_Click"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Id Proof No." Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="gPhotoProofNoError"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                <ComboBox x:Name="gAadharNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="100" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding PhotoProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="gPhotoProofNO" Width="160" Margin="10,0,0,0">
+                                </TextBox>
+                            </StackPanel>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="Collapsed"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="Collapsed" x:Name="gPhotoProofNoVerification" Click="PhotoProofNoVerification_Click"/>
+
+
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Text="Address Proof No." Style="{StaticResource Regular}"/>
+                                <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="gaddressProofNoError"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                <ComboBox x:Name="GAddressProofNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="100" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding AddressProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="gAddressProofNO" Width="160" Margin="10,0,0,0">
+                                </TextBox>
+                            </StackPanel>
+
+                            <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="Collapsed"/>
+                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="Collapsed" x:Name="gAddressProofNoVerification" Click="PhotoProofNoVerification_Click"/>
+
+
                         </Grid>
                     </StackPanel>
                 </Border>
