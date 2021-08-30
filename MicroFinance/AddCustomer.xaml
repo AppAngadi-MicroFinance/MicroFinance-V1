@@ -366,7 +366,7 @@
                         </TextBox.Text>
                     </TextBox>
                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                        <TextBlock Text="Locality/Town" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1"/>
+                        <TextBlock Text="Village" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1"/>
                         <TextBlock x:Name="CustLocalityError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
                     <TextBox x:Name="LocalityBox" Style="{StaticResource Textbox}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="LocalityBox_TextChanged" CharacterCasing="Upper">
@@ -378,10 +378,22 @@
                         </TextBox.Text>
                     </TextBox>
                     <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
+                        <TextBlock Text="Taluk" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"/>
+                        <TextBlock x:Name="CustTalukError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
+                    </StackPanel>
+                    <TextBox x:Name="TalukBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="PincodeBox_TextChanged" CharacterCasing="Upper">
+                        <TextBox.Text>
+                            <Binding Path="Taluk" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="1">
                         <TextBlock Text="Pincode" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"/>
                         <TextBlock x:Name="CustPincodeError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="PincodeBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="PincodeBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox x:Name="PincodeBox" Style="{StaticResource Textbox}" Grid.Row="8" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="PincodeBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="Pincode" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -413,11 +425,11 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.Column="1">
                         <TextBlock Text="Housing Type" Style="{StaticResource Regular}" Grid.Row="8" Grid.Column="1" />
                         <TextBlock x:Name="CustHousingTypeError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="HouseTypeBox" Style="{StaticResource Textbox}" Grid.Row="8" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="HouseTypeBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox x:Name="HouseTypeBox" Style="{StaticResource Textbox}" Grid.Row="10" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="HouseTypeBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="HousingType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -425,7 +437,7 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <Grid x:Name="AadharNoGrid" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Grid x:Name="AadharNoGrid" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="130"/>
                             <ColumnDefinition Width="150"/>
