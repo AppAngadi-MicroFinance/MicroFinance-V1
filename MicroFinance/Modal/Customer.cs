@@ -268,6 +268,18 @@ namespace MicroFinance.Modal
                 CustAddressOverAll = false;
             }
         }
+        private string _taluk;
+        public string Taluk
+        {
+            get
+            {
+                return _taluk;
+            }
+            set
+            {
+                _taluk = value;
+            }
+        }
         private string _housingIndex;
         public string HousingIndex
         {
@@ -717,8 +729,9 @@ namespace MicroFinance.Modal
                     _doorNumber = _fullAdress[0];
                     _streetName = _fullAdress[2];
                     _localityTown = _fullAdress[4];
-                    _city = _fullAdress[6];
-                    _state = _fullAdress[8];
+                    _taluk = _fullAdress[6];
+                    _city = _fullAdress[8];
+                    _state = _fullAdress[10];
                     _pincode = sqlData.GetInt32(19);
                     _housingType = sqlData.GetString(20);
                     if (sqlData.GetBoolean(23))
@@ -1018,7 +1031,7 @@ namespace MicroFinance.Modal
         
         public void ChangeCustomerDetails(string BranchName, string SelfHelpGroup, string PeerGroup)
         {
-            string AddressofCustomer = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" + City + "|~" + State;
+            string AddressofCustomer = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" +Taluk+ "|~" + City + "|~" + State;
             using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
             {
                 sqlConnection.Open();
