@@ -62,19 +62,26 @@ namespace MicroFinance
 
         private void xCreateNewSHG_Click(object sender, RoutedEventArgs e)
         {
-            SHGname = xSHGname.Text;
-            Day = xDayOfWeek.SelectedItem.ToString();
-            string Hour = xTimeHour.SelectedItem.ToString();
-            string Minute = xTimeMinute.SelectedItem.ToString();
-            Minute = Minute == string.Empty ? "00" : Minute;
-            Time = Hour + ":" + Minute;
-            OfficerModal officer = xOfficerSelect.SelectedItem as OfficerModal;
-
-            string Taluk = xSHGTaluk.Text;
-            string District = xSHGRegion.Text;
-            if (InsertIntoSHG(SHGname,Taluk, District, Day, Time, officer.FoID))
+            try
             {
-                this.NavigationService.Navigate(new DashboardBranchManager());
+                SHGname = xSHGname.Text;
+                Day = xDayOfWeek.SelectedItem.ToString();
+                string Hour = xTimeHour.SelectedItem.ToString();
+                string Minute = xTimeMinute.SelectedItem == null ? "00" : xTimeMinute.SelectedItem.ToString();
+                Minute = Minute == string.Empty ? "00" : Minute;
+                Time = Hour + ":" + Minute;
+                OfficerModal officer = xOfficerSelect.SelectedItem as OfficerModal;
+
+                string Taluk = xSHGTaluk.Text;
+                string District = xSHGRegion.Text;
+                if (InsertIntoSHG(SHGname, Taluk, District, Day, Time, officer.FoID))
+                {
+                    this.NavigationService.Navigate(new DashboardBranchManager());
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Something you did wrong. Check all fields..!");
             }
         }
 
