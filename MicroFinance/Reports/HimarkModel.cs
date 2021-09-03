@@ -387,8 +387,8 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("COapplicantGender");
             }
         }
-        private DateTime _coapplicantDOB;
-        public DateTime COapplicantDOB
+        private string _coapplicantDOB;
+        public string COapplicantDOB
         {
             get
             {

@@ -211,7 +211,7 @@
                 </ListBox>
             </Grid>
         </Border>
-        <Border Height="500" Width="900" Background="White" Visibility="Visible" CornerRadius="5" BorderThickness="2" BorderBrush="Gray" Panel.ZIndex="2" x:Name="HimarkExportPanel">
+        <Border Height="500" Width="900" Background="White" Visibility="Collapsed" CornerRadius="5" BorderThickness="2" BorderBrush="Gray" Panel.ZIndex="2" x:Name="HimarkExportPanel">
             <Grid Height="490" Width="890">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"/>

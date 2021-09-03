@@ -170,6 +170,9 @@
     <Compile Include="HOLoanApproval.xaml.cs">
       <DependentUpon>HOLoanApproval.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoadingProgress.xaml.cs">
+      <DependentUpon>LoadingProgress.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoanAfterHimark.xaml.cs">
       <DependentUpon>LoanAfterHimark.xaml</DependentUpon>
     </Compile>
@@ -331,6 +334,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HOLoanApproval.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoadingProgress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

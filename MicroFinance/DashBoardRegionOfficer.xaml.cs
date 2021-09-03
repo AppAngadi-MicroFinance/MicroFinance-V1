@@ -103,25 +103,27 @@ namespace MicroFinance
         private void ExportHimarkBtn_Click(object sender, RoutedEventArgs e)
         {
             Stopwatch stopwatch2 = new Stopwatch();
-            stopwatch2.Start();
-            MainWindow.TimeBuilder.Append("\nStarting Time for CreateHimarkFile : " + stopwatch2.Elapsed.Milliseconds.ToString());
-            List<HiMark> Himarklist = new List<HiMark>();
+
+            List<HimarkModel> HimarkList = new List<HimarkModel>();
+            HimarkList = HimarkRepository.GetDetailsForReport(RequestList);
+            //stopwatch2.Start();
+            //MainWindow.TimeBuilder.Append("\nStarting Time for CreateHimarkFile : " + stopwatch2.Elapsed.Milliseconds.ToString());
+            //List<HiMark> Himarklist = new List<HiMark>();
             HiMark himarkReport = new HiMark();
-            foreach (LoanProcess lp in loanDetails)
-            {
-                himarkReport = new HiMark(lp);
-                Himarklist.Add(himarkReport);
-            }
+            //foreach (LoanProcess lp in loanDetails)
+            //{
+            //    himarkReport = new HiMark(lp);
+            //    Himarklist.Add(himarkReport);
+            //}
             try
             {
                 himarkReport = new HiMark();
-                himarkReport.hiMarksList = Himarklist;
-                himarkReport.createHimarkXls();
+                himarkReport.createHimarkXls(HimarkList);
                 MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: Doucuments\\Reports\\Hi-Mark Report");
                 HimarkExportPanel.Visibility = Visibility.Collapsed;
                 MainWindow.TimeBuilder.Append("\nStarting Time for CreateHimarkFile : " + stopwatch2.Elapsed.Milliseconds.ToString());
                 stopwatch2.Stop();
-                System.Windows.MessageBox.Show(MainWindow.TimeBuilder.ToString());
+               // System.Windows.MessageBox.Show(MainWindow.TimeBuilder.ToString());
             }
             catch (Exception ex)
             {
