@@ -22,6 +22,7 @@ using MicroFinance.Modal;
 using MicroFinance.Reports;
 using Microsoft.Win32;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -35,7 +36,8 @@ namespace MicroFinance
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
-        public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
+
+        public static List<HimarkRequestView> RequestList = new List<HimarkRequestView>();
         LoanProcess loanProcess = new LoanProcess();
         public DashBoardRegionOfficer()
         {
@@ -89,11 +91,13 @@ namespace MicroFinance
         private void HimarkBtn_Click(object sender, RoutedEventArgs e)
         {
            
+           
+            //loanProcess = new LoanProcess();
+            //loanProcess.GetRequestList();
+            //loanDetails = loanProcess.RequestList;
+            RequestList = HimarkRepository.GetHimarkRequestList();
+            RequestedListBoxNew.ItemsSource = RequestList;
             HimarkExportPanel.Visibility = Visibility.Visible;
-            loanProcess = new LoanProcess();
-            loanProcess.GetRequestList();
-            loanDetails = loanProcess.RequestList;
-            RequestedListBoxNew.ItemsSource = loanDetails;
         }
 
         private void ExportHimarkBtn_Click(object sender, RoutedEventArgs e)

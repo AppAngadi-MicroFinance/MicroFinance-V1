@@ -13,6 +13,42 @@
     </Page.Resources>
 
     <Grid Background="LightBlue">
-       
+        <Border Height="50" Width="700" CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" Background="White" Visibility="Collapsed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Border BorderThickness="0,0,1,0" BorderBrush="Gray"></Border>
+                <TextBlock  Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource Regular}"></TextBlock>
+                <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="1"></Border>
+                <TextBlock Grid.Column="1" Text="{Binding GroupName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}" TextWrapping="Wrap"></TextBlock>
+                <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="2"></Border>
+                <TextBlock TextWrapping="Wrap" Grid.Column="2" Text="Ashraf Ali" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="3"></Border>
+                <TextBlock Grid.Column="3" Text="{Binding LoanAmount,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource NumberRegular}"></TextBlock>
+                <ToggleButton Grid.Column="4" Style="{StaticResource ToggleShow}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsOpen,ElementName=CustomerViewPanel}" Margin="0,0,0,0"></ToggleButton>
+            </Grid>
+        </Border>
+        <Border Height="40" Width="710" Background="White" CornerRadius="5" BorderThickness="1" BorderBrush="Gray">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="Gray" BorderThickness="0,0,1,0"></Border>
+                <TextBlock Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="1"></Border>
+                <TextBlock Grid.Column="1" Text="{Binding }" Style="{StaticResource NumberRegular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="2"></Border>
+                <TextBlock Grid.Column="2" Text="{Binding LoanPeriod,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Grid.Column="3" Text="{Binding RequestBy,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

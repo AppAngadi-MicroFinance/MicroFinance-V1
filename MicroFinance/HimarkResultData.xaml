@@ -21,125 +21,147 @@
         <TextBlock Text="Hi-Mark Result" Style="{StaticResource Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"></TextBlock>
         <TextBlock Text="Category" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Top" Margin="35,20,0,0" x:Name="CategoryText"></TextBlock>
         <ComboBox Style="{StaticResource combo}" x:Name="CategoryCombo" SelectionChanged="CategoryCombo_SelectionChanged" Grid.Row="1" Height="40" Width="300" VerticalAlignment="Top" Margin="-40,50,0,0"></ComboBox>
-        <TextBlock Text="Accepte Customers" Grid.Row="1" Grid.Column="1" Style="{StaticResource SubTitle}" VerticalAlignment="Top" Margin="50,20,0,0" x:Name="StatusText"></TextBlock>
-        <ListBox Grid.Row="1" x:Name="HimarkResultList" Grid.Column="1" Height="430" Width="560" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,50,0,0" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border Height="50" Width="550" Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" >
-                        <Grid Height="46" Width="545" ShowGridLines="False" Name="CustomerTemplateView">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="280"/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="50"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SubTitle}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"></TextBlock>
-                            <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                <TextBlock Text="GN:" Style="{StaticResource Regular}"></TextBlock>
-                                <TextBlock Text="{Binding GroupName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Margin="5,0,0,0"></TextBlock>
-                            </StackPanel>
-                            <ToggleButton Grid.Column="2" Style="{StaticResource ToggleShow}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsOpen,ElementName=CustomerViewPanel}" Margin="0,0,0,0"></ToggleButton>
+        <TextBlock Text="Accepte Customers" Grid.Row="1" Grid.Column="1" Style="{StaticResource SubTitle}" VerticalAlignment="Top" Margin="50,10,0,0" x:Name="StatusText"></TextBlock>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="-130,0,0,0" VerticalAlignment="Center">
+            <Border Height="50" Margin="0,0,0,0" Grid.Column="1" Grid.Row="1" Width="715" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Blue">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderThickness="0,0,1,0" BorderBrush="Gray"></Border>
+                    <TextBlock  Text="Customer Name" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                    <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="1"></Border>
+                    <TextBlock Grid.Column="1" Text="GroupName" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}" TextWrapping="Wrap"></TextBlock>
+                    <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="2"></Border>
+                    <TextBlock Grid.Column="2" Text="FO-Name" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                    <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="3"></Border>
+                    <TextBlock Grid.Column="3" Text="Status" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                    <TextBlock Text="View" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" Grid.Column="4"></TextBlock>
+                </Grid>
+            </Border>
+            <ListBox Grid.Row="1" x:Name="HimarkResultList" Grid.Column="1" Height="400" Width="715" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Margin="0,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Height="50" Width="700" CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" Background="{Binding MouseEnter, ElementName=HimarkResultList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderThickness="0,0,1,0" BorderBrush="Gray"></Border>
+                                <TextBlock  Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource Regular}"></TextBlock>
+                                <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="1"></Border>
+                                <TextBlock Grid.Column="1" Text="{Binding GroupName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}" TextWrapping="Wrap"></TextBlock>
+                                <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="2"></Border>
+                                <TextBlock TextWrapping="Wrap" Grid.Column="2" Text="{Binding FOName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                                <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="3"></Border>
+                                <TextBlock Grid.Column="3" Text="{Binding Status,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource NumberRegular}"></TextBlock>
+                                <ToggleButton Grid.Column="4" Style="{StaticResource ToggleShow}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsOpen,ElementName=CustomerViewPanel}" Margin="0,0,0,0"></ToggleButton>
+                                <Popup x:Name="CustomerViewPanel" AllowsTransparency="True" Height="670" Width="1366" Placement="AbsolutePoint">
+                                    <Border Height="400" BorderBrush="Gray" BorderThickness="2" Width="1000" Background="White" CornerRadius="5">
+                                        <Grid  Background="White" ShowGridLines="False" Width="990" Height="390" x:Name="CustViewDetailsGrid">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="10*"/>
+                                                <RowDefinition Height="70*"/>
+                                                <RowDefinition Height="20*"></RowDefinition>
+                                            </Grid.RowDefinitions>
 
+                                            <ToggleButton Grid.Column="2" Style="{StaticResource ToggleModalClose}" HorizontalAlignment="Right" Margin="0,0,20,0" IsChecked="{Binding IsOpen,ElementName=CustomerViewPanel}" Panel.ZIndex="3"></ToggleButton>
+                                            <TextBlock Grid.Column="0" Text="Hi-Mark Details" Margin="50,0,0,0" Style="{StaticResource SubTitle}" VerticalAlignment="Bottom"></TextBlock>
+                                            <TextBlock Grid.Column="1" Width="250" HorizontalAlignment="Left" Text="DPD Payment History" Style="{StaticResource SubTitle}" Margin="50,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            <Border Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"  BorderBrush="#707070" BorderThickness="1" Height="250" Width="400" CornerRadius="2" Background="#E8FFF2" Margin="0,-50,0,0">
+                                                <Grid Width="390" x:Name="CustomerviewDetailsGrid" >
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="38*"/>
+                                                        <ColumnDefinition Width="2*"/>
+                                                        <ColumnDefinition Width="60*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Text="Customer Name" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="0" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SubTitle}" Grid.Column="2" Foreground="Black"></TextBlock>
+                                                    <TextBlock Text="Group Name" Style="{StaticResource Regular}" Grid.Row="1"></TextBlock>
+                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text="{Binding GroupName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Column="2" Grid.Row="1" Foreground="Black"></TextBlock>
+                                                    <TextBlock Text="Himark Status" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
+                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text="{Binding Status,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Column="2" Style="{StaticResource Regular}" Grid.Row="2" FontWeight="Bold"></TextBlock>
+                                                    <TextBlock Text="Remark" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text="{Binding HiMarkRemark,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="3" Style="{StaticResource NumberRegular}" ></TextBlock>
+                                                    <TextBlock Text="Active Loans" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text="{Binding ActiveUnsecureLoan,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text="Active Loan in Last 6 Months" TextWrapping="Wrap" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text="{Binding ActiveUnsecureLoanin6Months,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text="Outstanding Amount" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text=":" Grid.Column="1" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text="{Binding OutstandingAmount,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
 
+                                                </Grid>
+                                            </Border>
+                                            <Border CornerRadius="2" Grid.Column="1" Grid.Row="1" BorderBrush="#707070" BorderThickness="1" Height="220" Width="400" Background="#E8FFF2">
+                                                <ScrollViewer Background="#E8FFF2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="210" Width="390" >
+                                                    <TextBlock Style="{StaticResource Regular}" Text="{Binding DPDSummary,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0" FontSize="20" FontWeight="SemiBold"></TextBlock>
+                                                </ScrollViewer>
+                                            </Border>
 
-                            <Popup x:Name="CustomerViewPanel" AllowsTransparency="True" Height="670" Width="1366" Placement="AbsolutePoint">
-                                <Border Height="400" BorderBrush="Gray" BorderThickness="2" Width="1000" Background="White" CornerRadius="5">
-                                    <Grid  Background="White" ShowGridLines="False" Width="990" Height="390" x:Name="CustViewDetailsGrid">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="10*"/>
-                                            <RowDefinition Height="70*"/>
-                                            <RowDefinition Height="20*"></RowDefinition>
-                                        </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
 
-                                        <ToggleButton Grid.Column="2" Style="{StaticResource ToggleModalClose}" HorizontalAlignment="Right" Margin="0,0,20,0" IsChecked="{Binding IsOpen,ElementName=CustomerViewPanel}" Panel.ZIndex="3"></ToggleButton>
-                                        <TextBlock Grid.Column="0" Text="Hi-Mark Details" Margin="50,0,0,0" Style="{StaticResource SubTitle}" VerticalAlignment="Bottom"></TextBlock>
-                                        <TextBlock Grid.Column="1" Width="250" HorizontalAlignment="Left" Text="DPD Payment History" Style="{StaticResource SubTitle}" Margin="50,0,0,0" VerticalAlignment="Bottom"></TextBlock>
-                                        <Border Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"  BorderBrush="#707070" BorderThickness="1" Height="250" Width="400" CornerRadius="2" Background="#E8FFF2" Margin="0,-50,0,0">
-                                            <Grid Width="390" x:Name="CustomerviewDetailsGrid" >
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="38*"/>
-                                                    <ColumnDefinition Width="2*"/>
-                                                    <ColumnDefinition Width="60*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                </Grid.RowDefinitions>
-                                                <TextBlock Text="Customer Name" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="0" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SubTitle}" Grid.Column="2" Foreground="Black"></TextBlock>
-                                                <TextBlock Text="Group Name" Style="{StaticResource Regular}" Grid.Row="1"></TextBlock>
-                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text="{Binding GroupName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" Grid.Column="2" Grid.Row="1" Foreground="Black"></TextBlock>
-                                                <TextBlock Text="Himark Status" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
-                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text="{Binding Status,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Column="2" Style="{StaticResource Regular}" Grid.Row="2" FontWeight="Bold"></TextBlock>
-                                                <TextBlock Text="Remark" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text="{Binding HiMarkRemark,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="3" Style="{StaticResource NumberRegular}" ></TextBlock>
-                                                <TextBlock Text="Active Loans" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text="{Binding ActiveUnsecureLoan,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text="Active Loan in Last 6 Months" TextWrapping="Wrap" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text="{Binding ActiveUnsecureLoanin6Months,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text="Outstanding Amount" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text=":" Grid.Column="1" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text="{Binding OutstandingAmount,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="6" Style="{StaticResource Regular}"></TextBlock>
+                                                <!-- <Button Style="{StaticResource DangerBtn}" Margin="10,0,0,0" Content="Reject"></Button>-->
+                                            </StackPanel>
+                                            <Border Grid.Row="2" Grid.Column="1" Height="40" Width="400" Visibility="Hidden" BorderBrush="#707070" BorderThickness="1">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="100px"/>
+                                                        <ColumnDefinition Width="40px"/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="Back Log       :" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Text="Yes" Grid.Column="1" Style="{StaticResource Regular }"></TextBlock>
+                                                    <TextBlock Grid.Column="2" Text="Back Log Amount:" Style="{StaticResource Regular}"></TextBlock>
+                                                    <TextBlock Grid.Column="3" Text="2000" Style="{StaticResource NumberRegular}" Margin="10,0,0,0"></TextBlock>
+                                                    <Button Grid.Column="4" Style="{StaticResource Show}" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
+                                                </Grid>
+                                            </Border>
 
-                                            </Grid>
-                                        </Border>
-                                        <Border CornerRadius="2" Grid.Column="1" Grid.Row="1" BorderBrush="#707070" BorderThickness="1" Height="220" Width="400" Background="#E8FFF2">
-                                            <ScrollViewer Background="#E8FFF2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Height="210" Width="390" >
-                                                <TextBlock Style="{StaticResource Regular}" Text="{Binding DPDSummary,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0" FontSize="20" FontWeight="SemiBold"></TextBlock>
-                                            </ScrollViewer>
-                                        </Border>
+                                            <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Orientation="Horizontal">
+                                                <Button Style="{StaticResource PrimaryBtn}" Content="Accept" x:Name="AcceptBtn" Uid="{Binding RequestID,Mode=OneWay}" Click="AcceptBtn_Click"></Button>
+                                                <Button Style="{StaticResource GreenBtn}" Content="Retain" Margin="10,0,0,0" x:Name="RetainBtn" Uid="{Binding RequestID,Mode=OneWay}" Click="RetainBtn_Click"></Button>
+                                                <Button Margin="10,0,0,0" Style="{StaticResource DangerBtn}" Content="Reject" x:Name="RejectBtn" Uid="{Binding RequestID}" Click="RejectBtn_Click"></Button>
+                                            </StackPanel>
 
-                                        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
-
-                                            <!-- <Button Style="{StaticResource DangerBtn}" Margin="10,0,0,0" Content="Reject"></Button>-->
-                                        </StackPanel>
-                                        <Border Grid.Row="2" Grid.Column="1" Height="40" Width="400" Visibility="Hidden" BorderBrush="#707070" BorderThickness="1">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="100px"/>
-                                                    <ColumnDefinition Width="40px"/>
-                                                    <ColumnDefinition/>
-                                                    <ColumnDefinition/>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock Text="Back Log       :" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Text="Yes" Grid.Column="1" Style="{StaticResource Regular }"></TextBlock>
-                                                <TextBlock Grid.Column="2" Text="Back Log Amount:" Style="{StaticResource Regular}"></TextBlock>
-                                                <TextBlock Grid.Column="3" Text="2000" Style="{StaticResource NumberRegular}" Margin="10,0,0,0"></TextBlock>
-                                                <Button Grid.Column="4" Style="{StaticResource Show}" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
-                                            </Grid>
-                                        </Border>
-
-                                        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Orientation="Horizontal">
-                                            <Button Style="{StaticResource PrimaryBtn}" Content="Accept" x:Name="AcceptBtn" Uid="{Binding RequestID,Mode=OneWay}" Click="AcceptBtn_Click"></Button>
-                                            <Button Style="{StaticResource GreenBtn}" Content="Retain" Margin="10,0,0,0" x:Name="RetainBtn" Uid="{Binding RequestID,Mode=OneWay}" Click="RetainBtn_Click"></Button>
-                                            <Button Margin="10,0,0,0" Style="{StaticResource DangerBtn}" Content="Reject" x:Name="RejectBtn" Uid="{Binding RequestID}" Click="RejectBtn_Click"></Button>
-                                        </StackPanel>
-
-                                    </Grid>
-                                </Border>
-                            </Popup>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                                        </Grid>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Style="{StaticResource PrimaryBtn}" Content="Approve" x:Name="BulkAcceptBtn" Click="BulkAcceptBtn_Click"></Button>
             <Button Style="{StaticResource DangerBtn}" Content="Reject" x:Name="BulkRejectBtn" Click="BulkRejectBtn_Click"></Button>

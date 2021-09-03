@@ -202,6 +202,7 @@
     <Compile Include="Modal\Notification.cs" />
     <Compile Include="Modal\OfficerModal.cs" />
     <Compile Include="Modal\PeerGroup.cs" />
+    <Compile Include="Modal\PeerGroupNameView.cs" />
     <Compile Include="Modal\Region.cs" />
     <Compile Include="Modal\GTtoSamunnati.cs" />
     <Compile Include="Modal\SelfHeadGroupModal.cs" />
@@ -239,6 +240,8 @@
     <Compile Include="VerifyCustomer.xaml.cs">
       <DependentUpon>VerifyCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\HimarkRepository.cs" />
+    <Compile Include="ViewModel\HimarkRequestView.cs" />
     <Page Include="AddCustomer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
