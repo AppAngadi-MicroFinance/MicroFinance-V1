@@ -22,40 +22,46 @@
                     <TextBlock x:Name="xOfficerName" Margin="10,0,0,0" Foreground="White" Style="{StaticResource Regular}" FontSize="22" FontWeight="SemiBold"></TextBlock>
                 </Border>
 
-                <ItemsControl x:Name="xFOworkLoadList"  Grid.Row="1" Background="WhiteSmoke" Width="300">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="20"></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="{Binding WeekDay}" FontSize="18" FontWeight="SemiBold" Foreground="Black"></TextBlock>
-                                <ItemsControl Grid.Row="1" ItemsSource="{Binding TimeList}" HorizontalAlignment="Left" Margin="0,10,0,0">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Orientation="Horizontal"></WrapPanel>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid Width="40" Height="auto" Background="Orange" Margin="5,0,0,0">
-                                                <TextBlock Text="{Binding Time}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                <Border Grid.Row="1" BorderBrush="#781f9f" BorderThickness="3">
+                    <ItemsControl x:Name="xFOworkLoadList"   Background="WhiteSmoke" Width="300">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="{Binding WeekDay}" FontSize="18" FontWeight="SemiBold" Foreground="Black"></TextBlock>
+                                    <ItemsControl Grid.Row="1" ItemsSource="{Binding TimeList}" HorizontalAlignment="Left" Margin="0,10,0,0">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal"></WrapPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Width="40" Height="auto" Background="Orange" Margin="5,0,0,0">
+                                                    <TextBlock Text="{Binding Time}" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                            TextAlignment="Center" Foreground="DarkBlue" FontWeight="SemiBold" FontSize="14"></TextBlock>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+                
             </Grid>
         </Border>
-        <Border Width="600" Height="400" BorderThickness="5" BorderBrush="#781f9f" Margin="400,0,0,0">
+        <Border Width="600" Height="600" BorderThickness="5" BorderBrush="#781f9f" Margin="400,0,0,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -75,21 +81,52 @@
                 <!--SHG Name--><!--collapsed-->
                 <TextBlock Text="SHG name" Grid.Column="0" Grid.Row="4" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
                            VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
-                <TextBox x:Name="xSHGname" Width="300" Grid.Column="1" Grid.Row="4" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBox>
+                <TextBox x:Name="xSHGname" Width="300" Grid.Column="1" Grid.Row="4" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                         VerticalContentAlignment="Center" FontSize="14" FontWeight="SemiBold" CharacterCasing="Upper"></TextBox>
 
 
                 <!--Collection Day-->
                 <TextBlock Text="Collection Day" Grid.Column="0" Grid.Row="2" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
                            VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
-                <ComboBox x:Name="xDayOfWeek" Width="300" Height="40" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left"></ComboBox>
+                <ComboBox x:Name="xDayOfWeek" Width="300" Height="40" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" VerticalContentAlignment="Center">
+                    <ComboBox.ItemTemplate>
+                        <ItemContainerTemplate>
+                            <Border  BorderThickness="1" Width="200" Height="25">
+                                <TextBlock VerticalAlignment="Center" Text="{Binding}"/>
+                            </Border>
+                        </ItemContainerTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
                 <!--Time-->
                 <TextBlock Text="Time" Grid.Column="0" Grid.Row="3" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
                            VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
                 <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3">
-                    <TextBox x:Name="xTimeBoxH" Width="100" VerticalContentAlignment="Center" TextAlignment="Center"  Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBox>
+                    <!--<TextBox x:Name="xTimeBoxH" Width="100" VerticalContentAlignment="Center" TextAlignment="Center"  Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                             FontSize="14" FontWeight="SemiBold"></TextBox>-->
+                    <ComboBox x:Name="xTimeHour" Width="100" Height="40" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" VerticalContentAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <ItemContainerTemplate>
+                                <StackPanel Height="35">
+                                    <TextBlock Text="Hour" FontWeight="Bold"></TextBlock>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding}" />
+                                </StackPanel>
+                            </ItemContainerTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <TextBlock Text=":" FontSize="18" FontWeight="Bold" VerticalAlignment="Bottom" Margin="10,0,10,10"></TextBlock>
-                    <TextBox x:Name="xTimeBoxM" Width="100" VerticalContentAlignment="Center" TextAlignment="Center"  Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBox>
+                    <!--<TextBox x:Name="xTimeBoxM" Width="100"  TextAlignment="Center"  Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                             VerticalContentAlignment="Center" FontSize="14" FontWeight="SemiBold"></TextBox>-->
+                    <ComboBox x:Name="xTimeMinute" Width="100" Height="40" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" VerticalContentAlignment="Center">
+                        <ComboBox.ItemTemplate>
+                            <ItemContainerTemplate>
+                                <StackPanel Height="35">
+                                    <TextBlock Text="Minute" FontWeight="Bold"></TextBlock>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding}" />
+                                </StackPanel>
+                            </ItemContainerTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </StackPanel>
                 
                 
@@ -98,17 +135,36 @@
                            VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
                 <ComboBox x:Name="xOfficerSelect" SelectionChanged="xOfficerSelect_SelectionChanged" Width="300" Height="40" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                     <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="#0eabf2" BorderThickness="1" Width="200" Height="35">
-                                <TextBlock Text="{Binding Name}"/>
+                        <ItemContainerTemplate>
+                            <Border  BorderThickness="1" Width="200" Height="35">
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
                             </Border>
-                        </DataTemplate>
+                        </ItemContainerTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
+                <!--SHG Taluk-->
+                <TextBlock Text="Taluk" Grid.Column="0" Grid.Row="5" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
+                           VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
+                <TextBox x:Name="xSHGTaluk" Width="300" Grid.Column="1" Grid.Row="5" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                         VerticalContentAlignment="Center" FontSize="14" FontWeight="SemiBold" CharacterCasing="Upper"></TextBox>
+
+                <!--SHG Region-->
+                <TextBlock Text="District" Grid.Column="0" Grid.Row="6" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
+                           VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
+                <TextBlock x:Name="xSHGRegion" Width="300" Grid.Column="1" Grid.Row="6" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                           FontSize="16" FontWeight="SemiBold"></TextBlock>
+
+                <!--SHG Region-->
+                <TextBlock Text="State" Grid.Column="0" Grid.Row="7" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
+                           VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
+                <TextBlock x:Name="xSHGState" Text="TAMIL NADU" Width="300" Grid.Column="1" Grid.Row="7" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                           FontSize="16" FontWeight="Bold"></TextBlock>
+
+
 
                 <Button x:Name="xCreateNewSHG" Click="xCreateNewSHG_Click" Style="{StaticResource PrimaryBtn}" Width="200" Height="40" Grid.Column="1"
-                        FontSize="18" Grid.Row="5" Content="Create Center">
+                        FontSize="18" Grid.Row="8" Content="Create Center">
                     
                 </Button>
             </Grid>
