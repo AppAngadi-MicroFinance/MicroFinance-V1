@@ -46,7 +46,13 @@ namespace MicroFinance
             DaysOfWeeks.Add("FRIDAY");
             DaysOfWeeks.Add("SATURDAY");
             DaysOfWeeks.Add("SUNDAY");
-;
+
+            List<int> TimeHour = new List<int> { 6, 7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5 };
+            xTimeHour.ItemsSource = TimeHour;
+
+            List<int> TimeMinute = new List<int> { 0, 30 };
+            xTimeMinute.ItemsSource = TimeMinute;
+
             xDayOfWeek.SelectedIndex = 2;
             xOfficerSelect.SelectedIndex = 1;
 
@@ -58,13 +64,18 @@ namespace MicroFinance
         {
             SHGname = xSHGname.Text;
             Day = xDayOfWeek.SelectedItem.ToString();
-            string Hour = xTimeBoxH.Text;
-            string Minute = xTimeBoxM.Text;
+            string Hour = xTimeHour.SelectedItem.ToString();
+            string Minute = xTimeMinute.SelectedItem.ToString();
             Minute = Minute == string.Empty ? "00" : Minute;
             Time = Hour + ":" + Minute;
             OfficerModal officer = xOfficerSelect.SelectedItem as OfficerModal;
-            InsertIntoSHG(SHGname, Day, Time, officer.FoID);
-            this.NavigationService.Navigate(new DashboardBranchManager());
+
+            string Taluk = xSHGTaluk.Text;
+            string District = xSHGRegion.Text;
+            if (InsertIntoSHG(SHGname,Taluk, District, Day, Time, officer.FoID))
+            {
+                this.NavigationService.Navigate(new DashboardBranchManager());
+            }
         }
 
         List<OfficerModal> GetFieldOfficers(string branchId)
@@ -101,45 +112,79 @@ namespace MicroFinance
             return branchName;
         }
 
+        bool IsFreeTimeForEmp(string empID,string day, string time)
+        {
+            int Count = 0;
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "select COUNT(SHGId) from TimeTable where EmpId = '" + empID + "' and CollectionDay = '" + day + "' and CollectionTime = '" + time + "'";
+                Count = (int)cmd.ExecuteScalar();
+                con.Close();
+                if (Count > 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
 
-        public void InsertIntoSHG(string shgName, string day, string time, string officer)
+
+
+        public bool InsertIntoSHG(string shgName,string taluk, string district, string day, string time, string officer)
         {
             List<OfficerModal> FieldOfficerNames = new List<OfficerModal>();
 
             try
             {
-                string SHGidGenerated = GenerateSHGID();
-                using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+                if(IsFreeTimeForEmp(officer, day, time))
                 {
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.Connection = con;
-                    con.Open();
-                    cmd.CommandText = "insert into SelfHelpGroup(BranchId, SHGId, SHGName, DateOfCreation)values(@branchId,@shgID,@SHGName,@DOC)";
-                    cmd.Parameters.AddWithValue("@branchId", BranchId);
-                    cmd.Parameters.AddWithValue("@shgID", SHGidGenerated);
-                    cmd.Parameters.AddWithValue("@SHGName", shgName);
-                    cmd.Parameters.AddWithValue("@DOC", DateTime.Now.ToString("MM/dd/yyyy"));
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
+                    string SHGidGenerated = GenerateSHGID();
+                    using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+                    {
+                        SqlCommand cmd = new SqlCommand();
+                        cmd.Connection = con;
+                        con.Open();
+                        cmd.CommandText = "insert into SelfHelpGroup(BranchId, SHGId, SHGName,Taluk, District, DateOfCreation)values(@BranchId, @SHGId, @SHGName,@Taluk, @District, @DateOfCreation)";
+                        cmd.Parameters.AddWithValue("@branchId", BranchId);
+                        cmd.Parameters.AddWithValue("@shgID", SHGidGenerated);
+                        cmd.Parameters.AddWithValue("@SHGName", shgName);
+                        cmd.Parameters.AddWithValue("@Taluk", taluk);
+                        cmd.Parameters.AddWithValue("@District", district);
+                        cmd.Parameters.AddWithValue("@DateOfCreation", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
 
-                using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+                    using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+                    {
+                        SqlCommand cmd = new SqlCommand();
+                        cmd.Connection = con;
+                        con.Open();
+                        cmd.CommandText = "insert into TimeTable(SHGId, CollectionTime, CollectionDay,EmpId)values(@shgId,@cTime,@cDay,@empId)";
+                        cmd.Parameters.AddWithValue("@shgId", SHGidGenerated);
+                        cmd.Parameters.AddWithValue("@cTime", time);
+                        cmd.Parameters.AddWithValue("@cDay", day);
+                        cmd.Parameters.AddWithValue("@empId", officer);
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                    return true;
+                }
+                else
                 {
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.Connection = con;
-                    con.Open();
-                    cmd.CommandText = "insert into TimeTable(SHGId, CollectionTime, CollectionDay,EmpId)values(@shgId,@cTime,@cDay,@empId)";
-                    cmd.Parameters.AddWithValue("@shgId", SHGidGenerated);
-                    cmd.Parameters.AddWithValue("@cTime", time);
-                    cmd.Parameters.AddWithValue("@cDay", day);
-                    cmd.Parameters.AddWithValue("@empId", officer);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    MessageBox.Show("Already time alloted for this employee..!");
+                    return false;
                 }
             }
             catch(Exception ex)
             {
-
+                return false;
             }
         }
 
@@ -238,9 +283,27 @@ namespace MicroFinance
         {
             OfficerModal obj = xOfficerSelect.SelectedItem as OfficerModal;
             List<FieldOfficerWorkload> FOworkLoad = GetDaysForFieldOfficer(obj.FoID);
+            xSHGRegion.Text = GetDistrictName(obj.FoID).ToUpper();
             //xFOworkLoadList.DataContext = FOworkLoad;
             xOfficerName.Text = obj.Name;
             xFOworkLoadList.ItemsSource = FOworkLoad;
+        }
+        public string GetDistrictName(string empID)
+        {
+            string Result = string.Empty;
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select RegionName from BranchDetails where Bid = (select BranchId from EmployeeBranch where EmpId = '"+ empID+"')";
+                    Result = (string)sqlcomm.ExecuteScalar();
+                    sqlconn.Close();
+                }
+                return Result;
+            }
         }
 
         List<FieldOfficerWorkload> GetDaysForFieldOfficer(string empId)
@@ -251,7 +314,7 @@ namespace MicroFinance
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 con.Open();
-                cmd.CommandText = "select CollectionDay from TimeTable where EmpId = '" + empId + "'";
+                cmd.CommandText = "select CollectionDay from TimeTable where EmpId = '"+empId+"' group by CollectionDay";
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
