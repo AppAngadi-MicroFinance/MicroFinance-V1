@@ -78,6 +78,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.2.0.0\lib\net40\WpfAnimatedGif.dll</HintPath>
+    </Reference>
     <Reference Include="zxing, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
       <HintPath>..\packages\ZXing.Net.0.16.6\lib\net47\zxing.dll</HintPath>
     </Reference>
@@ -539,6 +542,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Asserts\Icons\powerbutton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\CircleGif.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

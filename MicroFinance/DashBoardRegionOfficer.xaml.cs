@@ -100,30 +100,57 @@ namespace MicroFinance
             HimarkExportPanel.Visibility = Visibility.Visible;
         }
 
-        private void ExportHimarkBtn_Click(object sender, RoutedEventArgs e)
+        private async void ExportHimarkBtn_Click(object sender, RoutedEventArgs e)
         {
-            Stopwatch stopwatch2 = new Stopwatch();
+            //Stopwatch stopwatch2 = new Stopwatch();
 
-            List<HimarkModel> HimarkList = new List<HimarkModel>();
-            HimarkList = HimarkRepository.GetDetailsForReport(RequestList);
-            //stopwatch2.Start();
-            //MainWindow.TimeBuilder.Append("\nStarting Time for CreateHimarkFile : " + stopwatch2.Elapsed.Milliseconds.ToString());
-            //List<HiMark> Himarklist = new List<HiMark>();
-            HiMark himarkReport = new HiMark();
-            //foreach (LoanProcess lp in loanDetails)
+            //List<HimarkModel> HimarkList = new List<HimarkModel>();
+            //HimarkList = HimarkRepository.GetDetailsForReport(RequestList);
+            ////stopwatch2.Start();
+            ////MainWindow.TimeBuilder.Append("\nStarting Time for CreateHimarkFile : " + stopwatch2.Elapsed.Milliseconds.ToString());
+            ////List<HiMark> Himarklist = new List<HiMark>();
+            //HiMark himarkReport = new HiMark();
+            ////foreach (LoanProcess lp in loanDetails)
+            ////{
+            ////    himarkReport = new HiMark(lp);
+            ////    Himarklist.Add(himarkReport);
+            ////}
+            //try
             //{
-            //    himarkReport = new HiMark(lp);
-            //    Himarklist.Add(himarkReport);
+
+            //    himarkReport = new HiMark();
+            //    himarkReport.createHimarkXls(HimarkList);
+            //    MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: Doucuments\\Reports\\Hi-Mark Report");
+            //    
+            //    MainWindow.TimeBuilder.Append("\nStarting Time for CreateHimarkFile : " + stopwatch2.Elapsed.Milliseconds.ToString());
+            //    stopwatch2.Stop();
+            //   // System.Windows.MessageBox.Show(MainWindow.TimeBuilder.ToString());
             //}
+            //catch (Exception ex)
+            //{
+            //    MainWindow.StatusMessageofPage(0, ex.Message);
+            //}
+            HimarkExportPanel.Visibility = Visibility.Collapsed;
+            GifPanel.Visibility = Visibility.Visible;
+            await System.Threading.Tasks.Task.Run(() => ExportHimarkFile());
+            GifPanel.Visibility = Visibility.Collapsed;
+           
+            
+
+
+
+        }
+         void ExportHimarkFile()
+        {
+            
+            List<HimarkModel> HimarkList = new List<HimarkModel>();
+             HimarkList =HimarkRepository.GetDetailsForReport(RequestList);
+            HiMark himarkReport = new HiMark();
             try
             {
                 himarkReport = new HiMark();
                 himarkReport.createHimarkXls(HimarkList);
-                MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: Doucuments\\Reports\\Hi-Mark Report");
-                HimarkExportPanel.Visibility = Visibility.Collapsed;
-                MainWindow.TimeBuilder.Append("\nStarting Time for CreateHimarkFile : " + stopwatch2.Elapsed.Milliseconds.ToString());
-                stopwatch2.Stop();
-               // System.Windows.MessageBox.Show(MainWindow.TimeBuilder.ToString());
+                MainWindow.StatusMessageofPage(1,"File Exported Successfully!...");
             }
             catch (Exception ex)
             {

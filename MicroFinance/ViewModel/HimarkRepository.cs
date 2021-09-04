@@ -105,6 +105,7 @@ namespace MicroFinance.ViewModel
                                 HMData.FIGTaluk = reader3.GetString(1);
                                 HMData.FIGDistrict = reader3.GetString(2);
                                 HMData.State = "TamilNadu";
+                                HMData.FIGState = "TAMIL NADU";
                             }
                         }
                         reader3.Close();
@@ -178,10 +179,7 @@ namespace MicroFinance.ViewModel
                         }
                         reader2.Close();
                         ReportList.Add(HMData);
-
-
-                    }
-                    
+                    }    
                 }
             }
             return ReportList;

@@ -2105,10 +2105,10 @@ namespace MicroFinance.Reports
                 xlWorkSheet.Cells[RowStart, 3] = hm.FIGName;
                 xlWorkSheet.Cells[RowStart, 4] = hm.FIGFormationDate;
                 //xlWorkSheet.Cells[RowStart, 5] = hm.loandetails.SHGName.ToUpper();
-                xlWorkSheet.Cells[RowStart, 5] = "Null";
-                xlWorkSheet.Cells[RowStart, 6] = "Null";
-                xlWorkSheet.Cells[RowStart, 7] = "Null";
-                xlWorkSheet.Cells[RowStart, 8] = "Null";
+                xlWorkSheet.Cells[RowStart, 5] = hm.FIGVillage;
+                xlWorkSheet.Cells[RowStart, 6] = hm.FIGTaluk;
+                xlWorkSheet.Cells[RowStart, 7] = hm.FIGDistrict;
+                xlWorkSheet.Cells[RowStart, 8] = hm.FIGState;
                 //End Self Help Group Details
                 xlWorkSheet.Cells[RowStart, 9] = "";
                 xlWorkSheet.Cells[RowStart, 10] = "";
