@@ -2167,6 +2167,8 @@ namespace MicroFinance.Reports
                 xlWorkSheet.Cells[RowStart, 63] = "AGRI";
                 xlWorkSheet.Cells[RowStart, 64] = hm.LoanTenure;
                 xlWorkSheet.Cells[RowStart, 65] = hm.SamFinBranch;
+                xlWorkSheet.Cells[RowStart, 68] = hm.DoorNO+","+hm.StreetName+","+hm.Village+","+hm.Taluk+","+hm.District+","+hm.State+".";
+
                 RowStart++;
                 i++;
             }
