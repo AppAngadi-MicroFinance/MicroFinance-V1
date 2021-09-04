@@ -313,7 +313,10 @@ namespace MicroFinance
             {
                 if (item.SHGName == SelectSHG.SelectedItem.ToString())
                 {
-                    SelectedPG.Add(item.Name);
+                    if(customer.IsPeerGroupFull(item.PG_Id))
+                    {
+                        SelectedPG.Add(item.Name);
+                    }
                 }
             }
 

@@ -1164,6 +1164,23 @@ namespace MicroFinance.Modal
         }
         private bool _ishavingGuarantorAlready = false;
         private bool _ishavingNomineeAlready = false;
+        public bool IsPeerGroupFull(string pgID)
+        {
+            int count = 0;
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sqlConnection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "select COUNT(CustId) from CustomerGroup where PeerGroupId = '" + pgID + "'";
+                count = (int)sqlCommand.ExecuteScalar();
+                sqlConnection.Close();
+            }
+            if (count >= 5)
+                return false;
+            else
+                return true;
 
+        }
     }
 }
