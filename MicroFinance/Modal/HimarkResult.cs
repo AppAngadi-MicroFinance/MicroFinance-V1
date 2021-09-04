@@ -585,6 +585,7 @@ namespace MicroFinance.Modal
                 }
             }
         }
+        public string FOName { get; set; }
         public string CustomerName { get; set; }
         public string GroupName { get; set; }
         public DateTime ReportDate { get; set; }
@@ -611,6 +612,9 @@ namespace MicroFinance.Modal
                     sqlcomm.Connection = sqlconn;
                     sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + CustomerID + "'))";
                     GroupName = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select Name from Employee where EmpId=(select EmpId from TimeTable where SHGId=(select SHGid from PeerGroup  where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+CustomerID+"')))";
+                    FOName = (string)sqlcomm.ExecuteScalar();
+
                 }
             }
         }

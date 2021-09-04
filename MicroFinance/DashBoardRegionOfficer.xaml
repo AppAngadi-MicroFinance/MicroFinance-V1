@@ -4,12 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
       d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
       Title="DashBoardRegionOfficer">
 
     <Grid>
-        <!--Section A-->
+        <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
+        </StackPanel>
+            <!--Section A-->
         <!-- 1. Find Customer | 2. Find Employee | 3. Add New Employee-->
         <Grid Width="400" Height="170" Margin="130,100,0,0" Visibility="Collapsed"
               HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -221,66 +226,57 @@
                 <TextBlock Text="Requested Customers" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="20,0,0,0"></TextBlock>
                 <Button Style="{StaticResource ModalClose}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,25,0" x:Name="HimarkPanelCloseBtn" Click="HimarkPanelCloseBtn_Click"></Button>
                 <Separator BorderBrush="Gray" BorderThickness="3" VerticalAlignment="Bottom"></Separator>
-                <Border Width="710" Height="30" Background="Blue" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,10,0,0">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="150"/>
-                        </Grid.ColumnDefinitions>
-                        <Border BorderBrush="White" BorderThickness="1">
-                            <TextBlock Text="Request ID" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
-                        </Border>
-                        <Border Grid.Column="1" BorderBrush="White" BorderThickness="1">
-                            <TextBlock Text="Name" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
-                        </Border>
-                        <Border Grid.Column="2" BorderBrush="White" BorderThickness="1">
-                            <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
-                        </Border>
-                        <Border Grid.Column="3" BorderBrush="White" BorderThickness="1">
-                            <TextBlock Text="Loan Period" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
-                        </Border>
-                        <Border Grid.Column="4" BorderBrush="White" BorderThickness="1" Width="150">
-                            <TextBlock Text="Requested By" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
-                        </Border>
-                    </Grid>
-                </Border>
-                <ScrollViewer Grid.Row="1" Height="340" Margin="12,35,0,0" Width="710" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left"  Panel.ZIndex="2">
-                    <ItemsControl Grid.Row="1" Margin="-5,0,0,0" Height="340" Width="700" Name="RequestedListBoxNew" MouseDoubleClick="RequestedListBoxNew_MouseDoubleClick">
-                        <ItemsControl.ItemTemplate>
+                <StackPanel Background="Transparent" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Border Width="710" Height="40" Background="Blue" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Border BorderBrush="White" BorderThickness="1">
+                                <TextBlock Text="Customer Name" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                            </Border>
+                            <Border Grid.Column="1" BorderBrush="White" BorderThickness="1">
+                                <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                            </Border>
+                            <Border Grid.Column="2" BorderBrush="White" BorderThickness="1">
+                                <TextBlock Text="Loan Period" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                            </Border>
+                            <Border Grid.Column="3" BorderBrush="White" BorderThickness="1">
+                                <TextBlock Text="FO-Name" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ListView Grid.Row="1" Height="340" Width="710" Name="RequestedListBoxNew" MouseDoubleClick="RequestedListBoxNew_MouseDoubleClick" Background="White" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Border Width="700" Height="30" Background="LightBlue" Grid.Row="2">
+                                <Border Height="40" Width="710" Background="White" CornerRadius="5" BorderThickness="1" BorderBrush="Gray">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
-                                            <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <Border BorderBrush="White" BorderThickness="2">
-                                            <TextBlock Text="{Binding LoanRequestID,Mode=OneWay}" FontSize="12" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
-                                        </Border>
-                                        <Border Grid.Column="1" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock Text="{Binding CustomerName,Mode=OneWay}" TextWrapping="WrapWithOverflow" FontSize="12" Style="{StaticResource Regular}" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
-                                        </Border>
-                                        <Border Grid.Column="2" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock Text="{Binding LoanAmount,Mode=OneWay}" Style="{StaticResource Regular}" FontSize="12" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
-                                        </Border>
-                                        <Border Grid.Column="3" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock Text="{Binding LoanPeriod,Mode=OneWay}" Style="{StaticResource Regular}" FontSize="12" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
-                                        </Border>
-                                        <Border Grid.Column="4" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock Text="{Binding EmployeeID,Mode=OneWay}" Style="{StaticResource Regular}" FontSize="12" HorizontalAlignment="Center" FontWeight="SemiBold"></TextBlock>
-                                        </Border>
+                                        <Border BorderBrush="Gray" BorderThickness="0,0,1,0"></Border>
+                                        <TextBlock Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                        <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="1"></Border>
+                                        <TextBlock Grid.Column="1" Text="{Binding LoanAmount,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                        <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="2"></Border>
+                                        <TextBlock Grid.Column="2" Text="{Binding LoanPeriod,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                        <TextBlock Grid.Column="3" Text="{Binding EmpName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+                
+                
+                    
+                
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,50,0" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button Style="{StaticResource PrimaryBtn}" Content="Export Himark File" Width="150" x:Name="ExportHimarkBtn" Click="ExportHimarkBtn_Click"></Button>

@@ -1153,7 +1153,7 @@ namespace MicroFinance.Reports
         //    }
         //    return ac;
         //}
-        public void createHimarkXls()
+        public void createHimarkXls(List<HimarkModel> RequestList)
         {
             Stopwatch time = new Stopwatch();
             time.Start();
@@ -2054,7 +2054,7 @@ namespace MicroFinance.Reports
             SLDated.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             MainWindow.TimeBuilder.Append("\nEnd Time for CreateHimarkFile : " + time.Elapsed.Milliseconds.ToString());
             time.Stop();
-            FillHimarkDate(xlWorkSheet, hiMarksList);
+            FillHimarkDate(xlWorkSheet, RequestList);
             string dir = "";
             try
             {
@@ -2091,82 +2091,84 @@ namespace MicroFinance.Reports
             }
         }
 
-        public void FillHimarkDate(Worksheet xlWorkSheet, List<HiMark> himarkdate)
+        private void FillHimarkDate(Worksheet xlWorkSheet, List<HimarkModel> himarkdate)
         {
             Stopwatch stopwatch1 = new Stopwatch();
             stopwatch1.Start();
             MainWindow.TimeBuilder.Append("\nStarting Time for Write HimarkFile : " + stopwatch1.Elapsed.Milliseconds.ToString());
             int i = 1;
             int RowStart = 2;
-            foreach(HiMark hm in himarkdate)
+            foreach(HimarkModel hm in himarkdate)
             {
                 xlWorkSheet.Cells[RowStart, 1] = i;
                 xlWorkSheet.Cells[RowStart, 2] = hm.CBOName;
                 xlWorkSheet.Cells[RowStart, 3] = hm.FIGName;
-                xlWorkSheet.Cells[RowStart, 4] = DateTime.Today.ToString("dd-MM-yyyy");
+                xlWorkSheet.Cells[RowStart, 4] = hm.FIGFormationDate;
                 //xlWorkSheet.Cells[RowStart, 5] = hm.loandetails.SHGName.ToUpper();
-                xlWorkSheet.Cells[RowStart, 5] = "Null";
-                xlWorkSheet.Cells[RowStart, 6] = "Null";
-                xlWorkSheet.Cells[RowStart, 7] = "Null";
-                xlWorkSheet.Cells[RowStart, 8] = "Null";
-                xlWorkSheet.Cells[RowStart, 9] = "Null";
-                xlWorkSheet.Cells[RowStart, 10] = "Null";
-                xlWorkSheet.Cells[RowStart, 11] = "Null";
-                xlWorkSheet.Cells[RowStart, 12] = "Null";
-                xlWorkSheet.Cells[RowStart, 13] = "Default-Manaparai";
-                xlWorkSheet.Cells[RowStart, 14] = hm.loandetails.LoanAmount;
-                xlWorkSheet.Cells[RowStart, 15] = hm.loandetails.LoanRequestID;
-                string empid= hm.loandetails.EmployeeID;
-                xlWorkSheet.Cells[RowStart, 16] = "E"+empid;
-                xlWorkSheet.Cells[RowStart, 17] = "Null";
+                xlWorkSheet.Cells[RowStart, 5] = hm.FIGVillage;
+                xlWorkSheet.Cells[RowStart, 6] = hm.FIGTaluk;
+                xlWorkSheet.Cells[RowStart, 7] = hm.FIGDistrict;
+                xlWorkSheet.Cells[RowStart, 8] = hm.FIGState;
+                //End Self Help Group Details
+                xlWorkSheet.Cells[RowStart, 9] = "";
+                xlWorkSheet.Cells[RowStart, 10] = "";
+                xlWorkSheet.Cells[RowStart, 11] = "";
+                xlWorkSheet.Cells[RowStart, 12] = "";
+                xlWorkSheet.Cells[RowStart, 13] = "";
+                xlWorkSheet.Cells[RowStart, 14] = hm.EligibleLoanAmount;
+                xlWorkSheet.Cells[RowStart, 15] = "";
+                xlWorkSheet.Cells[RowStart, 16] = "";
+                xlWorkSheet.Cells[RowStart, 17] = hm.RMName;
                 xlWorkSheet.Cells[RowStart, 18] = DateTime.Today.ToString("dd-MMM-yyyy");
-                xlWorkSheet.Cells[RowStart, 19] = ((hm.loandetails.IsLeader)?"Leader":"Member");
-                xlWorkSheet.Cells[RowStart, 20] = hm.loandetails.CustomerName;
-                xlWorkSheet.Cells[RowStart, 21] = hm.loandetails.Gender;
-                xlWorkSheet.Cells[RowStart, 22] = hm.loandetails.ContactNumber;
-                xlWorkSheet.Cells[RowStart, 23] = hm.loandetails.DateofBirth.ToString("dd-MM-yyyy");
-                xlWorkSheet.Cells[RowStart, 24] = hm.loandetails.Age;
-                xlWorkSheet.Cells[RowStart, 25] = hm.loandetails.NameofPhotoProof;
-                string Aadharnumberformat = hm.loandetails.AadharNo.Substring(0, 4) + " " + hm.loandetails.AadharNo.Substring(4, 4) + " " + hm.loandetails.AadharNo.Substring(8);
-                xlWorkSheet.Cells[RowStart, 26] = Aadharnumberformat;
-                xlWorkSheet.Cells[RowStart, 27] = hm.loandetails.NameofAddressProof;
-                xlWorkSheet.Cells[RowStart, 28] = "Null";
-                xlWorkSheet.Cells[RowStart, 29] = hm.Guarantordetails.GuarantorName;
-                xlWorkSheet.Cells[RowStart, 30] = hm.Guarantordetails.Gender;
-                xlWorkSheet.Cells[RowStart, 31] = hm.Guarantordetails.ContactNumber;
-                xlWorkSheet.Cells[RowStart, 32] = hm.Guarantordetails.DateofBirth.ToString("dd-MM-yyyy");
-                xlWorkSheet.Cells[RowStart, 33] = hm.Guarantordetails.Age;
-                xlWorkSheet.Cells[RowStart, 34] = hm.Guarantordetails.NameofPhotoProof;
-                xlWorkSheet.Cells[RowStart, 35] = "Null";
-                xlWorkSheet.Cells[RowStart, 36] = hm.Guarantordetails.NameofAddressProof;
-                xlWorkSheet.Cells[RowStart, 37] = "Null";
-                xlWorkSheet.Cells[RowStart, 38] = "Self";
-                xlWorkSheet.Cells[RowStart, 39] = hm.Guarantordetails.RelationShip;
-                xlWorkSheet.Cells[RowStart, 40] =hm.loandetails.FatherName;
-                xlWorkSheet.Cells[RowStart, 41] =hm.loandetails.MotherName;
-                xlWorkSheet.Cells[RowStart, 42] = hm.loandetails.DoorNumber;
-                xlWorkSheet.Cells[RowStart, 43] = hm.loandetails.StreetName;
-                xlWorkSheet.Cells[RowStart, 44] = hm.loandetails.LocalityTown;
-                xlWorkSheet.Cells[RowStart, 45] = "Null";
-                xlWorkSheet.Cells[RowStart, 46] = hm.loandetails.LocalityTown;
-                xlWorkSheet.Cells[RowStart, 47] = hm.loandetails.State;
-                xlWorkSheet.Cells[RowStart, 48] = hm.loandetails.Pincode;
-                xlWorkSheet.Cells[RowStart, 49] = hm.loandetails.Occupation;
-                xlWorkSheet.Cells[RowStart, 50] = hm.loandetails.Education;
-                xlWorkSheet.Cells[RowStart, 51] = "Null";
-                xlWorkSheet.Cells[RowStart, 52] = "Null";
-                xlWorkSheet.Cells[RowStart, 53] = hm.loandetails.HousingType;
-                xlWorkSheet.Cells[RowStart, 54] = "Null";
-                xlWorkSheet.Cells[RowStart, 55] = hm.loandetails.Caste;
-                xlWorkSheet.Cells[RowStart, 56] = hm.loandetails.Religion;
-                xlWorkSheet.Cells[RowStart, 57] = hm.loandetails.MonthlyIncome;
-                xlWorkSheet.Cells[RowStart, 58] = hm.loandetails.MothlyExpenses;
-                xlWorkSheet.Cells[RowStart, 59] = hm.loandetails.BankName;
-                xlWorkSheet.Cells[RowStart, 60] = hm.loandetails.AccountNumber;
-                xlWorkSheet.Cells[RowStart, 61] = hm.loandetails.IFSCCode;
-                xlWorkSheet.Cells[RowStart, 62] = hm.loandetails.BankBranchName;
-                xlWorkSheet.Cells[RowStart, 63] = hm.loandetails.LoanPurpose;
-                xlWorkSheet.Cells[RowStart, 64] = hm.loandetails.LoanPeriod;
+                xlWorkSheet.Cells[RowStart, 19] = hm.Member;
+                xlWorkSheet.Cells[RowStart, 20] = hm.ApplicantName;
+                xlWorkSheet.Cells[RowStart, 21] = hm.ApplicantGender;
+                xlWorkSheet.Cells[RowStart, 22] = hm.ApplicantMobile;
+                xlWorkSheet.Cells[RowStart, 23] = hm.ApplicantDOB;
+                xlWorkSheet.Cells[RowStart, 24] = hm.ApplicantAge;
+                xlWorkSheet.Cells[RowStart, 25] = hm.ApplicantIDProofType;
+                xlWorkSheet.Cells[RowStart, 26] = hm.ApplicantIDProofNo;
+                xlWorkSheet.Cells[RowStart, 27] = hm.ApplicantAddressProofType;
+                xlWorkSheet.Cells[RowStart, 28] = hm.ApplicantAddressProofNo;
+                xlWorkSheet.Cells[RowStart, 29] = hm.COapplicantName;
+                xlWorkSheet.Cells[RowStart, 30] = hm.COapplicantGender;
+                xlWorkSheet.Cells[RowStart, 31] = hm.ApplicantMobile;
+                xlWorkSheet.Cells[RowStart, 32] = hm.COapplicantDOB;
+                xlWorkSheet.Cells[RowStart, 33] = hm.COapplicantAge;
+                xlWorkSheet.Cells[RowStart, 34] = hm.ApplicantIDProofType;
+                xlWorkSheet.Cells[RowStart, 35] = hm.COapplicantIDProofNo;
+                xlWorkSheet.Cells[RowStart, 36] = hm.COapplicantAddressProofType;
+                xlWorkSheet.Cells[RowStart, 37] = hm.COapplicantAddressProofNo;
+                xlWorkSheet.Cells[RowStart, 38] = hm.RelationshipWithApplicant;
+                xlWorkSheet.Cells[RowStart, 39] = hm.RelationshipWithCOapplicant;
+                xlWorkSheet.Cells[RowStart, 40] =hm.ApplicantFatherName;
+                xlWorkSheet.Cells[RowStart, 41] =hm.ApplicantMotherName;
+                xlWorkSheet.Cells[RowStart, 42] = hm.DoorNO;
+                xlWorkSheet.Cells[RowStart, 43] = hm.StreetName;
+                xlWorkSheet.Cells[RowStart, 44] = hm.Village;
+                xlWorkSheet.Cells[RowStart, 45] = hm.Taluk;
+                xlWorkSheet.Cells[RowStart, 46] = hm.District;
+                xlWorkSheet.Cells[RowStart, 47] = hm.State;
+                xlWorkSheet.Cells[RowStart, 48] = hm.Pincode;
+                xlWorkSheet.Cells[RowStart, 49] = hm.Occupation;
+                xlWorkSheet.Cells[RowStart, 50] = hm.Education;
+                xlWorkSheet.Cells[RowStart, 51] = hm.TypeOFResidence;
+                xlWorkSheet.Cells[RowStart, 52] = hm.TypeOFResidence+" House";
+                xlWorkSheet.Cells[RowStart, 53] = "Cement House";
+                xlWorkSheet.Cells[RowStart, 54] = "YES";
+                xlWorkSheet.Cells[RowStart, 55] = hm.Caste;
+                xlWorkSheet.Cells[RowStart, 56] = hm.Religion;
+                xlWorkSheet.Cells[RowStart, 57] = hm.MonthlyIncome;
+                xlWorkSheet.Cells[RowStart, 58] = hm.MonthlyExpenses;
+                xlWorkSheet.Cells[RowStart, 59] = hm.ApplicantBankName;
+                xlWorkSheet.Cells[RowStart, 60] = hm.ApplicantAccountNO;
+                xlWorkSheet.Cells[RowStart, 61] = hm.ApplicantIFSCcode;
+                xlWorkSheet.Cells[RowStart, 62] = hm.ApplicantBranchName;
+                xlWorkSheet.Cells[RowStart, 63] = "AGRI";
+                xlWorkSheet.Cells[RowStart, 64] = hm.LoanTenure;
+                xlWorkSheet.Cells[RowStart, 65] = hm.SamFinBranch;
+                xlWorkSheet.Cells[RowStart, 68] = hm.DoorNO+","+hm.StreetName+","+hm.Village+","+hm.Taluk+","+hm.District+","+hm.State+".";
+
                 RowStart++;
                 i++;
             }

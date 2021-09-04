@@ -307,7 +307,7 @@ namespace MicroFinance
 
         private void SelectSHG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<String> SelectedPG = new List<String>();
+            List<PeerGroup> SelectedPG = new List<PeerGroup>();
 
             foreach (var item in PeerGroupDetails)
             {
@@ -434,14 +434,16 @@ namespace MicroFinance
             }
             else
             {
-                if(SaveCustomer.Content.Equals("Update"))
+                PeerGroup SelectedPG = SelectPG.SelectedValue as PeerGroup;
+                if (SaveCustomer.Content.Equals("Update"))
                 {
-                    customer.UpdateExistingDetails(SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
+                    
+                    customer.UpdateExistingDetails(SelectBranch.Text, SelectSHG.Text, SelectedPG.PG_Id, guarantor, nominee);
                 }
                 else
                 {
                     customer._customerId = customer.GetCustId(SelectBranch.Text, SelectRegion.Text);
-                    CustomerVerified verified = new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectPG.Text);
+                    CustomerVerified verified = new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectedPG.PG_Id);
                     customer = new Customer();
                     nominee = new Nominee();
                     guarantor = new Guarantor();

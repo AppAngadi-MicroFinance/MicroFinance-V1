@@ -77,7 +77,19 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="9" x:Name="PeerGroupCombo">
                 <TextBlock Text="Peer Group" Style="{StaticResource Regular}"/>
-                <ComboBox x:Name="SelectPG" SelectionChanged="SelectPG_SelectionChanged"   Style="{StaticResource combo}" Width="140" Margin="15,0,10,0"></ComboBox>
+                <ComboBox x:Name="SelectPG" SelectionChanged="SelectPG_SelectionChanged"   Style="{StaticResource combo}" Width="140" Margin="15,0,10,0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <ContentPresenter>
+                                <ContentPresenter.Content>
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource Regular}" Text="{Binding Name,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                    </StackPanel>
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </StackPanel>
         </Grid>
         <Grid x:Name="CustomerGrid" Grid.Row="1" Grid.Column="1">

@@ -78,6 +78,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.2.0.0\lib\net40\WpfAnimatedGif.dll</HintPath>
+    </Reference>
     <Reference Include="zxing, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
       <HintPath>..\packages\ZXing.Net.0.16.6\lib\net47\zxing.dll</HintPath>
     </Reference>
@@ -170,6 +173,9 @@
     <Compile Include="HOLoanApproval.xaml.cs">
       <DependentUpon>HOLoanApproval.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoadingProgress.xaml.cs">
+      <DependentUpon>LoadingProgress.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoanAfterHimark.xaml.cs">
       <DependentUpon>LoanAfterHimark.xaml</DependentUpon>
     </Compile>
@@ -202,6 +208,7 @@
     <Compile Include="Modal\Notification.cs" />
     <Compile Include="Modal\OfficerModal.cs" />
     <Compile Include="Modal\PeerGroup.cs" />
+    <Compile Include="Modal\PeerGroupNameView.cs" />
     <Compile Include="Modal\Region.cs" />
     <Compile Include="Modal\GTtoSamunnati.cs" />
     <Compile Include="Modal\SelfHeadGroupModal.cs" />
@@ -239,6 +246,8 @@
     <Compile Include="VerifyCustomer.xaml.cs">
       <DependentUpon>VerifyCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\HimarkRepository.cs" />
+    <Compile Include="ViewModel\HimarkRequestView.cs" />
     <Page Include="AddCustomer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -328,6 +337,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HOLoanApproval.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoadingProgress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -529,6 +542,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Asserts\Icons\powerbutton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\CircleGif.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

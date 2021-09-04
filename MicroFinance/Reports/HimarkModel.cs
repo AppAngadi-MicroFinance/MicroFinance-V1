@@ -7,12 +7,8 @@ using MicroFinance.Modal;
 
 namespace MicroFinance.Reports
 {
-    class HimarkModel : BindableBase
+    public class HimarkModel : BindableBase
     {
-        public HimarkModel(Employee EmpDetails,Customer CustomerDetails,LoanDetails loanDetails,Guarantor guarantorDetails)
-        {
-
-        }
         private string _CBOname;
         public string CBOName
         {
@@ -40,8 +36,8 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("FIGName");
             }
         }
-        private DateTime _FIGformationdate;
-        public DateTime FIGFormationDate
+        private string _FIGformationdate;
+        public string FIGFormationDate
         {
             get
             {
@@ -287,8 +283,8 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("ApplicantMobile");
             }
         }
-        private DateTime _applicantDOB;
-        public DateTime ApplicantDOB
+        private string _applicantDOB;
+        public string ApplicantDOB
         {
             get
             {
@@ -391,8 +387,8 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("COapplicantGender");
             }
         }
-        private DateTime _coapplicantDOB;
-        public DateTime COapplicantDOB
+        private string _coapplicantDOB;
+        public string COapplicantDOB
         {
             get
             {
