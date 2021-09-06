@@ -164,7 +164,7 @@ namespace MicroFinance
                 {
                     //var temp = "" + data + "" + "_WeeklyReport"+showDate+"";
                     //var temp = "" + data + "" + "_" + "" + SelectedCluster + "";
-                    FileStream fs = new FileStream(dir + "Collection_Sheet_" + DateTime.Now.ToShortDateString() + ".pdf", FileMode.Create);
+                    FileStream fs = new FileStream(dir + "Collection_Sheet_" + DateTime.Now.ToString("dd-MMM-yyyy") + ".pdf", FileMode.Create);
 
                     var temps = fs.ToString();
                     fs.Write(bytes, 0, bytes.Length);

@@ -4,11 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:MicroFinance"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
       d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
       Title="DashBoardHeadOfficer">
 
     <Grid>
+        <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
+        </StackPanel>
         <!--Section A-->        <!-- 1. Find Customer | 2. Find Employee | 3. Add New Employee-->
         <Grid Width="400" Height="170" Margin="130,100,0,0" Visibility="Collapsed"
               HorizontalAlignment="Left" VerticalAlignment="Top">

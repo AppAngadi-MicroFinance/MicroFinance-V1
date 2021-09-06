@@ -158,7 +158,7 @@ namespace MicroFinance
             }
         }
 
-        private void ImportHimarkBtn_Click(object sender, RoutedEventArgs e)
+        private async void ImportHimarkBtn_Click(object sender, RoutedEventArgs e)
         {
             //Stopwatch SW = new Stopwatch();
             //SW.Start();
@@ -173,36 +173,10 @@ namespace MicroFinance
                 string FileFrom = openFileDlg.FileName;
                 if(!IsFileUsed(FileFrom))
                 {
-                    var FilePath = FileFrom.Split('\\');
-                    string FileName = FilePath[FilePath.Length - 1];
-                    HimarkResultModel HMResult = new HimarkResultModel();
-                    HimarkResult HmResultList = new HimarkResult();
-                    if (HimarkResult.IsAlreadyUpload(FileName))
-                    {
-                        try
-                        {
-                            List<HimarkResultModel> resultList = new List<HimarkResultModel>();
-                            HmResultList.BulkInsertData(FileFrom, 0);
-                            //MainWindow.TimeBuilder.Append("\n time After Read Data : " + SW.Elapsed.Ticks.ToString());
-                            //MainWindow.TimeBuilder.Append("\n time start to insert data : " + SW.Elapsed.Ticks.ToString());
-                            //HmResultList.InsertHimarkDate(resultList);
-                            //MainWindow.TimeBuilder.Append("\n time when data inserted : " + SW.Elapsed.Ticks.ToString());
-                            MainWindow.StatusMessageofPage(1, "File Upload Successfully!...");
-                            //MainWindow.TimeBuilder.Append("\n Total Time Process : " + SW.Elapsed.Ticks.ToString());
-                            //SW.Stop();
-                            // System.Windows.MessageBox.Show(MainWindow.TimeBuilder.ToString());
-                        }
-                        catch (Exception ex)
-                        {
-                            System.Windows.MessageBox.Show(ex.Message);
-                        }
+                    GifPanel.Visibility = Visibility.Visible;
+                    await System.Threading.Tasks.Task.Run(() =>ImportHimarkFile(FileFrom));
+                    GifPanel.Visibility = Visibility.Collapsed;
 
-
-                    }
-                    else
-                    {
-                        MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
-                    }
 
                 }
                 else
@@ -211,6 +185,33 @@ namespace MicroFinance
                 }
 
 
+            }
+        }
+
+        void ImportHimarkFile(string FileFrom)
+        {
+            var FilePath = FileFrom.Split('\\');
+            string FileName = FilePath[FilePath.Length - 1];
+            HimarkResultModel HMResult = new HimarkResultModel();
+            HimarkResult HmResultList = new HimarkResult();
+            if (HimarkResult.IsAlreadyUpload(FileName))
+            {
+                try
+                {
+                    List<HimarkResultModel> resultList = new List<HimarkResultModel>();
+                    HmResultList.BulkInsertData(FileFrom, 0);
+                    MainWindow.StatusMessageofPage(1, "File Upload Successfully!...");
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.Message);
+                }
+
+
+            }
+            else
+            {
+                MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
             }
         }
 

@@ -30,13 +30,13 @@ namespace MicroFinance
         public List<LoanProcess> RecommendList = new List<LoanProcess>();
         List<LoanProcess> ApprovedCustomerList = new List<LoanProcess>();
         NEFT neft = new NEFT();
-        public HOLoanApproval(string FileName)
+        public HOLoanApproval(List<SUMAtoHO> ResList)
         {
             InitializeComponent();
             loanprocess.GetLoanDetailList(9);
             RecommendList.Clear();
             RecommendList = loanprocess.LoanProcessList;
-            SumaApprovalList=Suma.ImportSamuFile(FileName);
+            SumaApprovalList=ResList;
             LoadData();
             setCount();
         }
@@ -190,18 +190,28 @@ namespace MicroFinance
         //    }
         //}
 
-        private void Generate_NEFTBtn_Click(object sender, RoutedEventArgs e)
+        private async void Generate_NEFTBtn_Click(object sender, RoutedEventArgs e)
+        {
+            GifPanel.Visibility = Visibility.Visible;
+            await System.Threading.Tasks.Task.Run(() => GenerateNEFTFile());
+            GifPanel.Visibility = Visibility.Collapsed;
+            this.NavigationService.Navigate(new DashBoardHeadOfficer());
+            
+        }
+
+
+        void GenerateNEFTFile()
         {
             try
             {
                 neft.GenerateNEFT_File(ApprovedCustomerList);
                 MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
             }
-            catch
+            catch (Exception ex)
             {
+                MainWindow.StatusMessageofPage(0, "Error!");
 
             }
-            
         }
 
         private void BulkApprovalBtn_Click(object sender, RoutedEventArgs e)
@@ -221,6 +231,7 @@ namespace MicroFinance
                 Count++;
             }
             MainWindow.StatusMessageofPage(1, Count.ToString() + " Loan(s) Approved Successfully!...");
+            BulkApprovalBtn.Visibility = Visibility.Collapsed;
         
         }
 

@@ -175,8 +175,9 @@ namespace MicroFinance
             this.NavigationService.Navigate(new AddEmployee(selectedEmployee));
         }
 
-        private void LoanDesposment_Click(object sender, RoutedEventArgs e)
+        private async void LoanDesposment_Click(object sender, RoutedEventArgs e)
         {
+            List<SUMAtoHO> ResultList = new List<SUMAtoHO>();
             OpenFileDialog openFileDlg = new OpenFileDialog();
             openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
             openFileDlg.Title = "Choose File";
@@ -184,23 +185,54 @@ namespace MicroFinance
             Nullable<bool> result = openFileDlg.ShowDialog();
             if (result == true)
             {
+                GifPanel.Visibility = Visibility.Visible;
                 string FileFrom = openFileDlg.FileName;
-                var FilePath = FileFrom.Split('\\');
-                string FileName = FilePath[FilePath.Length - 1];
-                SUMAtoHO SUMA = new SUMAtoHO();
-                if (!SUMA.IsFileExists(FileName))
-                {
-                    this.NavigationService.Navigate(new HOLoanApproval(FileFrom));
-                }
-                else
-                {
-                    MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
-                }
+                await System.Threading.Tasks.Task.Run(() =>ResultList= uploadSamuFile(FileFrom));
+                GifPanel.Visibility = Visibility.Collapsed;
+                this.NavigationService.Navigate(new HOLoanApproval(ResultList));
+
             }
             
         }
 
-        private void SAMUSendRequestBtn_Click(object sender, RoutedEventArgs e)
+
+        List<SUMAtoHO> uploadSamuFile(string FileFrom)
+        {
+            SUMAtoHO Suma = new SUMAtoHO();
+            List<SUMAtoHO> SumaApprovalList = new List<SUMAtoHO>();
+            var FilePath = FileFrom.Split('\\');
+            string FileName = FilePath[FilePath.Length - 1];
+            SUMAtoHO SUMA = new SUMAtoHO();
+           
+            if (!SUMA.IsFileExists(FileName))
+            {
+                SumaApprovalList = Suma.ImportSamuFile(FileFrom);
+                //this.NavigationService.Navigate(new HOLoanApproval(FileFrom));
+            }
+            else
+            {
+                MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
+            }
+            return SumaApprovalList;
+        }
+
+        private async void SAMUSendRequestBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            GifPanel.Visibility = Visibility.Visible;
+            try
+            {
+                await System.Threading.Tasks.Task.Run(() => GenerateSamuFile());
+                GifPanel.Visibility = Visibility.Collapsed;
+            }
+            catch
+            {
+                MainWindow.StatusMessageofPage(0, "Error...");
+                GifPanel.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        void GenerateSamuFile()
         {
             try
             {
@@ -211,8 +243,8 @@ namespace MicroFinance
             {
                 MainWindow.StatusMessageofPage(0, "Error...");
             }
-            
-            
         }
+
+
     }
 }

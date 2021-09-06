@@ -48,6 +48,10 @@ namespace MicroFinance.Reports
                         break;
                     }
                 }
+                if(Sheetname==null)
+                {
+                    throw new ArgumentException("Sheet Not Found");
+                }
             }
             catch(Exception ex)
             {
@@ -135,6 +139,8 @@ namespace MicroFinance.Reports
             }
             return SamuList;
         }
+
+       
 
         public bool IsFileExists(string FileName)
         {

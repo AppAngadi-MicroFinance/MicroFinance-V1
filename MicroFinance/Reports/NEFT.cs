@@ -304,10 +304,11 @@ namespace MicroFinance.Reports
             amount.ColumnWidth = 24;
             amount.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             amount.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            string dir = "";
             FillNEFT(xlWorkSheet, loanList);
             try
             {
-                string dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Report\\NEFT Report");
+                dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Report\\NEFT Report");
                 if (Directory.Exists(dir))
                 {
                     string FileName = dir + "\\NEFT_" + DateTime.Now.ToString("dd-MM-yyyy hh-mm") + ".xlsx";
@@ -332,7 +333,7 @@ namespace MicroFinance.Reports
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(xlApp);
                 xlApp = null;
                 xlWorkBook = null;
-                File.Delete(@"D:\temp.xlsx");
+                File.Delete(dir+"\\temp.xlsx");
             }
         }
 
