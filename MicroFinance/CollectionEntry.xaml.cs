@@ -520,7 +520,7 @@ namespace MicroFinance
                 Total = Principal + Interest + Security;
             }
         }
-        private int _security = 30;
+        private int _security = 60;
         public int Security
         {
             get

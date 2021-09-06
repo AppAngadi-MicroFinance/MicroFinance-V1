@@ -27,6 +27,7 @@ namespace MicroFinance
         public static StringBuilder TimeBuilder = new StringBuilder();
         public static StaticProperty StatusMsg = new StaticProperty();
         string _userName;
+        string _password;
         public static LoginDetails LoginDesignation;
 
         public static string ConnectionString = Properties.Settings.Default.db;
@@ -51,45 +52,16 @@ namespace MicroFinance
         {
             string UserName = xUserName.Text;
             string Password = xPassword.Password;
-            LoginDesignation = new LoginDetails(UserName);
+            // LoginDesignation = new LoginDetails(UserName);
+            LoginDesignation = new LoginDetails(UserName, Password);
             if (LoginDesignation.IsRegisteredSystem()==true)
             {
                 
                 _userName = UserName;
+                _password = Password;
                
                
-                #region Temp code 1,2,3,4 Login
-                //if (UserName == "1")
-                //{
-                //    LoginBorder.Visibility = Visibility.Collapsed;
-                //    mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
-                //    LoggedInState();
-                //    MainWindow.StatusMessageofPage(1, "Ready...");
-                //}
-                //else if (UserName == "2")
-                //{
-                //    LoginBorder.Visibility = Visibility.Collapsed;
-                //    mainframe.NavigationService.Navigate(new DashboardAccountant());
-                //    LoggedInState();
-                //    MainWindow.StatusMessageofPage(1, "Ready...");
-                //}
-                //else if (UserName == "3")
-                //{
-                //    LoginBorder.Visibility = Visibility.Collapsed;
-                //    mainframe.NavigationService.Navigate(new DashboardBranchManager());
-                //    LoggedInState();
-                //    MainWindow.StatusMessageofPage(1, "Ready...");
-                //}
-                //else if (UserName == "4")
-                //{
-                //    LoginBorder.Visibility = Visibility.Collapsed;
-                //    mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
-                //    LoggedInState();
-                //    MainWindow.StatusMessageofPage(1, "Ready...");
-                //}
-                #endregion
-
-                if (_userName.ToLower() == "Admin".ToLower())
+                if (_userName.ToLower() == "Admin".ToLower() && _password=="GTrust123")
                 {
                     LoginBorder.Visibility = Visibility.Collapsed;
                     mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
@@ -127,8 +99,6 @@ namespace MicroFinance
             return thisPassword;
         }
 
-      
-        
         void GetLogin()
         {
             try
@@ -147,7 +117,8 @@ namespace MicroFinance
                 else if (power.Equals("ACCOUNTANT"))
                 {
                     LoginBorder.Visibility = Visibility.Collapsed;
-                    mainframe.NavigationService.Navigate(new DashboardAccountant());
+                    // mainframe.NavigationService.Navigate(new DashboardAccountant());
+                    mainframe.NavigationService.Navigate(new DashboardBranchManager());
                     LoggedInState();
                     MainWindow.StatusMessageofPage(1, "Ready...");
                 }
@@ -168,7 +139,7 @@ namespace MicroFinance
             }
             catch
             {
-                StatusMessageofPage(0, "Please Valid User Name.....");
+                StatusMessageofPage(0, "Please Enter a Valid Username and Password.....");
             }
         }
 

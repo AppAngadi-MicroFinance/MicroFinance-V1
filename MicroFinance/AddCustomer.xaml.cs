@@ -315,7 +315,7 @@ namespace MicroFinance
                 {
                     if(customer.IsPeerGroupFull(item.PG_Id))
                     {
-                        SelectedPG.Add(item.Name);
+                        SelectedPG.Add(item);
                     }
                 }
             }
