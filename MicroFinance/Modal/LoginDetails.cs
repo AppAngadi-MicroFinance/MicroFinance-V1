@@ -15,12 +15,38 @@ namespace MicroFinance.Modal
         public string BranchId { get; set; }
         public string RegionName { get; set; }
         string _userName;
+        string _password;
         public LoginDetails(String UserName)
         {
             _userName = UserName;
             GetEmployeeID(_userName);
             GetBranchAndRegionNameForEmployee(_userName);
             GetDesignation(_userName);
+        }
+        public LoginDetails(string username,string password)
+        {
+            _userName = username;
+            if (IsValidUser(username, password))
+            {
+                GetEmployeeID(_userName);
+                GetBranchAndRegionNameForEmployee(_userName);
+                GetDesignation(_userName);
+            }
+
+        }
+        bool IsValidUser(string username,string password)
+        {
+            bool isvaliduser = false;
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "select count(*) from Employee where Name='" + username + "' and password='" + password + "'";
+                isvaliduser = Convert.ToBoolean(cmd.ExecuteScalar());
+            }
+            return isvaliduser;
         }
         public LoginDetails() { }
         void GetBranchAndRegionNameForEmployee(string userName)

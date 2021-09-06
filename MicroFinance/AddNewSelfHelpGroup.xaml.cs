@@ -276,7 +276,6 @@ namespace MicroFinance
             {
                 Result = number;
             }
-
             return Result;
         }
 

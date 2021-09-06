@@ -95,7 +95,7 @@ namespace MicroFinance.ViewModel
                         }
                         reader.Close();
                         //Read Shg Details
-                        sqlcomm.CommandText = "select SHGName,Taluk,Distict from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+HM.CustomerID+"'))";
+                        sqlcomm.CommandText = "select SHGName,Taluk,District from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+HM.CustomerID+"'))";
                         SqlDataReader reader3 = sqlcomm.ExecuteReader();
                         if(reader3.HasRows)
                         {
