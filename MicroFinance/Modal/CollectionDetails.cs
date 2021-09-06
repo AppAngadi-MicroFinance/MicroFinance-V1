@@ -237,7 +237,7 @@ namespace MicroFinance.Modal
                 RaisedPropertyChanged("Interest");
             }
         }
-        private int _security = 30;
+        private int _security = 60;
         public int Security
         {
             get
