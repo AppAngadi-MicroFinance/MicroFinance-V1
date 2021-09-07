@@ -1568,7 +1568,7 @@ namespace MicroFinance.Reports
             CoappAddressproofNumber.WrapText = true;
             CoappAddressproofNumber.Interior.ColorIndex = 34;
             CoappAddressproofNumber.Borders.ColorIndex = 15;
-            CoappAddressproofNumber.NumberFormat = "@";
+            CoappAddressproofNumber.EntireColumn.NumberFormat = "@";
             CoappAddressproofNumber.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             CoappAddressproofNumber.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Relationship with Co-Applicant
@@ -1807,6 +1807,7 @@ namespace MicroFinance.Reports
             AppAccNo.RowHeight = 46;
             AppAccNo.ColumnWidth = 22;
             AppAccNo.WrapText = true;
+            AppAccNo.EntireColumn.NumberFormat = "@";
             AppAccNo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             AppAccNo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Applicant IFSC code
@@ -2050,6 +2051,7 @@ namespace MicroFinance.Reports
             SLDated.Cells.Interior.ColorIndex = 6;
             SLDated.Borders.ColorIndex = 15;
             SLDated.WrapText = true;
+            SLDated.EntireColumn.NumberFormat = "@";
             SLDated.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             SLDated.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             MainWindow.TimeBuilder.Append("\nEnd Time for CreateHimarkFile : " + time.Elapsed.Milliseconds.ToString());
@@ -2100,6 +2102,7 @@ namespace MicroFinance.Reports
             int RowStart = 2;
             foreach(HimarkModel hm in himarkdate)
             {
+                
                 xlWorkSheet.Cells[RowStart, 1] = i;
                 xlWorkSheet.Cells[RowStart, 2] = hm.CBOName;
                 xlWorkSheet.Cells[RowStart, 3] = hm.FIGName;
