@@ -183,11 +183,21 @@ namespace MicroFinance
             DayOFWeek = string.Empty;
         }
 
-        private void xDownloadBtn_Click(object sender, RoutedEventArgs e)
+        private async void xDownloadBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            GifPanel.Visibility = Visibility.Visible;
+            await System.Threading.Tasks.Task.Run(()=>DownloadPdf());
+            GifPanel.Visibility = Visibility.Collapsed;
+            xDaySelectionPopup.Visibility = Visibility.Collapsed;
+            MainWindow.StatusMessageofPage(1, "Collection Report Generated SuccessFully!...");
+        }
+
+        void DownloadPdf()
         {
             CollectionSheetModelPDF collectinoDetails = new CollectionSheetModelPDF(MainWindow.LoginDesignation.EmpId, DayOFWeek);
             GenerateScheduleSheet(collectinoDetails);
-            xDaySelectionPopup.Visibility = Visibility.Collapsed;
+            
         }
 
         private void xDaysList_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -106,7 +106,7 @@ namespace MicroFinance.Modal
                 sql.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = sql;
-                command.CommandText = "select SHGName from SelfHelpGroup where SHGId =(select SHGId from TimeTable where EmpId = '"+empId+"' and CollectionDay= '"+collectionDay+"')";
+                command.CommandText = "select SHGName from SelfHelpGroup where SHGId  in (select SHGId from TimeTable where EmpId = '"+empId+"' and CollectionDay = '"+collectionDay+"')";
                 CenterSHGName = (string)command.ExecuteScalar();
                 sql.Close();
             }
