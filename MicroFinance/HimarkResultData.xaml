@@ -22,7 +22,7 @@
         <TextBlock Text="Category" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Top" Margin="35,20,0,0" x:Name="CategoryText"></TextBlock>
         <ComboBox Style="{StaticResource combo}" x:Name="CategoryCombo" SelectionChanged="CategoryCombo_SelectionChanged" Grid.Row="1" Height="40" Width="300" VerticalAlignment="Top" Margin="-40,50,0,0"></ComboBox>
         <TextBlock Text="Accepte Customers" Grid.Row="1" Grid.Column="1" Style="{StaticResource SubTitle}" VerticalAlignment="Top" Margin="50,10,0,0" x:Name="StatusText"></TextBlock>
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="-130,0,0,0" VerticalAlignment="Center">
+        <StackPanel x:Name="ResultViewPanel" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="-130,0,0,0" VerticalAlignment="Center">
             <Border Height="50" Margin="0,0,0,0" Grid.Column="1" Grid.Row="1" Width="715" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Blue">
                 <Grid>
                     <Grid.ColumnDefinitions>

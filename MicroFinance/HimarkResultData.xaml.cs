@@ -49,6 +49,7 @@ namespace MicroFinance
                 CategoryText.Visibility = Visibility.Collapsed;
                 BulkAcceptBtn.Visibility = Visibility.Collapsed;
                 BulkRejectBtn.Visibility = Visibility.Collapsed;
+                ResultViewPanel.Visibility = Visibility.Collapsed;
                 NotifyText.Visibility = Visibility.Visible;
             }
            
