@@ -170,6 +170,9 @@
     <Compile Include="CustomerNotification.xaml.cs">
       <DependentUpon>CustomerNotification.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExportHimarkReport.xaml.cs">
+      <DependentUpon>ExportHimarkReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HimarkResultData.xaml.cs">
       <DependentUpon>HimarkResultData.xaml</DependentUpon>
     </Compile>
@@ -340,6 +343,10 @@
     <Page Include="CustomerNotification.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExportHimarkReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HimarkResultData.xaml">
       <SubType>Designer</SubType>

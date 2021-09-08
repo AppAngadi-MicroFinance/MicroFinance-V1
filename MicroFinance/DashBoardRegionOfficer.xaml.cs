@@ -90,14 +90,17 @@ namespace MicroFinance
 
         private void HimarkBtn_Click(object sender, RoutedEventArgs e)
         {
-           
-           
+
+
             //loanProcess = new LoanProcess();
             //loanProcess.GetRequestList();
             //loanDetails = loanProcess.RequestList;
-            RequestList = HimarkRepository.GetHimarkRequestList();
-            RequestedListBoxNew.ItemsSource = RequestList;
-            HimarkExportPanel.Visibility = Visibility.Visible;
+
+
+            //RequestList = HimarkRepository.GetHimarkRequestList();
+            //RequestedListBoxNew.ItemsSource = RequestList;
+            //HimarkExportPanel.Visibility = Visibility.Visible;
+            this.NavigationService.Navigate(new ExportHimarkReport());
         }
 
         private async void ExportHimarkBtn_Click(object sender, RoutedEventArgs e)
