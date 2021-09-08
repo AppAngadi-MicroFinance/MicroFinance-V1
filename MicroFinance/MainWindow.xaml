@@ -72,7 +72,7 @@
                 <TextBox x:Name="xUserName" Width="300" Height="40" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Style="{StaticResource UserNamebox}">
                 </TextBox>
                 <TextBlock Text="Password" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="3" Style="{StaticResource Regular}" Foreground="White"></TextBlock>
-                <PasswordBox x:Name="xPassword" Password="admin" Width="300" Height="40" HorizontalAlignment="Center" Grid.Row="4" Style="{StaticResource UserPasswordbox}">
+                <PasswordBox x:Name="xPassword"  Width="300" Height="40" HorizontalAlignment="Center" Grid.Row="4" Style="{StaticResource UserPasswordbox}">
                 </PasswordBox>
 
                 <Button Style="{StaticResource WarningShield}" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0" Visibility="Collapsed"></Button>
