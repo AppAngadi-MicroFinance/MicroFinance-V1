@@ -161,6 +161,9 @@
     <Compile Include="DenominationPage.xaml.cs">
       <DependentUpon>DenominationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DownloadCollectionReport.xaml.cs">
+      <DependentUpon>DownloadCollectionReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="dummypage.xaml.cs">
       <DependentUpon>dummypage.xaml</DependentUpon>
     </Compile>
@@ -246,6 +249,8 @@
     <Compile Include="VerifyCustomer.xaml.cs">
       <DependentUpon>VerifyCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CollectionReportRepo.cs" />
+    <Compile Include="ViewModel\CollectionReportView.cs" />
     <Compile Include="ViewModel\HimarkRepository.cs" />
     <Compile Include="ViewModel\HimarkRequestView.cs" />
     <Page Include="AddCustomer.xaml">
@@ -321,6 +326,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DenominationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DownloadCollectionReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -420,9 +429,12 @@
     </EmbeddedResource>
     <Compile Include="Modal\CollectionSheet.cs" />
     <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="CollectionReport.rdlc" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\AddCustomer.datasource" />
     <None Include="Properties\DataSources\MicroFinance.Modal.CollectionSheetModelPDF.datasource" />
     <None Include="Properties\DataSources\MicroFinance.Modal.GroupWiseDetails.datasource" />
+    <None Include="Properties\DataSources\MicroFinance.ViewModel.CollectionReportView.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

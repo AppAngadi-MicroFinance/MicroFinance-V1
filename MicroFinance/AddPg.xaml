@@ -25,7 +25,7 @@
         
         <!--Section A-->
         <TextBlock Grid.Row="1" Grid.Column="0" Text="SHG" Style="{StaticResource Regular}" HorizontalAlignment="Center" Margin="30,15.6,29.2,14"/>
-        <ComboBox x:Name="xSHGcombo" SelectionChanged="xSHGcombo_SelectionChanged" Grid.Row="1" Grid.Column="1" Width="150" Height="30" HorizontalAlignment="Left"></ComboBox>
+        <ComboBox x:Name="xSHGcombo" SelectionChanged="xSHGcombo_SelectionChanged" Grid.Row="1" Grid.Column="1" Width="200" Height="30" HorizontalAlignment="Left"></ComboBox>
         
         <!--Section B-->
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Group Name" Style="{StaticResource Regular}" HorizontalAlignment="Center" Margin="30,15.6,29.2,14"/>

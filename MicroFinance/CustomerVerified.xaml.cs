@@ -987,7 +987,15 @@ namespace MicroFinance
                 else if(CustomerStatus==5)
                 {
                     ChangeLoanStatus(_loanReqId, 6);
-                    NavigationService.GetNavigationService(this).Navigate(new DashboardAccountant());
+                    if(MainWindow.LoginDesignation.LoginDesignation=="Accountant")
+                    {
+                        NavigationService.GetNavigationService(this).Navigate(new DashboardAccountant());
+                    }
+                    else if(MainWindow.LoginDesignation.LoginDesignation=="Manager")
+                    {
+                        NavigationService.GetNavigationService(this).Navigate(new DashboardBranchManager());
+                    }
+                   
                 }
                 else if(CustomerStatus==6)
                 {

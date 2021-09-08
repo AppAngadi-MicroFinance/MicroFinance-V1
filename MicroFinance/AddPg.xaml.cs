@@ -24,6 +24,7 @@ namespace MicroFinance
     {
         string BranchId = MainWindow.LoginDesignation.BranchId;
         string Region = MainWindow.LoginDesignation.RegionName;
+        string EmpId = MainWindow.LoginDesignation.EmpId;
         string SHGid = string.Empty;
 
 
@@ -98,7 +99,7 @@ namespace MicroFinance
         public AddPg()
         {
             InitializeComponent();
-            xSHGcombo.ItemsSource = GetSHG(BranchId);
+            xSHGcombo.ItemsSource = GetSHG(EmpId);
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
@@ -180,15 +181,16 @@ namespace MicroFinance
                 con.Close();
             }
         }
-        static public List<SelfHelpGroupModal> GetSHG(string branchId)
+        static public List<SelfHelpGroupModal> GetSHG(string EmpID)
         {
+            
             List<SelfHelpGroupModal> toReturn = new List<SelfHelpGroupModal>();
             using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 con.Open();
-                cmd.CommandText = "select SHGId, SHGName from SelfHelpGroup where BranchId = '"+branchId+"'";
+                cmd.CommandText = "select SHGid,SHGName from SelfHelpGroup where SHGId in (select SHGid from TimeTable where EmpId='"+EmpID+"')";
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {

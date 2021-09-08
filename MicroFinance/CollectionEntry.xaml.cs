@@ -305,9 +305,10 @@ namespace MicroFinance
 
         private void SaveCollection_Click(object sender, RoutedEventArgs e)
         {
-            InsertCollections();
+            string EmpId = MainWindow.LoginDesignation.EmpId;
+            InsertCollections(EmpId);
         }
-        void InsertCollections()
+        void InsertCollections(string EmpID)
         {
             foreach(CollectionDetails item in LoanCollectionDetailList)
             {
@@ -345,14 +346,15 @@ namespace MicroFinance
                     connection.Open();
                     SqlCommand command = new SqlCommand();
                     command.Connection = connection; string BranchId = MainWindow.LoginDesignation.BranchId;
-                    command.CommandText = "insert into LoanCollectionEntry(BranchId, CustId, LoanId, Principal, Interest, Total, SecurityDeposite, ActualDue, PaidDue, Balance, ActualPaymentDate, CollectedOn, Attendance,Extras) values(@BranchId, @CustId, @LoanId, @Principal, @Interest, @Total, @SecurityDeposite, @ActualDue, @PaidDue, @Balance, @ActualPaymentDate, @CollectedOn, @Attendance, @Extras)";
+                    command.CommandText = "insert into LoanCollectionEntry(BranchId, CustId, LoanId, Principal, Interest, Total, SecurityDeposite, ActualDue, PaidDue, Balance, ActualPaymentDate, CollectedOn, Attendance,Extras,CollectedBy) values(@BranchId, @CustId, @LoanId, @Principal, @Interest, @Total, @SecurityDeposite, @ActualDue, @PaidDue, @Balance, @ActualPaymentDate, @CollectedOn, @Attendance, @Extras,@CollectedBy)";
                     command.Parameters.AddWithValue("@BranchId", BranchId);
                     command.Parameters.AddWithValue("@CustId", item.CustID);
                     command.Parameters.AddWithValue("@LoanId", item.LoanId);
                     command.Parameters.AddWithValue("@Principal", item.Principal);
                     command.Parameters.AddWithValue("@Interest", item.Interest);
                     command.Parameters.AddWithValue("@Total", item.ActualDueAmount);
-                    
+                    command.Parameters.AddWithValue("@CollectedBy", EmpID);
+
 
                     command.Parameters.AddWithValue("@SecurityDeposite", item.Security);
                     command.Parameters.AddWithValue("@ActualDue", item.ActualDueAmount);
@@ -370,7 +372,7 @@ namespace MicroFinance
 
                     command.Parameters.AddWithValue("@ActualPaymentDate", actualDueDate);
 
-                    command.Parameters.AddWithValue("@CollectedOn", DateTime.Now);
+                    command.Parameters.AddWithValue("@CollectedOn", DateTime.Now.ToString("MM-dd-yyyy"));
                     command.Parameters.AddWithValue("@Attendance", item.Attendance);
                     
                     
