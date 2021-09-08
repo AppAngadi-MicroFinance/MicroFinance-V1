@@ -140,8 +140,13 @@ namespace MicroFinance.Modal
        public bool IsRegisteredSystem()
         {
             string Current = SystemFunction.GetMACAddress();
-            return GetAllRegisteredMacAddresses().Contains(Current);
+            List<string> CurrentList = SystemFunction.GetMACAddressList().ToList();
+            int count = GetAllRegisteredMacAddresses().Intersect(CurrentList).Count();
+            return count > 0 ? true : false;
+            //return GetAllRegisteredMacAddresses().Contains(Current);
         }
+
+
 
         List<string> GetAllRegisteredMacAddresses()
         {

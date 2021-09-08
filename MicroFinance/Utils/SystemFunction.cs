@@ -20,5 +20,16 @@ namespace MicroFinance.Utils
             ).FirstOrDefault();
 
         }
+
+        public static IEnumerable<string> GetMACAddressList()
+        {
+            return
+            (
+           from nic in NetworkInterface.GetAllNetworkInterfaces()
+           where nic.OperationalStatus == OperationalStatus.Up
+           select nic.GetPhysicalAddress().ToString()
+            );
+
+        }
     }
 }
