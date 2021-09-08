@@ -90,13 +90,17 @@ namespace MicroFinance
 
         private void HimarkBtn_Click(object sender, RoutedEventArgs e)
         {
-           
+
+
             //loanProcess = new LoanProcess();
             //loanProcess.GetRequestList();
             //loanDetails = loanProcess.RequestList;
-            RequestList = HimarkRepository.GetHimarkRequestList();
-            RequestedListBoxNew.ItemsSource = RequestList;
-            HimarkExportPanel.Visibility = Visibility.Visible;
+
+
+            //RequestList = HimarkRepository.GetHimarkRequestList();
+            //RequestedListBoxNew.ItemsSource = RequestList;
+            //HimarkExportPanel.Visibility = Visibility.Visible;
+            this.NavigationService.Navigate(new ExportHimarkReport());
         }
 
         private async void ExportHimarkBtn_Click(object sender, RoutedEventArgs e)
@@ -134,9 +138,14 @@ namespace MicroFinance
             await System.Threading.Tasks.Task.Run(() => ExportHimarkFile());
             GifPanel.Visibility = Visibility.Collapsed;
            
+            
+
+
+
         }
          void ExportHimarkFile()
         {
+            
             List<HimarkModel> HimarkList = new List<HimarkModel>();
              HimarkList =HimarkRepository.GetDetailsForReport(RequestList);
             HiMark himarkReport = new HiMark();

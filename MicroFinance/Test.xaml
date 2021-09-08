@@ -13,11 +13,23 @@
     </Page.Resources>
 
     <Grid Background="LightBlue">
-        <ProgressBar HorizontalAlignment="Center" VerticalAlignment="Top" Height="20" Width="500" Margin="0,50,0,0" BorderBrush="Gray" BorderThickness="2">
-            <ProgressBar.Foreground>
-                <SolidColorBrush Color="Blue"></SolidColorBrush>
-            </ProgressBar.Foreground>
-        </ProgressBar>
+        <Border Height="40" Width="710" Background="White" CornerRadius="5" BorderThickness="1" BorderBrush="Gray">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="Gray" BorderThickness="0,0,1,0"></Border>
+                <TextBlock Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="1"></Border>
+                <TextBlock Grid.Column="1" Text="{Binding LoanAmount,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <Border BorderBrush="Gray" BorderThickness="0,0,1,0" Grid.Column="2"></Border>
+                <TextBlock Grid.Column="2" Text="{Binding LoanPeriod,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumberRegular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Grid.Column="3" Text="{Binding EmpName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+            </Grid>
+        </Border>
         <Border Height="50" Width="700" CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" Background="White" Visibility="Collapsed">
             <Grid>
                 <Grid.ColumnDefinitions>

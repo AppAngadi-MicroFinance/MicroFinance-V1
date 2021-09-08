@@ -12,20 +12,7 @@ namespace MicroFinance.ViewModel
         public string CustomerName { get; set; }
         public int   LoanAmount { get; set; }
         public int LoanPeriod { get; set; }
-        public string EmpName
-        {
-            get
-            {
-                using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
-                {
-                    sqlconn.Open();
-                    SqlCommand sqlcomm = new SqlCommand();
-                    sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select Name from Employee where EmpId='" + _empid + "'";
-                    return  (string)sqlcomm.ExecuteScalar();
-                }
-            }
-        }
+        public string EmpName { get; set; }
         public string RequestID { get; set; }
         public string CustomerID { get; set; }
         public string BranchID { get; set; }
@@ -42,6 +29,9 @@ namespace MicroFinance.ViewModel
                 
             }
         }
+        public string BranchName { get; set; }
+        public string Collectionday { get; set; }
+        public string CenterName { get; set; }
 
     }
 }
