@@ -245,6 +245,9 @@ namespace MicroFinance
             }
         }
 
-
+        private void CollectionReportDownload_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new DownloadCollectionReport());
+        }
     }
 }

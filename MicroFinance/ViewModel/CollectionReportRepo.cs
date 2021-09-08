@@ -57,9 +57,102 @@ namespace MicroFinance.ViewModel
 
         }
 
+        public static List<BranchNameView> GetBranchNames()
+        {
+            List<BranchNameView> BranchList = new List<BranchNameView>();
+            using (SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select BranchName,Bid from BranchDetails";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            BranchList.Add(new BranchNameView { BranchName = reader.GetString(0), BranchId = reader.GetString(1) });
+                        }
+                    }
+                    reader.Close();
+                    sqlconn.Close();
+                }
+            }
+            return BranchList;
+        }
 
 
+        public static List<CenterNameView> GetCenters()
+        {
+            List<CenterNameView> CenterList = new List<CenterNameView>();
+            using (SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select BranchId,SHGId,SHGName from SelfHelpGroup";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            CenterList.Add(new CenterNameView { BranchId = reader.GetString(0), CenterId = reader.GetString(1), CenterName = reader.GetString(2) });
+                        }
+                        reader.Close();
+                        sqlconn.Close();
+                    }
+                }
 
+            }
+            return CenterList;
+        }
+
+        public static List<EmployeeNameView> GetEmployees()
+        {
+            List<EmployeeNameView> EmployeeList = new List<EmployeeNameView>();
+            using   (SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select Employee.Name,Employee.EmpId,EmployeeBranch.BranchId from Employee,EmployeeBranch where EmployeeBranch.EmpId = Employee.EmpId and EmployeeBranch.Designation = 'Field Officer'";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            EmployeeList.Add(new EmployeeNameView { EmpName = reader.GetString(0), EmpId = reader.GetString(1), BranchId = reader.GetString(2) });
+                        }
+                        reader.Close();
+                        sqlconn.Close();
+                    }
+                }
+            }
+            return EmployeeList;
+        }
+    }
+    public class BranchNameView
+    {
+        public string BranchName { get; set; }
+        public string BranchId { get; set; }
+    }
+    public class CenterNameView
+    {
+        public string CenterName { get; set; }
+        public string CenterId { get; set; }
+        public string BranchId { get; set; }
+    }
+    public class EmployeeNameView
+    {
+        public string EmpId { get; set; }
+        public string EmpName { get; set; }
+        public string BranchId { get; set; }
     }
 
     public class CollectionDetails

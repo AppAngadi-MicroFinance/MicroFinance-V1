@@ -1181,7 +1181,7 @@ namespace MicroFinance.Reports
             cbo.Font.Bold = true;
             cbo.Font.Size = 11;
             cbo.RowHeight = 46;
-            cbo.ColumnWidth = 27;
+            cbo.EntireColumn.ColumnWidth = 50;
             cbo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             cbo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //FIG name
@@ -1317,6 +1317,7 @@ namespace MicroFinance.Reports
             applicantNo.RowHeight = 46;
             applicantNo.ColumnWidth = 17;
             applicantNo.WrapText = true;
+            applicantNo.EntireColumn.NumberFormat = "@";
             applicantNo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             applicantNo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //emp id
@@ -1395,6 +1396,7 @@ namespace MicroFinance.Reports
             ApplicantMobileNo.Interior.ColorIndex = 34;
             ApplicantMobileNo.Borders.ColorIndex = 15;
             ApplicantMobileNo.WrapText = true;
+            ApplicantMobileNo.EntireColumn.NumberFormat = "@";
             ApplicantMobileNo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             ApplicantMobileNo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Applicant DOB
@@ -1440,6 +1442,7 @@ namespace MicroFinance.Reports
             AppidproofNo.ColumnWidth = 19;
             AppidproofNo.WrapText = true;
             AppidproofNo.NumberFormat = "@";
+            AppidproofNo.EntireColumn.NumberFormat = "@";
             AppidproofNo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             AppidproofNo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Applicant Address Proof Type
@@ -1464,6 +1467,7 @@ namespace MicroFinance.Reports
             AppAddressproofNo.Interior.ColorIndex = 34;
             AppAddressproofNo.Borders.ColorIndex = 15;
             AppAddressproofNo.WrapText = true;
+            AppAddressproofNo.EntireColumn.NumberFormat = "@";
             AppAddressproofNo.NumberFormat = "@";
             AppAddressproofNo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             AppAddressproofNo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
@@ -1498,6 +1502,7 @@ namespace MicroFinance.Reports
             Coappnumber.Interior.ColorIndex = 34;
             Coappnumber.Borders.ColorIndex = 15;
             Coappnumber.WrapText = true;
+            Coappnumber.EntireColumn.NumberFormat = "@";
             Coappnumber.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             Coappnumber.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Co-Applicant DOB
@@ -1545,6 +1550,7 @@ namespace MicroFinance.Reports
             CoappIDproofNumber.ColumnWidth = 26;
             CoappIDproofNumber.WrapText = true;
             CoappIDproofNumber.NumberFormat = "@";
+            CoappIDproofNumber.EntireColumn.NumberFormat = "@";
             CoappIDproofNumber.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             CoappIDproofNumber.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Address Proof Type
@@ -1807,6 +1813,7 @@ namespace MicroFinance.Reports
             AppAccNo.RowHeight = 46;
             AppAccNo.ColumnWidth = 22;
             AppAccNo.WrapText = true;
+            AppAccNo.EntireColumn.NumberFormat = "@";
             AppAccNo.EntireColumn.NumberFormat = "@";
             AppAccNo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             AppAccNo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;

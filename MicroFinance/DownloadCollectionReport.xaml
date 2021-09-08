@@ -9,6 +9,58 @@
       Title="DownloadCollectionReport">
 
     <Grid>
-        
+        <Border Height="400" Width="400" Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="10">
+            <Grid Height="390" Width="390">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="80*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.ColumnSpan="2" Text="Download Collection Sheet" Style="{StaticResource SubTitle}" Margin="10,0,0,0"></TextBlock>
+                <Button Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,20,0"></Button>
+                <Separator Grid.ColumnSpan="2" BorderBrush="Gray" BorderThickness="30" VerticalAlignment="Bottom"></Separator>
+                <TextBlock Text="Branch" Style="{StaticResource Regular}" Grid.Row="1" Margin="20,0,0,0"></TextBlock>
+                <ComboBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" x:Name="BranchNameCombo" Style="{StaticResource combo}" Grid.Column="1" Grid.Row="1" Width="210" SelectionChanged="BranchNameCombo_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <ContentPresenter>
+                                <ContentPresenter.Content>
+                                    <StackPanel Height="20">
+                                        <TextBlock Text="{Binding BranchName}" FontSize="14" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                                    </StackPanel>
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Field Officer" Style="{StaticResource Regular}" Grid.Row="2" Margin="20,0,0,0"></TextBlock>
+                <ComboBox x:Name="FONameCombo" Style="{StaticResource combo}" Grid.Column="1" Grid.Row="2" Width="210" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <ContentPresenter>
+                                <ContentPresenter.Content>
+                                    
+                                        <TextBlock Text="{Binding EmpName}" VerticalAlignment="Center" Style="{StaticResource Regular}" FontSize="14"></TextBlock>
+                                    
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Center" Style="{StaticResource Regular}" Grid.Row="3" Margin="20,0,0,0"></TextBlock>
+                <ComboBox Style="{StaticResource combo}" Grid.Column="1" Grid.Row="3" Width="210"></ComboBox>
+                <TextBlock Text="Date" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="0" Margin="20,0,0,0"></TextBlock>
+                <DatePicker Grid.Column="1" Grid.Row="4" Height="40" Width="210" Style="{StaticResource DateSelecter}"></DatePicker>
+                <Button Style="{StaticResource SecondaryBtn}" Background="DarkBlue" Content="Download" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="2"></Button>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

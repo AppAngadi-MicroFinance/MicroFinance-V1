@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -20,9 +21,43 @@ namespace MicroFinance
     /// </summary>
     public partial class DownloadCollectionReport : Page
     {
+        public List<BranchNameView> BranchList = new List<BranchNameView>();
+        public List<CenterNameView> CenterList = new List<CenterNameView>();
+        public List<EmployeeNameView> EmployeeList = new List<EmployeeNameView>();
         public DownloadCollectionReport()
         {
             InitializeComponent();
+            LoadData();
+            BranchNameCombo.ItemsSource = BranchList;
+            //FONameCombo.ItemsSource = EmployeeList;
+        }
+
+
+        public void LoadData()
+        {
+            BranchList = CollectionReportRepo.GetBranchNames();
+            CenterList = CollectionReportRepo.GetCenters();
+            EmployeeList = CollectionReportRepo.GetEmployees();
+
+        }
+
+        void LoadFO(string BId)
+        {
+            FONameCombo.Items.Clear();
+            foreach(EmployeeNameView Emp in EmployeeList)
+            {
+                if(Emp.BranchId==BId)
+                {
+                    FONameCombo.Items.Add(Emp);
+                }
+            }
+
+        }
+
+        private void BranchNameCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BranchNameView SelectedBranch = BranchNameCombo.SelectedValue as BranchNameView;
+            LoadFO(SelectedBranch.BranchId);
         }
     }
 }
