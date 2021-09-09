@@ -4,11 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DownloadCollectionReport">
 
     <Grid>
+        <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
+        </StackPanel>
         <Border Height="400" Width="400" Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="10">
             <Grid Height="390" Width="390">
                 <Grid.ColumnDefinitions>
@@ -42,7 +47,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="Field Officer" Style="{StaticResource Regular}" Grid.Row="2" Margin="20,0,0,0"></TextBlock>
-                <ComboBox x:Name="FONameCombo" Style="{StaticResource combo}" Grid.Column="1" Grid.Row="2" Width="210" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
+                <ComboBox IsEnabled="False" x:Name="FONameCombo" Style="{StaticResource combo}" Grid.Column="1" Grid.Row="2" Width="210" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" SelectionChanged="FONameCombo_SelectionChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <ContentPresenter>
@@ -56,10 +61,22 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="Center" Style="{StaticResource Regular}" Grid.Row="3" Margin="20,0,0,0"></TextBlock>
-                <ComboBox Style="{StaticResource combo}" Grid.Column="1" Grid.Row="3" Width="210"></ComboBox>
+                <ComboBox IsEnabled="False" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" x:Name="CenterNameCombo" Style="{StaticResource combo}" Grid.Column="1" Grid.Row="3" Width="210" SelectionChanged="CenterNameCombo_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <ContentPresenter>
+                                <ContentPresenter.Content>
+
+                                    <TextBlock Text="{Binding CenterName}" VerticalAlignment="Center" Style="{StaticResource Regular}" FontSize="14"></TextBlock>
+
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
                 <TextBlock Text="Date" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="0" Margin="20,0,0,0"></TextBlock>
-                <DatePicker Grid.Column="1" Grid.Row="4" Height="40" Width="210" Style="{StaticResource DateSelecter}"></DatePicker>
-                <Button Style="{StaticResource SecondaryBtn}" Background="DarkBlue" Content="Download" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="2"></Button>
+                <DatePicker IsEnabled="False" Grid.Column="1" Grid.Row="4" Height="40" Width="210" Style="{StaticResource DateSelecter}" x:Name="CollectionDate"></DatePicker>
+                <Button Style="{StaticResource SecondaryBtn}" Background="DarkBlue" Content="Download" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="2" x:Name="DownloadSheetBtn" Click="DownloadSheetBtn_Click"></Button>
             </Grid>
         </Border>
     </Grid>

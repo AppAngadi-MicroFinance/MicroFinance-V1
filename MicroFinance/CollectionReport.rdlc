@@ -211,7 +211,6 @@
                             <TextRun>
                               <Value>=Fields!BranchName.Value</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -244,7 +243,6 @@
                             <TextRun>
                               <Value>=Fields!CenterName.Value</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -277,7 +275,6 @@
                             <TextRun>
                               <Value>=Fields!FoName.Value</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -310,7 +307,6 @@
                             <TextRun>
                               <Value>=Fields!CustomerName.Value</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -343,7 +339,6 @@
                             <TextRun>
                               <Value>=Fields!Amount.Value</Value>
                               <Style>
-                                <FontFamily>Segoe UI</FontFamily>
                                 <FontSize>11pt</FontSize>
                               </Style>
                             </TextRun>
@@ -392,7 +387,7 @@
         <Top>1.31333in</Top>
         <Left>0.39667in</Left>
         <Height>0.5in</Height>
-        <Width>6.45833in</Width>
+        <Width>6.45834in</Width>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -428,7 +423,6 @@
               <TextRun>
                 <Value>G-Trust</Value>
                 <Style>
-                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>24pt</FontSize>
                 </Style>
               </TextRun>
@@ -463,7 +457,6 @@
               <TextRun>
                 <Value>Collection Report</Value>
                 <Style>
-                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
@@ -499,7 +492,6 @@
               <TextRun>
                 <Value>=Sum(Fields!Amount.Value, "DataSet1")</Value>
                 <Style>
-                  <FontFamily>Segoe UI</FontFamily>
                   <FontSize>14pt</FontSize>
                 </Style>
               </TextRun>
@@ -527,12 +519,14 @@
     <Height>2.84167in</Height>
     <Style />
   </Body>
-  <Width>7.34667in</Width>
+  <Width>7.055in</Width>
   <Page>
-    <LeftMargin>1in</LeftMargin>
-    <RightMargin>1in</RightMargin>
-    <TopMargin>1in</TopMargin>
-    <BottomMargin>1in</BottomMargin>
+    <PageHeight>11.69in</PageHeight>
+    <PageWidth>8.27in</PageWidth>
+    <LeftMargin>0.25in</LeftMargin>
+    <RightMargin>0.25in</RightMargin>
+    <TopMargin>0.25in</TopMargin>
+    <BottomMargin>0.25in</BottomMargin>
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>
