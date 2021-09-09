@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MicroFinance.Modal
 {
@@ -139,12 +140,15 @@ namespace MicroFinance.Modal
 
        public bool IsRegisteredSystem()
         {
+           
             string Current = SystemFunction.GetMACAddress();
             List<string> CurrentList = SystemFunction.GetMACAddressList().ToList();
             int count = GetAllRegisteredMacAddresses().Intersect(CurrentList).Count();
             return count > 0 ? true : false;
             //return GetAllRegisteredMacAddresses().Contains(Current);
         }
+
+       
 
 
 

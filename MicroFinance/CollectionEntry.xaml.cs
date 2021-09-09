@@ -99,7 +99,7 @@ namespace MicroFinance
         void GetGroupsUnderEmployee(string groupName)
         {
             GroupTotal obj = new GroupTotal();
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
@@ -123,7 +123,7 @@ namespace MicroFinance
         CollectionDetails LoadLoanDetails(string loanID)
         {
             CollectionDetails obj = new CollectionDetails();
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 string BranchId = MainWindow.LoginDesignation.BranchId;
@@ -146,7 +146,7 @@ namespace MicroFinance
 
         void GetActiveLoanIdForGroupId(string groupId)
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 string BranchId = MainWindow.LoginDesignation.BranchId;
@@ -165,7 +165,7 @@ namespace MicroFinance
 
         void GroupNameUnderShg(String SHGName)
         {
-            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
+            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 string BranchId = MainWindow.LoginDesignation.BranchId;
@@ -182,7 +182,7 @@ namespace MicroFinance
         }
         void GetActiveCustomers(String SelfHelpGroupName)
         {
-            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
+            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
@@ -199,7 +199,7 @@ namespace MicroFinance
         }
         void GetLoanDetails()
         {
-            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
+            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
@@ -236,7 +236,7 @@ namespace MicroFinance
         }
         void CollectionDetails()
         {
-            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
+            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
@@ -314,7 +314,7 @@ namespace MicroFinance
             {
                 DateTime actualDueDate = new DateTime();
                 int actualDueAmount = 0;
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
                 {
                     connection.Open();
                     string BranchId = MainWindow.LoginDesignation.BranchId;
@@ -341,7 +341,7 @@ namespace MicroFinance
                     item.ActualDueAmount = actualDueAmount;
                 }
                 int balance = GetBalanceForLoanId(item.LoanId);
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand();
@@ -388,7 +388,7 @@ namespace MicroFinance
         }
         void DeactivateLoan(string loanId)
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 string BranchId = MainWindow.LoginDesignation.BranchId;
@@ -403,7 +403,7 @@ namespace MicroFinance
         int GetBalanceForLoanId(string loanID)
         {
             int balance = 0;
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 string BranchId = MainWindow.LoginDesignation.BranchId;
@@ -612,7 +612,7 @@ namespace MicroFinance
 
         void GetgroupTotal()
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();

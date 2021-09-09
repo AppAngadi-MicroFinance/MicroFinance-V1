@@ -471,7 +471,7 @@ namespace MicroFinance.Modal
             bool _isPhotoProof = false;
             bool _isProfilePhoto = false;
 
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -486,7 +486,7 @@ namespace MicroFinance.Modal
         }
         void AddGuarantorAddressProof()
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -500,7 +500,7 @@ namespace MicroFinance.Modal
 
         void AddGuarantorPhotoProof()
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -514,7 +514,7 @@ namespace MicroFinance.Modal
 
         void AddGuarantorProfilePhoto()
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -543,7 +543,7 @@ namespace MicroFinance.Modal
             {
                 _isProfilePhoto = true;
             }
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -558,7 +558,7 @@ namespace MicroFinance.Modal
 
         public void GetGuranteeDetails()
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -602,7 +602,7 @@ namespace MicroFinance.Modal
 
         public void GetGuarantorVerifedDetails()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand command = new SqlCommand();

@@ -30,7 +30,7 @@ namespace MicroFinance
         string _password;
         public static LoginDetails LoginDesignation;
 
-        public static string ConnectionString = Properties.Settings.Default.db;
+        public static string ConnectionString = Properties.Settings.Default.DBConnection;
         public MainWindow()
         {
             InitializeComponent();
@@ -50,34 +50,42 @@ namespace MicroFinance
 
         private void xLoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string UserName = xUserName.Text;
-            string Password = xPassword.Password;
-            // LoginDesignation = new LoginDetails(UserName);
-            LoginDesignation = new LoginDetails(UserName, Password);
-            if (LoginDesignation.IsRegisteredSystem()==true)
+            try
             {
-                
-                _userName = UserName;
-                _password = Password;
-               
-               
-                if (_userName.ToLower() == "Admin".ToLower() && _password=="GTrust123")
+                string UserName = xUserName.Text;
+                string Password = xPassword.Password;
+                // LoginDesignation = new LoginDetails(UserName);
+                LoginDesignation = new LoginDetails(UserName, Password);
+                if (LoginDesignation.IsRegisteredSystem() == true)
                 {
-                    LoginBorder.Visibility = Visibility.Collapsed;
-                    mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
-                    LoggedInState();
-                    MainWindow.StatusMessageofPage(1, "Ready...");
+
+                    _userName = UserName;
+                    _password = Password;
+
+
+                    if (_userName.ToLower() == "Admin".ToLower() && _password == "GTrust123")
+                    {
+                        LoginBorder.Visibility = Visibility.Collapsed;
+                        mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
+                        LoggedInState();
+                        MainWindow.StatusMessageofPage(1, "Ready...");
+                    }
+                    else
+                    {
+                        GetLogin();
+                    }
+
                 }
                 else
                 {
-                    GetLogin();
+                    StatusMessageofPage(0, "Unauthorized System .....");
                 }
-
             }
-            else
+            catch(Exception ex)
             {
-                StatusMessageofPage(0, "Unauthorized System .....");
+                StatusMessageofPage(0, ex.Message);
             }
+           
 
 
 

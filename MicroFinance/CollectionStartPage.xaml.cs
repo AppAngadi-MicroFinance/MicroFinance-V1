@@ -35,7 +35,7 @@ namespace MicroFinance
             string[] _officerName = new string[1];
             string[] _regionName = new string[1];
             List<string> SelfHelpGroupList = new List<string>();
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();

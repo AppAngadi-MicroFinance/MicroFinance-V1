@@ -15,7 +15,7 @@ namespace MicroFinance.Modal
         public string GetRegionNumber()
         {
             int Result = 1;
-            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
                 if (sqlconn.State == ConnectionState.Open)
@@ -33,7 +33,7 @@ namespace MicroFinance.Modal
         {
 
             int Result = 1;
-            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
                 if (sqlconn.State == ConnectionState.Open)
@@ -55,7 +55,7 @@ namespace MicroFinance.Modal
             int year = DateTime.Now.Year;
             int mon = DateTime.Now.Month;
             string month = ((mon) < 10 ? "0" + mon : mon.ToString());
-            using (SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlcon.Open();
                 if (sqlcon.State == ConnectionState.Open)

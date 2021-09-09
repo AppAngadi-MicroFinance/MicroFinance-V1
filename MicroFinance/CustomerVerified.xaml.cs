@@ -948,70 +948,77 @@ namespace MicroFinance
         bool GreenCheck = true;
         private void VerifyNewCustomer_Click(object sender, RoutedEventArgs e)
         {
-            
-            if(CustomerStatus==0)
+            try
             {
-                CustomerCheck();
-                GuarantorCheck();
-                NomineeCheck();
-                BankCheck();
-            }
-            if(CustomerStatus==2)
-            {
-                CustomerCheck();
-                GuarantorCheck();
-                NomineeCheck();
-                BankCheck();
-                DocumentCheck();
-            }
+                if (CustomerStatus == 0)
+                {
+                    CustomerCheck();
+                    GuarantorCheck();
+                    NomineeCheck();
+                    BankCheck();
+                }
+                if (CustomerStatus == 2)
+                {
+                    CustomerCheck();
+                    GuarantorCheck();
+                    NomineeCheck();
+                    BankCheck();
+                    DocumentCheck();
+                }
 
 
-            if(GreenCheck)
-            {
-                if(CustomerStatus==0)
+                if (GreenCheck)
                 {
-                    InsertVerificationDetails();
-                    customer.SaveCustomerDetails(_regionName, _branchName, _shgName, _pgName, guarantor, nominee);
-                    MainWindow.StatusMessageofPage(1, "Successfully Customer Details Added");
-                    NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
-                    Thread.Sleep(2000);
-                    MainWindow.StatusMessageofPage(1, "Ready...");
-                }
-                else if(CustomerStatus==2)
-                {
-                    UpdateVerification();
-                   customer.UpdateExistingDetails(_branchName, _shgName, _pgName, guarantor, nominee);
-                    ChangeLoanStatus(_loanReqId, 5);
-                    NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
-                }
-                else if(CustomerStatus==5)
-                {
-                    ChangeLoanStatus(_loanReqId, 6);
-                    if(MainWindow.LoginDesignation.LoginDesignation=="Accountant")
+                    if (CustomerStatus == 0)
                     {
-                        NavigationService.GetNavigationService(this).Navigate(new DashboardAccountant());
+                        InsertVerificationDetails();
+                        customer.SaveCustomerDetails(_regionName, _branchName, _shgName, _pgName, guarantor, nominee);
+                        MainWindow.StatusMessageofPage(1, "Successfully Customer Details Added");
+                        NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
+                        Thread.Sleep(2000);
+                        MainWindow.StatusMessageofPage(1, "Ready...");
                     }
-                    else if(MainWindow.LoginDesignation.LoginDesignation=="Manager")
+                    else if (CustomerStatus == 2)
                     {
+                        UpdateVerification();
+                        customer.UpdateExistingDetails(_branchName, _shgName, _pgName, guarantor, nominee);
+                        ChangeLoanStatus(_loanReqId, 5);
+                        NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
+                    }
+                    else if (CustomerStatus == 5)
+                    {
+                        ChangeLoanStatus(_loanReqId, 6);
+                        if (MainWindow.LoginDesignation.LoginDesignation == "Accountant")
+                        {
+                            NavigationService.GetNavigationService(this).Navigate(new DashboardAccountant());
+                        }
+                        else if (MainWindow.LoginDesignation.LoginDesignation == "Manager")
+                        {
+                            NavigationService.GetNavigationService(this).Navigate(new DashboardBranchManager());
+                        }
+
+                    }
+                    else if (CustomerStatus == 6)
+                    {
+                        ChangeLoanStatus(_loanReqId, 7);
                         NavigationService.GetNavigationService(this).Navigate(new DashboardBranchManager());
                     }
-                   
                 }
-                else if(CustomerStatus==6)
+                else
                 {
-                    ChangeLoanStatus(_loanReqId, 7);
-                    NavigationService.GetNavigationService(this).Navigate(new DashboardBranchManager());
+                    MainWindow.StatusMessageofPage(0, "Please Verifiy Mandotory Fields.....");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                MainWindow.StatusMessageofPage(0, "Please Verifiy Mandotory Fields.....");
+                MessageBox.Show(ex.Message);
             }
+            
             
         }
         void ChangeLoanStatus(string ReqID, int StatusCode)
         {
-            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
                     SqlCommand sqlcomm = new SqlCommand();
@@ -1703,19 +1710,31 @@ namespace MicroFinance
 
         void InsertVerificationDetails()
         {
-            using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.db))
+            using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
-                sql.Open();
-                SqlCommand command = new SqlCommand();
-                command.Connection = sql;
-                command.CommandText = "insert into CustomerVerification(CustId,CustomerName,CustomerGender,CustomerDOB,FatherName,MotherName,Guardian,Contact,CAddress,Religion,Caste,Community,Education,FamilyMembers,EarningMembers,Occupation,MonthlyIncome,MonthlyExpence,FamilyAnnualIncome,CustomerDoorNo,CustomerStreet,CustomerLocality,CustomerCity,CustomerState,CustomerPincode,HouseType,GName,GGender,GDOB,GContact,GOccupation,GRelationship,GDoorNo,GStreet,GLocality,GCity,GState,GPincode,NName,NGender,NDOB,NContact,NOccupation,NRelationship,NDoorNo,NStreet,NLocality,NCity,NState,NPincode,AccountHolderName,AccountNo,BankName,BranchName,IFSC,MICR,CAddressProof,CPhotoProof,CProfilePic,GAddressProof,GPhotoProof,GProfilePic,NAddressProof,NPhotoProof,NProfilePic,CustomerCombinePhoto) values ('" + customer._customerId + "','" + customer.CustName + "','" + customer.CustGender + "','" + customer.CustDateOfBirth + "','" + customer.CustFatherName + "','" + customer.CustMotherName + "','" + customer.CustHusbandName + "','" + customer.CustContactNumber + "','" + customer.CustAadharNumber + "','" + customer.CustReligion + "','" + customer.CustCaste + "','" + customer.CustCommunity + "','" + customer.CustEducation + "','" + customer.CustFamilyMember + "','" + customer.CustEarningMember + "','" + customer.CustOccupation + "','" + customer.CustMonthlyIncome + "','" + customer.CustMonthlyExpenses + "','" + customer.CustFamilyYearlyIncome + "','" + customer.CustomerDoorNumber + "','" + customer.CustStreetName + "','" + customer.CustomerLocality + "','" + customer.CustomerCity + "','" + customer.CustomerState + "','" + customer.CustomerPincode + "','" + customer.CustomerHousingType + "','" + guarantor.GName + "','" + guarantor.GuarantorGender + "','" + guarantor.GuarantorDOB + "','" + guarantor.GuarantorContact + "','" + guarantor.GuarantorOccupation + "','" + guarantor.GuarantorRelationship + "','" + guarantor.GuarantorDoorNumber + "','" + guarantor.GuarantorStreet + "','" + guarantor.GuarantorLocality + "','" + guarantor.GuarantorCity + "','" + guarantor.GuarantorState + "','" + guarantor.GuarantorPincode + "','" + nominee.NName + "','" + nominee.NomineeGender + "','" + nominee.NomineeDOB + "','" + nominee.NomineeContact + "','" + nominee.NomineeOccupation + "','" + nominee.NomineeRelationship + "','" + nominee.NomineeDoorNo + "','" + nominee.NomineeStreet + "','" + nominee.NomineeLocality + "','" + nominee.NomineeCity + "','" + nominee.NomineeState + "','" + nominee.NomineePincode + "','" + customer.BankHolderName + "','" + customer.BankAccountNo + "','" + customer.Bankname + "','" + customer.BranchName + "','" + customer.BIfscCode + "','" + customer.BMicrCode + "','" + customer.CustomerAddressProof + "','" + customer.CustomerPhotoProof + "','" + customer.CustomerProfilePicture + "','" + guarantor.GuarantorAddressProof + "','" + guarantor.GuarantorPhotoProof + "','" + guarantor.GuarantorProfilePicture + "','" + nominee.NomineeAddressProof + "','" + nominee.NomineePhotoProof + "','" + nominee.NomineeProfilePicture + "','" + customer.Combinephoto + "')";
-                command.ExecuteNonQuery();
+                try
+                {
+                    
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = sql;
+                    sql.Open();
+                    command.CommandText = "insert into CustomerVerification(CustId,CustomerName,CustomerGender,CustomerDOB,FatherName,MotherName,Guardian,Contact,CAddress,Religion,Caste,Community,Education,FamilyMembers,EarningMembers,Occupation,MonthlyIncome,MonthlyExpence,FamilyAnnualIncome,CustomerDoorNo,CustomerStreet,CustomerLocality,CustomerCity,CustomerState,CustomerPincode,HouseType,GName,GGender,GDOB,GContact,GOccupation,GRelationship,GDoorNo,GStreet,GLocality,GCity,GState,GPincode,NName,NGender,NDOB,NContact,NOccupation,NRelationship,NDoorNo,NStreet,NLocality,NCity,NState,NPincode,AccountHolderName,AccountNo,BankName,BranchName,IFSC,MICR,CAddressProof,CPhotoProof,CProfilePic,GAddressProof,GPhotoProof,GProfilePic,NAddressProof,NPhotoProof,NProfilePic,CustomerCombinePhoto) values ('" + customer._customerId + "','" + customer.CustName + "','" + customer.CustGender + "','" + customer.CustDateOfBirth + "','" + customer.CustFatherName + "','" + customer.CustMotherName + "','" + customer.CustHusbandName + "','" + customer.CustContactNumber + "','" + customer.CustAadharNumber + "','" + customer.CustReligion + "','" + customer.CustCaste + "','" + customer.CustCommunity + "','" + customer.CustEducation + "','" + customer.CustFamilyMember + "','" + customer.CustEarningMember + "','" + customer.CustOccupation + "','" + customer.CustMonthlyIncome + "','" + customer.CustMonthlyExpenses + "','" + customer.CustFamilyYearlyIncome + "','" + customer.CustomerDoorNumber + "','" + customer.CustStreetName + "','" + customer.CustomerLocality + "','" + customer.CustomerCity + "','" + customer.CustomerState + "','" + customer.CustomerPincode + "','" + customer.CustomerHousingType + "','" + guarantor.GName + "','" + guarantor.GuarantorGender + "','" + guarantor.GuarantorDOB + "','" + guarantor.GuarantorContact + "','" + guarantor.GuarantorOccupation + "','" + guarantor.GuarantorRelationship + "','" + guarantor.GuarantorDoorNumber + "','" + guarantor.GuarantorStreet + "','" + guarantor.GuarantorLocality + "','" + guarantor.GuarantorCity + "','" + guarantor.GuarantorState + "','" + guarantor.GuarantorPincode + "','" + nominee.NName + "','" + nominee.NomineeGender + "','" + nominee.NomineeDOB + "','" + nominee.NomineeContact + "','" + nominee.NomineeOccupation + "','" + nominee.NomineeRelationship + "','" + nominee.NomineeDoorNo + "','" + nominee.NomineeStreet + "','" + nominee.NomineeLocality + "','" + nominee.NomineeCity + "','" + nominee.NomineeState + "','" + nominee.NomineePincode + "','" + customer.BankHolderName + "','" + customer.BankAccountNo + "','" + customer.Bankname + "','" + customer.BranchName + "','" + customer.BIfscCode + "','" + customer.BMicrCode + "','" + customer.CustomerAddressProof + "','" + customer.CustomerPhotoProof + "','" + customer.CustomerProfilePicture + "','" + guarantor.GuarantorAddressProof + "','" + guarantor.GuarantorPhotoProof + "','" + guarantor.GuarantorProfilePicture + "','" + nominee.NomineeAddressProof + "','" + nominee.NomineePhotoProof + "','" + nominee.NomineeProfilePicture + "','" + customer.Combinephoto + "')";
+                   // MessageBox.Show(command.CommandText);
+                    command.ExecuteNonQuery();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    //MessageBox.Show(ex.StackTrace);
+                    
+                }
+                
             }
         }
 
         void UpdateVerification()
         {
-            using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.db))
+            using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();

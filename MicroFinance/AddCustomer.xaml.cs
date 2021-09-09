@@ -185,13 +185,10 @@ namespace MicroFinance
             GuarantorAddressDetails.DataContext = guarantor;
             GuarantorOtherDetailsGrid.DataContext = guarantor;
             GuarnatorDetails.DataContext = guarantor;
-
             NomineeGrid.DataContext = nominee;
             NomineeAddressDetails.DataContext = nominee;
             NomineeOtherDetails.DataContext = nominee;
             NomineeDetails.DataContext = nominee;
-
-
             LoanRequestPanel.DataContext = customer;
         }
         string CustomerId;
@@ -282,7 +279,7 @@ namespace MicroFinance
             string SelectedSHg = "";
             string SelectedPg = "";
             string SelectedOfficerName = "";
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -326,7 +323,7 @@ namespace MicroFinance
 
         private void SelectPG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 if (SelectPG.SelectedItem != null)
                 {
@@ -2035,7 +2032,7 @@ namespace MicroFinance
         public bool IsAadharAlreadeyExists;
         void CheckAadharAlreadyExist()
         {
-            using(SqlConnection sql =new SqlConnection(Properties.Settings.Default.db))
+            using(SqlConnection sql =new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();

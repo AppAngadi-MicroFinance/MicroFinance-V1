@@ -56,7 +56,7 @@ namespace MicroFinance
 
         void GetDocumentPendingCustomerDetails()
         {
-            using (SqlConnection sqlConnection=new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -74,7 +74,7 @@ namespace MicroFinance
         void GetRecomendedCustomer()
         {
 
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -90,7 +90,7 @@ namespace MicroFinance
         }
         void GetWatingForApprovalCustomer()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();

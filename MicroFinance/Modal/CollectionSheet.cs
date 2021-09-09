@@ -27,7 +27,7 @@ namespace MicroFinance.Modal
 		void GetColletion()
         {
             List<GroupWithCustomer> ActiveCustomers = new List<GroupWithCustomer>();
-			using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
+			using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();

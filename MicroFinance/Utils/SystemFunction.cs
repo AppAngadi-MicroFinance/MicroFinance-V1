@@ -15,7 +15,6 @@ namespace MicroFinance.Utils
             return
             (
            from nic in NetworkInterface.GetAllNetworkInterfaces()
-           where nic.OperationalStatus == OperationalStatus.Up
            select nic.GetPhysicalAddress().ToString()
             ).FirstOrDefault();
 
@@ -26,7 +25,6 @@ namespace MicroFinance.Utils
             return
             (
            from nic in NetworkInterface.GetAllNetworkInterfaces()
-           where nic.OperationalStatus == OperationalStatus.Up
            select nic.GetPhysicalAddress().ToString()
             );
 
