@@ -30,7 +30,7 @@
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.ColumnSpan="2" Text="Download Collection Sheet" Style="{StaticResource SubTitle}" Margin="10,0,0,0"></TextBlock>
-                <Button Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,20,0"></Button>
+                <Button Visibility="Collapsed" Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,20,0"></Button>
                 <Separator Grid.ColumnSpan="2" BorderBrush="Gray" BorderThickness="30" VerticalAlignment="Bottom"></Separator>
                 <TextBlock Text="Branch" Style="{StaticResource Regular}" Grid.Row="1" Margin="20,0,0,0"></TextBlock>
                 <ComboBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" x:Name="BranchNameCombo" Style="{StaticResource combo}" Grid.Column="1" Grid.Row="1" Width="210" SelectionChanged="BranchNameCombo_SelectionChanged">
