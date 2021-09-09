@@ -30,8 +30,8 @@
                 <RowDefinition Height="80*"/>
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Branch" Style="{StaticResource Regular}"  Width="50" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,160,0"></TextBlock>
-            <ComboBox HorizontalAlignment="Right" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Bottom" x:Name="BranchNameCombo" Style="{StaticResource combo}" Grid.Column="0" Grid.Row="0" Width="210" SelectionChanged="BranchNameCombo_SelectionChanged">
+            <TextBlock Text="Branch" Style="{StaticResource Regular}"  Width="50" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,201,0"></TextBlock>
+            <ComboBox HorizontalAlignment="Right" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Bottom" x:Name="BranchNameCombo" Margin="0,0,40,0" Style="{StaticResource combo}" Grid.Column="0" Grid.Row="0" Width="210" SelectionChanged="BranchNameCombo_SelectionChanged">
                 
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -104,7 +104,7 @@
                     <TextBlock  x:Name="branchtotalcount" Grid.Row="3" Style="{StaticResource NumberSubTitle}" FontWeight="Bold" FontSize="26" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                 </Grid>
             </Border>
-            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,37,0">
                 <Button Style="{StaticResource PrimaryBtn}" Content="Export" x:Name="ExportHimarkResult" Click="ExportHimarkResult_Click"></Button>
                 <Button Style="{StaticResource CancelBtn}" Margin="20,0,0,0" Content="Cancel" x:Name="CalcelBtn" Click="CalcelBtn_Click"></Button>
             </StackPanel>
