@@ -725,7 +725,7 @@ namespace MicroFinance.Modal
 
         public void GetAllDetailsofCustomers()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -853,7 +853,7 @@ namespace MicroFinance.Modal
         }
         void AddBankDetails()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -864,7 +864,7 @@ namespace MicroFinance.Modal
         }
         void AddAddressProof()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -876,7 +876,7 @@ namespace MicroFinance.Modal
         }
         void AddPhotoProof()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -888,7 +888,7 @@ namespace MicroFinance.Modal
         }
         void AddProfilePhoto()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -900,7 +900,7 @@ namespace MicroFinance.Modal
         }
         void AddCombinePhoto()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -912,7 +912,7 @@ namespace MicroFinance.Modal
         }
         void AddAadharNumber()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -932,7 +932,7 @@ namespace MicroFinance.Modal
         {
             
             string AddressofCustomer = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" + Taluk + "|~" + City + "|~" + State;
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -1001,7 +1001,7 @@ namespace MicroFinance.Modal
         int GetMembersCountINPeerGroup(string peerGroupId)
         {
             int Count = 1;
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -1061,7 +1061,7 @@ namespace MicroFinance.Modal
         public void ChangeCustomerDetails(string BranchName, string SelfHelpGroup, string PeerGroup)
         {
             string AddressofCustomer = DoorNumber + "|~" + StreetName + "|~" + LocalityTown + "|~" + Taluk + "|~" + City + "|~" + State;
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -1076,7 +1076,7 @@ namespace MicroFinance.Modal
         }
         public void GetVerfiedDetailsofCustomer()
         {
-            using(SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using(SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand command = new SqlCommand();
@@ -1125,7 +1125,7 @@ namespace MicroFinance.Modal
         }
         public void CheckAndChangeStatus()
         {
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 bool _check = false;
                 sqlConnection.Open();
@@ -1167,7 +1167,7 @@ namespace MicroFinance.Modal
         public bool IsPeerGroupFull(string pgID)
         {
             int count = 0;
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();

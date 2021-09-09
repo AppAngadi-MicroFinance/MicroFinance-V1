@@ -89,7 +89,7 @@ namespace MicroFinance.Modal
 
         void GetBrachName4EMPid(string empId)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -101,7 +101,7 @@ namespace MicroFinance.Modal
         }
         void GetCenterName4EMPid(string empId, string collectionDay)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -126,7 +126,7 @@ namespace MicroFinance.Modal
       
         void GetPaidDetails(string loanId)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -154,7 +154,7 @@ namespace MicroFinance.Modal
         }
         void GetNextDueDetails(string loanID)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -176,7 +176,7 @@ namespace MicroFinance.Modal
         {
             
             string name = string.Empty;
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -205,7 +205,7 @@ namespace MicroFinance.Modal
         {
             string idd = string.Empty;
             List<string> EmployeeSHG = new List<string>();
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -222,7 +222,7 @@ namespace MicroFinance.Modal
             List<string> PeerGroupForSHG = new List<string>();
             foreach(string shgID in EmployeeSHG)
             {
-                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
                 {
                     sql.Open();
                     SqlCommand command = new SqlCommand();
@@ -243,7 +243,7 @@ namespace MicroFinance.Modal
             foreach(string pgID in PeerGroupForSHG)
             {
                 initLeft++;
-                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
                 {
                     sql.Open();
                     SqlCommand command = new SqlCommand();
@@ -265,7 +265,7 @@ namespace MicroFinance.Modal
             foreach(CustomerIDinGroup item in CustomersINPeerGroup)
             {
                 CollectionShceduleSheet temp = new CollectionShceduleSheet(empID, day);
-                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
                 {
                     sql.Open();
                     SqlCommand command = new SqlCommand();
@@ -342,7 +342,7 @@ namespace MicroFinance.Modal
         }
         void GetGroupName(string groupId)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();

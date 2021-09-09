@@ -37,7 +37,7 @@ namespace MicroFinance
         string GetBranchName()
         {
             string _BranchName = "";
-            using (SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
@@ -51,7 +51,7 @@ namespace MicroFinance
 
         private void VerifyDenomination_Click(object sender, RoutedEventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
@@ -92,7 +92,7 @@ namespace MicroFinance
         void GetFieldOfficers(string branchId)
         {
             
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
@@ -163,7 +163,7 @@ namespace MicroFinance
 
         void GetSHGList(string empName)
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
@@ -228,7 +228,7 @@ namespace MicroFinance
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             AddBasic();
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();

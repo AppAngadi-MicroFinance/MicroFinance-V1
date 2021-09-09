@@ -120,7 +120,7 @@ namespace MicroFinance
             string _five = Dlist[7].Multiples;
             string _two = Dlist[8].Multiples;
             string _one = Dlist[9].Multiples;
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();

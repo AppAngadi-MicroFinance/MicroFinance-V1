@@ -291,7 +291,7 @@ namespace MicroFinance.Modal
         }
         void GetPaidDetails(string loanId)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -318,7 +318,7 @@ namespace MicroFinance.Modal
         }
         void GetNextDueDetails(string loanID)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -336,7 +336,7 @@ namespace MicroFinance.Modal
         }
         void GetCustomerName(string loanID)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -349,7 +349,7 @@ namespace MicroFinance.Modal
 
         void GetExtraBalance(string loanID)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -371,7 +371,7 @@ namespace MicroFinance.Modal
 
         void GetGroupId(string custId)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();

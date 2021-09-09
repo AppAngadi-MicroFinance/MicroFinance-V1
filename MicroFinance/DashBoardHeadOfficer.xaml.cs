@@ -111,7 +111,7 @@ namespace MicroFinance
         int GetCustomersStatus2(string branchId)
         {
             int value = 0;
-            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
                 if (sqlconn.State == ConnectionState.Open)
