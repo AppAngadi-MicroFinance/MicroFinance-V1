@@ -751,10 +751,6 @@ namespace MicroFinance.Modal
                 sqlcon.Close();
             }
         }
-
-
-
-
         public void RejectLoan(string ID)
         {
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
