@@ -733,7 +733,7 @@ namespace MicroFinance.Modal
             GenerateSavingsAccID SA = new GenerateSavingsAccID();
             int res = 0;
             var date = DateTime.Now.ToString("MM-dd-yyyy");
-            using (SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlcon.Open();
                 if (sqlcon.State == ConnectionState.Open)

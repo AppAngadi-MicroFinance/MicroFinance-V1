@@ -13,7 +13,7 @@ namespace MicroFinance.ViewModel
     public class HimarkRepository
     {
 
-        string ConnectionString = MicroFinance.Properties.Settings.Default.db;
+        string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
 
         public static List<HimarkRequestView> GetHimarkRequestList()
         {
@@ -80,7 +80,7 @@ namespace MicroFinance.ViewModel
         {
             List<HimarkModel> ReportList = new List<HimarkModel>();
 
-            using(SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.db))
+            using(SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
                 if(ConnectionState.Open==sqlconn.State)
@@ -216,7 +216,7 @@ namespace MicroFinance.ViewModel
 
         public static void ChangeLoanStatus(string ReqID, int StatusCode)
         {
-            using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.db))
+            using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
                 if (sqlconn.State == ConnectionState.Open)

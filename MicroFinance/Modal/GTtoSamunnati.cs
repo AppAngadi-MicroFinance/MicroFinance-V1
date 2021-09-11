@@ -680,7 +680,7 @@ namespace MicroFinance.Modal
         {
             List<GTtoSamunnati> CustomerDetails = new List<GTtoSamunnati>();
             List<String> CustomerIdList = new List<string>();
-            using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.db))
+            using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();

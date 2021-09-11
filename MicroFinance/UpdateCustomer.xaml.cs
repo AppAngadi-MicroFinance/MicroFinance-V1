@@ -87,7 +87,7 @@ namespace MicroFinance
             string[] _officerName = new string[1];
             string[] _regionName = new string[1];
             List<string> SelfHelpGroupList = new List<string>();
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -131,7 +131,7 @@ namespace MicroFinance
             string SelectedSHg="";
             string SelectedPg="";
             string SelectedOfficerName="";
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
@@ -823,7 +823,7 @@ namespace MicroFinance
 
         private void SelectPG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
