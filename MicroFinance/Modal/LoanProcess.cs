@@ -804,7 +804,7 @@ namespace MicroFinance.Modal
                     }
                     sqlconn.Close();
                 }
-                catch(Exception ex)
+                catch
                 {
 
                 }
