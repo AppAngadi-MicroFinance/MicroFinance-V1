@@ -139,7 +139,7 @@ namespace MicroFinance
 
                 if (VerifyCustomerBtn.Content.Equals("Approve"))
                 {
-                    using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                    using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
                     {
                         sql.Open();
                         SqlCommand command = new SqlCommand();
@@ -152,7 +152,7 @@ namespace MicroFinance
                 }
                 else
                 {
-                    using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+                    using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
                     {
                         sql.Open();
                         SqlCommand command = new SqlCommand();
@@ -176,7 +176,7 @@ namespace MicroFinance
             string _fieldofficer="";
             string _Shg="";
             string _pg="";
-            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.db))
+            using(SqlConnection connection=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand();
@@ -234,7 +234,7 @@ namespace MicroFinance
 
         private void Reject_Click(object sender, RoutedEventArgs e)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();

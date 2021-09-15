@@ -9,6 +9,7 @@ namespace MicroFinance.Modal
 {
     public class CollectionDetails : BindableBase
     {
+        private string ConnectionString = Properties.Settings.Default.DBConnection;
         string _custGroupId;
         public string CustGroupId 
         {
@@ -291,7 +292,7 @@ namespace MicroFinance.Modal
         }
         void GetPaidDetails(string loanId)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
+            using (SqlConnection sql = new SqlConnection(ConnectionString))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -318,7 +319,7 @@ namespace MicroFinance.Modal
         }
         void GetNextDueDetails(string loanID)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
+            using (SqlConnection sql = new SqlConnection(ConnectionString))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -336,7 +337,7 @@ namespace MicroFinance.Modal
         }
         void GetCustomerName(string loanID)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
+            using (SqlConnection sql = new SqlConnection(ConnectionString))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -349,7 +350,7 @@ namespace MicroFinance.Modal
 
         void GetExtraBalance(string loanID)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
+            using (SqlConnection sql = new SqlConnection(ConnectionString))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -371,7 +372,7 @@ namespace MicroFinance.Modal
 
         void GetGroupId(string custId)
         {
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
+            using (SqlConnection sql = new SqlConnection(ConnectionString))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();

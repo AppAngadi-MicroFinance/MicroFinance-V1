@@ -13,6 +13,7 @@ namespace MicroFinance.Modal
 {
     public class CollectionShceduleSheet
     {
+
         string EmpId;
 
         public string GroupId { get; set; }

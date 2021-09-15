@@ -371,7 +371,7 @@ namespace MicroFinance.Reports
         }
         public static void Cusid()
         {
-            SqlConnection sqlcon = new SqlConnection(MicroFinance.Properties.Settings.Default.db);
+            SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.DBConnection);
             sqlcon.Open();
             if (sqlcon.State == ConnectionState.Open)
             { 
