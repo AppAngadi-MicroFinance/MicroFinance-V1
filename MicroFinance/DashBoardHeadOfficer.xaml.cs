@@ -216,20 +216,20 @@ namespace MicroFinance
             return SumaApprovalList;
         }
 
-        private async void SAMUSendRequestBtn_Click(object sender, RoutedEventArgs e)
+        private void SAMUSendRequestBtn_Click(object sender, RoutedEventArgs e)
         {
-
-            GifPanel.Visibility = Visibility.Visible;
-            try
-            {
-                await System.Threading.Tasks.Task.Run(() => GenerateSamuFile());
-                GifPanel.Visibility = Visibility.Collapsed;
-            }
-            catch
-            {
-                MainWindow.StatusMessageofPage(0, "Error...");
-                GifPanel.Visibility = Visibility.Collapsed;
-            }
+            this.NavigationService.Navigate(new SamuExport());
+            //GifPanel.Visibility = Visibility.Visible;
+            //try
+            //{
+            //    await System.Threading.Tasks.Task.Run(() => GenerateSamuFile());
+            //    GifPanel.Visibility = Visibility.Collapsed;
+            //}
+            //catch
+            //{
+            //    MainWindow.StatusMessageofPage(0, "Error...");
+            //    GifPanel.Visibility = Visibility.Collapsed;
+            //}
         }
 
         void GenerateSamuFile()
