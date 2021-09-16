@@ -106,7 +106,7 @@
 
                 </StackPanel>
             </Grid>
-            <CheckBox x:Name="SelectAllCustomersCheckBox" Content="Select All" Height="20" Width="80" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="100,30,0,0"  Click="SelectAllCustomersCheckBox_Click"></CheckBox>
+            <CheckBox  Visibility="Collapsed" x:Name="SelectAllCustomersCheckBox" Content="Select All" Height="20" Width="80" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="100,30,0,0"  Click="SelectAllCustomersCheckBox_Click"></CheckBox>
             <TextBlock Text="Requested Customer" Style="{StaticResource SubTitle}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,25,0,0"></TextBlock>
                 <ListBox Height="530" Width="630" x:Name="Custlist" HorizontalContentAlignment="Left" ScrollViewer.VerticalScrollBarVisibility="Visible"  ScrollViewer.IsDeferredScrollingEnabled="True" BorderBrush="Gray" BorderThickness="2" SelectionChanged="Custlist_SelectionChanged" >
                     <ListBox.ItemTemplate>
