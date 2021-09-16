@@ -385,7 +385,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\result.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="110" Style="{StaticResource DashboardBtnText}" Text="Download Collection Sheet"></TextBlock>
+                                <TextBlock Grid.Row="1" Width="110" FontSize="14" Style="{StaticResource DashboardBtnText}" Text="Download Collection Sheet"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
