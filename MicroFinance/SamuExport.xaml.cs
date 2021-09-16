@@ -89,6 +89,7 @@ namespace MicroFinance
             try
             {
                 GTtoSAMU.GenerateSamunnati_File();
+                HimarkRepository.UpdateStatusToExportExcel(RequestList, 11);
                 MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
             }
             catch

@@ -25,8 +25,8 @@ namespace MicroFinance
     {
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public List<LoanProcess> loanDetails = new List<LoanProcess>();
-        public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
-        public static List<LoanProcess> SelectedCustomerList = new List<LoanProcess>();
+        public static ObservableCollection<LoanProcess> RecommenedList = new ObservableCollection<LoanProcess>();
+        public static ObservableCollection<LoanProcess> SelectedCustomerList = new ObservableCollection<LoanProcess>();
         public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
         LoanProcess loanProcess = new LoanProcess();
         public int CurrentStatus=0;
@@ -37,13 +37,14 @@ namespace MicroFinance
             //AddList();
             //RequestedListBoxNew.ItemsSource = dummylist;
             loanDetails = new List<LoanProcess>();
-            RecommenedList = new List<LoanProcess>();
-            SelectedCustomerList = new List<LoanProcess>();
+            RecommenedList = new ObservableCollection<LoanProcess>();
+            SelectedCustomerList = new ObservableCollection<LoanProcess>();
             loanProcess.GetLoanDetailList(LoginBranchID,StatusCode);
             loanDetails = loanProcess.LoanProcessList;
             LoadCustData();
             setCount();
             BulkRecommend.Visibility = Visibility.Collapsed;
+            SelectedCustomersView.ItemsSource = RecommenedList;
         }
         public void LoadCustData()
         {
@@ -217,12 +218,12 @@ namespace MicroFinance
                 count++;
             }
             MainWindow.StatusMessageofPage(1, count.ToString() + " Loan(s) Recommend Successfully!...");
-            if (CurrentStatus == 7)
+            if (CurrentStatus == 8)
             {
                 if (this.NavigationService.CanGoBack)
                     this.NavigationService.Navigate(new DashboardBranchManager());
             }
-            else if (CurrentStatus == 8)
+            else if (CurrentStatus == 9)
             {
                 if (this.NavigationService.CanGoBack)
                     this.NavigationService.Navigate(new DashBoardRegionOfficer());
@@ -230,5 +231,32 @@ namespace MicroFinance
         }
 
         
+
+        private void SelectAllCustomersCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+           if(SelectAllCustomersCheckBox.IsChecked==true)
+            {
+                CheckData();
+            }
+           else
+            {
+                UncheckData();
+            }
+
+        }
+
+        void CheckData()
+        {
+            RecommenedList.Clear();
+            foreach(LoanProcess lp in loanDetails)
+            {
+                RecommenedList.Add(lp);
+            }
+            SelectedCustomersView.Items.Refresh();
+        }
+        void UncheckData()
+        {
+            SelectedCustomerList.Clear();
+        }
     }
 }

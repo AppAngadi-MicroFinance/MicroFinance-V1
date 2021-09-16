@@ -33,7 +33,7 @@ namespace MicroFinance
         public HOLoanApproval(List<SUMAtoHO> ResList)
         {
             InitializeComponent();
-            loanprocess.GetLoanDetailList(9);
+            loanprocess.GetLoanDetailList(11);
             RecommendList.Clear();
             RecommendList = loanprocess.LoanProcessList;
             SumaApprovalList=ResList;
@@ -43,7 +43,7 @@ namespace MicroFinance
         public HOLoanApproval()
         {
             InitializeComponent();
-            loanprocess.GetLoanDetailList(9);
+            loanprocess.GetLoanDetailList(11);
             RecommendList.Clear();
             RecommendList = loanprocess.LoanProcessList;
             // Custlist.ItemsSource = RecommendList;

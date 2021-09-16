@@ -125,6 +125,7 @@ namespace MicroFinance
             {
                 himarkReport = new HiMark();
                 himarkReport.createHimarkXls(HimarkList);
+                HimarkRepository.UpdateStatusToExportExcel(RequestList,2);
                 MainWindow.StatusMessageofPage(1, "File Exported Successfully!...");
             }
             catch (Exception ex)

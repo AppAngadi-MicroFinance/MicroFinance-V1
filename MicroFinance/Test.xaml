@@ -11,9 +11,26 @@
     <Page.Resources>
         <Convert:GuaranterName x:Key="GuaranterConverter"/>
     </Page.Resources>
+    
+    
+    <!---->
+    
+    
+    
+    <!---->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     <Grid Background="LightBlue">
-        <Border Height="40" Width="710" Background="White" CornerRadius="5" BorderThickness="1" BorderBrush="Gray">
+        <Border Height="40" Width="710" Background="White" CornerRadius="5" BorderThickness="1" BorderBrush="Gray" Visibility="Collapsed">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -50,7 +67,7 @@
                 <ToggleButton Grid.Column="4" Style="{StaticResource ToggleShow}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsOpen,ElementName=CustomerViewPanel}" Margin="0,0,0,0"></ToggleButton>
             </Grid>
         </Border>
-        <Border Height="40" Width="710" Background="White" CornerRadius="5" BorderThickness="1" BorderBrush="Gray">
+        <Border Height="40" Width="710" Background="White" Visibility="Collapsed" CornerRadius="5" BorderThickness="1" BorderBrush="Gray">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

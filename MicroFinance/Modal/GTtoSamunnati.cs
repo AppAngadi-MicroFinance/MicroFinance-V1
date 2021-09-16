@@ -26,7 +26,7 @@ namespace MicroFinance.Modal
                 sql.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = sql;
-                command.CommandText = "select CustId from LoanApplication where LoanStatus = '9'";
+                command.CommandText = "select CustId from LoanApplication where LoanStatus = '10'";
                 SqlDataReader reader = command.ExecuteReader();
                 while(reader.Read())
                 {
@@ -62,12 +62,12 @@ namespace MicroFinance.Modal
                     reader.Close();
                     command.CommandText = "select Mobile from GuarenteeDetails where CustId = '"+id+"'";
                     gs.PANTANno = command.ExecuteScalar().ToString();
-                    command.CommandText = "select LoanAmount,RequestId from LoanApplication where CustId='" + id+"'";
+                    command.CommandText = "select LoanApplication.RequestId,LoanApplication.LoanAmount,HimarkResult.ReportID from LoanApplication,HimarkResult where CustId='"+id+"' and LoanApplication.RequestId = HimarkResult.RequestID";
                     reader = command.ExecuteReader();
                     while(reader.Read())
                     {
-                        gs.LoanAmount = reader.GetInt32(0);
-                        gs.ReportID = reader.GetString(1);
+                        gs.LoanAmount = reader.GetInt32(1);
+                        gs.ReportID = reader.GetString(2);
                     }
                     reader.Close();
                     //default values

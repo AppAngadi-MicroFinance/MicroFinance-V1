@@ -978,16 +978,16 @@ namespace MicroFinance
                         Thread.Sleep(2000);
                         MainWindow.StatusMessageofPage(1, "Ready...");
                     }
-                    else if (CustomerStatus == 2)
+                    else if (CustomerStatus == 3)
                     {
                         UpdateVerification();
                         customer.UpdateExistingDetails(_branchName, _shgName, _pgName, guarantor, nominee);
-                        ChangeLoanStatus(_loanReqId, 5);
+                        ChangeLoanStatus(_loanReqId, 6);
                         NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
                     }
-                    else if (CustomerStatus == 5)
+                    else if (CustomerStatus == 6)
                     {
-                        ChangeLoanStatus(_loanReqId, 6);
+                        ChangeLoanStatus(_loanReqId, 7);
                         if (MainWindow.LoginDesignation.LoginDesignation == "Accountant")
                         {
                             NavigationService.GetNavigationService(this).Navigate(new DashboardAccountant());
@@ -998,9 +998,9 @@ namespace MicroFinance
                         }
 
                     }
-                    else if (CustomerStatus == 6)
+                    else if (CustomerStatus == 7)
                     {
-                        ChangeLoanStatus(_loanReqId, 7);
+                        ChangeLoanStatus(_loanReqId, 8);
                         NavigationService.GetNavigationService(this).Navigate(new DashboardBranchManager());
                     }
                 }
