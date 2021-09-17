@@ -294,6 +294,48 @@ namespace MicroFinance
             xOfficerName.Text = obj.Name;
             xFOworkLoadList.ItemsSource = FOworkLoad;
         }
+
+        List<string> GetAllDistrinct()
+        {
+            List<string> distrinctlist = new List<string>();
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "select distinct(District) from DistrictTaluk";
+                SqlDataReader dr;
+                dr = cmd.ExecuteReader();
+                while(dr.Read())
+                {
+                    distrinctlist.Add(dr.GetString(0));
+                }
+                dr.Close();
+            }
+
+            return distrinctlist;
+        }
+        List<string> GetTalukByDistrict(string District)
+        {
+            List<string> taluklist = new List<string>();
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "select distinct(Taluk) from DistrictTaluk where district='"+ District+"' ";
+                SqlDataReader dr;
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    taluklist.Add(dr.GetString(0));
+                }
+                dr.Close();
+            }
+            return taluklist;
+
+        }
+
         public string GetDistrictName(string empID)
         {
             string Result = string.Empty;

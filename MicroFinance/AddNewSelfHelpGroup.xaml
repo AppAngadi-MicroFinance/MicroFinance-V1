@@ -152,8 +152,8 @@
                 <!--SHG Region-->
                 <TextBlock Text="District" Grid.Column="0" Grid.Row="6" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
                            VerticalAlignment="Bottom" FontWeight="SemiBold"></TextBlock>
-                <TextBlock x:Name="xSHGRegion" Width="300" Grid.Column="1" Grid.Row="6" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                           FontSize="16" FontWeight="SemiBold"></TextBlock>
+                <TextBox x:Name="xSHGRegion" Width="300" Grid.Column="1" Grid.Row="6" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                           FontSize="16" FontWeight="SemiBold" CharacterCasing="Upper"></TextBox>
 
                 <!--SHG Region-->
                 <TextBlock Text="State" Grid.Column="0" Grid.Row="7" Width="200" HorizontalAlignment="Right" FontSize="18" Height="40"
