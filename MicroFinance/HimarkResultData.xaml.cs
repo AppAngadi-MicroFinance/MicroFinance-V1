@@ -153,7 +153,7 @@ namespace MicroFinance
             {
                 if(hm.Status.Equals("Accept"))
                 {
-                    loanProcess.ChangeLoanStatus(hm.RequestID, 2);
+                    loanProcess.ChangeLoanStatus(hm.RequestID, 3);
                     count++;
                 }
             }
@@ -170,7 +170,7 @@ namespace MicroFinance
             {
                 if (hm.Status.Equals("Reject"))
                 {
-                    loanProcess.ChangeLoanStatus(hm.RequestID, 3);
+                    loanProcess.ChangeLoanStatus(hm.RequestID, 4);
                 }
             }
             this.NavigationService.Navigate(new HimarkResultData());

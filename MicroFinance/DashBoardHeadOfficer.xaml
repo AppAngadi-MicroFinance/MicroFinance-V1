@@ -14,7 +14,7 @@
 
             <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
         </StackPanel>
-        <Button x:Name="CollectionReportDownload" Height="40" Width="200" Content="Download Collection Sheet" Click="CollectionReportDownload_Click"></Button>
+       
         <!--Section A-->        <!-- 1. Find Customer | 2. Find Employee | 3. Add New Employee-->
         <Grid Width="400" Height="170" Margin="130,100,0,0" Visibility="Collapsed"
               HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -138,7 +138,17 @@
                 </Border.Effect>
                 <Button Style="{StaticResource NavigateSendToSammu}" Grid.Column="1" x:Name="SAMUSendRequestBtn" Click="SAMUSendRequestBtn_Click"></Button>
             </Border>
+            <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="CollectionReportDownload"  Click="CollectionReportDownload_Click" Style="{StaticResource DownloadCollectionReport}" ></Button>
+            </Border>
+
+
+
             
+
         </Grid>
 
 

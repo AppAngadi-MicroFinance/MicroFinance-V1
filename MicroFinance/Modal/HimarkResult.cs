@@ -399,7 +399,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID from HimarkResult where RequestID in (select LoanApplication.RequestId from LoanApplication where LoanStatus='1') and BranchID='"+ BranchId + "'";
+                    sqlcomm.CommandText = "select RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID from HimarkResult where RequestID in (select LoanApplication.RequestId from LoanApplication where LoanStatus='2') and BranchID='"+ BranchId + "'";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
                     {
@@ -628,7 +628,7 @@ namespace MicroFinance.Modal
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select LoanApplication.RequestId from LoanApplication where CustId=(select CustId from CustomerDetails where AadharNumber='"+Aadharnumber+"') and LoanStatus='1'";
+                    sqlcomm.CommandText = "select LoanApplication.RequestId from LoanApplication where CustId=(select CustId from CustomerDetails where AadharNumber='"+Aadharnumber+"') and LoanStatus='2'";
                     Result = (string)sqlcomm.ExecuteScalar();
                 }
                 sqlconn.Close();

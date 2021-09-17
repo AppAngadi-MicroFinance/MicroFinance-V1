@@ -696,7 +696,7 @@ namespace MicroFinance.Modal
         public void ApproveLoan(string ID,SUMAtoHO SUMAObj)
         {
             GetRequestDetails(ID);
-            ChangeLoanStatus(ID, 11);
+            ChangeLoanStatus(ID, 12);
             string LoanId = GenerateLoanID();
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
             {
@@ -706,6 +706,10 @@ namespace MicroFinance.Modal
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
                     sqlcomm.CommandText = "insert into LoanDetails(LoanID,CustomerID,LoanType,LoanPeriod,InterestRate,RequestedBY,ApprovedBy,ApproveDate,LoanAmount,IsActive)values('" + LoanId + "','" + _customerId + "','" + LoanType + "'," + LoanPeriod + "," + InterestRate + ",'" + EmployeeID + "','" + ApprovedBy + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "'," + LoanAmount + ",'true')";
+                    sqlcomm.ExecuteNonQuery();
+                    sqlcomm.CommandText = "select EmpId from EmployeeBranch where BranchId=(select BranchId from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+_customerId+"'))) and Designation='Manager'";
+                    string EmpId = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "update LoanDetails set ApprovedBY='" + EmpId + "' where LoanID='"+LoanId+"'";
                     sqlcomm.ExecuteNonQuery();
                     sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
@@ -804,7 +808,7 @@ namespace MicroFinance.Modal
                     }
                     sqlconn.Close();
                 }
-                catch(Exception ex)
+                catch
                 {
 
                 }

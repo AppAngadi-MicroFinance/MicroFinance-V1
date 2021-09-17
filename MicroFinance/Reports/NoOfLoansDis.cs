@@ -167,12 +167,12 @@ namespace MicroFinance.Reports
 
         }
 
-        public void FillLoanDis(Worksheet xlWorkSheet, List<GTtoSamunnati> loans)
+        public void FillLoanDis(Worksheet xlWorkSheet, List<SamuunatiReport> loans)
         {
             int LLP = 1;
             int GST = 18;
             int RowStart = 2;
-            foreach (GTtoSamunnati x in loans)
+            foreach (SamuunatiReport x in loans)
             {
                 xlWorkSheet.Cells[RowStart, 1] = x.LoanStartDate;
                 xlWorkSheet.Cells[RowStart, 2] = "";

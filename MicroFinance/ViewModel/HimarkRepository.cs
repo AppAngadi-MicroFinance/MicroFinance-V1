@@ -229,5 +229,25 @@ namespace MicroFinance.ViewModel
             }
         }
 
+
+        public static void UpdateStatusToExportExcel(List<HimarkRequestView> RequestList,int Code)
+        {
+            using (SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(sqlconn.State==ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    foreach(HimarkRequestView hm in RequestList)
+                    {
+                        sqlcomm.CommandText = "update LoanApplication set LoanStatus='"+Code+"' where RequestId='" + hm.RequestID + "'";
+                        sqlcomm.ExecuteNonQuery();
+                    }
+                }
+                sqlconn.Close();
+            }
+        }
+
     }
 }

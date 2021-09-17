@@ -61,7 +61,7 @@ namespace MicroFinance
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select LoanApplication.CustId,CustomerDetails.Name,LoanApplication.RequestId from LoanApplication join CustomerDetails on CustomerDetails.CustId = LoanApplication.CustId where LoanApplication.EmployeeId='" + EmployeeId+ "' and LoanApplication.BranchId='" + BranchId+ "' and LoanApplication.LoanStatus = 2 ";
+                sqlCommand.CommandText = "select LoanApplication.CustId,CustomerDetails.Name,LoanApplication.RequestId from LoanApplication join CustomerDetails on CustomerDetails.CustId = LoanApplication.CustId where LoanApplication.EmployeeId='" + EmployeeId+ "' and LoanApplication.BranchId='" + BranchId+ "' and LoanApplication.LoanStatus = 3 ";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while(sqlDataReader.Read())
                 {
@@ -79,7 +79,7 @@ namespace MicroFinance
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select LoanApplication.CustId,CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.EmployeeId from LoanApplication join CustomerDetails on CustomerDetails.CustId = LoanApplication.CustId where  LoanApplication.BranchId='" + BranchId + "' and LoanApplication.LoanStatus = 5 ";
+                sqlCommand.CommandText = "select LoanApplication.CustId,CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.EmployeeId from LoanApplication join CustomerDetails on CustomerDetails.CustId = LoanApplication.CustId where  LoanApplication.BranchId='" + BranchId + "' and LoanApplication.LoanStatus = 6 ";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
@@ -95,7 +95,7 @@ namespace MicroFinance
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select LoanApplication.CustId,CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.EmployeeId  from LoanApplication join CustomerDetails on CustomerDetails.CustId = LoanApplication.CustId where  LoanApplication.BranchId='" + BranchId + "' and LoanApplication.LoanStatus = 6 ";
+                sqlCommand.CommandText = "select LoanApplication.CustId,CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.EmployeeId  from LoanApplication join CustomerDetails on CustomerDetails.CustId = LoanApplication.CustId where  LoanApplication.BranchId='" + BranchId + "' and LoanApplication.LoanStatus = 7 ";
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
                 while (sqlDataReader.Read())
                 {
@@ -111,15 +111,15 @@ namespace MicroFinance
             notification = (Notification)NotificationList.SelectedItem;
             if (_status==0)
             {
-                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId,2,notification.LoanRequestId,notification.EmpId));
+                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId,3,notification.LoanRequestId,notification.EmpId));
             }
             else if(_status==1)
             {
-                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId, 5, notification.LoanRequestId, notification.EmpId));
+                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId, 6, notification.LoanRequestId, notification.EmpId));
             }
             else
             {
-                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId, 6, notification.LoanRequestId, notification.EmpId));
+                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId, 7, notification.LoanRequestId, notification.EmpId));
             }
         }
 

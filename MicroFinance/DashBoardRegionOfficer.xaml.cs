@@ -52,7 +52,7 @@ namespace MicroFinance
 
         private void xLoanRequestListBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new LoanRecommend(8));
+            this.NavigationService.Navigate(new LoanRecommend(9));
         }
 
         private void xRecommendCustome_Click(object sender, RoutedEventArgs e)
