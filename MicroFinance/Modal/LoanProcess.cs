@@ -719,7 +719,7 @@ namespace MicroFinance.Modal
                     {
                         LoadData1(LoanId);
                         NewSavingAcc(_customerId);
-                        Suma.InsertData(SUMAObj, LoanId);
+                        //Suma.InsertData(SUMAObj, LoanId);
 
                     }
                 }

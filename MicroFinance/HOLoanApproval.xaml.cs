@@ -46,8 +46,8 @@ namespace MicroFinance
             loanprocess.GetLoanDetailList(11);
             RecommendList.Clear();
             RecommendList = loanprocess.LoanProcessList;
-            // Custlist.ItemsSource = RecommendList;
-            LoadData();
+            Custlist.ItemsSource = RecommendList;
+           // LoadData();
             setCount();
         }
         void LoadData()
@@ -217,7 +217,7 @@ namespace MicroFinance
         private void BulkApprovalBtn_Click(object sender, RoutedEventArgs e)
         {
             int Count = 0;
-            foreach(LoanProcess lp in ApprovedCustomerList)
+            foreach(LoanProcess lp in RecommendList)
             { 
                 loanprocess = new LoanProcess();
                 string ID = lp.LoanRequestID;

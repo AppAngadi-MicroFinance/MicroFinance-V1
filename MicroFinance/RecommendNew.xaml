@@ -1,0 +1,57 @@
+﻿<Page x:Class="MicroFinance.RecommendNew"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+     d:DesignHeight="660" d:DesignWidth="1366" Background="#FEF2E4"
+      Title="RecommendNew">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Loan Recommend" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"></TextBlock>
+        <Separator VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="10" ></Separator>
+        <DataGrid x:Name="RecommendGrid" RowBackground="LightBlue" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="1" Background="Transparent" Height="500" Width="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="100" HeaderStyle="{StaticResource ColumnHeader}">
+                    <DataGridTemplateColumn.Header>
+                        <CheckBox Content="Select All" FontSize="14" Foreground="White" FontFamily="Roboto" FontWeight="SemiBold" x:Name="SelectAll_CheckBox" Click="SelectAll_CheckBox_Click">
+                        </CheckBox>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsRecommend,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Branch Name" Width="200" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding BranchName}" />
+                <DataGridTextColumn Header="Center Name" Width="150" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding CenterName}"/>
+                <DataGridTextColumn Header="FO Name" Width="240" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding EmpName}"/>
+                <DataGridTextColumn Header="Customer Name" Width="270" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding CustomerName}"/>
+                <DataGridTextColumn Header="Loan Amount" Width="120" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding LoanAmount}"/>
+                <DataGridTextColumn Header="Loan Period" Width="120" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding LoanPeriod}"/>
+                <DataGridTemplateColumn Width="100" HeaderStyle="{StaticResource ColumnHeader}" Header="Delete">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Height="30" Width="100" Style="{StaticResource DangerBtn}" Uid="{Binding RequestId}" DataContext="{Binding RequestId}"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,70,0">
+            <Button Style="{StaticResource PrimaryBtn}" Content="Recommend" Width="150"></Button>
+            <Button Style="{StaticResource CancelBtn}" Margin="25,0,0,0" Width="150" Content="Cancel"></Button>
+        </StackPanel>
+    </Grid>
+</Page>

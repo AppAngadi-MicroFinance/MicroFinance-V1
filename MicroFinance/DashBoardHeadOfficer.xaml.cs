@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using MicroFinance.Modal;
 using MicroFinance.Reports;
 using Microsoft.Win32;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -175,23 +176,24 @@ namespace MicroFinance
             this.NavigationService.Navigate(new AddEmployee(selectedEmployee));
         }
 
-        private async void LoanDesposment_Click(object sender, RoutedEventArgs e)
+        private  void LoanDesposment_Click(object sender, RoutedEventArgs e)
         {
-            List<SUMAtoHO> ResultList = new List<SUMAtoHO>();
-            OpenFileDialog openFileDlg = new OpenFileDialog();
-            openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
-            openFileDlg.Title = "Choose File";
-            openFileDlg.InitialDirectory = @"C:\";
-            Nullable<bool> result = openFileDlg.ShowDialog();
-            if (result == true)
-            {
-                GifPanel.Visibility = Visibility.Visible;
-                string FileFrom = openFileDlg.FileName;
-                await System.Threading.Tasks.Task.Run(() =>ResultList= uploadSamuFile(FileFrom));
-                GifPanel.Visibility = Visibility.Collapsed;
-                this.NavigationService.Navigate(new HOLoanApproval(ResultList));
+            //List<SUMAtoHO> ResultList = new List<SUMAtoHO>();
+            //OpenFileDialog openFileDlg = new OpenFileDialog();
+            //openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
+            //openFileDlg.Title = "Choose File";
+            //openFileDlg.InitialDirectory = @"C:\";
+            //Nullable<bool> result = openFileDlg.ShowDialog();
+            //if (result == true)
+            //{
+            //    GifPanel.Visibility = Visibility.Visible;
+            //    string FileFrom = openFileDlg.FileName;
+            //    await System.Threading.Tasks.Task.Run(() =>ResultList= uploadSamuFile(FileFrom));
+            //    GifPanel.Visibility = Visibility.Collapsed;
+            //    this.NavigationService.Navigate(new HOLoanApproval(ResultList));
 
-            }
+            //}
+            this.NavigationService.Navigate(new HOLoanApproval());
             
         }
 
@@ -207,6 +209,7 @@ namespace MicroFinance
             if (!SUMA.IsFileExists(FileName))
             {
                 SumaApprovalList = Suma.ImportSamuFile(FileFrom);
+
                 //this.NavigationService.Navigate(new HOLoanApproval(FileFrom));
             }
             else
@@ -248,6 +251,29 @@ namespace MicroFinance
         private void CollectionReportDownload_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new DownloadCollectionReport());
+        }
+
+        private async void SamuImportBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<SUMAtoHO> ResultList = new List<SUMAtoHO>();
+            OpenFileDialog openFileDlg = new OpenFileDialog();
+            openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
+            openFileDlg.Title = "Choose File";
+            openFileDlg.InitialDirectory = @"C:\";
+            Nullable<bool> result = openFileDlg.ShowDialog();
+            if (result == true)
+            {
+                GifPanel.Visibility = Visibility.Visible;
+                string FileFrom = openFileDlg.FileName;
+                List<SamuReportView> RequestList = new List<SamuReportView>();
+                
+                await System.Threading.Tasks.Task.Run(() => RequestList = SamuRepository.GetSamuRequest(FileFrom));
+                GifPanel.Visibility = Visibility.Collapsed;
+
+                this.NavigationService.Navigate(new SamuResult(RequestList));
+                // this.NavigationService.Navigate(new HOLoanApproval(ResultList));
+
+            }
         }
     }
 }
