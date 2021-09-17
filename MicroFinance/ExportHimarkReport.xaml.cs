@@ -79,13 +79,13 @@ namespace MicroFinance
         private void BranchNameCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BranchNameView selectedBranch = BranchNameCombo.SelectedValue as BranchNameView;
-           // LoadData(selectedBranch.BranchId);
-
-            if(BindingRequest.Count==0)
+            // LoadData(selectedBranch.BranchId);
+           string branchtotal= GetCount(selectedBranch.BranchId).ToString();
+            if (BindingRequest.Count==0)
             {
-                MessageBox.Show("No Request in Branch");
+                //MessageBox.Show("No Request in Branch");
             }
-            branchtotalcount.Text = GetCount(selectedBranch.BranchId).ToString();
+            branchtotalcount.Text = branchtotal;
         }
 
 

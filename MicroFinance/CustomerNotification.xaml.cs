@@ -109,18 +109,22 @@ namespace MicroFinance
         {
             notification = new Notification();
             notification = (Notification)NotificationList.SelectedItem;
-            if (_status==0)
+            if(notification!=null)
             {
-                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId,3,notification.LoanRequestId,notification.EmpId));
+                if (_status == 0)
+                {
+                    NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId, 3, notification.LoanRequestId, notification.EmpId));
+                }
+                else if (_status == 1)
+                {
+                    NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId, 6, notification.LoanRequestId, notification.EmpId));
+                }
+                else
+                {
+                    NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId, 7, notification.LoanRequestId, notification.EmpId));
+                }
             }
-            else if(_status==1)
-            {
-                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId, 6, notification.LoanRequestId, notification.EmpId));
-            }
-            else
-            {
-                NavigationService.GetNavigationService(this).Navigate(new CustomerVerified(notification.CustomerId, 7, notification.LoanRequestId, notification.EmpId));
-            }
+           
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
