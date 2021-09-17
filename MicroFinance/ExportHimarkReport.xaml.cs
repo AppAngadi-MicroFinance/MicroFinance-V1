@@ -145,6 +145,7 @@ namespace MicroFinance
                 GifPanel.Visibility = Visibility.Visible;
                 await System.Threading.Tasks.Task.Run(() => ExportHimarkFile());
                 GifPanel.Visibility = Visibility.Collapsed;
+                this.NavigationService.Navigate(new DashBoardRegionOfficer());
             }
             
 
@@ -152,7 +153,7 @@ namespace MicroFinance
 
         private void CalcelBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new DashBoardRegionOfficer());
         }
     }
 }
