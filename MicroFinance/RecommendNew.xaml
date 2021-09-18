@@ -16,12 +16,11 @@
         </Grid.RowDefinitions>
         <TextBlock Text="Loan Recommend" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"></TextBlock>
         <Separator VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="10" ></Separator>
-        <DataGrid x:Name="RecommendGrid" RowBackground="LightBlue" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="1" Background="Transparent" Height="500" Width="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False">
+        <DataGrid x:Name="RecommendGrid" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="1" Background="Transparent" Height="500" Width="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Width="100" HeaderStyle="{StaticResource ColumnHeader}">
+                <DataGridTemplateColumn Width="80" >
                     <DataGridTemplateColumn.Header>
-                        <CheckBox Content="Select All" FontSize="14" Foreground="White" FontFamily="Roboto" FontWeight="SemiBold" x:Name="SelectAll_CheckBox" Click="SelectAll_CheckBox_Click">
-                        </CheckBox>
+                        <TextBlock Text="Recommend"></TextBlock>
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -29,16 +28,24 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Branch Name" Width="200" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding BranchName}" />
-                <DataGridTextColumn Header="Center Name" Width="150" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding CenterName}"/>
-                <DataGridTextColumn Header="FO Name" Width="240" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding EmpName}"/>
-                <DataGridTextColumn Header="Customer Name" Width="270" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding CustomerName}"/>
-                <DataGridTextColumn Header="Loan Amount" Width="120" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding LoanAmount}"/>
-                <DataGridTextColumn Header="Loan Period" Width="120" Foreground="White" FontSize="16" HeaderStyle="{StaticResource ColumnHeader}" Binding="{Binding LoanPeriod}"/>
-                <DataGridTemplateColumn Width="100" HeaderStyle="{StaticResource ColumnHeader}" Header="Delete">
+                <DataGridTextColumn Header="Branch Name" Width="150" FontSize="16"  Binding="{Binding BranchName}" />
+                <DataGridTextColumn Header="Center Name" Width="150"  FontSize="16"  Binding="{Binding CenterName}"/>
+                <DataGridTextColumn Header="Collection Day" Width="125" FontSize="16" Binding="{Binding CollectionDay}"/>
+                <DataGridTextColumn Header="FO Name" Width="240" FontSize="16"  Binding="{Binding EmpName}"/>
+                <DataGridTextColumn Header="Customer Name" Width="270" FontSize="16" Binding="{Binding CustomerName}"/>
+                <DataGridTextColumn Header="Loan Amount" Width="100"  FontSize="16"  Binding="{Binding LoanAmount}"/>
+                <DataGridTextColumn Header="Loan Period" Width="80" FontSize="16"  Binding="{Binding LoanPeriod}"/>
+                <DataGridTemplateColumn Width="100"  Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Height="30" Width="100" Style="{StaticResource DangerBtn}" Uid="{Binding RequestId}" DataContext="{Binding RequestId}"></Button>
+                            <Button Height="25" Width="80" x:Name="RejectBtn" Click="RejectBtn_Click" FontSize="12" Style="{StaticResource DangerBtn}" Content="Reject" Uid="{Binding RequestID}" DataContext="{Binding RequestID}">
+                                <Button.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"></Setter>
+                                    </Style>
+                                </Button.Resources>
+                                
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -46,12 +53,24 @@
 
 
             </DataGrid.Columns>
+            <DataGrid.RowStyle>
+
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.Height" Value="35"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="14" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen"/>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+
+                </Style>
+            </DataGrid.RowStyle>
         </DataGrid>
 
 
         <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,70,0">
-            <Button Style="{StaticResource PrimaryBtn}" Content="Recommend" Width="150"></Button>
-            <Button Style="{StaticResource CancelBtn}" Margin="25,0,0,0" Width="150" Content="Cancel"></Button>
+            <Button Style="{StaticResource PrimaryBtn}" Content="Recommend" Width="150" x:Name="RecommendLoanBtn" Click="RecommendLoanBtn_Click"></Button>
+            <Button Style="{StaticResource CancelBtn}" Margin="25,0,0,0" Width="150" Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
         </StackPanel>
     </Grid>
 </Page>

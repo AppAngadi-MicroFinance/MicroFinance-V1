@@ -30,6 +30,7 @@ namespace MicroFinance.ViewModel
         }
         public string BranchName { get; set; }
         public string CenterName { get; set; }
+        public string  CollectionDay { get; set; }
         private bool _isrecommend;
         public bool IsRecommend
         {

@@ -193,7 +193,7 @@ namespace MicroFinance
             //    this.NavigationService.Navigate(new HOLoanApproval(ResultList));
 
             //}
-            this.NavigationService.Navigate(new HOLoanApproval());
+            this.NavigationService.Navigate(new RecommendNew(11));
             
         }
 

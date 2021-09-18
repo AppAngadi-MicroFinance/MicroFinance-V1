@@ -42,6 +42,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.BranchID = reader.GetString(6);
                             HMRequestCustomer.BranchName = reader.GetString(7);
                             HMRequestCustomer.EmpName = reader.GetString(8);
+                            HMRequestCustomer.IsRecommend = true;
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
                             // sqlcomm.CommandText = "select Name from Employee where EmpId='" + HMRequestCustomer.EmpId + "'";
@@ -55,10 +56,57 @@ namespace MicroFinance.ViewModel
                         
                         sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
                         Hm.CenterName = (string)sqlcomm.ExecuteScalar();
+                        sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '"+Hm.CustomerID+"'))";
+                        Hm.CollectionDay = (string)sqlcomm.ExecuteScalar();
                     }
                 }
             }
             return ResultView;
+        }
+
+
+
+
+       public static int RecommendLoans(ObservableCollection<RecommendView> recommends,int StatusCode)
+        {
+            int count = 0;
+            using(SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    foreach(RecommendView view in recommends)
+                    {
+                        SqlCommand sqlcomm = new SqlCommand();
+                        sqlcomm.Connection = sqlconn;
+                        if (view.IsRecommend==true)
+                        {
+                            sqlcomm.CommandText = "update LoanApplication set LoanStatus='" + StatusCode + "' where RequestId='" + view.RequestID + "'";
+                            sqlcomm.ExecuteNonQuery();
+                            count++;
+                        }
+                    }
+                }
+                sqlconn.Close();
+            }
+            return count;
+        }
+
+
+
+        public static void RejectLoan(string ReqID)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "Update LoanApplication Set LoanStatus='13' where Requestid='" + ReqID + "' ";
+                    sqlcomm.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
