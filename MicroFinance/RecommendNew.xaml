@@ -14,7 +14,7 @@
             <RowDefinition Height="80*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Loan Recommend" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"></TextBlock>
+        <TextBlock x:Name="TileText" Text="Loan Recommend" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"></TextBlock>
         <Separator VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="10" ></Separator>
         <DataGrid x:Name="RecommendGrid" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="1" Background="Transparent" Height="500" Width="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
             <DataGrid.Columns>

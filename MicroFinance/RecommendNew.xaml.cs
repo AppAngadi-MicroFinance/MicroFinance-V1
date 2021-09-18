@@ -34,6 +34,10 @@ namespace MicroFinance
             RecommendList = LoanRepository.GetRecommendList(statusCode);
             RecommendGrid.ItemsSource = RecommendList;
             CurrentStatus = statusCode;
+            if(statusCode==11)
+            {
+                TileText.Text = "Loan Approval";
+            }
 
         }
 
@@ -59,9 +63,9 @@ namespace MicroFinance
             {
                 this.NavigationService.Navigate(new DashBoardRegionOfficer());
             }
-            if (CurrentStatus == 10)
+            if (CurrentStatus == 11)
             {
-                this.NavigationService.Navigate(new DashBoardRegionOfficer());
+                this.NavigationService.Navigate(new DashBoardHeadOfficer());
             }
         }
 
