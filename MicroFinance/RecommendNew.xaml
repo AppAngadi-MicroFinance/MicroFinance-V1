@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
+       xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
      d:DesignHeight="660" d:DesignWidth="1366" Background="#FEF2E4"
       Title="RecommendNew">
@@ -14,6 +15,11 @@
             <RowDefinition Height="80*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
+
+        <StackPanel Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
+        </StackPanel>
         <TextBlock x:Name="TileText" Text="Loan Recommend" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"></TextBlock>
         <Separator VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="10" ></Separator>
         <DataGrid x:Name="RecommendGrid" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="1" Background="Transparent" Height="500" Width="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
@@ -68,9 +74,14 @@
         </DataGrid>
 
 
-        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,70,0">
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,70,0" x:Name="RecommendPanel" Visibility="Visible">
             <Button Style="{StaticResource PrimaryBtn}" Content="Recommend" Width="150" x:Name="RecommendLoanBtn" Click="RecommendLoanBtn_Click"></Button>
             <Button Style="{StaticResource CancelBtn}" Margin="25,0,0,0" Width="150" Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,70,0" x:Name="ReportPanel" Visibility="Collapsed">
+            <Button Style="{StaticResource SecondaryBtn}" Content="Genrate NEFT" Width="150" x:Name="GenerateNEFTBtn" Click="GenerateNEFTBtn_Click"></Button>
+            <Button Style="{StaticResource CancelBtn}" Margin="25,0,0,0" Width="150" Content="Cancel" x:Name="reportCancelBtn"  Click="reportCancelBtn_Click"></Button>
         </StackPanel>
     </Grid>
 </Page>

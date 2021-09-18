@@ -44,5 +44,6 @@ namespace MicroFinance.ViewModel
                 RaisedPropertyChanged("IsRecommend");
             }
         }
+        public string LoanType { get; set; }
     }
 }

@@ -160,7 +160,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button Style="{StaticResource BtnNEFT}" x:Name="BtnDownloadNEFT" Click="SamuImportBtn_Click"></Button>
+                <Button Style="{StaticResource BtnNEFT}" x:Name="BtnDownloadNEFT" Click="BtnDownloadNEFT_Click"></Button>
             </Border>
 
 

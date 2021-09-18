@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Modal;
+using MicroFinance.Reports;
 using MicroFinance.ViewModel;
 
 namespace MicroFinance
@@ -23,6 +25,9 @@ namespace MicroFinance
     public partial class RecommendNew : Page
     {
         public static int CurrentStatus = 0;
+        LoanProcess loanprocess = new LoanProcess();
+        List<LoanProcess> NeftList = new List<LoanProcess>();
+        NEFT neft = new NEFT();
         ObservableCollection<RecommendView> RecommendList = new ObservableCollection<RecommendView>();
         public RecommendNew()
         {
@@ -31,14 +36,68 @@ namespace MicroFinance
         public RecommendNew(int statusCode)
         {
             InitializeComponent();
-            RecommendList = LoanRepository.GetRecommendList(statusCode);
-            RecommendGrid.ItemsSource = RecommendList;
+            
+           
             CurrentStatus = statusCode;
             if(statusCode==11)
             {
                 TileText.Text = "Loan Approval";
+                RecommendLoanBtn.Content = "Approve";
+                RecommendList = LoanRepository.GetRecommendList(statusCode,true);
             }
+            else if(CurrentStatus==12)
+            {
+                RecommendList = LoanRepository.GetRecommendList(statusCode, true);
+                RecommendPanel.Visibility = Visibility.Collapsed;
+                ReportPanel.Visibility = Visibility.Visible;
+                loanprocess.GetLoanDetailList(12);
+                NeftList = loanprocess.LoanProcessList;
+            }
+            else
+            {
+                RecommendList = LoanRepository.GetRecommendList(statusCode);
+            }
+            RecommendGrid.ItemsSource = RecommendList;
 
+        }
+
+
+        List<LoanProcess> FilterFinalList(List<LoanProcess> loans)
+        {
+            List<LoanProcess> FilterList = new List<LoanProcess>();
+
+            foreach(LoanProcess lp in loans)
+            {
+                foreach(RecommendView rm in RecommendList)
+                {
+                    if(rm.RequestID==lp.LoanRequestID)
+                    {
+                        if(rm.IsRecommend==true)
+                        {
+                            FilterList.Add(lp);
+                            break;
+                        }
+                        
+                    }
+                }
+            }
+            return FilterList;
+            
+        }
+
+        void GenerateNEFTFile(List<LoanProcess> FinalList)
+        {
+            try
+            {
+                neft.GenerateNEFT_File(FilterFinalList(FinalList));
+                LoanRepository.RecommendLoans(RecommendList, CurrentStatus + 2);
+                MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
+            }
+            catch (Exception ex)
+            {
+                MainWindow.StatusMessageofPage(0, "Error!");
+
+            }
         }
 
         private void SelectAll_CheckBox_Click(object sender, RoutedEventArgs e)
@@ -48,9 +107,21 @@ namespace MicroFinance
 
         private void RecommendLoanBtn_Click(object sender, RoutedEventArgs e)
         {
-            int count = LoanRepository.RecommendLoans(RecommendList, CurrentStatus+1);
-            MainWindow.StatusMessageofPage(1, count.ToString() + "Loan(s) Approved Successfully!...");
-            this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
+            if(CurrentStatus==11)
+            {
+                int count = LoanRepository.RecommendLoans(RecommendList, CurrentStatus + 1);
+                LoanRepository.ApproveLoans(RecommendList);
+                MainWindow.StatusMessageofPage(1, count.ToString() + "Loan(s) Approved Successfully!...");
+                this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
+
+            }
+            else
+            {
+                int count = LoanRepository.RecommendLoans(RecommendList, CurrentStatus + 1);
+                MainWindow.StatusMessageofPage(1, count.ToString() + "Loan(s) Approved Successfully!...");
+                this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
+            }
+            
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
@@ -59,11 +130,15 @@ namespace MicroFinance
             {
                 this.NavigationService.Navigate(new DashboardBranchManager());
             }
-            if (CurrentStatus == 9)
+            else if (CurrentStatus == 9)
             {
                 this.NavigationService.Navigate(new DashBoardRegionOfficer());
             }
-            if (CurrentStatus == 11)
+            else if (CurrentStatus == 11 && CurrentStatus==12)
+            {
+                this.NavigationService.Navigate(new DashBoardHeadOfficer());
+            }
+            else
             {
                 this.NavigationService.Navigate(new DashBoardHeadOfficer());
             }
@@ -98,6 +173,19 @@ namespace MicroFinance
                 }
             }
             return Result;
+        }
+
+        private void reportCancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new DashBoardHeadOfficer());
+        }
+
+        private async void GenerateNEFTBtn_Click(object sender, RoutedEventArgs e)
+        {
+            GifPanel.Visibility = Visibility.Visible;
+            await System.Threading.Tasks.Task.Run(() => GenerateNEFTFile(NeftList));
+            GifPanel.Visibility = Visibility.Collapsed;
+            this.NavigationService.Navigate(new DashBoardHeadOfficer());
         }
     }
 }
