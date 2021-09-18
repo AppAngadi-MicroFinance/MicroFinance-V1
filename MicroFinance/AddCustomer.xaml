@@ -90,6 +90,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <Button x:Name="btnAddPG" Content="Add" Click="BtnAddPG_Click"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="CustomerGrid" Grid.Row="1" Grid.Column="1">

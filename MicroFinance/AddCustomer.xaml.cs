@@ -2098,5 +2098,11 @@ namespace MicroFinance
                 CustYearlyExpensesError.Visibility = Visibility.Visible;
             }
         }
+
+        private void BtnAddPG_Click(object sender, RoutedEventArgs e)
+        {
+            AddPg APG = new AddPg();
+            APG.ShowDialog();
+        }
     }
 }

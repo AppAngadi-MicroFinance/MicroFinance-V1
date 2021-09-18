@@ -89,10 +89,19 @@
                 </Border.Effect>
                 <Button x:Name="xDailyReportsBtn" Style="{StaticResource NavigateDailyReports}"></Button>
             </Border>
+            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="CollectionReportDownload"  Click="CollectionReportDownload_Click" Style="{StaticResource DownloadCollectionReport}" ></Button>
+            </Border>
         </Grid>
-        <!--Section C-->         <!--Daily Reports-->
+        <!--Section C-->      
         
         
+        <!--Daily Reports-->
+       
+
         <!--Section D-->         <!--Loan Recomendation | Notification-->
         <Grid Width="700" Height="170" Margin="0,0,130,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
@@ -133,24 +142,25 @@
                 </Border.Effect>
                 <Button x:Name="LoanDesposment" Style="{StaticResource NavigateLoanDisposment}" Click="LoanDesposment_Click"></Button>
             </Border>
-            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
+            <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Button Style="{StaticResource NavigateSendToSammu}" Grid.Column="1" x:Name="SAMUSendRequestBtn" Click="SAMUSendRequestBtn_Click"></Button>
             </Border>
-            <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-                </Border.Effect>
-                <Button x:Name="CollectionReportDownload"  Click="CollectionReportDownload_Click" Style="{StaticResource DownloadCollectionReport}" ></Button>
-            </Border>
+           
 
-            <Border Width="150" Height="150" Grid.Column="3" Style="{StaticResource MainBorder}">
+            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Button Style="{StaticResource SamuImportBtn}" x:Name="SamuImportBtn" Click="SamuImportBtn_Click"></Button>
+            </Border>
+            <Border Width="150" Height="150" Grid.Column="3" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button Style="{StaticResource BtnNEFT}" x:Name="BtnDownloadNEFT" Click="SamuImportBtn_Click"></Button>
             </Border>
 
 
