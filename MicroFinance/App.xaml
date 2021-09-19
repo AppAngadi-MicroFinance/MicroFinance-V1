@@ -520,6 +520,11 @@
 
         <!--Primary Button-->
             <Style x:Key="PrimaryBtn" TargetType="{x:Type Button}">
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Style.Resources>
                 <Setter Property="Background" Value="#F77604"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
@@ -547,7 +552,12 @@
 
         <!--<GreenBtn>-->
         <Style x:Key="GreenBtn" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#F78A77"/>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Style.Resources>
+                <Setter Property="Background" Value="#F78A77"/>
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="FontFamily" Value="Roboto"></Setter>
@@ -573,7 +583,12 @@
         </Style>
         <!--<GreenBtn>-->
         <Style x:Key="GreenToggleBtn" TargetType="{x:Type ToggleButton}">
-            <Setter Property="Background" Value="#F78A77"/>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Style.Resources>
+                <Setter Property="Background" Value="#F78A77"/>
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="FontFamily" Value="Roboto"></Setter>
@@ -599,7 +614,12 @@
         </Style>
         <!--Secondary Button-->
         <Style x:Key="SecondaryBtn" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#0EABF2"></Setter>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Style.Resources>
+                <Setter Property="Background" Value="#0EABF2"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="FontFamily" Value="Roboto"></Setter>
@@ -624,7 +644,12 @@
         </Style>
         <!--Secondary Toggle Button-->
         <Style x:Key="SecondaryToggleBtn" TargetType="ToggleButton">
-            <Setter Property="Background" Value="#0EABF2"></Setter>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Style.Resources>
+                <Setter Property="Background" Value="#0EABF2"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="FontFamily" Value="Roboto"></Setter>
@@ -649,7 +674,12 @@
         </Style>
         <!--Cancel Button-->
         <Style x:Key="CancelBtn" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#7F7F7F"></Setter>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Style.Resources>
+                <Setter Property="Background" Value="#7F7F7F"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="FontFamily" Value="Roboto"></Setter>
@@ -674,7 +704,12 @@
         </Style>
         <!--Remove or Danger Button-->
         <Style x:Key="DangerBtn" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#FF3400"></Setter>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Style.Resources>
+                <Setter Property="Background" Value="#FF3400"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="FontFamily" Value="Roboto"></Setter>
@@ -699,7 +734,12 @@
         </Style>
         <!--Remove or Toggle Danger Button-->
         <Style x:Key="DangerToggleBtn" TargetType="{x:Type ToggleButton}">
-            <Setter Property="Background" Value="#FF3400"></Setter>
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Style.Resources>
+                <Setter Property="Background" Value="#FF3400"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="FontFamily" Value="Roboto"></Setter>
