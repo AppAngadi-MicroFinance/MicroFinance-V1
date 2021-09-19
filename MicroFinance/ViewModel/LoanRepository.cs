@@ -226,6 +226,8 @@ namespace MicroFinance.ViewModel
                             sqlcomm.Connection = sqlconn;
                             sqlcomm.CommandText = "update CustomerDetails set IsActive='true' where CustId='" + rm.CustomerID + "'";
                             int Result = (int)sqlcomm.ExecuteNonQuery();
+                            sqlcomm.CommandText = "update DisbursementFromSAMU set LoanID='" + LoanId + "' where RequestID='" + rm.RequestID + "'";
+                            sqlcomm.ExecuteNonQuery();
                             if (Result == 1)
                             {
                                 LoadData1(LoanId, rm.CustomerID, rm.LoanAmount, rm.LoanPeriod, rm.BranchID, rm.CollectionDay);
