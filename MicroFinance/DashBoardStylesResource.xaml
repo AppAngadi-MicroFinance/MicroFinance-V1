@@ -1044,7 +1044,7 @@
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
                             <Grid Background="#E8FAFF" Width="25" Height="25">
-                                <Image Grid.Column="0" Width="24" Height="24" Source=".\Asserts\Icons\powerbutton.png" 
+                                <Image Grid.Column="0" Width="20" Height="20" Source=".\Asserts\Icons\powerbutton.png" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
                             </Grid>
                         </DataTemplate>
@@ -1077,12 +1077,14 @@
                                 </Grid.RowDefinitions>
                                 <Image Grid.Column="0" Width="65" Height="65"  Source=".\Asserts\Icons\rubberstamp.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
                                 <TextBlock Grid.Row="1" Width="100"  Text="Customer Approvals" Style="{StaticResource DashboardBtnText}"></TextBlock>
+                                
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
                 </ContentPresenter>
             </Setter.Value>
         </Setter>
+        
     </Style>
 
 

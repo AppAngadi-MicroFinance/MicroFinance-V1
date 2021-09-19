@@ -6,7 +6,7 @@
         xmlns:Convert="clr-namespace:MicroFinance.Converters"
         xmlns:local="clr-namespace:MicroFinance" xmlns:modal="clr-namespace:MicroFinance.Modal" d:DataContext="{d:DesignInstance Type=modal:StaticProperty}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1366" Background="#FEF2E4" WindowStartupLocation="CenterScreen">
+        Title="G Trust" Height="768" Width="1366" Background="#FEF2E4" WindowStartupLocation="CenterScreen">
     <Window.Resources>
        
         <Convert:StatusForegroundColor x:Key="StatusColor"></Convert:StatusForegroundColor>
@@ -34,7 +34,7 @@
             <TextBlock x:Name="xHeaderDate" Grid.Column="2" FontSize="16" FontWeight="SemiBold"
                        HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Blue"></TextBlock>
             <Button Grid.Column="3" x:Name="xLogoutButton" Width="25" Height="25" Style="{StaticResource LogoutButtonStyle}"
-                    HorizontalAlignment="Right" Click="xLogoutButton_Click" Margin="0,0,20,0" Visibility="Collapsed"></Button>
+                    HorizontalAlignment="Right" Click="xLogoutButton_Click" Margin="0,0,20,0" Visibility="Collapsed" ToolTip="Log Out"></Button>
         </Grid>
 
         <Frame Grid.Row="1" x:Name="mainframe" NavigationUIVisibility="Hidden"></Frame>

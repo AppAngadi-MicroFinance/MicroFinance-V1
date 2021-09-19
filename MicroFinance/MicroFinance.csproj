@@ -591,5 +591,8 @@
   <ItemGroup>
     <Resource Include="Asserts\Icons\CircleGif.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\Power-Log-out.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
