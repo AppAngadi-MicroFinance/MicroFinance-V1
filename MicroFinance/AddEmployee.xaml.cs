@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -228,15 +229,16 @@ namespace MicroFinance
         {
             ConfirmationPanel.IsOpen = false;
             EmployeeMainGrid.IsEnabled = true;
-            addemployee.EmployeeAdd();
-            MainWindow.StatusMessageofPage(1, "Employee Added Successfully");
-            this.NavigationService.Navigate(new AddEmployee());
+            // addemployee.EmployeeAdd();
+            
             try
             {
                 
                 if(EmployeeSaveBtn.Content.ToString()=="Save")
                 {
-                    
+                    bool Result = EmployeeRepository.AddEmployee(addemployee);
+                    MainWindow.StatusMessageofPage(1, "Employee Added Successfully");
+                    this.NavigationService.Navigate(new AddEmployee());
                 }
                 else if(EmployeeSaveBtn.Content.ToString()=="Update")
                 {

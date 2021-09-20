@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -28,6 +29,48 @@ namespace MicroFinance.Utils
            select nic.GetPhysicalAddress().ToString()
             );
 
+        }
+
+
+        public static string DriveBasePath
+        {
+            get
+            {
+                return BasePath();
+            }
+        }
+
+        private static string BasePath()
+        {
+            string BasePath = string.Empty;
+            DriveInfo[] allDrives = DriveInfo.GetDrives();
+
+            foreach (DriveInfo d in allDrives)
+            {
+
+                if (d.IsReady == true)
+                {
+                    //sb.Append("\n"+d.Name+" "+" "+d.VolumeLabel);
+
+                    if (d.VolumeLabel.Equals("Google Drive"))
+                    {
+                        string dir = d.Name + "My Drive" + "\\MicroFinance";
+
+                        if (Directory.Exists(dir))
+                        {
+                            BasePath = dir;
+                        }
+                        else
+                        {
+
+                            Directory.CreateDirectory(dir);
+                            BasePath = dir;
+                        }
+                        break;
+                    }
+                }
+            }
+            return BasePath;
         }
     }
 }

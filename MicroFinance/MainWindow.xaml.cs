@@ -24,6 +24,7 @@ namespace MicroFinance
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static string DriveBasePath = string.Empty;
         public static StringBuilder TimeBuilder = new StringBuilder();
         public static StaticProperty StatusMsg = new StaticProperty();
         string _userName;
@@ -36,6 +37,7 @@ namespace MicroFinance
             InitializeComponent();
             MessageStatus.DataContext = StatusMsg;
             xHeaderDate.Text = DateTime.Now.ToShortDateString();
+            DriveBasePath = SystemFunction.DriveBasePath;
         }
         public static void StatusMessageofPage(int Type, string Message)
         {

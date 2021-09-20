@@ -217,6 +217,7 @@
     <Compile Include="Modal\PeerGroupNameView.cs" />
     <Compile Include="Modal\Region.cs" />
     <Compile Include="Modal\GTtoSamunnati.cs" />
+    <Compile Include="Modal\SaveImageToDrive.cs" />
     <Compile Include="Modal\SelfHeadGroupModal.cs" />
     <Compile Include="Modal\StaticProperty.cs" />
     <Compile Include="RecommendNew.xaml.cs">
@@ -264,6 +265,7 @@
     </Compile>
     <Compile Include="ViewModel\CollectionReportRepo.cs" />
     <Compile Include="ViewModel\CollectionReportView.cs" />
+    <Compile Include="ViewModel\EmployeeRepository.cs" />
     <Compile Include="ViewModel\HimarkRepository.cs" />
     <Compile Include="ViewModel\HimarkRequestView.cs" />
     <Compile Include="ViewModel\LoanRepository.cs" />
