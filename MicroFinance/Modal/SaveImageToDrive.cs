@@ -76,6 +76,8 @@ namespace MicroFinance.Modal
                 {
                     BitmapImage image = new BitmapImage();
                     image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                     image.UriSource=new Uri(filepath, UriKind.RelativeOrAbsolute);
                     image.EndInit();
                     return image;

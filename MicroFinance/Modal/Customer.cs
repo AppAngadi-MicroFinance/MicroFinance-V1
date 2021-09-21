@@ -983,7 +983,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "update CustomerDetails set  IsCombinePhote = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.CommandText = "update CustomerDetails set  IsCombinePhoto = 'True' where CustId = '" + _customerId + "'";
                 sqlCommand.ExecuteNonQuery();
                 string folderpath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Combain Photo";
                 byte[] data= Convertion(ProfilePicture);
