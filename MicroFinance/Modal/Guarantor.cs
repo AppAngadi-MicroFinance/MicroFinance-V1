@@ -452,7 +452,8 @@ namespace MicroFinance.Modal
             InsertGuarantorDetails();
             if(AddressProof!=null)
             {
-                AddGuarantorAddressProof();
+                // AddGuarantorAddressProof();
+                AddGuarantorAddressProofToDrive(MainWindow.LoginDesignation.BranchName);
             }
             if(PhotoProof!=null)
             {
@@ -494,6 +495,24 @@ namespace MicroFinance.Modal
                 sqlCommand.CommandText = "update GuarenteeDetails set AddressProof = @addressProof, IsAddressProof = 'True',AddressProofName='"+NameofAddressProof+"' where CustId = '" + _customerId + "'";
                 sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(AddressProof));
                 sqlCommand.ExecuteNonQuery();
+
+            }
+        }
+
+
+        void AddGuarantorAddressProofToDrive(string BName)
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "update GuarenteeDetails set  IsAddressProof = 'True',AddressProofName='" + NameofAddressProof + "' where CustId = '" + _customerId + "'";
+                sqlCommand.ExecuteNonQuery();
+                byte[] data= Convertion(AddressProof);
+                string FolderPath = MainWindow.DriveBasePath + "\\" + "Guarantor" + "\\" + NameofAddressProof;
+                SaveImageToDrive.SaveImage(FolderPath, _customerId, data);
+                
 
             }
         }
@@ -548,11 +567,16 @@ namespace MicroFinance.Modal
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "update GuarenteeDetails Set Name='" + GuarantorName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Occupation='" + Occupation + "',RelationShip='" + RelationShip + "',Address='" + Address + "',Pincode='" + Pincode + "',IsAddressProof='" + _isAddressProof + "',IsPhotoProof='" + _isPhotoProof + "',IsProfilePhoto='" + _isProfilePhoto + "',AddressProof=@addressproof,PhotoProof=@photoproof,ProfilePhoto=@profileproof,Gender='" + Gender + "',AddressProofName='"+NameofAddressProof+"',AddressProofNo='"+AddressProofNo+"',PhotoProofName='"+NameofPhotoProof+"',PhotoProofNo='"+PhotoProofNo+"' where CustId='" + _customerId + "'";
-                sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(AddressProof));
-                sqlCommand.Parameters.AddWithValue("@photoproof", Convertion(PhotoProof));
-                sqlCommand.Parameters.AddWithValue("@profileproof", Convertion(ProfilePicture));
+                sqlCommand.CommandText = "update GuarenteeDetails Set Name='" + GuarantorName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Occupation='" + Occupation + "',RelationShip='" + RelationShip + "',Address='" + Address + "',Pincode='" + Pincode + "',IsAddressProof='" + _isAddressProof + "',IsPhotoProof='" + _isPhotoProof + "',IsProfilePhoto='" + _isProfilePhoto + "',Gender='" + Gender + "',AddressProofName='"+NameofAddressProof+"',AddressProofNo='"+AddressProofNo+"',PhotoProofName='"+NameofPhotoProof+"',PhotoProofNo='"+PhotoProofNo+"' where CustId='" + _customerId + "'";
+               
+                
                 sqlCommand.ExecuteNonQuery();
+                string AddressFolderPath = MainWindow.DriveBasePath + "\\" + "Guarantor\\" + MainWindow.LoginDesignation.BranchName+"\\" + NameofAddressProof;
+                SaveImageToDrive.SaveImage(AddressFolderPath, _customerId, Convertion(AddressProof));
+                string PhotoProofPath = MainWindow.DriveBasePath + "\\" + "Guarantor\\" + MainWindow.LoginDesignation.BranchName + "\\" + NameofPhotoProof;
+                SaveImageToDrive.SaveImage(PhotoProofPath, _customerId, Convertion(PhotoProof));
+                string ProfilePicturePath= MainWindow.DriveBasePath + "\\" + "Guarantor\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Profile Picture";
+                SaveImageToDrive.SaveImage(ProfilePicturePath, _customerId, Convertion(ProfilePicture));
             }
         }
 
@@ -583,15 +607,24 @@ namespace MicroFinance.Modal
                     NameofAddressProof = sqlDataReader.GetString(9);
                     if (sqlDataReader.GetBoolean(11))
                     {
-                        AddressProof = ByteToBI((byte[])sqlDataReader.GetValue(14));
+                        //AddressProof = ByteToBI((byte[])sqlDataReader.GetValue(14));
+                        string Filepath = MainWindow.DriveBasePath + "\\" + "Guarantor\\" + MainWindow.LoginDesignation.BranchName+"\\" + NameofAddressProof;
+                        AddressProof= SaveImageToDrive.GetImage(Filepath, _customerId);
                     }
                     NameofPhotoProof = sqlDataReader.GetString(10);
                     if (sqlDataReader.GetBoolean(12))
                     {
-                        PhotoProof = ByteToBI((byte[])sqlDataReader.GetValue(15));
+                        //PhotoProof = ByteToBI((byte[])sqlDataReader.GetValue(15));
+                        string Filepath = MainWindow.DriveBasePath + "\\" + "Guarantor\\" + MainWindow.LoginDesignation.BranchName+"\\" + NameofPhotoProof;
+                        PhotoProof  = SaveImageToDrive.GetImage(Filepath, _customerId);
                     }
                     if (sqlDataReader.GetBoolean(13))
-                        ProfilePicture = ByteToBI((byte[])sqlDataReader.GetValue(16));
+                    {
+                        // ProfilePicture = ByteToBI((byte[])sqlDataReader.GetValue(16));
+                        string Filepath = MainWindow.DriveBasePath + "\\" + "Guarantor\\" +MainWindow.LoginDesignation.BranchName+ "\\"+"Profile Picture";
+                        ProfilePicture= SaveImageToDrive.GetImage(Filepath, _customerId);
+                    } 
+                       
                     IsGuarantorNull = true;
                     Gender = sqlDataReader.GetString(17);
                     AddressProofNo = sqlDataReader.GetString(18);

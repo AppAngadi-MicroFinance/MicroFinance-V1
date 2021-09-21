@@ -15,6 +15,7 @@ namespace MicroFinance.Modal
         public string EmpId { get; set; }
         public string BranchId { get; set; }
         public string RegionName { get; set; }
+        public string BranchName { get; set; }
         string _userName;
         string _password;
         public LoginDetails(String UserName)
@@ -66,6 +67,7 @@ namespace MicroFinance.Modal
                     {
                         RegionName = dataReader.GetString(0);
                         BranchId = dataReader.GetString(1);
+                        BranchName = dataReader.GetString(2);
                     }
                     dataReader.Close();
                 }

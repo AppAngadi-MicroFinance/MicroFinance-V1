@@ -235,6 +235,7 @@
     <Compile Include="Reports\NEFT.cs" />
     <Compile Include="Reports\SamuunatiReport.cs" />
     <Compile Include="Reports\SUMAtoHO.cs" />
+    <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="SamuExport.xaml.cs">
       <DependentUpon>SamuExport.xaml</DependentUpon>
     </Compile>
@@ -265,10 +266,10 @@
     </Compile>
     <Compile Include="ViewModel\CollectionReportRepo.cs" />
     <Compile Include="ViewModel\CollectionReportView.cs" />
-    <Compile Include="ViewModel\EmployeeRepository.cs" />
+    <Compile Include="Repository\EmployeeRepository.cs" />
     <Compile Include="ViewModel\HimarkRepository.cs" />
     <Compile Include="ViewModel\HimarkRequestView.cs" />
-    <Compile Include="ViewModel\LoanRepository.cs" />
+    <Compile Include="Repository\LoanRepository.cs" />
     <Compile Include="ViewModel\RecommendView.cs" />
     <Compile Include="ViewModel\SamuReportView.cs" />
     <Compile Include="ViewModel\SamuRepository.cs" />
@@ -595,6 +596,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Asserts\Icons\Power-Log-out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\NoImageFound.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -711,7 +711,7 @@ namespace MicroFinance.Modal
         }
 
 
-
+        private string _branchname;
 
         public Customer()
         {
@@ -774,15 +774,24 @@ namespace MicroFinance.Modal
                     NameofAddressProof = sqlData.GetString(21);
                     if (sqlData.GetBoolean(24))
                     {
-                        _addressProof = ByteToBI((byte[])sqlData.GetValue(33));
+                        //_addressProof = ByteToBI((byte[])sqlData.GetValue(33));
+                        string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" +MainWindow.LoginDesignation.BranchName+"\\"+ NameofAddressProof;
+                        SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                     NameofPhotoProof = sqlData.GetString(22);
                     if (sqlData.GetBoolean(25))
                     {
-                        _photoProof = ByteToBI((byte[])sqlData.GetValue(34));
+                       // _photoProof = ByteToBI((byte[])sqlData.GetValue(34));
+                        string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + NameofPhotoProof;
+                        SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                     if (sqlData.GetBoolean(26))
-                        _profilePicture = ByteToBI((byte[])sqlData.GetValue(35));
+                    {
+                        //_profilePicture = ByteToBI((byte[])sqlData.GetValue(35));
+                        string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Profile Picture";
+                        SaveImageToDrive.GetImage(FolderPath, _customerId);
+                    }
+                       
                     if (sqlData.GetBoolean(36))
                         _ishavingGuarantorAlready = true;
                     if (sqlData.GetBoolean(37))
@@ -790,7 +799,12 @@ namespace MicroFinance.Modal
                     _husbandName = sqlData.GetString(40);
                     _yearIncome = sqlData.GetInt32(41);
                     if(sqlData.GetBoolean(42))
-                        _combinePhoto = ByteToBI((byte[])sqlData.GetValue(43));
+                    {
+                        //_combinePhoto = ByteToBI((byte[])sqlData.GetValue(43));
+                        string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Combine Photo";
+                        SaveImageToDrive.GetImage(FolderPath, _customerId);
+                    }
+                       
                     _photoProofNo = sqlData.GetString(44);
                     _AddressProofNo = sqlData.GetString(45);
 
@@ -808,7 +822,7 @@ namespace MicroFinance.Modal
         }
         public void SaveCustomerDetails(string Region, string BranchName, string SelfHelpGroup, string PeerGroup, Guarantor guarantor, Nominee nominee)
         {
-
+            _branchname = BranchName;
             AddCustomerDetails(Region, BranchName, SelfHelpGroup, PeerGroup);
             guarantor._customerId = _customerId;
             nominee._customerId = _customerId;
@@ -822,15 +836,18 @@ namespace MicroFinance.Modal
             }
             if (AddressProof != null)
             {
-                AddAddressProof();
+               // AddAddressProof();
+                AddAddressProofToDrive(_branchname);
             }
             if (PhotoProof != null)
             {
-                AddPhotoProof();
+                //AddPhotoProof();
+                AddPhotoProofToDrive();
             }
             if (ProfilePicture != null)
             {
-                AddProfilePhoto();
+               // AddProfilePhoto();
+                AddProfilePhotoToDrive();
             }
             if(HavingBankDetails)
             {
@@ -842,7 +859,8 @@ namespace MicroFinance.Modal
             }
             if(CombinePhoto!=null)
             {
-                AddCombinePhoto();
+                //AddCombinePhoto();
+                AddCombinePhotoToDrive();
             }
             EmployeeID = MainWindow.LoginDesignation.EmpId;
             CustomerID = _customerId;
@@ -874,6 +892,22 @@ namespace MicroFinance.Modal
                 sqlCommand.ExecuteNonQuery();
             }
         }
+
+
+        //for Drive Insert
+        void AddAddressProofToDrive(string BName)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlConnection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "update CustomerDetails set AddressProofName='" + NameofAddressProof + "' ,IsAddressProof = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.ExecuteNonQuery();
+                string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer" + "\\" + BName + "\\" +NameofAddressProof;
+                SaveImageToDrive.SaveImage(FolderPath, _customerId, Convertion(AddressProof));
+            }
+        }
         void AddPhotoProof()
         {
             using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -886,6 +920,22 @@ namespace MicroFinance.Modal
                 sqlCommand.ExecuteNonQuery();
             }
         }
+
+        void AddPhotoProofToDrive()
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlConnection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "update CustomerDetails set IsPhotoProof = 'True',PhotoProofName='" + NameofPhotoProof + "' where CustId = '" + _customerId + "'";
+                sqlCommand.ExecuteNonQuery();
+                byte[] data= Convertion(PhotoProof);
+                string folderpath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + NameofPhotoProof;
+                SaveImageToDrive.SaveImage(folderpath, _customerId, data);
+                
+            }
+        }
         void AddProfilePhoto()
         {
             using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -893,9 +943,25 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "update CustomerDetails set CombinePhoto = @combinephoto, IsCombinePhoto = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.CommandText = "update CustomerDetails set IsProfilePhote = @combinephoto, IsCombinePhoto = 'True' where CustId = '" + _customerId + "'";
                 sqlCommand.Parameters.AddWithValue("@combinephoto", Convertion(CombinePhoto));
                 sqlCommand.ExecuteNonQuery();
+            }
+        }
+
+        void AddProfilePhotoToDrive()
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlConnection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "update CustomerDetails set IsProfilePhoto = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.ExecuteNonQuery();
+                byte[] data=Convertion(CombinePhoto);
+                string folderpath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Profile Picture";
+                SaveImageToDrive.SaveImage(folderpath, _customerId, data);
+
             }
         }
         void AddCombinePhoto()
@@ -908,6 +974,21 @@ namespace MicroFinance.Modal
                 sqlCommand.CommandText = "update CustomerDetails set ProfilePhoto = @addressProof, IsProfilePhoto = 'True' where CustId = '" + _customerId + "'";
                 sqlCommand.Parameters.AddWithValue("@addressproof", Convertion(ProfilePicture));
                 sqlCommand.ExecuteNonQuery();
+            }
+        }
+        void AddCombinePhotoToDrive()
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlConnection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "update CustomerDetails set  IsCombinePhote = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.ExecuteNonQuery();
+                string folderpath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Combain Photo";
+                byte[] data= Convertion(ProfilePicture);
+                SaveImageToDrive.SaveImage(folderpath, _customerId, data);
+               
             }
         }
         void AddAadharNumber()
@@ -1014,6 +1095,7 @@ namespace MicroFinance.Modal
         }
         public void UpdateExistingDetails(string BranchName, string SelfHelpGroup, string PeerGroup, Guarantor guarantor, Nominee nominee)
         {
+            _branchname = BranchName;
             ChangeCustomerDetails(BranchName, SelfHelpGroup, PeerGroup);
             guarantor._customerId = _customerId;
             nominee._customerId = _customerId;
@@ -1033,15 +1115,18 @@ namespace MicroFinance.Modal
             }
             if (AddressProof != null)
             {
-                AddAddressProof();
+                //AddAddressProof();
+                AddAddressProofToDrive(_branchname);
             }
             if (PhotoProof != null)
             {
-                AddPhotoProof();
+                //AddPhotoProof();
+                AddPhotoProofToDrive();
             }
             if (ProfilePicture != null)
             {
-                AddProfilePhoto();
+                //AddProfilePhoto();
+                AddProfilePhotoToDrive();
             }
             if(HavingBankDetails)
             {
@@ -1053,7 +1138,8 @@ namespace MicroFinance.Modal
             }
             if(CombinePhoto!=null)
             {
-                AddCombinePhoto();
+                //AddCombinePhoto();
+                AddCombinePhotoToDrive();
             }
             //CheckAndChangeStatus();
         }
