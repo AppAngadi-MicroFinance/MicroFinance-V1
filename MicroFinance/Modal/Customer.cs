@@ -776,20 +776,20 @@ namespace MicroFinance.Modal
                     {
                         //_addressProof = ByteToBI((byte[])sqlData.GetValue(33));
                         string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" +MainWindow.LoginDesignation.BranchName+"\\"+ NameofAddressProof;
-                        SaveImageToDrive.GetImage(FolderPath, _customerId);
+                        _addressProof= SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                     NameofPhotoProof = sqlData.GetString(22);
                     if (sqlData.GetBoolean(25))
                     {
                        // _photoProof = ByteToBI((byte[])sqlData.GetValue(34));
                         string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + NameofPhotoProof;
-                        SaveImageToDrive.GetImage(FolderPath, _customerId);
+                        _photoProof= SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                     if (sqlData.GetBoolean(26))
                     {
                         //_profilePicture = ByteToBI((byte[])sqlData.GetValue(35));
                         string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Profile Picture";
-                        SaveImageToDrive.GetImage(FolderPath, _customerId);
+                        _profilePicture= SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                        
                     if (sqlData.GetBoolean(36))
@@ -802,7 +802,7 @@ namespace MicroFinance.Modal
                     {
                         //_combinePhoto = ByteToBI((byte[])sqlData.GetValue(43));
                         string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Combine Photo";
-                        SaveImageToDrive.GetImage(FolderPath, _customerId);
+                        _combinePhoto= SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                        
                     _photoProofNo = sqlData.GetString(44);

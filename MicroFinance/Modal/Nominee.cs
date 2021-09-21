@@ -386,6 +386,24 @@ namespace MicroFinance.Modal
             }
         }
 
+
+
+        void AddGuarantorAddressProofToDrive()
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "update NomineeDetails set IsAddressProof = 'True',AddressProofName='" + NameofAddressProof + "' where CustId = '" + _customerId + "'";
+                sqlCommand.ExecuteNonQuery();
+                byte[] data= Convertion(AddressProof);
+                
+               
+
+            }
+        }
+
         void AddGuarantorPhotoProof()
         {
             using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))

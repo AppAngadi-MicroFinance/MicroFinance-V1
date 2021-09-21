@@ -64,9 +64,12 @@ namespace MicroFinance.Modal
 
         public static BitmapImage GetImage(string FolderPath,string FileName)
         {
-            //Uri DefaultImage = new Uri("\\..\\Asserts\\Icons\\NoImageFound.jpg");
-            // BitmapImage bmp = new BitmapImage("Asserts\\Icons\\NoImageFound.jpg");
-           // BitmapImage defaultimage = @"..\\Asserts\\Icons\\NoImageFound.jpg";
+           // BitmapImage bmp = new BitmapImage(@"Asserts\Icons\NoImageFound.jpg");
+           // Uri DefaultImage = new Uri("../Asserts/Icons/NoImageFound.jpg");
+
+            Uri DefalutImage=new Uri("pack://application:,,,/MicroFinance;component/Asserts/Icons/NoImageFound.jpg");
+
+            // BitmapImage defaultimage = @"..\\Asserts\\Icons\\NoImageFound.jpg";
             if (Directory.Exists(FolderPath))
             {
                 string filepath = FolderPath + "\\" + FileName + ".jpg";
@@ -83,10 +86,21 @@ namespace MicroFinance.Modal
                     return image;
                 }
             }
-
-            return new BitmapImage();
+            getimage(DefalutImage);
+            return new BitmapImage(DefalutImage);
         }
 
+
+       static BitmapImage getimage(Uri uri)
+        {
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            image.UriSource = uri;
+            image.EndInit();
+            return image;
+        }
 
         private static byte[] converterImgToByte(BitmapImage x)
         {
