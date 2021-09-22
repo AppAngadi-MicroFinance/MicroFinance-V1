@@ -398,7 +398,8 @@ namespace MicroFinance.Modal
                 sqlCommand.CommandText = "update NomineeDetails set IsAddressProof = 'True',AddressProofName='" + NameofAddressProof + "' where CustId = '" + _customerId + "'";
                 sqlCommand.ExecuteNonQuery();
                 byte[] data= Convertion(AddressProof);
-                
+                string FolderPath = MainWindow.DriveBasePath + "\\" + "Nominee\\" + MainWindow.LoginDesignation.BranchName + "\\" + NameofAddressProof;
+                SaveImageToDrive.SaveImage(FolderPath, _customerId, data);
                
 
             }
@@ -418,6 +419,21 @@ namespace MicroFinance.Modal
             }
         }
 
+        void AddGuarantorPhotoProofToDrive()
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "update NomineeDetails set IsPhotoProof = 'True',PhotoProofName='" + NameofPhotoProof + "' where CustId = '" + _customerId + "'";
+                sqlCommand.ExecuteNonQuery();
+                byte[] data= Convertion(PhotoProof);
+                string FolderPath = MainWindow.DriveBasePath + "\\" + "Nominee\\" + MainWindow.LoginDesignation.BranchName + "\\" + NameofPhotoProof;
+                SaveImageToDrive.SaveImage(FolderPath, _customerId, data);
+            }
+        }
+
         void AddGuarantorProfilePhoto()
         {
             using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -428,6 +444,23 @@ namespace MicroFinance.Modal
                 sqlCommand.CommandText = "update NomineeDetails set ProfilePhoto = @profileproof, IsProfilePhoto = 'True' where CustId = '" + _customerId + "'";
                 sqlCommand.Parameters.AddWithValue("@profileproof", Convertion(ProfilePicture));
                 sqlCommand.ExecuteNonQuery();
+
+            }
+        }
+
+        void AddGuarantorProfilePhotoToDrive()
+        {
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "update NomineeDetails set IsProfilePhoto = 'True' where CustId = '" + _customerId + "'";
+                sqlCommand.ExecuteNonQuery();
+                byte[] data= Convertion(ProfilePicture);
+                string FolderPath = MainWindow.DriveBasePath + "\\" + "Nominee\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Profile Photo";
+                SaveImageToDrive.SaveImage(FolderPath, _customerId, data);
+
 
             }
         }
@@ -460,15 +493,18 @@ namespace MicroFinance.Modal
             }
             if (AddressProof != null)
             {
-                AddGuarantorAddressProof();
+                //AddGuarantorAddressProof();
+                AddGuarantorAddressProofToDrive();
             }
             if (PhotoProof != null)
             {
-                AddGuarantorPhotoProof();
+                //AddGuarantorPhotoProof();
+                AddGuarantorPhotoProofToDrive();
             }
             if (ProfilePicture != null)
             {
-                AddGuarantorProfilePhoto();
+                //AddGuarantorProfilePhoto();
+                AddGuarantorProfilePhotoToDrive();
             }
 
         }
@@ -500,15 +536,24 @@ namespace MicroFinance.Modal
                     if (sqlDataReader.GetBoolean(11))
                     {
                         NameofAddressProof = sqlDataReader.GetString(9);
-                        AddressProof = ByteToBI((byte[])sqlDataReader.GetValue(14));
+                        //AddressProof = ByteToBI((byte[])sqlDataReader.GetValue(14));
+                        string FolderPath = MainWindow.DriveBasePath + "\\" + "Nominee\\" + MainWindow.LoginDesignation.BranchName + "\\" + NameofAddressProof;
+                        SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                     if (sqlDataReader.GetBoolean(12))
                     {
                         NameofPhotoProof = sqlDataReader.GetString(10);
-                        PhotoProof = ByteToBI((byte[])sqlDataReader.GetValue(15));
+                        //PhotoProof = ByteToBI((byte[])sqlDataReader.GetValue(15));
+                        string FolderPath = MainWindow.DriveBasePath + "\\" + "Nominee\\" + MainWindow.LoginDesignation.BranchName + "\\" + NameofPhotoProof;
+                        SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                     if (sqlDataReader.GetBoolean(13))
-                        ProfilePicture = ByteToBI((byte[])sqlDataReader.GetValue(16));
+                    {
+                        //ProfilePicture = ByteToBI((byte[])sqlDataReader.GetValue(16));
+                        string FolderPath = MainWindow.DriveBasePath + "\\" + "Nominee\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Profile Photo";
+                        SaveImageToDrive.GetImage(FolderPath, _customerId);
+                    }
+                       
                     IsNomineeNull = true;
                     Gender = sqlDataReader.GetString(17);
                 }
