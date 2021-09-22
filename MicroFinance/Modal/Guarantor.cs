@@ -457,7 +457,8 @@ namespace MicroFinance.Modal
             }
             if(PhotoProof!=null)
             {
-                AddGuarantorPhotoProof();
+                //AddGuarantorPhotoProof();
+                
             }
             if(ProfilePicture!=null)
             {
@@ -571,11 +572,11 @@ namespace MicroFinance.Modal
                
                 
                 sqlCommand.ExecuteNonQuery();
-                string AddressFolderPath = MainWindow.DriveBasePath + "\\" + "Guarantor\\" + MainWindow.LoginDesignation.BranchName+"\\" + NameofAddressProof;
+                string AddressFolderPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Address Proof";
                 SaveImageToDrive.SaveImage(AddressFolderPath, _customerId, Convertion(AddressProof));
-                string PhotoProofPath = MainWindow.DriveBasePath + "\\" + "Guarantor\\" + MainWindow.LoginDesignation.BranchName + "\\" + NameofPhotoProof;
+                string PhotoProofPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Photo Proof";
                 SaveImageToDrive.SaveImage(PhotoProofPath, _customerId, Convertion(PhotoProof));
-                string ProfilePicturePath= MainWindow.DriveBasePath + "\\" + "Guarantor\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Profile Picture";
+                string ProfilePicturePath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Profile Picture";
                 SaveImageToDrive.SaveImage(ProfilePicturePath, _customerId, Convertion(ProfilePicture));
             }
         }
@@ -608,21 +609,21 @@ namespace MicroFinance.Modal
                     if (sqlDataReader.GetBoolean(11))
                     {
                         //AddressProof = ByteToBI((byte[])sqlDataReader.GetValue(14));
-                        string Filepath = MainWindow.DriveBasePath + "\\" + "Guarantor\\" + MainWindow.LoginDesignation.BranchName+"\\" + NameofAddressProof;
-                        AddressProof= SaveImageToDrive.GetImage(Filepath, _customerId);
+                        string Filepath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Address Proof";
+                        AddressProof = SaveImageToDrive.GetImage(Filepath, _customerId);
                     }
                     NameofPhotoProof = sqlDataReader.GetString(10);
                     if (sqlDataReader.GetBoolean(12))
                     {
                         //PhotoProof = ByteToBI((byte[])sqlDataReader.GetValue(15));
-                        string Filepath = MainWindow.DriveBasePath + "\\" + "Guarantor\\" + MainWindow.LoginDesignation.BranchName+"\\" + NameofPhotoProof;
+                        string Filepath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Photo Proof";
                         PhotoProof  = SaveImageToDrive.GetImage(Filepath, _customerId);
                     }
                     if (sqlDataReader.GetBoolean(13))
                     {
                         // ProfilePicture = ByteToBI((byte[])sqlDataReader.GetValue(16));
-                        string Filepath = MainWindow.DriveBasePath + "\\" + "Guarantor\\" +MainWindow.LoginDesignation.BranchName+ "\\"+"Profile Picture";
-                        ProfilePicture= SaveImageToDrive.GetImage(Filepath, _customerId);
+                        string Filepath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Profile Picture";
+                        ProfilePicture = SaveImageToDrive.GetImage(Filepath, _customerId);
                     } 
                        
                     IsGuarantorNull = true;

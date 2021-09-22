@@ -84,21 +84,21 @@ namespace MicroFinance.ViewModel
                     
                     if (employee.IsAddressProof==true)
                     {
-                        string Folderpath = MainWindow.DriveBasePath + "\\" + "Employee\\" +employee.BranchName+"\\"+ employee.AddressProofName;
+                        string Folderpath = MainWindow.DriveBasePath + "\\" + employee.Region + "\\" + employee.BranchName + "\\" + "Employee\\Address Proof";
                         string FileName = EmployeeID;
                         byte[] data = Convertion(employee.AddressProofImage);
                         SaveImageToDrive.SaveImage(Folderpath, FileName, data);
                     }
                     if(employee.IsPhotoProof==true)
                     {
-                        string Folderpath = MainWindow.DriveBasePath + "\\" + "Employee\\" + employee.BranchName + "\\" + employee.PhotoProofName;
+                        string Folderpath = MainWindow.DriveBasePath + "\\" + employee.Region + "\\" + employee.BranchName + "\\" + "Employee\\Photo Proof";
                         string FileName = EmployeeID;
                         byte[] data = Convertion(employee.PhotoProofImage);
                         SaveImageToDrive.SaveImage(Folderpath, FileName, data);
                     }
                     if(employee.IsProfilePicture==true)
                     {
-                        string Folderpath = MainWindow.DriveBasePath + "\\" + "Employee\\" + employee.BranchName + "\\" + "ProfilePicture";
+                        string Folderpath = MainWindow.DriveBasePath + "\\" + employee.Region + "\\" + employee.BranchName + "\\" + "Employee\\Profile Picture";
                         string FileName = EmployeeID;
                         byte[] data = Convertion(employee.ProfileImage);
                         SaveImageToDrive.SaveImage(Folderpath, FileName, data);

@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MicroFinance"
         mc:Ignorable="d"
-        Title="AddPg" Height="230" Width="400" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Border BorderBrush="#781F9F" BorderThickness="2,1,2,2">
-        <Grid Background="#e8fff2">
+        Title="AddPg" Height="250" Width="420" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent">
+    <Border Height="250" Width="420" Background="White" BorderBrush="Gray" BorderThickness="2" CornerRadius="10">
+        <Grid >
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="70"/>
@@ -19,24 +20,25 @@
                 <ColumnDefinition Width="230"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Rectangle Fill="#781F9F" Grid.ColumnSpan="3"></Rectangle>
-            <TextBlock Text="Add Peer Group" Grid.ColumnSpan="3" Style="{StaticResource SubTitle}" Foreground="White" HorizontalAlignment="Center" Margin="0,0,10,0"/>
-        
-        
-        <!--Section A-->
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="SHG" Style="{StaticResource Regular}" HorizontalAlignment="Center" Margin="30,15.6,29.2,14"/>
-        <ComboBox x:Name="xSHGcombo" SelectionChanged="xSHGcombo_SelectionChanged" Grid.Row="1" Grid.Column="1" Width="200" Height="30" HorizontalAlignment="Left"></ComboBox>
-        
-        <!--Section B-->
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Group Name" Style="{StaticResource Regular}" HorizontalAlignment="Center" Margin="30,15.6,29.2,14"/>
-        <TextBox Grid.Row="2" x:Name="GroupNameBox" IsEnabled="False" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Width="200" Grid.ColumnSpan="3" Margin="151,9.6,0,10"/>
-        
-        <!--Section C-->
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-            <Button x:Name="CancelBtn" Click="CancelBtn_Click" Style="{StaticResource CancelBtn}" Content="Cancel" Margin="10,0"/>
-            <Button x:Name="AddBtn" Click="AddBtn_Click" Style="{StaticResource PrimaryBtn}" Content="Add" />
-        </StackPanel>
-    </Grid>
-    </Border>
 
+            <TextBlock Text="Add Peer Group" Grid.ColumnSpan="3" Style="{StaticResource SubTitle}" Foreground="Blue" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+
+
+            <!--Section A-->
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="SHG Name" Style="{StaticResource Regular}" HorizontalAlignment="Center"/>
+            <ComboBox x:Name="xSHGcombo" SelectionChanged="xSHGcombo_SelectionChanged" Grid.Row="1" Grid.Column="1" Width="200" Height="30" HorizontalAlignment="Left"></ComboBox>
+
+            <!--Section B-->
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Group Name" Style="{StaticResource Regular}" HorizontalAlignment="Center" Margin="30,15.6,29.2,14"/>
+            <TextBox Grid.Row="2" x:Name="GroupNameBox" IsEnabled="True" IsReadOnly="True" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Width="200" Grid.ColumnSpan="3" Margin="151,9.6,0,10"/>
+
+            <!--Section C-->
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="3" Margin="0,10,0,0" HorizontalAlignment="Center">
+                <Button x:Name="CancelBtn" Click="CancelBtn_Click" Style="{StaticResource CancelBtn}" Content="Cancel" Margin="10,0"/>
+                <Button x:Name="AddBtn" Click="AddBtn_Click" Style="{StaticResource PrimaryBtn}" Content="Add" />
+            </StackPanel>
+        </Grid>
+    </Border>
+        
+    
 </Window>

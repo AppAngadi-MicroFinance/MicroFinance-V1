@@ -46,6 +46,7 @@ namespace MicroFinance.Modal
     {
         public string SHGid { get; set; }
         public string SHGName{ get; set; }
+        public int PeerGroupCount { get; set; }
         public SelfHelpGroupModal(string shgId, string SHGName)
         {
             this.SHGid = shgId;
