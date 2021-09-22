@@ -340,15 +340,18 @@ namespace MicroFinance.Modal
             InsertGuarantorDetails();
             if (AddressProof != null)
             {
-                AddGuarantorAddressProof();
+                //AddGuarantorAddressProof();
+                AddGuarantorAddressProofToDrive();
             }
             if (PhotoProof != null)
             {
-                AddGuarantorPhotoProof();
+                //AddGuarantorPhotoProof();
+                AddGuarantorPhotoProofToDrive();
             }
             if (ProfilePicture != null)
             {
-                AddGuarantorProfilePhoto();
+                //AddGuarantorProfilePhoto();
+                AddGuarantorProfilePhotoToDrive();
             }
         }
 

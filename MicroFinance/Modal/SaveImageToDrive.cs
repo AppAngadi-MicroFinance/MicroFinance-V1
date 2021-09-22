@@ -92,7 +92,7 @@ namespace MicroFinance.Modal
                     return image;
                 }
             }
-            getimage(DefalutImage);
+            //getimage(DefalutImage);
             return new BitmapImage(DefalutImage);
         }
 
