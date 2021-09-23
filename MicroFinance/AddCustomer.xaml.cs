@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Repository;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -30,6 +32,9 @@ namespace MicroFinance
         public static StaticProperty CaptureImageMessage = new StaticProperty();
         public static LoanDetails Loan = new LoanDetails();
 
+        public List<string> BankList = new List<string>();
+        public List<string> PurposeList = new List<string>();
+
         string WhichClassButtonClick;
         public AddCustomer()
         {
@@ -38,6 +43,10 @@ namespace MicroFinance
            // TempLoad();
             BranchAndGroupDetailsforFieldOfficer();
             Assign();
+            BankList = BankRepository.GetAllBankNames();
+            BankNameComboBox.ItemsSource = BankList;
+            PurposeList = LoanRepository.GetAllPurposeNames();
+            PurposeNameCombo.ItemsSource = PurposeList;
         }
         void TempLoad()
         {

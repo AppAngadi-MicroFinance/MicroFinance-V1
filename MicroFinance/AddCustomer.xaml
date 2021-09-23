@@ -27,7 +27,7 @@
 
         <validate:NameValidation x:Key="NameValidate"/>
     </Page.Resources>
-    <Grid x:Name="MainGrid" ShowGridLines="True">
+    <Grid x:Name="MainGrid" ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="560"/>
@@ -585,9 +585,9 @@
                             <Button x:Name="ViewBankDetails" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewBankDetails_Click"/>
                             <Button x:Name="EditBankDetails" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditBankDetails_Click" />
                         </StackPanel>
-                        <Popup  Height="400" Width="500" x:Name="AccountdetailsPanel" IsOpen="False" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">
-                            <Border BorderBrush="Blue" BorderThickness="2">
-                                <Grid Background="White">
+                        <Popup  Height="400" Width="500" x:Name="AccountdetailsPanel" AllowsTransparency="True" IsOpen="False" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">
+                            <Border BorderThickness="2" BorderBrush="Gray" Background="White" CornerRadius="7">
+                                <Grid Height="390" Width="490">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="10*"/>
                                         <RowDefinition Height="70*"/>
@@ -640,7 +640,9 @@
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBlock Text="Branch Name" Style="{StaticResource Regular}" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
-                                        <TextBox x:Name="bankbranchname" Grid.Column="1" Grid.Row="3" Style="{StaticResource InputBox}" Width="250" CharacterCasing="Upper">
+
+                                        <ComboBox HorizontalContentAlignment="Left" Grid.Column="1" Grid.Row="3" Style="{StaticResource combo}" Width="250" Text="{Binding BankBranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="BankNameComboBox"></ComboBox>
+                                        <!--<TextBox x:Name="bankbranchname" Grid.Column="1" Grid.Row="3" Style="{StaticResource InputBox}" Width="250" CharacterCasing="Upper">
                                             <TextBox.Text>
                                                 <Binding Path="BankBranchName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                                     <Binding.ValidationRules>
@@ -648,7 +650,7 @@
                                                     </Binding.ValidationRules>
                                                 </Binding>
                                             </TextBox.Text>
-                                        </TextBox>
+                                        </TextBox>-->
                                         <TextBlock Text="IFSC Code" Style="{StaticResource Regular}" Grid.Row="4" VerticalAlignment="Center"></TextBlock>
                                         <TextBox x:Name="ifsccode" Grid.Column="1" Grid.Row="4" Style="{StaticResource InputBox}"  Width="250" CharacterCasing="Upper">
                                             <TextBox.Text>
@@ -665,7 +667,7 @@
                                             </TextBox.Text>
                                         </TextBox>
                                     </Grid>
-                                    <Button Grid.Row="2" Height="40" Width="150" Content="Add" x:Name="SampleCheck" Click="SampleCheck_Click"></Button>
+                                    <Button Grid.Row="2" Height="40" Width="120" Content="Add" x:Name="SampleCheck" Style="{StaticResource SecondaryBtn}" Click="SampleCheck_Click"></Button>
                                 </Grid>
                             </Border>
 
@@ -816,7 +818,8 @@
                     </StackPanel>
                     <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Loan Purpose" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,35,0"/>
-                        <TextBox Style="{StaticResource InputBox}" Text="{Binding  LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Black" Width="180" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>
+                        <ComboBox Style="{StaticResource combo}" Width="180" Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="PurposeNameCombo"></ComboBox>
+                        <!--<TextBox Style="{StaticResource InputBox}" Text="{Binding  LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Black" Width="180" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>-->
                     </StackPanel>
                 </Grid>
             </Border>
