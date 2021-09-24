@@ -2162,10 +2162,10 @@ namespace MicroFinance.Reports
                 xlWorkSheet.Cells[RowStart, 48] = hm.Pincode;
                 xlWorkSheet.Cells[RowStart, 49] = hm.Occupation;
                 xlWorkSheet.Cells[RowStart, 50] = hm.Education;
-                xlWorkSheet.Cells[RowStart, 51] = hm.TypeOFResidence;
-                xlWorkSheet.Cells[RowStart, 52] = hm.TypeOFResidence+" House";
-                xlWorkSheet.Cells[RowStart, 53] = "Cement House";
-                xlWorkSheet.Cells[RowStart, 54] = "YES";
+                xlWorkSheet.Cells[RowStart, 51] = hm.Taluk;
+                xlWorkSheet.Cells[RowStart, 52] = hm.Residence;
+                xlWorkSheet.Cells[RowStart, 53] = hm.TypeOFResidence;
+                xlWorkSheet.Cells[RowStart, 54] = hm.LandHolding;
                 xlWorkSheet.Cells[RowStart, 55] = hm.Caste;
                 xlWorkSheet.Cells[RowStart, 56] = hm.Religion;
                 xlWorkSheet.Cells[RowStart, 57] = hm.MonthlyIncome;
@@ -2174,7 +2174,7 @@ namespace MicroFinance.Reports
                 xlWorkSheet.Cells[RowStart, 60] = hm.ApplicantAccountNO;
                 xlWorkSheet.Cells[RowStart, 61] = hm.ApplicantIFSCcode;
                 xlWorkSheet.Cells[RowStart, 62] = hm.ApplicantBranchName;
-                xlWorkSheet.Cells[RowStart, 63] = "AGRI";
+                xlWorkSheet.Cells[RowStart, 63] = hm.LoanPurpose;
                 xlWorkSheet.Cells[RowStart, 64] = hm.LoanTenure;
                 xlWorkSheet.Cells[RowStart, 65] = hm.SamFinBranch;
                 xlWorkSheet.Cells[RowStart, 68] = hm.DoorNO+","+hm.StreetName+","+hm.Village+","+hm.Taluk+","+hm.District+","+hm.State+".";
