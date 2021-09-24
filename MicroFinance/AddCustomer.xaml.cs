@@ -35,6 +35,11 @@ namespace MicroFinance
         public List<string> BankList = new List<string>();
         public List<string> PurposeList = new List<string>();
 
+
+        public List<string> ResidencyList = new List<string> { "OWN HOUSE", "RENT HOUSE" };
+        public List<string> ResidencyTypeList = new List<string> { "HUT HOUSE", "TILED ROOF HOUSE", "CONCRETE HOUSE" };
+        public List<string> LandHoldingList = new List<string> { "YES", "NO" };
+
         string WhichClassButtonClick;
         public AddCustomer()
         {
@@ -47,6 +52,10 @@ namespace MicroFinance
             BankNameComboBox.ItemsSource = BankList;
             PurposeList = LoanRepository.GetAllPurposeNames();
             PurposeNameCombo.ItemsSource = PurposeList;
+
+            ResidencyTypeCombo.ItemsSource = ResidencyList;
+            HousingTypeCombo.ItemsSource = ResidencyTypeList;
+            LandHoldingCombo.ItemsSource = LandHoldingList;
         }
         void TempLoad()
         {
@@ -1004,11 +1013,31 @@ namespace MicroFinance
             EnableDisableBackground(true);
         }
 
+        void ChangeReadOnly()
+        {
+            GuarantorHouseNOBox.IsReadOnly = true;
+            GuarantorStreetNameBox.IsReadOnly = true;
+            GuarantorLocalityBox.IsReadOnly = true;
+            GuarantorPincodeBox.IsReadOnly = true;
+            GuarantorCityBox.IsReadOnly = true;
+            GuarantorStateBox.IsReadOnly = true;
+        }
+        void ChangeReadProperty()
+        {
+            GuarantorHouseNOBox.IsReadOnly = false;
+            GuarantorStreetNameBox.IsReadOnly = false;
+            GuarantorLocalityBox.IsReadOnly = false;
+            GuarantorPincodeBox.IsReadOnly = false;
+            GuarantorCityBox.IsReadOnly = false;
+            GuarantorStateBox.IsReadOnly = false;
+        }
+
         private void SameAsCustomerAddress_Click(object sender, RoutedEventArgs e)
         {
             if (SameAsCustomerAddress.IsChecked == true)
             {
-                GuarantorAddressDetails.IsEnabled = false;
+                GuarantorAddressDetails.IsEnabled = true;
+                ChangeReadOnly();
 
                 GuarantorHouseNOBox.Text = customer.DoorNumber;
                 GuarantorStreetNameBox.Text = customer.StreetName;
@@ -1019,6 +1048,7 @@ namespace MicroFinance
             }
             else
             {
+                ChangeReadProperty();
                 GuarantorAddressDetails.IsEnabled = true;
                 GuarantorHouseNOBox.Text = "";
                 GuarantorStreetNameBox.Text = "";
@@ -1664,12 +1694,17 @@ namespace MicroFinance
                 CustMonthlyExpensesError.Visibility = Visibility.Visible;
                 _check = false;
             }
-            if(String.IsNullOrEmpty(HouseNOBox.Text))
-            {
-                HouseNOBox.BorderBrush = Redcolor;
-                CustDoorError.Visibility = Visibility.Visible;
-                _check = false;
-            }
+
+
+            //if(String.IsNullOrEmpty(HouseNOBox.Text))
+            //{
+            //    HouseNOBox.BorderBrush = Redcolor;
+            //    CustDoorError.Visibility = Visibility.Visible;
+            //    _check = false;
+            //}
+
+
+
             if(String.IsNullOrEmpty(StreetNameBox.Text))
             {
                 StreetNameBox.BorderBrush = Redcolor;
@@ -1700,12 +1735,12 @@ namespace MicroFinance
                 CustStateError.Visibility = Visibility.Visible;
                 _check = false;
             }
-            if(String.IsNullOrEmpty(HouseTypeBox.Text))
-            {
-                HouseTypeBox.BorderBrush = Redcolor;
-                CustHousingTypeError.Visibility = Visibility.Visible;
-                _check = false;
-            }
+            //if(String.IsNullOrEmpty(HouseTypeBox.Text))
+            //{
+            //    HouseTypeBox.BorderBrush = Redcolor;
+            //    CustHousingTypeError.Visibility = Visibility.Visible;
+            //    _check = false;
+            //}
             if(guarantor.IsGuarantorNull==false)
             {
                 GuarantorErrorCheck.Visibility = Visibility.Visible;
@@ -1946,11 +1981,11 @@ namespace MicroFinance
 
         private void HouseNOBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (CustDoorError.Visibility == Visibility.Visible)
-            {
-                CustDoorError.Visibility = Visibility.Collapsed;
-                HouseNOBox.BorderBrush = GrayColor;
-            }
+            //if (CustDoorError.Visibility == Visibility.Visible)
+            //{
+            //    CustDoorError.Visibility = Visibility.Collapsed;
+            //    HouseNOBox.BorderBrush = GrayColor;
+            //}
         }
 
         private void StreetNameBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -1998,14 +2033,14 @@ namespace MicroFinance
             }
         }
 
-        private void HouseTypeBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CustHousingTypeError.Visibility == Visibility.Visible)
-            {
-                CustHousingTypeError.Visibility = Visibility.Collapsed;
-                HouseTypeBox.BorderBrush = GrayColor;
-            }
-        }
+        //private void HouseTypeBox_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (CustHousingTypeError.Visibility == Visibility.Visible)
+        //    {
+        //        CustHousingTypeError.Visibility = Visibility.Collapsed;
+        //        HouseTypeBox.BorderBrush = GrayColor;
+        //    }
+        //}
 
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
@@ -2112,6 +2147,35 @@ namespace MicroFinance
         {
             AddPg APG = new AddPg();
             APG.ShowDialog();
+        }
+
+        private void LandDetailsOKBtn_Click(object sender, RoutedEventArgs e)
+        {
+            customer.LandType = LantypeBox.Text.ToUpper();
+            customer.LandVolume = LandVolumeBox.Text.ToString();
+            LandDetialsPanel.Visibility = Visibility.Collapsed;
+            LandHoldingShowBtn.Visibility = Visibility.Visible;
+        }
+
+        private void LandHoldingShowBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LandDetialsPanel.Visibility = Visibility.Visible;
+        }
+
+        private void LandHoldingCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+             string value = LandHoldingCombo.SelectedValue as string;
+
+            if(value=="YES")
+            {
+                LandDetialsPanel.Visibility = Visibility.Visible;
+            }
+            else if(value=="NO")
+            {
+                LandHoldingShowBtn.Visibility = Visibility.Collapsed;
+            }
+
+
         }
     }
 }

@@ -40,6 +40,32 @@
             <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="360"/>
         </Grid.ColumnDefinitions>
+        
+        
+        
+        <!--Land Details Panel-->
+        <Border x:Name="LandDetialsPanel" Background="White" CornerRadius="5" Visibility="Collapsed" BorderBrush="Gray" BorderThickness="2" Grid.RowSpan="5" Grid.ColumnSpan="9" Height="200" Width="400" Panel.ZIndex="2" >
+            <Grid Width="390" Height="190">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="70*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Land Details" Style="{StaticResource Title}" Grid.ColumnSpan="2" FontSize="20" VerticalAlignment="Center"></TextBlock>
+                <Separator VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="5" Grid.ColumnSpan="2"></Separator>
+                <TextBlock Text="Land Type" Style="{StaticResource Regular}" Grid.Row="1"></TextBlock>
+                <TextBox x:Name="LantypeBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
+                <TextBlock Text="Land Volume" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
+                <TextBox x:Name="LandVolumeBox" Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
+
+                <Button Style="{StaticResource SecondaryBtn}" Grid.Row="3" Grid.Column="1" Content="OK" x:Name="LandDetailsOKBtn" Click="LandDetailsOKBtn_Click"></Button>
+            </Grid>
+        </Border>
         <Button x:Name="xBackwardButton" Click="xBackwardButton_Click"
                 Style="{StaticResource BackButtonStyle}" Width="30" Grid.ColumnSpan="2" Panel.ZIndex="2" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
         <Grid x:Name="BranchDetailsGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" VerticalAlignment="Center">
@@ -332,8 +358,8 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="Address Details *" Style="{StaticResource STitle}"/>
-            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1">
-                <Grid x:Name="AddressDetailGrid">
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.RowSpan="3">
+                <Grid x:Name="AddressDetailGrid" ShowGridLines="False">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"/>
                         <ColumnDefinition Width="130"/>
@@ -341,6 +367,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
@@ -437,19 +465,26 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1">
                         <TextBlock Text="Housing Type" Style="{StaticResource Regular}" Grid.Row="8" Grid.Column="1" />
                         <TextBlock x:Name="CustHousingTypeError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="HouseTypeBox" Style="{StaticResource Textbox}" Grid.Row="8" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="HouseTypeBox_TextChanged" CharacterCasing="Upper">
+                    <TextBlock Grid.Row="8" Grid.Column="1" Text="Residency" Style="{StaticResource Regular}"></TextBlock>
+                    <ComboBox Grid.Row="8" Grid.Column="2" Style="{StaticResource combo}" Width="250" HorizontalAlignment="Left" x:Name="ResidencyTypeCombo" SelectedValue="{Binding ResidencyType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                    <ComboBox Grid.Row="9" Grid.Column="2" Width="250" HorizontalAlignment="Left" Style="{StaticResource combo}" x:Name="HousingTypeCombo" SelectedValue="{Binding HousingType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                    <TextBlock Text="Land Holding" Style="{StaticResource Regular}" Grid.Row="10" Grid.Column="1"></TextBlock>
+                    <ComboBox Grid.Row="10" Grid.Column="2" HorizontalAlignment="Left" Width="200" Style="{StaticResource combo}" x:Name="LandHoldingCombo" SelectionChanged="LandHoldingCombo_SelectionChanged" SelectedValue="{Binding LandHolding,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                    <Button Grid.Row="10" Grid.Column="2" HorizontalAlignment="Right" x:Name="LandHoldingShowBtn" Style="{StaticResource Show}" Margin="0,0,10,0" Visibility="Collapsed" Click="LandHoldingShowBtn_Click"></Button>
+                    
+                        <!--<TextBox x:Name="HouseTypeBox" Style="{StaticResource Textbox}" Grid.Row="9" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="HouseTypeBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="HousingType" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
-                    </TextBox>
-                    <Grid x:Name="AadharNoGrid" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2">
+                    </TextBox>-->
+                    <Grid x:Name="AadharNoGrid" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="130"/>
                             <ColumnDefinition Width="150"/>
@@ -464,7 +499,7 @@
                             <TextBox x:Name="AadharNo" Style="{StaticResource InputBox}" Text="{Binding AadharNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="250"  CharacterCasing="Upper"/>
                         </StackPanel>
                     </Grid>
-                    <Grid x:Name="PhotoProofNoGrid" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Grid x:Name="PhotoProofNoGrid" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="130"/>
                             <ColumnDefinition Width="150"/>
@@ -479,7 +514,7 @@
                             <TextBox x:Name="PhotoProofNo" Style="{StaticResource InputBox}" Text="{Binding PhotoProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="140" Margin="15,0,0,0" CharacterCasing="Upper"/>
                         </StackPanel>
                     </Grid>
-                    <Grid x:Name="AddressProofNoGrid" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Grid x:Name="AddressProofNoGrid" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="130"/>
                             <ColumnDefinition Width="*"/>
@@ -496,16 +531,7 @@
                     
                 </Grid>
             </Border>
-            <CheckBox x:Name="IsLeaderCheck" Grid.Row="2" Content="Make As Leader" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,10" IsChecked="{Binding IsLeader,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                <CheckBox.LayoutTransform>
-                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-                </CheckBox.LayoutTransform>
-            </CheckBox>
-            <StackPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button x:Name="Cancel" Style="{StaticResource CancelBtn}" Content="Cancel" Margin="0,0,20,0" Click="CancelBtn_Click"/>
-                <Button x:Name="SaveCustomer" Click="SaveCustomer_Click" Style="{StaticResource PrimaryBtn}" Content="Save"/>
-
-            </StackPanel>
+            
         </Grid>
         <Grid Grid.Row="1" Grid.Column="5" x:Name="CustomerOtherDetails">
             <Grid.RowDefinitions>
@@ -521,6 +547,18 @@
                 <ColumnDefinition Width="130"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <StackPanel Background="Transparent" Grid.Row="5" Grid.ColumnSpan="3">
+                <CheckBox x:Name="IsLeaderCheck" Grid.Row="2" Content="Make As Leader" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,10" IsChecked="{Binding IsLeader,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <CheckBox.LayoutTransform>
+                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                    </CheckBox.LayoutTransform>
+                </CheckBox>
+                <StackPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button x:Name="Cancel" Style="{StaticResource CancelBtn}" Content="Cancel" Margin="0,0,20,0" Click="CancelBtn_Click"/>
+                    <Button x:Name="SaveCustomer" Click="SaveCustomer_Click" Style="{StaticResource PrimaryBtn}" Content="Save"/>
+
+                </StackPanel>
+            </StackPanel>
             <TextBlock Text="Proof Details *" Style="{StaticResource STitle}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom"/>
             <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1">
                 <Grid>
@@ -827,9 +865,9 @@
 
 
         <!-- Guarantor Popup-->
-        <Grid x:Name="GuarantorWindow" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="6" Visibility="Collapsed" >
-            <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Black">
-                <Grid Background="#e8fff2" >
+        <Grid x:Name="GuarantorWindow"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="6" Visibility="Collapsed" >
+            <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Gray" CornerRadius="5" Background="#e8fff2">
+                <Grid Background="#e8fff2" Height="510" Width="970" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30"/>
                         <ColumnDefinition Width="480"/>
@@ -840,9 +878,9 @@
                         <RowDefinition Height="400"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1">
-                        <TextBlock x:Name="GuarantorProcess" Text="Add Guarantor" Style="{StaticResource SubTitle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-                    </Border>
+                    
+                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" x:Name="GuarantorProcess" Text="Add Guarantor" Style="{StaticResource SubTitle}" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                    <Separator VerticalAlignment="Bottom" Grid.ColumnSpan="3" BorderBrush="Gray" BorderThickness="5"></Separator>
                     <Border Grid.Row="1" Grid.Column="1" BorderThickness="0,0,1,0" BorderBrush="Black" />
                     <Grid Grid.Row="1" Grid.Column="1" x:Name="GuarnatorDetails">
                         <Grid.ColumnDefinitions>

@@ -1,6 +1,7 @@
 ﻿using MicroFinance.Validations;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -292,6 +293,63 @@ namespace MicroFinance.Modal
                 _housingIndex = value;
             }
         }
+
+        private string _residencyType;
+        public string ResidencyType
+        {
+            get
+            {
+                return _residencyType;
+            }
+            set
+            {
+                _residencyType = value;
+                RaisedPropertyChanged("ResidencyType");
+            }
+        }
+
+        private string _landholding;
+        public string LandHolding
+        {
+            get
+            {
+                return _landholding;
+            }
+            set
+            {
+                _landholding = value;
+                RaisedPropertyChanged("LandHolding");
+            }
+        }
+
+        private string _landtype;
+        public string LandType
+        {
+            get
+            {
+                return _landtype;
+            }
+            set
+            {
+                _landtype = value;
+                RaisedPropertyChanged("LandType1");
+            }
+        }
+
+        private string _landVolume;
+        public string LandVolume
+        {
+            get
+            {
+                return _landVolume;
+            }
+            set
+            {
+                _landVolume = value;
+                RaisedPropertyChanged("LandVolume");
+            }
+        }
+
         private string _aadharNumber=null;
         public string AadharNo
         {
@@ -852,6 +910,14 @@ namespace MicroFinance.Modal
             if(HavingBankDetails)
             {
                 AddBankDetails();
+                if(LandHolding.Equals("YES"))
+                {
+                    AddHouseTypeDetails(true);
+                }
+                else if (LandHolding.Equals("NO"))
+                {
+                    AddHouseTypeDetails();
+                }
             }
             if(AadharNo!="")
             {
@@ -869,6 +935,33 @@ namespace MicroFinance.Modal
             //CheckAndChangeStatus();
 
         }
+
+        void AddHouseTypeDetails(bool IsHavingLand=false)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlConnection.Open();
+                if(sqlConnection.State==ConnectionState.Open)
+                {
+                    SqlCommand sqlCommand = new SqlCommand();
+                    sqlCommand.Connection = sqlConnection;
+                    if(IsHavingLand)
+                    {
+                        sqlCommand.CommandText = "update CustomerDetails set Residency='"+ResidencyType+"',LandHolding='"+LandHolding+"',LandType='"+LandType+"',LandVolume='"+LandVolume+"' where CustId = '" + _customerId + "'";
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        sqlCommand.CommandText = "update CustomerDetails set Residency='" + ResidencyType + "',LandHolding='" + LandHolding + " where CustId = '" + _customerId + "'";
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    
+                }
+                
+            }
+        }
+
+
         void AddBankDetails()
         {
             using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
