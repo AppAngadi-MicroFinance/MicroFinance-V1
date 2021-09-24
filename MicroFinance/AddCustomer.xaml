@@ -630,9 +630,9 @@
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBlock Text="Bank Name" Style="{StaticResource Regular}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
-                                        <TextBox x:Name="bankname" Grid.Column="1" Grid.Row="2" Style="{StaticResource InputBox}"  Width="250" CharacterCasing="Upper">
+                                        <TextBox x:Name="bankname" Grid.Column="1" Grid.Row="3" Style="{StaticResource InputBox}"  Width="250" CharacterCasing="Upper">
                                             <TextBox.Text>
-                                                <Binding Path="BankName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                                <Binding Path="BankBranchName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                                     <Binding.ValidationRules>
                                                         <validation:NameValidation/>
                                                     </Binding.ValidationRules>
@@ -641,7 +641,7 @@
                                         </TextBox>
                                         <TextBlock Text="Branch Name" Style="{StaticResource Regular}" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
 
-                                        <ComboBox HorizontalContentAlignment="Left" Grid.Column="1" Grid.Row="3" Style="{StaticResource combo}" Width="250" Text="{Binding BankBranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="BankNameComboBox"></ComboBox>
+                                        <ComboBox HorizontalContentAlignment="Left" Grid.Column="1" Grid.Row="2" Style="{StaticResource combo}" Width="250" SelectedValue="{Binding BankName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="BankNameComboBox"></ComboBox>
                                         <!--<TextBox x:Name="bankbranchname" Grid.Column="1" Grid.Row="3" Style="{StaticResource InputBox}" Width="250" CharacterCasing="Upper">
                                             <TextBox.Text>
                                                 <Binding Path="BankBranchName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
