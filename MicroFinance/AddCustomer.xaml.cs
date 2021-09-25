@@ -40,6 +40,8 @@ namespace MicroFinance
         public List<string> ResidencyTypeList = new List<string> { "HUT HOUSE", "TILED ROOF HOUSE", "CONCRETE HOUSE" };
         public List<string> LandHoldingList = new List<string> { "YES", "NO" };
 
+        public List<BankDetailsView> BankDetailsList = new List<BankDetailsView>();
+
         string WhichClassButtonClick;
         public AddCustomer()
         {
@@ -56,6 +58,8 @@ namespace MicroFinance
             ResidencyTypeCombo.ItemsSource = ResidencyList;
             HousingTypeCombo.ItemsSource = ResidencyTypeList;
             LandHoldingCombo.ItemsSource = LandHoldingList;
+
+            BankDetailsList = BankRepository.BankDetailsList();
         }
         void TempLoad()
         {
@@ -1102,6 +1106,18 @@ namespace MicroFinance
             EnableDisableBackground(true);
             MainWindow.StatusMessageofPage(1, "Successfully BankDetails Added...");
             BankErrorCheck.Visibility = Visibility.Collapsed;
+
+            BankDetailsView NewBank = new BankDetailsView();
+            if(IsExists(ifsccode.Text)==false)
+            {
+                NewBank.BankName = BankNameComboBox.Text;
+                NewBank.BranchName = bankname.Text;
+                NewBank.IFSCCode = ifsccode.Text;
+                NewBank.MICRCode = micrcode.Text;
+
+                BankRepository.AddBankDetails(NewBank);
+                BankDetailsList.Add(NewBank);
+            }
         }
         void BankFieldValidation()
         {
@@ -2175,6 +2191,82 @@ namespace MicroFinance
                 LandHoldingShowBtn.Visibility = Visibility.Collapsed;
             }
 
+
+        }
+
+        private void ifsccode_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox IFSCCode = sender as TextBox;
+            string ifsctext = IFSCCode.Text;
+            if(ifsctext.Length==11)
+            {
+                if(IsExists(ifsctext))
+                {
+                    BankDetailsView bank = Bankdetail(ifsctext);
+                    setBankDetails(bank);
+                }
+                else
+                {
+                    unsetBankDetails();
+                }
+            }
+            else
+            {
+                unsetBankDetails();
+            }
+        }
+
+
+        void unsetBankDetails()
+        {
+            //ifsccode.Text = "";
+            micrcode.Text = "";
+            BankNameComboBox.SelectedIndex = -1;
+            bankname.Text = "";
+            micrcode.IsReadOnly = false;
+            BankNameComboBox.IsReadOnly = false;
+            bankname.IsReadOnly = false;
+        }
+
+        void setBankDetails(BankDetailsView bank)
+        {
+            ifsccode.Text = bank.IFSCCode;
+            micrcode.Text = bank.MICRCode;
+            BankNameComboBox.SelectedValue = bank.BankName;
+            bankname.Text = bank.BranchName;
+
+            micrcode.IsReadOnly = true;
+            BankNameComboBox.IsReadOnly = true;
+            bankname.IsReadOnly = true;
+        }
+
+        public  bool IsExists(string IFSCCode)
+        {
+            bool result = false;
+            foreach (BankDetailsView b in BankDetailsList)
+            {
+                if (b.IFSCCode == IFSCCode)
+                {
+                    return true;
+                }
+            }
+            return result;
+        }
+
+        BankDetailsView Bankdetail(string IFSCCode)
+        {
+            BankDetailsView Bank = new BankDetailsView();
+            foreach (BankDetailsView b in BankDetailsList)
+            {
+                if (b.IFSCCode == IFSCCode)
+                {
+                    Bank.BankName = b.BankName;
+                    Bank.BranchName = b.BranchName;
+                    Bank.IFSCCode = b.IFSCCode;
+                    Bank.MICRCode = b.MICRCode;
+                }
+            }
+            return Bank;
 
         }
     }

@@ -647,8 +647,8 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="Account Holder Name" Style="{StaticResource Regular}" VerticalAlignment="Center"></TextBlock>
-                                        <TextBox x:Name="accountholdername" Grid.Column="1" Style="{StaticResource InputBox}"  Width="250" CharacterCasing="Upper">
+                                        <TextBlock Text="Account Holder Name" Style="{StaticResource Regular}" VerticalAlignment="Center" Grid.Row="4"></TextBlock>
+                                        <TextBox x:Name="accountholdername" Grid.Column="1" Style="{StaticResource InputBox}" Grid.Row="4"  Width="250" CharacterCasing="Upper">
                                             <TextBox.Text>
                                                 <Binding Path="AccountHolder" Mode="TwoWay">
                                                     <Binding.ValidationRules>
@@ -657,8 +657,8 @@
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBlock Text="Account Number" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
-                                        <TextBox x:Name="accountnumber" Grid.Column="1" Grid.Row="1" Style="{StaticResource InputBox}"  Width="250" CharacterCasing="Upper">
+                                        <TextBlock Text="Account Number" Style="{StaticResource Regular}" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
+                                        <TextBox x:Name="accountnumber" Grid.Column="1" Grid.Row="5" Style="{StaticResource InputBox}"  Width="250" CharacterCasing="Upper">
                                             <TextBox.Text>
                                                 <Binding Path="AccountNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                                     <Binding.ValidationRules>
@@ -689,16 +689,16 @@
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>-->
-                                        <TextBlock Text="IFSC Code" Style="{StaticResource Regular}" Grid.Row="4" VerticalAlignment="Center"></TextBlock>
-                                        <TextBox x:Name="ifsccode" Grid.Column="1" Grid.Row="4" Style="{StaticResource InputBox}"  Width="250" CharacterCasing="Upper">
+                                        <TextBlock Text="IFSC Code" Style="{StaticResource Regular}" Grid.Row="0" VerticalAlignment="Center"></TextBlock>
+                                        <TextBox x:Name="ifsccode" Grid.Column="1" Grid.Row="0" Style="{StaticResource InputBox}"  Width="250" CharacterCasing="Upper" TextChanged="ifsccode_TextChanged">
                                             <TextBox.Text>
                                                 <Binding Path="IFSCCode" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
 
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBlock Text="MICR Code" Style="{StaticResource Regular}" Grid.Row="5" VerticalAlignment="Center"></TextBlock>
-                                        <TextBox x:Name="micrcode" Grid.Column="1" Grid.Row="5" Style="{StaticResource InputBox}"  Width="250" CharacterCasing="Upper">
+                                        <TextBlock Text="MICR Code" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
+                                        <TextBox x:Name="micrcode" Grid.Column="1" Grid.Row="1" Style="{StaticResource InputBox}"  Width="250" CharacterCasing="Upper">
                                             <TextBox.Text>
                                                 <Binding Path="MICRCode" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                                 </Binding>

@@ -541,20 +541,20 @@ namespace MicroFinance.Modal
                         NameofAddressProof = sqlDataReader.GetString(9);
                         //AddressProof = ByteToBI((byte[])sqlDataReader.GetValue(14));
                         string FolderPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Nominee\\Address Proof";
-                        SaveImageToDrive.GetImage(FolderPath, _customerId);
+                        AddressProof= SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                     if (sqlDataReader.GetBoolean(12))
                     {
                         NameofPhotoProof = sqlDataReader.GetString(10);
                         //PhotoProof = ByteToBI((byte[])sqlDataReader.GetValue(15));
                         string FolderPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Nominee\\Photo Proof";
-                        SaveImageToDrive.GetImage(FolderPath, _customerId);
+                        PhotoProof= SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                     if (sqlDataReader.GetBoolean(13))
                     {
                         //ProfilePicture = ByteToBI((byte[])sqlDataReader.GetValue(16));
                         string FolderPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Nominee\\Profile Picture";
-                        SaveImageToDrive.GetImage(FolderPath, _customerId);
+                        ProfilePicture= SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                        
                     IsNomineeNull = true;

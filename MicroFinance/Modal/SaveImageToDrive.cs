@@ -25,8 +25,8 @@ namespace MicroFinance.Modal
             string FolderPath = Path;
             if(!Directory.Exists(FolderPath))
             {
-                //Directory.CreateDirectory(FolderPath);
-                MainWindow.StatusMessageofPage(0, "Drive Sync First!.....");
+                Directory.CreateDirectory(FolderPath);
+                //MainWindow.StatusMessageofPage(0, "Drive Sync First!.....");
             }
             else
             {
