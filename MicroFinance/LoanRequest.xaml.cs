@@ -143,7 +143,7 @@ namespace MicroFinance
                             _customerID = item;
                             _customerName = sqlData.GetString(0);
                             _age = sqlData.GetInt32(1);
-                            _profilePhoto = ByteToBI((byte[])sqlData.GetValue(2));
+                            _profilePhoto = null;
                             _isleader = sqlData.GetBoolean(3);
                             _guarantorName = sqlData.GetString(4);
                             _nomineeName = sqlData.GetString(5);

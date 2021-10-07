@@ -952,7 +952,7 @@ namespace MicroFinance.Modal
                     }
                     else
                     {
-                        sqlCommand.CommandText = "update CustomerDetails set Residency='" + ResidencyType + "',LandHolding='" + LandHolding + " where CustId = '" + _customerId + "'";
+                        sqlCommand.CommandText = "update CustomerDetails set Residency='" + ResidencyType + "',LandHolding='" + LandHolding + "' where CustId = '" + _customerId + "'";
                         sqlCommand.ExecuteNonQuery();
                     }
                     

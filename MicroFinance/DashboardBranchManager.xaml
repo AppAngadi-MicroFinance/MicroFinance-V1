@@ -64,13 +64,26 @@
             </Border>
         </Grid>
         <!--Section B-->
-        <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" 
-                Margin="0,100,170,0" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-            </Border.Effect>
-            <Button x:Name="xAddSHGBtn" Click="xAddSHGBtn_Click" Style="{StaticResource NavigateAddSHG}"></Button>
-        </Border>
+        <Grid Height="160" Width="400" Margin="0,100,170,0" VerticalAlignment="Top" HorizontalAlignment="Right" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" 
+                 >
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xAddSHGBtn" Click="xAddSHGBtn_Click" Style="{StaticResource NavigateAddSHG}"></Button>
+            </Border>
+            <Border Width="150" Height="150"  Grid.Column="0" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xAddNewEmployee"  Click="xAddNewEmployee_Click" Style="{StaticResource NavigateAddEmployee}"></Button>
+            </Border>
+        </Grid>
+        
         <!--Section C-->
         <Grid Width="600" Height="170" Margin="130,0,0,50" 
               HorizontalAlignment="Left" VerticalAlignment="Bottom">

@@ -36,7 +36,7 @@ namespace MicroFinance.ViewModel
                     Sqlcomm.CommandText = "Select Count(EmpId) from Employee";
                     EmpCount += (int)Sqlcomm.ExecuteScalar();
                     EmployeeID = GenerateEmployeeID(BranchID, EmpCount);
-                     Sqlcomm.CommandText = "insert into Employee(EmpId,Name,DOB,age,MobileNo,Religion,EmailId,Education,AadhaarNo,DateOfJoin,BankName,BranchName,AccountNumber,IFSCCode,MICRCode,Address,PinCode,District,IsAddressProof,AddressProofName,IsPhotoProof,PhotoProofName,IsProfilePhoto,IsActive,FatherName,PanNumber,Community,Caste)values(@empId,@Name,@dob,@age,@mobile,@religion,@email,@education,@aadhar,@doj,@bankName,@branchName,@accountNo,@IFSC,@MICR,@address,@pincode,@district,@isAddressproof,@addressProofName,@isPhotoProof,@photoProofName,@isProfilePhoto,@isActive,@fatherName,@panNo,@community,@cast)";
+                     Sqlcomm.CommandText = "insert into Employee(EmpId,Name,DOB,age,MobileNo,Religion,EmailId,Education,AadhaarNo,DateOfJoin,BankName,BranchName,AccountNumber,IFSCCode,MICRCode,Address,PinCode,District,IsAddressProof,AddressProofName,IsPhotoProof,PhotoProofName,IsProfilePhoto,IsActive,FatherName,PanNumber,Community,Caste,Password)values(@empId,@Name,@dob,@age,@mobile,@religion,@email,@education,@aadhar,@doj,@bankName,@branchName,@accountNo,@IFSC,@MICR,@address,@pincode,@district,@isAddressproof,@addressProofName,@isPhotoProof,@photoProofName,@isProfilePhoto,@isActive,@fatherName,@panNo,@community,@cast,@Password)";
                     Sqlcomm.Parameters.AddWithValue("@empId", EmployeeID);
                     Sqlcomm.Parameters.AddWithValue("@Name", employee.EmployeeName);
                     Sqlcomm.Parameters.AddWithValue("@dob", employee.DOB.ToString("MM/dd/yyyy"));
@@ -70,6 +70,7 @@ namespace MicroFinance.ViewModel
 
                     Sqlcomm.Parameters.AddWithValue("@community", employee.Community);
                     Sqlcomm.Parameters.AddWithValue("@cast", employee.Caste);
+                    Sqlcomm.Parameters.AddWithValue("@Password", employee.ContactNumber);
 
                     // Sqlcomm.Parameters.AddWithValue("@addressProof", Convertion(_addressproofimage));
                     // Sqlcomm.Parameters.AddWithValue("@photoproof", Convertion(_photoproofimage));

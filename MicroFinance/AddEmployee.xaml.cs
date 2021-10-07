@@ -26,6 +26,7 @@ namespace MicroFinance
         public bool Isnew;
         public List<string> ProofTypes = new List<string> { "Aadhar Proof", "Family Card", "Licence", "VoterID" };
         public List<string> DesignationList = new List<string> { "Manager", "Region Manager","Accountant","Field Officer"};
+        public List<string> DesignationList1=new List<string> {"Accountant", "Field Officer" };
         public List<Branch> Branchlist;
         public List<string> Religionlist = new List<string> { "Muslim", "Hindu", "Christianity" };
         Branch branch = new Branch();
@@ -42,7 +43,14 @@ namespace MicroFinance
             AddressProofcombo.ItemsSource = ProofTypes;
             PhotoproofCombo.ItemsSource = ProofTypes;
             RegionCombo.ItemsSource = branch.RegionList;
-            DesignationCombo.ItemsSource = DesignationList;
+            if(MainWindow.LoginDesignation.LoginDesignation=="Manager")
+            {
+                DesignationCombo.ItemsSource = DesignationList1;
+            }
+            else
+            {
+                DesignationCombo.ItemsSource = DesignationList;
+            }
             Religioncombo.ItemsSource = Religionlist;
             BranchCombo.Text = emp.BranchName;
             EmployeeMainGrid.DataContext = emp;
@@ -69,11 +77,25 @@ namespace MicroFinance
             EmployeeMainGrid.DataContext = addemployee;
             capturepanel.Visibility = Visibility.Collapsed;
             Branchlist = branch.BranchList;
-            RegionCombo.ItemsSource = branch.RegionList;
+           
             Captureframe.NavigationService.Navigate(new Capture());
             AddressProofcombo.ItemsSource = ProofTypes;
             PhotoproofCombo.ItemsSource = ProofTypes;
-            DesignationCombo.ItemsSource = DesignationList;
+            if (MainWindow.LoginDesignation.LoginDesignation == "Manager")
+            {
+                DesignationCombo.ItemsSource = DesignationList1;
+                RegionCombo.ItemsSource = branch.RegionList;
+                addemployee.Region = MainWindow.LoginDesignation.RegionName;
+                addemployee.BranchName = MainWindow.LoginDesignation.BranchName;
+                RegionCombo.IsEnabled = false;
+                BranchCombo.IsEnabled = false;
+               
+            }
+            else
+            {
+                DesignationCombo.ItemsSource = DesignationList;
+                RegionCombo.ItemsSource = branch.RegionList;
+            }
             Religioncombo.ItemsSource = Religionlist;
         }
 

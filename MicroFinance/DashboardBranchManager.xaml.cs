@@ -190,5 +190,10 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new HimarkResultData());
         }
+
+        private void xAddNewEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new AddEmployee());
+        }
     }
 }
