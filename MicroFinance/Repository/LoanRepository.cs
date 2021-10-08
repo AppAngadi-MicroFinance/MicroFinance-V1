@@ -393,6 +393,35 @@ namespace MicroFinance.ViewModel
                 sqlcon.Close();
             }
         }
+
+
+
+        public static List<string> GetAllPurposeNames()
+        {
+            List<string> PurposeList = new List<string>();
+
+            using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select LoanPurposeName from LoanPurpose ORDER BY LoanPurposeName ASC";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            PurposeList.Add(reader.GetString(0));
+                        }
+                        reader.Close();
+                    }
+                    sqlconn.Close();
+                }
+            }
+            return PurposeList;
+        }
     }
     public class Loan
     {

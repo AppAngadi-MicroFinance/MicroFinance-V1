@@ -20,6 +20,12 @@ namespace MicroFinance
     /// <summary>
     /// Interaction logic for AddPg.xaml
     /// </summary>
+    public class PeerGroupModel
+    {
+        public string SHGID { get; set; }
+        public string PGID { get; set; }
+
+    }
     public partial class AddPg : Window
     {
         string BranchId = MainWindow.LoginDesignation.BranchId;
@@ -96,11 +102,42 @@ namespace MicroFinance
             Result = region + branch + year + month + "PG-" + ((count < 10) ? "0" + count : count.ToString());
             return Result;
         }
+        public static List<PeerGroupModel> PGList = new List<PeerGroupModel>();
         public AddPg()
         {
             InitializeComponent();
             xSHGcombo.ItemsSource = GetSHG(EmpId);
+            PGList = PGGroups();
         }
+
+
+        public List<PeerGroupModel> PGGroups()
+        {
+            List<PeerGroupModel> PgList = new List<PeerGroupModel>();
+            using (SqlConnection sqlcon = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlcon.Open();
+                if (sqlcon.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "select SHGid,GroupId from PeerGroup";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            PgList.Add(new PeerGroupModel { SHGID = reader.GetString(0), PGID = reader.GetString(1) });
+                        }
+                    }
+                    reader.Close();
+                    
+                }
+                sqlcon.Close();
+            }
+            return PgList;
+        }
+
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -205,10 +242,31 @@ namespace MicroFinance
             SelfHelpGroupModal selectedSHG = xSHGcombo.SelectedItem as SelfHelpGroupModal;
             SHGid = selectedSHG.SHGid;
 
-            if(SHGid.Length > 0)
-                GroupNameBox.IsEnabled = true;
-            else
-                GroupNameBox.IsEnabled = false;
+            GroupNameBox.Text = GenerateGroupName(SHGid);
+
+            //if(SHGid.Length > 0)
+            //    GroupNameBox.IsEnabled = true;
+            //else
+            //    GroupNameBox.IsEnabled = false;
+        }
+
+
+        string GenerateGroupName(string ShgID)
+        {
+            string Result = string.Empty;
+            int count = 1;
+            foreach(PeerGroupModel pg in PGList)
+            {
+                if(pg.SHGID==ShgID)
+                {
+                    count += 1;
+                }
+            }
+
+            Result = "Group-" + count.ToString();
+
+            return Result;
+            
         }
     }
 }

@@ -506,57 +506,57 @@ namespace MicroFinance.Modal
                     {
                         while (reader.Read())
                         {
+                            LoanProcess LP = new LoanProcess();
+
                             string[] _fullAdress = reader.GetString(18).Split('|', '~');
-                            LoanProcessList.Add(
-                                new LoanProcess
-                                {
-                                    _customerId = reader.GetString(0),
-                                    CustomerName = reader.GetString(1),
-                                    FatherName = reader.GetString(2),
-                                    MotherName = reader.GetString(3),
-                                    DateofBirth = reader.GetDateTime(4),
-                                    Age = reader.GetInt32(5),
-                                    Gender = reader.GetString(6),
-                                    ContactNumber = reader.GetString(7),
-                                    AadharNo = reader.GetString(8),
-                                    Religion = reader.GetString(9),
-                                    Caste = reader.GetString(10),
-                                    Community = reader.GetString(11),
-                                    Education = reader.GetString(12),
-                                    FamilyMembers = reader.GetInt32(13),
-                                    EarningMembers = reader.GetInt32(14),
-                                    Occupation = reader.GetString(15),
-                                    MonthlyIncome = reader.GetInt32(16),
-                                    MothlyExpenses = reader.GetInt32(17),
-                                    DoorNumber = _fullAdress[0],
-                                    StreetName = _fullAdress[2],
-                                    LocalityTown = _fullAdress[4],
-                                    City = _fullAdress[6],
-                                    State = _fullAdress[8],
-                                    Pincode = reader.GetInt32(19),
-                                    HousingType = reader.GetString(20),
-                                    NameofAddressProof = (DBNull.Value.Equals(reader["AddressProofName"])) ? "" : reader.GetString(21),
-                                    NameofPhotoProof = (DBNull.Value.Equals(reader["PhotoProofName"])) ? "" : reader.GetString(22),
-                                    AccountHolder = reader.GetString(26),
-                                    AccountNumber = reader.GetString(27),
-                                    BankBranchName = reader.GetString(28),
-                                    IFSCCode = reader.GetString(29),
-                                    MICRCode = reader.GetString(30),
-                                    AddressProof = (reader.GetBoolean(23)) ? ByteToBI((byte[])reader.GetValue(31)) : null,
-                                    PhotoProof = (reader.GetBoolean(24)) ? ByteToBI((byte[])reader.GetValue(32)) : null,
-                                    ProfilePicture = (reader.GetBoolean(25)) ? ByteToBI((byte[])reader.GetValue(33)) : null,
-                                    LoanRequestID = reader.GetString(34),
-                                    LoanAmount = reader.GetInt32(35),
-                                    LoanType = reader.GetString(36),
-                                    LoanPeriod = reader.GetInt32(37),
-                                    LoanPurpose = reader.GetString(38),
-                                    EnrollDate = reader.GetDateTime(39),
-                                    EmployeeID = reader.GetString(41),
-                                    BranchID = reader.GetString(42),
-                                    BankName = reader.GetString(43)
 
+                            LP._customerId = reader.GetString(0);
+                            LP.CustomerName = reader.GetString(1);
+                            LP.FatherName = reader.GetString(2);
+                            LP.MotherName = reader.GetString(3);
+                            LP.DateofBirth = reader.GetDateTime(4);
+                            LP.Age = reader.GetInt32(5);
+                            LP.Gender = reader.GetString(6);
+                            LP.ContactNumber = reader.GetString(7);
+                            LP.AadharNo = reader.GetString(8);
+                            LP.Religion = reader.GetString(9);
+                            LP.Caste = reader.GetString(10);
+                            LP.Community = reader.GetString(11);
+                            LP.Education = reader.GetString(12);
+                            LP.FamilyMembers = reader.GetInt32(13);
+                            LP.EarningMembers = reader.GetInt32(14);
+                            LP.Occupation = reader.GetString(15);
+                            LP.MonthlyIncome = reader.GetInt32(16);
+                            LP.MothlyExpenses = reader.GetInt32(17);
+                            LP.DoorNumber = _fullAdress[0];
+                            LP.StreetName = _fullAdress[2];
+                            LP.LocalityTown = _fullAdress[4];
+                            LP.City = _fullAdress[6];
+                            LP.State = _fullAdress[8];
+                            LP.Pincode = reader.GetInt32(19);
+                            LP.HousingType = reader.GetString(20);
+                            LP.NameofAddressProof = (DBNull.Value.Equals(reader["AddressProofName"])) ? "" : reader.GetString(21);
+                            LP.NameofPhotoProof = (DBNull.Value.Equals(reader["PhotoProofName"])) ? "" : reader.GetString(22);
+                            LP.AccountHolder = reader.GetString(26);
+                            LP.AccountNumber = reader.GetString(27);
+                            LP.BankBranchName = reader.GetString(28);
+                            LP.IFSCCode = reader.GetString(29);
+                            LP.MICRCode = reader.GetString(30);
+                            LP.AddressProof = (DBNull.Value.Equals(reader["AddressProof"])) ?null: ByteToBI((byte[])reader.GetValue(31));
+                            LP.PhotoProof = (DBNull.Value.Equals(reader["PhotoProof"])) ?null: ByteToBI((byte[])reader.GetValue(32));
+                            LP.ProfilePicture = (DBNull.Value.Equals(reader["ProfilePhoto"])) ?null: ByteToBI((byte[])reader.GetValue(33));
+                            LP.LoanRequestID = reader.GetString(34);
+                            LP.LoanAmount = reader.GetInt32(35);
+                            LP.LoanType = reader.GetString(36);
+                            LP.LoanPeriod = reader.GetInt32(37);
+                            LP.LoanPurpose = reader.GetString(38);
+                            LP.EnrollDate = reader.GetDateTime(39);
+                            LP.EmployeeID = reader.GetString(41);
+                            LP.BranchID = reader.GetString(42);
+                            LP.BankName = reader.GetString(43);
 
-                                });
+                            LoanProcessList.Add(LP);
+                               
 
                         }
                     }

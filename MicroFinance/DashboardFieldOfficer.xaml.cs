@@ -80,8 +80,9 @@ namespace MicroFinance
 
         private void xPendingCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new CustomerNotification(0));
+           // this.NavigationService.Navigate(new CustomerNotification(0));
             //this.NavigationService.Navigate(new CustomerVerified("0100220210814", 2));
+            this.NavigationService.Navigate(new NotificationPage(3));
         }
 
         private void xNotificationBtn_Click(object sender, RoutedEventArgs e)

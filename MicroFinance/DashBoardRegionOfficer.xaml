@@ -10,6 +10,7 @@
       Title="DashBoardRegionOfficer">
 
     <Grid>
+        
         <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
@@ -27,7 +28,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-
+           
 
             <!--Find Customer Button-->
             <Border Grid.Row="0" Grid.Column="0" Width="180" Height="70" Style="{StaticResource MainBorder}">
@@ -86,6 +87,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Button Visibility="Collapsed" Style="{StaticResource SecondaryBtn}" x:Name="AssignBtn" Content="Assign" Click="AssignBtn_Click" Grid.Column="2"></Button>
             <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
@@ -110,6 +112,7 @@
                 </Border.Effect>
                 <Button x:Name="xDailyReportsBtn" Style="{StaticResource NavigateDailyReports}"></Button>
             </Border>
+            
         </Grid>
         <!--Section C-->
         <!--Daily Reports-->

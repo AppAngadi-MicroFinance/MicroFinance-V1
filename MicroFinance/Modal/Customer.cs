@@ -1,6 +1,7 @@
 ﻿using MicroFinance.Validations;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -292,6 +293,63 @@ namespace MicroFinance.Modal
                 _housingIndex = value;
             }
         }
+
+        private string _residencyType;
+        public string ResidencyType
+        {
+            get
+            {
+                return _residencyType;
+            }
+            set
+            {
+                _residencyType = value;
+                RaisedPropertyChanged("ResidencyType");
+            }
+        }
+
+        private string _landholding;
+        public string LandHolding
+        {
+            get
+            {
+                return _landholding;
+            }
+            set
+            {
+                _landholding = value;
+                RaisedPropertyChanged("LandHolding");
+            }
+        }
+
+        private string _landtype;
+        public string LandType
+        {
+            get
+            {
+                return _landtype;
+            }
+            set
+            {
+                _landtype = value;
+                RaisedPropertyChanged("LandType1");
+            }
+        }
+
+        private string _landVolume;
+        public string LandVolume
+        {
+            get
+            {
+                return _landVolume;
+            }
+            set
+            {
+                _landVolume = value;
+                RaisedPropertyChanged("LandVolume");
+            }
+        }
+
         private string _aadharNumber=null;
         public string AadharNo
         {
@@ -775,21 +833,21 @@ namespace MicroFinance.Modal
                     if (sqlData.GetBoolean(24))
                     {
                         //_addressProof = ByteToBI((byte[])sqlData.GetValue(33));
-                        string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" +MainWindow.LoginDesignation.BranchName+"\\"+ NameofAddressProof;
-                        _addressProof= SaveImageToDrive.GetImage(FolderPath, _customerId);
+                        string FolderPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Customer\\Address Proof";
+                        _addressProof = SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                     NameofPhotoProof = sqlData.GetString(22);
                     if (sqlData.GetBoolean(25))
                     {
-                       // _photoProof = ByteToBI((byte[])sqlData.GetValue(34));
-                        string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + NameofPhotoProof;
-                        _photoProof= SaveImageToDrive.GetImage(FolderPath, _customerId);
+                        // _photoProof = ByteToBI((byte[])sqlData.GetValue(34));
+                        string FolderPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Customer\\Photo Proof";
+                        _photoProof = SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                     if (sqlData.GetBoolean(26))
                     {
                         //_profilePicture = ByteToBI((byte[])sqlData.GetValue(35));
-                        string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Profile Picture";
-                        _profilePicture= SaveImageToDrive.GetImage(FolderPath, _customerId);
+                        string FolderPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Customer\\Profile Picture";
+                        _profilePicture = SaveImageToDrive.GetImage(FolderPath, _customerId);
                     }
                        
                     if (sqlData.GetBoolean(36))
@@ -801,8 +859,8 @@ namespace MicroFinance.Modal
                     if(sqlData.GetBoolean(42))
                     {
                         //_combinePhoto = ByteToBI((byte[])sqlData.GetValue(43));
-                        string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Combine Photo";
-                        _combinePhoto= SaveImageToDrive.GetImage(FolderPath, _customerId);
+                        string Folderpath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Customer\\Combine Photo";
+                        _combinePhoto = SaveImageToDrive.GetImage(Folderpath, _customerId);
                     }
                        
                     _photoProofNo = sqlData.GetString(44);
@@ -852,6 +910,14 @@ namespace MicroFinance.Modal
             if(HavingBankDetails)
             {
                 AddBankDetails();
+                if(LandHolding.Equals("YES"))
+                {
+                    AddHouseTypeDetails(true);
+                }
+                else if (LandHolding.Equals("NO"))
+                {
+                    AddHouseTypeDetails();
+                }
             }
             if(AadharNo!="")
             {
@@ -869,6 +935,33 @@ namespace MicroFinance.Modal
             //CheckAndChangeStatus();
 
         }
+
+        void AddHouseTypeDetails(bool IsHavingLand=false)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlConnection.Open();
+                if(sqlConnection.State==ConnectionState.Open)
+                {
+                    SqlCommand sqlCommand = new SqlCommand();
+                    sqlCommand.Connection = sqlConnection;
+                    if(IsHavingLand)
+                    {
+                        sqlCommand.CommandText = "update CustomerDetails set Residency='"+ResidencyType+"',LandHolding='"+LandHolding+"',LandType='"+LandType+"',LandVolume='"+LandVolume+"' where CustId = '" + _customerId + "'";
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        sqlCommand.CommandText = "update CustomerDetails set Residency='" + ResidencyType + "',LandHolding='" + LandHolding + "' where CustId = '" + _customerId + "'";
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    
+                }
+                
+            }
+        }
+
+
         void AddBankDetails()
         {
             using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -904,8 +997,8 @@ namespace MicroFinance.Modal
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = "update CustomerDetails set AddressProofName='" + NameofAddressProof + "' ,IsAddressProof = 'True' where CustId = '" + _customerId + "'";
                 sqlCommand.ExecuteNonQuery();
-                string FolderPath = MainWindow.DriveBasePath + "\\" + "Customer" + "\\" + BName + "\\" +NameofAddressProof;
-                SaveImageToDrive.SaveImage(FolderPath, _customerId, Convertion(AddressProof));
+                string Folderpath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Customer\\Address Proof";
+                SaveImageToDrive.SaveImage(Folderpath, _customerId, Convertion(AddressProof));
             }
         }
         void AddPhotoProof()
@@ -931,8 +1024,8 @@ namespace MicroFinance.Modal
                 sqlCommand.CommandText = "update CustomerDetails set IsPhotoProof = 'True',PhotoProofName='" + NameofPhotoProof + "' where CustId = '" + _customerId + "'";
                 sqlCommand.ExecuteNonQuery();
                 byte[] data= Convertion(PhotoProof);
-                string folderpath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + NameofPhotoProof;
-                SaveImageToDrive.SaveImage(folderpath, _customerId, data);
+                string Folderpath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Customer\\Photo Proof";
+                SaveImageToDrive.SaveImage(Folderpath, _customerId, data);
                 
             }
         }
@@ -959,8 +1052,9 @@ namespace MicroFinance.Modal
                 sqlCommand.CommandText = "update CustomerDetails set IsProfilePhoto = 'True' where CustId = '" + _customerId + "'";
                 sqlCommand.ExecuteNonQuery();
                 byte[] data=Convertion(CombinePhoto);
-                string folderpath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Profile Picture";
-                SaveImageToDrive.SaveImage(folderpath, _customerId, data);
+                sqlCommand.CommandText = "update CustomerDetails set IsProfilePhote = @combinephoto, IsCombinePhoto = 'True' where CustId = '" + _customerId + "'";
+                string Folderpath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Customer\\Profile Picture";
+                SaveImageToDrive.SaveImage(Folderpath, _customerId, data);
 
             }
         }
@@ -985,9 +1079,10 @@ namespace MicroFinance.Modal
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = "update CustomerDetails set  IsCombinePhoto = 'True' where CustId = '" + _customerId + "'";
                 sqlCommand.ExecuteNonQuery();
-                string folderpath = MainWindow.DriveBasePath + "\\" + "Customer\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Combain Photo";
+                
                 byte[] data= Convertion(ProfilePicture);
-                SaveImageToDrive.SaveImage(folderpath, _customerId, data);
+                string Folderpath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Customer\\Combine Photo";
+                SaveImageToDrive.SaveImage(Folderpath, _customerId, data);
                
             }
         }

@@ -36,7 +36,8 @@ namespace MicroFinance
         public DashBoardHeadOfficer()
         {
             InitializeComponent();
-           // ManageApprovalNotification();
+            // ManageApprovalNotification();
+           // EmployeeFrame.NavigationService.Navigate(new TransferEmployee());
         }
 
 
@@ -279,6 +280,11 @@ namespace MicroFinance
         private void BtnDownloadNEFT_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new RecommendNew(12));
+        }
+
+        private void TransferBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new TransferEmployee());
         }
     }
 }

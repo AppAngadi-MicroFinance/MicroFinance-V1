@@ -156,18 +156,18 @@ namespace MicroFinance
             {
                 DocumentPanel.Visibility = Visibility.Collapsed;
             }
-            else if(CustomerStatus==2)
+            else if(CustomerStatus==3)
             {
                 DocumentPanel.Visibility = Visibility.Visible;
             }
-            else if(CustomerStatus==5)
+            else if(CustomerStatus==6)
             {
                 EnableDisableGrid(false);
                 DocumentDisbale();
                 DocumentPanel.Visibility = Visibility.Visible;
                 VerifyNewCustomer.Content = "Verify";
             }
-            else if(CustomerStatus==6)
+            else if(CustomerStatus==7)
             {
                 EnableDisableGrid(false);
                 DocumentDisbale();

@@ -122,7 +122,7 @@ namespace MicroFinance.ViewModel
                         HMData.EligibleLoanAmount = HM.LoanAmount.ToString();
                         HMData.RMName = HM.EmpName;
                         HMData.DateOfApplication = DateTime.Now.ToString("dd-MMM-yyyy");
-                        sqlcomm.CommandText = "select Name,FatherName,MotherName,Dob,Age,Gender,Mobile,Religion,Caste,Education,Occupation,MonthlyIncome,MonthlyExpenses,address,Pincode,HousingType,PhotoProofName,PhotoProofNo,AddressProofName,AddressProofNo,BankAccountNo,BankName,BankBranchName,IFSCCode,MICRCode from CustomerDetails where CustId='"+HM.CustomerID+"'";
+                        sqlcomm.CommandText = "select Name,FatherName,MotherName,Dob,Age,Gender,Mobile,Religion,Caste,Education,Occupation,MonthlyIncome,MonthlyExpenses,address,Pincode,HousingType,PhotoProofName,PhotoProofNo,AddressProofName,AddressProofNo,BankAccountNo,BankName,BankBranchName,IFSCCode,MICRCode,Residency,LandHolding from CustomerDetails where CustId='"+HM.CustomerID+"'";
                         SqlDataReader reader1 = sqlcomm.ExecuteReader();
                         if(reader1.HasRows)
                         {
@@ -148,10 +148,10 @@ namespace MicroFinance.ViewModel
                                 HMData.Taluk = fulladdress[6].ToString().ToUpper();
                                 HMData.District = fulladdress[8].ToString().ToUpper();
                                 HMData.Pincode = reader1.GetInt32(14).ToString();
-                                HMData.Place = reader1.GetString(15).ToUpper();
-                                HMData.Residence = "OWN House-";
-                                HMData.TypeOFResidence = "Cement House-";
-                                HMData.LandHolding = "Yes-";
+                                HMData.Place = HMData.Taluk;
+                                HMData.Residence = reader1.GetString(25).ToUpper();
+                                HMData.TypeOFResidence = reader1.GetString(15).ToUpper();
+                                HMData.LandHolding = reader1.GetString(26).ToUpper();
                                 HMData.ApplicantIDProofType = reader1.GetString(16).ToUpper();
                                 HMData.ApplicantIDProofNo = reader1.GetString(17).ToUpper();
                                 HMData.ApplicantAddressProofType = reader1.GetString(18).ToUpper();

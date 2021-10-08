@@ -1,0 +1,112 @@
+﻿<Page x:Class="MicroFinance.AssignCenter"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      d:DesignHeight="630" d:DesignWidth="1366"
+      Title="AssignCenter" Background="#FEF2E4">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Ashraf Ali" Style="{StaticResource Title}" VerticalAlignment="Center" Margin="25,0,0,0" x:Name="EmployeeNameText"></TextBlock>
+        
+        <DataGrid Grid.Row="1" Height="450" Width="600" ColumnHeaderHeight="35" x:Name="TimeTableGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="CenterName" Width="200" Binding="{Binding SHGName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Collection Day" Width="150" Binding="{Binding CollectionDay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Collection Time" Width="97" Binding="{Binding CollectionTime}"></DataGridTextColumn>
+                <DataGridTemplateColumn  Header="Change" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource SecondaryBtn}" Height="30" Width="100" Content="Change" x:Name="GoBtn" Click="GoBtn_Click"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowStyle>
+
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.Height" Value="35"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="14" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen"/>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.HorizontalAlignment" Value="Center"></Setter>
+
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+        <Grid Grid.Row="1" Grid.Column="1" Background="White" Width="500" Height="450" x:Name="ShgAssignPanel" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="60*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Center Details" Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Text="Center Name" Grid.Row="1" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
+            <TextBox IsReadOnly="True" Grid.Row="1" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding SHGName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBlock Text="CollectionDay" Grid.Row="2" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
+            <TextBox Grid.Row="2" IsReadOnly="True" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding CollectionDay,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="27,0,0,0">
+                <!--<TextBox x:Name="xTimeBoxH" Width="100" VerticalContentAlignment="Center" TextAlignment="Center"  Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                             FontSize="14" FontWeight="SemiBold"></TextBox>-->
+                <ComboBox x:Name="xTimeHour" Width="100" Height="40" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" VerticalContentAlignment="Center" SelectedValue="{Binding Hour,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBox.ItemTemplate>
+                        <ItemContainerTemplate>
+                            <StackPanel Height="35">
+                                <TextBlock Text="Hour" FontWeight="Bold"></TextBlock>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding}"/>
+                            </StackPanel>
+                        </ItemContainerTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text=":" FontSize="18" FontWeight="Bold" VerticalAlignment="Bottom" Margin="10,0,10,10"></TextBlock>
+                <!--<TextBox x:Name="xTimeBoxM" Width="100"  TextAlignment="Center"  Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                             VerticalContentAlignment="Center" FontSize="14" FontWeight="SemiBold"></TextBox>-->
+                <ComboBox x:Name="xTimeMinute" Width="100" Height="40" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" VerticalContentAlignment="Center" SelectedValue="{Binding Minute,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBox.ItemTemplate>
+                        <ItemContainerTemplate>
+                            <StackPanel Height="35">
+                                <TextBlock Text="Minute" FontWeight="Bold"></TextBlock>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding}" />
+                            </StackPanel>
+                        </ItemContainerTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <TextBlock Text="Collection Time" Grid.Row="3" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
+            <TextBlock Text="Current Employee" Style="{StaticResource Regular}" Grid.Row="4" Margin="10,0,0,0"></TextBlock>
+            <TextBox IsReadOnly="True" Grid.Row="4" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" x:Name="EmpNameBox"></TextBox>
+            <TextBlock Text="New Employee" Grid.Row="5" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
+            <ComboBox Grid.Row="5" Grid.Column="1" Width="250" Height="30" x:Name="NewEmployeeCombo" SelectionChanged="NewEmployeeCombo_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding EmployeeName}" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Grid.Row="6" Grid.Column="1" Style="{StaticResource PrimaryBtn}" HorizontalAlignment="Right" Margin="0,0,25,0" Content="Submit" x:Name="AssignSubmitBtn" Click="AssignSubmitBtn_Click"></Button>
+        </Grid>
+    </Grid>
+</Page>

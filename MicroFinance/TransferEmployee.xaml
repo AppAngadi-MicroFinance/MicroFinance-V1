@@ -1,0 +1,132 @@
+﻿<Page x:Class="MicroFinance.TransferEmployee"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      d:DesignHeight="630" d:DesignWidth="1366"
+      Title="TransferEmployee" Background="#FEF2E4">
+
+    <Grid Width="800" Height="450" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition/>
+
+            <ColumnDefinition Width="40"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Transfer Employee" Style="{StaticResource Title}" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="Region" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}" Margin="20,20,0,0"></TextBlock>
+        <ComboBox Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left" VerticalAlignment="Center" Style="{StaticResource combo}" Width="300" x:Name="RegionCombo" SelectionChanged="RegionCombo_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding RegionName}" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="Branch Name" Grid.Row="1" Grid.Column="3" Style="{StaticResource Regular}" Margin="20,20,0,0"></TextBlock>
+        <ComboBox Grid.Row="2" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="3" Width="300" Style="{StaticResource combo}" x:Name="BranchCombo" SelectionChanged="BranchCombo_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding BranchName}" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="Designation" Style="{StaticResource Regular}" Grid.Column="1" Grid.Row="3" Margin="20,20,0,0"></TextBlock>
+        <ComboBox Grid.Row="4" Grid.Column="1" Width="300" Style="{StaticResource combo}" x:Name="DesignationCombo" SelectionChanged="DesignationCombo_SelectionChanged" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></ComboBox>
+        <TextBlock Text="Employee" Grid.Row="3" Grid.Column="3" Style="{StaticResource Regular}" Margin="20,20,0,0"></TextBlock>
+        <ComboBox Grid.Row="4" Grid.Column="3" Style="{StaticResource combo }" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="300" x:Name="EmployeeCombo" SelectionChanged="EmployeeCombo_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding EmployeeName}" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Grid.Column="3" Grid.Row="5" Style="{StaticResource SecondaryBtn}" HorizontalAlignment="Right" Margin="0,0,18,0" Content="Continue" x:Name="ContinueBtn" Click="ContinueBtn_Click"></Button>
+        
+        <!--Transfer Stack Panel-->
+        <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Collapsed" x:Name="TransferPanel">
+            <Grid Height="160">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="New Branch" Style="{StaticResource Regular}" Margin="20,20,0,0"></TextBlock>
+                <ComboBox Grid.Row="1" Style="{StaticResource combo}" Width="300" x:Name="NewBranchCombo" SelectionChanged="NewBranchCombo_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding BranchName}" VerticalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Designation" Style="{StaticResource Regular}" Grid.Column="2" Margin="20,20,0,0"></TextBlock>
+                <ComboBox Grid.Row="1" Grid.Column="2" Style="{StaticResource combo}" Width="300" x:Name="NewDesinationCombo" SelectionChanged="NewDesinationList_SelectionChanged"></ComboBox>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center">
+                    <Button Grid.Column="2" Grid.Row="2" Style="{StaticResource PrimaryBtn}" Content="Transfer" x:Name="TransferBtn" Click="TransferBtn_Click"></Button>
+                    <Button Style="{StaticResource CancelBtn}" Margin="10,0,0,0" Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
+                </StackPanel>
+                
+            </Grid>
+        </StackPanel>
+        
+        <!--<ComboBox Name="RegionCombo" Style="{StaticResource combo}" SelectionChanged="RegionCombo_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Height="30">
+                        <TextBlock Text="{Binding RegionName}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ComboBox Name="branchCombo" Style="{StaticResource combo}" Grid.Row="1" SelectionChanged="branchCombo_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Height="30">
+                        <TextBlock Text="{Binding BranchName}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ComboBox Name="DesignationCombo" Style="{StaticResource combo}" Grid.Row="2" SelectionChanged="DesignationCombo_SelectionChanged"></ComboBox>
+        <ComboBox Name="EmployeeCombo" Style="{StaticResource combo}" Grid.Row="3" SelectionChanged="EmployeeCombo_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Height="30">
+                        <TextBlock Text="{Binding EmployeeName}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>-->
+
+    </Grid>
+</Page>

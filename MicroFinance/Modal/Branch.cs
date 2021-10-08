@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace MicroFinance.Modal
 {
@@ -604,11 +605,62 @@ namespace MicroFinance.Modal
                         sqlcomm.Connection = sqlconn;
                     sqlcomm.CommandText = "insert into BranchDetails(BranchCode,RegionId,Bid,RegionName,BranchName,Address,LandLineNumber,LandLineCost,AgreementStartDate,EBNumber,EBConnectionName,InternetConnectionName,InternetCost,BuildingOwnerName,OwnerContact,OwnerAddress,AdvancePaid,MonthlyRent,OwnerACBankName,OwnerACBranchName,AccountHolderName,AccountNumber,IFSCCode,MICRCode,AgreementEndDate,OwnerPanNumber)values(" + count + ",'" + GetRegionID(RegionName) + "','" + GenerateBranchID() + "','" + _regionName + "','" + _branchname + "','" + _branchaddress + "','" + _landlinenumber + "'," + _landlinecostpermonth + ",'" + _agreementstartdate.ToString("MM-dd-yyyy") + "','" + _ebconnectionnubmer + "','" + _ebconnectionname.ToUpper() + "','" + InternetConnectionName + "'," + _internetconnectioncost + ",'" + OwnerName + "','" + _ownercontactnumber + "','" + OwnerAddress + "'," + _advancepaid + "," + _rentpermonth + ",'" + _bankname + "','" + _bankbranchname + "','" + _accountholdername + "','" + _accountnumber + "','" + _ifsccode + "','" + MICRCode + "','" + _agreementenddate.ToString("MM-dd-yyyy") + "','" + _pannumber + "')";
 
-                    sqlcomm.ExecuteNonQuery();
+                    int res=(int) sqlcomm.ExecuteNonQuery();
+                    if (res == 1)
+                        CreateBranchFiles();
                     }
                     sqlconn.Close();
            }
             
+        }
+
+
+        void CreateBranchFiles()
+        {
+            string BasePath = MainWindow.DriveBasePath;
+
+            string BranchPath = BasePath + "\\" +RegionName+"\\"+ BranchName;
+            Directory.CreateDirectory(BranchPath);
+
+            CreateEmployeeFolders(BranchPath);
+            CreateCutomerFolders(BranchPath);
+            CreateGuarantorFolders(BranchPath);
+            CreateNomineeFolders(BranchPath);
+        }
+        void CreateEmployeeFolders(string BranchPath)
+        {
+            string EmployeePath = BranchPath + "\\" + "Employee";
+            Directory.CreateDirectory(EmployeePath);
+            Directory.CreateDirectory(EmployeePath + "\\" + "Address Proof");
+            Directory.CreateDirectory(EmployeePath + "\\" + "Photo Proof");
+            Directory.CreateDirectory(EmployeePath + "\\" + "Profile Picture");
+        }
+        void CreateCutomerFolders(string BranchPath)
+        {
+            string CustomerPath = BranchPath + "\\" + "Customer";
+            Directory.CreateDirectory(CustomerPath);
+            Directory.CreateDirectory(CustomerPath + "\\" + "Address Proof");
+            Directory.CreateDirectory(CustomerPath + "\\" + "Photo Proof");
+            Directory.CreateDirectory(CustomerPath + "\\" + "Profile Picture");
+            Directory.CreateDirectory(CustomerPath + "\\" + "Combine Photo");
+        }
+        void CreateGuarantorFolders(string BranchPath)
+        {
+            string GuarantorPath = BranchPath + "\\" + "Guarantor";
+            Directory.CreateDirectory(GuarantorPath);
+            Directory.CreateDirectory(GuarantorPath + "\\" + "Address Proof");
+            Directory.CreateDirectory(GuarantorPath + "\\" + "Photo Proof");
+            Directory.CreateDirectory(GuarantorPath + "\\" + "Profile Picture");
+           
+        }
+        void CreateNomineeFolders(string BranchPath)
+        {
+            string GuarantorPath = BranchPath + "\\" + "Nominee";
+            Directory.CreateDirectory(GuarantorPath);
+            Directory.CreateDirectory(GuarantorPath + "\\" + "Address Proof");
+            Directory.CreateDirectory(GuarantorPath + "\\" + "Photo Proof");
+            Directory.CreateDirectory(GuarantorPath + "\\" + "Profile Picture");
+
         }
 
         public bool IsExists()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -29,6 +30,17 @@ namespace MicroFinance.Utils
            select nic.GetPhysicalAddress().ToString()
             );
 
+        }
+
+        public static void OpenDrive()
+        {
+            Process[] procs = Process.GetProcesses();
+            foreach (Process proc in procs)
+            {
+                if (proc.ProcessName == "googledrivesync")
+                    proc.Kill();
+            }
+            Process.Start(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Google Drive");
         }
 
 

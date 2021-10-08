@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Repository;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -30,6 +32,16 @@ namespace MicroFinance
         public static StaticProperty CaptureImageMessage = new StaticProperty();
         public static LoanDetails Loan = new LoanDetails();
 
+        public List<string> BankList = new List<string>();
+        public List<string> PurposeList = new List<string>();
+
+
+        public List<string> ResidencyList = new List<string> { "OWN HOUSE", "RENT HOUSE" };
+        public List<string> ResidencyTypeList = new List<string> { "HUT HOUSE", "TILED ROOF HOUSE", "CONCRETE HOUSE" };
+        public List<string> LandHoldingList = new List<string> { "YES", "NO" };
+
+        public List<BankDetailsView> BankDetailsList = new List<BankDetailsView>();
+
         string WhichClassButtonClick;
         public AddCustomer()
         {
@@ -38,6 +50,16 @@ namespace MicroFinance
            // TempLoad();
             BranchAndGroupDetailsforFieldOfficer();
             Assign();
+            BankList = BankRepository.GetAllBankNames();
+            BankNameComboBox.ItemsSource = BankList;
+            PurposeList = LoanRepository.GetAllPurposeNames();
+            PurposeNameCombo.ItemsSource = PurposeList;
+
+            ResidencyTypeCombo.ItemsSource = ResidencyList;
+            HousingTypeCombo.ItemsSource = ResidencyTypeList;
+            LandHoldingCombo.ItemsSource = LandHoldingList;
+
+            BankDetailsList = BankRepository.BankDetailsList();
         }
         void TempLoad()
         {
@@ -995,11 +1017,31 @@ namespace MicroFinance
             EnableDisableBackground(true);
         }
 
+        void ChangeReadOnly()
+        {
+            GuarantorHouseNOBox.IsReadOnly = true;
+            GuarantorStreetNameBox.IsReadOnly = true;
+            GuarantorLocalityBox.IsReadOnly = true;
+            GuarantorPincodeBox.IsReadOnly = true;
+            GuarantorCityBox.IsReadOnly = true;
+            GuarantorStateBox.IsReadOnly = true;
+        }
+        void ChangeReadProperty()
+        {
+            GuarantorHouseNOBox.IsReadOnly = false;
+            GuarantorStreetNameBox.IsReadOnly = false;
+            GuarantorLocalityBox.IsReadOnly = false;
+            GuarantorPincodeBox.IsReadOnly = false;
+            GuarantorCityBox.IsReadOnly = false;
+            GuarantorStateBox.IsReadOnly = false;
+        }
+
         private void SameAsCustomerAddress_Click(object sender, RoutedEventArgs e)
         {
             if (SameAsCustomerAddress.IsChecked == true)
             {
-                GuarantorAddressDetails.IsEnabled = false;
+                GuarantorAddressDetails.IsEnabled = true;
+                ChangeReadOnly();
 
                 GuarantorHouseNOBox.Text = customer.DoorNumber;
                 GuarantorStreetNameBox.Text = customer.StreetName;
@@ -1010,6 +1052,7 @@ namespace MicroFinance
             }
             else
             {
+                ChangeReadProperty();
                 GuarantorAddressDetails.IsEnabled = true;
                 GuarantorHouseNOBox.Text = "";
                 GuarantorStreetNameBox.Text = "";
@@ -1063,6 +1106,18 @@ namespace MicroFinance
             EnableDisableBackground(true);
             MainWindow.StatusMessageofPage(1, "Successfully BankDetails Added...");
             BankErrorCheck.Visibility = Visibility.Collapsed;
+
+            BankDetailsView NewBank = new BankDetailsView();
+            if(IsExists(ifsccode.Text)==false)
+            {
+                NewBank.BankName = BankNameComboBox.Text;
+                NewBank.BranchName = bankname.Text;
+                NewBank.IFSCCode = ifsccode.Text;
+                NewBank.MICRCode = micrcode.Text;
+
+                BankRepository.AddBankDetails(NewBank);
+                BankDetailsList.Add(NewBank);
+            }
         }
         void BankFieldValidation()
         {
@@ -1655,12 +1710,17 @@ namespace MicroFinance
                 CustMonthlyExpensesError.Visibility = Visibility.Visible;
                 _check = false;
             }
-            if(String.IsNullOrEmpty(HouseNOBox.Text))
-            {
-                HouseNOBox.BorderBrush = Redcolor;
-                CustDoorError.Visibility = Visibility.Visible;
-                _check = false;
-            }
+
+
+            //if(String.IsNullOrEmpty(HouseNOBox.Text))
+            //{
+            //    HouseNOBox.BorderBrush = Redcolor;
+            //    CustDoorError.Visibility = Visibility.Visible;
+            //    _check = false;
+            //}
+
+
+
             if(String.IsNullOrEmpty(StreetNameBox.Text))
             {
                 StreetNameBox.BorderBrush = Redcolor;
@@ -1691,12 +1751,12 @@ namespace MicroFinance
                 CustStateError.Visibility = Visibility.Visible;
                 _check = false;
             }
-            if(String.IsNullOrEmpty(HouseTypeBox.Text))
-            {
-                HouseTypeBox.BorderBrush = Redcolor;
-                CustHousingTypeError.Visibility = Visibility.Visible;
-                _check = false;
-            }
+            //if(String.IsNullOrEmpty(HouseTypeBox.Text))
+            //{
+            //    HouseTypeBox.BorderBrush = Redcolor;
+            //    CustHousingTypeError.Visibility = Visibility.Visible;
+            //    _check = false;
+            //}
             if(guarantor.IsGuarantorNull==false)
             {
                 GuarantorErrorCheck.Visibility = Visibility.Visible;
@@ -1937,11 +1997,11 @@ namespace MicroFinance
 
         private void HouseNOBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (CustDoorError.Visibility == Visibility.Visible)
-            {
-                CustDoorError.Visibility = Visibility.Collapsed;
-                HouseNOBox.BorderBrush = GrayColor;
-            }
+            //if (CustDoorError.Visibility == Visibility.Visible)
+            //{
+            //    CustDoorError.Visibility = Visibility.Collapsed;
+            //    HouseNOBox.BorderBrush = GrayColor;
+            //}
         }
 
         private void StreetNameBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -1989,14 +2049,14 @@ namespace MicroFinance
             }
         }
 
-        private void HouseTypeBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (CustHousingTypeError.Visibility == Visibility.Visible)
-            {
-                CustHousingTypeError.Visibility = Visibility.Collapsed;
-                HouseTypeBox.BorderBrush = GrayColor;
-            }
-        }
+        //private void HouseTypeBox_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (CustHousingTypeError.Visibility == Visibility.Visible)
+        //    {
+        //        CustHousingTypeError.Visibility = Visibility.Collapsed;
+        //        HouseTypeBox.BorderBrush = GrayColor;
+        //    }
+        //}
 
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
@@ -2103,6 +2163,111 @@ namespace MicroFinance
         {
             AddPg APG = new AddPg();
             APG.ShowDialog();
+        }
+
+        private void LandDetailsOKBtn_Click(object sender, RoutedEventArgs e)
+        {
+            customer.LandType = LantypeBox.Text.ToUpper();
+            customer.LandVolume = LandVolumeBox.Text.ToString();
+            LandDetialsPanel.Visibility = Visibility.Collapsed;
+            LandHoldingShowBtn.Visibility = Visibility.Visible;
+        }
+
+        private void LandHoldingShowBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LandDetialsPanel.Visibility = Visibility.Visible;
+        }
+
+        private void LandHoldingCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+             string value = LandHoldingCombo.SelectedValue as string;
+
+            if(value=="YES")
+            {
+                LandDetialsPanel.Visibility = Visibility.Visible;
+            }
+            else if(value=="NO")
+            {
+                LandHoldingShowBtn.Visibility = Visibility.Collapsed;
+            }
+
+
+        }
+
+        private void ifsccode_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox IFSCCode = sender as TextBox;
+            string ifsctext = IFSCCode.Text;
+            if(ifsctext.Length==11)
+            {
+                if(IsExists(ifsctext))
+                {
+                    BankDetailsView bank = Bankdetail(ifsctext);
+                    setBankDetails(bank);
+                }
+                else
+                {
+                    unsetBankDetails();
+                }
+            }
+            else
+            {
+                unsetBankDetails();
+            }
+        }
+
+
+        void unsetBankDetails()
+        {
+            //ifsccode.Text = "";
+            micrcode.Text = "";
+            BankNameComboBox.SelectedIndex = -1;
+            bankname.Text = "";
+            micrcode.IsReadOnly = false;
+            BankNameComboBox.IsReadOnly = false;
+            bankname.IsReadOnly = false;
+        }
+
+        void setBankDetails(BankDetailsView bank)
+        {
+            ifsccode.Text = bank.IFSCCode;
+            micrcode.Text = bank.MICRCode;
+            BankNameComboBox.SelectedValue = bank.BankName;
+            bankname.Text = bank.BranchName;
+
+            micrcode.IsReadOnly = true;
+            BankNameComboBox.IsReadOnly = true;
+            bankname.IsReadOnly = true;
+        }
+
+        public  bool IsExists(string IFSCCode)
+        {
+            bool result = false;
+            foreach (BankDetailsView b in BankDetailsList)
+            {
+                if (b.IFSCCode == IFSCCode)
+                {
+                    return true;
+                }
+            }
+            return result;
+        }
+
+        BankDetailsView Bankdetail(string IFSCCode)
+        {
+            BankDetailsView Bank = new BankDetailsView();
+            foreach (BankDetailsView b in BankDetailsList)
+            {
+                if (b.IFSCCode == IFSCCode)
+                {
+                    Bank.BankName = b.BankName;
+                    Bank.BranchName = b.BranchName;
+                    Bank.IFSCCode = b.IFSCCode;
+                    Bank.MICRCode = b.MICRCode;
+                }
+            }
+            return Bank;
+
         }
     }
 }

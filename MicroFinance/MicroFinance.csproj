@@ -62,6 +62,9 @@
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
+    <Reference Include="PasswordHassing">
+      <HintPath>F:\PasswordHassing\PasswordHassing\bin\Debug\PasswordHassing.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -104,6 +107,9 @@
     </Compile>
     <Compile Include="AddRegion.xaml.cs">
       <DependentUpon>AddRegion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AssignCenter.xaml.cs">
+      <DependentUpon>AssignCenter.xaml</DependentUpon>
     </Compile>
     <Compile Include="BranchManagerNotifyPanel.xaml.cs">
       <DependentUpon>BranchManagerNotifyPanel.xaml</DependentUpon>
@@ -220,6 +226,9 @@
     <Compile Include="Modal\SaveImageToDrive.cs" />
     <Compile Include="Modal\SelfHeadGroupModal.cs" />
     <Compile Include="Modal\StaticProperty.cs" />
+    <Compile Include="NotificationPage.xaml.cs">
+      <DependentUpon>NotificationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RecommendNew.xaml.cs">
       <DependentUpon>RecommendNew.xaml</DependentUpon>
     </Compile>
@@ -235,6 +244,7 @@
     <Compile Include="Reports\NEFT.cs" />
     <Compile Include="Reports\SamuunatiReport.cs" />
     <Compile Include="Reports\SUMAtoHO.cs" />
+    <Compile Include="Repository\BankRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="SamuExport.xaml.cs">
       <DependentUpon>SamuExport.xaml</DependentUpon>
@@ -244,6 +254,9 @@
     </Compile>
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TransferEmployee.xaml.cs">
+      <DependentUpon>TransferEmployee.xaml</DependentUpon>
     </Compile>
     <Compile Include="UpdateCustomer.xaml.cs">
       <DependentUpon>UpdateCustomer.xaml</DependentUpon>
@@ -264,15 +277,20 @@
     <Compile Include="VerifyCustomer.xaml.cs">
       <DependentUpon>VerifyCustomer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\BankDetailsView.cs" />
+    <Compile Include="ViewModel\BranchViewModel.cs" />
     <Compile Include="ViewModel\CollectionReportRepo.cs" />
     <Compile Include="ViewModel\CollectionReportView.cs" />
     <Compile Include="Repository\EmployeeRepository.cs" />
+    <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\HimarkRepository.cs" />
     <Compile Include="ViewModel\HimarkRequestView.cs" />
     <Compile Include="Repository\LoanRepository.cs" />
     <Compile Include="ViewModel\RecommendView.cs" />
+    <Compile Include="ViewModel\RegionViewModel.cs" />
     <Compile Include="ViewModel\SamuReportView.cs" />
     <Compile Include="ViewModel\SamuRepository.cs" />
+    <Compile Include="ViewModel\TimeTableViewModel.cs" />
     <Page Include="AddCustomer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -290,6 +308,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AddRegion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AssignCenter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -407,6 +429,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NotificationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RecommendNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -428,6 +454,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TransferEmployee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

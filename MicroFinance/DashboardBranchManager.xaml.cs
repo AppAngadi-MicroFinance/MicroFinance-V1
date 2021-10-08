@@ -65,7 +65,8 @@ namespace MicroFinance
 
         private void xRecommendCustome_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new CustomerNotification(2));
+            //this.NavigationService.Navigate(new CustomerNotification(2));
+            this.NavigationService.Navigate(new NotificationPage(7));
         }
 
         private void xAddSHGBtn_Click(object sender, RoutedEventArgs e)
@@ -98,7 +99,8 @@ namespace MicroFinance
 
         private void xNotificationBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new CustomerNotification(1));
+            //this.NavigationService.Navigate(new CustomerNotification(1));
+            this.NavigationService.Navigate(new NotificationPage(6));
         }
 
         private void HimarkPanelCloseBtn_Click(object sender, RoutedEventArgs e)
@@ -187,6 +189,11 @@ namespace MicroFinance
         private void HimarkResultBtn_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new HimarkResultData());
+        }
+
+        private void xAddNewEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new AddEmployee());
         }
     }
 }
