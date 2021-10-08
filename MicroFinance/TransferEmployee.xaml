@@ -66,7 +66,7 @@
         <Button Grid.Column="3" Grid.Row="5" Style="{StaticResource SecondaryBtn}" HorizontalAlignment="Right" Margin="0,0,18,0" Content="Continue" x:Name="ContinueBtn" Click="ContinueBtn_Click"></Button>
         
         <!--Transfer Stack Panel-->
-        <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Visible" x:Name="TransferPanel">
+        <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Collapsed" x:Name="TransferPanel">
             <Grid Height="160">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
