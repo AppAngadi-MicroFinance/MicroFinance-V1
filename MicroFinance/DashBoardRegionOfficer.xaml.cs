@@ -304,5 +304,10 @@ namespace MicroFinance
         {
 
         }
+
+        private void AssignBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new AssignCenter("E0100120210904"));
+        }
     }
 }
