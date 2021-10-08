@@ -52,8 +52,9 @@ namespace MicroFinance.Utils
                 {
                     //sb.Append("\n"+d.Name+" "+" "+d.VolumeLabel);
                     string DrivePath = d.Name + "My Drive";
+                    //string DrivePath = d.Name + "Google Drive";
                     //if (d.VolumeLabel.Equals("Google Drive"))
-                    if(Directory.Exists(DrivePath))
+                    if (Directory.Exists(DrivePath))
                     {
                         string dir = d.Name + "My Drive" + "\\MicroFinance";
 
