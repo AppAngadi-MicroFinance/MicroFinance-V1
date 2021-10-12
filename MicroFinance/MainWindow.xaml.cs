@@ -37,7 +37,7 @@ namespace MicroFinance
             InitializeComponent();
             SystemFunction.OpenDrive();
             MessageStatus.DataContext = StatusMsg;
-            xHeaderDate.Text = DateTime.Now.ToShortDateString();
+            xHeaderDate.Text ="Date: "+ DateTime.Now.ToString("dd-MMM-yyyy");
             DriveBasePath = SystemFunction.DriveBasePath;
         }
         public static void StatusMessageofPage(int Type, string Message)

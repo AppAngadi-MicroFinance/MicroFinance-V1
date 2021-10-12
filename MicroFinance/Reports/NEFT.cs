@@ -204,6 +204,7 @@ namespace MicroFinance.Reports
             remitterAccNo.ColumnWidth = 24;
             remitterAccNo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             remitterAccNo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            remitterAccNo.EntireColumn.NumberFormat = "@";
             //Remitter Name
             var remitterName = xlWorkSheet.Cells.Range["C1"];
             remitterName.Value = "Remitter Name ";
@@ -231,6 +232,7 @@ namespace MicroFinance.Reports
             BenificiaryaccNO.ColumnWidth = 24;
             BenificiaryaccNO.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             BenificiaryaccNO.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            BenificiaryaccNO.EntireColumn.NumberFormat = "@";
             //Benificiary Name
             var Benificiaryname = xlWorkSheet.Cells.Range["F1"];
             Benificiaryname.Value = "Benificiary Name";

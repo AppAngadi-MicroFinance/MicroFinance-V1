@@ -67,6 +67,8 @@ namespace MicroFinance.ViewModel
         {
             List<SamuReportView> RequestList = ImportSamuFile(Path);
 
+            List<SamuReportView> ReqList = new List<SamuReportView>();
+
             using(SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
@@ -80,15 +82,22 @@ namespace MicroFinance.ViewModel
                         sm.CustomerID = (string)sqlcomm.ExecuteScalar();
                         sqlcomm.CommandText= "select RequestID from LoanApplication where CustId = (select CustId from CustomerDetails where AadharNumber = '"+sm.AadharNumber+"') and LoanStatus = 11";
                         sm.RequestID = (string)sqlcomm.ExecuteScalar();
-                        sqlcomm.CommandText = "select Name from Employee where EmpId=(select EmpId from TimeTable where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+sm.CustomerID+"')))";
+                        sqlcomm.CommandText = "select Name from Employee where EmpId=(select EmpId from TimeTable where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + sm.CustomerID + "')))";
                         sm.EmpName = (string)sqlcomm.ExecuteScalar();
+                        if (!string.IsNullOrEmpty(sm.RequestID))
+                        {
+                            ReqList.Add(sm);
+                           
+                        }
+                        
+                        
 
                     }
                 }
                 sqlconn.Close();
             }
 
-            return RequestList;
+            return ReqList;
         }
 
 
@@ -198,7 +207,8 @@ namespace MicroFinance.ViewModel
                     var aadhar = (worksheet.Cells[Rownumber, AadharColumn] as Excel.Range).Value;
                     string _aadharNumber = aadhar.ToString();
                     //string _aadharNumber = (worksheet.Cells[Rownumber, AadharColumn] as Excel.Range).Value;
-                    string _loanacno = (worksheet.Cells[Rownumber, LoanAcNoColumn] as Excel.Range).Value;
+                    var  loan= (worksheet.Cells[Rownumber, LoanAcNoColumn] as Excel.Range).Value;
+                    string _loanacno = loan.ToString();
                     string _customername = (worksheet.Cells[Rownumber, CustomerNameColumn] as Excel.Range).Value;
                     int _disbursement = (int)(worksheet.Cells[Rownumber, DisbursementColumn] as Excel.Range).Value;
                     string GroupNameData = (string)(worksheet.Cells[Rownumber, GroupNameColumn] as Excel.Range).Value;
@@ -255,8 +265,16 @@ namespace MicroFinance.ViewModel
                     {
                         SqlCommand sqlcomm = new SqlCommand();
                         sqlcomm.Connection = sqlconn;
-                        sqlcomm.CommandText = "insert into DisbursementFromSAMU(ApprovedDate,LoanAcNo,RequestID,FileName)values('" + sm.ApproveDate.ToString("MM-dd-yyyy") + "','" + sm.LoanAcNo + "','" + sm.RequestID + "','" + sm.FileName + "')";
-                        sqlcomm.ExecuteNonQuery();
+                        try
+                        {
+                            sqlcomm.CommandText = "insert into DisbursementFromSAMU(ApprovedDate,LoanAcNo,RequestID,FileName)values('" + sm.ApproveDate.ToString("MM-dd-yyyy") + "','" + sm.LoanAcNo + "','" + sm.RequestID + "','" + sm.FileName + "')";
+                            sqlcomm.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+
+                        }
+                        
                     }
 
                 }

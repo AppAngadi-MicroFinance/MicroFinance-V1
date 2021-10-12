@@ -6,14 +6,14 @@
         xmlns:Convert="clr-namespace:MicroFinance.Converters"
         xmlns:local="clr-namespace:MicroFinance" xmlns:modal="clr-namespace:MicroFinance.Modal" d:DataContext="{d:DesignInstance Type=modal:StaticProperty}"
         mc:Ignorable="d"
-        Title="G Trust" Height="768" Width="1366" Background="#FEF2E4" WindowStartupLocation="CenterScreen">
+        Title="G Trust" Height="768" Width="1366" Background="White" WindowStartupLocation="CenterScreen" BorderBrush="Gray">
     <Window.Resources>
        
         <Convert:StatusForegroundColor x:Key="StatusColor"></Convert:StatusForegroundColor>
         <Convert:StatusImage x:Key="ImageConvert"></Convert:StatusImage>
         
     </Window.Resources>
-    <Grid  ShowGridLines="False"  Height="768" Width="1366">
+    <Grid  ShowGridLines="False"  Height="768" Width="1366" Background="#FEF2E4">
         <Grid.RowDefinitions>
            
             <RowDefinition Height="25"/>
@@ -25,7 +25,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
                 <ColumnDefinition Width="60"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             

@@ -38,10 +38,10 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Branch Name" Binding="{Binding BranchName}" Width="170"></DataGridTextColumn>
-                <DataGridTextColumn Header="Center Name" Binding="{Binding CenterName}" Width="170"></DataGridTextColumn>
-                <DataGridTextColumn Header="Employee Name" Binding="{Binding EmpName}" Width="150"></DataGridTextColumn>
+                <DataGridTextColumn Header="Center Name" Binding="{Binding CenterName}" Width="250"></DataGridTextColumn>
+                <DataGridTextColumn Header="Employee Name" Binding="{Binding EmpName}" Width="200"></DataGridTextColumn>
                 <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}" Width="300"></DataGridTextColumn>
-                <DataGridTextColumn Header="Loan Amount" Binding="{Binding LoanAmount}" Width="110"></DataGridTextColumn>
+                <DataGridTextColumn Header="Loan Amount" Binding="{Binding Disbursement}" Width="110"></DataGridTextColumn>
                 <DataGridTextColumn Header="Loan A/c Number" Binding="{Binding LoanAcNo}" Width="200"></DataGridTextColumn>
                 
             </DataGrid.Columns>
