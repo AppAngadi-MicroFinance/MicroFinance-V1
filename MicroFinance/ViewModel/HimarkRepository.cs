@@ -25,7 +25,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from LoanApplication where LoanStatus='1') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.EnrollDate from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from LoanApplication where LoanStatus='1') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
                     {
@@ -41,6 +41,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.BranchID = reader.GetString(6);
                             HMRequestCustomer.BranchName = reader.GetString(7);
                             HMRequestCustomer.EmpName = reader.GetString(8);
+                            HMRequestCustomer.RequestDate = reader.GetDateTime(9);
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
                             // sqlcomm.CommandText = "select Name from Employee where EmpId='" + HMRequestCustomer.EmpId + "'";
@@ -121,7 +122,7 @@ namespace MicroFinance.ViewModel
                         reader3.Close();
                         HMData.EligibleLoanAmount = HM.LoanAmount.ToString();
                         HMData.RMName = HM.EmpName;
-                        HMData.DateOfApplication = DateTime.Now.ToString("dd-MMM-yyyy");
+                       // HMData.DateOfApplication = DateTime.Now.ToString("dd-MMM-yyyy");
                         sqlcomm.CommandText = "select Name,FatherName,MotherName,Dob,Age,Gender,Mobile,Religion,Caste,Education,Occupation,MonthlyIncome,MonthlyExpenses,address,Pincode,HousingType,PhotoProofName,PhotoProofNo,AddressProofName,AddressProofNo,BankAccountNo,BankName,BankBranchName,IFSCCode,MICRCode,Residency,LandHolding from CustomerDetails where CustId='"+HM.CustomerID+"'";
                         SqlDataReader reader1 = sqlcomm.ExecuteReader();
                         if(reader1.HasRows)
@@ -188,6 +189,7 @@ namespace MicroFinance.ViewModel
                             }
                         }
                         reader2.Close();
+                        HMData.DateOfApplication = HM.RequestDate;
                         ReportList.Add(HMData);
                     }    
                 }

@@ -1705,7 +1705,7 @@ namespace MicroFinance
         {
             CustomerDocumentCheck();
             GuarantorDocumentCheck();
-            NomineeDocumentCheck();
+           // NomineeDocumentCheck();
         }
 
         void InsertVerificationDetails()
@@ -1876,45 +1876,46 @@ namespace MicroFinance
 
         private void OverAllDocumentVerifiedBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(customer.AddressProof!=null & customer.PhotoProof!=null && customer.ProfilePicture!=null && customer.Combinephoto!=null)
-            {
-                CustAddressProofVerification_Click(sender, e);
-                CustPhotoProofVerification_Click(sender, e);
-                CustProfileVerification_Click(sender, e);
-                CombinePhotoVerification_Click(sender, e);
+            //if(customer.AddressProof!=null & customer.PhotoProof!=null && customer.ProfilePicture!=null && customer.Combinephoto!=null)
+            //{
+            //    CustAddressProofVerification_Click(sender, e);
+            //    CustPhotoProofVerification_Click(sender, e);
+            //    CustProfileVerification_Click(sender, e);
+            //    CombinePhotoVerification_Click(sender, e);
                 customer.OverAllPhotoVerification = true;
-            }
-            else
-            {
-            }
+            nominee.OverAllNomineePhotoVerification = true;
+            //}
+            //else
+            //{
+            //}
         }
 
         private void OverAllNomineeDocumentVerifiedBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (nominee.AddressProof != null & nominee.PhotoProof != null && nominee.ProfilePicture != null )
-            {
-                NAddressProofVerification_Click(sender, e);
-                NPhotoProofVerification_Click(sender, e);
-                NProfileVerification_Click(sender, e);
+            //if (nominee.AddressProof != null & nominee.PhotoProof != null && nominee.ProfilePicture != null )
+            //{
+            //    NAddressProofVerification_Click(sender, e);
+            //    NPhotoProofVerification_Click(sender, e);
+            //    NProfileVerification_Click(sender, e);
                 nominee.OverAllNomineePhotoVerification = true;
-            }
-            else
-            {
-            }
+            //}
+            //else
+            //{
+            //}
         }
 
         private void OverAllGuarantorDocumentVerifiedBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (guarantor.AddressProof != null & guarantor.PhotoProof != null && guarantor.ProfilePicture != null)
-            {
-                GAddressProofVerification_Click(sender, e);
-                GPhotoProofVerification_Click(sender, e);
-                GProfileVerification_Click(sender, e);
+            //if (guarantor.AddressProof != null & guarantor.PhotoProof != null && guarantor.ProfilePicture != null)
+            //{
+            //    GAddressProofVerification_Click(sender, e);
+            //    GPhotoProofVerification_Click(sender, e);
+            //    GProfileVerification_Click(sender, e);
                 guarantor.OverAllGuarantorPhotoVerification = true;
-            }
-            else
-            {
-            }
+            //}
+            //else
+            //{
+            //}
             
         }
 

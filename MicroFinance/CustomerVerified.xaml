@@ -1554,7 +1554,7 @@
                                 <ColumnDefinition Width="130"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                <TextBlock Text="Guarantor Profile Photo" Style="{StaticResource Regular}"/>
+                                <TextBlock Text="Bank PassBook/ Check Receipt" Style="{StaticResource Regular}"/>
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="GProfilePictureError"/>
                             </StackPanel>
 
@@ -1580,10 +1580,10 @@
                             </Grid.ColumnDefinitions>
 
                             <Button x:Name="OverAllNomineeDocumentVerify" Grid.Column="4" Style="{StaticResource Verified}" Visibility="{Binding OverAllNomineePhotoVerification,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Visible}}"/>
-                            <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="{Binding OverAllNomineePhotoVerification,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="OverAllNomineeDocumentVerifiedBtn" Click="OverAllNomineeDocumentVerifiedBtn_Click"/>
+                            <Button Grid.Column="4"  Style="{StaticResource Verify}" Visibility="{Binding OverAllNomineePhotoVerification,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource Inverse}}" x:Name="OverAllNomineeDocumentVerifiedBtn" Click="OverAllNomineeDocumentVerifiedBtn_Click"/>
 
                         </Grid>
-                        <Grid Margin="0,0,0,10" x:Name="nomieeAddressProofGrid">
+                        <Grid Margin="0,0,0,10" x:Name="nomieeAddressProofGrid" Visibility="Collapsed">
                             <Grid.ColumnDefinitions >
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="220"/>
@@ -1610,7 +1610,7 @@
 
 
                         </Grid>
-                        <Grid Margin="0,0,0,10" x:Name="nomineePhotoproofGrid">
+                        <Grid Margin="0,0,0,10" x:Name="nomineePhotoproofGrid" Visibility="Collapsed">
                             <Grid.ColumnDefinitions >
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="220"/>
@@ -1637,7 +1637,7 @@
 
 
                         </Grid>
-                        <Grid Margin="0,0,0,10" x:Name="nomineeprofileGrid">
+                        <Grid Margin="0,0,0,10" x:Name="nomineeprofileGrid" Visibility="Collapsed">
                             <Grid.ColumnDefinitions >
                                 <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="220"/>

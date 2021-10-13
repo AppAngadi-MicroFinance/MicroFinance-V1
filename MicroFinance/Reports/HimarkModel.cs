@@ -218,8 +218,8 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("RMName");
             }
         }
-        private string _dateofapplication;
-        public string DateOfApplication
+        private DateTime _dateofapplication;
+        public DateTime DateOfApplication
         {
             get
             {
