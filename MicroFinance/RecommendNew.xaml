@@ -12,7 +12,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="80*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="70*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
 
@@ -22,9 +23,25 @@
         </StackPanel>
         <TextBlock x:Name="TileText" Text="Loan Recommend" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"></TextBlock>
         <Separator VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="10" ></Separator>
-        <DataGrid x:Name="RecommendGrid" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="1" Background="Transparent" Height="500" Width="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
+        
+        <!--Date Selector Section-->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Background="Transparent" Width="410" Margin="0,0,30,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <StackPanel>
+                <TextBlock Text="From" Style="{StaticResource Regular}"></TextBlock>
+                <DatePicker x:Name="EnrollStartDate" Style="{StaticResource DateSelecter}"  Height="30" Width="150" Background="White" FontSize="16">
+                    
+                </DatePicker>
+            </StackPanel>
+            <TextBlock Text="-" Style="{StaticResource Regular}" Height="30" VerticalAlignment="Bottom" FontSize="24" Margin="10,0,0,0"></TextBlock>
+            <StackPanel Margin="10,0,0,0">
+                <TextBlock Text="To" Style="{StaticResource Regular}"></TextBlock>
+                <DatePicker x:Name="EnrollEndDate" Style="{StaticResource DateSelecter}"  Height="30" Width="150" Background="White" FontSize="16"></DatePicker>
+            </StackPanel>
+            <Button x:Name="FilterSearchBtn" Click="FilterSearchBtn_Click" Style="{StaticResource SecondaryBtn}" VerticalAlignment="Bottom" Margin="20,0,0,0" Height="25" FontSize="12" Width="60" Content="search"></Button>
+        </StackPanel>
+        <DataGrid x:Name="RecommendGrid" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="2" Background="Transparent" Height="450" Width="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Width="80" >
+                <DataGridTemplateColumn Width="75" >
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="Recommend"></TextBlock>
                     </DataGridTemplateColumn.Header>
@@ -36,11 +53,12 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Branch Name" Width="150" FontSize="16"  Binding="{Binding BranchName}" />
                 <DataGridTextColumn Header="Center Name" Width="150"  FontSize="16"  Binding="{Binding CenterName}"/>
-                <DataGridTextColumn Header="Collection Day" Width="125" FontSize="16" Binding="{Binding CollectionDay}"/>
-                <DataGridTextColumn Header="FO Name" Width="240" FontSize="16"  Binding="{Binding EmpName}"/>
-                <DataGridTextColumn Header="Customer Name" Width="270" FontSize="16" Binding="{Binding CustomerName}"/>
+                <DataGridTextColumn Header="Collection Day" Width="100" FontSize="16" Binding="{Binding CollectionDay}"/>
+                <DataGridTextColumn Header="FO Name" Width="200" FontSize="16"  Binding="{Binding EmpName}"/>
+                <DataGridTextColumn Header="Customer Name" Width="230" FontSize="16" Binding="{Binding CustomerName}"/>
                 <DataGridTextColumn Header="Loan Amount" Width="100"  FontSize="16"  Binding="{Binding LoanAmount}"/>
                 <DataGridTextColumn Header="Loan Period" Width="80" FontSize="16"  Binding="{Binding LoanPeriod}"/>
+                <DataGridTextColumn Header="Enroll Date" Width="115" FontSize="16" Binding="{Binding RequestDate,StringFormat='{}{0:dd-MM-yyyy}'}"></DataGridTextColumn>
                 <DataGridTemplateColumn Width="100"  Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -68,13 +86,14 @@
                     <Setter Property="TextBlock.FontSize" Value="14" />
                     <Setter Property="TextBlock.Background" Value="LightGreen"/>
                     <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+                    
 
                 </Style>
             </DataGrid.RowStyle>
         </DataGrid>
 
 
-        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,70,0" x:Name="RecommendPanel" Visibility="Visible">
+        <StackPanel Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,70,0" x:Name="RecommendPanel" Visibility="Visible">
             <Button Style="{StaticResource PrimaryBtn}" Content="Recommend" Width="150" x:Name="RecommendLoanBtn" Click="RecommendLoanBtn_Click"></Button>
             <Button Style="{StaticResource CancelBtn}" Margin="25,0,0,0" Width="150" Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
         </StackPanel>

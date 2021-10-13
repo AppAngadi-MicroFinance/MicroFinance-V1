@@ -10,6 +10,7 @@ namespace MicroFinance.ViewModel
     {
         public string CustomerName { get; set; }
         public int LoanAmount { get; set; }
+        public DateTime RequestDate { get; set; }
         public int LoanPeriod { get; set; }
         public string EmpName { get; set; }
         public string RequestID { get; set; }

@@ -436,14 +436,34 @@
                     <ControlTemplate>
                         <Border Width="40" Height="40"  Background="White">
                             <Grid>
-                                <Image Source="Symbols\User Search-01-WF.png"></Image>
+                                <Image></Image>
                             </Grid>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <!--For Warning-->
+
+
+            <Style TargetType="Button" x:Key="SearchBtn">
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="50"></Setter>
+                    </Style>
+                </Style.Resources>
+                <Setter Property="Template" >
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border Width="30" Height="30"  Background="White">
+                                <Grid>
+                                    <Image Source="Asserts\Icons\searchingPerson.png"></Image>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <!--For Warning-->
         <Style TargetType="Button" x:Key="Warnings">
             <Setter Property="Template" >
                 <Setter.Value>

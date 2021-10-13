@@ -12,7 +12,7 @@ namespace MicroFinance.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.3.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,8 +26,7 @@ namespace MicroFinance.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQL6010.site4now.net,1433;Initial Catalog=DB_A5D7B5_microfinance;User" +
-            " Id=DB_A5D7B5_microfinance_admin;Password=Microfinance007")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=DB_A5D7B5_microfinance;Integrated Security=True")]
         public string DBConnection {
             get {
                 return ((string)(this["DBConnection"]));
@@ -37,8 +36,7 @@ namespace MicroFinance.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQL6010.site4now.net,1433;Initial Catalog=DB_A5D7B5_microfinance;User" +
-            " Id=DB_A5D7B5_microfinance_admin;Password=Microfinance007")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=DB_A5D7B5_microfinance;Integrated Security=True")]
         public string db {
             get {
                 return ((string)(this["db"]));

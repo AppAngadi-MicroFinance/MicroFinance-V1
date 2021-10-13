@@ -26,7 +26,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from LoanApplication where LoanStatus='"+StatusCode+"') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.EnrollDate from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from LoanApplication where LoanStatus='" + StatusCode+"') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -42,6 +42,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.BranchID = reader.GetString(6);
                             HMRequestCustomer.BranchName = reader.GetString(7);
                             HMRequestCustomer.EmpName = reader.GetString(8);
+                            HMRequestCustomer.RequestDate = reader.GetDateTime(9);
                             HMRequestCustomer.IsRecommend = true;
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
@@ -76,7 +77,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.LoanType from CustomerDetails,LoanApplication,BranchDetails,Employee,DisbursementFromSAMU where LoanApplication.RequestId in(select RequestId from LoanApplication where LoanStatus='"+StatusCode+"') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and DisbursementFromSAMU.RequestID=LoanApplication.RequestId";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.LoanType,LoanApplication.EnrollDate from CustomerDetails,LoanApplication,BranchDetails,Employee,DisbursementFromSAMU where LoanApplication.RequestId in(select RequestId from LoanApplication where LoanStatus='"+StatusCode+"') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and DisbursementFromSAMU.RequestID=LoanApplication.RequestId";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -93,6 +94,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.BranchName = reader.GetString(7);
                             HMRequestCustomer.EmpName = reader.GetString(8);
                             HMRequestCustomer.LoanType = reader.GetString(9);
+                            HMRequestCustomer.RequestDate = reader.GetDateTime(10);
                             HMRequestCustomer.IsRecommend = true;
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
