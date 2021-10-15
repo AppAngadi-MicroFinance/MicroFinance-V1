@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
       mc:Ignorable="d" 
-      d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
+      d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4" 
       Title="DashboardAccountant">
 
     <Grid>
