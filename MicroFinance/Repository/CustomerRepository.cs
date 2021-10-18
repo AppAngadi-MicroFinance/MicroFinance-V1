@@ -213,6 +213,8 @@ namespace MicroFinance.Repository
                 if(ConnectionState.Open==sqlconn.State)
                 {
                     SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText=""
                 }
             }
 
