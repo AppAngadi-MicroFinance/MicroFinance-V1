@@ -71,6 +71,7 @@ namespace MicroFinance
                     {
                         LoginBorder.Visibility = Visibility.Collapsed;
                         UserProfilePanel.Visibility = Visibility.Visible;
+                        HomeBtn.Visibility = Visibility.Visible;
                         xHeaderUsername.Text = "ADMIN";
                         mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
                         LoggedInState();
@@ -151,6 +152,7 @@ namespace MicroFinance
                     LoggedInState();
                     MainWindow.StatusMessageofPage(1, "Ready...");
                 }
+                HomeBtn.Visibility = Visibility.Visible;
             }
             catch
             {
@@ -170,6 +172,7 @@ namespace MicroFinance
         {
             xHeaderUsername.Text = string.Empty;
             xLogoutButton.Visibility = Visibility.Collapsed;
+            HomeBtn.Visibility = Visibility.Collapsed;
             xLoginWindow.Visibility = Visibility.Visible;
             LoginBorder.Visibility = Visibility.Visible;
             mainframe.Content = null;
@@ -266,6 +269,27 @@ namespace MicroFinance
                 con.Close();
             }
             return empName;
+        }
+
+        private void HomeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string Designation = MainWindow.LoginDesignation.LoginDesignation;
+            Designation = (Designation == null) ? "" : Designation;
+            LoadHomePage(Designation);
+        }
+
+        void LoadHomePage(string Designation)
+        {
+            if (Designation.Equals("Field Officer"))
+                mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
+            else if (Designation.Equals("Accountant"))
+                mainframe.NavigationService.Navigate(new DashboardAccountant());
+            else if (Designation.Equals("Branch Manager") || Designation.Equals("Manager"))
+                mainframe.NavigationService.Navigate(new DashboardBranchManager());
+            else if (Designation.Equals("Region Manager"))
+                mainframe.NavigationService.Navigate(new DashBoardRegionOfficer());
+            else
+                mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
         }
     }
 }

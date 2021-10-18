@@ -116,11 +116,15 @@ namespace MicroFinance
 
             EmployeeList.Clear();
             BranchViewModel selectedBranch = BranchCombo.SelectedItem as BranchViewModel;
-            string Designation = DesignationCombo.SelectedValue as string;
-            Transfer_Employee.BranchName = selectedBranch.BranchName;
-            Transfer_Employee.BranchId = selectedBranch.BranchId;
-            Transfer_Employee.OldDesignation = Designation;
-            SelectedEmployees(selectedBranch.BranchId,Designation);
+            if(selectedBranch!=null)
+            {
+                string Designation = DesignationCombo.SelectedValue as string;
+                Transfer_Employee.BranchName = selectedBranch.BranchName;
+                Transfer_Employee.BranchId = selectedBranch.BranchId;
+                Transfer_Employee.OldDesignation = Designation;
+                SelectedEmployees(selectedBranch.BranchId, Designation);
+            }
+            
         }
 
         private void EmployeeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

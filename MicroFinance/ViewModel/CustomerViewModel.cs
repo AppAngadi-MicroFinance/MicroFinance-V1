@@ -14,5 +14,8 @@ namespace MicroFinance.ViewModel
         public string CenterId { get; set; }
         public string CenterName { get; set; }
         public int ActiveLoans { get; set; }
+        public string Address { get; set; }
+        public int Age { get; set; }
+        public string Occupation { get; set; }
     }
 }

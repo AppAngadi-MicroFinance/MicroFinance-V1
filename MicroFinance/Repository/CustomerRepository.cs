@@ -202,5 +202,21 @@ namespace MicroFinance.Repository
             }
             return CustomerList;
         }
+
+
+        public static CustomerViewModel GetCustomerMetaDetials(string CustomerID)
+        {
+            CustomerViewModel Customer = new CustomerViewModel();
+            using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                }
+            }
+
+            return Customer;
+        }
     }
 }

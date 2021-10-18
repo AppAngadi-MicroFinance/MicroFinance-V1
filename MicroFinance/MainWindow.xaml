@@ -22,7 +22,7 @@
         <Convert:StatusImage x:Key="ImageConvert"></Convert:StatusImage>
 
     </Window.Resources>
-    <Grid  ShowGridLines="False"  Height="768" Width="1366" Background="#FEF2E4">
+    <Grid  ShowGridLines="False"  Height="760" Width="1366" Background="#FEF2E4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="574*"/>
             <ColumnDefinition Width="109*"/>
@@ -31,7 +31,7 @@
 
             <RowDefinition Height="25"/>
             <RowDefinition Height="660"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="18"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="#E8FAFF" Grid.ColumnSpan="2" Margin="0,0,0,660.4" Grid.RowSpan="2">
@@ -39,7 +39,7 @@
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="150"></ColumnDefinition>
-                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" x:Name="UserProfilePanel" Visibility="Collapsed">
                 <Border Height="20" Width="20" CornerRadius="15" Margin="10,0,0,0">
@@ -56,11 +56,12 @@
             
             <TextBlock x:Name="xHeaderDate" Grid.Column="2" FontSize="16" FontWeight="SemiBold"
                        HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Blue"></TextBlock>
+            <Button Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed" Style="{StaticResource HomeButton}" Height="25" Width="25" ToolTip="Home" x:Name="HomeBtn" Click="HomeBtn_Click"></Button>
             <Button Grid.Column="3" x:Name="xLogoutButton" Width="25" Height="25" Style="{StaticResource LogoutButtonStyle}"
                     HorizontalAlignment="Right" Click="xLogoutButton_Click" Margin="0,0,20,0" Visibility="Collapsed" ToolTip="Log Out"></Button>
         </Grid>
 
-        <Frame Grid.Row="1" x:Name="mainframe" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" Margin="0,0.4"></Frame>
+        <Frame Grid.Row="1" x:Name="mainframe" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" Width="1360"></Frame>
 
         <Border Grid.Row="1" Visibility="Collapsed" Height="200" Width="400" Background="White" Panel.ZIndex="2" CornerRadius="10" Margin="483,230.4,265.2,230.4" >
             <Grid x:Name="TimeWindow" Height="180" Width="380">
@@ -105,8 +106,8 @@
             </Grid>
         </Border>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Background="#e8fff2" x:Name="MessageStatus" Grid.ColumnSpan="2" Margin="0,660.4,0,-0.4" Grid.RowSpan="2">
-            <Image Width="25" Height="25" Source="{Binding MessageType,Converter={StaticResource ImageConvert},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
-            <TextBlock  Text="{Binding StatusMessage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" FontWeight="Medium" Foreground="{Binding MessageType,Converter={StaticResource StatusColor},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+            <Image Width="15" Height="15" Source="{Binding MessageType,Converter={StaticResource ImageConvert},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
+            <TextBlock  Text="{Binding StatusMessage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" FontWeight="Medium" FontSize="13" Foreground="{Binding MessageType,Converter={StaticResource StatusColor},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" VerticalAlignment="Center"/>
         </StackPanel>
 
 

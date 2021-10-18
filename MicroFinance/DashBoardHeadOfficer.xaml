@@ -62,11 +62,11 @@
             <!--Add New Employee Customer-->
             <Border Width="150" Height="150"  Grid.Column="0" Style="{StaticResource MainBorder}">
                 <Border.Effect>
-                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                    <DropShadowEffect ShadowDepth="0.5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                
+                <Button Style="{StaticResource TransferEmployee}" Name="TransferBtn" Click="TransferBtn_Click"></Button>
             </Border>
-            <Button Style="{StaticResource SecondaryBtn}" Content="Transfer" Name="TransferBtn" Click="TransferBtn_Click"></Button>
+            
             <Border Width="150" Height="150"  Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
