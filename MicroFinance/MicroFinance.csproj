@@ -182,6 +182,9 @@
     <Compile Include="ExportHimarkReport.xaml.cs">
       <DependentUpon>ExportHimarkReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GTrustCustomerProfile.xaml.cs">
+      <DependentUpon>GTrustCustomerProfile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HimarkResultData.xaml.cs">
       <DependentUpon>HimarkResultData.xaml</DependentUpon>
     </Compile>
@@ -396,6 +399,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ExportHimarkReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GTrustCustomerProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
