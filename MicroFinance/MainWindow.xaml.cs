@@ -49,6 +49,7 @@ namespace MicroFinance
         private void xLogoutButton_Click(object sender, RoutedEventArgs e)
         {
             LogOutState();
+            UserProfilePanel.Visibility = Visibility.Collapsed;
         }
 
         private void xLoginButton_Click(object sender, RoutedEventArgs e)
@@ -69,6 +70,8 @@ namespace MicroFinance
                     if (_userName.ToLower() == "Admin".ToLower() && _password == "GTrust123")
                     {
                         LoginBorder.Visibility = Visibility.Collapsed;
+                        UserProfilePanel.Visibility = Visibility.Visible;
+                        xHeaderUsername.Text = "ADMIN";
                         mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
                         LoggedInState();
                         MainWindow.StatusMessageofPage(1, "Ready...");
@@ -76,6 +79,7 @@ namespace MicroFinance
                     else
                     {
                         GetLogin();
+                        UserProfilePanel.Visibility = Visibility.Visible;
                     }
 
                 }

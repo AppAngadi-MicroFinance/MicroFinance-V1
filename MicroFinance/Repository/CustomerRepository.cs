@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MicroFinance.Modal;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance.Repository
 {
@@ -124,6 +126,81 @@ namespace MicroFinance.Repository
             string branch = BranchId.Substring(8);
             Result = region + branch + year + month + ((count < 10) ? "0" + count : count.ToString());
             return Result;
+        }
+
+
+        public static List<CenterViewModel> GetCenters()
+        {
+            List<CenterViewModel> CenterList = new List<CenterViewModel>();
+            using(SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select BranchId,SHGId,SHGName from SelfHelpGroup";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            CenterViewModel center = new CenterViewModel();
+                            center.BranchId = reader.GetString(0);
+                            center.CenterID = reader.GetString(1);
+                            center.CenterName = reader.GetString(2);
+
+                            CenterList.Add(center);
+                        }
+                    }
+                }
+                sqlconn.Close();
+            }
+            return CenterList;
+        }
+
+        public static List<CustomerViewModel> Customers(string CenterID)
+        {
+            List<CustomerViewModel> CustomerList = new List<CustomerViewModel>();
+            List<string> CustomerIDList = new List<string>();
+            string CenterName = "";
+            using (SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select CustId from CustomerGroup where PeerGroupId in (select GroupId from PeerGroup where SHGid='"+CenterID+"')";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            CustomerIDList.Add(reader.GetString(0));                        
+                        }
+                    }
+                    reader.Close();
+                    sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId='"+CenterID+"'";
+                    CenterName = (string)sqlcomm.ExecuteScalar();
+                    foreach (string s in CustomerIDList)
+                    {
+                        CustomerViewModel Customer = new CustomerViewModel();
+                        sqlcomm.CommandText = "select Name from CustomerDetails where CustId='" + s + "'";
+                        Customer.CustomerName = (string)sqlcomm.ExecuteScalar();
+                        Customer.CustomerID = s;
+                        Customer.CenterId = CenterID;
+                        Customer.CenterName = CenterName;
+                        sqlcomm.CommandText = "select COUNT(LoanID) from LoanDetails where CustomerID='"+s+"' and IsActive=1";
+                        int result = (int)sqlcomm.ExecuteScalar();
+                        Customer.ActiveLoans = result;
+
+                        CustomerList.Add(Customer);
+                    }
+                }
+                sqlconn.Close();
+            }
+            return CustomerList;
         }
     }
 }

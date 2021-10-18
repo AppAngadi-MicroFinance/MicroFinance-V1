@@ -81,7 +81,8 @@ namespace MicroFinance
 
         private void xFindCustomer_Click(object sender, RoutedEventArgs e)
         {
-            xSearchPersonPop.Visibility = Visibility.Visible;
+            //xSearchPersonPop.Visibility = Visibility.Visible;
+            this.NavigationService.Navigate(new CustomerSearch());
         }
 
         private void xFindEmployee_Click(object sender, RoutedEventArgs e)

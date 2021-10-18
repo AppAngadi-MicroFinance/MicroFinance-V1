@@ -424,6 +424,93 @@ namespace MicroFinance.ViewModel
             }
             return PurposeList;
         }
+
+
+        public static List<LoanApplicationViewModel> LoanApplicationDetails(string CustomerID)
+        {
+            List<LoanApplicationViewModel> Applications = new List<LoanApplicationViewModel>();
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select LoanAmount,LoanType,LoanPeriod,EnrollDate,EmployeeId,LoanStatus,Purpose from LoanApplication where CustId='" + CustomerID+"'";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            LoanApplicationViewModel LoanDetail = new LoanApplicationViewModel();
+                            LoanDetail.LoanAmount = reader.GetInt32(0);
+                            LoanDetail.LoanType = reader.GetString(1);
+                            LoanDetail.LoanPeriod = reader.GetInt32(2);
+                            LoanDetail.EnrollDate = reader.GetDateTime(3);
+                            LoanDetail.RequestedBy = reader.GetString(4);
+                            LoanDetail.StatusCode = reader.GetInt32(5);
+                            LoanDetail.LoanPurpose = reader.GetString(6);
+
+                            Applications.Add(LoanDetail);
+                        }
+                    }
+                }
+            }
+
+                return Applications;
+        }
+
+        public static List<LoanViewModel> LoanDetails(string CustomerID)
+        {
+            List<LoanViewModel> Loans = new List<LoanViewModel>();
+            using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(sqlconn.State==ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select LoanID,LoanType,LoanAmount,LoanPeriod,InterestRate,ApproveDate,RequestedBY,ApprovedBy,IsActive from LoanDetails where CustomerID='" + CustomerID + "'";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            LoanViewModel Loan = new LoanViewModel();
+                            Loan.LoanId = reader.GetString(0);
+                            Loan.LoanType = reader.GetString(1);
+                            Loan.LoanAmount = reader.GetInt32(2);
+                            Loan.LoanPeriod = reader.GetInt32(3);
+                            Loan.InterestRate = reader.GetInt32(4);
+                            Loan.ApproveDate = reader.GetDateTime(5);
+                            Loan.RequestedBY = reader.GetString(6);
+                            Loan.ApprovedBy = reader.GetString(7);
+                            Loan.IsActive = reader.GetBoolean(8);
+                            Loans.Add(Loan);
+                        }
+                    }
+                    reader.Close();
+                    foreach(LoanViewModel loan in Loans)
+                    {
+                        sqlcomm.CommandText = "select count(Principal) as CollectedAmount from loanCollectionentry where loanid='" + loan.LoanId + "'";
+                        int Result = (int)sqlcomm.ExecuteScalar();
+                        if(Result==0)
+                        {
+                            loan.PaidedAmount = 0;
+                        }
+                        else
+                        {
+                            sqlcomm.CommandText= "select sum(Principal) as CollectedAmount from loanCollectionentry where loanid='" + loan.LoanId + "'";
+                            loan.PaidedAmount = (int)sqlcomm.ExecuteScalar();
+                        }
+                    }
+                }
+            }
+            return Loans;
+        }
+
+
+
     }
     public class Loan
     {
