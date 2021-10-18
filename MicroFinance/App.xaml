@@ -10,6 +10,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="DashBoardStylesResource.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="xMaincolor">#781f9f</SolidColorBrush>
+            <SolidColorBrush x:Key="xBlack2">#2a2e36</SolidColorBrush>
+
             <!--Toggle Button Style-->
             <Style x:Key="ToggleButtonStyle1" TargetType="{x:Type ToggleButton}">
                 <!--<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>-->
@@ -1089,9 +1093,9 @@
             </Style>
 
         </ResourceDictionary>
-
-
         
+
+
 
     </Application.Resources>
 </Application>
