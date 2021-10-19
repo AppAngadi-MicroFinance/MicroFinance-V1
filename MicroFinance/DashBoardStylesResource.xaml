@@ -731,6 +731,35 @@
         </Setter>
     </Style>
 
+
+
+    <Style TargetType="{x:Type Button}" x:Key="TransferEmployee">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="Background" Value="#FEF8F1"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Content">
+            <Setter.Value>
+                <ContentPresenter>
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\UserSync.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1"  Width="100" Style="{StaticResource DashboardBtnText}" Text="Transfer Employee"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!--Add New Branch template-->
 
     <Style TargetType="{x:Type Button}" x:Key="NavigateAddBranch">
@@ -1037,14 +1066,45 @@
 
     <!--Logout Button-->
     <Style TargetType="{x:Type Button}" x:Key="LogoutButtonStyle">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="50"></Setter>
+            </Style>
+        </Style.Resources>
         <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Background" Value="White"></Setter>
         <Setter Property="Content">
             <Setter.Value>
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid Background="#E8FAFF" Width="25" Height="25">
-                                <Image Grid.Column="0" Width="20" Height="20" Source=".\Asserts\Icons\powerbutton.png" 
+                            <Grid Background="Transparent" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Grid.Column="0" Width="17" Height="17" Source=".\Asserts\Icons\LogOutBtn.png" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                            </Grid>
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </Setter.Value>
+        </Setter>
+        
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="HomeButton">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="50"></Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="Content">
+            <Setter.Value>
+                <ContentPresenter>
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <Grid Background="Transparent" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Grid.Column="0" Width="17" Height="17" Source=".\Asserts\Icons\HomeBtn.png" 
                                        HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
                             </Grid>
                         </DataTemplate>

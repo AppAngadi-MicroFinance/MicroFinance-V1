@@ -146,6 +146,9 @@
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Converters\VisibleConverterByString.cs" />
     <Compile Include="Converters\VisiblityConverterByImage.cs" />
+    <Compile Include="CustomerSearch.xaml.cs">
+      <DependentUpon>CustomerSearch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomerVerified.xaml.cs">
       <DependentUpon>CustomerVerified.xaml</DependentUpon>
     </Compile>
@@ -178,6 +181,9 @@
     </Compile>
     <Compile Include="ExportHimarkReport.xaml.cs">
       <DependentUpon>ExportHimarkReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GTrustCustomerProfile.xaml.cs">
+      <DependentUpon>GTrustCustomerProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="HimarkResultData.xaml.cs">
       <DependentUpon>HimarkResultData.xaml</DependentUpon>
@@ -226,6 +232,7 @@
     <Compile Include="Modal\SaveImageToDrive.cs" />
     <Compile Include="Modal\SelfHeadGroupModal.cs" />
     <Compile Include="Modal\StaticProperty.cs" />
+    <Compile Include="Modal\LoanStatusCode.cs" />
     <Compile Include="NotificationPage.xaml.cs">
       <DependentUpon>NotificationPage.xaml</DependentUpon>
     </Compile>
@@ -279,13 +286,17 @@
     </Compile>
     <Compile Include="ViewModel\BankDetailsView.cs" />
     <Compile Include="ViewModel\BranchViewModel.cs" />
+    <Compile Include="ViewModel\CenterViewModel.cs" />
     <Compile Include="ViewModel\CollectionReportRepo.cs" />
     <Compile Include="ViewModel\CollectionReportView.cs" />
     <Compile Include="Repository\EmployeeRepository.cs" />
+    <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\HimarkRepository.cs" />
     <Compile Include="ViewModel\HimarkRequestView.cs" />
     <Compile Include="Repository\LoanRepository.cs" />
+    <Compile Include="ViewModel\LoanApplicationViewModel.cs" />
+    <Compile Include="ViewModel\LoanViewModel.cs" />
     <Compile Include="ViewModel\RecommendView.cs" />
     <Compile Include="ViewModel\RegionViewModel.cs" />
     <Compile Include="ViewModel\SamuReportView.cs" />
@@ -339,6 +350,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomerSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomerVerified.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -384,6 +399,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ExportHimarkReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GTrustCustomerProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -629,6 +648,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Asserts\Icons\NoImageFound.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\Usersync.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\House-07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\HomeBtn.png" />
+    <Resource Include="Asserts\Icons\LogOutBtn.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

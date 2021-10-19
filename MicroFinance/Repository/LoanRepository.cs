@@ -26,7 +26,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from LoanApplication where LoanStatus='"+StatusCode+"') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.EnrollDate from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from LoanApplication where LoanStatus='" + StatusCode+"') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -42,6 +42,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.BranchID = reader.GetString(6);
                             HMRequestCustomer.BranchName = reader.GetString(7);
                             HMRequestCustomer.EmpName = reader.GetString(8);
+                            HMRequestCustomer.RequestDate = reader.GetDateTime(9);
                             HMRequestCustomer.IsRecommend = true;
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
@@ -76,7 +77,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.LoanType from CustomerDetails,LoanApplication,BranchDetails,Employee,DisbursementFromSAMU where LoanApplication.RequestId in(select RequestId from LoanApplication where LoanStatus='"+StatusCode+"') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and DisbursementFromSAMU.RequestID=LoanApplication.RequestId";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.LoanType,LoanApplication.EnrollDate from CustomerDetails,LoanApplication,BranchDetails,Employee,DisbursementFromSAMU where LoanApplication.RequestId in(select RequestId from LoanApplication where LoanStatus='"+StatusCode+"') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and DisbursementFromSAMU.RequestID=LoanApplication.RequestId";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -93,6 +94,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.BranchName = reader.GetString(7);
                             HMRequestCustomer.EmpName = reader.GetString(8);
                             HMRequestCustomer.LoanType = reader.GetString(9);
+                            HMRequestCustomer.RequestDate = reader.GetDateTime(10);
                             HMRequestCustomer.IsRecommend = true;
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
@@ -422,6 +424,93 @@ namespace MicroFinance.ViewModel
             }
             return PurposeList;
         }
+
+
+        public static List<LoanApplicationViewModel> LoanApplicationDetails(string CustomerID)
+        {
+            List<LoanApplicationViewModel> Applications = new List<LoanApplicationViewModel>();
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select LoanAmount,LoanType,LoanPeriod,EnrollDate,EmployeeId,LoanStatus,Purpose from LoanApplication where CustId='" + CustomerID+ "' order by EnrollDate DESC";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            LoanApplicationViewModel LoanDetail = new LoanApplicationViewModel();
+                            LoanDetail.LoanAmount = reader.GetInt32(0);
+                            LoanDetail.LoanType = reader.GetString(1);
+                            LoanDetail.LoanPeriod = reader.GetInt32(2);
+                            LoanDetail.EnrollDate = reader.GetDateTime(3);
+                            LoanDetail.RequestedBy = reader.GetString(4);
+                            LoanDetail.StatusCode = reader.GetInt32(5);
+                            LoanDetail.LoanPurpose = reader.GetString(6);
+
+                            Applications.Add(LoanDetail);
+                        }
+                    }
+                }
+            }
+
+                return Applications;
+        }
+
+        public static List<LoanViewModel> LoanDetails(string CustomerID)
+        {
+            List<LoanViewModel> Loans = new List<LoanViewModel>();
+            using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(sqlconn.State==ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select LoanID,LoanType,LoanAmount,LoanPeriod,InterestRate,ApproveDate,RequestedBY,ApprovedBy,IsActive from LoanDetails where CustomerID='" + CustomerID + "' order by ApproveDate DESC";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            LoanViewModel Loan = new LoanViewModel();
+                            Loan.LoanId = reader.GetString(0);
+                            Loan.LoanType = reader.GetString(1);
+                            Loan.LoanAmount = reader.GetInt32(2);
+                            Loan.LoanPeriod = reader.GetInt32(3);
+                            Loan.InterestRate = reader.GetInt32(4);
+                            Loan.ApproveDate = reader.GetDateTime(5);
+                            Loan.RequestedBY = reader.GetString(6);
+                            Loan.ApprovedBy = reader.GetString(7);
+                            Loan.IsActive = reader.GetBoolean(8);
+                            Loans.Add(Loan);
+                        }
+                    }
+                    reader.Close();
+                    foreach(LoanViewModel loan in Loans)
+                    {
+                        sqlcomm.CommandText = "select count(Principal) as CollectedAmount from loanCollectionentry where loanid='" + loan.LoanId + "'";
+                        int Result = (int)sqlcomm.ExecuteScalar();
+                        if(Result==0)
+                        {
+                            loan.PaidedAmount = 0;
+                        }
+                        else
+                        {
+                            sqlcomm.CommandText= "select sum(Principal) as CollectedAmount from loanCollectionentry where loanid='" + loan.LoanId + "'";
+                            loan.PaidedAmount = (int)sqlcomm.ExecuteScalar();
+                        }
+                    }
+                }
+            }
+            return Loans;
+        }
+
+
+
     }
     public class Loan
     {

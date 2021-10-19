@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MicroFinance.Modal;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance.Repository
 {
@@ -125,5 +127,134 @@ namespace MicroFinance.Repository
             Result = region + branch + year + month + ((count < 10) ? "0" + count : count.ToString());
             return Result;
         }
+
+
+        public static List<CenterViewModel> GetCenters()
+        {
+            List<CenterViewModel> CenterList = new List<CenterViewModel>();
+            using(SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select BranchId,SHGId,SHGName from SelfHelpGroup";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            CenterViewModel center = new CenterViewModel();
+                            center.BranchId = reader.GetString(0);
+                            center.CenterID = reader.GetString(1);
+                            center.CenterName = reader.GetString(2);
+
+                            CenterList.Add(center);
+                        }
+                    }
+                }
+                sqlconn.Close();
+            }
+            return CenterList;
+        }
+
+        public static List<CustomerViewModel> Customers(string CenterID)
+        {
+            List<CustomerViewModel> CustomerList = new List<CustomerViewModel>();
+            List<string> CustomerIDList = new List<string>();
+            string CenterName = "";
+            using (SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select CustId from CustomerGroup where PeerGroupId in (select GroupId from PeerGroup where SHGid='"+CenterID+"')";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            CustomerIDList.Add(reader.GetString(0));                        
+                        }
+                    }
+                    reader.Close();
+                    sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId='"+CenterID+"'";
+                    CenterName = (string)sqlcomm.ExecuteScalar();
+                    foreach (string s in CustomerIDList)
+                    {
+                        CustomerViewModel Customer = new CustomerViewModel();
+                        sqlcomm.CommandText = "select Name from CustomerDetails where CustId='" + s + "'";
+                        Customer.CustomerName = (string)sqlcomm.ExecuteScalar();
+                        Customer.CustomerID = s;
+                        Customer.CenterId = CenterID;
+                        Customer.CenterName = CenterName;
+                        sqlcomm.CommandText = "select COUNT(LoanID) from LoanDetails where CustomerID='"+s+"' and IsActive=1";
+                        int result = (int)sqlcomm.ExecuteScalar();
+                        Customer.ActiveLoans = result;
+
+                        CustomerList.Add(Customer);
+                    }
+                }
+                sqlconn.Close();
+            }
+            return CustomerList;
+        }
+
+
+        public static CustomerViewModel GetCustomerMetaDetials(string CustomerID)
+        {
+            CustomerViewModel Customer = new CustomerViewModel();
+            using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select CustId,Name,Dob,Age,Mobile,Occupation,Address from CustomerDetails where CustID='"+CustomerID+"'";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            Customer.CustomerID = reader.GetString(0);
+                            Customer.CustomerName = reader.GetString(1);
+                            Customer.DateOfBirth = reader.GetDateTime(2);
+                            Customer.Age = reader.GetInt32(3);
+                            Customer.PhoneNumber = reader.GetString(4);
+                            Customer.Occupation = reader.GetString(5);
+                            string AddressData = reader.GetString(6);
+                            string[] _fullAdress = AddressData.Split('|', '~');
+                            Customer.Address = FormAddress(_fullAdress);
+                        }
+                    }
+                    reader.Close();
+                    sqlcomm.CommandText= "select SHGName from SelfHelpGroup where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '"+Customer.CustomerID+"'))";
+                    Customer.CenterName = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select SHGId from SelfHelpGroup where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Customer.CustomerID + "'))";
+                    Customer.CenterId = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select BranchName from BranchDetails where Bid=(select BranchId from SelfHelpGroup where SHGId='" + Customer.CenterId + "')";
+                    Customer.BranchName = (string)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+
+            return Customer;
+        }
+
+        private static string FormAddress(string[] Address)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(string s in Address)
+            {
+                if (!string.IsNullOrEmpty(s))
+                    sb.Append(s + ",");
+            }
+            return sb.ToString();
+        }
+
     }
 }

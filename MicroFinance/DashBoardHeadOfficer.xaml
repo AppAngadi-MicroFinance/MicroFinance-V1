@@ -17,7 +17,7 @@
         </StackPanel>
        
         <!--Section A-->        <!-- 1. Find Customer | 2. Find Employee | 3. Add New Employee-->
-        <Grid Width="400" Height="170" Margin="130,100,0,0" Visibility="Collapsed"
+        <Grid Width="400" Height="170" Margin="130,100,0,0" Visibility="Visible"
               HorizontalAlignment="Left" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"></ColumnDefinition>
@@ -39,11 +39,11 @@
             </Border>
 
             <!--Find Employee Customers-->
-            <Border Grid.Row="1" Grid.Column="0" Width="180" Height="70" Style="{StaticResource MainBorder}">
+            <Border Grid.Row="1" Grid.Column="0" Width="180" Height="70" Style="{StaticResource MainBorder}" Visibility="Collapsed">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xFindEmployee" Click="xFindEmployee_Click" Style="{StaticResource NavigateFindEmployeeSmall}"></Button>
+                <Button x:Name="xFindEmployee" Click="xFindEmployee_Click" Style="{StaticResource NavigateFindEmployeeSmall}" Visibility="Collapsed"></Button>
             </Border>
 
 
@@ -62,11 +62,11 @@
             <!--Add New Employee Customer-->
             <Border Width="150" Height="150"  Grid.Column="0" Style="{StaticResource MainBorder}">
                 <Border.Effect>
-                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                    <DropShadowEffect ShadowDepth="0.5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                
+                <Button Style="{StaticResource TransferEmployee}" Name="TransferBtn" Click="TransferBtn_Click"></Button>
             </Border>
-            <Button Style="{StaticResource SecondaryBtn}" Content="Transfer" Name="TransferBtn" Click="TransferBtn_Click"></Button>
+            
             <Border Width="150" Height="150"  Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>

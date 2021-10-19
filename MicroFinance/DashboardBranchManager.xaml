@@ -127,6 +127,12 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Width="180" Height="70" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xFindCustomer" Click="xFindCustomer_Click" Style="{StaticResource NavigateFindCustomerSmall}"></Button>
+            </Border>
             <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>

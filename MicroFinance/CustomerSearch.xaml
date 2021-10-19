@@ -1,0 +1,95 @@
+﻿<Page x:Class="MicroFinance.CustomerSearch"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      d:DesignHeight="630" d:DesignWidth="1366"
+      Title="CustomerSearch" Background="#FEF2E4">
+
+    <Grid>
+        <Border Height="600" Width="1350" Background="#FEF2E4" BorderBrush="Gray" CornerRadius="10" BorderThickness="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="90*"/>
+                </Grid.RowDefinitions>
+                <Border BorderBrush="Gray" BorderThickness="0,0,0,2" CornerRadius="8,8,0,0">
+                    <TextBlock Text="Customer Search" Style="{StaticResource Title}" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                </Border>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="80*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Background="Transparent" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,0,30,0">
+                        <TextBlock Text="No Of Cusomers :  " Style="{StaticResource SubTitle}"></TextBlock>
+                        <TextBlock x:Name="GroupMemberCount" Style="{StaticResource SubTitle}" Margin="0,0,0,0"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="25,0,0,0" Grid.ColumnSpan="2">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Branch Name"></TextBlock>
+                            <ComboBox Style="{StaticResource combo}" x:Name="BranchCombo" HorizontalContentAlignment="Left" Width="300" SelectionChanged="BranchCombo_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding BranchName}" VerticalAlignment="Center"></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,0,0">
+                            <TextBlock Text="Center Name"></TextBlock>
+                            <ComboBox Style="{StaticResource combo}" x:Name="CenterCombo" HorizontalContentAlignment="Left" Width="300" SelectionChanged="CenterCombo_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding CenterName}" VerticalAlignment="Center"></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <Button Visibility="Collapsed" Style="{StaticResource SecondaryBtn}" Height="30" Width="80"  Content="Search" FontSize="12" Margin="10,12,0,0" ToolTip="Search" IsEnabled="False"></Button>
+                    </StackPanel>
+                    <ListView MouseDoubleClick="CustomerList_MouseDoubleClick" BorderBrush="Gray" BorderThickness="1" Grid.Row="1" Grid.ColumnSpan="2" Background="DarkGray" Height="400" Width="1300" x:Name="CustomerList" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Width="1300"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            
+                            <DataTemplate>
+                               
+                                    <Border Margin="5" Width="300" Height="80" CornerRadius="5" Background="Beige" ToolTip="Double Click To View Full Details">
+                                        <StackPanel Margin="10">
+                                        <TextBlock Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SubTitle}" ToolTip="{Binding CustomerName,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                            <TextBlock Text="{Binding CenterName,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Active Loans : " FontWeight="SemiBold" Style="{StaticResource Regular}" FontSize="12"></TextBlock>
+                                            <TextBlock Text="{Binding ActiveLoans,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" Style="{StaticResource NumberSmall}" FontWeight="SemiBold" FontSize="12"></TextBlock>
+                                        </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    
+                    
+                    
+                </Grid>
+                
+                
+
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

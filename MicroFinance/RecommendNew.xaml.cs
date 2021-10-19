@@ -29,6 +29,8 @@ namespace MicroFinance
         List<LoanProcess> NeftList = new List<LoanProcess>();
         NEFT neft = new NEFT();
         ObservableCollection<RecommendView> RecommendList = new ObservableCollection<RecommendView>();
+
+        ObservableCollection<RecommendView> BindingList = new ObservableCollection<RecommendView>();
         public RecommendNew()
         {
             InitializeComponent();
@@ -57,8 +59,19 @@ namespace MicroFinance
             {
                 RecommendList = LoanRepository.GetRecommendList(statusCode);
             }
-            RecommendGrid.ItemsSource = RecommendList;
+            BindingLoad();
+            RecommendGrid.ItemsSource = BindingList;
+            
+            RecommendGrid.Items.Refresh();
 
+        }
+
+        void BindingLoad()
+        {
+            foreach(RecommendView RV in RecommendList)
+            {
+                BindingList.Add(RV);
+            }
         }
 
 
@@ -109,15 +122,15 @@ namespace MicroFinance
         {
             if(CurrentStatus==11)
             {
-                int count = LoanRepository.RecommendLoans(RecommendList, CurrentStatus + 1);
-                LoanRepository.ApproveLoans(RecommendList);
+                int count = LoanRepository.RecommendLoans(BindingList, CurrentStatus + 1);
+                LoanRepository.ApproveLoans(BindingList);
                 MainWindow.StatusMessageofPage(1, count.ToString() + "Loan(s) Approved Successfully!...");
                 this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
 
             }
             else
             {
-                int count = LoanRepository.RecommendLoans(RecommendList, CurrentStatus + 1);
+                int count = LoanRepository.RecommendLoans(BindingList, CurrentStatus + 1);
                 MainWindow.StatusMessageofPage(1, count.ToString() + "Loan(s) Approved Successfully!...");
                 this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
             }
@@ -186,6 +199,30 @@ namespace MicroFinance
             await System.Threading.Tasks.Task.Run(() => GenerateNEFTFile(NeftList));
             GifPanel.Visibility = Visibility.Collapsed;
             this.NavigationService.Navigate(new DashBoardHeadOfficer());
+        }
+
+        private void FilterSearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BindingList.Clear();
+            DateTime StartDate = EnrollStartDate.SelectedDate.Value;
+            DateTime EndDate = EnrollEndDate.SelectedDate.Value;
+
+            if(StartDate>EndDate)
+            {
+                MessageBox.Show("Enter Valid Date!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                foreach (RecommendView R in RecommendList)
+                {
+                    DateTime Date = R.RequestDate.Date;
+                    if (R.RequestDate >= StartDate.Date && R.RequestDate <= EndDate.Date)
+                    {
+                        BindingList.Add(R);
+                    }
+                }
+            }
+
         }
     }
 }

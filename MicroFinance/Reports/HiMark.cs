@@ -2129,7 +2129,7 @@ namespace MicroFinance.Reports
                 xlWorkSheet.Cells[RowStart, 15] = "";
                 xlWorkSheet.Cells[RowStart, 16] = "";
                 xlWorkSheet.Cells[RowStart, 17] = hm.RMName;
-                xlWorkSheet.Cells[RowStart, 18] = DateTime.Today.ToString("dd-MMM-yyyy");
+                xlWorkSheet.Cells[RowStart, 18] = hm.DateOfApplication.ToString("dd-MMM-yyyy");
                 xlWorkSheet.Cells[RowStart, 19] = hm.Member;
                 xlWorkSheet.Cells[RowStart, 20] = hm.ApplicantName;
                 xlWorkSheet.Cells[RowStart, 21] = hm.ApplicantGender;
