@@ -436,7 +436,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select LoanAmount,LoanType,LoanPeriod,EnrollDate,EmployeeId,LoanStatus,Purpose from LoanApplication where CustId='" + CustomerID+"'";
+                    sqlcomm.CommandText = "select LoanAmount,LoanType,LoanPeriod,EnrollDate,EmployeeId,LoanStatus,Purpose from LoanApplication where CustId='" + CustomerID+ "' order by EnrollDate DESC";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
                     {
@@ -470,7 +470,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select LoanID,LoanType,LoanAmount,LoanPeriod,InterestRate,ApproveDate,RequestedBY,ApprovedBy,IsActive from LoanDetails where CustomerID='" + CustomerID + "'";
+                    sqlcomm.CommandText = "select LoanID,LoanType,LoanAmount,LoanPeriod,InterestRate,ApproveDate,RequestedBY,ApprovedBy,IsActive from LoanDetails where CustomerID='" + CustomerID + "' order by ApproveDate DESC";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
                     {

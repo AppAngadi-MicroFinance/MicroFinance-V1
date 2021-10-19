@@ -5,14 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
       mc:Ignorable="d" 
-      d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
+      d:DesignHeight="630" d:DesignWidth="1366" Background="#FEF2E4"
       Title="GTrustCustomerProfile">
     <Page.Resources>
         <Style x:Key="xLoanDetailsStyle" TargetType="{x:Type ListViewItem}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border Width="300" Height="180" CornerRadius="10" BorderThickness="2" BorderBrush="#2a2e36">
+                        <Border Width="300" Height="180" CornerRadius="10" BorderThickness="2" BorderBrush="#2a2e36" Margin="10">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"></RowDefinition>
@@ -23,7 +23,7 @@
                         </Grid.RowDefinitions>
                                 <!--Loan Purpose-->
                                 <Border Background="{DynamicResource xBlack2}" CornerRadius="9,9,0,0">
-                                    <TextBlock x:Name="xLoanPurpose" Text="Agriculture" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center"
+                                    <TextBlock x:Name="xLoanPurpose" Text="{Binding LoanType,UpdateSourceTrigger=PropertyChanged,Mode=OneTime}" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center"
                                                FontSize="16" FontWeight="SemiBold" Foreground="White"></TextBlock>
                                 </Border>
 
@@ -36,9 +36,9 @@
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Margin="20,0,0,0" Text="₹" FontSize="25" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Grid.Column="1" Text="30,000" FontSize="40" Margin="0,0,0,0" Foreground="Red" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Grid.Column="2" FontSize="30" Text="-" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                                    <TextBlock Grid.Column="3" Margin="5,0,0,0" FontSize="30" Text="20,600" FontWeight="Light" Foreground="Green" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                                    <TextBlock Grid.Column="1" Grid.ColumnSpan="1" Text="{Binding BalanceAmount,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:#\,#}}" FontSize="40" Margin="0,0,0,0" Foreground="Red" FontFamily="Roboto" FontWeight="Regular" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Grid.Column="2" FontSize="30" Text="/" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    <TextBlock Grid.Column="3" Margin="5,0,0,0" FontSize="30" Text="{Binding LoanAmount,Mode=OneTime,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:#\,#}}" FontWeight="Light" Foreground="Green" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                                 </Grid>
 
                                 <!--Week and Interest-->
@@ -54,19 +54,19 @@
                                         <ColumnDefinition Width="20"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock Text="50" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="SemiBold"></TextBlock>
+                                    <TextBlock Text="{Binding LoanPeriod,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="SemiBold"></TextBlock>
                                     <TextBlock Grid.Column="1" Text="/" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                                     <TextBlock Grid.Column="2" Text="50" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="SemiBold"></TextBlock>
                                     <TextBlock Grid.Column="3" Text="w" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="DarkOrange"></TextBlock>
 
                                     <TextBlock Grid.Column="5" Text="Interest :" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Orange"></TextBlock>
-                                    <TextBlock Grid.Column="6" Text="12" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                                    <TextBlock Grid.Column="6" Text="{Binding InterestRate,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                                     <TextBlock Grid.Column="7" Text="%" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                                 </Grid>
                 
                                 <!--Date string-->
                                 <Border Grid.Row="4" Background="{DynamicResource xBlack2}" CornerRadius="0,0,10,10">
-                                    <TextBlock x:Name="xDateString" Text="12   - June -   2021" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center"
+                                    <TextBlock x:Name="xDateString" Text="{Binding ApproveDate,Mode=OneTime,UpdateSourceTrigger=PropertyChanged,StringFormat='{}{0:dd - MMM - yyyy}'}" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center"
                                    FontWeight="SemiBold" Foreground="White"></TextBlock>
                                 </Border>
                             </Grid>
@@ -79,7 +79,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border Width="300" Height="180" CornerRadius="10" BorderThickness="2" BorderBrush="#2a2e36">
+                        <Border Width="300" Height="180" CornerRadius="10" BorderThickness="2" BorderBrush="#2a2e36" Margin="10">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30"></RowDefinition>
@@ -90,7 +90,7 @@
                                 </Grid.RowDefinitions>
                                 <!--Loan Purpose-->
                                 <Border Background="{DynamicResource xBlack2}" CornerRadius="9,9,0,0">
-                                    <TextBlock x:Name="xLoanPurpose" Text="Agriculture" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center"
+                                    <TextBlock x:Name="xLoanPurpose" Text="{Binding LoanPurpose,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center"
                                FontSize="16" FontWeight="SemiBold" Foreground="White"></TextBlock>
                                 </Border>
                                 <!--Loan amount and Balance amount-->
@@ -100,7 +100,7 @@
                                         <ColumnDefinition Width="120"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Margin="0,0,20,0" Grid.Column="0" Text="₹" FontSize="25" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <TextBlock Grid.Column="1" Text="30,000" FontSize="40" Margin="0,0,0,0" Foreground="{DynamicResource xBlack2}" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Grid.Column="1" Text="{Binding LoanAmount,Mode=OneTime,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:#\,#}}" FontSize="40" Margin="0,0,0,0" Foreground="{DynamicResource xBlack2}" FontFamily="Roboto" FontWeight="Light" VerticalAlignment="Center"></TextBlock>
                                 </Grid>
                                 <!--Week and Interest-->
                                 <Grid Grid.Row="2" Width="250" Height="20" VerticalAlignment="Bottom">
@@ -115,10 +115,10 @@
                                         <ColumnDefinition Width="20"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock Text="50" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="SemiBold"></TextBlock>
-                                    <TextBlock Grid.Column="1" Text="/" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                                    <TextBlock Grid.Column="2" Text="50" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="SemiBold"></TextBlock>
-                                    <TextBlock Grid.Column="3" Text="w" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="DarkOrange"></TextBlock>
+                                    <TextBlock Text="{Binding LoanPeriod,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="SemiBold"></TextBlock>
+                                    <TextBlock Grid.Column="1" Foreground="DarkOrange" Grid.ColumnSpan="3" Margin="10,0,0,0" Text="Weeks" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                    <TextBlock Grid.Column="2" Text="" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="SemiBold"></TextBlock>
+                                    <TextBlock Grid.Column="3" Text="" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="DarkOrange"></TextBlock>
 
                                     <TextBlock Grid.Column="5" Text="Interest :" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Green"></TextBlock>
                                     <TextBlock Grid.Column="6" Text="12" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
@@ -132,13 +132,13 @@
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Margin="6,0,0,3" Text="STATUS :" Foreground="#070e57" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBlock>
-                                    <TextBlock Margin="10,0,0,3" Grid.Column="1" Text="Application pending" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBlock>
+                                    <TextBlock Margin="10,0,0,3" Grid.Column="1" Text="{Binding LoanStatus,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBlock>
                                 </Grid>
 
 
                                 <!--Date string-->
                                 <Border Grid.Row="4" Background="{DynamicResource xBlack2}" CornerRadius="0,0,10,10">
-                                    <TextBlock x:Name="xDateString" Text="12   - June -   2021" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center"
+                                    <TextBlock x:Name="xDateString" Text="{Binding EnrollDate,Mode=OneTime,UpdateSourceTrigger=PropertyChanged,StringFormat='{}{0:dd - MMM - yyyy}'}" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center"
                                FontWeight="SemiBold" Foreground="White"></TextBlock>
                                 </Border>
                             </Grid>
@@ -149,8 +149,101 @@
         </Style>
     </Page.Resources>
 
-    <Grid>
+    <Grid x:Name="CustomerDetailsGrid" Background="White">
 
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="80*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.RowSpan="2" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="250"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border Height="200" Width="200" Grid.RowSpan="2" CornerRadius="150" VerticalAlignment="Top" Margin="0,20,0,0">
+                <Border.Background>
+                    <ImageBrush ImageSource="Asserts\Icons\User-Female.png"></ImageBrush>
+                    <!--<SolidColorBrush Color="Gray"></SolidColorBrush>-->
+                </Border.Background>
+            </Border>
+            <TextBlock Text="{Binding CustomerName,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Width="auto" Style="{StaticResource SubTitle}" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow"></TextBlock>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBlock Text="Age :" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
+                <TextBlock Text="{Binding Age,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" Style="{StaticResource Regular}" FontWeight="Bold" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="DOB : " Style="{StaticResource Regular}" Margin="50,0,0,0"></TextBlock>
+                <TextBlock Text="{Binding DateOfBirth,Mode=OneTime,UpdateSourceTrigger=PropertyChanged,StringFormat='{}{0:dd-MMM-yyyy}'}" Style="{StaticResource Regular}" FontWeight="Bold"></TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <TextBlock Text="Occupation      :" Margin="10,0,0,0" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Text="{Binding Occupation,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" Style="{StaticResource Regular}" FontWeight="SemiBold"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="4">
+                <TextBlock Text="Group Name   :" Margin="10,0,0,0" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Text="{Binding CenterName,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Width="140" Style="{StaticResource Regular}" FontWeight="SemiBold" Margin="10,0,0,0" TextWrapping="WrapWithOverflow"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="5">
+                <TextBlock Text="Branch Name  :" Margin="10,0,0,0" Style="{StaticResource Regular}"></TextBlock>
+                <TextBlock Text="{Binding BranchName,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" FontWeight="SemiBold" Margin="10,0,0,0"></TextBlock>
+            </StackPanel>
+            <TextBlock Grid.Row="6" Text="Address" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
+            <TextBlock Text="{Binding Address,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Grid.Row="7" Grid.RowSpan="3" Style="{StaticResource Regular}" VerticalAlignment="Top" TextWrapping="Wrap" Margin="10,0,0,0" FontWeight="SemiBold"></TextBlock>
+            <StackPanel Orientation="Horizontal" Grid.Row="10">
+                <TextBlock Text="Phone Number  :" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
+                <TextBlock Text="{Binding PhoneNumber,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" Style="{StaticResource Regular}" FontWeight="SemiBold" ></TextBlock>
+            </StackPanel>
+
+        </Grid>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="0,10,0,0">
+            <Border Grid.Row="0" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Width="1050" x:Name="LoandetailsPanel" CornerRadius="10" Height="300">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="260"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Loan Details" Style="{StaticResource SubTitle}"  Margin="20,0,0,0" FontWeight="Bold"></TextBlock>
+                    <ListView Grid.Row="1" Height="250" Margin="0,0,0,0" Width="1000" x:Name="LoanDetailsList" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" ItemContainerStyle="{StaticResource xLoanDetailsStyle}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </Grid>
+            </Border>
+            <Border Margin="0,20,0,0" Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Width="1050" x:Name="LoanApplicationPanel" CornerRadius="10" Height="300">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="260"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Application Details" Style="{StaticResource SubTitle}"  Margin="20,0,0,0" FontWeight="Bold"></TextBlock>
+                    <ListView Grid.Row="1" Height="250" Margin="0,0,0,0" Width="1000" x:Name="ApplicationDetailsList" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" ItemContainerStyle="{StaticResource xLoanApplication}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </Grid>
+            </Border>
+        </StackPanel>
         
 
     </Grid>

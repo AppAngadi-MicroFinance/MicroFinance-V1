@@ -33,6 +33,30 @@ namespace MicroFinance
             CenterList = CustomerRepository.GetCenters();
             BranchCombo.ItemsSource = BranchList;
         }
+        public CustomerSearch(string BranchID)
+        {
+            InitializeComponent();
+
+            BranchList = EmployeeRepository.GetBranches();
+            CenterList = CustomerRepository.GetCenters();
+            BranchCombo.ItemsSource = BranchList;
+            BranchCombo.SelectedIndex = SelectedBranch(BranchID);
+            BranchCombo.IsEnabled = false;
+        }
+
+        int SelectedBranch(string branchID)
+        {
+            int count = 0;
+            foreach(BranchViewModel Branch in BranchList)
+            {
+                if(Branch.BranchId==branchID)
+                {
+                    return count;
+                }
+                count++;
+            }
+            return 0;
+        }
 
         private void CustomerList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -40,7 +64,8 @@ namespace MicroFinance
 
             List<LoanApplicationViewModel> Applications= LoanRepository.LoanApplicationDetails(SelectedCustomer.CustomerID);
             List<LoanViewModel> Laons= LoanRepository.LoanDetails(SelectedCustomer.CustomerID);
-            MessageBox.Show(SelectedCustomer.CustomerID+" | "+SelectedCustomer.CustomerName);
+            // MessageBox.Show(SelectedCustomer.CustomerID+" | "+SelectedCustomer.CustomerName);
+            this.NavigationService.Navigate(new GTrustCustomerProfile(SelectedCustomer.CustomerID));
         }
 
         private void BranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

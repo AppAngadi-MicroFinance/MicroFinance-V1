@@ -214,11 +214,47 @@ namespace MicroFinance.Repository
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText=""
+                    sqlcomm.CommandText = "select CustId,Name,Dob,Age,Mobile,Occupation,Address from CustomerDetails where CustID='"+CustomerID+"'";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            Customer.CustomerID = reader.GetString(0);
+                            Customer.CustomerName = reader.GetString(1);
+                            Customer.DateOfBirth = reader.GetDateTime(2);
+                            Customer.Age = reader.GetInt32(3);
+                            Customer.PhoneNumber = reader.GetString(4);
+                            Customer.Occupation = reader.GetString(5);
+                            string AddressData = reader.GetString(6);
+                            string[] _fullAdress = AddressData.Split('|', '~');
+                            Customer.Address = FormAddress(_fullAdress);
+                        }
+                    }
+                    reader.Close();
+                    sqlcomm.CommandText= "select SHGName from SelfHelpGroup where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '"+Customer.CustomerID+"'))";
+                    Customer.CenterName = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select SHGId from SelfHelpGroup where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Customer.CustomerID + "'))";
+                    Customer.CenterId = (string)sqlcomm.ExecuteScalar();
+                    sqlcomm.CommandText = "select BranchName from BranchDetails where Bid=(select BranchId from SelfHelpGroup where SHGId='" + Customer.CenterId + "')";
+                    Customer.BranchName = (string)sqlcomm.ExecuteScalar();
                 }
+                sqlconn.Close();
             }
 
             return Customer;
         }
+
+        private static string FormAddress(string[] Address)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(string s in Address)
+            {
+                if (!string.IsNullOrEmpty(s))
+                    sb.Append(s + ",");
+            }
+            return sb.ToString();
+        }
+
     }
 }

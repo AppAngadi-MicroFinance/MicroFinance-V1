@@ -73,8 +73,8 @@
                                         <TextBlock Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SubTitle}" ToolTip="{Binding CustomerName,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                                             <TextBlock Text="{Binding CenterName,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}"></TextBlock>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Active Loans : " Style="{StaticResource Regular}" FontSize="12"></TextBlock>
-                                            <TextBlock Text="{Binding ActiveLoans,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" Style="{StaticResource NumberSmall}" FontSize="12"></TextBlock>
+                                            <TextBlock Text="Active Loans : " FontWeight="SemiBold" Style="{StaticResource Regular}" FontSize="12"></TextBlock>
+                                            <TextBlock Text="{Binding ActiveLoans,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" Style="{StaticResource NumberSmall}" FontWeight="SemiBold" FontSize="12"></TextBlock>
                                         </StackPanel>
                                         </StackPanel>
                                     </Border>

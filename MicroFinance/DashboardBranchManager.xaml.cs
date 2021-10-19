@@ -195,5 +195,11 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new AddEmployee());
         }
+
+        private void xFindCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            string BranchID = MainWindow.LoginDesignation.BranchId;
+            this.NavigationService.Navigate(new CustomerSearch(BranchID));
+        }
     }
 }

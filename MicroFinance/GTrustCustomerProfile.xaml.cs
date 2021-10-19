@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.ViewModel;
+using MicroFinance.Reports;
+using MicroFinance.Repository;
 
 namespace MicroFinance
 {
@@ -20,9 +23,42 @@ namespace MicroFinance
     /// </summary>
     public partial class GTrustCustomerProfile : Page
     {
+        public List<LoanApplicationViewModel> Applications = new List<LoanApplicationViewModel>();
+        public List<LoanViewModel> Loans = new List<LoanViewModel>();
+        CustomerViewModel Customer = new CustomerViewModel();
         public GTrustCustomerProfile()
         {
             InitializeComponent();
+        }
+        public GTrustCustomerProfile(string CustomerID)
+        {
+            InitializeComponent();
+            //LoadLoans();
+            Loans = LoanRepository.LoanDetails(CustomerID);
+            Applications = LoanRepository.LoanApplicationDetails(CustomerID);
+
+            Customer = CustomerRepository.GetCustomerMetaDetials(CustomerID);
+            CustomerDetailsGrid.DataContext = Customer;
+            ApplicationDetailsList.ItemsSource = Applications;
+            LoanDetailsList.ItemsSource = Loans;
+            CheckVisibility();
+        }
+        void CheckVisibility()
+        {
+            if (Loans.Count == 0)
+                LoandetailsPanel.Visibility = Visibility.Collapsed;
+            if (Applications.Count == 0)
+                LoanApplicationPanel.Visibility = Visibility.Collapsed;
+
+        }
+
+        void LoadLoans()
+        {
+            for(int i=0;i<10;i++)
+            {
+                //Applications.Add(new LoanViewModel());
+               // Loans.Add(new LoanApplicationViewModel{LoanType=i.ToString() });
+            }
         }
     }
 
