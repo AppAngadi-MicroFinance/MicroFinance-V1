@@ -149,9 +149,12 @@ namespace MicroFinance.ViewModel
                                 HMData.District = fulladdress[8].ToString().ToUpper();
                                 HMData.Pincode = reader1.GetInt32(14).ToString();
                                 HMData.Place = HMData.Taluk;
-                                HMData.Residence = reader1.GetString(25).ToUpper();
-                                HMData.TypeOFResidence = reader1.GetString(15).ToUpper();
-                                HMData.LandHolding = reader1.GetString(26).ToUpper();
+                                HMData.Residence = (DBNull.Value.Equals(reader1["Residency"])) ? "" : reader1.GetString(25).ToUpper();
+                                HMData.TypeOFResidence = (DBNull.Value.Equals(reader1["HousingType"])) ? "" : reader1.GetString(15).ToUpper();
+                                HMData.LandHolding = (DBNull.Value.Equals(reader1["LandHolding"])) ? "" : reader1.GetString(26).ToUpper();
+                                // HMData.Residence = reader1.GetString(25).ToUpper();
+                                // HMData.TypeOFResidence = reader1.GetString(15).ToUpper();
+                               // HMData.LandHolding = reader1.GetString(26).ToUpper();
                                 HMData.ApplicantIDProofType = reader1.GetString(16).ToUpper();
                                 HMData.ApplicantIDProofNo = reader1.GetString(17).ToUpper();
                                 HMData.ApplicantAddressProofType = reader1.GetString(18).ToUpper();
