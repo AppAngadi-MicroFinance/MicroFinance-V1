@@ -49,7 +49,7 @@ namespace MicroFinance
             }
             else if(CurrentStatus==12)
             {
-                RecommendList = LoanRepository.GetRecommendList(statusCode, true);
+                RecommendList = LoanRepository.GetApproveList(statusCode, true);
                 RecommendPanel.Visibility = Visibility.Collapsed;
                 ReportPanel.Visibility = Visibility.Visible;
                 loanprocess.GetLoanDetailList(12);
@@ -81,7 +81,7 @@ namespace MicroFinance
 
             foreach(LoanProcess lp in loans)
             {
-                foreach(RecommendView rm in RecommendList)
+                foreach(RecommendView rm in BindingList)
                 {
                     if(rm.RequestID==lp.LoanRequestID)
                     {
@@ -223,6 +223,34 @@ namespace MicroFinance
                 }
             }
 
+        }
+
+        private void BranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BranchViewModel SelectedBranch = BranchCombo.SelectedItem as BranchViewModel;
+            ObservableCollection<RecommendView> CurrentList = LoadCurrent(BindingList);
+
+
+            BindingList.Clear();
+            foreach(RecommendView R in CurrentList)
+            {
+                if(SelectedBranch.BranchId==R.BranchID)
+                {
+                    BindingList.Add(R);
+                }
+            }
+
+        }
+
+        public static ObservableCollection<RecommendView> LoadCurrent(ObservableCollection<RecommendView> BindingList)
+        {
+            ObservableCollection<RecommendView> ResultList = new ObservableCollection<RecommendView>();
+
+            foreach(RecommendView r in BindingList)
+            {
+                ResultList.Add(r);
+            }
+            return ResultList;
         }
     }
 }
