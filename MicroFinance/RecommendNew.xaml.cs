@@ -29,6 +29,7 @@ namespace MicroFinance
         List<LoanProcess> NeftList = new List<LoanProcess>();
         NEFT neft = new NEFT();
         ObservableCollection<RecommendView> RecommendList = new ObservableCollection<RecommendView>();
+        ObservableCollection<BranchViewModel> BranchList = new ObservableCollection<BranchViewModel>();
 
         ObservableCollection<RecommendView> BindingList = new ObservableCollection<RecommendView>();
         public RecommendNew()
@@ -38,14 +39,17 @@ namespace MicroFinance
         public RecommendNew(int statusCode)
         {
             InitializeComponent();
-            
-           
+            EnrollStartDate.SelectedDate = DateTime.Today;
+            EnrollEndDate.SelectedDate = DateTime.Today;
+
             CurrentStatus = statusCode;
             if(statusCode==11)
             {
                 TileText.Text = "Loan Approval";
                 RecommendLoanBtn.Content = "Approve";
                 RecommendList = LoanRepository.GetRecommendList(statusCode,true);
+                BranchList = EmployeeRepository.GetBranches();
+                BranchCombo.ItemsSource = BranchList;
             }
             else if(CurrentStatus==12)
             {
@@ -54,15 +58,32 @@ namespace MicroFinance
                 ReportPanel.Visibility = Visibility.Visible;
                 loanprocess.GetLoanDetailList(12);
                 NeftList = loanprocess.LoanProcessList;
+                BranchList = EmployeeRepository.GetBranches();
+                BranchCombo.ItemsSource = BranchList;
+            }
+            else if(CurrentStatus==9)
+            {
+                RecommendList = LoanRepository.GetRecommendListForRM(statusCode);
+                BranchList = EmployeeRepository.GetBranches();
+                BranchCombo.ItemsSource = BranchList;
             }
             else
             {
+
                 RecommendList = LoanRepository.GetRecommendList(statusCode);
+                BranchList = EmployeeRepository.GetBranches();
+                BranchCombo.ItemsSource = BranchList;
+
             }
             BindingLoad();
             RecommendGrid.ItemsSource = BindingList;
             
             RecommendGrid.Items.Refresh();
+
+            if(MainWindow.LoginDesignation.LoginDesignation=="Manager")
+            {
+                BranchNamePanel.Visibility = Visibility.Collapsed;
+            }
 
         }
 
@@ -206,39 +227,55 @@ namespace MicroFinance
             BindingList.Clear();
             DateTime StartDate = EnrollStartDate.SelectedDate.Value;
             DateTime EndDate = EnrollEndDate.SelectedDate.Value;
+            BranchViewModel SelectedBranch = BranchCombo.SelectedItem as BranchViewModel;
 
-            if(StartDate>EndDate)
+            if(StartDate>EndDate || StartDate==null || EndDate==null)
             {
                 MessageBox.Show("Enter Valid Date!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
-            {
-                foreach (RecommendView R in RecommendList)
+            { 
+                if(BranchCombo.SelectedIndex!=-1)
                 {
-                    DateTime Date = R.RequestDate.Date;
-                    if (R.RequestDate >= StartDate.Date && R.RequestDate <= EndDate.Date)
+                    foreach (RecommendView R in RecommendList)
                     {
-                        BindingList.Add(R);
+                        DateTime Date = R.RequestDate.Date;
+                        if (R.RequestDate >= StartDate.Date && R.RequestDate <= EndDate.Date && SelectedBranch.BranchId == R.BranchID)
+                        {
+                            BindingList.Add(R);
+                        }
                     }
                 }
+                else
+                {
+                    foreach (RecommendView R in RecommendList)
+                    {
+                        DateTime Date = R.RequestDate.Date;
+                        if (R.RequestDate >= StartDate.Date && R.RequestDate <= EndDate.Date)
+                        {
+                            BindingList.Add(R);
+                        }
+                    }
+                }
+                
             }
 
         }
 
         private void BranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            BranchViewModel SelectedBranch = BranchCombo.SelectedItem as BranchViewModel;
-            ObservableCollection<RecommendView> CurrentList = LoadCurrent(BindingList);
+            //BranchViewModel SelectedBranch = BranchCombo.SelectedItem as BranchViewModel;
+            //ObservableCollection<RecommendView> CurrentList = LoadCurrent(BindingList);
 
 
-            BindingList.Clear();
-            foreach(RecommendView R in CurrentList)
-            {
-                if(SelectedBranch.BranchId==R.BranchID)
-                {
-                    BindingList.Add(R);
-                }
-            }
+            //BindingList.Clear();
+            //foreach(RecommendView R in CurrentList)
+            //{
+            //    if(SelectedBranch.BranchId==R.BranchID)
+            //    {
+            //        BindingList.Add(R);
+            //    }
+            //}
 
         }
 

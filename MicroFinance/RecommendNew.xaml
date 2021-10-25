@@ -24,7 +24,7 @@
         <TextBlock x:Name="TileText" Text="Loan Recommend" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"></TextBlock>
         <Separator VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="10" ></Separator>
         <!--Branch Filter Section-->
-        <StackPanel Grid.Row="1" Width="300" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" Width="300" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" x:Name="BranchNamePanel">
             <TextBlock Text="Branch Name"></TextBlock>
             <ComboBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="3" Width="300" Style="{StaticResource combo}" x:Name="BranchCombo" SelectionChanged="BranchCombo_SelectionChanged">
                 <ComboBox.ItemTemplate>
