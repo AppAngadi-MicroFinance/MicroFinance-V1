@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MicroFinance.Modal;
 namespace MicroFinance.ViewModel
 {
-    class RecommendView:BindableBase
+    public class RecommendView:BindableBase
     {
         public string CustomerName { get; set; }
         public int LoanAmount { get; set; }

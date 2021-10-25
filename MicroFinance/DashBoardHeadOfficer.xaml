@@ -87,12 +87,12 @@
             </Border>
         </Grid>
 
-        <Grid Width="400" Height="170" Margin="130,0,0,50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="Collapsed">
+        <Grid Width="400" Height="170" Margin="130,0,0,50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}">
+            <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}" Visibility="Collapsed">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>

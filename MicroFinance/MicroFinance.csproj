@@ -252,6 +252,7 @@
     <Compile Include="Reports\SamuunatiReport.cs" />
     <Compile Include="Reports\SUMAtoHO.cs" />
     <Compile Include="Repository\BankRepository.cs" />
+    <Compile Include="Repository\CollectionRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="SamuExport.xaml.cs">
       <DependentUpon>SamuExport.xaml</DependentUpon>

@@ -278,7 +278,7 @@ namespace MicroFinance
             LoadHomePage(Designation);
         }
 
-        void LoadHomePage(string Designation)
+        public void LoadHomePage(string Designation)
         {
             if (Designation.Equals("Field Officer"))
                 mainframe.NavigationService.Navigate(new DashboardFieldOfficer());

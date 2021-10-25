@@ -256,5 +256,39 @@ namespace MicroFinance.Repository
             return sb.ToString();
         }
 
+
+        public static int GetSavingsAccountBalance(string CustomerId)
+        {
+            int Balance = 0;
+            int CreditAmount = 0;
+            int DebitAmount = 0;
+            using (SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select Count(Amount) from SecurityDeposit where PaymentType='Credit' and CustID='" + CustomerId + "'";
+                    int Count1 = (int)sqlcomm.ExecuteScalar();
+                    if(Count1!=0)
+                    {
+                        sqlcomm.CommandText = "select Amount from SecurityDeposit where PaymentType='Credit' and CustID='" + CustomerId + "'";
+                         CreditAmount = (int)sqlcomm.ExecuteScalar();
+                    }
+                    sqlcomm.CommandText = "select Count(Amount) from SecurityDeposit where PaymentType='Debit' and CustID='" + CustomerId + "'";
+                    int Count2 = (int)sqlcomm.ExecuteScalar();
+                    if (Count2 != 0)
+                    {
+                        sqlcomm.CommandText = "select Amount from SecurityDeposit where PaymentType='Debit' and CustID='" + CustomerId + "'";
+                        DebitAmount = (int)sqlcomm.ExecuteScalar();
+                    }
+                    Balance = CreditAmount - DebitAmount;
+                }
+                sqlconn.Close();
+            }
+            return Balance;
+        }
+
     }
 }

@@ -36,7 +36,7 @@ namespace MicroFinance
             //LoadLoans();
             Loans = LoanRepository.LoanDetails(CustomerID);
             Applications = LoanRepository.LoanApplicationDetails(CustomerID);
-
+            SecurityBalance.Text = CustomerRepository.GetSavingsAccountBalance(CustomerID).ToString("N2");
             Customer = CustomerRepository.GetCustomerMetaDetials(CustomerID);
             CustomerDetailsGrid.DataContext = Customer;
             ApplicationDetailsList.ItemsSource = Applications;

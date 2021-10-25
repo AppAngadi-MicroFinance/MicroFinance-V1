@@ -373,6 +373,57 @@ namespace MicroFinance.ViewModel
             return Result;
         }
 
+        public static void AssignNewEmployeeToCenter(string EmpId,List<TimeTableViewModel> TimeTableList)
+        {
+            using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if(sqlconn.State==ConnectionState.Open)
+                {
+                    foreach(TimeTableViewModel TT in TimeTableList)
+                    {
+                        SqlCommand sqlcomm = new SqlCommand();
+                        sqlcomm.Connection = sqlconn;
+                        sqlcomm.CommandText = "update TimeTable set EmpId='"+EmpId+"' where SHGId='"+TT.SHGId+"'";
+                        sqlcomm.ExecuteNonQuery();
+                    }
+                    
+                }
+            }
+        }
+
+
+
+        public static List<EmployeeViewModel> GetNewEmployees(string BranchId)
+        {
+            List<EmployeeViewModel> NewEmployees = new List<EmployeeViewModel>();
+            using (SqlConnection sqlconn=new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select Employee.EmpId,Employee.Name from Employee,EmployeeBranch where Employee.EmpId  not in(select distinct EmpId from TimeTable) and EmployeeBranch.EmpId=Employee.EmpId and EmployeeBranch.BranchId='"+BranchId+"' and EmployeeBranch.Designation='Field Officer'";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            EmployeeViewModel employee = new EmployeeViewModel();
+                            employee.BranchId = BranchId;
+                            employee.EmployeeId = reader.GetString(0);
+                            employee.EmployeeName = reader.GetString(1);
+                            NewEmployees.Add(employee);
+                        }
+                    }
+                    reader.Close();
+                }
+                sqlconn.Close();
+            }
+            return NewEmployees;
+
+        }
 
         public static bool TransferEmployee(TransferEmployeeView EmployeeDetails)
         {

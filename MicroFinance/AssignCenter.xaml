@@ -19,8 +19,15 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Ashraf Ali" Style="{StaticResource Title}" VerticalAlignment="Center" Margin="25,0,0,0" x:Name="EmployeeNameText"></TextBlock>
-        
-        <DataGrid Grid.Row="1" Height="450" Width="600" ColumnHeaderHeight="35" x:Name="TimeTableGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False">
+        <!--Over All Check-->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <CheckBox Content="Select All Group" Margin="35,20,0,0" Click="SelectAllCenterCheck_Click" x:Name="SelectAllCenterCheck">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+        </StackPanel>
+        <DataGrid Grid.Row="1" Height="450" Width="600" ColumnHeaderHeight="35" x:Name="TimeTableGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="CenterName" Width="200" Binding="{Binding SHGName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Collection Day" Width="150" Binding="{Binding CollectionDay}"></DataGridTextColumn>
@@ -47,6 +54,38 @@
                 </Style>
             </DataGrid.RowStyle>
         </DataGrid>
+        
+        <!--Assign New Employee Groups-->
+        <Grid Grid.Row="1" Grid.Column="1" Width="400" Height="200" Background="White" x:Name="AssignPanel1" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="60*"/>
+                
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Old Employee Name" Margin="5,0,0,0" Style="{StaticResource Regular}"></TextBlock>
+            <TextBlock Text="Ashraf Ali"  Grid.Column="1" Style="{StaticResource SubTitle}" x:Name="EmployeeNameText1"/>
+            <TextBlock Text="New Employee" Style="{StaticResource Regular}" Grid.Row="1" Margin="5,0,0,0"></TextBlock>
+            <ComboBox Grid.Row="1" Grid.Column="1" Height="35" Width="220" x:Name="NewEmployeeCombo1">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding EmployeeName}" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                <Button Style="{StaticResource PrimaryBtn}" Content="Assign" x:Name="FullAssignBtn" Click="FullAssignBtn_Click"></Button>
+                <Button Style="{StaticResource CancelBtn}" Margin="10,0,0,0" Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
+            </StackPanel>
+            
+        </Grid>
+        <!--Assign Panel-->
         <Grid Grid.Row="1" Grid.Column="1" Background="White" Width="500" Height="450" x:Name="ShgAssignPanel" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition/>

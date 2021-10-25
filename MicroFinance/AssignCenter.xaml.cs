@@ -26,6 +26,7 @@ namespace MicroFinance
         public static List<int> Hours = new List<int>() {6,7,8,9,10,11,12};
         public static List<int> Minutes = new List<int>() {0,30};
         public static ObservableCollection<EmployeeViewModel> EmployeeList = new ObservableCollection<EmployeeViewModel>();
+        public static List<EmployeeViewModel> NewEmployees = new List<EmployeeViewModel>();
 
         public static string EmpName = string.Empty;
 
@@ -48,7 +49,9 @@ namespace MicroFinance
             string BranchId = Employees.Where(temp => temp.EmployeeId == EmpId).Select(temp => temp.BranchId).FirstOrDefault();
             EmpName = Employees.Where(temp => temp.EmployeeId == EmpId).Select(temp => temp.EmployeeName).FirstOrDefault();
             EmployeeNameText.Text = EmpName;
-
+            EmployeeNameText1.Text = EmpName;
+            NewEmployees = EmployeeRepository.GetNewEmployees(BranchId);
+            NewEmployeeCombo1.ItemsSource = NewEmployees;
             LoadEmployee(BranchId, EmpId);
             TimeTableGrid.ItemsSource = TimeTableList;
             NewEmployeeCombo.ItemsSource = EmployeeList;
@@ -106,6 +109,69 @@ namespace MicroFinance
                 SHG.NewEmployee = SelectedEmployee.EmployeeId;
             }
            
+        }
+
+        private void FullAssignBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(NewEmployeeCombo1.SelectedIndex!=-1)
+            {
+                EmployeeViewModel NewSelectedEmployee = NewEmployeeCombo1.SelectedItem as EmployeeViewModel;
+
+                string Message= "Are You Sure You Want to Change All Center To "+NewSelectedEmployee.EmployeeName;
+                MessageBoxResult result = MessageBox.Show(Message, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if(result==MessageBoxResult.Yes)
+                {
+                    EmployeeRepository.AssignNewEmployeeToCenter(NewSelectedEmployee.EmployeeId, TimeTableList);
+                    string Designation = MainWindow.LoginDesignation.LoginDesignation;
+                    Designation = (Designation == null) ? "" : Designation;
+                    LoadHomePage(Designation);
+                }
+                
+                
+            }
+            else
+            {
+                MessageBox.Show("Please Select The Employee");
+            }
+            
+        }
+        public void LoadHomePage(string Designation)
+        {
+            if (Designation.Equals("Field Officer"))
+                this.NavigationService.Navigate(new DashboardFieldOfficer());
+            else if (Designation.Equals("Accountant"))
+                this.NavigationService.Navigate(new DashboardAccountant());
+            else if (Designation.Equals("Branch Manager") || Designation.Equals("Manager"))
+                this.NavigationService.Navigate(new DashboardBranchManager());
+            else if (Designation.Equals("Region Manager"))
+                this.NavigationService.Navigate(new DashBoardRegionOfficer());
+            else
+                this.NavigationService.Navigate(new DashBoardHeadOfficer());
+        }
+
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SelectAllCenterCheck_Click(object sender, RoutedEventArgs e)
+        {
+           if(SelectAllCenterCheck.IsChecked==true)
+            {
+                AssignPanel1.Visibility = Visibility.Visible;
+            }
+           else if(SelectAllCenterCheck.IsChecked==false)
+            {
+                AssignPanel1.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string Designation = MainWindow.LoginDesignation.LoginDesignation;
+            Designation = (Designation == null) ? "" : Designation;
+            LoadHomePage(Designation);
         }
     }
 
