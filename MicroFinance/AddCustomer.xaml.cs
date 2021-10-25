@@ -39,7 +39,6 @@ namespace MicroFinance
         public List<string> ResidencyList = new List<string> { "OWN HOUSE", "RENT HOUSE" };
         public List<string> ResidencyTypeList = new List<string> { "HUT HOUSE", "TILED ROOF HOUSE", "CONCRETE HOUSE" };
         public List<string> LandHoldingList = new List<string> { "YES", "NO" };
-
         public List<BankDetailsView> BankDetailsList = new List<BankDetailsView>();
 
         string WhichClassButtonClick;
