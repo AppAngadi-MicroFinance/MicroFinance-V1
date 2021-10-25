@@ -47,7 +47,8 @@ namespace MicroFinance
         {
             InitializeComponent();
             IsEligible();
-           // TempLoad();
+
+            //TempLoad();
             BranchAndGroupDetailsforFieldOfficer();
             Assign();
             BankList = BankRepository.GetAllBankNames();
