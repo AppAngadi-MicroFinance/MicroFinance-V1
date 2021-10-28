@@ -6,7 +6,7 @@
         xmlns:Convert="clr-namespace:MicroFinance.Converters"
         xmlns:local="clr-namespace:MicroFinance" xmlns:modal="clr-namespace:MicroFinance.Modal" d:DataContext="{d:DesignInstance Type=modal:StaticProperty}"
         mc:Ignorable="d"
-        Title="G Trust" Height="768" Width="1366" Background="White" WindowStartupLocation="CenterScreen" BorderBrush="Gray" ResizeMode="CanMinimize">
+        Title="G Trust" Background="White" WindowStartupLocation="CenterScreen" BorderBrush="Gray" SizeToContent="WidthAndHeight">
     <Window.Triggers>
         <EventTrigger RoutedEvent="Loaded">
             <BeginStoryboard>
@@ -22,19 +22,19 @@
         <Convert:StatusImage x:Key="ImageConvert"></Convert:StatusImage>
 
     </Window.Resources>
-    <Grid  ShowGridLines="False"  Height="760" Width="1366" Background="#FEF2E4">
+    <Grid  ShowGridLines="False" x:Name="MainGrid" Background="#FEF2E4">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="574*"/>
-            <ColumnDefinition Width="109*"/>
+            <ColumnDefinition/>
+           
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
 
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="660"/>
-            <RowDefinition Height="18"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="#E8FAFF" Grid.ColumnSpan="2" Margin="0,0,0,660.4" Grid.RowSpan="2">
+        <Grid Grid.Row="0" Background="#E8FAFF" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -60,10 +60,14 @@
             <Button Grid.Column="3" x:Name="xLogoutButton" Width="25" Height="25" Style="{StaticResource LogoutButtonStyle}"
                     HorizontalAlignment="Right" Click="xLogoutButton_Click" Margin="0,0,20,0" Visibility="Collapsed" ToolTip="Log Out"></Button>
         </Grid>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Frame Grid.Row="1" x:Name="mainframe" NavigationUIVisibility="Hidden" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Frame>
+        </ScrollViewer>
+            
+       
+        
 
-        <Frame Grid.Row="1" x:Name="mainframe" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" Width="1360"></Frame>
-
-        <Border Grid.Row="1" Visibility="Collapsed" Height="200" Width="400" Background="White" Panel.ZIndex="2" CornerRadius="10" Margin="483,230.4,265.2,230.4" >
+        <Border Grid.Row="1" Visibility="Collapsed" Height="200" Width="400" Background="White" Panel.ZIndex="2" CornerRadius="10">
             <Grid x:Name="TimeWindow" Height="180" Width="380">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -76,7 +80,7 @@
         </Border>
 
         <!--Login window-->
-        <Border Background="Gray" Width="500" Height="300" BorderBrush="White" BorderThickness="2" CornerRadius="10" Grid.Row="1" Name="LoginBorder" Margin="433,180.4,215.2,180.4">
+        <Border Background="Gray" Width="500" Height="300" BorderBrush="White" BorderThickness="2" CornerRadius="10" Grid.Row="1" Name="LoginBorder" HorizontalAlignment="Center" VerticalAlignment="Center" >
             <Grid x:Name="xLoginWindow" Grid.Row="1" Width="450" Height="280" VerticalAlignment="Center" ShowGridLines="False">
                 <Grid.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -105,7 +109,7 @@
 
             </Grid>
         </Border>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Background="#e8fff2" x:Name="MessageStatus" Grid.ColumnSpan="2" Margin="0,660.4,0,-0.4" Grid.RowSpan="2">
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#e8fff2" x:Name="MessageStatus" Grid.ColumnSpan="2"  Grid.RowSpan="2">
             <Image Width="15" Height="15" Source="{Binding MessageType,Converter={StaticResource ImageConvert},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
             <TextBlock  Text="{Binding StatusMessage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" FontWeight="Medium" FontSize="13" Foreground="{Binding MessageType,Converter={StaticResource StatusColor},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" VerticalAlignment="Center"/>
         </StackPanel>

@@ -39,6 +39,15 @@ namespace MicroFinance
             MessageStatus.DataContext = StatusMsg;
             xHeaderDate.Text ="Date: "+ DateTime.Now.ToString("dd-MMM-yyyy");
             DriveBasePath = SystemFunction.DriveBasePath;
+
+            MainGrid.Width= (int)System.Windows.SystemParameters.WorkArea.Width;
+            MainGrid.Height= (int)System.Windows.SystemParameters.WorkArea.Height-30;
+
+            
+
+
+
+
         }
         public static void StatusMessageofPage(int Type, string Message)
         {

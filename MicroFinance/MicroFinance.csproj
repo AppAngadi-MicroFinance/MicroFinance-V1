@@ -120,6 +120,9 @@
     <Compile Include="CollectionEntry.xaml.cs">
       <DependentUpon>CollectionEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CollectionReportNew.xaml.cs">
+      <DependentUpon>CollectionReportNew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CollectionStartPage.xaml.cs">
       <DependentUpon>CollectionStartPage.xaml</DependentUpon>
     </Compile>
@@ -336,6 +339,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CollectionEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CollectionReportNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
