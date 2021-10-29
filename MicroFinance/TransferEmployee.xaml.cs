@@ -28,7 +28,7 @@ namespace MicroFinance
         public static List<string> DesignationList = new List<string>();
         public static ObservableCollection<string> NewDesignationList = new ObservableCollection<string>();
 
-        public static List<string> Designations = new List<string>() {"Field Officer", "Accountant", "Region Manager"};
+        public static List<string> Designations = new List<string>() {"Field Officer", "Accountant", "Region Manager","Manager"};
         public static ObservableCollection<BranchViewModel> Branches = new ObservableCollection<BranchViewModel>();
         public static ObservableCollection<EmployeeViewModel> Employees = new ObservableCollection<EmployeeViewModel>();
 
@@ -205,21 +205,28 @@ namespace MicroFinance
 
         private void NewBranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            BranchViewModel NewSelectedBranch = NewBranchCombo.SelectedItem as BranchViewModel;
-            BranchViewModel selectedBranch = BranchCombo.SelectedItem as BranchViewModel;
-
-            Transfer_Employee.NewBranchId = NewSelectedBranch.BranchId;
-            Transfer_Employee.NewBranchName = NewSelectedBranch.BranchName;
-            if (NewSelectedBranch.BranchId==selectedBranch.BranchId)
+            try
             {
-                string value = DesignationCombo.SelectedValue as string;
-                LoadDesignation(DesignationCombo.SelectedValue as string);
+                BranchViewModel NewSelectedBranch = NewBranchCombo.SelectedItem as BranchViewModel;
+                BranchViewModel selectedBranch = BranchCombo.SelectedItem as BranchViewModel;
+
+                Transfer_Employee.NewBranchId = NewSelectedBranch.BranchId;
+                Transfer_Employee.NewBranchName = NewSelectedBranch.BranchName;
+                if (NewSelectedBranch.BranchId == selectedBranch.BranchId)
+                {
+                    string value = DesignationCombo.SelectedValue as string;
+                    LoadDesignation(DesignationCombo.SelectedValue as string);
+                }
+                else
+                {
+                    LoadDesignation(1);
+                }
             }
-            else
+            catch(Exception ex)
             {
-                LoadDesignation(1);
+
             }
+           
 
         }
 
