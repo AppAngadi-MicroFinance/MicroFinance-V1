@@ -9,7 +9,8 @@
       d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
       Title="DashboardFieldOfficer">
 
-    <Grid>
+    <Grid Width="1368">
+        
         <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>

@@ -46,6 +46,8 @@ namespace MicroFinance
         {
             InitializeComponent();
             IsEligible();
+           // MainGrid.Height = MainWindow.MainHeight-50;
+           // MainGrid.Width = MainWindow.MainWidth;
 
             //TempLoad();
             BranchAndGroupDetailsforFieldOfficer();
@@ -2268,6 +2270,14 @@ namespace MicroFinance
             }
             return Bank;
 
+        }
+
+        private void ContinueBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerGrid.Visibility = Visibility.Collapsed;
+            AddressGrid.Visibility = Visibility.Collapsed;
+
+            CustomerOtherDetails.Visibility = Visibility.Visible;
         }
     }
 }

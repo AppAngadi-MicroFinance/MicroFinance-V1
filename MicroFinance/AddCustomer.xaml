@@ -7,7 +7,7 @@
       xmlns:validate="clr-namespace:MicroFinance.Validations"
       xmlns:validation="clr-namespace:MicroFinance.Validations"
       mc:Ignorable="d" 
-      d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
+      Background="#FEF2E4"
       xmlns:convert="clr-namespace:MicroFinance.Converters"
       Title="AddCustomer">
     <Page.Resources>
@@ -27,7 +27,7 @@
 
         <validate:NameValidation x:Key="NameValidate"/>
     </Page.Resources>
-    <Grid x:Name="MainGrid" ShowGridLines="False">
+    <Grid x:Name="MainGrid" ShowGridLines="False" HorizontalAlignment="Center" VerticalAlignment="Center" >
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="560"/>
@@ -533,7 +533,7 @@
             </Border>
             
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="5" x:Name="CustomerOtherDetails">
+        <Grid Grid.Row="1" Grid.Column="5" x:Name="CustomerOtherDetails" Panel.ZIndex="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="125"/>
