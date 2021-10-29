@@ -28,7 +28,7 @@ namespace MicroFinance
         public static List<string> DesignationList = new List<string>();
         public static ObservableCollection<string> NewDesignationList = new ObservableCollection<string>();
 
-        public static List<string> Designations = new List<string>() {"Field Officer", "Accountant", "Region Manager"};
+        public static List<string> Designations = new List<string>() {"Field Officer", "Accountant", "Region Manager","Manager"};
         public static ObservableCollection<BranchViewModel> Branches = new ObservableCollection<BranchViewModel>();
         public static ObservableCollection<EmployeeViewModel> Employees = new ObservableCollection<EmployeeViewModel>();
 
@@ -45,7 +45,7 @@ namespace MicroFinance
             RegionCombo.ItemsSource = RegionList;
             BranchCombo.ItemsSource = BranchList;
             EmployeeCombo.ItemsSource = EmployeeList;
-            DesignationCombo.ItemsSource = DesignationList;
+            DesignationCombo.ItemsSource = Designations;
 
 
 
