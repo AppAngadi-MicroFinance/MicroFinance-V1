@@ -205,21 +205,28 @@ namespace MicroFinance
 
         private void NewBranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            BranchViewModel NewSelectedBranch = NewBranchCombo.SelectedItem as BranchViewModel;
-            BranchViewModel selectedBranch = BranchCombo.SelectedItem as BranchViewModel;
-
-            Transfer_Employee.NewBranchId = NewSelectedBranch.BranchId;
-            Transfer_Employee.NewBranchName = NewSelectedBranch.BranchName;
-            if (NewSelectedBranch.BranchId==selectedBranch.BranchId)
+            try
             {
-                string value = DesignationCombo.SelectedValue as string;
-                LoadDesignation(DesignationCombo.SelectedValue as string);
+                BranchViewModel NewSelectedBranch = NewBranchCombo.SelectedItem as BranchViewModel;
+                BranchViewModel selectedBranch = BranchCombo.SelectedItem as BranchViewModel;
+
+                Transfer_Employee.NewBranchId = NewSelectedBranch.BranchId;
+                Transfer_Employee.NewBranchName = NewSelectedBranch.BranchName;
+                if (NewSelectedBranch.BranchId == selectedBranch.BranchId)
+                {
+                    string value = DesignationCombo.SelectedValue as string;
+                    LoadDesignation(DesignationCombo.SelectedValue as string);
+                }
+                else
+                {
+                    LoadDesignation(1);
+                }
             }
-            else
+            catch(Exception ex)
             {
-                LoadDesignation(1);
+
             }
+           
 
         }
 
