@@ -32,6 +32,7 @@ namespace MicroFinance
             BranchList = EmployeeRepository.GetBranches();
             CenterList = CustomerRepository.GetCenters();
             BranchCombo.ItemsSource = BranchList;
+            SelectOptionPanel.IsOpen = false;
         }
         public CustomerSearch(string BranchID)
         {
@@ -42,6 +43,7 @@ namespace MicroFinance
             BranchCombo.ItemsSource = BranchList;
             BranchCombo.SelectedIndex = SelectedBranch(BranchID);
             BranchCombo.IsEnabled = false;
+            SelectOptionPanel.IsOpen = false;
         }
 
         int SelectedBranch(string branchID)
@@ -60,12 +62,16 @@ namespace MicroFinance
 
         private void CustomerList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            CustomerViewModel SelectedCustomer = CustomerList.SelectedItem as CustomerViewModel;
+            CustomerViewModel SelectedCustomer = new CustomerViewModel();
+            if(CustomerList.SelectedIndex!=-1)
+            {
+                SelectedCustomer = CustomerList.SelectedItem as CustomerViewModel;
+                SelectOptionPanel.IsOpen = true;
+                MainGrid.IsEnabled = false;
+            }
+            
 
-            List<LoanApplicationViewModel> Applications= LoanRepository.LoanApplicationDetails(SelectedCustomer.CustomerID);
-            List<LoanViewModel> Laons= LoanRepository.LoanDetails(SelectedCustomer.CustomerID);
-            // MessageBox.Show(SelectedCustomer.CustomerID+" | "+SelectedCustomer.CustomerName);
-            this.NavigationService.Navigate(new GTrustCustomerProfile(SelectedCustomer.CustomerID));
+            //this.NavigationService.Navigate(new GTrustCustomerProfile(SelectedCustomer.CustomerID));
         }
 
         private void BranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -110,6 +116,36 @@ namespace MicroFinance
             {
                 CustomerList.Items.Add(customer);
             }
+        }
+
+        private void ViewCustomerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SelectOptionPanel.IsOpen = false;
+            CustomerViewModel SelectedCustomer = CustomerList.SelectedItem as CustomerViewModel;
+            this.NavigationService.Navigate(new GTrustCustomerProfile(SelectedCustomer.CustomerID));
+        }
+
+        private void PopUpCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SelectOptionPanel.IsOpen = false;
+            MainGrid.IsEnabled = true;
+        }
+
+        private void CustomerEditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SelectOptionPanel.IsOpen = false;
+            CustomerViewModel SelectedCustomer = CustomerList.SelectedItem as CustomerViewModel;
+            this.NavigationService.Navigate(new AddCustomer(SelectedCustomer.CustomerID));
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.StackTrace);
+            }
+           
         }
     }
 }

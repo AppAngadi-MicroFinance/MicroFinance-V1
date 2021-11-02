@@ -8,7 +8,7 @@
       d:DesignHeight="630" d:DesignWidth="1366"
       Title="CustomerSearch" Background="#FEF2E4">
 
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Border Height="600" Width="1350" Background="#FEF2E4" BorderBrush="Gray" CornerRadius="10" BorderThickness="0">
             <Grid>
                 <Grid.RowDefinitions>
@@ -90,6 +90,31 @@
                 
 
             </Grid>
+            
         </Border>
+        <Popup Height="auto" Width="auto" AllowsTransparency="True" Visibility="Visible" x:Name="SelectOptionPanel" Placement="Center" PlacementTarget="{Binding ElementName=MainGrid}">
+            <Border Height="auto" Width="400" CornerRadius="10" Background="White" BorderBrush="Gray" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid Height="auto" Width="390">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Select Option" Style="{StaticResource Title}" VerticalAlignment="Center"></TextBlock>
+                    <Button Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Margin="0,0,10,0" x:Name="PopUpCloseBtn" Click="PopUpCloseBtn_Click">
+                    </Button>
+                    <Separator VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="5"></Separator>
+                    <WrapPanel Grid.Row="1" Grid.RowSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Margin="10">
+                        <Button Style="{StaticResource SecondaryBtn}" Margin="10" Width="150" Content="View Customer" x:Name="ViewCustomerBtn" Click="ViewCustomerBtn_Click"></Button>
+                        <Button Style="{StaticResource SecondaryBtn}" Margin="10" Width="150" Content="Edit Customer" x:Name="CustomerEditBtn" Click="CustomerEditBtn_Click"></Button>
+                        <Button Style="{StaticResource SecondaryBtn}" Margin="10" Width="150" Content="Change Loan Date" Visibility="Collapsed"></Button>
+                        <Button Style="{StaticResource SecondaryBtn}" Visibility="Collapsed" Margin="10" Width="150" Content="Collection Entry"></Button>
+                        <Button Visibility="Collapsed" Style="{StaticResource SecondaryBtn}" Margin="10" Width="150"></Button>
+                    </WrapPanel>
+                </Grid>
+            </Border>
+        </Popup>
     </Grid>
 </Page>

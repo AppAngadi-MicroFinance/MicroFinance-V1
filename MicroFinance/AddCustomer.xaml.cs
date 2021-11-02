@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -234,6 +235,7 @@ namespace MicroFinance
             BankGrid.DataContext = customer;
             AadharNoGrid.DataContext = customer;
             GenderPanel.DataContext = customer;
+            LandDetialsPanel.DataContext = customer;
 
             GurantorGrid.DataContext = guarantor;
             GuarantorAddressDetails.DataContext = guarantor;
@@ -247,6 +249,31 @@ namespace MicroFinance
 
 
             SaveCustomer.Content = "Update";
+            LoanRequestText.Visibility = Visibility.Collapsed;
+            LaonRequestSection.Visibility = Visibility.Collapsed;
+
+
+            ResidencyTypeCombo.ItemsSource = ResidencyList;
+            HousingTypeCombo.ItemsSource = ResidencyTypeList;
+            LandHoldingCombo.ItemsSource = LandHoldingList;
+            
+
+            BankDetailsList = BankRepository.BankDetailsList();
+
+
+            BankList = BankRepository.GetAllBankNames();
+            BankNameComboBox.ItemsSource = BankList;
+
+
+            if (customer.LandHolding!=null)
+            {
+                if (customer.LandHolding.Equals("YES", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    LandDetialsPanel.Visibility = Visibility.Collapsed;
+                    LandHoldingShowBtn.Visibility = Visibility.Visible;
+                }
+            }
+           
         }
         void FillAllDetails()
         {
@@ -265,8 +292,8 @@ namespace MicroFinance
         List<PeerGroup> PeerGroupDetails = new List<PeerGroup>();
         void BranchAndGroupDetailsforFieldOfficer()
         {
-            string _officerBranchId = MainWindow.LoginDesignation.BranchId;
-            string _officerEmpId = MainWindow.LoginDesignation.EmpId;
+            string _officerBranchId = GetCustomerBranch(CustomerId);
+            string _officerEmpId = GetCustomerOfficer(CustomerId);
             string[] _branchName = new string[1];
             string[] _officerName = new string[1];
             string[] _regionName = new string[1];
@@ -297,6 +324,43 @@ namespace MicroFinance
             SelectFO.ItemsSource = _officerName; SelectFO.SelectedIndex = 0;
             SelectSHG.ItemsSource = SelfHelpGroupList; SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
         }
+
+
+        string GetCustomerBranch(string CustomerID)
+        {
+            string BranchID = "";
+            using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select BranchId from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+CustomerID+"'))";
+                    BranchID =(string) sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            return BranchID;
+        }
+
+        string GetCustomerOfficer(string CustomerID)
+        {
+            string EmpId = "";
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if (ConnectionState.Open == sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select EmpId from TimeTable where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+CustomerID+"'))";
+                    EmpId = (string)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            return EmpId;
+        }
         void SelectedBranchAndGroupDetails()
         {
             string Selectedbranch = "";
@@ -308,16 +372,13 @@ namespace MicroFinance
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select distinct BranchName, SelfHelpGroup,PeerGroup from CustomerGroup where CustId = '" + CustomerId + "'";
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                while (sqlDataReader.Read())
-                {
-                    Selectedbranch = sqlDataReader.GetString(0);
-                    SelectedSHg = sqlDataReader.GetString(1);
-                    SelectedPg = sqlDataReader.GetString(2);
-                }
-                sqlDataReader.Close();
-                sqlCommand.CommandText = "select Employee.Name from BranchEmployees join Employee on BranchEmployees.Empid=Employee.EmpId where BranchEmployees.Bid=(select distinct BranchId from CustomerGroup where CustId='" + CustomerId + "') and BranchEmployees.IsActive='True'";
+                sqlCommand.CommandText = "select GroupName from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+CustomerId+"')";
+                SelectedPg = (string)sqlCommand.ExecuteScalar();
+                sqlCommand.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+CustomerId+"'))";
+                SelectedSHg = (string)sqlCommand.ExecuteScalar();
+                sqlCommand.CommandText = "select BranchName from BranchDetails where Bid=(select BranchId from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+CustomerId+"')))";
+                Selectedbranch=(string) sqlCommand.ExecuteScalar();
+                sqlCommand.CommandText = "select Name from Employee where EmpId=(select EmpId from TimeTable where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='"+CustomerId+"')))";
                 SelectedOfficerName = sqlCommand.ExecuteScalar().ToString();
             }
             SelectBranch.SelectedItem = Selectedbranch;
@@ -442,39 +503,61 @@ namespace MicroFinance
         //save customer
         private void SaveCustomer_Click(object sender, RoutedEventArgs e)
         {
-            CheckAadharAlreadyExist();
-            if(IsAadharAlreadeyExists)
+            Button Btn = sender as Button;
+
+            string BtnContent = Btn.Content.ToString();
+            if(BtnContent.Equals("Save"))
             {
-                MessageBox.Show("Aadhar Card Already Exists..");
-            }
-            else if (CustomerValidation() == false)
-            {
-                MainWindow.StatusMessageofPage(0, "Please Enter Require Fields....");
-                Thread.Sleep(2000);
-                MainWindow.StatusMessageofPage(1, "Ready...");
-            }
-            else
-            {
-                PeerGroup SelectedPG = SelectPG.SelectedValue as PeerGroup;
-                if (SaveCustomer.Content.Equals("Update"))
+                CheckAadharAlreadyExist();
+                if (IsAadharAlreadeyExists)
                 {
-                    
-                    customer.UpdateExistingDetails(SelectBranch.Text, SelectSHG.Text, SelectedPG.PG_Id, guarantor, nominee);
+                    MessageBox.Show("Aadhar Card Already Exists..");
+                }
+                else if (CustomerValidation() == false)
+                {
+                    MainWindow.StatusMessageofPage(0, "Please Enter Require Fields....");
+                    Thread.Sleep(2000);
+                    MainWindow.StatusMessageofPage(1, "Ready...");
                 }
                 else
                 {
-                    customer._customerId = customer.GetCustId(SelectBranch.Text, SelectRegion.Text);
-                    CustomerVerified verified = new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectedPG.PG_Id);
-                    customer = new Customer();
-                    nominee = new Nominee();
-                    guarantor = new Guarantor();
-                    Assign();
-                    NavigationService.GetNavigationService(this).Navigate(verified);
-                }
-                
+                    PeerGroup SelectedPG = SelectPG.SelectedValue as PeerGroup;
+                    
+                        customer._customerId = customer.GetCustId(SelectBranch.Text, SelectRegion.Text);
+                        CustomerVerified verified = new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectedPG.PG_Id);
+                        customer = new Customer();
+                        nominee = new Nominee();
+                        guarantor = new Guarantor();
+                        Assign();
+                        NavigationService.GetNavigationService(this).Navigate(verified);
+                   
 
+
+                }
+            }
+            else if(BtnContent.Equals("Update"))
+            {
+                PeerGroup SelectedPG = SelectPG.SelectedValue as PeerGroup;
+                customer.UpdateExistingDetails(SelectBranch.Text, SelectSHG.Text, SelectedPG.PG_Id, guarantor, nominee);
+                string Designation = MainWindow.LoginDesignation.LoginDesignation;
+                Designation = (Designation == null) ? "" : Designation;
+                LoadHomePage(Designation);
             }
             
+            
+        }
+        public void LoadHomePage(string Designation)
+        {
+            if (Designation.Equals("Field Officer"))
+                this.NavigationService.Navigate(new DashboardFieldOfficer());
+            else if (Designation.Equals("Accountant"))
+                this.NavigationService.Navigate(new DashboardAccountant());
+            else if (Designation.Equals("Branch Manager") || Designation.Equals("Manager"))
+                this.NavigationService.Navigate(new DashboardBranchManager());
+            else if (Designation.Equals("Region Manager"))
+                this.NavigationService.Navigate(new DashBoardRegionOfficer());
+            else
+                this.NavigationService.Navigate(new DashBoardHeadOfficer());
         }
 
         private void ImageSavebtn_Click(object sender, RoutedEventArgs e)
@@ -2183,15 +2266,19 @@ namespace MicroFinance
         private void LandHoldingCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
              string value = LandHoldingCombo.SelectedValue as string;
+            if(value!=null)
+            {
+                if (value == "YES")
+                {
+                    LandDetialsPanel.Visibility = Visibility.Visible;
+                }
+                else if (value == "NO")
+                {
+                    LandHoldingShowBtn.Visibility = Visibility.Collapsed;
+                }
+            }
 
-            if(value=="YES")
-            {
-                LandDetialsPanel.Visibility = Visibility.Visible;
-            }
-            else if(value=="NO")
-            {
-                LandHoldingShowBtn.Visibility = Visibility.Collapsed;
-            }
+           
 
 
         }
