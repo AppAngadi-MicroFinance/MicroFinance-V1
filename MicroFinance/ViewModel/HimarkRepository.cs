@@ -215,6 +215,15 @@ namespace MicroFinance.ViewModel
                 case "HUSBAND":
                     Result = "WIFE";
                     break;
+                case "SON":
+                    Result = "MOTHER";
+                    break;
+                case "DAUGHTER":
+                    Result = "MOTHER";
+                    break;
+                case "BROTHER":
+                    Result = "SISTER";
+                    break;
             }
             return Result;
         }
