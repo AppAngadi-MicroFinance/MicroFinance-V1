@@ -533,7 +533,7 @@
             </Border>
             
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="5" x:Name="CustomerOtherDetails" Panel.ZIndex="2">
+        <Grid Grid.Row="1" Grid.Column="5" x:Name="CustomerOtherDetails" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="125"/>
