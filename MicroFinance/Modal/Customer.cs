@@ -108,7 +108,7 @@ namespace MicroFinance.Modal
                 return _education;
             }
             set
-            {
+           {
                 _education = value;
                 CustEducation = false;
                 CustDetailsOverAll = false;
@@ -332,7 +332,7 @@ namespace MicroFinance.Modal
             set
             {
                 _landtype = value;
-                RaisedPropertyChanged("LandType1");
+                RaisedPropertyChanged("LandType");
             }
         }
 
@@ -865,6 +865,11 @@ namespace MicroFinance.Modal
                        
                     _photoProofNo = sqlData.GetString(44);
                     _AddressProofNo = sqlData.GetString(45);
+                    ResidencyType = sqlData.GetString(46);
+                    LandHolding = sqlData.GetString(47);
+
+                    LandType = (DBNull.Value.Equals(sqlData["LandType"])) ? "" : sqlData.GetString(48);
+                    LandVolume = (DBNull.Value.Equals(sqlData["LandVolume"])) ? "" : sqlData.GetString(49);
 
 
                 }
@@ -1247,7 +1252,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "update CustomerDetails set Name='" + CustomerName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Religion='" + Religion + "',Community='" + Community + "',Education='" + Education + "',FamilyMembers='" + FamilyMembers + "',EarningMembers='" + EarningMembers + "',Occupation='" + Occupation + "',MonthlyIncome='" + MonthlyIncome + "',Address='" + AddressofCustomer + "',Pincode='" + Pincode + "',HousingType='" + HousingType + "',FatherName='"+FatherName+"',MotherName='"+MotherName+"',Gender='"+Gender+"',Caste='"+Caste+"',MonthlyExpenses='"+MothlyExpenses+"',HusbandName='"+HusbandName+"',YearlyIncome='"+YearlyIncome+"',AddressProofName='"+_nameofAddressProof+"',AddressProofNo='"+_AddressProofNo+"',PhotoProofName='"+_nameofPhotoProof+"',PhotoProofNo='"+_photoProofNo+"' where CustId='" + _customerId + "'";
+                sqlCommand.CommandText = "update CustomerDetails set Name='" + CustomerName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Religion='" + Religion + "',Community='" + Community + "',Education='" + Education + "',FamilyMembers='" + FamilyMembers + "',EarningMembers='" + EarningMembers + "',Occupation='" + Occupation + "',MonthlyIncome='" + MonthlyIncome + "',Address='" + AddressofCustomer + "',Pincode='" + Pincode + "',HousingType='" + HousingType + "',FatherName='"+FatherName+"',MotherName='"+MotherName+"',Gender='"+Gender+"',Caste='"+Caste+"',MonthlyExpenses='"+MothlyExpenses+"',HusbandName='"+HusbandName+"',YearlyIncome='"+YearlyIncome+"',AddressProofName='"+_nameofAddressProof+"',AddressProofNo='"+_AddressProofNo+"',PhotoProofName='"+_nameofPhotoProof+"',PhotoProofNo='"+_photoProofNo+"',LandHolding='"+_landholding+"',Residency='"+ResidencyType+"',LandType='"+LandType+"',LandVolume='"+LandVolume+"' where CustId='" + _customerId + "'";
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "select Bid from BranchDetails where BranchName='" + BranchName + "'";
                 string BranchId = sqlCommand.ExecuteScalar().ToString();

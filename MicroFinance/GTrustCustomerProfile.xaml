@@ -206,7 +206,7 @@
                 <TextBlock  Style="{StaticResource Regular}" FontWeight="SemiBold" Margin="10,0,0,0" x:Name="SecurityBalance"></TextBlock>
             </StackPanel>
             <TextBlock Grid.Row="7" Text="Address" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
-            <TextBlock Text="{Binding Address,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Grid.Row="8" Grid.RowSpan="3" Style="{StaticResource Regular}" VerticalAlignment="Top" TextWrapping="Wrap" Margin="10,0,0,0" FontWeight="SemiBold"></TextBlock>
+            <TextBlock Text="{Binding Address,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Width="250" Grid.Row="8" Grid.RowSpan="3" Style="{StaticResource Regular}" VerticalAlignment="Top" TextWrapping="Wrap" Margin="10,0,0,0" FontWeight="SemiBold"></TextBlock>
             <StackPanel Orientation="Horizontal" Grid.Row="10">
                 <TextBlock Text="Phone Number  :" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
                 <TextBlock Text="{Binding PhoneNumber,Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" Style="{StaticResource Regular}" FontWeight="SemiBold" ></TextBlock>

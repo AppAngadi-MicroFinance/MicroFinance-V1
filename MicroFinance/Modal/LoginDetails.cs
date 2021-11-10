@@ -61,7 +61,7 @@ namespace MicroFinance.Modal
                     sql.Open();
                     SqlCommand command = new SqlCommand();
                     command.Connection = sql;
-                    command.CommandText = "select RegionName,Bid ,BranchName from BranchDetails where Bid = (select BranchId from EmployeeBranch where EmpId = (select EmpId from Employee where Name = '" + userName + "'))";
+                    command.CommandText = "select RegionName,Bid ,BranchName from BranchDetails where Bid = (select BranchId from EmployeeBranch where EmpId = (select EmpId from Employee where Name = '"+userName+"')and IsActive=1)";
                     SqlDataReader dataReader = command.ExecuteReader();
                     while (dataReader.Read())
                     {

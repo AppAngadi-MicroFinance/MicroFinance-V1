@@ -59,9 +59,9 @@
                 <TextBlock Text="Land Details" Style="{StaticResource Title}" Grid.ColumnSpan="2" FontSize="20" VerticalAlignment="Center"></TextBlock>
                 <Separator VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="5" Grid.ColumnSpan="2"></Separator>
                 <TextBlock Text="Land Type" Style="{StaticResource Regular}" Grid.Row="1"></TextBlock>
-                <TextBox x:Name="LantypeBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
+                <TextBox x:Name="LantypeBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding LandType,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBox>
                 <TextBlock Text="Land Volume" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
-                <TextBox x:Name="LandVolumeBox" Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="250"></TextBox>
+                <TextBox x:Name="LandVolumeBox" Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="250" Text="{Binding LandVolume,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                 <Button Style="{StaticResource SecondaryBtn}" Grid.Row="3" Grid.Column="1" Content="OK" x:Name="LandDetailsOKBtn" Click="LandDetailsOKBtn_Click"></Button>
             </Grid>
@@ -533,7 +533,7 @@
             </Border>
             
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="5" x:Name="CustomerOtherDetails" >
+        <Grid Grid.Row="1" Grid.Column="5" x:Name="CustomerOtherDetails">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="125"/>
@@ -814,8 +814,8 @@
                     </Grid>
                 </Grid>
             </Border>
-            <TextBlock Text="Loan Details *" Style="{StaticResource STitle}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom"/>
-            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBlock x:Name="LoanRequestText" Text="Loan Details *" Style="{StaticResource STitle}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom"/>
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="LaonRequestSection">
                 <Grid x:Name="LoanRequestPanel">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="55"/>

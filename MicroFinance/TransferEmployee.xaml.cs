@@ -45,7 +45,7 @@ namespace MicroFinance
             RegionCombo.ItemsSource = RegionList;
             BranchCombo.ItemsSource = BranchList;
             EmployeeCombo.ItemsSource = EmployeeList;
-            DesignationCombo.ItemsSource = DesignationList;
+            DesignationCombo.ItemsSource = Designations;
 
 
 

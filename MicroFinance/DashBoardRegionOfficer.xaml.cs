@@ -32,7 +32,6 @@ namespace MicroFinance
     public partial class DashBoardRegionOfficer : Page
     {
         Branch branch = new Branch();
-        // string BranchId = "01202107002";
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
@@ -91,8 +90,7 @@ namespace MicroFinance
 
         private void HimarkBtn_Click(object sender, RoutedEventArgs e)
         {
-
-
+            #region OldModule
             //loanProcess = new LoanProcess();
             //loanProcess.GetRequestList();
             //loanDetails = loanProcess.RequestList;
@@ -101,11 +99,13 @@ namespace MicroFinance
             //RequestList = HimarkRepository.GetHimarkRequestList();
             //RequestedListBoxNew.ItemsSource = RequestList;
             //HimarkExportPanel.Visibility = Visibility.Visible;
+            #endregion
             this.NavigationService.Navigate(new ExportHimarkReport());
         }
 
         private async void ExportHimarkBtn_Click(object sender, RoutedEventArgs e)
         {
+            #region OldModule
             //Stopwatch stopwatch2 = new Stopwatch();
 
             //List<HimarkModel> HimarkList = new List<HimarkModel>();
@@ -134,21 +134,17 @@ namespace MicroFinance
             //{
             //    MainWindow.StatusMessageofPage(0, ex.Message);
             //}
+            #endregion
             HimarkExportPanel.Visibility = Visibility.Collapsed;
             GifPanel.Visibility = Visibility.Visible;
             await System.Threading.Tasks.Task.Run(() => ExportHimarkFile());
             GifPanel.Visibility = Visibility.Collapsed;
-           
-            
-
-
-
         }
-         void ExportHimarkFile()
+        void ExportHimarkFile()
         {
             
             List<HimarkModel> HimarkList = new List<HimarkModel>();
-             HimarkList =HimarkRepository.GetDetailsForReport(RequestList);
+            HimarkList =HimarkRepository.GetDetailsForReport(RequestList);
             HiMark himarkReport = new HiMark();
             try
             {
@@ -164,9 +160,7 @@ namespace MicroFinance
 
         private async void ImportHimarkBtn_Click(object sender, RoutedEventArgs e)
         {
-            //Stopwatch SW = new Stopwatch();
-            //SW.Start();
-            //MainWindow.TimeBuilder.Append("\nStarting Time for Read Himark File : " + SW.Elapsed.Ticks.ToString());
+            
             OpenFileDialog openFileDlg = new OpenFileDialog();
             openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
             openFileDlg.Title = "Choose File";
@@ -180,15 +174,11 @@ namespace MicroFinance
                     GifPanel.Visibility = Visibility.Visible;
                     await System.Threading.Tasks.Task.Run(() =>ImportHimarkFile(FileFrom));
                     GifPanel.Visibility = Visibility.Collapsed;
-
-
                 }
                 else
                 {
                     MainWindow.StatusMessageofPage(0, "The process Cant't Access "+FileFrom+" It is used by another process");
                 }
-
-
             }
         }
 
@@ -210,8 +200,6 @@ namespace MicroFinance
                 {
                     System.Windows.MessageBox.Show(ex.Message);
                 }
-
-
             }
             else
             {
