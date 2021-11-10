@@ -31,6 +31,13 @@ namespace MicroFinance
             NotificationList = LoanRepository.GetRecommendList(StatusCode);
             NotificationGrid.ItemsSource = NotificationList;
         }
+        public NotificationPage(int StatusCode,string EmpID)
+        {
+            InitializeComponent();
+            CurrentStatus = StatusCode;
+            NotificationList = LoanRepository.GetRecommendList(StatusCode,EmpID);
+            NotificationGrid.ItemsSource = NotificationList;
+        }
 
         private void NotifyClickBtn_Click(object sender, RoutedEventArgs e)
         {

@@ -59,10 +59,6 @@ namespace MicroFinance.ViewModel
             }
             return ResultView;
         }
-
-
-
-
         public static List<SamuReportView> GetSamuRequest(string Path)
         {
             List<SamuReportView> RequestList = ImportSamuFile(Path);
@@ -89,9 +85,6 @@ namespace MicroFinance.ViewModel
                             ReqList.Add(sm);
                            
                         }
-                        
-                        
-
                     }
                 }
                 sqlconn.Close();
