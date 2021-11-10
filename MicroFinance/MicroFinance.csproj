@@ -182,6 +182,9 @@
     <Compile Include="CustomerNotification.xaml.cs">
       <DependentUpon>CustomerNotification.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EnrollDetails.xaml.cs">
+      <DependentUpon>EnrollDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExportHimarkReport.xaml.cs">
       <DependentUpon>ExportHimarkReport.xaml</DependentUpon>
     </Compile>
@@ -257,6 +260,7 @@
     <Compile Include="Repository\BankRepository.cs" />
     <Compile Include="Repository\CollectionRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
+    <Compile Include="Repository\EnrollDetailsRepository.cs" />
     <Compile Include="SamuExport.xaml.cs">
       <DependentUpon>SamuExport.xaml</DependentUpon>
     </Compile>
@@ -296,6 +300,7 @@
     <Compile Include="Repository\EmployeeRepository.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
+    <Compile Include="ViewModel\EnrollDetailsView.cs" />
     <Compile Include="ViewModel\HimarkRepository.cs" />
     <Compile Include="ViewModel\HimarkRequestView.cs" />
     <Compile Include="Repository\LoanRepository.cs" />
@@ -405,6 +410,10 @@
     <Page Include="CustomerNotification.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EnrollDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExportHimarkReport.xaml">
       <SubType>Designer</SubType>

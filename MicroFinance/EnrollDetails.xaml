@@ -1,0 +1,72 @@
+﻿<Page x:Class="MicroFinance.EnrollDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+       d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
+      Title="EnrollDetails">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Enroll Details" Style="{StaticResource Title}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
+        <Separator BorderBrush="Gray" BorderThickness="5" VerticalAlignment="Bottom"></Separator>
+        <DataGrid Grid.Row="2" Width="auto" Height="auto" ColumnHeaderHeight="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"  IsReadOnly="True" HeadersVisibility="All"   AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" AlternatingRowBackground="LightBlue" ScrollViewer.HorizontalScrollBarVisibility="Hidden" MaxWidth="1200" MaxHeight="500" x:Name="EnrollDetailGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Branch Name" Width="1*" Binding="{Binding BranchName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Center Name" Width="1*" Binding="{Binding CenterName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Employee Name" Width="1*" Binding="{Binding EmployeeName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Customer Name" Width="1*" Binding="{Binding CustomerName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Aadhar Number" Width="1*" Binding="{Binding AadharNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Enroll Date" Width="0.5*" Binding="{Binding EnrollDate,StringFormat='{}{0:dd-MM-yyyy}'}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Loan Status" Width="1*" Binding="{Binding LoanStatus}"></DataGridTextColumn>
+                
+            </DataGrid.Columns>
+
+
+            <DataGrid.RowStyle>
+
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.Height" Value="40"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="14" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen"/>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Background="Transparent"  Margin="0,0,30,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <StackPanel Visibility="Collapsed">
+                <TextBlock Text="BranchName" Style="{StaticResource Regular}"></TextBlock>
+                <ComboBox Width="200" x:Name="BranchCombo" SelectionChanged="BranchCombo_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding BranchName}" VerticalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Margin="10,0,0,0">
+                <TextBlock Text="From" Style="{StaticResource Regular}"></TextBlock>
+                <DatePicker x:Name="EnrollStartDate" Style="{StaticResource DateSelecter}"  Height="30" Width="150" Background="White" FontSize="16">
+
+                </DatePicker>
+            </StackPanel>
+            <TextBlock Text="-" Style="{StaticResource Regular}" Height="30" VerticalAlignment="Bottom" FontSize="24" Margin="10,0,0,0"></TextBlock>
+            <StackPanel Margin="10,0,0,0">
+                <TextBlock Text="To" Style="{StaticResource Regular}"></TextBlock>
+                <DatePicker x:Name="EnrollEndDate" Style="{StaticResource DateSelecter}"  Height="30" Width="150" Background="White" FontSize="16"></DatePicker>
+            </StackPanel>
+            <Button x:Name="FilterSearchBtn" Click="FilterSearchBtn_Click" Style="{StaticResource SecondaryBtn}" VerticalAlignment="Bottom" Margin="20,0,0,0" Height="25" FontSize="12" Width="60" Content="search"></Button>
+        </StackPanel>
+    </Grid>
+</Page>

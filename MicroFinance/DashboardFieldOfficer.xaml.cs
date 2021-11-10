@@ -207,5 +207,12 @@ namespace MicroFinance
             ComboBoxItem selectedItem = xDaysList.SelectedItem as ComboBoxItem;
             DayOFWeek = selectedItem.Content as string;
         }
+
+        private void EnrollDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string BranchId = MainWindow.LoginDesignation.BranchId;
+            string EmpID = MainWindow.LoginDesignation.EmpId;
+            this.NavigationService.Navigate(new EnrollDetails(BranchId,EmpID));
+        }
     }
 }

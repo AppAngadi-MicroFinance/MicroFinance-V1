@@ -28,7 +28,12 @@
             </Grid.RowDefinitions>
 
 
-
+            <Border  Width="150" Height="150" Grid.Column="0" Grid.RowSpan="2" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="EnrollDetailsBtn" Click="EnrollDetailsBtn_Click" Content="Enroll Details"  FontSize="12"  Style="{StaticResource SecondaryBtn}"></Button>
+            </Border>
 
 
             <!--Find Customer-->
