@@ -225,7 +225,7 @@ namespace MicroFinance
             InitializeComponent();
             IsEligible();
 
-            BranchAndGroupDetailsforFieldOfficer();
+            BranchAndGroupDetailsforFieldOfficer(1);
             SelectedBranchAndGroupDetails();
             CustomerGrid.DataContext = customer;
             AddressGrid.DataContext = customer;
@@ -292,8 +292,8 @@ namespace MicroFinance
         List<PeerGroup> PeerGroupDetails = new List<PeerGroup>();
         void BranchAndGroupDetailsforFieldOfficer()
         {
-            string _officerBranchId = GetCustomerBranch(CustomerId);
-            string _officerEmpId = GetCustomerOfficer(CustomerId);
+            string _officerBranchId = MainWindow.LoginDesignation.BranchId;
+            string _officerEmpId = MainWindow.LoginDesignation.EmpId;
             string[] _branchName = new string[1];
             string[] _officerName = new string[1];
             string[] _regionName = new string[1];
@@ -324,7 +324,40 @@ namespace MicroFinance
             SelectFO.ItemsSource = _officerName; SelectFO.SelectedIndex = 0;
             SelectSHG.ItemsSource = SelfHelpGroupList; SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
         }
+        void BranchAndGroupDetailsforFieldOfficer(int number=0)
+        {
+            string _officerBranchId = GetCustomerBranch(CustomerId);
+            string _officerEmpId = GetCustomerOfficer(CustomerId);
+            string[] _branchName = new string[1];
+            string[] _officerName = new string[1];
+            string[] _regionName = new string[1];
+            List<string> SelfHelpGroupList = new List<string>();
 
+            Branch_Shg_PgDetails branch_Shg_Pg = new Branch_Shg_PgDetails();
+            branch_Shg_Pg.EmpId = _officerEmpId;
+            _branchName[0] = branch_Shg_Pg.GetBranchNameofEmployee();
+            _regionName[0] = branch_Shg_Pg.GetRegionNameofEmployee();
+            _officerName[0] = branch_Shg_Pg.GetEmployeeName();
+            SelfHelpGroupList = branch_Shg_Pg.GetSelfHelpGroup();
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                sqlConnection.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = sqlConnection;
+
+                sqlCommand.CommandText = "select SelfHelpGroup.SHGName, PeerGroup.GroupName, PeerGroup.GroupId from PeerGroup join SelfHelpGroup on PeerGroup.SHGid=SelfHelpGroup.SHGId where SelfHelpGroup.SHGid in (select SHGId from TimeTable where EmpId='" + _officerEmpId + "')";
+                SqlDataReader sqlDataReader1 = sqlCommand.ExecuteReader();
+                while (sqlDataReader1.Read())
+                {
+                    PeerGroupDetails.Add(new PeerGroup { SHGName = sqlDataReader1.GetString(0), Name = sqlDataReader1.GetString(1), PG_Id = sqlDataReader1.GetString(2) });
+                }
+                sqlConnection.Close();
+            }
+            SelectRegion.ItemsSource = _regionName; SelectRegion.SelectedIndex = 0;
+            SelectBranch.ItemsSource = _branchName; SelectBranch.SelectedIndex = 0;
+            SelectFO.ItemsSource = _officerName; SelectFO.SelectedIndex = 0;
+            SelectSHG.ItemsSource = SelfHelpGroupList; SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
+        }
 
         string GetCustomerBranch(string CustomerID)
         {
