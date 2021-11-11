@@ -41,6 +41,8 @@ namespace MicroFinance
             InitializeComponent();
             EnrollStartDate.SelectedDate = DateTime.Today;
             EnrollEndDate.SelectedDate = DateTime.Today;
+            SelectAllCheck.IsChecked = true;
+            
 
             CurrentStatus = statusCode;
             if(statusCode==11)
@@ -288,6 +290,62 @@ namespace MicroFinance
                 ResultList.Add(r);
             }
             return ResultList;
+        }
+
+        private void SelectAllCheck_Click(object sender, RoutedEventArgs e)
+        {
+            if(SelectAllCheck.IsChecked==true)
+            {
+                CheckAll();
+            }
+            else if(SelectAllCheck.IsChecked==false)
+            {
+                UncheckAll();
+            }
+        }
+
+
+        void CheckAll()
+        {
+            foreach(RecommendView r in BindingList)
+            {
+                r.IsRecommend = true;
+            }
+        }
+        void UncheckAll()
+        {
+            foreach (RecommendView r in BindingList)
+            {
+                r.IsRecommend = false;
+            }
+        }
+
+        bool IsAllcheck()
+        {
+            foreach(RecommendView r in BindingList)
+            {
+                if(r.IsRecommend==false)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void IndividualCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox check = sender as CheckBox;
+            if(check.IsChecked==true)
+            {
+                if(IsAllcheck())
+                {
+                    SelectAllCheck.IsChecked = true;
+                }
+            }
+            else if(check.IsChecked==false)
+            {
+                SelectAllCheck.IsChecked = false;
+            }
         }
     }
 }

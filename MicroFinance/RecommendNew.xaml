@@ -55,11 +55,18 @@
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="75" >
                     <DataGridTemplateColumn.Header>
-                        <TextBlock Text="Recommend"></TextBlock>
+                        <!--<TextBlock Text="Recommend"></TextBlock>-->
+                        <StackPanel Orientation="Horizontal" >
+                            <CheckBox Content="All" x:Name="SelectAllCheck" Click="SelectAllCheck_Click">
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
+                        </StackPanel>
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsRecommend,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsRecommend,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="IndividualCheckBox" Click="IndividualCheckBox_Click"></CheckBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
