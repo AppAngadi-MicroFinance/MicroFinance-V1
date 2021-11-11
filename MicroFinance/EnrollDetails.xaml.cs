@@ -69,7 +69,21 @@ namespace MicroFinance
             Loaddata();
             EnrollDetailGrid.ItemsSource = BindingData;
         }
-
+        public EnrollDetails(List<EnrollDetailsView> EnrollDetailsList,string BranchId)
+        {
+            InitializeComponent();
+            EnrollStartDate.SelectedDate = DateTime.Now;
+            EnrollEndDate.SelectedDate = DateTime.Now;
+            EnrollList =EnrollDetailsList;
+            Branches = EmployeeRepository.GetBranches();
+            BranchCombo.ItemsSource = Branches;
+            BranchCombo.SelectedItem = BranchId;
+            BranchCombo.IsEnabled = false;
+            BranchID = BranchId;
+            //EnrollDetailGrid.ItemsSource = EnrollList;
+            Loaddata();
+            EnrollDetailGrid.ItemsSource = BindingData;
+        }
         void Loaddata()
         {
             BindingData.Clear();

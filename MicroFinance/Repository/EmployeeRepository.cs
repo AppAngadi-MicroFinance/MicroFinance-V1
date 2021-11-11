@@ -252,7 +252,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select EmpId,BranchId,Designation from EmployeeBranch";
+                    sqlcomm.CommandText = "select EmployeeBranch.EmpId,EmployeeBranch.BranchId,EmployeeBranch.Designation,Employee.Name from EmployeeBranch,Employee where Employee.EmpId=EmployeeBranch.EmpId";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -262,18 +262,11 @@ namespace MicroFinance.ViewModel
                             employee.EmployeeId = reader.GetString(0);
                             employee.BranchId = reader.GetString(1);
                             employee.Designation = reader.GetString(2);
+                            employee.EmployeeName = reader.GetString(3);
                             EmployeeList.Add(employee);
                         }
                     }
                     reader.Close();
-
-                    foreach (EmployeeViewModel Employee in EmployeeList)
-                    {
-                        sqlcomm.CommandText = "select Name from Employee where EmpId='" + Employee.EmployeeId + "'";
-                        string name = (string)sqlcomm.ExecuteScalar();
-                        Employee.EmployeeName = name;
-                    }
-
                 }
 
             }
@@ -293,31 +286,59 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select SHGId,CollectionTime,CollectionDay,EmpId from TimeTable where EmpId='" + EmpId + "'";
+                    sqlcomm.CommandText = "select SelfHelpGroup.SHGName,SelfHelpGroup.SHGId,CollectionTime,CollectionDay,EmpId from TimeTable,SelfHelpGroup where TimeTable.SHGId=SelfHelpGroup.SHGId and EmpId='" + EmpId + "'";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
                     {
                         while(reader.Read())
                         {
                             TimeTableViewModel TimeTable = new TimeTableViewModel();
-                            TimeTable.SHGId = reader.GetString(0);
-                            TimeTable.CollectionTime = reader.GetTimeSpan(1);
-                            TimeTable.CollectionDay = reader.GetString(2);
-                            TimeTable.EmpId = reader.GetString(3);
+                            TimeTable.SHGName = reader.GetString(0);
+                            TimeTable.SHGId = reader.GetString(1);
+                            TimeTable.CollectionTime = reader.GetTimeSpan(2);
+                            TimeTable.CollectionDay = reader.GetString(3);
+                            TimeTable.EmpId = reader.GetString(4);
 
 
                             TimeTableList.Add(TimeTable);
                         }
                     }
                     reader.Close();
+                }
+                sqlconn.Close();
+            }
+            return TimeTableList;
 
+        }
+        public static List<TimeTableViewModel> GetTimeTable()
+        {
+            List<TimeTableViewModel> TimeTableList = new List<TimeTableViewModel>();
 
-                    foreach(TimeTableViewModel TT in TimeTableList)
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (ConnectionState.Open == sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select SelfHelpGroup.SHGName,SelfHelpGroup.SHGId,CollectionTime,CollectionDay,EmpId from TimeTable,SelfHelpGroup where TimeTable.SHGId=SelfHelpGroup.SHGId";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId='"+TT.SHGId+"'";
-                        string Name =(string)sqlcomm.ExecuteScalar();
-                        TT.SHGName = Name;
+                        while (reader.Read())
+                        {
+                            TimeTableViewModel TimeTable = new TimeTableViewModel();
+                            TimeTable.SHGName = reader.GetString(0);
+                            TimeTable.SHGId = reader.GetString(1);
+                            TimeTable.CollectionTime = reader.GetTimeSpan(2);
+                            TimeTable.CollectionDay = reader.GetString(3);
+                            TimeTable.EmpId = reader.GetString(4);
+
+
+                            TimeTableList.Add(TimeTable);
+                        }
                     }
+                    reader.Close();
                 }
                 sqlconn.Close();
             }

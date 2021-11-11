@@ -30,12 +30,14 @@ namespace MicroFinance
         string _userName;
         string _password;
         public static LoginDetails LoginDesignation;
+        public static BasicDetailsStatic BasicDetails;
 
         public static string ConnectionString = Properties.Settings.Default.DBConnection;
         public MainWindow()
         {
             InitializeComponent();
             SystemFunction.OpenDrive();
+            BasicDetails = new BasicDetailsStatic();
             MessageStatus.DataContext = StatusMsg;
             xHeaderDate.Text ="Date: "+ DateTime.Now.ToString("dd-MMM-yyyy");
             DriveBasePath = SystemFunction.DriveBasePath;

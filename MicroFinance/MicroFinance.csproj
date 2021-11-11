@@ -210,6 +210,7 @@
       <DependentUpon>LoanRequest.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modal\AddPeerGroup.cs" />
+    <Compile Include="Modal\BasicDetailsStatic.cs" />
     <Compile Include="Modal\Branch_Shg_PgDetails.cs" />
     <Compile Include="Modal\CameraCapture.cs" />
     <Compile Include="Modal\CollectionDetails.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="ViewModel\CollectionReportView.cs" />
     <Compile Include="Repository\EmployeeRepository.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
+    <Compile Include="ViewModel\DateModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\EnrollDetailsView.cs" />
     <Compile Include="ViewModel\HimarkRepository.cs" />

@@ -20,6 +20,8 @@ using Microsoft.Reporting.WinForms;
 using System.ComponentModel;
 using System.IO;
 using System.Data;
+using MicroFinance.ViewModel;
+using MicroFinance.Repository;
 
 namespace MicroFinance
 {
@@ -34,6 +36,10 @@ namespace MicroFinance
         {
             InitializeComponent();
             //xCustomerPendings.Text = LoadPendingCustomers(MainWindow.LoginDesignation.BranchId).ToString();
+
+            EnrollStartDate.SelectedDate = DateTime.Now;
+            EnrollEndDate.SelectedDate = DateTime.Now;
+            EnrollDatailsPanel.Visibility = Visibility.Collapsed;
         }
 
         int LoadPendingCustomers(string branchId)
@@ -210,9 +216,71 @@ namespace MicroFinance
 
         private void EnrollDetailsBtn_Click(object sender, RoutedEventArgs e)
         {
-            string BranchId = MainWindow.LoginDesignation.BranchId;
-            string EmpID = MainWindow.LoginDesignation.EmpId;
-            this.NavigationService.Navigate(new EnrollDetails(BranchId,EmpID));
+            //string BranchId = MainWindow.LoginDesignation.BranchId;
+            //string EmpID = MainWindow.LoginDesignation.EmpId;
+            //this.NavigationService.Navigate(new EnrollDetails(BranchId,EmpID));
+            SectionAGrid.IsEnabled = false;
+            SectionBGrid.IsEnabled = false;
+            SectionCGrid.IsEnabled = false;
+            SectionDGrid.IsEnabled = false;
+            EnrollDatailsPanel.Visibility = Visibility.Visible;
+        }
+
+        private async void EnrollOkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<EnrollDetailsView> EnrollDetails = new List<EnrollDetailsView>();
+            DateTime StartDate = EnrollStartDate.SelectedDate.Value;
+            DateTime EndDate = EnrollEndDate.SelectedDate.Value;
+            if(StartDate!=null && EndDate!=null)
+            {
+                if(StartDate<=EndDate)
+                {
+                    DateModel DateData = new DateModel();
+                    DateData.FromDate = StartDate;
+                    DateData.EndDate = EndDate;
+                    string BranchId = MainWindow.LoginDesignation.BranchId;
+                    string EmpID = MainWindow.LoginDesignation.EmpId;
+                    GifPanel.Visibility = Visibility.Visible;
+                    await System.Threading.Tasks.Task.Run(() => EnrollDetails = GetEnrollDetails(DateData, EmpID, BranchId));
+                    GifPanel.Visibility = Visibility.Collapsed;
+
+
+                    if (EnrollDetails.Count == 0)
+                    {
+                        string Message = string.Format("No Enroll Found Betweeen {0} to {1}.", StartDate.ToString("dd-MMM-yyyy"), EndDate.ToString("dd-MMM-yyyy"));
+                        MessageBox.Show(Message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        this.NavigationService.Navigate(new EnrollDetails(EnrollDetails, BranchId));
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Enter Proper Date!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                
+
+                
+            }
+        }
+
+
+
+        public static List<EnrollDetailsView> GetEnrollDetails(DateModel DateData,string EmpID,string BranchID)
+        {
+            List<EnrollDetailsView> EnrollDetails = new List<EnrollDetailsView>();
+            EnrollDetails = EnrollDetailsRepository.GetEnrollDetails(BranchID, EmpID, DateData);
+            return EnrollDetails;
+        }
+
+        private void EnrollCancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SectionAGrid.IsEnabled = true;
+            SectionBGrid.IsEnabled = true;
+            SectionCGrid.IsEnabled = true;
+            SectionDGrid.IsEnabled = true;
+            MainGrid.IsEnabled = true;
         }
     }
 }
