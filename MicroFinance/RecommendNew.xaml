@@ -51,6 +51,11 @@
             </StackPanel>
             <Button x:Name="FilterSearchBtn" Click="FilterSearchBtn_Click" Style="{StaticResource SecondaryBtn}" VerticalAlignment="Bottom" Margin="20,0,0,0" Height="25" FontSize="12" Width="60" Content="search"></Button>
         </StackPanel>
+        <!--Selected Count-->
+        <StackPanel Grid.Row="3" HorizontalAlignment="Left" Margin="40,0,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="Selected : " Style="{StaticResource Regular}" FontWeight="Bold"></TextBlock>
+            <TextBlock Style="{StaticResource Regular}" FontWeight="Bold" x:Name="SelectedCountText"></TextBlock>
+        </StackPanel>
         <DataGrid x:Name="RecommendGrid" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="2" Background="Transparent" Height="450" Width="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="75" >

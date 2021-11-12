@@ -79,6 +79,7 @@ namespace MicroFinance
             }
             BindingLoad();
             RecommendGrid.ItemsSource = BindingList;
+            SelectedCountText.Text = BindingList.Count.ToString();
             
             RecommendGrid.Items.Refresh();
 
@@ -87,6 +88,21 @@ namespace MicroFinance
                 BranchNamePanel.Visibility = Visibility.Collapsed;
             }
 
+        }
+
+
+        void SetSelectedCount()
+        {
+            int Count = 0;
+            foreach(RecommendView R in BindingList)
+            {
+                if(R.IsRecommend==true)
+                {
+                    Count++;
+                }
+            }
+
+            SelectedCountText.Text = (Count < 10) ? "0" + Count.ToString() : Count.ToString();
         }
 
         void BindingLoad()
@@ -261,6 +277,7 @@ namespace MicroFinance
                 }
                 
             }
+            SetSelectedCount();
 
         }
 
@@ -302,6 +319,7 @@ namespace MicroFinance
             {
                 UncheckAll();
             }
+            SetSelectedCount();
         }
 
 
@@ -311,6 +329,7 @@ namespace MicroFinance
             {
                 r.IsRecommend = true;
             }
+            SetSelectedCount();
         }
         void UncheckAll()
         {
@@ -318,6 +337,7 @@ namespace MicroFinance
             {
                 r.IsRecommend = false;
             }
+            SetSelectedCount();
         }
 
         bool IsAllcheck()
@@ -346,6 +366,7 @@ namespace MicroFinance
             {
                 SelectAllCheck.IsChecked = false;
             }
+            SetSelectedCount();
         }
     }
 }
