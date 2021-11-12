@@ -295,8 +295,10 @@ namespace MicroFinance.Modal
                         {
                             DateTime _reportDate = (DateTime)(worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range).Value;
                             string _reqID = ((worksheet.Cells[Rownumber, requestIDColumn] as Excel.Range).Value);
-                            string _aadharno = (worksheet.Cells[Rownumber, AadharNoColumn] as Excel.Range).Value;
-                            string _branchname = (worksheet.Cells[Rownumber, BranchNameColumn] as Excel.Range).Value;
+                            string AadharString = (worksheet.Cells[Rownumber, AadharNoColumn] as Excel.Range).Value;
+                            string _aadharno = AadharString.Trim();
+                            string BranchString = (worksheet.Cells[Rownumber, BranchNameColumn] as Excel.Range).Value;
+                            string _branchname = BranchString.Trim();
                             string _name = (worksheet.Cells[Rownumber, NameColumn] as Excel.Range).Value;
                             int _eligibleAmount = (int)(worksheet.Cells[Rownumber, EligibleLoanAmountColumn] as Excel.Range).Value;
                             string _status = (worksheet.Cells[Rownumber, HimarkStatusColumn] as Excel.Range).Value;
