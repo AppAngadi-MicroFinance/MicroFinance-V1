@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Repository;
 using MicroFinance.ViewModel;
+using System.Text.RegularExpressions;
 
 namespace MicroFinance
 {
@@ -104,6 +105,27 @@ namespace MicroFinance
                 
             }
         }
+        void LoadData(string AadharNumber)
+        {
+            
+            if(!string.IsNullOrEmpty(AadharNumber))
+            {
+                BindingData.Clear();
+                foreach (EnrollDetailsView enroll in EnrollList)
+                {
+                    if (enroll.AadharNumber.StartsWith(AadharNumber, StringComparison.InvariantCulture))
+                    {
+                        BindingData.Add(enroll);
+                    }
+
+                }
+            }
+            else
+            {
+                Loaddata();
+            }
+            
+        }
 
 
 
@@ -119,6 +141,12 @@ namespace MicroFinance
         {
             BranchViewModel SelectedBranch = BranchCombo.SelectedItem as BranchViewModel;
             BranchID = SelectedBranch.BranchId;
+        }
+
+        private void AadharSearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string AadharNumber = AadharSearchBox.Text;
+            LoadData(AadharNumber);
         }
     }
 }

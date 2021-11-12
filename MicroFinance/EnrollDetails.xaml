@@ -16,6 +16,10 @@
         </Grid.RowDefinitions>
         <TextBlock Text="Enroll Details" Style="{StaticResource Title}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
         <Separator BorderBrush="Gray" BorderThickness="5" VerticalAlignment="Bottom"></Separator>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50,0,0,0">
+            <TextBlock Text="Search (Aadhar Number)" Style="{StaticResource Regular}" FontSize="13" Foreground="Gray"></TextBlock>
+            <TextBox x:Name="AadharSearchBox" TextChanged="AadharSearchBox_TextChanged" Height="30" Width="250" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontSize="14"></TextBox>
+        </StackPanel>
         <DataGrid Grid.Row="2" Width="auto" Height="auto" ColumnHeaderHeight="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"  IsReadOnly="True" HeadersVisibility="All"   AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" AlternatingRowBackground="LightBlue" ScrollViewer.HorizontalScrollBarVisibility="Hidden" MaxWidth="1200" MaxHeight="500" x:Name="EnrollDetailGrid">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Branch Name" Width="1*" Binding="{Binding BranchName}"></DataGridTextColumn>
