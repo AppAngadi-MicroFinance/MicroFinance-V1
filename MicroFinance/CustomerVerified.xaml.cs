@@ -1703,8 +1703,8 @@ namespace MicroFinance
         }
         void DocumentCheck()
         {
-            CustomerDocumentCheck();
-            GuarantorDocumentCheck();
+           // CustomerDocumentCheck();
+           // GuarantorDocumentCheck();
            // NomineeDocumentCheck();
         }
 

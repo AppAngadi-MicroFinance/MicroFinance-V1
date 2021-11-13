@@ -572,12 +572,22 @@ namespace MicroFinance.Modal
                
                 
                 sqlCommand.ExecuteNonQuery();
-                string AddressFolderPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Address Proof";
-                SaveImageToDrive.SaveImage(AddressFolderPath, _customerId, Convertion(AddressProof));
-                string PhotoProofPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Photo Proof";
-                SaveImageToDrive.SaveImage(PhotoProofPath, _customerId, Convertion(PhotoProof));
-                string ProfilePicturePath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Profile Picture";
-                SaveImageToDrive.SaveImage(ProfilePicturePath, _customerId, Convertion(ProfilePicture));
+                if(AddressProof!=null)
+                {
+                    string AddressFolderPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Address Proof";
+                    SaveImageToDrive.SaveImage(AddressFolderPath, _customerId, Convertion(AddressProof));
+                }
+                if(PhotoProof!=null)
+                {
+                    string PhotoProofPath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Photo Proof";
+                    SaveImageToDrive.SaveImage(PhotoProofPath, _customerId, Convertion(PhotoProof));
+                }
+                if(ProfilePicture!=null)
+                {
+                    string ProfilePicturePath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Guarantor\\Profile Picture";
+                    SaveImageToDrive.SaveImage(ProfilePicturePath, _customerId, Convertion(ProfilePicture));
+                }
+                
             }
         }
 

@@ -30,8 +30,8 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="Verification of Customer" Style="{StaticResource Title}" FontWeight="Medium" x:Name="PAgeBlockText" />
         </StackPanel>
-        <ScrollViewer Grid.Row="1" >
-            <StackPanel x:Name="MainGrid">
+        <ScrollViewer Grid.Row="1"  Height="550" Background="Transparent" Width="710">
+            <StackPanel x:Name="MainGrid" Height="auto" Width="auto">
                 <Border Visibility="Visible" Width="700" Height="auto" BorderBrush="Black" BorderThickness="1" Background="#E6DDC6" CornerRadius="7">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius=".5"/>
@@ -1387,7 +1387,7 @@
 
                             </ComboBox>
                             <Grid Grid.Column="3" >
-                                <Button  Style="{StaticResource Add}" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="AddCustAddressProof" Click="AddCustAddressProof_Click" IsEnabled="False"/>
+                                <Button  Style="{StaticResource Add}" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleImage}}" x:Name="AddCustAddressProof" Click="AddCustAddressProof_Click"/>
                                 <StackPanel Orientation="Horizontal" Grid.Column="3" Visibility="{Binding AddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleByImage}}">
                                     <Button  Style="{StaticResource Show}" x:Name="ShowCustAddressProof" Click="ShowCustAddressProof_Click"/>
                                     <Button Grid.Column="3" Style="{StaticResource Edit}" x:Name="EditCustAddressProof" Click="EditCustAddressProof_Click"/>
