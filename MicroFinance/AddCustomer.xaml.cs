@@ -2399,5 +2399,35 @@ namespace MicroFinance
 
             CustomerOtherDetails.Visibility = Visibility.Visible;
         }
+
+        private void AadharPassBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            AadharNo.IsEnabled = true;
+        }
+
+        private void AadharNo_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string AadharPass = AadharPassBox.Password;
+            string AadharNumber = AadharNo.Text;
+            if(AadharPass.Length==12 && AadharNumber.Length==12)
+            {
+                if(!AadharPass.Equals(AadharNumber))
+                {
+                    MessageBox.Show("Please Enter Valid Aadhar Number!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                    AadharPassBox.Clear();
+                    AadharNo.Clear();
+                    AadharPassBox.Focus();
+                    AadharNo.IsEnabled = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please Enter Valid Aadhar Number!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                AadharPassBox.Clear();
+                AadharNo.Clear();
+                AadharPassBox.Focus();
+                AadharNo.IsEnabled = false;
+            }
+        }
     }
 }

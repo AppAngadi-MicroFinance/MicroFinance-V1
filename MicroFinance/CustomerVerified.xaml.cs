@@ -1011,7 +1011,7 @@ namespace MicroFinance
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Please Check All  Mandotory Fields.....","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
             }
             
             
@@ -1703,8 +1703,8 @@ namespace MicroFinance
         }
         void DocumentCheck()
         {
-           // CustomerDocumentCheck();
-           // GuarantorDocumentCheck();
+            CustomerDocumentCheck();
+            GuarantorDocumentCheck();
            // NomineeDocumentCheck();
         }
 
