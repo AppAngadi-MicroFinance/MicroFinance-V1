@@ -292,6 +292,26 @@ namespace MicroFinance.ViewModel
         }
 
 
+        public static bool IsAlreadyInApplicationProcess(string CustomerID)
+        {
+            using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select count(*) from LoanApplication where LoanStatus not in(3,13,14) and CustId='"+CustomerID+"'"; ;
+                    int Count =(int) sqlcomm.ExecuteScalar();
+                    if (Count != 0)
+                        return true;
+                }
+                sqlconn.Close();
+            }
+            return false;
+        }
+
+
 
         public static void RejectLoan(string ReqID)
         {

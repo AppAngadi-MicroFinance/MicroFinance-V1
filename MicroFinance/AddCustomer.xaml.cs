@@ -263,6 +263,7 @@ namespace MicroFinance
 
             BankList = BankRepository.GetAllBankNames();
             BankNameComboBox.ItemsSource = BankList;
+            AadharPassBox.Password = customer.AadharNo;
 
 
             if (customer.LandHolding!=null)
@@ -549,8 +550,16 @@ namespace MicroFinance
                 else if (CustomerValidation() == false)
                 {
                     MainWindow.StatusMessageofPage(0, "Please Enter Require Fields....");
-                    Thread.Sleep(2000);
+                    Thread.Sleep(10000);
                     MainWindow.StatusMessageofPage(1, "Ready...");
+                }
+                else if(LoanDetailsValidation()==false)
+                {
+                    //MainWindow.StatusMessageofPage(0, "Please Enter Loan Details....");
+                    //Thread.Sleep(2000);
+                    //MainWindow.StatusMessageofPage(1, "Ready...");
+
+                    MessageBox.Show("Please Complete Loan Details","Error",MessageBoxButton.OK,MessageBoxImage.Error);
                 }
                 else
                 {
@@ -578,6 +587,16 @@ namespace MicroFinance
             }
             
             
+        }
+
+
+        public bool LoanDetailsValidation()
+        {
+            if (LoanTypecombo.SelectedIndex != -1 && LoanAmountcombo.SelectedIndex != -1 && TimePeriodcombo.SelectedIndex!=-1 && PurposeNameCombo.SelectedIndex!=-1)
+            {
+                return true;
+            }
+            return false;
         }
         public void LoadHomePage(string Designation)
         {

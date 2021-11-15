@@ -14,7 +14,7 @@
         <convert:LoanRequestConverter x:Key="LoanrequestConvert"/>
         <convert:MonthConverter x:Key="MonthConverter"/>
     </Page.Resources>
-    <Grid>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="90"/>
             <RowDefinition Height="*"/>
@@ -53,7 +53,19 @@
             </StackPanel>
             <StackPanel Grid.Column="9" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <TextBlock Text="Peer Group" Style="{StaticResource  Regular}" FontWeight="Bold" FontSize="18"/>
-                <ComboBox x:Name="SelectPg" Style="{StaticResource combo}" Margin="0,5,0,0" IsEnabled="False" SelectionChanged="SelectPg_SelectionChanged" />
+                <ComboBox x:Name="SelectPg" Style="{StaticResource combo}" Margin="0,5,0,0" IsEnabled="False" SelectionChanged="SelectPg_SelectionChanged" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <ContentPresenter>
+                                <ContentPresenter.Content>
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource Regular}" Text="{Binding GroupName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                    </StackPanel>
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" x:Name="LoanRequestGrid" IsEnabled="False">
@@ -173,7 +185,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="7" Grid.Column="1">
                         <TextBlock Text="Loan Purpose" Style="{StaticResource Regular}" FontWeight="Bold" FontSize="18"/>
-                        <TextBox Style="{StaticResource InputBox}" Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <ComboBox Style="{StaticResource combo}" Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="LoanPurposeCombo"></ComboBox>
                     </StackPanel>
                     <Button Grid.Row="9" Grid.Column="1" Content="Request Loan" Style="{StaticResource PrimaryBtn}" x:Name="LoanRequestBtn" Click="LoanRequestBtn_Click"/>
                 </Grid>

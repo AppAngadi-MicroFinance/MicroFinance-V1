@@ -36,6 +36,9 @@ namespace MicroFinance
                 CategoryCombo.ItemsSource = CategoryList;
                 BulkAcceptBtn.Visibility = Visibility.Collapsed;
                 BulkRejectBtn.Visibility = Visibility.Collapsed;
+                BulkAcceptSecureBtn.Visibility = Visibility.Collapsed;
+                BulkReVerifyBtn.Visibility = Visibility.Collapsed;
+                BulkRejectPartialBtn.Visibility = Visibility.Collapsed;
                 CategoryCombo.SelectedIndex = 0;
                 string selectedvalue = CategoryCombo.SelectedValue as string;
                 UpdateData(selectedvalue);
@@ -57,15 +60,45 @@ namespace MicroFinance
         }
         void buttonVisibility(string value)
         {
-            if(value.Equals("Accept"))
+            if(value.Equals("Accept",StringComparison.CurrentCultureIgnoreCase))
             {
                 BulkAcceptBtn.Visibility = Visibility.Visible;
                 BulkRejectBtn.Visibility = Visibility.Collapsed;
+                BulkAcceptSecureBtn.Visibility = Visibility.Collapsed;
+                BulkReVerifyBtn.Visibility = Visibility.Collapsed;
+                BulkRejectPartialBtn.Visibility = Visibility.Collapsed;
             }
             else if(value.Equals("Reject"))
             {
                 BulkAcceptBtn.Visibility = Visibility.Collapsed;
                 BulkRejectBtn.Visibility = Visibility.Visible;
+                BulkAcceptSecureBtn.Visibility = Visibility.Collapsed;
+                BulkReVerifyBtn.Visibility = Visibility.Collapsed;
+                BulkRejectPartialBtn.Visibility = Visibility.Collapsed;
+            }
+            else if(value.Equals("Accept - Partial"))
+            {
+                BulkAcceptBtn.Visibility = Visibility.Collapsed;
+                BulkRejectBtn.Visibility = Visibility.Collapsed;
+                BulkAcceptSecureBtn.Visibility = Visibility.Collapsed;
+                BulkReVerifyBtn.Visibility = Visibility.Collapsed;
+                BulkRejectPartialBtn.Visibility = Visibility.Visible;
+            }
+            else if(value.Equals("Accept / SecuredDPD"))
+            {
+                BulkAcceptBtn.Visibility = Visibility.Collapsed;
+                BulkRejectBtn.Visibility = Visibility.Collapsed;
+                BulkAcceptSecureBtn.Visibility = Visibility.Visible;
+                BulkReVerifyBtn.Visibility = Visibility.Collapsed;
+                BulkRejectPartialBtn.Visibility = Visibility.Collapsed;
+            }
+            else if(value.Equals("Re-verify"))
+            {
+                BulkAcceptBtn.Visibility = Visibility.Collapsed;
+                BulkRejectBtn.Visibility = Visibility.Collapsed;
+                BulkAcceptSecureBtn.Visibility = Visibility.Collapsed;
+                BulkReVerifyBtn.Visibility = Visibility.Visible;
+                BulkRejectPartialBtn.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -171,6 +204,42 @@ namespace MicroFinance
                 if (hm.Status.Equals("Reject"))
                 {
                     loanProcess.ChangeLoanStatus(hm.RequestID, 4);
+                }
+            }
+            this.NavigationService.Navigate(new HimarkResultData());
+        }
+
+        private void BulkReVerifyBtn_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (HimarkResultModel hm in HMResultList)
+            {
+                if (hm.Status.Equals("Re-verify"))
+                {
+                    loanProcess.ChangeLoanStatus(hm.RequestID, 3);
+                }
+            }
+            this.NavigationService.Navigate(new HimarkResultData());
+        }
+
+        private void BulkRejectPartialBtn_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (HimarkResultModel hm in HMResultList)
+            {
+                if (hm.Status.Equals("Accept - Partial"))
+                {
+                    loanProcess.ChangeLoanStatus(hm.RequestID, 4);
+                }
+            }
+            this.NavigationService.Navigate(new HimarkResultData());
+        }
+
+        private void BulkAcceptSecureBtn_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (HimarkResultModel hm in HMResultList)
+            {
+                if (hm.Status.Equals("Accept/SecuredDPD"))
+                {
+                    loanProcess.ChangeLoanStatus(hm.RequestID, 3);
                 }
             }
             this.NavigationService.Navigate(new HimarkResultData());

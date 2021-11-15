@@ -165,6 +165,9 @@
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Style="{StaticResource PrimaryBtn}" Content="Approve" x:Name="BulkAcceptBtn" Click="BulkAcceptBtn_Click"></Button>
             <Button Style="{StaticResource DangerBtn}" Content="Reject" x:Name="BulkRejectBtn" Click="BulkRejectBtn_Click"></Button>
+            <Button Style="{StaticResource SecondaryBtn}" Content="Re-Verify" x:Name="BulkReVerifyBtn" Click="BulkReVerifyBtn_Click"></Button>
+            <Button Style="{StaticResource DangerBtn}" Content="Reject-Partial" Width="150" x:Name="BulkRejectPartialBtn" Click="BulkRejectPartialBtn_Click"></Button>
+            <Button Style="{StaticResource PrimaryBtn}" Content="Accept-SecureDPD" Width="150" x:Name="BulkAcceptSecureBtn" Click="BulkAcceptSecureBtn_Click"></Button>
         </StackPanel>
     </Grid>
 </Page>

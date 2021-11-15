@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using MicroFinance.Modal;
 using System.Data;
 using System.Data.SqlClient;
+using MicroFinance.Repository;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -32,7 +34,8 @@ namespace MicroFinance
         List<int> Months = new List<int> { 25,50,100 };
         List<int> Amountlist = new List<int> { 10000, 15000, 20000, 30000 };
         List<string> SelfHelpGroups = new List<string>();
-        List<string> PeerGroups = new List<string>();
+        List<PGView> PeerGroups = new List<PGView>();
+        public List<string> PurposeList = new List<string>();
         public LoanRequest()
         {
             InitializeComponent();
@@ -42,6 +45,8 @@ namespace MicroFinance
             LoanAmountcombo.ItemsSource = Amountlist;
             TimePeriodcombo.ItemsSource = Months;
             LoanRequestPanel.DataContext = loanRequest;
+            PurposeList = LoanRepository.GetAllPurposeNames();
+            LoanPurposeCombo.ItemsSource = PurposeList;
         }
         void GetBranchDetailsofFieldOfficer()
         {
@@ -95,7 +100,8 @@ namespace MicroFinance
             MembersList.Clear();
             if (SelectPg.SelectedItem != null)
             {
-                string _peerGroup = SelectPg.SelectedItem.ToString();
+                PGView SelectedPg = SelectPg.SelectedItem as PGView;
+                string _peerGroup = SelectedPg.GroupID;
                 string _regionName = MainWindow.LoginDesignation.RegionName;
                 List<string> CustomerIds = new List<string>();
                 string _branchName = SelectBranch.SelectedItem.ToString();
@@ -178,27 +184,45 @@ namespace MicroFinance
 
         private void LoanRequestBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(MembersListView.SelectedItem!=null)
+            GroupMembers SelectedMemeber = MembersListView.SelectedValue as GroupMembers;
+            if(LoanRepository.IsAlreadyInApplicationProcess(SelectedMemeber.CustomerID)==false)
             {
-                string BranchName = SelectBranch.SelectedValue as string;
-                string RegionName = SelectRegion.SelectedValue as string;
-                GroupMembers groupMembers = MembersListView.SelectedValue as GroupMembers;
-                groupMembers.IsRequested = true;
-                loanRequest.CustomerID = groupMembers.CustomerID;
-                loanRequest.EmployeeID = EmployeeId;
-                loanRequest.SendRequest(RegionName, BranchName);
-                MembersListView.Items.Refresh();
-                loanRequest = new LoanDetails();
-                LoanRequestPanel.DataContext = new LoanDetails();
+                if (MembersListView.SelectedItem != null && SelectedMemeber.IsRequested != true && LoanDetailsValid() == true)
+                {
+                    string BranchName = SelectBranch.SelectedValue as string;
+                    string RegionName = SelectRegion.SelectedValue as string;
+                    GroupMembers groupMembers = MembersListView.SelectedValue as GroupMembers;
+                    groupMembers.IsRequested = true;
+                    loanRequest.CustomerID = groupMembers.CustomerID;
+                    loanRequest.EmployeeID = EmployeeId;
+                    loanRequest.SendRequest(RegionName, BranchName);
+                    MembersListView.Items.Refresh();
+                    loanRequest = new LoanDetails();
+                    LoanRequestPanel.DataContext = new LoanDetails();
+                }
+                else
+                {
+                    MessageBox.Show("1.Please Check Loan Details\n2.Select Customer","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
+                    loanRequest = new LoanDetails();
+                    LoanRequestPanel.DataContext = new LoanDetails();
+                }
             }
             else
             {
-                MessageBox.Show("Select The Customer");
-                loanRequest = new LoanDetails();
-                LoanRequestPanel.DataContext = new LoanDetails();
+                MessageBox.Show("This Customer Already in Application Process!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             
             
+            
+        }
+
+        public bool LoanDetailsValid()
+        {
+            if(LoanTypecombo.SelectedIndex!=-1)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void MembersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

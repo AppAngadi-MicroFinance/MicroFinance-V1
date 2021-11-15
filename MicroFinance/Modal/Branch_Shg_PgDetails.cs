@@ -103,23 +103,28 @@ namespace MicroFinance.Modal
             }
             return SHG;
         }
-        public List<string> GetPeerGroup(string SHGName)
+        public List<PGView> GetPeerGroup(string SHGName)
         {
-            List<String> PG = new List<string>();
+            List<PGView> PGList = new List<PGView>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select GroupID from PeerGroup where SHGid=(select distinct SHGId from SelfHelpGroup where SHGName='"+SHGName+"' and BranchId='"+GetBranchID()+"')";
+                sqlCommand.CommandText = "select GroupID,GroupName from PeerGroup where SHGid=(select distinct SHGId from SelfHelpGroup where SHGName='" + SHGName+"' and BranchId='"+GetBranchID()+"')";
                 SqlDataReader dataReader = sqlCommand.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    PG.Add(dataReader.GetString(0));
+                    PGView PG = new PGView();
+                    PG.GroupID = dataReader.GetString(0);
+                    PG.GroupName = dataReader.GetString(1);
+
+                    PGList.Add(PG);
+                    
                 }
             }
-            return PG;
+            return PGList;
         }
 
         public string GetCustomerPG(string CustId)
@@ -139,5 +144,10 @@ namespace MicroFinance.Modal
             }
             return PgName;
         }
+    }
+    public class PGView
+    {
+        public string GroupID { get; set; }
+        public string GroupName { get; set; }
     }
 }
