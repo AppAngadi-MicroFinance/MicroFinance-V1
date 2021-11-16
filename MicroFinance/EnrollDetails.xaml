@@ -47,9 +47,9 @@
             </DataGrid.RowStyle>
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Background="Transparent"  Margin="0,0,30,0" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <StackPanel Visibility="Collapsed">
+            <StackPanel Visibility="Visible">
                 <TextBlock Text="BranchName" Style="{StaticResource Regular}"></TextBlock>
-                <ComboBox Width="200" x:Name="BranchCombo" SelectionChanged="BranchCombo_SelectionChanged">
+                <ComboBox Width="200" x:Name="BranchCombo" Height="30" SelectionChanged="BranchCombo_SelectionChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>

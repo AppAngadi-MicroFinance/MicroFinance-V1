@@ -191,6 +191,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.EmpName = reader.GetString(8);
                             HMRequestCustomer.LoanType = reader.GetString(9);
                             HMRequestCustomer.RequestDate = reader.GetDateTime(10);
+                            HMRequestCustomer.SamuApproveDate = reader.GetDateTime(11);
                             HMRequestCustomer.IsRecommend = true;
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
@@ -242,6 +243,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.EmpName = reader.GetString(8);
                             HMRequestCustomer.LoanType = reader.GetString(9);
                             HMRequestCustomer.RequestDate = reader.GetDateTime(11);
+
                             HMRequestCustomer.IsRecommend = true;
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
@@ -383,8 +385,9 @@ namespace MicroFinance.ViewModel
                     {
                         if(rm.IsRecommend==true)
                         {
+                            
                             string LoanId = GenerateLoanID(rm.BranchID);
-                            sqlcomm.CommandText = "insert into LoanDetails(LoanID,CustomerID,LoanType,LoanPeriod,InterestRate,RequestedBY,ApprovedBy,ApproveDate,LoanAmount,IsActive)values('" + LoanId + "','" + rm.CustomerID + "','" + rm.LoanType + "'," + rm.LoanPeriod + ",'12','" + rm.EmpId + "','','" + DateTime.Now.ToString("MM-dd-yyyy") + "'," + rm.LoanAmount + ",'true')";
+                            sqlcomm.CommandText = "insert into LoanDetails(LoanID,CustomerID,LoanType,LoanPeriod,InterestRate,RequestedBY,ApprovedBy,ApproveDate,LoanAmount,IsActive)values('" + LoanId + "','" + rm.CustomerID + "','" + rm.LoanType + "'," + rm.LoanPeriod + ",'12','" + rm.EmpId + "','','" + rm.SamuApproveDate.ToString("MM-dd-yyyy") + "'," + rm.LoanAmount + ",'true')";
                             sqlcomm.ExecuteNonQuery();
                             sqlcomm.CommandText = "select EmpId from EmployeeBranch where BranchId=(select BranchId from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + rm.CustomerID + "'))) and Designation='Manager'";
                             string EmpId = (string)sqlcomm.ExecuteScalar();
@@ -398,7 +401,7 @@ namespace MicroFinance.ViewModel
                             sqlcomm.ExecuteNonQuery();
                             if (Result == 1)
                             {
-                                LoadData1(LoanId, rm.CustomerID, rm.LoanAmount, rm.LoanPeriod, rm.BranchID, rm.CollectionDay);
+                                LoadData1(LoanId, rm.CustomerID, rm.LoanAmount, rm.LoanPeriod, rm.BranchID, rm.CollectionDay,rm.SamuApproveDate);
                                 NewSavingAcc(rm.CustomerID, rm.BranchID);
 
                                 //Suma.InsertData(SUMAObj, LoanId);
@@ -413,10 +416,10 @@ namespace MicroFinance.ViewModel
             }
 
         }
-        static void LoadData1(string LoanID,string CustomerID,int LoanAmount,int LoanPeroid,string BranchID,string Collectionday)
+        static void LoadData1(string LoanID,string CustomerID,int LoanAmount,int LoanPeroid,string BranchID,string Collectionday,DateTime SamuapprovalDate)
         {
             // GetLoanDetails(CustId);
-            DateTime ApproveDate = DateTime.Now;
+            DateTime ApproveDate = SamuapprovalDate;
             DayOfWeek CollectionDay = WeekDay(Collectionday);
             DateTime NextCollectionDate = CollectionDate(CollectionDay);
             List<Loan> LoanCollectionList = Interestcc(LoanAmount, LoanPeroid, ApproveDate, NextCollectionDate);

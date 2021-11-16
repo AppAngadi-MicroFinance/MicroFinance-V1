@@ -12,7 +12,7 @@ namespace MicroFinance.Repository
 {
     public class EnrollDetailsRepository
     {
-        public static List<EnrollDetailsView> GetEnrollDetails(string BranchId,string EmpId)
+        public static List<EnrollDetailsView> GetEnrollDetails(string BranchId,DateModel DateData)
         {
             List<EnrollDetailsView> EnrollDetails = new List<EnrollDetailsView>();
             using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -22,7 +22,7 @@ namespace MicroFinance.Repository
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication,CustomerDetails where EmployeeId='"+EmpId+"' and BranchId='"+BranchId+"' and LoanStatus<14 and LoanApplication.CustId=CustomerDetails.CustId order by EnrollDate DESC";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication,CustomerDetails where BranchId='"+BranchId+ "' and LoanStatus<14 and LoanApplication.EnrollDate between '" + DateData.FromDate.ToString("MM-dd-yyyy") + "' and '" + DateData.EndDate.ToString("MM-dd-yyyy") + "' order by EnrollDate DESC";
 
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
@@ -106,7 +106,7 @@ namespace MicroFinance.Repository
             }
             return EnrollDetails;
         }
-        public static List<EnrollDetailsView> GetEnrollDetails(string BranchID)
+        public static List<EnrollDetailsView> GetEnrollDetails(DateModel DateData)
         {
             List<EnrollDetailsView> EnrollDetails = new List<EnrollDetailsView>();
             using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -116,7 +116,7 @@ namespace MicroFinance.Repository
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication where BranchId='" + BranchID + "' and LoanStatus<14 order by EnrollDate DESC";
+                    sqlcomm.CommandText = "select CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication where LoanStatus<14 and LoanApplication.EnrollDate between '" + DateData.FromDate.ToString("MM-dd-yyyy") + "' and '" + DateData.EndDate.ToString("MM-dd-yyyy") + "'  order by EnrollDate DESC";
 
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
@@ -138,18 +138,14 @@ namespace MicroFinance.Repository
 
                     foreach (EnrollDetailsView EnrollCust in EnrollDetails)
                     {
-                        sqlcomm.CommandText = "select Name from CustomerDetails where CustId='" + EnrollCust.CustomerID + "'";
-                        EnrollCust.CustomerName = (string)sqlcomm.ExecuteScalar();
-                        sqlcomm.CommandText = "select AadharNumber from CustomerDetails where CustId='" + EnrollCust.CustomerID + "'";
-                        EnrollCust.AadharNumber = (string)sqlcomm.ExecuteScalar();
                         sqlcomm.CommandText = "select SHGId from selfhelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + EnrollCust.CustomerID + "'))";
+
+
+
                         EnrollCust.CenterID = (string)sqlcomm.ExecuteScalar();
-                        sqlcomm.CommandText = "select SHGName from selfhelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + EnrollCust.CustomerID + "'))";
-                        EnrollCust.CenterName = (string)sqlcomm.ExecuteScalar();
-                        sqlcomm.CommandText = "select Name from Employee where EmpId='" + EnrollCust.EmployeeId + "'";
-                        EnrollCust.EmployeeName = (string)sqlcomm.ExecuteScalar();
-                        sqlcomm.CommandText = "select BranchName from BranchDetails where Bid='" + EnrollCust.BranchId + "'";
-                        EnrollCust.BranchName = (string)sqlcomm.ExecuteScalar();
+                        EnrollCust.CenterName = MainWindow.BasicDetails.CenterList.Where(temp => temp.SHGId == EnrollCust.CenterID).Select(temp => temp.SHGName).FirstOrDefault();
+                        EnrollCust.EmployeeName = MainWindow.BasicDetails.EmployeeList.Where(temp => temp.EmployeeId == EnrollCust.EmployeeId).Select(temp => temp.EmployeeName).FirstOrDefault();
+                        EnrollCust.BranchName = MainWindow.BasicDetails.BranchList.Where(temp => temp.BranchId == EnrollCust.BranchId).Select(temp => temp.BranchName).FirstOrDefault();
                     }
                 }
             }

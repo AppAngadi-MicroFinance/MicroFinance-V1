@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
 using MicroFinance.Reports;
+using MicroFinance.Repository;
+using MicroFinance.ViewModel;
 using Microsoft.Win32;
 
 namespace MicroFinance
@@ -200,6 +202,59 @@ namespace MicroFinance
         {
             string BranchID = MainWindow.LoginDesignation.BranchId;
             this.NavigationService.Navigate(new CustomerSearch(BranchID));
+        }
+
+        private void EnrollDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            EnrollDatailsPanel.Visibility = Visibility.Visible;
+        }
+
+        private async void EnrollOkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<EnrollDetailsView> EnrollDetails = new List<EnrollDetailsView>();
+            DateTime StartDate = EnrollStartDate.SelectedDate.Value;
+            DateTime EndDate = EnrollEndDate.SelectedDate.Value;
+            if (StartDate != null && EndDate != null)
+            {
+                if (StartDate <= EndDate)
+                {
+                    DateModel DateData = new DateModel();
+                    DateData.FromDate = StartDate;
+                    DateData.EndDate = EndDate;
+                    string BranchId = MainWindow.LoginDesignation.BranchId;
+                    string EmpID = MainWindow.LoginDesignation.EmpId;
+                    GifPanel.Visibility = Visibility.Visible;
+                    await System.Threading.Tasks.Task.Run(() => EnrollDetails = GetEnrollDetails(DateData,BranchId));
+                    GifPanel.Visibility = Visibility.Collapsed;
+
+
+                    if (EnrollDetails.Count == 0)
+                    {
+                        string Message = string.Format("No Enroll Found Betweeen {0} to {1}.", StartDate.ToString("dd-MMM-yyyy"), EndDate.ToString("dd-MMM-yyyy"));
+                        MessageBox.Show(Message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        this.NavigationService.Navigate(new EnrollDetails(EnrollDetails, BranchId));
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Enter Proper Date!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+
+            }
+        }
+        public static List<EnrollDetailsView> GetEnrollDetails(DateModel DateData,string BranchID)
+        {
+            List<EnrollDetailsView> EnrollDetails = new List<EnrollDetailsView>();
+            EnrollDetails = EnrollDetailsRepository.GetEnrollDetails(BranchID,DateData);
+            return EnrollDetails;
+        }
+
+        private void EnrollCancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            EnrollDatailsPanel.Visibility = Visibility.Collapsed;
         }
     }
 }
