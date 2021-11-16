@@ -10,7 +10,37 @@
       Title="DashBoardRegionOfficer">
 
     <Grid>
-        
+        <Border Height="300" Width="400" Background="White" Panel.ZIndex="2" CornerRadius="10" BorderBrush="Gray" BorderThickness="2" x:Name="EnrollDatailsPanel" Visibility="Collapsed">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="10" Color="LightGray" Opacity="1"></DropShadowEffect>
+            </Border.Effect>
+            <Grid Height="290" Width="390">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Enroll Details" Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <Separator VerticalAlignment="Bottom" BorderBrush="Gray"></Separator>
+                <StackPanel Margin="0,0,0,0" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center">
+                    <TextBlock Text="From" Style="{StaticResource Regular}"></TextBlock>
+                    <DatePicker x:Name="EnrollStartDate" Style="{StaticResource DateSelecter}"  Height="30" Width="250" Background="White" FontSize="16">
+
+                    </DatePicker>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="To" Style="{StaticResource Regular}"></TextBlock>
+                    <DatePicker x:Name="EnrollEndDate" Style="{StaticResource DateSelecter}"  Height="30" Width="250" Background="White" FontSize="16"></DatePicker>
+                </StackPanel>
+                <StackPanel Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Style="{StaticResource PrimaryBtn}" Content="OK" x:Name="EnrollOkBtn" Click="EnrollOkBtn_Click"></Button>
+                    <Button Style="{StaticResource CancelBtn}" Margin="10,0,0,0" Content="Cancel" x:Name="EnrollCancelBtn" Click="EnrollCancelBtn_Click"></Button>
+                </StackPanel>
+            </Grid>
+        </Border>
         <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
@@ -81,7 +111,7 @@
         </Grid>
 <!--Section C-->
         <Grid Width="600" Height="170" Margin="130,0,0,50" 
-              HorizontalAlignment="Left" VerticalAlignment="Bottom">
+              HorizontalAlignment="Left" VerticalAlignment="Bottom" x:Name="GridC">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -120,13 +150,18 @@
 
         <!--Section D-->
         <!--Loan Recomendation | Notification-->
-        <Grid Width="500" Height="170" Margin="0,0,130,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <Grid Width="500" Height="170" Margin="0,0,130,50" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="GridD">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
+            <Border  Width="150" Height="150" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="EnrollDetailsBtn" Click="EnrollDetailsBtn_Click"  FontSize="12"  Style="{StaticResource EnrollDetailsBtn}"></Button>
+            </Border>
             <!--New Customer Approvals Button-->
             <Border Visibility="Collapsed" Grid.Row="0" Grid.Column="0" Width="150" Height="150" Style="{StaticResource MainBorder}">
                 <Border.Effect>

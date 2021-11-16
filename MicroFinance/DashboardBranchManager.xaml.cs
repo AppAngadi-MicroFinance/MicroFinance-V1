@@ -40,6 +40,8 @@ namespace MicroFinance
         {
             InitializeComponent();
             //ManageApprovalNotification();
+            EnrollStartDate.SelectedDate = DateTime.Now;
+            EnrollEndDate.SelectedDate = DateTime.Now;
         }
         //void ManageApprovalNotification()
         //{
@@ -206,6 +208,10 @@ namespace MicroFinance
 
         private void EnrollDetailsBtn_Click(object sender, RoutedEventArgs e)
         {
+            GridA.IsEnabled = false;
+            GridB.IsEnabled = false;
+            GridC.IsEnabled = false;
+            GridD.IsEnabled = false;
             EnrollDatailsPanel.Visibility = Visibility.Visible;
         }
 
@@ -222,7 +228,6 @@ namespace MicroFinance
                     DateData.FromDate = StartDate;
                     DateData.EndDate = EndDate;
                     string BranchId = MainWindow.LoginDesignation.BranchId;
-                    string EmpID = MainWindow.LoginDesignation.EmpId;
                     GifPanel.Visibility = Visibility.Visible;
                     await System.Threading.Tasks.Task.Run(() => EnrollDetails = GetEnrollDetails(DateData,BranchId));
                     GifPanel.Visibility = Visibility.Collapsed;
@@ -235,7 +240,7 @@ namespace MicroFinance
                     }
                     else
                     {
-                        this.NavigationService.Navigate(new EnrollDetails(EnrollDetails, BranchId));
+                        this.NavigationService.Navigate(new EnrollDetails(EnrollDetails));
                     }
                 }
                 else
@@ -254,6 +259,10 @@ namespace MicroFinance
 
         private void EnrollCancelBtn_Click(object sender, RoutedEventArgs e)
         {
+            GridA.IsEnabled = true;
+            GridB.IsEnabled = true;
+            GridC.IsEnabled = true;
+            GridD.IsEnabled = true;
             EnrollDatailsPanel.Visibility = Visibility.Collapsed;
         }
     }

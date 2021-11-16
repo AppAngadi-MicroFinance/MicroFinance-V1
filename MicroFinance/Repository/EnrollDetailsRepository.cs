@@ -22,7 +22,7 @@ namespace MicroFinance.Repository
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication,CustomerDetails where BranchId='"+BranchId+ "' and LoanStatus<14 and LoanApplication.EnrollDate between '" + DateData.FromDate.ToString("MM-dd-yyyy") + "' and '" + DateData.EndDate.ToString("MM-dd-yyyy") + "' order by EnrollDate DESC";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication,CustomerDetails where BranchId='"+BranchId+ "' and CustomerDetails.CustId=LoanApplication.CustId and LoanStatus<14 and LoanApplication.EnrollDate between '" + DateData.FromDate.ToString("MM-dd-yyyy") + "' and '" + DateData.EndDate.ToString("MM-dd-yyyy") + "' order by EnrollDate DESC";
 
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
@@ -116,7 +116,7 @@ namespace MicroFinance.Repository
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication where LoanStatus<14 and LoanApplication.EnrollDate between '" + DateData.FromDate.ToString("MM-dd-yyyy") + "' and '" + DateData.EndDate.ToString("MM-dd-yyyy") + "'  order by EnrollDate DESC";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication,CustomerDetails where CustomerDetails.CustId=LoanApplication.CustId and LoanStatus<14 and LoanApplication.EnrollDate between '" + DateData.FromDate.ToString("MM-dd-yyyy") + "' and '" + DateData.EndDate.ToString("MM-dd-yyyy") + "' order by EnrollDate DESC";
 
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
@@ -124,11 +124,13 @@ namespace MicroFinance.Repository
                         while (reader.Read())
                         {
                             EnrollDetailsView Details = new EnrollDetailsView();
-                            Details.CustomerID = reader.GetString(0);
-                            Details.EnrollDate = reader.GetDateTime(1);
-                            Details.EmployeeId = reader.GetString(2);
-                            Details.BranchId = reader.GetString(3);
-                            Details.LoanStatusCode = reader.GetInt32(4);
+                            Details.CustomerName = reader.GetString(0);
+                            Details.AadharNumber = reader.GetString(1);
+                            Details.CustomerID = reader.GetString(2);
+                            Details.EnrollDate = reader.GetDateTime(3);
+                            Details.EmployeeId = reader.GetString(4);
+                            Details.BranchId = reader.GetString(5);
+                            Details.LoanStatusCode = reader.GetInt32(6);
 
                             EnrollDetails.Add(Details);
                         }

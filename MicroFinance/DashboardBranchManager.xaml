@@ -47,7 +47,7 @@
         </Border>
         <!--Section A-->
         <Grid Width="400" Height="170" Margin="130,100,0,0"
-              HorizontalAlignment="Left" VerticalAlignment="Top">
+              HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="GridA">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -100,7 +100,7 @@
             </Border>
         </Grid>
         <!--Section B-->
-        <Grid Height="160" Width="400" Margin="0,100,170,0" VerticalAlignment="Top" HorizontalAlignment="Right" >
+        <Grid Height="160" Width="400" Margin="0,100,170,0" VerticalAlignment="Top" HorizontalAlignment="Right" x:Name="GridB">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -122,7 +122,7 @@
         
         <!--Section C-->
         <Grid Width="600" Height="170" Margin="130,0,0,50" 
-              HorizontalAlignment="Left" VerticalAlignment="Bottom">
+              HorizontalAlignment="Left" VerticalAlignment="Bottom" x:Name="GridC">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -165,7 +165,7 @@
 
         
         <!--Section D-->
-        <Grid Width="400" Height="170" Margin="0,0,150,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <Grid Width="400" Height="170" Margin="0,0,150,50" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="GridD">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>

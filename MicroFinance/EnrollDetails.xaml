@@ -14,6 +14,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
+        <Button Style="{StaticResource Refresh}" HorizontalAlignment="Right" Margin="0,0,50,0" x:Name="RefreshBtn" Click="RefreshBtn_Click" Panel.ZIndex="3"></Button>
         <TextBlock Text="Enroll Details" Style="{StaticResource Title}" VerticalAlignment="Center" Margin="10,0,0,0"></TextBlock>
         <Separator BorderBrush="Gray" BorderThickness="5" VerticalAlignment="Bottom"></Separator>
         <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50,0,0,0">
@@ -47,13 +48,25 @@
             </DataGrid.RowStyle>
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Background="Transparent"  Margin="0,0,30,0" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <StackPanel Visibility="Visible">
+            <StackPanel Visibility="Visible" x:Name="BranchPanel">
                 <TextBlock Text="BranchName" Style="{StaticResource Regular}"></TextBlock>
                 <ComboBox Width="200" x:Name="BranchCombo" Height="30" SelectionChanged="BranchCombo_SelectionChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="{Binding BranchName}" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Margin="10,0,0,0" x:Name="EmployeePanel">
+                <TextBlock Text="Employee" Grid.Row="3" Grid.Column="3" Style="{StaticResource Regular}"/>
+                <ComboBox Grid.Row="4" Grid.Column="3" Style="{StaticResource combo }" HorizontalContentAlignment="Left" VerticalAlignment="Center" Width="200" x:Name="EmployeeCombo" SelectionChanged="EmployeeCombo_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
                             <StackPanel>
-                                <TextBlock Text="{Binding BranchName}" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock Text="{Binding EmployeeName}" VerticalAlignment="Center"></TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
