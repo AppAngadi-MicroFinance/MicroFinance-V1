@@ -84,7 +84,7 @@ namespace MicroFinance
                 BulkReVerifyBtn.Visibility = Visibility.Collapsed;
                 BulkRejectPartialBtn.Visibility = Visibility.Visible;
             }
-            else if(value.Equals("Accept / SecuredDPD"))
+            else if(value.Equals("Accept/SecuredDPD"))
             {
                 BulkAcceptBtn.Visibility = Visibility.Collapsed;
                 BulkRejectBtn.Visibility = Visibility.Collapsed;
