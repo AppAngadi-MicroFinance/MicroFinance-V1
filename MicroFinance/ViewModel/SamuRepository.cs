@@ -40,6 +40,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.BranchID = reader.GetString(6);
                             HMRequestCustomer.BranchName = reader.GetString(7);
                             HMRequestCustomer.EmpName = reader.GetString(8);
+                            //HMRequestCustomer.IsRecommend = true;
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
                             // sqlcomm.CommandText = "select Name from Employee where EmpId='" + HMRequestCustomer.EmpId + "'";

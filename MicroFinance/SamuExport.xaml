@@ -11,29 +11,92 @@
     <Grid Height="630" Width="1368">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
             <RowDefinition Height="80*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80*"/>
-            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="2.5*"></ColumnDefinition>
+            <ColumnDefinition Width="95*"/>
+            <ColumnDefinition Width="2.5*"/>
         </Grid.ColumnDefinitions>
         <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="3">
 
             <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
         </StackPanel>
-        <TextBlock Text="SAMU Report" Style="{StaticResource Title}" VerticalAlignment="Center" Margin="20,0,0,0"></TextBlock>
-        <Separator BorderBrush="Gray" BorderThickness="3" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></Separator>
-        <DataGrid Grid.Row="1" Height="470" Width="1000" Background="Transparent" Name="Samu_Report_View_Grid" ColumnHeaderHeight="40" IsReadOnly="True" HeadersVisibility="All"   AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" AlternatingRowBackground="LightBlue" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+        <TextBlock Text="SAMU Report" Style="{StaticResource Title}" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0"></TextBlock>
+        <Separator BorderBrush="Gray" BorderThickness="3" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Separator>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Width="300" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" x:Name="BranchNamePanel">
+            <TextBlock Text="Branch Name"></TextBlock>
+            <ComboBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Grid.Column="3" Width="300" Style="{StaticResource combo}" x:Name="BranchCombo" SelectionChanged="BranchCombo_SelectionChanged" SelectedIndex="0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding BranchName}" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Background="Transparent" Width="410" Margin="0,0,30,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <StackPanel>
+                <TextBlock Text="From" Style="{StaticResource Regular}"></TextBlock>
+                <DatePicker x:Name="EnrollStartDate" Style="{StaticResource DateSelecter}"  Height="30" Width="150" Background="White" FontSize="16">
+
+                </DatePicker>
+            </StackPanel>
+            <TextBlock Text="-" Style="{StaticResource Regular}" Height="30" VerticalAlignment="Bottom" FontSize="24" Margin="10,0,0,0"></TextBlock>
+            <StackPanel Margin="10,0,0,0">
+                <TextBlock Text="To" Style="{StaticResource Regular}"></TextBlock>
+                <DatePicker x:Name="EnrollEndDate" Style="{StaticResource DateSelecter}"  Height="30" Width="150" Background="White" FontSize="16"></DatePicker>
+            </StackPanel>
+            <Button x:Name="FilterSearchBtn" Click="FilterSearchBtn_Click" Style="{StaticResource SecondaryBtn}" VerticalAlignment="Bottom" Margin="20,0,0,0" Height="25" FontSize="12" Width="60" Content="search"></Button>
+        </StackPanel>
+        <DataGrid x:Name="RecommendGrid" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="2" Grid.Column="1" Background="Transparent" MaxHeight="450" MaxWidth="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Branch Name" Width="150" Binding="{Binding BranchName}" FontSize="14">
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Center Name" Binding="{Binding CenterName}" Width="150"></DataGridTextColumn>
-                <DataGridTextColumn Header="Employee Name" Binding="{Binding EmpName}" Width="200"></DataGridTextColumn>
-                <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName}" Width="200"></DataGridTextColumn>
-                <DataGridTextColumn Header="Loan Amount" Binding="{Binding LoanAmount}" Width="150"></DataGridTextColumn>
-                <DataGridTextColumn Header="Request Id" Binding="{Binding RequestID}" Width="150"></DataGridTextColumn>
-                
+                <DataGridTemplateColumn Width="0.5*" >
+                    <DataGridTemplateColumn.Header>
+                        <!--<TextBlock Text="Recommend"></TextBlock>-->
+                        <StackPanel Orientation="Horizontal" >
+                            <CheckBox Content="All" x:Name="SelectAllCheck" Click="SelectAllCheck_Click">
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
+                        </StackPanel>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsRecommend,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="IndividualCheckBox" Click="IndividualCheckBox_Click"></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Branch Name" Width="1*" FontSize="16"  Binding="{Binding BranchName}" />
+                <DataGridTextColumn Header="Center Name" Width="1*"  FontSize="16"  Binding="{Binding CenterName}"/>
+                <DataGridTextColumn Header="Collection Day" Width="1*" FontSize="16" Binding="{Binding CollectionDay}"/>
+                <DataGridTextColumn Header="FO Name" Width="1*" FontSize="16"  Binding="{Binding EmpName}"/>
+                <DataGridTextColumn Header="Customer Name" Width="1*" FontSize="16" Binding="{Binding CustomerName}"/>
+                <DataGridTextColumn Header="Loan Amount" Width="1*"  FontSize="16"  Binding="{Binding LoanAmount}"/>
+                <DataGridTextColumn Header="Loan Period" Width="0.5*" FontSize="16"  Binding="{Binding LoanPeriod}"/>
+                <DataGridTextColumn Header="Enroll Date" Width="1*" FontSize="16" Binding="{Binding RequestDate,StringFormat='{}{0:dd-MM-yyyy}'}"></DataGridTextColumn>
+                <DataGridTemplateColumn Width="0.5*"  Header="Delete">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Height="auto" Margin="5" Width="auto" x:Name="RejectBtn" Click="RejectBtn_Click" FontSize="12" Style="{StaticResource DangerBtn}" Content="Reject" Uid="{Binding RequestID}" DataContext="{Binding RequestID}">
+                                <Button.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"></Setter>
+                                    </Style>
+                                </Button.Resources>
+
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+
             </DataGrid.Columns>
             <DataGrid.RowStyle>
 
@@ -44,50 +107,22 @@
                     <Setter Property="TextBlock.FontSize" Value="14" />
                     <Setter Property="TextBlock.Background" Value="LightGreen"/>
                     <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
-                    <Setter Property="TextBlock.HorizontalAlignment" Value="Center"></Setter>
+
 
                 </Style>
             </DataGrid.RowStyle>
-            <DataGrid.CellStyle>
-                <Style TargetType="{x:Type DataGridCell}">
-                    <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
-                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
-                    <Setter Property="Height" Value="40"></Setter>
-                </Style>
-            </DataGrid.CellStyle>
         </DataGrid>
-        <TextBlock Text="Branch" Grid.Column="1" Grid.Row="1" Margin="25,25,0,0" Style="{StaticResource Regular}" VerticalAlignment="Top"></TextBlock>
-        <ComboBox HorizontalAlignment="Right" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Top" x:Name="BranchNameCombo" Margin="0,50,40,0" Style="{StaticResource combo}" Grid.Column="1" Grid.Row="1" Width="210" SelectionChanged="BranchNameCombo_SelectionChanged">
 
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <ContentPresenter>
-                        <ContentPresenter.Content>
-                            <StackPanel Height="20">
-                                <TextBlock Text="{Binding BranchName}" FontSize="14" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                            </StackPanel>
-                        </ContentPresenter.Content>
-                    </ContentPresenter>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <Border Grid.Column="1" Grid.Row="1" Height="200" Width="200" BorderBrush="Gray" BorderThickness="3" CornerRadius="5">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Overall" Style="{StaticResource SubTitle}"></TextBlock>
-                <TextBlock x:Name="OverallCount"  Text="0" Style="{StaticResource NumberSubTitle}" FontSize="30" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                <TextBlock Text="Branch Count" Style="{StaticResource SubTitle}" Grid.Row="2"></TextBlock>
-                <TextBlock x:Name="BranchCount"  Text="0" Style="{StaticResource NumberSubTitle}" FontSize="30" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                
-            </Grid>
-        </Border>
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+        <StackPanel Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="Selected : " Style="{StaticResource Regular}" FontWeight="Bold"></TextBlock>
+            <TextBlock Style="{StaticResource Regular}" FontWeight="Bold" x:Name="SelectedCountText"></TextBlock>
+        </StackPanel>
+
+
+
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
             <Button  Style="{StaticResource PrimaryBtn}" Content="Export" x:Name="SamuExportBtn" Click="SamuExportBtn_Click"></Button>
             <Button  Style="{StaticResource CancelBtn}" Margin="20,0,0,0" Content="Cancel" x:Name="SamuCancelBtn" Click="SamuCancelBtn_Click"></Button>
         </StackPanel>

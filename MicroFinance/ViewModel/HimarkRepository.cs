@@ -262,6 +262,24 @@ namespace MicroFinance.ViewModel
                 sqlconn.Close();
             }
         }
+        public static void UpdateStatusToExportExcel(List<string> RequestList, int Code)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    foreach (string hm in RequestList)
+                    {
+                        sqlcomm.CommandText = "update LoanApplication set LoanStatus='" + Code + "' where RequestId='" + hm + "'";
+                        sqlcomm.ExecuteNonQuery();
+                    }
+                }
+                sqlconn.Close();
+            }
+        }
 
     }
 }

@@ -18,6 +18,7 @@ using MicroFinance.Modal;
 using MicroFinance.Reports;
 using Microsoft.Win32;
 using MicroFinance.ViewModel;
+using System.Collections.ObjectModel;
 
 namespace MicroFinance
 {
@@ -221,9 +222,13 @@ namespace MicroFinance
             return SumaApprovalList;
         }
 
-        private void SAMUSendRequestBtn_Click(object sender, RoutedEventArgs e)
+        private  void SAMUSendRequestBtn_Click(object sender, RoutedEventArgs e)
         {
+            //old
             this.NavigationService.Navigate(new SamuExport());
+
+
+
             //GifPanel.Visibility = Visibility.Visible;
             //try
             //{
@@ -235,19 +240,36 @@ namespace MicroFinance
             //    MainWindow.StatusMessageofPage(0, "Error...");
             //    GifPanel.Visibility = Visibility.Collapsed;
             //}
+
+
+
+            //new
+            //ObservableCollection<RecommendView> RecommendList = new ObservableCollection<RecommendView>();
+            //GifPanel.Visibility = Visibility.Visible;
+            //try
+            //{
+            //    await System.Threading.Tasks.Task.Run(() =>RecommendList= GetSamuRequest());
+            //    GifPanel.Visibility = Visibility.Collapsed;
+            //}
+            //catch
+            //{
+            //    MainWindow.StatusMessageofPage(0, "Error...");
+            //    GifPanel.Visibility = Visibility.Collapsed;
+            //}
         }
 
-        void GenerateSamuFile()
+        ObservableCollection<RecommendView> GetSamuRequest()
         {
+            ObservableCollection<RecommendView> RequestList = new ObservableCollection<RecommendView>();
             try
             {
-                GTtoSAMU.GenerateSamunnati_File();
-                MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
+                RequestList = LoanRepository.GetRecommendListForRM(10);
             }
             catch
             {
                 MainWindow.StatusMessageofPage(0, "Error...");
             }
+            return RequestList;
         }
 
         private void CollectionReportDownload_Click(object sender, RoutedEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,33 +23,86 @@ namespace MicroFinance
     /// </summary>
     public partial class SamuExport : Page
     {
-        List<BranchNameView> BranchList = new List<BranchNameView>();
+        ObservableCollection<BranchViewModel> Branches = new ObservableCollection<BranchViewModel>();
         List<HimarkRequestView> RequestList = new List<HimarkRequestView>();
         GTtoSamunnati GTtoSAMU = new GTtoSamunnati();
+        ObservableCollection<RecommendView> SamuRequestList = new ObservableCollection<RecommendView>();
+        ObservableCollection<RecommendView> BindingData = new ObservableCollection<RecommendView>();
         public SamuExport()
         {
             InitializeComponent();
+
+            Branches = MainWindow.BasicDetails.BranchList;
+            LoadBranch();
             
-            BranchList = CollectionReportRepo.GetBranchNames();
-            BranchNameCombo.ItemsSource = BranchList;
+            EnrollStartDate.SelectedDate = DateTime.Now;
+            EnrollEndDate.SelectedDate = DateTime.Now;
+            SelectAllCheck.IsChecked = true;
+
+
+
+            SamuRequestList = LoanRepository.GetRecommendListForRM(10);
+            LoadBinding();
+            RecommendGrid.ItemsSource = BindingData;
+            SetSelectedCount();
             
-            LoadData();
-            OverallCount.Text = RequestList.Count().ToString();
-            Samu_Report_View_Grid.ItemsSource = RequestList;
         }
-
-        void LoadData()
+        void LoadBranch()
         {
-            RequestList= SamuRepository.GetSamuRequestList();
+            BranchViewModel AllBranch = new BranchViewModel { BranchId = "ALL", BranchName = "ALL", RegionId = "ALL" };
+            BranchCombo.Items.Add(AllBranch);
+            foreach(BranchViewModel branch in Branches)
+            {
+                BranchCombo.Items.Add(branch);
+            }
         }
+        
 
-        private void BranchNameCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        ObservableCollection<RecommendView> GetDetails()
         {
-            BranchNameView selectedBranch = BranchNameCombo.SelectedValue as BranchNameView;
-            ChangeCount(selectedBranch.BranchId);
-
-
+            ObservableCollection<RecommendView> RequestDetails = new ObservableCollection<RecommendView>();
+            RequestDetails = LoanRepository.GetRecommendListForRM(10);
+            return RequestDetails;
         }
+
+        void LoadBinding()
+        {
+            foreach (RecommendView recommend in SamuRequestList)
+            {
+                BindingData.Add(recommend);
+            }
+        }
+
+        void CheckAll()
+        {
+            foreach (RecommendView r in BindingData)
+            {
+                r.IsRecommend = true;
+            }
+            SetSelectedCount();
+        }
+        void UncheckAll()
+        {
+            foreach (RecommendView r in BindingData)
+            {
+                r.IsRecommend = false;
+            }
+            SetSelectedCount();
+        }
+
+        bool IsAllcheck()
+        {
+            foreach (RecommendView r in BindingData)
+            {
+                if (r.IsRecommend == false)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
 
         void ChangeCount(string BranchId)
         {
@@ -60,7 +114,7 @@ namespace MicroFinance
                     count++;
                 }
             }
-            BranchCount.Text = count.ToString();
+            
         }
 
         private void SamuCancelBtn_Click(object sender, RoutedEventArgs e)
@@ -70,32 +124,184 @@ namespace MicroFinance
 
         private async void SamuExportBtn_Click(object sender, RoutedEventArgs e)
         {
-            GifPanel.Visibility = Visibility.Visible;
-            try
+            List<string> RecommendList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.CustomerID).ToList();
+            if(RecommendList.Count!=0)
             {
-                await System.Threading.Tasks.Task.Run(() => GenerateSamuFile());
-                GifPanel.Visibility = Visibility.Collapsed;
-                this.NavigationService.Navigate(new DashBoardHeadOfficer());
+                GifPanel.Visibility = Visibility.Visible;
+                try
+                {
+                    await System.Threading.Tasks.Task.Run(() => GenerateSamuFile());
+                    GifPanel.Visibility = Visibility.Collapsed;
+                    this.NavigationService.Navigate(new DashBoardHeadOfficer());
+                }
+                catch
+                {
+                    MainWindow.StatusMessageofPage(0, "Error...");
+                    GifPanel.Visibility = Visibility.Collapsed;
+                }
             }
-            catch
+            else
             {
-                MainWindow.StatusMessageofPage(0, "Error...");
-                GifPanel.Visibility = Visibility.Collapsed;
+                MessageBox.Show("No Data Selected!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            
 
         }
         void GenerateSamuFile()
         {
             try
             {
-                GTtoSAMU.GenerateSamunnati_File();
-                HimarkRepository.UpdateStatusToExportExcel(RequestList, 11);
+                List<string> RecommendList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.CustomerID).ToList();
+                List<string> RequestIds = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                GTtoSAMU.GenerateSamunnati_File(RecommendList);
+                HimarkRepository.UpdateStatusToExportExcel(RequestIds, 11);
                 MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
             }
             catch
             {
                 MainWindow.StatusMessageofPage(0, "Error...");
+                
             }
+        }
+
+        private void BranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BindingData.Clear();
+            BranchViewModel SelectedBranch = BranchCombo.SelectedItem as BranchViewModel;
+            if(SelectedBranch!=null)
+            {
+                if(SelectedBranch.BranchId=="ALL")
+                {
+                    foreach(RecommendView recommend in SamuRequestList)
+                    {
+                        BindingData.Add(recommend);
+                    }
+                }
+                else
+                {
+                    foreach(RecommendView recommend in SamuRequestList)
+                    {
+                        if(recommend.BranchID==SelectedBranch.BranchId)
+                        {
+                            BindingData.Add(recommend);
+                        }
+                    }
+                }
+            }
+            SetSelectedCount();
+        }
+
+        private void FilterSearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BindingData.Clear();
+            DateTime StartDate = EnrollStartDate.SelectedDate.Value;
+            DateTime EndDate = EnrollEndDate.SelectedDate.Value;
+            BranchViewModel SelectedBranch = BranchCombo.SelectedItem as BranchViewModel;
+
+            if (StartDate > EndDate || StartDate == null || EndDate == null)
+            {
+                MessageBox.Show("Enter Valid Date!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                if (BranchCombo.SelectedIndex != 0 && BranchCombo.SelectedIndex!=-1)
+                {
+                    foreach (RecommendView R in SamuRequestList)
+                    {
+                        DateTime Date = R.RequestDate.Date;
+                        if (R.RequestDate >= StartDate.Date && R.RequestDate <= EndDate.Date && SelectedBranch.BranchId == R.BranchID)
+                        {
+                            BindingData.Add(R);
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (RecommendView R in SamuRequestList)
+                    {
+                        DateTime Date = R.RequestDate.Date;
+                        if (R.RequestDate >= StartDate.Date && R.RequestDate <= EndDate.Date)
+                        {
+                            BindingData.Add(R);
+                        }
+                    }
+                }
+
+            }
+            SetSelectedCount();
+        }
+
+        void SetSelectedCount()
+        {
+            int Count = 0;
+            foreach (RecommendView R in BindingData)
+            {
+                if (R.IsRecommend == true)
+                {
+                    Count++;
+                }
+            }
+
+            SelectedCountText.Text = (Count < 10) ? "0" + Count.ToString() : Count.ToString();
+        }
+
+        private void SelectAllCheck_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectAllCheck.IsChecked == true)
+            {
+                CheckAll();
+            }
+            else if (SelectAllCheck.IsChecked == false)
+            {
+                UncheckAll();
+            }
+            SetSelectedCount();
+        }
+
+        private void IndividualCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox check = sender as CheckBox;
+            if (check.IsChecked == true)
+            {
+                if (IsAllcheck())
+                {
+                    SelectAllCheck.IsChecked = true;
+                }
+            }
+            else if (check.IsChecked == false)
+            {
+                SelectAllCheck.IsChecked = false;
+            }
+            SetSelectedCount();
+        }
+
+        private void RejectBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            string RequestID = btn.DataContext.ToString();
+            //string Req = btn.Uid.ToString();
+
+            string CustomerName = GetCustomerName(RequestID);
+            string Message = "Are You Sure You Want To Reject " + CustomerName + " ";
+            MessageBoxResult result = MessageBox.Show(Message, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (MessageBoxResult.Yes == result)
+            {
+                LoanRepository.RejectLoan(RequestID);
+                this.NavigationService.Navigate(new SamuExport());
+            }
+        }
+        string GetCustomerName(string ReqId)
+        {
+            string Result = "";
+            foreach (RecommendView rm in SamuRequestList)
+            {
+                if (rm.RequestID == ReqId)
+                {
+                    Result = rm.CustomerName;
+                    break;
+                }
+            }
+            return Result;
         }
     }
 }

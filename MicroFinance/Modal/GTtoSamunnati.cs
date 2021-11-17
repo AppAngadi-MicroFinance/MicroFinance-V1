@@ -109,6 +109,92 @@ namespace MicroFinance.Modal
             }
             return CustomerDetails;
         }
+        public List<SamuunatiReport> GetDetails(List<string> CustomerIds)
+        {
+            List<SamuunatiReport> CustomerDetails = new List<SamuunatiReport>();
+            List<string> CustomerIdList = CustomerIds;
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            {
+                sql.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = sql;
+                
+                foreach (string id in CustomerIdList)
+                {
+                    SamuunatiReport gs = new SamuunatiReport();
+                    command.CommandText = "select Name,Dob,Mobile,Address,Pincode,AadharNumber,BankName,BankBranchName,IFSCCode,BankACHolderName,BankAccountNo,Gender from CustomerDetails where CustId='" + id + "'";
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        gs.CustomerName = reader.GetString(0);
+                        gs.DOB = reader.GetDateTime(1).ToString("dd-MMMM-yyyy");
+                        gs.Phone = reader.GetString(2);
+                        string[] _fullAdress = reader.GetString(3).Split('|', '~');
+                        gs.Address1 = _fullAdress[0];
+                        gs.Address2 = _fullAdress[2];
+                        gs.Address3 = _fullAdress[4];
+                        gs.Address4 = _fullAdress[6];
+                        gs.City = _fullAdress[8];
+                        gs.State = _fullAdress[10];
+                        gs.PostalCode = reader.GetInt32(4).ToString();
+                        gs.AadharNo = reader.GetString(5);
+                        gs.BankName = reader.GetString(6);
+                        gs.BankBranchName = reader.GetString(7);
+                        gs.IFSCcode = reader.GetString(8);
+                        gs.BankAccName = reader.GetString(9);
+                        gs.BankAccNo = reader.GetString(10);
+                        gs.Gender = reader.GetString(11);
+                    }
+                    reader.Close();
+                    command.CommandText = "select Mobile from GuarenteeDetails where CustId = '" + id + "'";
+                    gs.PANTANno = command.ExecuteScalar().ToString();
+                    command.CommandText = "select LoanApplication.RequestId,LoanApplication.LoanAmount,HimarkResult.ReportID from LoanApplication,HimarkResult where CustId='" + id + "' and LoanApplication.RequestId = HimarkResult.RequestID";
+                    reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        gs.LoanAmount = reader.GetInt32(1);
+                        gs.ReportID = reader.GetString(2);
+                    }
+                    reader.Close();
+                    //default values
+
+                    gs.OperatingUnit = "Samunnati_OU";
+                    gs.HMRefernceNo = DateTime.Today.ToString("yyyy") + "_" + DateTime.Today.ToString("MM") + "_" + DateTime.Today.ToString("dd");
+                    gs.SamunnatiBranchMapping = "Thiruvanmiyur - BAID";
+                    gs.CustomerType = "CBO";
+                    gs.CustomerSubtype = "CBO MEMBER";
+                    gs.BusinessCategory = "Micro";
+                    gs.BusinessIndustryType = "Agriculture";
+                    gs.Sector = "AGRI INPUT";
+                    gs.PrimaryValueChain = "SEEDS";
+                    gs.SecondaryValueChain = "SEEDS";
+                    gs.EmailID = "gtrust2007@yahoo.in";
+                    gs.Constitution = "Individual";
+                    gs.ExistingRelationshipValue = "S0628";
+                    gs.NewCustomerAcquisition = "S0628";
+                    gs.BankAccLevel = "Member Bank";
+                    gs.SalesPesonName = "S0628";
+                    gs.LoanProduct = "STL-DL";
+                    gs.LoanTenure = "12";
+                    gs.LoanTermPeriod = "MONTHS";
+                    gs.LoanType = "DIRECT";
+                    gs.LoanStartDate = DateTime.Today.ToString("dd-MMMM-yyyy");
+                    gs.AmortizationMethod = "EQUAL_PAYMENT";
+                    gs.PaymentStartDate = DateTime.Today.AddDays(7).ToString("dd-MMMM-yyyy");
+                    gs.PaymentFrequency = "WEEKLY";
+                    gs.IntrestStartDate = DateTime.Today.AddDays(7).ToString("dd-MMMM-yyyy");
+                    gs.IntrestFrequency = "WEEKLY";
+                    gs.LoanIntrestRate = "24";
+                    gs.ProcessingFeesPercentage = "1";
+                    gs.InsuranceFees1 = "PAI";
+                    gs.InsuranceFees2 = "GPL";
+                    gs.PenalIntrestRate = "2";
+                    CustomerDetails.Add(gs);
+                }
+
+            }
+            return CustomerDetails;
+        }
 
 
         //public List<SamunnatiResult> samunnatiList = new List<SamunnatiResult>();
@@ -235,8 +321,9 @@ namespace MicroFinance.Modal
 
 
 
-        public void GenerateSamunnati_File()
+        public void GenerateSamunnati_File(List<string> CustomerList)
         {
+            #region FileWriteSection
             Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             Excel.Workbook xlWorkBook;
             Excel.Worksheet xlWorkSheet;
@@ -852,7 +939,9 @@ namespace MicroFinance.Modal
             penalintrestrate.Cells.Interior.ColorIndex = 6;
             penalintrestrate.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             penalintrestrate.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-            FillGTXL(xlWorkSheet, GetDetails());
+            #endregion
+
+            FillGTXL(xlWorkSheet, GetDetails(CustomerList));
             string dir = "";
             try
             {
