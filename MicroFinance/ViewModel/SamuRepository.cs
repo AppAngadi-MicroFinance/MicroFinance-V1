@@ -188,6 +188,7 @@ namespace MicroFinance.ViewModel
                 }
 
             }
+            int sno = 0;
             for (int Rownumber = 2; Rownumber <= rowcount; Rownumber++)
             {
                 var IsNull = (worksheet.Cells[Rownumber, DateColumn] as Excel.Range);
@@ -197,6 +198,7 @@ namespace MicroFinance.ViewModel
                 }
                 else
                 {
+                    sno = sno + 1;
                     DateTime _reportDate = (DateTime)(worksheet.Cells[Rownumber, DateColumn] as Excel.Range).Value;
                     var aadhar = (worksheet.Cells[Rownumber, AadharColumn] as Excel.Range).Value;
                     string _aadharNumber = aadhar.ToString();
@@ -207,20 +209,22 @@ namespace MicroFinance.ViewModel
                     int _disbursement = (int)(worksheet.Cells[Rownumber, DisbursementColumn] as Excel.Range).Value;
                     string GroupNameData = (string)(worksheet.Cells[Rownumber, GroupNameColumn] as Excel.Range).Value;
                     string[] groups = GroupNameData.Split(',').ToArray();
-                    string _centerName = groups[0].ToString();
-                    string _branchName = groups[1].ToString();
+                   // string _centerName = groups[0].ToString();
+                   // string _branchName = groups[1].ToString();
                     string _fileName = Filename;
-
+                  
                     SamuList.Add(new SamuReportView
                     {
+                        
                         ApproveDate = _reportDate,
                         AadharNumber = _aadharNumber,
                         LoanAcNo = _loanacno,
                         CustomerName = _customername,
                         Disbursement = _disbursement,
                         FileName = _fileName,
-                        BranchName = _branchName,
-                        CenterName=_centerName
+                        Sno=sno
+                        //BranchName = sno.ToString(),
+                       // CenterName=_centerName
                     }); ;
 
                 }
