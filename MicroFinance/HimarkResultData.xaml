@@ -158,7 +158,7 @@
 
 
 
-                <DataGridTemplateColumn Width="0.5*"  Header="Delete">
+                <DataGridTemplateColumn Width="0.5*"  Header="Delete" Visibility="Collapsed">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Height="auto" Margin="5" Width="auto" x:Name="IndividualRejectBtn" Click="IndividualRejectBtn_Click" FontSize="12" Style="{StaticResource DangerBtn}" Content="Reject" Uid="{Binding RequestID}" DataContext="{Binding RequestID}">
