@@ -22,7 +22,7 @@ namespace MicroFinance.Repository
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication,CustomerDetails where BranchId='"+BranchId+ "' and CustomerDetails.CustId=LoanApplication.CustId and LoanStatus<14 and LoanApplication.EnrollDate between '" + DateData.FromDate.ToString("MM-dd-yyyy") + "' and '" + DateData.EndDate.ToString("MM-dd-yyyy") + "' order by EnrollDate DESC";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication,CustomerDetails where BranchId='"+BranchId+ "' and CustomerDetails.CustId=LoanApplication.CustId and LoanStatus not in (0,14) and LoanApplication.EnrollDate between '" + DateData.FromDate.ToString("MM-dd-yyyy") + "' and '" + DateData.EndDate.ToString("MM-dd-yyyy") + "' order by EnrollDate DESC";
 
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if(reader.HasRows)
@@ -69,7 +69,7 @@ namespace MicroFinance.Repository
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication,CustomerDetails where EmployeeId='"+EmpId+"' and BranchId='"+BranchId+"' and LoanStatus<14 and LoanApplication.CustId=CustomerDetails.CustId and LoanApplication.EnrollDate between '"+DateData.FromDate.ToString("MM-dd-yyyy")+"' and '"+DateData.EndDate.ToString("MM-dd-yyyy")+"' order by EnrollDate DESC";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication,CustomerDetails where EmployeeId='"+EmpId+"' and BranchId='"+BranchId+ "' and LoanStatus not in (0,14) and LoanApplication.CustId=CustomerDetails.CustId and LoanApplication.EnrollDate between '" + DateData.FromDate.ToString("MM-dd-yyyy")+"' and '"+DateData.EndDate.ToString("MM-dd-yyyy")+"' order by EnrollDate DESC";
 
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
@@ -116,7 +116,7 @@ namespace MicroFinance.Repository
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication,CustomerDetails where CustomerDetails.CustId=LoanApplication.CustId and LoanStatus<14 and LoanApplication.EnrollDate between '" + DateData.FromDate.ToString("MM-dd-yyyy") + "' and '" + DateData.EndDate.ToString("MM-dd-yyyy") + "' order by EnrollDate DESC";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication,CustomerDetails where CustomerDetails.CustId=LoanApplication.CustId and LoanStatus not int (0,14) and LoanApplication.EnrollDate between '" + DateData.FromDate.ToString("MM-dd-yyyy") + "' and '" + DateData.EndDate.ToString("MM-dd-yyyy") + "' order by EnrollDate DESC";
 
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
@@ -163,7 +163,7 @@ namespace MicroFinance.Repository
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication LoanStatus<14 order by EnrollDate DESC";
+                    sqlcomm.CommandText = "select CustId,EnrollDate,EmployeeId,BranchId,LoanStatus from LoanApplication LoanStatus not in (0,14) order by EnrollDate DESC";
 
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
