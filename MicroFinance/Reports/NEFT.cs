@@ -15,7 +15,7 @@ namespace MicroFinance.Reports
 {
     public class NEFT : BindableBase
     {
-        private string _remitteraccno= "09876554as";
+        private string _remitteraccno= "";
         public string RemitterAccNo
         {
             get
@@ -24,7 +24,7 @@ namespace MicroFinance.Reports
             }
             set
             {
-                _remitteraccno = "09876554as";
+                _remitteraccno = "";
             }
         }
         private string _remittername = "G-Trust";
@@ -354,7 +354,7 @@ namespace MicroFinance.Reports
                 //Customer Account Detials
                 xlWorkSheet.Cells[RowStart, 5] = x.AccountNumber;
                 xlWorkSheet.Cells[RowStart, 6] = x.AccountHolder;
-                xlWorkSheet.Cells[RowStart, 7] = x.DoorNumber + "," + x.StreetName+x.City+","+x.State;
+                xlWorkSheet.Cells[RowStart, 7] = x.BankBranchName;
                 xlWorkSheet.Cells[RowStart, 8] = x.IFSCCode;
                 xlWorkSheet.Cells[RowStart, 10] =  "Fast";
                 xlWorkSheet.Cells[RowStart, 11] = "gtrust@gmail.com";
