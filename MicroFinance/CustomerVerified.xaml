@@ -221,7 +221,7 @@
                                 <TextBlock Text="Aadhar Number" Style="{StaticResource Regular}"/>
                                 <TextBlock  Style="{StaticResource ErrorStar}" Visibility="Collapsed" x:Name="CustAadharError"/>
                             </StackPanel>
-                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding AadharNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustAadharNo">
+                            <TextBox Style="{StaticResource Textbox}" Grid.Column="2" Text="{Binding AadharNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="CustAadharNo" LostFocus="CustAadharNo_LostFocus">
                             </TextBox>
 
                             <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="Collapsed"/>

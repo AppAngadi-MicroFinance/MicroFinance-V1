@@ -1925,6 +1925,20 @@ namespace MicroFinance
         {
 
         }
+        string GAadharD = "";
+        private void CustAadharNo_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox box = sender as TextBox;
+            string Aadhra = CustAadharNo.Text;
+            if(Aadhra.Length!=12 && Aadhra!=GAadharD)
+            {
+                MessageBox.Show("InValid Aadhar Number", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                GAadharD = Aadhra;
+                CustAadharNo.Text="";
+            }
+            
+            CustAadharNo.CaretIndex = Aadhra.Length - 1;
+        }
     }
     
 }
