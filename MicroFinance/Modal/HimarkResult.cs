@@ -420,20 +420,21 @@ namespace MicroFinance.Modal
                                 {
                                     //Change Value assign ReportId to RequestID
                                     RequestID = reader.GetString(0),
-                                    ReportID=reader.GetString(1),
-                                    ReportDate=(DateTime)reader.GetDateTime(2),
-                                    EligibleLoanAmount=reader.GetInt32(3),
-                                    Status=_category,
-                                    HiMarkRemark=reader.GetString(5),
-                                    ActiveUnsecureLoan=reader.GetInt32(6),
-                                    ActiveUnsecureLoanin6Months=reader.GetInt32(7),
-                                    OutstandingAmount=reader.GetInt32(8),
-                                    DPDSummary=_dpdsummary,
-                                    HIMarkScore=(reader.GetInt32(10)).ToString(),
-                                    ScoreCommend=reader.GetString(11),
-                                    DPDAmount=reader.GetInt32(12),
+                                    ReportID = reader.GetString(1),
+                                    ReportDate = (DateTime)reader.GetDateTime(2),
+                                    EligibleLoanAmount = reader.GetInt32(3),
+                                    Status = _category,
+                                    HiMarkRemark = reader.GetString(5),
+                                    ActiveUnsecureLoan = reader.GetInt32(6),
+                                    ActiveUnsecureLoanin6Months = reader.GetInt32(7),
+                                    OutstandingAmount = reader.GetInt32(8),
+                                    DPDSummary = _dpdsummary,
+                                    HIMarkScore = (reader.GetInt32(10)).ToString(),
+                                    ScoreCommend = reader.GetString(11),
+                                    DPDAmount = reader.GetInt32(12),
+                                    IsRecommend = true
                                 }
-                                );
+                                ); ;
                         }
                     }
                 }
@@ -525,8 +526,21 @@ namespace MicroFinance.Modal
 
 
 
-    public class HimarkResultModel
+    public class HimarkResultModel:BindableBase
     {
+        private bool _isRecommend;
+        public bool IsRecommend
+        {
+            get
+            {
+                return _isRecommend;
+            }
+            set
+            {
+                _isRecommend = value;
+                RaisedPropertyChanged("IsRecommend");
+            }
+        }
         private string _requestid;
         public string RequestID
         {
@@ -573,18 +587,7 @@ namespace MicroFinance.Modal
             set
             {
                 string id = value;
-                using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
-                {
-                    sqlconn.Open();
-                    if (sqlconn.State == ConnectionState.Open)
-                    {
-                        SqlCommand sqlcomm = new SqlCommand();
-                        sqlcomm.Connection = sqlconn;
-                        sqlcomm.CommandText = "select Bid from BranchDetails where BranchName='" + id + "'";
-                        _bname = (string)sqlcomm.ExecuteScalar();
-                    }
-                    sqlconn.Close();
-                }
+                _bname = MainWindow.BasicDetails.BranchList.Where(temp => temp.BranchName == id).Select(temp => temp.BranchId).FirstOrDefault();
             }
         }
         public string FOName { get; set; }

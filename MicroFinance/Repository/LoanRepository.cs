@@ -678,6 +678,39 @@ namespace MicroFinance.ViewModel
             return Loans;
         }
 
+        public static void ChangeLoanStatus(string RequestId,int StatusCode)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "Update LoanApplication Set LoanStatus='" + StatusCode + "' where Requestid='" + RequestId + "' ";
+                    sqlcomm.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void ChangeLoanStatus(List<string> RequestIDList,int StatusCode)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    foreach(string ReqID in RequestIDList)
+                    {
+                        sqlcomm.CommandText = "Update LoanApplication Set LoanStatus='" + StatusCode + "' where Requestid='" + ReqID + "' ";
+                        sqlcomm.ExecuteNonQuery();
+                    }
+                    
+                }
+            }
+        }
+
 
 
     }

@@ -5,65 +5,61 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
       mc:Ignorable="d" 
-      d:DesignHeight="630" d:DesignWidth="1366"
-      Title="HimarkResultData" Background="#FEF2E4">
+     
+      Title="HimarkResultData">
+
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="80*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*"/>
-            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="95*"/>
+            <ColumnDefinition Width="2.5*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="No Request Found" Style="{StaticResource Title}" FontSize="45" Grid.RowSpan="3" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden" x:Name="NotifyText"></TextBlock>
-        <TextBlock Text="Hi-Mark Result" Style="{StaticResource Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"></TextBlock>
-        <TextBlock Text="Category" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Top" Margin="35,20,0,0" x:Name="CategoryText"></TextBlock>
-        <ComboBox Style="{StaticResource combo}" x:Name="CategoryCombo" SelectionChanged="CategoryCombo_SelectionChanged" Grid.Row="1" Height="40" Width="300" VerticalAlignment="Top" Margin="-40,50,0,0"></ComboBox>
-        <TextBlock Text="Accepte Customers" Grid.Row="1" Grid.Column="1" Style="{StaticResource SubTitle}" VerticalAlignment="Top" Margin="50,10,0,0" x:Name="StatusText"></TextBlock>
-        <StackPanel x:Name="ResultViewPanel" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="-130,0,0,0" VerticalAlignment="Center">
-            <Border Height="50" Margin="0,0,0,0" Grid.Column="1" Grid.Row="1" Width="715" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Blue">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="50"/>
-                    </Grid.ColumnDefinitions>
-                    <Border BorderThickness="0,0,1,0" BorderBrush="Gray"></Border>
-                    <TextBlock  Text="Customer Name" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                    <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="1"></Border>
-                    <TextBlock Grid.Column="1" Text="GroupName" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}" TextWrapping="Wrap"></TextBlock>
-                    <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="2"></Border>
-                    <TextBlock Grid.Column="2" Text="FO-Name" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                    <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="3"></Border>
-                    <TextBlock Grid.Column="3" Text="Status" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                    <TextBlock Text="View" Style="{StaticResource Regular}" Foreground="White" HorizontalAlignment="Center" Grid.Column="4"></TextBlock>
-                </Grid>
-            </Border>
-            <ListBox Grid.Row="1" x:Name="HimarkResultList" Grid.Column="1" Height="400" Width="715" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Margin="0,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border Height="50" Width="700" CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" Background="{Binding MouseEnter, ElementName=HimarkResultList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="50"/>
-                                </Grid.ColumnDefinitions>
-                                <Border BorderThickness="0,0,1,0" BorderBrush="Gray"></Border>
-                                <TextBlock  Text="{Binding CustomerName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource Regular}"></TextBlock>
-                                <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="1"></Border>
-                                <TextBlock Grid.Column="1" Text="{Binding GroupName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}" TextWrapping="Wrap"></TextBlock>
-                                <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="2"></Border>
-                                <TextBlock TextWrapping="Wrap" Grid.Column="2" Text="{Binding FOName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Regular}"></TextBlock>
-                                <Border BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="3"></Border>
-                                <TextBlock Grid.Column="3" Text="{Binding Status,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource NumberRegular}"></TextBlock>
-                                <ToggleButton Grid.Column="4" Style="{StaticResource ToggleShow}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsOpen,ElementName=CustomerViewPanel}" Margin="0,0,0,0"></ToggleButton>
+        <TextBlock Text="Hi-Mark Result" Style="{StaticResource Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="1"></TextBlock>
+        <Separator BorderBrush="Gray" BorderThickness="2" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Separator>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,50,0" VerticalAlignment="Center">
+            <TextBlock Text="Category" Style="{StaticResource Regular}" Grid.Row="1" VerticalAlignment="Top" x:Name="CategoryText" FontSize="13"></TextBlock>
+            <ComboBox Style="{StaticResource combo}" x:Name="CategoryCombo" SelectionChanged="CategoryCombo_SelectionChanged" Grid.Row="1" Height="30" Width="250" VerticalAlignment="Top"></ComboBox>
+        </StackPanel>
+
+
+        <DataGrid x:Name="RequestDataGrid" Grid.Row="2" Grid.Column="1" MaxWidth="1250" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" Background="Transparent" ColumnHeaderHeight="40" MaxHeight="450" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="0.3*" >
+                    <DataGridTemplateColumn.Header>
+                        <!--<TextBlock Text="Recommend"></TextBlock>-->
+                        <StackPanel Orientation="Horizontal" >
+                            <CheckBox Content="All" x:Name="SelectAllCheck" Click="SelectAllCheck_Click">
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
+                        </StackPanel>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsRecommend,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="IndividualCheckBox" Click="IndividualCheckBox_Click"></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Center Name" Binding="{Binding GroupName}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="FO Name" Binding="{Binding FOName}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="0.5*"></DataGridTextColumn>
+                <DataGridTemplateColumn Width="0.3*">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Details"></TextBlock>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <ToggleButton Style="{StaticResource ToggleShow}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsOpen,ElementName=CustomerViewPanel}"></ToggleButton>
                                 <Popup x:Name="CustomerViewPanel" AllowsTransparency="True" Height="670" Width="1366" Placement="AbsolutePoint">
                                     <Border Height="400" BorderBrush="Gray" BorderThickness="2" Width="1000" Background="White" CornerRadius="5">
                                         <Grid  Background="White" ShowGridLines="False" Width="990" Height="390" x:Name="CustViewDetailsGrid">
@@ -155,19 +151,49 @@
                                         </Grid>
                                     </Border>
                                 </Popup>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-        
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+
+                <DataGridTemplateColumn Width="0.5*"  Header="Delete">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Height="auto" Margin="5" Width="auto" x:Name="IndividualRejectBtn" Click="IndividualRejectBtn_Click" FontSize="12" Style="{StaticResource DangerBtn}" Content="Reject" Uid="{Binding RequestID}" DataContext="{Binding RequestID}">
+                                <Button.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"></Setter>
+                                    </Style>
+                                </Button.Resources>
+
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+            <DataGrid.RowStyle>
+
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.Height" Value="35"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="14" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen"/>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+
+
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,25,0">
             <Button Style="{StaticResource PrimaryBtn}" Content="Approve" x:Name="BulkAcceptBtn" Click="BulkAcceptBtn_Click"></Button>
-            <Button Style="{StaticResource DangerBtn}" Content="Reject" x:Name="BulkRejectBtn" Click="BulkRejectBtn_Click"></Button>
-            <Button Style="{StaticResource SecondaryBtn}" Content="Re-Verify" x:Name="BulkReVerifyBtn" Click="BulkReVerifyBtn_Click"></Button>
-            <Button Style="{StaticResource DangerBtn}" Content="Reject-Partial" Width="150" x:Name="BulkRejectPartialBtn" Click="BulkRejectPartialBtn_Click"></Button>
-            <Button Style="{StaticResource PrimaryBtn}" Content="Accept-SecureDPD" Width="150" x:Name="BulkAcceptSecureBtn" Click="BulkAcceptSecureBtn_Click"></Button>
+            <Button Style="{StaticResource CancelBtn}" x:Name="CancelBtn" Click="CancelBtn_Click" Content="Cancel" Margin="10,0,0,0"></Button>
+
         </StackPanel>
     </Grid>
 </Page>

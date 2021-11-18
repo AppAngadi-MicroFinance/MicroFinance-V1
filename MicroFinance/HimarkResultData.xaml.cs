@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -24,225 +26,277 @@ namespace MicroFinance
         string BranchID = MainWindow.LoginDesignation.BranchId;
         HimarkResult HMResult = new HimarkResult();
         List<HimarkResultModel> HMResultList = new List<HimarkResultModel>();
+        ObservableCollection<HimarkResultModel> BindingData = new ObservableCollection<HimarkResultModel>();
         List<string> CategoryList = new List<string>();
         LoanProcess loanProcess = new LoanProcess();
         public HimarkResultData()
         {
             InitializeComponent();
-            HMResultList= HMResult.GetBranchRequest(BranchID);
+            InitializeComponent();
+            HMResultList = HMResult.GetBranchRequest(BranchID);
             CategoryList = HMResult.CategoryList;
-            if (CategoryList.Count()!=0)
+            if (HMResultList.Count != 0)
             {
                 CategoryCombo.ItemsSource = CategoryList;
-                BulkAcceptBtn.Visibility = Visibility.Collapsed;
-                BulkRejectBtn.Visibility = Visibility.Collapsed;
-                BulkAcceptSecureBtn.Visibility = Visibility.Collapsed;
-                BulkReVerifyBtn.Visibility = Visibility.Collapsed;
-                BulkRejectPartialBtn.Visibility = Visibility.Collapsed;
                 CategoryCombo.SelectedIndex = 0;
                 string selectedvalue = CategoryCombo.SelectedValue as string;
-                UpdateData(selectedvalue);
-                buttonVisibility(selectedvalue);
+                LoadBinding(selectedvalue);
+                SetButtonContent(selectedvalue);
+                RequestDataGrid.ItemsSource = BindingData;
+                SelectAllCheck.IsChecked = true;
             }
-            else
-            {
-                HimarkResultList.Visibility = Visibility.Collapsed;
-                StatusText.Visibility = Visibility.Collapsed;
-                CategoryCombo.Visibility = Visibility.Collapsed;
-                CategoryText.Visibility = Visibility.Collapsed;
-                BulkAcceptBtn.Visibility = Visibility.Collapsed;
-                BulkRejectBtn.Visibility = Visibility.Collapsed;
-                ResultViewPanel.Visibility = Visibility.Collapsed;
-                NotifyText.Visibility = Visibility.Visible;
-            }
-           
-
         }
-        void buttonVisibility(string value)
+
+        void LoadBinding()
         {
-            if(value.Equals("Accept",StringComparison.CurrentCultureIgnoreCase))
+            BindingData.Clear();
+            foreach (HimarkResultModel Hm in HMResultList)
             {
-                BulkAcceptBtn.Visibility = Visibility.Visible;
-                BulkRejectBtn.Visibility = Visibility.Collapsed;
-                BulkAcceptSecureBtn.Visibility = Visibility.Collapsed;
-                BulkReVerifyBtn.Visibility = Visibility.Collapsed;
-                BulkRejectPartialBtn.Visibility = Visibility.Collapsed;
+                BindingData.Add(Hm);
             }
-            else if(value.Equals("Reject"))
+        }
+        void LoadBinding(string Status)
+        {
+            BindingData.Clear();
+            foreach (HimarkResultModel Hm in HMResultList)
             {
-                BulkAcceptBtn.Visibility = Visibility.Collapsed;
-                BulkRejectBtn.Visibility = Visibility.Visible;
-                BulkAcceptSecureBtn.Visibility = Visibility.Collapsed;
-                BulkReVerifyBtn.Visibility = Visibility.Collapsed;
-                BulkRejectPartialBtn.Visibility = Visibility.Collapsed;
-            }
-            else if(value.Equals("Accept - Partial"))
-            {
-                BulkAcceptBtn.Visibility = Visibility.Collapsed;
-                BulkRejectBtn.Visibility = Visibility.Collapsed;
-                BulkAcceptSecureBtn.Visibility = Visibility.Collapsed;
-                BulkReVerifyBtn.Visibility = Visibility.Collapsed;
-                BulkRejectPartialBtn.Visibility = Visibility.Visible;
-            }
-            else if(value.Equals("Accept/SecuredDPD"))
-            {
-                BulkAcceptBtn.Visibility = Visibility.Collapsed;
-                BulkRejectBtn.Visibility = Visibility.Collapsed;
-                BulkAcceptSecureBtn.Visibility = Visibility.Visible;
-                BulkReVerifyBtn.Visibility = Visibility.Collapsed;
-                BulkRejectPartialBtn.Visibility = Visibility.Collapsed;
-            }
-            else if(value.Equals("Re-verify"))
-            {
-                BulkAcceptBtn.Visibility = Visibility.Collapsed;
-                BulkRejectBtn.Visibility = Visibility.Collapsed;
-                BulkAcceptSecureBtn.Visibility = Visibility.Collapsed;
-                BulkReVerifyBtn.Visibility = Visibility.Visible;
-                BulkRejectPartialBtn.Visibility = Visibility.Collapsed;
+                if (Hm.Status.Equals(Status))
+                {
+                    BindingData.Add(Hm);
+                }
+
             }
         }
 
-        //void LoanHimarkData(List<HimarkResultModel> himarkResultslist)
-        //{
-        //    foreach(HimarkResultModel hm in himarkResultslist)
-        //    {
-        //        HMResult.InsertHimarkDate(hm);
-        //    }
-        //}
 
         private void CategoryCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string SelectedValue = CategoryCombo.SelectedItem as string;
-            StatusText.Text = SelectedValue.ToUpper() + "ED CUSTOMERS";
-            UpdateData(SelectedValue);
-            buttonVisibility(SelectedValue);
-        }
-
-        void UpdateData(string CategoryType)
-        {
-            HimarkResultList.Items.Clear();
-            foreach (HimarkResultModel hm in HMResultList)
+            if (SelectedValue != null)
             {
-                if(hm.Status.Equals(CategoryType,StringComparison.CurrentCultureIgnoreCase))
-                {
-                    HimarkResultList.Items.Add(hm);
-                }
+                LoadBinding(SelectedValue);
+                SetButtonContent(SelectedValue);
             }
+
+
         }
 
 
-        void RemoveItem(string UId)
+        void SetButtonContent(string Value)
         {
-            HimarkResultList.Items.Clear();
-            RemoveItemFromLsit(UId);
-            foreach(HimarkResultModel hm in HMResultList)
-            { 
-                    HimarkResultList.Items.Add(hm);  
-            }
-        }
-
-        void RemoveItemFromLsit(string UId)
-        {
-            foreach (HimarkResultModel hm in HMResultList)
+            if (Value.Equals("Accept", StringComparison.CurrentCultureIgnoreCase))
             {
-                if (hm.RequestID.Equals(UId) == true)
-                {
-                    HMResultList.Remove(hm);
-                    break;
-                }
+                BulkAcceptBtn.Content = "Accept";
+                SolidColorBrush PrimaryColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F77604"));
+                BulkAcceptBtn.Background = PrimaryColor;
             }
+            else if (Value.Equals("Reject", StringComparison.CurrentCultureIgnoreCase))
+            {
+                BulkAcceptBtn.Content = "Reject";
+                SolidColorBrush SecondaryColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#0EABF2"));
+                BulkAcceptBtn.Background = SecondaryColor;
+            }
+            else if (Value.Equals("Re-verify", StringComparison.CurrentCultureIgnoreCase))
+            {
+                BulkAcceptBtn.Content = "Re-Verify";
+                SolidColorBrush PrimaryColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F77604"));
+                BulkAcceptBtn.Background = PrimaryColor;
+            }
+            else if (Value.Equals("Accept/SecuredDPD", StringComparison.CurrentCultureIgnoreCase))
+            {
+                BulkAcceptBtn.Content = "Accept/SecureDPD";
+                SolidColorBrush PrimaryColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F77604"));
+                BulkAcceptBtn.Background = PrimaryColor;
+                BulkAcceptBtn.Width = 160;
+            }
+            else if (Value.Equals("Accept - Partial", StringComparison.CurrentCultureIgnoreCase))
+            {
+                BulkAcceptBtn.Content = "Reject-Partial";
+                SolidColorBrush PrimaryColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F77604"));
+                BulkAcceptBtn.Background = PrimaryColor;
+                BulkAcceptBtn.Width = 160;
+            }
+
         }
+
+
+        
+
+
+
+
+
+
         private void RetainBtn_Click(object sender, RoutedEventArgs e)
         {
             Button Btn = sender as Button;
-            HimarkResultList.Items.Refresh();
             string ID = Btn.Uid.ToString();
             loanProcess.RetainFromHimark(ID);
-            RemoveItem(ID);
+
         }
 
         private void AcceptBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+
             Button Btn = sender as Button;
-            HimarkResultList.Items.Refresh();
+            // HimarkResultList.Items.Refresh();
             string ID = Btn.Uid.ToString();
             loanProcess.ApproveLoanFromHimark(ID);
-            RemoveItem(ID);
+
         }
 
         private void RejectBtn_Click(object sender, RoutedEventArgs e)
         {
             Button Btn = sender as Button;
-            HimarkResultList.Items.Refresh();
+            //HimarkResultList.Items.Refresh();
             string ID = Btn.Uid.ToString();
             loanProcess.RejectFromHimark(ID);
         }
 
         private void BulkAcceptBtn_Click(object sender, RoutedEventArgs e)
         {
-            int count = 0;
-            foreach(HimarkResultModel hm in HMResultList)
+            int SelectedCount = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).Count();
+            if(SelectedCount!=0)
             {
-                if(hm.Status.Equals("Accept"))
+                string Content = BulkAcceptBtn.Content.ToString();
+                if (Content.Equals("Accept", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    loanProcess.ChangeLoanStatus(hm.RequestID, 3);
-                    count++;
+                    List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                    LoanRepository.ChangeLoanStatus(RequestList, 3);
+                    string Message = "" + RequestList.Count.ToString() + " Loan(s) Approved Successfully!...";
+                    MainWindow.StatusMessageofPage(1, Message);
+                    this.NavigationService.Navigate(new HimarkResultData());
+                }
+                else if (Content.Equals("Reject", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                    LoanRepository.ChangeLoanStatus(RequestList, 4);
+                    string Message = "" + RequestList.Count.ToString() + " Loan(s) Rejected Successfully!...";
+                    MainWindow.StatusMessageofPage(1, Message);
+                    this.NavigationService.Navigate(new HimarkResultData());
+                }
+                else if (Content.Equals("Re-Verify", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                    LoanRepository.ChangeLoanStatus(RequestList, 3);
+                    string Message = "" + RequestList.Count.ToString() + " Loan(s) Re-Verified Successfully!...";
+                    MainWindow.StatusMessageofPage(1, Message);
+                    this.NavigationService.Navigate(new HimarkResultData());
+                }
+                else if (Content.Equals("Reject-Partial", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                    LoanRepository.ChangeLoanStatus(RequestList, 4);
+                    string Message = "" + RequestList.Count.ToString() + " Loan(s) Rejected Successfully!...";
+                    MainWindow.StatusMessageofPage(1, Message);
+                    this.NavigationService.Navigate(new HimarkResultData());
+                }
+                else if (Content.Equals("Accept/SecureDPD", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                    LoanRepository.ChangeLoanStatus(RequestList, 3);
+                    string Message = "" + RequestList.Count.ToString() + " Loan(s) Accepted with SecureDPD Successfully!...";
+                    MainWindow.StatusMessageofPage(1, Message);
+                    this.NavigationService.Navigate(new HimarkResultData());
                 }
             }
-            string Message = "" + count.ToString() + " Loan Approved Successfully!...";
-            MainWindow.StatusMessageofPage(1, Message);
-            this.NavigationService.Navigate(new HimarkResultData());
+            else
+            {
+                MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            
+
 
         }
 
-        private void BulkRejectBtn_Click(object sender, RoutedEventArgs e)
+        private void SelectAllCheck_Click(object sender, RoutedEventArgs e)
         {
-
-            foreach (HimarkResultModel hm in HMResultList)
+            if (SelectAllCheck.IsChecked == true)
             {
-                if (hm.Status.Equals("Reject"))
-                {
-                    loanProcess.ChangeLoanStatus(hm.RequestID, 4);
-                }
+                CheckAll();
             }
-            this.NavigationService.Navigate(new HimarkResultData());
+            else if (SelectAllCheck.IsChecked == false)
+            {
+                UncheckAll();
+            }
+        }
+        void CheckAll()
+        {
+            foreach (HimarkResultModel r in BindingData)
+            {
+                r.IsRecommend = true;
+            }
+
+        }
+        void UncheckAll()
+        {
+            foreach (HimarkResultModel r in BindingData)
+            {
+                r.IsRecommend = false;
+            }
+
         }
 
-        private void BulkReVerifyBtn_Click(object sender, RoutedEventArgs e)
+        bool IsAllcheck()
         {
-            foreach (HimarkResultModel hm in HMResultList)
+            foreach (HimarkResultModel r in BindingData)
             {
-                if (hm.Status.Equals("Re-verify"))
+                if (r.IsRecommend == false)
                 {
-                    loanProcess.ChangeLoanStatus(hm.RequestID, 3);
+                    return false;
                 }
             }
-            this.NavigationService.Navigate(new HimarkResultData());
+            return true;
         }
 
-        private void BulkRejectPartialBtn_Click(object sender, RoutedEventArgs e)
+        private void IndividualCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            foreach (HimarkResultModel hm in HMResultList)
+            CheckBox check = sender as CheckBox;
+            if (check.IsChecked == true)
             {
-                if (hm.Status.Equals("Accept - Partial"))
+                if (IsAllcheck())
                 {
-                    loanProcess.ChangeLoanStatus(hm.RequestID, 4);
+                    SelectAllCheck.IsChecked = true;
                 }
             }
-            this.NavigationService.Navigate(new HimarkResultData());
+            else if (check.IsChecked == false)
+            {
+                SelectAllCheck.IsChecked = false;
+            }
         }
 
-        private void BulkAcceptSecureBtn_Click(object sender, RoutedEventArgs e)
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            foreach (HimarkResultModel hm in HMResultList)
+            this.NavigationService.Navigate(new DashboardBranchManager());
+        }
+
+        private void IndividualRejectBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            string RequestID = btn.DataContext.ToString();
+            //string Req = btn.Uid.ToString();
+
+            string CustomerName = GetCustomerName(RequestID);
+            string Message = "Are You Sure You Want To Reject " + CustomerName + " ";
+            MessageBoxResult result = MessageBox.Show(Message, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (MessageBoxResult.Yes == result)
             {
-                if (hm.Status.Equals("Accept/SecuredDPD"))
+                LoanRepository.ChangeLoanStatus(RequestID,4);
+                this.NavigationService.Navigate(new HimarkResultData());
+            }
+        }
+        string GetCustomerName(string ReqId)
+        {
+            string Result = "";
+            foreach (HimarkResultModel rm in HMResultList)
+            {
+                if (rm.RequestID == ReqId)
                 {
-                    loanProcess.ChangeLoanStatus(hm.RequestID, 3);
+                    Result = rm.CustomerName;
+                    break;
                 }
             }
-            this.NavigationService.Navigate(new HimarkResultData());
+            return Result;
         }
     }
 }
