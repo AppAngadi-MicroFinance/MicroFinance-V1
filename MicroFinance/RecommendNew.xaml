@@ -56,9 +56,9 @@
             <TextBlock Text="Selected : " Style="{StaticResource Regular}" FontWeight="Bold"></TextBlock>
             <TextBlock Style="{StaticResource Regular}" FontWeight="Bold" x:Name="SelectedCountText"></TextBlock>
         </StackPanel>
-        <DataGrid x:Name="RecommendGrid" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="2" Background="Transparent" Height="450" Width="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
+        <DataGrid x:Name="RecommendGrid" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="2" Background="Transparent" MaxHeight="450" MaxWidth="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Width="75" >
+                <DataGridTemplateColumn Width="0.3*" >
                     <DataGridTemplateColumn.Header>
                         <!--<TextBlock Text="Recommend"></TextBlock>-->
                         <StackPanel Orientation="Horizontal" >
@@ -75,15 +75,15 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Branch Name" Width="150" FontSize="16"  Binding="{Binding BranchName}" />
-                <DataGridTextColumn Header="Center Name" Width="150"  FontSize="16"  Binding="{Binding CenterName}"/>
-                <DataGridTextColumn Header="Collection Day" Width="100" FontSize="16" Binding="{Binding CollectionDay}"/>
-                <DataGridTextColumn Header="FO Name" Width="200" FontSize="16"  Binding="{Binding EmpName}"/>
-                <DataGridTextColumn Header="Customer Name" Width="230" FontSize="16" Binding="{Binding CustomerName}"/>
-                <DataGridTextColumn Header="Loan Amount" Width="100"  FontSize="16"  Binding="{Binding LoanAmount}"/>
-                <DataGridTextColumn Header="Loan Period" Width="80" FontSize="16"  Binding="{Binding LoanPeriod}"/>
-                <DataGridTextColumn Header="Enroll Date" Width="115" FontSize="16" Binding="{Binding RequestDate,StringFormat='{}{0:dd-MM-yyyy}'}"></DataGridTextColumn>
-                <DataGridTemplateColumn Width="100"  Header="Delete">
+                <DataGridTextColumn Header="Branch Name" Width="1*" FontSize="16"  Binding="{Binding BranchName}" />
+                <DataGridTextColumn Header="Center Name" Width="1*"  FontSize="16"  Binding="{Binding CenterName}"/>
+                <DataGridTextColumn Header="Collection Day" Width="0.6*" FontSize="16" Binding="{Binding CollectionDay}"/>
+                <DataGridTextColumn Header="FO Name" Width="1*" FontSize="16"  Binding="{Binding EmpName}"/>
+                <DataGridTextColumn Header="Customer Name" Width="1*" FontSize="16" Binding="{Binding CustomerName}"/>
+                <DataGridTextColumn Header="Loan Amount" Width="0.5*"  FontSize="16"  Binding="{Binding LoanAmount}"/>
+                <DataGridTextColumn Header="Loan Period" Width="0.4*" FontSize="16"  Binding="{Binding LoanPeriod}"/>
+                <DataGridTextColumn Header="Enroll Date" Width="0.5*" FontSize="16" Binding="{Binding RequestDate,StringFormat='{}{0:dd-MM-yyyy}'}"></DataGridTextColumn>
+                <DataGridTemplateColumn Width="0.5*"  Header="Delete" Visibility="Collapsed">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Height="25" Width="80" x:Name="RejectBtn" Click="RejectBtn_Click" FontSize="12" Style="{StaticResource DangerBtn}" Content="Reject" Uid="{Binding RequestID}" DataContext="{Binding RequestID}">
@@ -119,7 +119,8 @@
 
         <StackPanel Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,70,0" x:Name="RecommendPanel" Visibility="Visible">
             <Button Style="{StaticResource PrimaryBtn}" Content="Recommend" Width="150" x:Name="RecommendLoanBtn" Click="RecommendLoanBtn_Click"></Button>
-            <Button Style="{StaticResource CancelBtn}" Margin="25,0,0,0" Width="150" Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
+            <Button Style="{StaticResource DangerBtn}" Margin="10,0,0,0" Content="Reject" Width="150" x:Name="BulkRejectBtn" Click="BulkRejectBtn_Click"></Button>
+            <Button Style="{StaticResource CancelBtn}" Margin="10,0,0,0" Width="150" Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
         </StackPanel>
 
         <StackPanel Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,70,0" x:Name="ReportPanel" Visibility="Collapsed">

@@ -161,17 +161,35 @@ namespace MicroFinance
         {
             if(CurrentStatus==11)
             {
-                int count = LoanRepository.RecommendLoans(BindingList, CurrentStatus + 1);
-                LoanRepository.ApproveLoans(BindingList);
-                MainWindow.StatusMessageofPage(1, count.ToString() + "Loan(s) Approved Successfully!...");
-                this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
+                List<string> RequestIDList = BindingList.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                if(RequestIDList.Count!=0)
+                {
+                    LoanRepository.ChangeLoanStatus(RequestIDList, CurrentStatus + 1);
+                    LoanRepository.ApproveLoans(BindingList);
+                    MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Approved Successfully!...");
+                    this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
+                }
+                else
+                {
+                    MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                
 
             }
             else
             {
-                int count = LoanRepository.RecommendLoans(BindingList, CurrentStatus + 1);
-                MainWindow.StatusMessageofPage(1, count.ToString() + "Loan(s) Approved Successfully!...");
-                this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
+                List<string> RequestIDList = BindingList.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                if(RequestIDList.Count!=0)
+                {
+                    LoanRepository.ChangeLoanStatus(RequestIDList, CurrentStatus + 1);
+                    MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Approved Successfully!...");
+                    this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
+                }
+                else
+                {
+                    MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                
             }
             
         }
@@ -367,6 +385,22 @@ namespace MicroFinance
                 SelectAllCheck.IsChecked = false;
             }
             SetSelectedCount();
+        }
+
+        private void BulkRejectBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> RequestIDList = BindingList.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+            if(RequestIDList.Count!=0)
+            {
+                LoanRepository.ChangeLoanStatus(RequestIDList, 13);
+                MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Rejected Successfully!...");
+                this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
+            }
+            else
+            {
+                MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            
         }
     }
 }
