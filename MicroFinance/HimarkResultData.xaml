@@ -143,9 +143,9 @@
                                             </Border>
 
                                             <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Orientation="Horizontal">
-                                                <Button Style="{StaticResource PrimaryBtn}" Content="Accept" x:Name="AcceptBtn" Uid="{Binding RequestID,Mode=OneWay}" Click="AcceptBtn_Click"></Button>
-                                                <Button Style="{StaticResource GreenBtn}" Content="Retain" Margin="10,0,0,0" x:Name="RetainBtn" Uid="{Binding RequestID,Mode=OneWay}" Click="RetainBtn_Click"></Button>
-                                                <Button Margin="10,0,0,0" Style="{StaticResource DangerBtn}" Content="Reject" x:Name="RejectBtn" Uid="{Binding RequestID}" Click="RejectBtn_Click"></Button>
+                                                <Button Style="{StaticResource PrimaryBtn}" Content="Accept" x:Name="AcceptBtn" Uid="{Binding RequestID,Mode=OneWay}" Click="AcceptBtn_Click" Visibility="Collapsed"></Button>
+                                                <Button Style="{StaticResource GreenBtn}" Content="Retain" Margin="10,0,0,0" x:Name="RetainBtn" Uid="{Binding RequestID,Mode=OneWay}" Click="RetainBtn_Click" Visibility="Collapsed"></Button>
+                                                <Button Margin="10,0,0,0" Style="{StaticResource DangerBtn}" Content="Reject" x:Name="RejectBtn" Uid="{Binding RequestID}" Click="RejectBtn_Click" Visibility="Collapsed"></Button>
                                             </StackPanel>
 
                                         </Grid>
@@ -192,6 +192,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,25,0">
             <Button Style="{StaticResource PrimaryBtn}" Content="Approve" x:Name="BulkAcceptBtn" Click="BulkAcceptBtn_Click"></Button>
+            <Button Style="{StaticResource DangerBtn}" Content="Reject" Margin="10,0,0,0" x:Name="BulkRejectBtn" Click="BulkRejectBtn_Click"></Button>
             <Button Style="{StaticResource CancelBtn}" x:Name="CancelBtn" Click="CancelBtn_Click" Content="Cancel" Margin="10,0,0,0"></Button>
 
         </StackPanel>

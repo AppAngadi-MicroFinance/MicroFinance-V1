@@ -32,7 +32,6 @@ namespace MicroFinance
         public HimarkResultData()
         {
             InitializeComponent();
-            InitializeComponent();
             HMResultList = HMResult.GetBranchRequest(BranchID);
             CategoryList = HMResult.CategoryList;
             if (HMResultList.Count != 0)
@@ -41,7 +40,6 @@ namespace MicroFinance
                 CategoryCombo.SelectedIndex = 0;
                 string selectedvalue = CategoryCombo.SelectedValue as string;
                 LoadBinding(selectedvalue);
-                SetButtonContent(selectedvalue);
                 RequestDataGrid.ItemsSource = BindingData;
                 SelectAllCheck.IsChecked = true;
             }
@@ -75,7 +73,7 @@ namespace MicroFinance
             if (SelectedValue != null)
             {
                 LoadBinding(SelectedValue);
-                SetButtonContent(SelectedValue);
+                
             }
 
 
@@ -158,47 +156,13 @@ namespace MicroFinance
             int SelectedCount = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).Count();
             if(SelectedCount!=0)
             {
-                string Content = BulkAcceptBtn.Content.ToString();
-                if (Content.Equals("Accept", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
-                    LoanRepository.ChangeLoanStatus(RequestList, 3);
-                    string Message = "" + RequestList.Count.ToString() + " Loan(s) Approved Successfully!...";
-                    MainWindow.StatusMessageofPage(1, Message);
-                    this.NavigationService.Navigate(new HimarkResultData());
-                }
-                else if (Content.Equals("Reject", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
-                    LoanRepository.ChangeLoanStatus(RequestList, 4);
-                    string Message = "" + RequestList.Count.ToString() + " Loan(s) Rejected Successfully!...";
-                    MainWindow.StatusMessageofPage(1, Message);
-                    this.NavigationService.Navigate(new HimarkResultData());
-                }
-                else if (Content.Equals("Re-Verify", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
-                    LoanRepository.ChangeLoanStatus(RequestList, 3);
-                    string Message = "" + RequestList.Count.ToString() + " Loan(s) Re-Verified Successfully!...";
-                    MainWindow.StatusMessageofPage(1, Message);
-                    this.NavigationService.Navigate(new HimarkResultData());
-                }
-                else if (Content.Equals("Reject-Partial", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
-                    LoanRepository.ChangeLoanStatus(RequestList, 4);
-                    string Message = "" + RequestList.Count.ToString() + " Loan(s) Rejected Successfully!...";
-                    MainWindow.StatusMessageofPage(1, Message);
-                    this.NavigationService.Navigate(new HimarkResultData());
-                }
-                else if (Content.Equals("Accept/SecureDPD", StringComparison.CurrentCultureIgnoreCase))
-                {
+                
                     List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
                     LoanRepository.ChangeLoanStatus(RequestList, 3);
                     string Message = "" + RequestList.Count.ToString() + " Loan(s) Accepted with SecureDPD Successfully!...";
                     MainWindow.StatusMessageofPage(1, Message);
                     this.NavigationService.Navigate(new HimarkResultData());
-                }
+                
             }
             else
             {
@@ -297,6 +261,25 @@ namespace MicroFinance
                 }
             }
             return Result;
+        }
+
+        private void BulkRejectBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int SelectedCount = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).Count();
+            if (SelectedCount != 0)
+            {
+
+                List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                LoanRepository.ChangeLoanStatus(RequestList, 4);
+                string Message = "" + RequestList.Count.ToString() + " Loan(s) Accepted with SecureDPD Successfully!...";
+                MainWindow.StatusMessageofPage(1, Message);
+                this.NavigationService.Navigate(new HimarkResultData());
+
+            }
+            else
+            {
+                MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

@@ -76,10 +76,10 @@ namespace MicroFinance.Modal
 
 
 
-        public void BulkInsertData(string Path,int Value)
+        public List<HimarkResultModel> BulkInsertData(string Path,int Value)
         {
-            
 
+            List<HimarkResultModel> ResultList = new List<HimarkResultModel>();
             //SW.Start();
             //MainWindow.TimeBuilder.Append("\n GetSheet Name : " + SW.Elapsed.Ticks.ToString());
             var FilePath = Path.Split('\\');
@@ -106,7 +106,7 @@ namespace MicroFinance.Modal
                         //MainWindow.TimeBuilder.Append("\n time When Sheet Found : " + SW.Elapsed.Ticks.ToString());
                         Excel.Range usedrange = sheet.UsedRange;
                         Sheetname = sheet.Name;
-                        GetDataFromExcel(sheet, FileName);
+                        ResultList= GetDataFromExcel(sheet, FileName);
                         break;
                     }
                 }
@@ -118,15 +118,13 @@ namespace MicroFinance.Modal
             }
             finally
             {
-                //MainWindow.TimeBuilder.Append("\n time for xl App Close start : " + SW.Elapsed.Ticks.ToString());
                 workbook.Close();
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
                 application.Quit();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
-                /// GC.Collect();
-                //MainWindow.TimeBuilder.Append("\n time for xl App Close end : " + SW.Elapsed.Ticks.ToString());
-                //SW.Stop();
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(application);   
             }
+
+            return ResultList;
             
         }
 
@@ -187,11 +185,11 @@ namespace MicroFinance.Modal
                 sqlconn.Close();
             }
         }
-        public void GetDataFromExcel(Excel.Worksheet worksheet,string Filename)
+        public List<HimarkResultModel> GetDataFromExcel(Excel.Worksheet worksheet,string Filename)
         {
-           
+            List<HimarkResultModel> HimarkResultList = new List<HimarkResultModel>();
           
-            MainWindow.TimeBuilder.Append("\n start Readfile : " + SW.Elapsed.Ticks.ToString());
+            
             Excel.Range userange = worksheet.UsedRange;
             int rowcount = userange.Rows.Count;
             int ColumnCount = userange.Columns.Count;
@@ -275,13 +273,7 @@ namespace MicroFinance.Modal
                     ScoreCommend = i;
                 }
             }
-            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
-            {
-                sqlconn.Open();
-                if (ConnectionState.Open == sqlconn.State)
-                {
-                    SqlCommand sqlcomm = new SqlCommand();
-                    sqlcomm.Connection = sqlconn;
+            
 
                     for (int Rownumber = 2; Rownumber <= rowcount; Rownumber++)
                     {
@@ -332,64 +324,12 @@ namespace MicroFinance.Modal
                             result.DPDAmount = _dpdamount;
                             result.ReportDate = _reportDate;
                             result.FileName = Filename;
-                            sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName)values('" + result.GetRequestId(result.AadharNumber) + "','" + result.ReportID + "','" + result.ReportDate.ToString("MM-dd-yyyy") + "','" + result.EligibleLoanAmount + "','" + result.Status + "','" + result.HiMarkRemark + "','" + result.ActiveUnsecureLoan + "','" + result.ActiveUnsecureLoanin6Months + "','" + result.OutstandingAmount + "','" + result.DPDSummary + "','" + result.HIMarkScore + "','" + result.ScoreCommend + "','" + result.DPDAmount + "','" + result.BName + "','" + result.FileName + "')";
-                            sqlcomm.ExecuteNonQuery();
+
+
+                    himarkResultslist.Add(result);
                         }
                     }
-                }
-            }
-            //for (int Rownumber = 2; Rownumber <= rowcount; Rownumber++)
-            //{
-               
-            //    var IsNull=(worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range);
-            //    if (IsNull.Text=="")
-            //    {
-            //        break;
-            //    }
-            //    else
-            //    {
-            //        DateTime _reportDate = (DateTime)(worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range).Value;
-            //        string _reqID = ((worksheet.Cells[Rownumber, requestIDColumn] as Excel.Range).Value);
-            //        string _aadharno = (worksheet.Cells[Rownumber, AadharNoColumn] as Excel.Range).Value;
-            //        string _branchname = (worksheet.Cells[Rownumber, BranchNameColumn] as Excel.Range).Value;
-            //        string _name = (worksheet.Cells[Rownumber, NameColumn] as Excel.Range).Value;
-            //        int _eligibleAmount = (int)(worksheet.Cells[Rownumber, EligibleLoanAmountColumn] as Excel.Range).Value;
-            //        string _status = (worksheet.Cells[Rownumber, HimarkStatusColumn] as Excel.Range).Value;
-            //        string _remark = (worksheet.Cells[Rownumber, RemarkColumn] as Excel.Range).Value;
-            //        int _activeUnsecureLoan = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoanColumn] as Excel.Range).Value;
-            //        int _activeunsecureloan6months = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoan6MonthsColumn] as Excel.Range).Value;
-            //        int _outstandingamount = (int)(worksheet.Cells[Rownumber, outstandingamountcolumn] as Excel.Range).Value;
-            //        string _dpdsummary = (worksheet.Cells[Rownumber, DPDSummaryColumn] as Excel.Range).Value;
-            //        string _himarkscore = Convert.ToString((worksheet.Cells[Rownumber, HimarkScoreValuecolumn] as Excel.Range).Value);
-            //        string _scoreCommend = (worksheet.Cells[Rownumber, ScoreCommend] as Excel.Range).Value;
-            //        string CategoryValue = _status.ToUpper();
-            //        int _dpdamount = (int)(worksheet.Cells[Rownumber, DPDColumn] as Excel.Range).Value;
-            //        if (!CategoryList.Contains(CategoryValue))
-            //        {
-            //            CategoryList.Add(_status.ToUpper());
-            //        }
-            //        HimarkResultModel HmModel = new HimarkResultModel();
-            //        HmModel.ReportID = (_reqID).Trim();
-            //        HmModel.Name = (_name).Trim();
-            //        HmModel.AadharNumber = _aadharno.Trim();
-            //        HmModel.EligibleLoanAmount = _eligibleAmount;
-            //        HmModel.Status = _status;
-            //        HmModel.HiMarkRemark = _remark;
-            //        HmModel.ActiveUnsecureLoan = _activeUnsecureLoan;
-            //        HmModel.ActiveUnsecureLoanin6Months = _activeunsecureloan6months;
-            //        HmModel.OutstandingAmount = _outstandingamount;
-            //        HmModel.DPDSummary = _dpdsummary;
-            //        HmModel.HIMarkScore = _himarkscore;
-            //        HmModel.ScoreCommend = _scoreCommend;
-            //        HmModel.BName = _branchname.Trim();
-            //        HmModel.DPDAmount = _dpdamount;
-            //        HmModel.ReportDate = _reportDate;
-            //        HmModel.FileName = Filename;
-            //        InsertHimarkDate(HmModel);
-                        
-            //    }
-            //}
-            MainWindow.TimeBuilder.Append("\n time to read all data from file : " + SW.Elapsed.Ticks.ToString());
+            return himarkResultslist;
         }
         public List<HimarkResultModel> GetBranchRequest(string BranchId)
         {

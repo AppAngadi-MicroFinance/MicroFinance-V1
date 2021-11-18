@@ -164,7 +164,7 @@ namespace MicroFinance
 
         private async void ImportHimarkBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            List<HimarkResultModel> himarkResults = new List<HimarkResultModel>();
             OpenFileDialog openFileDlg = new OpenFileDialog();
             openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
             openFileDlg.Title = "Choose File";
@@ -176,7 +176,7 @@ namespace MicroFinance
                 if(!IsFileUsed(FileFrom))
                 {
                     GifPanel.Visibility = Visibility.Visible;
-                    await System.Threading.Tasks.Task.Run(() =>ImportHimarkFile(FileFrom));
+                    await System.Threading.Tasks.Task.Run(() =>himarkResults= ImportHimarkFile(FileFrom));
                     GifPanel.Visibility = Visibility.Collapsed;
                 }
                 else
@@ -186,8 +186,9 @@ namespace MicroFinance
             }
         }
 
-        void ImportHimarkFile(string FileFrom)
+        List<HimarkResultModel> ImportHimarkFile(string FileFrom)
         {
+            List<HimarkResultModel> ResultList = new List<HimarkResultModel>();
             var FilePath = FileFrom.Split('\\');
             string FileName = FilePath[FilePath.Length - 1];
             HimarkResultModel HMResult = new HimarkResultModel();
@@ -197,7 +198,7 @@ namespace MicroFinance
                 try
                 {
                     List<HimarkResultModel> resultList = new List<HimarkResultModel>();
-                    HmResultList.BulkInsertData(FileFrom, 0);
+                   ResultList= HmResultList.BulkInsertData(FileFrom, 0);
                     MainWindow.StatusMessageofPage(1, "File Upload Successfully!...");
                 }
                 catch (Exception ex)
@@ -209,6 +210,7 @@ namespace MicroFinance
             {
                 MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
             }
+            return ResultList;
         }
 
         private bool IsFileUsed(string FilePath)
