@@ -237,8 +237,10 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.ColumnSpan="6" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                
-                                    <Image Height="200" Width="600" Source="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></Image>
+                                <Border x:Name="border">
+                                    <Image x:Name="omrimage" Height="200" Width="600" Source="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></Image>
+
+                                </Border>
                                 
                                 
                             </StackPanel> 

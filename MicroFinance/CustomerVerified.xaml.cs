@@ -29,6 +29,8 @@ namespace MicroFinance
         string _pgName;
         static string _loanReqId;
 
+        private Point origin;
+        private Point start;
         Customer customer = new Customer();
         Guarantor guarantor = new Guarantor();
         Nominee nominee = new Nominee();
@@ -37,6 +39,16 @@ namespace MicroFinance
         public CustomerVerified(string CustId,int status,string LoanRequestId,string EmpId)
         {
             InitializeComponent();
+            TransformGroup group = new TransformGroup();
+            ScaleTransform xform = new ScaleTransform();
+            group.Children.Add(xform);
+            TranslateTransform tt = new TranslateTransform();
+            group.Children.Add(tt);
+            omrimage.RenderTransform = group;
+            omrimage.MouseWheel += image_MouseWheel;
+            omrimage.MouseLeftButtonDown += image_MouseLeftButtonDown;
+            omrimage.MouseLeftButtonUp += image_MouseLeftButtonUp;
+            omrimage.MouseMove += image_MouseMove;
 
             CustomerStatus = status;
             _loanReqId = LoanRequestId;
@@ -81,6 +93,55 @@ namespace MicroFinance
 
             ContextAssigning();
             VisiblityOfPhotoPanel();
+        }
+
+        private void image_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            TransformGroup transformGroup = (TransformGroup)omrimage.RenderTransform;
+            ScaleTransform transform = (ScaleTransform)transformGroup.Children[0];
+            double zoom = e.Delta > 0 ? .2 : -.2;
+
+            transform.ScaleX += zoom;
+            transform.ScaleY += zoom;
+
+
+        }
+        private void image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                omrimage.CaptureMouse();
+                var tt = (TranslateTransform)((TransformGroup)omrimage.RenderTransform).Children.First(tr => tr is TranslateTransform);
+                start = e.GetPosition(border);
+                origin = new Point(tt.X, tt.Y);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace(ex, true);
+               
+                //  logger.Error("R007" + ex.Message);
+            }
+        }
+        private void image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            omrimage.ReleaseMouseCapture();
+        }
+        private void image_MouseMove(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if (!omrimage.IsMouseCaptured) return;
+                var tt = (TranslateTransform)((TransformGroup)omrimage.RenderTransform).Children.First(tr => tr is TranslateTransform);
+                Vector v = start - e.GetPosition(border);
+                tt.X = origin.X - v.X;
+                tt.Y = origin.Y - v.Y;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace(ex, true);
+               
+                //logger.Error("R007" + ex.Message);
+            }
         }
 
         void GetBlockWiseVerifiedorNot()
