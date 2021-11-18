@@ -165,6 +165,9 @@ namespace MicroFinance
         private async void ImportHimarkBtn_Click(object sender, RoutedEventArgs e)
         {
             List<HimarkResultModel> himarkResults = new List<HimarkResultModel>();
+            List<CustomerHimarkDataModel> CustomerDetailsList = new List<CustomerHimarkDataModel>();
+
+            ObservableCollection<HimarkResultModel> HimarkResultData = new ObservableCollection<HimarkResultModel>();
             OpenFileDialog openFileDlg = new OpenFileDialog();
             openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
             openFileDlg.Title = "Choose File";
@@ -177,13 +180,31 @@ namespace MicroFinance
                 {
                     GifPanel.Visibility = Visibility.Visible;
                     await System.Threading.Tasks.Task.Run(() =>himarkResults= ImportHimarkFile(FileFrom));
+                    await System.Threading.Tasks.Task.Run(() => CustomerDetailsList = LoanRepository.GetDetailsForHimarkResult());
+                    await System.Threading.Tasks.Task.Run(() => HimarkResultData = CombineData(himarkResults,CustomerDetailsList));
                     GifPanel.Visibility = Visibility.Collapsed;
+                    this.NavigationService.Navigate(new HimarkResultView(HimarkResultData));
                 }
                 else
                 {
                     MainWindow.StatusMessageofPage(0, "The process Cant't Access "+FileFrom+" It is used by another process");
                 }
             }
+        }
+
+
+        ObservableCollection<HimarkResultModel> CombineData(List<HimarkResultModel> HimarkData,List<CustomerHimarkDataModel> CustomerData)
+        {
+            ObservableCollection<HimarkResultModel> ResultList = new ObservableCollection<HimarkResultModel>();
+            foreach (HimarkResultModel HM in HimarkData)
+            {
+                HM.RequestID = CustomerData.Where(temp => temp.AadharNumber == HM.AadharNumber).Select(temp => temp.RequestID).FirstOrDefault();
+                HM.Name = CustomerData.Where(temp => temp.AadharNumber == HM.AadharNumber).Select(temp => temp.CustomerName).FirstOrDefault();
+
+                ResultList.Add(HM);
+            }
+
+            return ResultList;
         }
 
         List<HimarkResultModel> ImportHimarkFile(string FileFrom)
@@ -193,23 +214,18 @@ namespace MicroFinance
             string FileName = FilePath[FilePath.Length - 1];
             HimarkResultModel HMResult = new HimarkResultModel();
             HimarkResult HmResultList = new HimarkResult();
-            if (HimarkResult.IsAlreadyUpload(FileName))
-            {
+            
                 try
                 {
                     List<HimarkResultModel> resultList = new List<HimarkResultModel>();
                    ResultList= HmResultList.BulkInsertData(FileFrom, 0);
-                    MainWindow.StatusMessageofPage(1, "File Upload Successfully!...");
+                    
                 }
                 catch (Exception ex)
                 {
                     System.Windows.MessageBox.Show(ex.Message);
                 }
-            }
-            else
-            {
-                MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
-            }
+            
             return ResultList;
         }
 

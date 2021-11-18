@@ -518,6 +518,7 @@ namespace MicroFinance.Modal
         public string HIMarkScore { get; set; }
         public string ScoreCommend { get; set; }
         private string _bname;
+        public string BranchName { get; set; }
         public string BName
         {
             get
@@ -528,6 +529,7 @@ namespace MicroFinance.Modal
             {
                 string id = value;
                 _bname = MainWindow.BasicDetails.BranchList.Where(temp => temp.BranchName == id).Select(temp => temp.BranchId).FirstOrDefault();
+                BranchName = id;
             }
         }
         public string FOName { get; set; }

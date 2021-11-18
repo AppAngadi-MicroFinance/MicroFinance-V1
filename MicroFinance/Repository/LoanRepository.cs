@@ -712,6 +712,61 @@ namespace MicroFinance.ViewModel
         }
 
 
+        public static List<CustomerHimarkDataModel> GetDetailsForHimarkResult()
+        {
+            List<CustomerHimarkDataModel> ResultList = new List<CustomerHimarkDataModel>();
+            using (SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select CustomerDetails.CustId,CustomerDetails.Name,CustomerDetails.AadharNumber,LoanApplication.RequestId from CustomerDetails,LoanApplication where LoanApplication.CustId = CustomerDetails.CustId and LoanApplication.LoanStatus = 2";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            CustomerHimarkDataModel Customer = new CustomerHimarkDataModel();
+                            Customer.CustomerID = reader.GetString(0);
+                            Customer.CustomerName = reader.GetString(1);
+                            Customer.AadharNumber = reader.GetString(2);
+                            Customer.RequestID = reader.GetString(3);
+
+                            ResultList.Add(Customer);
+
+                        }
+                    }
+                    reader.Close();
+                }
+                sqlconn.Close();
+            }
+            return ResultList;
+        }
+
+
+        public static void InsertHimarkData(ObservableCollection<HimarkResultModel> DataList)
+        {
+            using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    foreach(HimarkResultModel result in DataList)
+                    {
+                        sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName,AadharNumber)values('" + result.GetRequestId(result.AadharNumber) + "','" + result.ReportID + "','" + result.ReportDate.ToString("MM-dd-yyyy") + "','" + result.EligibleLoanAmount + "','" + result.Status + "','" + result.HiMarkRemark + "','" + result.ActiveUnsecureLoan + "','" + result.ActiveUnsecureLoanin6Months + "','" + result.OutstandingAmount + "','" + result.DPDSummary + "','" + result.HIMarkScore + "','" + result.ScoreCommend + "','" + result.DPDAmount + "','" + result.BName + "','" + result.FileName + "','"+result.AadharNumber+"')";
+                        sqlcomm.ExecuteNonQuery();
+                    }
+                    
+                }
+                sqlconn.Close();
+            }
+        }
+
+
 
     }
     public class Loan

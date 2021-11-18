@@ -194,6 +194,9 @@
     <Compile Include="HimarkResultData.xaml.cs">
       <DependentUpon>HimarkResultData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HimarkResultView.xaml.cs">
+      <DependentUpon>HimarkResultView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HOLoanApproval.xaml.cs">
       <DependentUpon>HOLoanApproval.xaml</DependentUpon>
     </Compile>
@@ -299,6 +302,7 @@
     <Compile Include="ViewModel\CollectionReportRepo.cs" />
     <Compile Include="ViewModel\CollectionReportView.cs" />
     <Compile Include="Repository\EmployeeRepository.cs" />
+    <Compile Include="ViewModel\CustomerHimarkDataModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\DateModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
@@ -426,6 +430,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HimarkResultData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HimarkResultView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
