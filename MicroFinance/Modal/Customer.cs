@@ -865,8 +865,8 @@ namespace MicroFinance.Modal
                        
                     _photoProofNo = sqlData.GetString(44);
                     _AddressProofNo = sqlData.GetString(45);
-                    ResidencyType = sqlData.GetString(46);
-                    LandHolding = sqlData.GetString(47);
+                    ResidencyType = (DBNull.Value.Equals(sqlData["Residency"])) ? "" : sqlData.GetString(46);
+                    LandHolding = (DBNull.Value.Equals(sqlData["LandHolding"])) ? "" : sqlData.GetString(47);
 
                     LandType = (DBNull.Value.Equals(sqlData["LandType"])) ? "" : sqlData.GetString(48);
                     LandVolume = (DBNull.Value.Equals(sqlData["LandVolume"])) ? "" : sqlData.GetString(49);

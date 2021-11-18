@@ -120,7 +120,7 @@ namespace MicroFinance
         }
         void EnableDisableGrid(bool state)
         {
-            customerNamegrid.IsEnabled = state;
+            //customerNamegrid.IsEnabled = state;
             Guarantorgrid.IsEnabled = state;
             customerAddressGrid.IsEnabled = state;
             BankDetailsGrid.IsEnabled = state;
@@ -987,6 +987,8 @@ namespace MicroFinance
                     }
                     else if (CustomerStatus == 6)
                     {
+                        UpdateVerification();
+                        customer.UpdateExistingDetails(_branchName, _shgName, _pgName, guarantor, nominee);
                         ChangeLoanStatus(_loanReqId, 7);
                         if (MainWindow.LoginDesignation.LoginDesignation == "Accountant")
                         {

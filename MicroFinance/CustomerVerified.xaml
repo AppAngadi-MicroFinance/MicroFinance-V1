@@ -227,6 +227,22 @@
                             <Button Grid.Column="4" Style="{StaticResource Verified}" Visibility="Collapsed"/>
                             <Button Grid.Column="4" Style="{StaticResource Verify}" Visibility="Collapsed"  x:Name="CustAadharVerification" Click="CustAadharVerification_Click"/>
                 </Grid>
+                        <Grid Margin="0,0,0,10" x:Name="AadharProofPanel" Visibility="{Binding PhotoProof,Converter={StaticResource VisibleByImage},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.ColumnSpan="6" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                
+                                    <Image Height="200" Width="600" Source="{Binding PhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></Image>
+                                
+                                
+                            </StackPanel> 
+                        </Grid>
                         <Grid Margin="0,0,0,10">
                             <Grid.ColumnDefinitions >
                                 <ColumnDefinition Width="10"/>
