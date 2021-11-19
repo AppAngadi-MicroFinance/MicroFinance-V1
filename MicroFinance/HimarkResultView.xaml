@@ -33,7 +33,7 @@
 
         <DataGrid x:Name="RequestDataGrid" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" MaxWidth="1300" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" Background="Transparent" ColumnHeaderHeight="40" MaxHeight="500" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="S.No" Width="0.2*" Binding="{Binding}"></DataGridTextColumn>
+                <DataGridTextColumn Header="S.No" Width="0.2*" Binding="{Binding SNo}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Branch Name" Width="0.7*" Binding="{Binding BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Report ID" Binding="{Binding ReportID}" Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Aadhar  Number" Binding="{Binding AadharNumber}" Width="1*"></DataGridTextColumn>

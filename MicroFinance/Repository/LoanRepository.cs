@@ -303,7 +303,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select count(*) from LoanApplication where LoanStatus not in(0,3,13,14) and CustId='"+CustomerID+"'"; ;
+                    sqlcomm.CommandText = "select count(*) from LoanApplication where LoanStatus not in(0,4,13,14) and CustId='"+CustomerID+"'"; ;
                     int Count =(int) sqlcomm.ExecuteScalar();
                     if (Count != 0)
                         return true;

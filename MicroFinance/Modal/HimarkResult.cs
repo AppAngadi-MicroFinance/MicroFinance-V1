@@ -468,6 +468,7 @@ namespace MicroFinance.Modal
 
     public class HimarkResultModel:BindableBase
     {
+        public int SNo { get; set; }
         private bool _isRecommend;
         public bool IsRecommend
         {
