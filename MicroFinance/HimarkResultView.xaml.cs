@@ -80,7 +80,7 @@ namespace MicroFinance
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new DashBoardRegionOfficer());
         }
 
         private void ShowErrorDataBtn_Click(object sender, RoutedEventArgs e)

@@ -2437,6 +2437,11 @@ namespace MicroFinance
                     AadharNo.Clear();
                     AadharPassBox.Focus();
                     AadharNo.IsEnabled = false;
+                    
+                }
+                else
+                {
+                    PhotoProofNoBox.SelectedIndex = 1;
                 }
             }
             else
@@ -2446,6 +2451,15 @@ namespace MicroFinance
                 AadharNo.Clear();
                 AadharPassBox.Focus();
                 AadharNo.IsEnabled = false;
+            }
+        }
+
+        private void PhotoProofNo_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(AadharNo.Text!=PhotoProofNo.Text)
+            {
+                MessageBox.Show("Please Enter Valid Aadhar Number!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                PhotoProofNo.Text = "";
             }
         }
     }
