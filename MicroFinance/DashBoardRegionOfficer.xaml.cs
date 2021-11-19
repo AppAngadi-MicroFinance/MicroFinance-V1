@@ -196,11 +196,13 @@ namespace MicroFinance
         ObservableCollection<HimarkResultModel> CombineData(List<HimarkResultModel> HimarkData,List<CustomerHimarkDataModel> CustomerData)
         {
             ObservableCollection<HimarkResultModel> ResultList = new ObservableCollection<HimarkResultModel>();
+            int sno = 0;
             foreach (HimarkResultModel HM in HimarkData)
             {
+                sno += 1;
                 HM.RequestID = CustomerData.Where(temp => temp.AadharNumber == HM.AadharNumber).Select(temp => temp.RequestID).FirstOrDefault();
                 HM.Name = CustomerData.Where(temp => temp.AadharNumber == HM.AadharNumber).Select(temp => temp.CustomerName).FirstOrDefault();
-
+                HM.SNo = sno;
                 ResultList.Add(HM);
             }
 
