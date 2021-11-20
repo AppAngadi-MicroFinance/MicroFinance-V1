@@ -153,7 +153,8 @@ namespace MicroFinance
             {
                 List<string> RecommendList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.CustomerID).ToList();
                 List<string> RequestIds = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
-                GTtoSAMU.GenerateSamunnati_File(RecommendList);
+                
+                GTtoSAMU.GenerateSamunnati_File(FilterData(BindingData));
                 HimarkRepository.UpdateStatusToExportExcel(RequestIds, 11);
                 MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
             }
@@ -162,6 +163,20 @@ namespace MicroFinance
                 MainWindow.StatusMessageofPage(0, "Error...");
                 
             }
+        }
+
+
+        ObservableCollection<RecommendView> FilterData(ObservableCollection<RecommendView> recommends)
+        {
+            ObservableCollection<RecommendView> ResultList = new ObservableCollection<RecommendView>();
+            foreach(RecommendView R in recommends)
+            {
+                if(R.IsRecommend==true)
+                {
+                    ResultList.Add(R);
+                }
+            }
+            return ResultList;
         }
 
         private void BranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

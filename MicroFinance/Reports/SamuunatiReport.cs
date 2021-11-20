@@ -380,6 +380,12 @@ namespace MicroFinance.Reports
                 _bankName = value;
             }
         }
+
+
+        public string BranchName { get; set; }
+        public string CenterName { get; set; }
+        public string CollectionDay { get; set; }
+        public string EmployeeName { get; set; }
         private string _bankbranchname;
         public string BankBranchName
         {

@@ -66,7 +66,7 @@
                 <Button Style="{StaticResource SecondaryBtn}" Grid.Row="3" Grid.Column="1" Content="OK" x:Name="LandDetailsOKBtn" Click="LandDetailsOKBtn_Click"></Button>
             </Grid>
         </Border>
-        <Button x:Name="xBackwardButton" Click="xBackwardButton_Click"
+        <Button Visibility="Collapsed" x:Name="xBackwardButton" Click="xBackwardButton_Click"
                 Style="{StaticResource BackButtonStyle}" Width="30" Grid.ColumnSpan="2" Panel.ZIndex="2" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
         <Grid x:Name="BranchDetailsGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
