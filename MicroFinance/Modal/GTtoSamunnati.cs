@@ -576,6 +576,7 @@ namespace MicroFinance.Modal
             phoneno.Cells.Interior.ColorIndex = 6;
             phoneno.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             phoneno.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            phoneno.EntireColumn.NumberFormat = "@";
             //Address1
             var address1 = xlWorkSheet.Cells.Range["V1"];
             address1.Value = "Address 1";
@@ -686,6 +687,7 @@ namespace MicroFinance.Modal
             gstin.Cells.Interior.ColorIndex = 6;
             gstin.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             gstin.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            gstin.EntireColumn.NumberFormat = "@";
             //Pan/tan Number
             var PANno = xlWorkSheet.Cells.Range["AF1"];
             PANno.Value = "PAN / TAN Number";
@@ -697,6 +699,7 @@ namespace MicroFinance.Modal
             PANno.Cells.Interior.ColorIndex = 6;
             PANno.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             PANno.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            PANno.EntireColumn.NumberFormat = "@";
             //Aadhar Number
             var aadharNo = xlWorkSheet.Cells.Range["AG1"];
             aadharNo.Value = "Aadhar Number";
@@ -708,6 +711,7 @@ namespace MicroFinance.Modal
             aadharNo.Cells.Interior.ColorIndex = 6;
             aadharNo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             aadharNo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            aadharNo.EntireColumn.NumberFormat = "@";
             //Existing Relationship Value
             var existingrelation = xlWorkSheet.Cells.Range["AH1"];
             existingrelation.Value = "Existing Relationship Value";
@@ -763,6 +767,7 @@ namespace MicroFinance.Modal
             ifsccode.Cells.Interior.ColorIndex = 6;
             ifsccode.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             ifsccode.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            ifsccode.EntireColumn.NumberFormat = "@";
             //Bank Account Name
             var BankAccName = xlWorkSheet.Cells.Range["AM1"];
             BankAccName.Value = "Bank Account Name";
@@ -794,6 +799,7 @@ namespace MicroFinance.Modal
             BankAccNo.Columns.ColumnWidth = 24;
             BankAccNo.Borders.ColorIndex = 15;
             BankAccNo.Cells.Interior.ColorIndex = 6;
+            BankAccNo.EntireColumn.NumberFormat = "@";
             BankAccNo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             BankAccNo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Sales Person Name
