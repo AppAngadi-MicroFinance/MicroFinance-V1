@@ -98,11 +98,11 @@
                 </Border.Effect>
                 <Button x:Name="xDailyReportsBtn" Style="{StaticResource NavigateDailyReports}"></Button>
             </Border>
-            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
+            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" Visibility="Collapsed">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="CollectionReportDownload"  Click="CollectionReportDownload_Click" Style="{StaticResource DownloadCollectionReport}" ></Button>
+                <Button x:Name="CollectionReportDownload"  Click="CollectionReportDownload_Click" Style="{StaticResource DownloadCollectionReport}"  ></Button>
             </Border>
         </Grid>
         <!--Section C-->      

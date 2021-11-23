@@ -1391,7 +1391,7 @@ namespace MicroFinance
                 GGender.Visibility = Visibility.Visible;
                 _chekcisValid = false;
             }
-            if (GuarantorSelectDOB.SelectedDate.Equals(DateTime.Today) && CalculateAge(GuarantorSelectDOB.SelectedDate.Value)==0)
+            if (GuarantorSelectDOB.SelectedDate.Equals(DateTime.Today) && CalculateAge(GuarantorSelectDOB.SelectedDate.Value)==0 && AgeValidation(guarantor.Age)==false)
             {
                 DateError.Visibility = Visibility.Visible;
                 GuarantorSelectDOB.BorderBrush = (Brush)bc.ConvertFrom("Red");
@@ -1488,19 +1488,16 @@ namespace MicroFinance
             }
             DateTime SelectedDate = GuarantorSelectDOB.SelectedDate.Value;
             int Age = CalculateAge(SelectedDate);
-            if (Age != 0 && Age > 0)
+            if(Age!=0)
             {
                 if (Age <= 18 || Age >= 59)
                 {
                     MessageBoxResult Result = MessageBox.Show("This User is Not Valid!...\n(The " +
-                        "Age Range Between 19-69)\n Are You Sure You Want To Continue.", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (Result == MessageBoxResult.Yes)
-                    {
-                        customer = new Customer();
-                        CustomerGrid.DataContext = customer;
-                    }
+                        "Age Range Between 18-65)\n Are You Sure You Want To Continue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+                
+            
             
         }
 
@@ -1568,7 +1565,7 @@ namespace MicroFinance
                 NomineeNameError.Visibility = Visibility.Visible;
                 _checkValid = false;
             }
-            if (NomineeSelectDOB.SelectedDate == DateTime.Today && CalculateAge(NomineeSelectDOB.SelectedDate.Value)==0)
+            if (NomineeSelectDOB.SelectedDate == DateTime.Today && CalculateAge(NomineeSelectDOB.SelectedDate.Value)==0 && AgeValidation(nominee.Age)==false)
             {
                 NomineeSelectDOB.BorderBrush = Redcolor;
                 NomineeDoorError.Visibility = Visibility.Visible;
@@ -1670,20 +1667,14 @@ namespace MicroFinance
 
             DateTime SelectedDate = GuarantorSelectDOB.SelectedDate.Value;
             int Age = CalculateAge(SelectedDate);
-            if (Age != 0 && Age > 0)
+            if(Age!=0)
             {
-                if (Age <= 18 || Age >= 59)
+                if (Age <= 18 || Age > 65)
                 {
                     MessageBoxResult Result = MessageBox.Show("This User is Not Valid!...\n(The " +
-                        "Age Range Between 19-69)\n Are You Sure You Want To Continue.", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (Result == MessageBoxResult.Yes)
-                    {
-                        customer = new Customer();
-                        CustomerGrid.DataContext = customer;
-                    }
+                        "Age Range Between 18-65)\n Are You Sure You Want To Continue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            }
-            
+            }            
         }
         bool PhoneNumberValidation(string Phonenumber)
         {
@@ -1805,7 +1796,7 @@ namespace MicroFinance
                 CustGender.Visibility = Visibility.Visible;
                 _check = false;
             }
-            if (SelectDOB.SelectedDate == DateTime.Today && CalculateAge(SelectDOB.SelectedDate.Value)==0)
+            if (SelectDOB.SelectedDate == DateTime.Today && CalculateAge(SelectDOB.SelectedDate.Value)==0 && AgeValidation(customer.Age)==false)
             {
                 CustDobError.Visibility = Visibility.Visible;
                 _check = false;
@@ -2010,19 +2001,17 @@ namespace MicroFinance
             }
             DateTime SelectedDate = SelectDOB.SelectedDate.Value;
             int Age = CalculateAge(SelectedDate);
-            if (Age != 0 && Age>0)
+            if(Age!=0)
             {
-                if (Age <= 18 || Age >= 59)
+                if (Age <= 18 || Age > 59)
                 {
                     MessageBoxResult Result = MessageBox.Show("This User is Not Valid!...\n(The " +
-                        "Age Range Between 19-69)\n Are You Sure You Want To Continue.", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (Result == MessageBoxResult.Yes)
-                    {
-                        customer = new Customer();
-                        CustomerGrid.DataContext = customer;
-                    }
+                        "Age Range Between 18-59)\n Are You Sure You Want To Continue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 }
             }
+                
+            
         }
 
         private void FatherNameBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -2525,6 +2514,16 @@ namespace MicroFinance
                 age -= 1;
             }
             return age;
+        }
+
+        public bool AgeValidation(int Age)
+        {
+            bool Result = false;
+            if(Age>18&&Age<60)
+            {
+                return true;
+            }
+            return Result;
         }
     }
 }
