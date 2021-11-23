@@ -1273,6 +1273,7 @@ namespace MicroFinance.Reports
             figaacountname.RowHeight = 46;
             figaacountname.ColumnWidth = 16;
             figaacountname.WrapText = true;
+            figaacountname.EntireColumn.NumberFormat = "@";
             figaacountname.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             figaacountname.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //FIG ifsc
@@ -1814,7 +1815,6 @@ namespace MicroFinance.Reports
             AppAccNo.ColumnWidth = 22;
             AppAccNo.WrapText = true;
             AppAccNo.EntireColumn.NumberFormat = "@";
-            AppAccNo.EntireColumn.NumberFormat = "@";
             AppAccNo.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             AppAccNo.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Applicant IFSC code
@@ -1827,6 +1827,7 @@ namespace MicroFinance.Reports
             AppIFSCcode.Interior.ColorIndex = 34;
             AppIFSCcode.Borders.ColorIndex = 15;
             AppIFSCcode.WrapText = true;
+            
             AppIFSCcode.VerticalAlignment = Excel.XlHAlign.xlHAlignCenter;
             AppIFSCcode.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //Applicant Branch Name
