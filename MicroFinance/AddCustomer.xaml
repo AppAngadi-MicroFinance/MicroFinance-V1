@@ -1186,7 +1186,7 @@
 
         <!-- Guarantor Popup for View-->
         <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" x:Name="ViewGuarantorPopopup" Placement="Center" >
-            <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Black">
+            <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Gray">
                 <Grid Background="#e8fff2" x:Name="ViewGuarantorGrid" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30"/>
