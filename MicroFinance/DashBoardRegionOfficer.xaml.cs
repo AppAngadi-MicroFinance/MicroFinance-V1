@@ -200,8 +200,12 @@ namespace MicroFinance
             foreach (HimarkResultModel HM in HimarkData)
             {
                 sno += 1;
-                HM.RequestID = CustomerData.Where(temp => temp.AadharNumber == HM.AadharNumber).Select(temp => temp.RequestID).FirstOrDefault();
-                HM.Name = CustomerData.Where(temp => temp.AadharNumber == HM.AadharNumber).Select(temp => temp.CustomerName).FirstOrDefault();
+                CustomerHimarkDataModel Customer = CustomerData.Where(temp => temp.AadharNumber == HM.AadharNumber).FirstOrDefault();
+                if(Customer!=null)
+                {
+                    HM.RequestID = Customer.RequestID;
+                    HM.Name = Customer.CustomerName;
+                }
                 HM.SNo = sno;
                 ResultList.Add(HM);
             }
