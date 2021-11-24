@@ -746,7 +746,7 @@ namespace MicroFinance.ViewModel
         }
 
 
-        public static void InsertHimarkData(ObservableCollection<HimarkResultModel> DataList)
+        public static void InsertHimarkData(ObservableCollection<HimarkResultExcelModel> DataList)
         {
             using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
@@ -755,9 +755,10 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    foreach(HimarkResultModel result in DataList)
+                    foreach(HimarkResultExcelModel result in DataList)
                     {
-                        sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName,AadharNumber)values('" + result.GetRequestId(result.AadharNumber) + "','" + result.ReportID + "','" + result.ReportDate.ToString("MM-dd-yyyy") + "','" + result.EligibleLoanAmount + "','" + result.Status + "','" + result.HiMarkRemark + "','" + result.ActiveUnsecureLoan + "','" + result.ActiveUnsecureLoanin6Months + "','" + result.OutstandingAmount + "','" + result.DPDSummary + "','" + result.HIMarkScore + "','" + result.ScoreCommend + "','" + result.DPDAmount + "','" + result.BName + "','" + result.FileName + "','"+result.AadharNumber+"')";
+                        //sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName,AadharNumber)values('" + result.GetRequestId(result.AadharNumber) + "','" + result.ReportID + "','" + result.ReportDate.ToString("MM-dd-yyyy") + "','" + result.EligibleLoanAmount + "','" + result.Status + "','" + result.HiMarkRemark + "','" + result.ActiveUnsecureLoan + "','" + result.ActiveUnsecureLoanin6Months + "','" + result.OutstandingAmount + "','" + result.DPDSummary + "','" + result.HIMarkScore + "','" + result.ScoreCommend + "','" + result.DPDAmount + "','" + result.BName + "','" + result.FileName + "','"+result.AadharNumber+"')";
+                        sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName,AadharNumber)values('" + result.RequestID + "','" + result.ReportID + "','" + result.ReportDate.ToString("MM-dd-yyyy") + "','" + result.EligibleLoanAmount + "','" + result.Status + "','" + result.HiMarkRemark + "','" + result.ActiveUnsecureLoan + "','" + result.ActiveUnsecureLoanin6Months + "','" + result.OutstandingAmount + "','" + result.DPDSummary + "','" + result.HIMarkScore + "','" + result.ScoreCommend + "','" + result.DPDAmount + "','" + result.BName + "','" + result.FileName + "','"+result.AadharNumber+"')";
                         sqlcomm.ExecuteNonQuery();
                     }
                     

@@ -25,17 +25,18 @@ namespace MicroFinance
     {
         List<HimarkResultModel> ResultList = new List<HimarkResultModel>();
         List<CustomerHimarkDataModel> CustomerData = new List<CustomerHimarkDataModel>();
-        ObservableCollection<HimarkResultModel> HimarkDataList = new ObservableCollection<HimarkResultModel>();
+        ObservableCollection<HimarkResultExcelModel> HimarkDataList = new ObservableCollection<HimarkResultExcelModel>();
         public HimarkResultView()
         {
             InitializeComponent();
         }
-        public HimarkResultView(ObservableCollection<HimarkResultModel> HimarkResultData)
+        public HimarkResultView(ObservableCollection<HimarkResultExcelModel> HimarkResultData)
         {
             InitializeComponent();
             HimarkDataList = HimarkResultData;
 
             LoadCount();
+            RequestDataGrid.ItemsSource = null;
             RequestDataGrid.ItemsSource = HimarkDataList;
         }
 
@@ -87,7 +88,7 @@ namespace MicroFinance
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach(HimarkResultModel HM in HimarkDataList)
+            foreach(HimarkResultExcelModel HM in HimarkDataList)
             {
                 if(string.IsNullOrEmpty(HM.RequestID))
                 {

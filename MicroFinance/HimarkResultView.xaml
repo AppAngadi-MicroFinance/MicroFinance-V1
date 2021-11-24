@@ -37,7 +37,7 @@
                 <DataGridTextColumn Header="Branch Name" Width="0.7*" Binding="{Binding BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Report ID" Binding="{Binding ReportID}" Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Aadhar  Number" Binding="{Binding AadharNumber}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Customer Name" Binding="{Binding CustomerName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Status" Binding="{Binding Status,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="0.5*"></DataGridTextColumn>
                 <!--<DataGridTemplateColumn Width="0.3*">
                     <DataGridTemplateColumn.Header>

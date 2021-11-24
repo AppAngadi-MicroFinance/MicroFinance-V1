@@ -164,10 +164,11 @@ namespace MicroFinance
 
         private async void ImportHimarkBtn_Click(object sender, RoutedEventArgs e)
         {
+            //BrowseInputFile();
             List<HimarkResultModel> himarkResults = new List<HimarkResultModel>();
             List<CustomerHimarkDataModel> CustomerDetailsList = new List<CustomerHimarkDataModel>();
 
-            ObservableCollection<HimarkResultModel> HimarkResultData = new ObservableCollection<HimarkResultModel>();
+            ObservableCollection<HimarkResultExcelModel> HimarkResultData = new ObservableCollection<HimarkResultExcelModel>();
             OpenFileDialog openFileDlg = new OpenFileDialog();
             openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
             openFileDlg.Title = "Choose File";
@@ -179,9 +180,9 @@ namespace MicroFinance
                 if(!IsFileUsed(FileFrom))
                 {
                     GifPanel.Visibility = Visibility.Visible;
-                    await System.Threading.Tasks.Task.Run(() =>himarkResults= ImportHimarkFile(FileFrom));
-                    await System.Threading.Tasks.Task.Run(() => CustomerDetailsList = LoanRepository.GetDetailsForHimarkResult());
-                    await System.Threading.Tasks.Task.Run(() => HimarkResultData = CombineData(himarkResults,CustomerDetailsList));
+                   // await System.Threading.Tasks.Task.Run(() =>himarkResults= ImportHimarkFile(FileFrom));
+                   // await System.Threading.Tasks.Task.Run(() => CustomerDetailsList = LoanRepository.GetDetailsForHimarkResult());
+                    await System.Threading.Tasks.Task.Run(() => HimarkResultData = CombineData(ImportHimarkFile(FileFrom),LoanRepository.GetDetailsForHimarkResult()));
                     GifPanel.Visibility = Visibility.Collapsed;
                     this.NavigationService.Navigate(new HimarkResultView(HimarkResultData));
                 }
@@ -193,11 +194,11 @@ namespace MicroFinance
         }
 
 
-        ObservableCollection<HimarkResultModel> CombineData(List<HimarkResultModel> HimarkData,List<CustomerHimarkDataModel> CustomerData)
+        ObservableCollection<HimarkResultExcelModel> CombineData(List<HimarkResultExcelModel> HimarkData,List<CustomerHimarkDataModel> CustomerData)
         {
-            ObservableCollection<HimarkResultModel> ResultList = new ObservableCollection<HimarkResultModel>();
+            ObservableCollection<HimarkResultExcelModel> ResultList = new ObservableCollection<HimarkResultExcelModel>();
             int sno = 0;
-            foreach (HimarkResultModel HM in HimarkData)
+            foreach (HimarkResultExcelModel HM in HimarkData)
             {
                 sno += 1;
                 CustomerHimarkDataModel Customer = CustomerData.Where(temp => temp.AadharNumber == HM.AadharNumber).FirstOrDefault();
@@ -213,9 +214,9 @@ namespace MicroFinance
             return ResultList;
         }
 
-        List<HimarkResultModel> ImportHimarkFile(string FileFrom)
+        List<HimarkResultExcelModel> ImportHimarkFile(string FileFrom)
         {
-            List<HimarkResultModel> ResultList = new List<HimarkResultModel>();
+            List<HimarkResultExcelModel> ResultList = new List<HimarkResultExcelModel>();
             var FilePath = FileFrom.Split('\\');
             string FileName = FilePath[FilePath.Length - 1];
             HimarkResultModel HMResult = new HimarkResultModel();
@@ -382,5 +383,65 @@ namespace MicroFinance
             GridD.IsEnabled = true;
             EnrollDatailsPanel.Visibility = Visibility.Collapsed;
         }
+
+
+
+       
+
+
+
+    }
+
+    public class HimarkResultExcelModel
+    {
+        public int SNo { get; set; }
+       
+        public bool IsRecommend
+        {
+            get;set;
+        }
+       
+        public string RequestID
+        {
+            get;set;
+        }
+       
+        public string AadharNumber
+        {
+            get;set;
+        }
+        public string Name { get; set; }
+        public int EligibleLoanAmount { get; set; }
+        public string Status { get; set; }
+        public string HiMarkRemark { get; set; }
+        public int ActiveUnsecureLoan { get; set; }
+        public int ActiveUnsecureLoanin6Months { get; set; }
+        public int OutstandingAmount { get; set; }
+        public string DPDSummary { get; set; }
+        public string HIMarkScore { get; set; }
+        public string ScoreCommend { get; set; }
+        private string _bname;
+        public string BranchName { get; set; }
+        public string BName
+        {
+            get
+            {
+                return _bname;
+            }
+            set
+            {
+                string id = value;
+               // _bname = MainWindow.BasicDetails.BranchList.Where(temp => temp.BranchName == id).Select(temp => temp.BranchId).FirstOrDefault();
+                BranchName = id;
+            }
+        }
+        public string FOName { get; set; }
+        public string CustomerName { get; set; }
+        public string GroupName { get; set; }
+        public DateTime ReportDate { get; set; }
+        public int DPDAmount { get; set; }
+        public string FileName { get; set; }
+        public string ReportID { get; set; }
+        public string CustomerID { get; set; }
     }
 }

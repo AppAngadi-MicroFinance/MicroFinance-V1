@@ -76,10 +76,10 @@ namespace MicroFinance.Modal
 
 
 
-        public List<HimarkResultModel> BulkInsertData(string Path,int Value)
+        public List<HimarkResultExcelModel> BulkInsertData(string Path,int Value)
         {
 
-            List<HimarkResultModel> ResultList = new List<HimarkResultModel>();
+            List<HimarkResultExcelModel> ResultList = new List<HimarkResultExcelModel>();
             //SW.Start();
             //MainWindow.TimeBuilder.Append("\n GetSheet Name : " + SW.Elapsed.Ticks.ToString());
             var FilePath = Path.Split('\\');
@@ -185,9 +185,9 @@ namespace MicroFinance.Modal
                 sqlconn.Close();
             }
         }
-        public List<HimarkResultModel> GetDataFromExcel(Excel.Worksheet worksheet,string Filename)
+        public List<HimarkResultExcelModel> GetDataFromExcel(Excel.Worksheet worksheet,string Filename)
         {
-            List<HimarkResultModel> HimarkResultList = new List<HimarkResultModel>();
+            List<HimarkResultExcelModel> HimarkResultList = new List<HimarkResultExcelModel>();
           
             
             Excel.Range userange = worksheet.UsedRange;
@@ -307,7 +307,7 @@ namespace MicroFinance.Modal
                             {
                                 CategoryList.Add(_status.ToUpper());
                             }
-                            HimarkResultModel result = new HimarkResultModel();
+                    HimarkResultExcelModel result = new HimarkResultExcelModel();
                             result.ReportID = (_reqID).Trim();
                             result.Name = (_name).Trim();
                             result.AadharNumber = _aadharno.Trim();
@@ -326,10 +326,10 @@ namespace MicroFinance.Modal
                             result.FileName = Filename;
 
 
-                    himarkResultslist.Add(result);
+                    HimarkResultList.Add(result);
                         }
                     }
-            return himarkResultslist;
+            return HimarkResultList;
         }
         public List<HimarkResultModel> GetBranchRequest(string BranchId)
         {
