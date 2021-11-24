@@ -93,6 +93,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.EmpName = reader.GetString(8);
                             HMRequestCustomer.RequestDate = reader.GetDateTime(9);
                             HMRequestCustomer.IsRecommend = true;
+                     
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
                             // sqlcomm.CommandText = "select Name from Employee where EmpId='" + HMRequestCustomer.EmpId + "'";
