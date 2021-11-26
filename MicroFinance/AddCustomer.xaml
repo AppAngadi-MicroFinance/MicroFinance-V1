@@ -98,12 +98,12 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="7">
                 <TextBlock Text="Self Help Group" Style="{StaticResource Regular}" VerticalAlignment="Center"/>
-                <ComboBox x:Name="SelectSHG" Style="{StaticResource combo}" Margin="15,0,0,0" Width="140"  SelectionChanged="SelectSHG_SelectionChanged" >
+                <ComboBox KeyboardNavigation.TabIndex="0" x:Name="SelectSHG" Style="{StaticResource combo}" Margin="15,0,0,0" Width="140"  SelectionChanged="SelectSHG_SelectionChanged"  >
                 </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="9" x:Name="PeerGroupCombo">
                 <TextBlock Text="Peer Group" Style="{StaticResource Regular}"/>
-                <ComboBox x:Name="SelectPG" SelectionChanged="SelectPG_SelectionChanged"   Style="{StaticResource combo}" Width="140" Margin="15,0,10,0">
+                <ComboBox KeyboardNavigation.TabIndex="1" x:Name="SelectPG" SelectionChanged="SelectPG_SelectionChanged"   Style="{StaticResource combo}" Width="140" Margin="15,0,10,0" >
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <ContentPresenter>
@@ -162,7 +162,7 @@
                         <TextBlock Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Text="Customer Name" Style="{StaticResource Regular}" />
                         <TextBlock x:Name="CustNameError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-1,3,0,0"/>
                     </StackPanel>
-                    <TextBox x:Name="CustomerNameBox"  Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Width="350" Style="{StaticResource Textbox}" TextChanged="CustomerNameBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="2" x:Name="CustomerNameBox"  Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Width="350" Style="{StaticResource Textbox}" TextChanged="CustomerNameBox_TextChanged" CharacterCasing="Upper" >
                         <TextBox.Text>
                             <Binding Path="CustomerName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
                         </TextBox.Text>
@@ -177,7 +177,7 @@
                                 <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                             </RadioButton.LayoutTransform>
                         </RadioButton>
-                        <RadioButton Content="Female" Margin="5,10,10,0" FontWeight="Medium" x:Name="Female" Click="FemalBtn_Click" IsChecked="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource FemaleCheck }}">
+                        <RadioButton KeyboardNavigation.TabIndex="3" Content="Female" Margin="5,10,10,0" FontWeight="Medium" x:Name="Female" Click="FemalBtn_Click" IsChecked="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource FemaleCheck }}">
                             <RadioButton.LayoutTransform>
                                 <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
                             </RadioButton.LayoutTransform>
@@ -187,7 +187,7 @@
                             <TextBlock Text="DOB" Style="{StaticResource Regular}" />
                             <TextBlock x:Name="CustDobError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                         </StackPanel>
-                        <DatePicker x:Name="SelectDOB" Width="120" Height="30" VerticalContentAlignment="Center" Margin="15,0,20,0" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="SelectDOB_SelectedDateChanged"/>
+                        <DatePicker KeyboardNavigation.TabIndex="4" x:Name="SelectDOB" Width="120" Height="30" VerticalContentAlignment="Center" Margin="15,0,20,0" SelectedDate="{Binding DateofBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedDateChanged="SelectDOB_SelectedDateChanged"/>
                         <TextBlock Text="Age" Style="{StaticResource Regular}"/>
                         <TextBlock Text="{Binding  DateofBirth,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource AgeConvert}}" Style="{StaticResource NumberRegular}" Margin="20,5,0,0"/>
                     </StackPanel>
@@ -195,24 +195,24 @@
                         <TextBlock Text="Father Name" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1"/>
                         <TextBlock x:Name="CustFatherError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="FatherNameBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Text="{Binding FatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="FatherNameBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="5" x:Name="FatherNameBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Text="{Binding FatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="FatherNameBox_TextChanged" CharacterCasing="Upper">
                     </TextBox>
                     <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
                         <TextBlock Text="Mother Name" Style="{StaticResource Regular}" Grid.Row="7" Grid.Column="1"/>
                         <TextBlock x:Name="CustMotherError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="MotherNameBox" Style="{StaticResource Textbox}" Grid.Row="7" Grid.Column="2" Text="{Binding MotherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="MotherNameBox_TextChanged" CharacterCasing="Upper"/>
+                    <TextBox KeyboardNavigation.TabIndex="6" x:Name="MotherNameBox" Style="{StaticResource Textbox}" Grid.Row="7" Grid.Column="2" Text="{Binding MotherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="MotherNameBox_TextChanged" CharacterCasing="Upper"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1">
                         <TextBlock Text="Husband/Guardian" FontWeight="Medium" FontSize="14" Style="{StaticResource Regular}" Grid.Row="7" Grid.Column="1"/>
                         <TextBlock x:Name="CustHusbandError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-2,0,0,0"/>
                     </StackPanel>
-                    <TextBox x:Name="HusbandBox" Style="{StaticResource Textbox}" Grid.Row="9" Grid.Column="2" Text="{Binding HusbandName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="HusbandBox_TextChanged" CharacterCasing="Upper" />
+                    <TextBox KeyboardNavigation.TabIndex="7" x:Name="HusbandBox" Style="{StaticResource Textbox}" Grid.Row="9" Grid.Column="2" Text="{Binding HusbandName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="HusbandBox_TextChanged" CharacterCasing="Upper" />
                     <StackPanel Orientation="Horizontal" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Contact Number" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}" Margin="0,0,15,0"/>
                             <TextBlock x:Name="CustContactError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-15,0,0,0"/>
                         </StackPanel>
-                        <TextBox x:Name="ContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="120" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="ContactBox_TextChanged">
+                        <TextBox KeyboardNavigation.TabIndex="8" x:Name="ContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="120" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="ContactBox_TextChanged">
                             <TextBox.Text>
                                 <Binding Path="ContactNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 </Binding>
@@ -222,7 +222,7 @@
                             <TextBlock Text="Religion" Style="{StaticResource Regular}" Margin="15,0,15,0"/>
                             <TextBlock x:Name="CustReligionError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-15,0,0,0"/>
                         </StackPanel>
-                        <ComboBox x:Name="SelectReligion"  VerticalAlignment="Center" Width="140" Style="{StaticResource combo}" HorizontalAlignment="Left"  Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="SelectReligion_SelectionChanged" >
+                        <ComboBox KeyboardNavigation.TabIndex="9" x:Name="SelectReligion"  VerticalAlignment="Center" Width="140" Style="{StaticResource combo}" HorizontalAlignment="Left"  Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="SelectReligion_SelectionChanged" >
                             <ComboBoxItem Content="CHRISTIAN"/>
                             <ComboBoxItem Content="HINDU"/>
                             <ComboBoxItem Content="MUSLIM"/>
@@ -233,7 +233,7 @@
                             <TextBlock Text="Community"  Style="{StaticResource Regular}" Margin="0,0,15,0"/>
                             <TextBlock x:Name="CustCommunityError" Style="{StaticResource ErrorStar}" Margin="0,0,0,0" Visibility="Collapsed"/>
                         </StackPanel>
-                        <ComboBox x:Name="CommunityBox" VerticalAlignment="Center" Width="120" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding Community,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" Margin="35,0,0,0" SelectionChanged="CommunityBox_SelectionChanged">
+                        <ComboBox KeyboardNavigation.TabIndex="10" x:Name="CommunityBox" VerticalAlignment="Center" Width="120" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding Community,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" Margin="35,0,0,0" SelectionChanged="CommunityBox_SelectionChanged">
                             <ComboBoxItem Content="BC"/>
                             <ComboBoxItem Content="BCM"/>
                             <ComboBoxItem Content="DC"/>
@@ -248,7 +248,7 @@
                             <TextBlock Text="Caste" Style="{StaticResource Regular}" Margin="15,0,93,0"/>
                             <TextBlock x:Name="CustCasteError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-93,0,0,0"/>
                         </StackPanel>
-                        <TextBox x:Name="CasteBox" VerticalAlignment="Center" Width="140" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding Caste,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" TextChanged="CasteBox_TextChanged" Margin="-55,0,0,0" CharacterCasing="Upper"/>
+                        <TextBox KeyboardNavigation.TabIndex="11" x:Name="CasteBox" VerticalAlignment="Center" Width="140" Style="{StaticResource Textbox}" HorizontalAlignment="Left" Text="{Binding Caste,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" TextChanged="CasteBox_TextChanged" Margin="-55,0,0,0" CharacterCasing="Upper"/>
 
                         
                     </StackPanel>
@@ -257,7 +257,7 @@
                         <TextBlock Text="Education" Grid.Column="1" Grid.Row="13" Style="{StaticResource Regular}"/>
                         <TextBlock x:Name="CustEducationError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="EducatinBox" Grid.Row="15" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="EducatinBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="12" x:Name="EducatinBox" Grid.Row="15" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="EducatinBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="Education" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -270,7 +270,7 @@
                             <TextBlock Text="Family Members" Style="{StaticResource Regular}" Margin="0,0,15,0"/>
                             <TextBlock x:Name="CustFamilyMemberError" Visibility="Collapsed" Style="{StaticResource ErrorStar}" Margin="-15,0,0,0"/>
                         </StackPanel>
-                        <TextBox x:Name="FamilyMemberBox" VerticalAlignment="Center" Width="60" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="FamilyMemberBox_TextChanged">
+                        <TextBox KeyboardNavigation.TabIndex="13" x:Name="FamilyMemberBox" VerticalAlignment="Center" Width="60" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="FamilyMemberBox_TextChanged">
                             <TextBox.Text>
                                 <Binding Path="FamilyMembers" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 </Binding>
@@ -281,7 +281,7 @@
                             <TextBlock Text="Earning Members" Style="{StaticResource Regular}" Margin="40,0,15,0"/>
                             <TextBlock x:Name="CustEarningError" Style="{StaticResource ErrorStar}" Margin="-15,0,0,0" Visibility="Collapsed"/>
                         </StackPanel>
-                        <TextBox x:Name="EarningMemberBox" VerticalAlignment="Center" Width="60" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="EarningMemberBox_TextChanged">
+                        <TextBox KeyboardNavigation.TabIndex="14" x:Name="EarningMemberBox" VerticalAlignment="Center" Width="60" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="EarningMemberBox_TextChanged">
                             <TextBox.Text>
                                 <Binding Path="EarningMembers" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 </Binding>
@@ -294,7 +294,7 @@
                         <TextBlock Text="Occupation" Grid.Column="1" Grid.Row="17" Style="{StaticResource Regular}"/>
                         <TextBlock x:Name="CustOccupationError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="OccupationBox" Grid.Row="19" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="OccupationBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="15" x:Name="OccupationBox" Grid.Row="19" Grid.Column="2" VerticalAlignment="Center" Width="300" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="OccupationBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="Occupation" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" >
                                 <Binding.ValidationRules>
@@ -307,7 +307,7 @@
                             <TextBlock Text="Monthly Income"  Style="{StaticResource Regular}" Margin="0,0,15,0"/>
                             <TextBlock x:Name="CustMonthlyIncomeError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-15,0,0,0"/>
                         </StackPanel>
-                        <TextBox x:Name="MonthlyIncomeBox" VerticalAlignment="Center" Width="100" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="MonthlyIncomeBox_TextChanged">
+                        <TextBox KeyboardNavigation.TabIndex="16" x:Name="MonthlyIncomeBox" VerticalAlignment="Center" Width="100" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="MonthlyIncomeBox_TextChanged">
                             <TextBox.Text>
                                 <Binding Path="MonthlyIncome" UpdateSourceTrigger="LostFocus" Mode="TwoWay">
                                     <Binding.Converter>
@@ -320,7 +320,7 @@
                             <TextBlock Text="Monthly Expenses"  Style="{StaticResource Regular}" Margin="10,0,15,0"/>
                             <TextBlock x:Name="CustMonthlyExpensesError" Style="{StaticResource ErrorStar}" Margin="-15,0,0,0" Visibility="Collapsed"/>
                         </StackPanel>
-                        <TextBox x:Name="MonthlyExpensesBox" Grid.Row="21" Grid.Column="2" VerticalAlignment="Center" Width="100" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="MonthlyExpensesBox_TextChanged">
+                        <TextBox KeyboardNavigation.TabIndex="17" x:Name="MonthlyExpensesBox" Grid.Row="21" Grid.Column="2" VerticalAlignment="Center" Width="100" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="MonthlyExpensesBox_TextChanged">
                             <TextBox.Text>
                                 <Binding Path="MothlyExpenses" UpdateSourceTrigger="LostFocus" Mode="TwoWay" >
                                     <Binding.Converter>
@@ -335,7 +335,7 @@
                             <TextBlock Text="Family Yearly Income" Style="{StaticResource Regular}" Grid.Row="21" Grid.Column="1" Grid.ColumnSpan="2"/>
                             <TextBlock x:Name="CustYearlyExpensesError" Style="{StaticResource ErrorStar}" Margin="0,0,0,0" Visibility="Collapsed"/>
                         </StackPanel>
-                        <TextBox x:Name="FamilyYearIncomeBox" Style="{StaticResource InputBox}" Margin="30,0,30,0" Width="150" TextChanged="FamilyYearIncomeBox_TextChanged">
+                        <TextBox KeyboardNavigation.TabIndex="18" x:Name="FamilyYearIncomeBox" Style="{StaticResource InputBox}" Margin="30,0,30,0" Width="150" TextChanged="FamilyYearIncomeBox_TextChanged">
                             <TextBox.Text>
                                 <Binding Path="YearlyIncome" UpdateSourceTrigger="LostFocus" Mode="TwoWay">
                                     <Binding.Converter>
@@ -385,7 +385,7 @@
                         <TextBlock Text="Door Number" Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="1"/>
                         <TextBlock x:Name="CustDoorError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="HouseNOBox" Style="{StaticResource Textbox}" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="HouseNOBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="19" x:Name="HouseNOBox" Style="{StaticResource Textbox}" Grid.Row="1" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="HouseNOBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="DoorNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -397,7 +397,7 @@
                         <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="2" Grid.Column="1"/>
                         <TextBlock x:Name="CustStreetError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="StreetNameBox" Style="{StaticResource Textbox}" Grid.Row="2" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="StreetNameBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="20" x:Name="StreetNameBox" Style="{StaticResource Textbox}" Grid.Row="2" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="StreetNameBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="StreetName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -409,7 +409,7 @@
                         <TextBlock Text="Village" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1"/>
                         <TextBlock x:Name="CustLocalityError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="LocalityBox" Style="{StaticResource Textbox}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="LocalityBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="21" x:Name="LocalityBox" Style="{StaticResource Textbox}" Grid.Row="3" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="LocalityBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="LocalityTown" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -421,7 +421,7 @@
                         <TextBlock Text="Taluk" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"/>
                         <TextBlock x:Name="CustTalukError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="TalukBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="PincodeBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="22" x:Name="TalukBox" Style="{StaticResource Textbox}" Grid.Row="4" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="PincodeBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="Taluk" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -433,7 +433,7 @@
                         <TextBlock Text="Pincode" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"/>
                         <TextBlock x:Name="CustPincodeError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="PincodeBox" Style="{StaticResource Textbox}" Grid.Row="7" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="PincodeBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="25" x:Name="PincodeBox" Style="{StaticResource Textbox}" Grid.Row="7" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="PincodeBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="Pincode" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -445,7 +445,7 @@
                         <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1"/>
                         <TextBlock x:Name="CustCityError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="CityBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="CityBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="23" x:Name="CityBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="CityBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="City" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -457,7 +457,7 @@
                         <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="1"/>
                         <TextBlock x:Name="CustStateError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox x:Name="StateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="StateBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="24" x:Name="StateBox" Style="{StaticResource Textbox}" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="StateBox_TextChanged" CharacterCasing="Upper">
                         <TextBox.Text>
                             <Binding Path="State" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -470,10 +470,10 @@
                         <TextBlock x:Name="CustHousingTypeError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
                     <TextBlock Grid.Row="8" Grid.Column="1" Text="Residency" Style="{StaticResource Regular}"></TextBlock>
-                    <ComboBox Grid.Row="8" Grid.Column="2" Style="{StaticResource combo}" Width="250" HorizontalAlignment="Left" x:Name="ResidencyTypeCombo" SelectedValue="{Binding ResidencyType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                    <ComboBox Grid.Row="9" Grid.Column="2" Width="250" HorizontalAlignment="Left" Style="{StaticResource combo}" x:Name="HousingTypeCombo" SelectedValue="{Binding HousingType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                    <ComboBox KeyboardNavigation.TabIndex="26" Grid.Row="8" Grid.Column="2" Style="{StaticResource combo}" Width="250" HorizontalAlignment="Left" x:Name="ResidencyTypeCombo" SelectedValue="{Binding ResidencyType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                    <ComboBox KeyboardNavigation.TabIndex="27" Grid.Row="9" Grid.Column="2" Width="250" HorizontalAlignment="Left" Style="{StaticResource combo}" x:Name="HousingTypeCombo" SelectedValue="{Binding HousingType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                     <TextBlock Text="Land Holding" Style="{StaticResource Regular}" Grid.Row="10" Grid.Column="1"></TextBlock>
-                    <ComboBox Grid.Row="10" Grid.Column="2" HorizontalAlignment="Left" Width="200" Style="{StaticResource combo}" x:Name="LandHoldingCombo" SelectionChanged="LandHoldingCombo_SelectionChanged" SelectedValue="{Binding LandHolding,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                    <ComboBox KeyboardNavigation.TabIndex="28" Grid.Row="10" Grid.Column="2" HorizontalAlignment="Left" Width="200" Style="{StaticResource combo}" x:Name="LandHoldingCombo" SelectionChanged="LandHoldingCombo_SelectionChanged" SelectedValue="{Binding LandHolding,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                     <Button Grid.Row="10" Grid.Column="2" HorizontalAlignment="Right" x:Name="LandHoldingShowBtn" Style="{StaticResource Show}" Margin="0,0,10,0" Visibility="Collapsed" Click="LandHoldingShowBtn_Click"></Button>
                     
                         <!--<TextBox x:Name="HouseTypeBox" Style="{StaticResource Textbox}" Grid.Row="9" Grid.Column="2" Width="250" HorizontalAlignment="Left" TextChanged="HouseTypeBox_TextChanged" CharacterCasing="Upper">
@@ -492,7 +492,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Row="0" Grid.Column="0">
                             <TextBlock Text="Aadhar No." Style="{StaticResource Regular}" VerticalAlignment="Center" Grid.Column="1" FontSize="12"></TextBlock>
-                            <PasswordBox Height="30" Width="180" HorizontalAlignment="Left" x:Name="AadharPassBox" LostFocus="AadharPassBox_LostFocus" VerticalContentAlignment="Center" FontSize="16"></PasswordBox>
+                            <PasswordBox KeyboardNavigation.TabIndex="29" Height="30" Width="180" HorizontalAlignment="Left" x:Name="AadharPassBox" LostFocus="AadharPassBox_LostFocus" VerticalContentAlignment="Center" FontSize="16"></PasswordBox>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
                             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
@@ -501,7 +501,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
 
-                                <TextBox x:Name="AadharNo" Style="{StaticResource InputBox}" Text="{Binding AadharNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="185"  CharacterCasing="Upper" IsEnabled="False" LostFocus="AadharNo_LostFocus"/>
+                                <TextBox KeyboardNavigation.TabIndex="30" x:Name="AadharNo" Style="{StaticResource InputBox}" Text="{Binding AadharNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="185"  CharacterCasing="Upper" IsEnabled="False" LostFocus="AadharNo_LostFocus"/>
                             </StackPanel>
                         </StackPanel>
                        
@@ -518,8 +518,8 @@
                             <TextBlock Style="{StaticResource ErrorStar}" x:Name="photoProofNoErrorCheck" Visibility="Collapsed"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
-                            <ComboBox x:Name="PhotoProofNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="150" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="1" IsEnabled="False"/>
-                            <TextBox x:Name="PhotoProofNo" Style="{StaticResource InputBox}" Text="{Binding PhotoProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="140" Margin="15,0,0,0" CharacterCasing="Upper" LostFocus="PhotoProofNo_LostFocus"/>
+                            <ComboBox KeyboardNavigation.TabIndex="31" x:Name="PhotoProofNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="150" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedIndex="1" IsEnabled="False"/>
+                            <TextBox KeyboardNavigation.TabIndex="32" x:Name="PhotoProofNo" Style="{StaticResource InputBox}" Text="{Binding PhotoProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="140" Margin="15,0,0,0" CharacterCasing="Upper" LostFocus="PhotoProofNo_LostFocus"/>
                         </StackPanel>
                     </Grid>
                     <Grid x:Name="AddressProofNoGrid" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2">
@@ -532,8 +532,8 @@
                             <TextBlock Style="{StaticResource ErrorStar}" x:Name="addressNoErrorCheck" Visibility="Collapsed"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2">
-                            <ComboBox x:Name="AddressProofNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="100" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox x:Name="AddressProofNoTextBox" Text="{Binding AddressProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InputBox}" Width="140" Margin="15,0,0,0"/>
+                            <ComboBox KeyboardNavigation.TabIndex="33" x:Name="AddressProofNoBox" Style="{StaticResource combo}" Grid.Column="2" Width="100" HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox KeyboardNavigation.TabIndex="34" x:Name="AddressProofNoTextBox" Text="{Binding AddressProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource InputBox}" Width="140" Margin="15,0,0,0"/>
                         </StackPanel>
                     </Grid>
                     
@@ -591,7 +591,7 @@
                         </TextBox>
                         <Button x:Name="AddGaurantor" Click="AddGaurantor_Click" Style="{StaticResource Add}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Visibility="{Binding IsGuarantorNull,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleConverter}}"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="GuarantorViewEditPanel" Visibility="{Binding IsGuarantorNull,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleConverter}}">
-                            <Button x:Name="ViewGaurantor" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewGaurantor_Click"/>
+                            <Button KeyboardNavigation.TabIndex="35" x:Name="ViewGaurantor" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewGaurantor_Click"/>
                             <Button x:Name="EditGaurantor" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditGaurantor_Click" />
                         </StackPanel>
                     </Grid>
@@ -609,7 +609,7 @@
                         <TextBox x:Name="NomineeBox" Style="{StaticResource Textbox}" Grid.Column="2" Width="140" HorizontalAlignment="Left" Text="{Binding NomineeName, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsReadOnly="True" CharacterCasing="Upper"/>
                         <Button x:Name="AddNominee" Style="{StaticResource Add}"  Grid.Column="3" HorizontalAlignment="Left" Visibility="{Binding IsNomineeNull,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleConverter}}" Click="AddNominee_Click"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="NomineeViewEditPanel" Visibility="{Binding IsNomineeNull,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleConverter}}">
-                            <Button x:Name="ViewNominee" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewNominee_Click"/>
+                            <Button KeyboardNavigation.TabIndex="36" x:Name="ViewNominee" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewNominee_Click"/>
                             <Button x:Name="EditNominee" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditNominee_Click"/>
                         </StackPanel>
                     </Grid>
@@ -628,7 +628,7 @@
 
                         <Button x:Name="BankDetails" HorizontalAlignment="Left" Click="BankDetails_Click" Style="{StaticResource Add}" Grid.Column="3" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleConverter}}"/>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="BankViewEditPanel" Visibility="{Binding HavingBankDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleConverter}}">
-                            <Button x:Name="ViewBankDetails" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewBankDetails_Click"/>
+                            <Button KeyboardNavigation.TabIndex="37" x:Name="ViewBankDetails" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewBankDetails_Click"/>
                             <Button x:Name="EditBankDetails" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditBankDetails_Click" />
                         </StackPanel>
                         <Popup  Height="400" Width="500" x:Name="AccountdetailsPanel" AllowsTransparency="True" IsOpen="False" PlacementTarget="{Binding ElementName=MainGrid}" Placement="Center">
@@ -838,14 +838,14 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Loan Type" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,55,0"/>
-                        <ComboBox x:Name="LoanTypecombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding LoanType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Width="180">
+                        <ComboBox KeyboardNavigation.TabIndex="38" x:Name="LoanTypecombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding LoanType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Width="180">
                             <ComboBoxItem Content="Special Loan"/>
                             <ComboBoxItem Content="General Loan"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,30,0"/>
-                        <ComboBox x:Name="LoanAmountcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="180">
+                        <ComboBox KeyboardNavigation.TabIndex="39" x:Name="LoanAmountcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="180">
                             <ComboBoxItem Content="10000"/>
                             <ComboBoxItem Content="15000"/>
                             <ComboBoxItem Content="20000"/>
@@ -855,7 +855,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Time Period" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,45,0"/>
-                        <ComboBox x:Name="TimePeriodcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Width="180" Text="{Binding LoanPeriod,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBox KeyboardNavigation.TabIndex="40" x:Name="TimePeriodcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Width="180" Text="{Binding LoanPeriod,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                             <ComboBoxItem Content="25"/>
                             <ComboBoxItem Content="50"/>
                             <ComboBoxItem Content="75"/>
@@ -864,7 +864,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Loan Purpose" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,35,0"/>
-                        <ComboBox Style="{StaticResource combo}" Width="180" Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="PurposeNameCombo"></ComboBox>
+                        <ComboBox KeyboardNavigation.TabIndex="41" Style="{StaticResource combo}" Width="180" Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="PurposeNameCombo"></ComboBox>
                         <!--<TextBox Style="{StaticResource InputBox}" Text="{Binding  LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Black" Width="180" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>-->
                     </StackPanel>
                 </Grid>

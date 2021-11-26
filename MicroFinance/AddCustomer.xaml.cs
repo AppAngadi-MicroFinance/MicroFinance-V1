@@ -323,7 +323,8 @@ namespace MicroFinance
             SelectRegion.ItemsSource = _regionName; SelectRegion.SelectedIndex = 0;
             SelectBranch.ItemsSource = _branchName; SelectBranch.SelectedIndex = 0;
             SelectFO.ItemsSource = _officerName; SelectFO.SelectedIndex = 0;
-            SelectSHG.ItemsSource = SelfHelpGroupList; SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
+            SelectSHG.ItemsSource = SelfHelpGroupList;
+           // SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
         }
         void BranchAndGroupDetailsforFieldOfficer(int number=0)
         {
