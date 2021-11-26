@@ -192,6 +192,7 @@ namespace MicroFinance
                     string BranchName = SelectBranch.SelectedValue as string;
                     string RegionName = SelectRegion.SelectedValue as string;
                     GroupMembers groupMembers = MembersListView.SelectedValue as GroupMembers;
+                  
                     groupMembers.IsRequested = true;
                     loanRequest.CustomerID = groupMembers.CustomerID;
                     loanRequest.EmployeeID = EmployeeId;

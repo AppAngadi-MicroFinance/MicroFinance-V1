@@ -224,6 +224,9 @@ namespace MicroFinance.ViewModel
                 case "BROTHER":
                     Result = "SISTER";
                     break;
+                case "SISTER":
+                    Result = "SISTER";
+                    break;
             }
             return Result;
         }
