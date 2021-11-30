@@ -16,6 +16,7 @@ namespace MicroFinance.ViewModel
         public string RequestID { get; set; }
         public string CustomerID { get; set; }
         public string BranchID { get; set; }
+        public string SHGId { get; set; }
         private string _empid;
         public string EmpId
         {

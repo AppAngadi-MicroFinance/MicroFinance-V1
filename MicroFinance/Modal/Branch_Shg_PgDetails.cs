@@ -94,7 +94,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select SHGName from SelfHelpGroup where SHGId in(select SHGId from TimeTable where EmpId='"+EmpId+"')";
+                sqlCommand.CommandText = "select SHGName from SelfHelpGroup where SHGId in(select SHGId from TimeTable where EmpId='"+EmpId+ "') order by SHGName asc";
                 SqlDataReader dataReader = sqlCommand.ExecuteReader();
                 while(dataReader.Read())
                 {
