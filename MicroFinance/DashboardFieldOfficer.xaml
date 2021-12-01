@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
 
 
-        <WrapPanel Grid.Row="1" Grid.Column="1" Margin="25" MaxWidth="1330">
+        <WrapPanel Grid.Row="1" Grid.Column="1" Margin="25" MaxWidth="1150">
 
             <Border Style="{StaticResource MainBorder}" Margin="15">
                 <Border.Effect>

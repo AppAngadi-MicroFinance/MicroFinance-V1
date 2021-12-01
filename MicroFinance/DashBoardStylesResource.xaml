@@ -59,7 +59,7 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid Height="80" Width="300">
+                            <Grid Height="80" Width="250">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="5*"></RowDefinition>
                                     <RowDefinition Height="90*"></RowDefinition>
@@ -124,7 +124,7 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid Width="300" Height="80">
+                            <Grid Width="250" Height="80">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="5*"></RowDefinition>
                                     <RowDefinition Height="90*"></RowDefinition>
@@ -218,7 +218,7 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid Height="80" Width="300">
+                            <Grid Height="80" Width="250">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="5*"></RowDefinition>
                                     <RowDefinition Height="90*"></RowDefinition>
@@ -283,7 +283,7 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid Width="300" Height="80">
+                            <Grid Width="250" Height="80">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="5*"></RowDefinition>
                                     <RowDefinition Height="90*"></RowDefinition>
@@ -319,7 +319,7 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid Height="80" Width="300">
+                            <Grid Height="80" Width="250">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="5*"></RowDefinition>
                                     <RowDefinition Height="90*"></RowDefinition>
@@ -692,7 +692,7 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid Height="80" Width="300">
+                            <Grid Height="80" Width="250">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="10*"></RowDefinition>
                                     <RowDefinition Height="90*"></RowDefinition>
@@ -1033,7 +1033,7 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid Height="80" Width="300">
+                            <Grid Height="80" Width="250">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="5*"></RowDefinition>
                                     <RowDefinition Height="90*"></RowDefinition>
