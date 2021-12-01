@@ -6,17 +6,84 @@
       xmlns:local="clr-namespace:MicroFinance"
       xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
-      d:DesignHeight="630" d:DesignWidth="1368" Background="#FEF2E4"
+       Background="#FEF2E4"
       Title="DashboardFieldOfficer">
 
-    <Grid Width="1368" x:Name="MainGrid">
+    <Grid x:Name="MainGrid" ShowGridLines="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+
+        <WrapPanel Grid.Row="1" Grid.Column="1" Margin="25" MaxWidth="1150" x:Name="ToolsPanal">
+
+            <Border Style="{StaticResource MainBorder}" Margin="15">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xAddCustomerBtn" Click="xAddCustomerBtn_Click" Style="{StaticResource NavigateAddCustomer}"></Button>
+            </Border>
+            
+            <Border  Margin="15" Style="{StaticResource MainBorder}" 
+                 VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xLoanRequestBtn" Click="xLoanRequestBtn_Click" Style="{StaticResource NavigateLoanRequest}"></Button>
+            </Border>
+            <Border Margin="15" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xAddPeerGroup" Click="xAddPeerGroup_Click" Style="{StaticResource AddPeerGroupStyle}" FontSize="12"></Button>
+            </Border>
+            <Border Margin="15" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Grid>
+                    <Button x:Name="xPendingCustomerBtn" Style="{StaticResource NavigateDocumentVerifyFO}" Click="xPendingCustomerBtn_Click"></Button>
+                    <Border x:Name="xNotificationBatch" Margin="0,-15,-15,0" Style="{StaticResource NotifyCount}" Width="35" Height="35" Visibility="Visible">
+                        <TextBlock x:Name="xCustomerPendings" Style="{StaticResource NotifyText}" FontSize="16"></TextBlock>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Margin="15" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Grid>
+                    <Button x:Name="xCollectionSheet" Click="xCollectionSheet_Click" Style="{StaticResource NavigateCollectionShcedule}"></Button>
+                </Grid>
+            </Border>
+            <Border Margin="15" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xCollectionEntryBtn" Click="xCollectionEntryBtn_Click" Style="{StaticResource NavigateCollectionEntry}"></Button>
+            </Border>
+            <Border  Style="{StaticResource MainBorder}" Margin="15">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="EnrollDetailsBtn" Click="EnrollDetailsBtn_Click" Style="{StaticResource EnrollDetailsBtn}"></Button>
+            </Border>
+        </WrapPanel>
         
-        <StackPanel x:Name="GifPanel" Panel.ZIndex="3" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel x:Name="GifPanel" Panel.ZIndex="3" Grid.ColumnSpan="3" Grid.RowSpan="3" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
         </StackPanel>
 
-        <Border Height="300" Width="400" Background="White" Panel.ZIndex="2" CornerRadius="10" BorderBrush="Gray" BorderThickness="2" x:Name="EnrollDatailsPanel" Visibility="Collapsed">
+        <Border Grid.RowSpan="3" Grid.ColumnSpan="3" Height="300" Width="400" Background="White" Panel.ZIndex="2" CornerRadius="10" BorderBrush="Gray" BorderThickness="2" x:Name="EnrollDatailsPanel" Visibility="Collapsed">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1" BlurRadius="10" Color="LightGray" Opacity="1"></DropShadowEffect>
                 </Border.Effect>
@@ -48,10 +115,10 @@
                 </Grid>
             </Border>
         
-        
+<!--un used Design-->        
         <!--Section A-->
         <Grid Width="400" Height="170" Margin="0,100,100,0" 
-              HorizontalAlignment="Right" VerticalAlignment="Top" x:Name="SectionAGrid">
+              HorizontalAlignment="Right" VerticalAlignment="Top" x:Name="SectionAGrid" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -62,12 +129,7 @@
             </Grid.RowDefinitions>
 
 
-            <Border  Width="150" Height="150" Grid.Column="0" Grid.RowSpan="2" Style="{StaticResource MainBorder}">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-                </Border.Effect>
-                <Button x:Name="EnrollDetailsBtn" Click="EnrollDetailsBtn_Click"  FontSize="12"  Style="{StaticResource EnrollDetailsBtn}"></Button>
-            </Border>
+            
 
 
             <!--Find Customer-->
@@ -82,22 +144,17 @@
 
 
 
-        </Grid>
+        </Grid >
 
         <!--Section B-->
-        <Grid Width="400" Height="170" Margin="150,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="SectionBGrid">
+        <Grid Width="400" Visibility="Collapsed" Height="170" Margin="150,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="SectionBGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <!--Add New Customer Button-->
-            <Border Grid.Row="0" Grid.Column="0" Width="150" Height="150" Style="{StaticResource MainBorder}">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-                </Border.Effect>
-                <Button x:Name="xAddCustomerBtn" Click="xAddCustomerBtn_Click" Style="{StaticResource NavigateAddCustomer}"></Button>
-            </Border>
+            
 
             <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}" Visibility="Collapsed">
                 <Border.Effect>
@@ -105,42 +162,21 @@
                 </Border.Effect>
                 <Button x:Name="xAllowanceReportBtn" Style="{StaticResource NavigateAllowancesReport}"></Button>
             </Border>
-            <Border  Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-                </Border.Effect>
-                <Button x:Name="xAddPeerGroup" Click="xAddPeerGroup_Click" Style="{StaticResource AddPeerGroupStyle}" FontSize="12"></Button>
-            </Border>
+            
         </Grid>
 
         <!--Section C-->
-        <Grid Width="400" Height="170" Margin="150,0,0,50" HorizontalAlignment="Left" VerticalAlignment="Bottom" x:Name="SectionCGrid">
+        <Grid Width="400" Height="170" Margin="150,0,0,50" HorizontalAlignment="Left" VerticalAlignment="Bottom" x:Name="SectionCGrid" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Border Width="150" Height="150" Grid.Column="0" Style="{StaticResource MainBorder}" 
-                 VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-                </Border.Effect>
-                <Button x:Name="xLoanRequestBtn" Click="xLoanRequestBtn_Click" Style="{StaticResource NavigateLoanRequest}"></Button>
-            </Border>
+            
             <!--Pending Customers-->
-            <Border Grid.Column="1" Width="150" Height="150" Style="{StaticResource MainBorder}">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-                </Border.Effect>
-                <Grid>
-                    <Button x:Name="xPendingCustomerBtn" Style="{StaticResource NavigateDocumentVerifyFO}" Click="xPendingCustomerBtn_Click"></Button>
-                    <Border x:Name="xNotificationBatch" Margin="0,-15,-15,0" Style="{StaticResource NotifyCount}" Width="35" Height="35" Visibility="Collapsed">
-                        <TextBlock x:Name="xCustomerPendings" Style="{StaticResource NotifyText}" Text="0" FontSize="14"></TextBlock>
-                    </Border>
-                </Grid>
-            </Border>
+            
         </Grid>
 
-        <Grid Width="400" Height="170" Margin="0,0,150,50" VerticalAlignment="Bottom" HorizontalAlignment="Right" x:Name="SectionDGrid">
+        <Grid Width="400" Height="170" Margin="0,0,150,50" VerticalAlignment="Bottom" HorizontalAlignment="Right" x:Name="SectionDGrid" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -160,22 +196,10 @@
             </Border>
 
             <!--Download Collection Sheet-->
-            <Border Width="150" Grid.Column="0" Height="150" Style="{StaticResource MainBorder}">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-                </Border.Effect>
-                <Grid>
-                    <Button x:Name="xCollectionSheet" Click="xCollectionSheet_Click" Style="{StaticResource NavigateCollectionShcedule}"></Button>
-                </Grid>
-            </Border>
+            
 
             <!--Collection Entry-->
-            <Border Width="150" Height="150" Grid.Column="1" Style="{StaticResource MainBorder}">
-                <Border.Effect>
-                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
-                </Border.Effect>
-                <Button x:Name="xCollectionEntryBtn" Click="xCollectionEntryBtn_Click" Style="{StaticResource NavigateCollectionEntry}"></Button>
-            </Border>
+            
 
         </Grid>
 

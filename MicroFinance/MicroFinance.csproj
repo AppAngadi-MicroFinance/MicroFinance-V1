@@ -265,6 +265,7 @@
     <Compile Include="Repository\CollectionRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="Repository\EnrollDetailsRepository.cs" />
+    <Compile Include="Repository\NotificationRepository.cs" />
     <Compile Include="SamuExport.xaml.cs">
       <DependentUpon>SamuExport.xaml</DependentUpon>
     </Compile>

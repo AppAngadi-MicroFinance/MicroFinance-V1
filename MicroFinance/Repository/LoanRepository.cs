@@ -14,8 +14,6 @@ namespace MicroFinance.ViewModel
 {
     class LoanRepository
     {
-
-
         public static ObservableCollection<RecommendView> GetRecommendList(int StatusCode)
         {
             Dictionary<string, SelfHelpGroupDetail> shgdetail = GetSelfHelpGroupDetail(MainWindow.LoginDesignation.BranchId);

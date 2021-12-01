@@ -35,7 +35,7 @@ namespace MicroFinance
         public DashboardFieldOfficer()
         {
             InitializeComponent();
-            //xCustomerPendings.Text = LoadPendingCustomers(MainWindow.LoginDesignation.BranchId).ToString();
+            xCustomerPendings.Text = NotificationRepository.GetVerifyDocumentNotifyCount(MainWindow.LoginDesignation.EmpId).ToString();
 
             EnrollStartDate.SelectedDate = DateTime.Now;
             EnrollEndDate.SelectedDate = DateTime.Now;
@@ -219,10 +219,11 @@ namespace MicroFinance
             //string BranchId = MainWindow.LoginDesignation.BranchId;
             //string EmpID = MainWindow.LoginDesignation.EmpId;
             //this.NavigationService.Navigate(new EnrollDetails(BranchId,EmpID));
-            SectionAGrid.IsEnabled = false;
-            SectionBGrid.IsEnabled = false;
-            SectionCGrid.IsEnabled = false;
-            SectionDGrid.IsEnabled = false;
+            //SectionAGrid.IsEnabled = false;
+            //SectionBGrid.IsEnabled = false;
+            //SectionCGrid.IsEnabled = false;
+            //SectionDGrid.IsEnabled = false;
+            ToolsPanal.IsEnabled = false;
             EnrollDatailsPanel.Visibility = Visibility.Visible;
         }
 
@@ -276,11 +277,13 @@ namespace MicroFinance
 
         private void EnrollCancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            SectionAGrid.IsEnabled = true;
-            SectionBGrid.IsEnabled = true;
-            SectionCGrid.IsEnabled = true;
-            SectionDGrid.IsEnabled = true;
+            //SectionAGrid.IsEnabled = true;
+            //SectionBGrid.IsEnabled = true;
+            //SectionCGrid.IsEnabled = true;
+            //SectionDGrid.IsEnabled = true;
             MainGrid.IsEnabled = true;
+            ToolsPanal.IsEnabled = true;
+            EnrollDatailsPanel.Visibility = Visibility.Collapsed;
         }
     }
 }
