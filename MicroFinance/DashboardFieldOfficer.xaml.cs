@@ -35,7 +35,7 @@ namespace MicroFinance
         public DashboardFieldOfficer()
         {
             InitializeComponent();
-            //xCustomerPendings.Text = LoadPendingCustomers(MainWindow.LoginDesignation.BranchId).ToString();
+            xCustomerPendings.Text = NotificationRepository.GetVerifyDocumentNotifyCount(MainWindow.LoginDesignation.EmpId).ToString();
 
             EnrollStartDate.SelectedDate = DateTime.Now;
             EnrollEndDate.SelectedDate = DateTime.Now;
