@@ -603,13 +603,20 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Width="250" Height="80">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition Height="55"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="90*"></RowDefinition>
+                                    <RowDefinition Height="5*"/>
                                 </Grid.RowDefinitions>
-                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\SHG.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="Add SHG"></TextBlock>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="25*"/>
+                                    <ColumnDefinition Width="65*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="1" Grid.Row="1" Width="35" Height="35" Source=".\Asserts\Icons\SHG.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="20,0,0,0" Style="{StaticResource DashboardBtnText}" Text="Add SHG"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -663,14 +670,20 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Width="250" Height="80">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition Height="55"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="90*"></RowDefinition>
+                                    <RowDefinition Height="5*"/>
                                 </Grid.RowDefinitions>
-
-                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\notepad.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="110" Style="{StaticResource DashboardBtnText}" Text="Recommend Loan"></TextBlock>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="25*"/>
+                                    <ColumnDefinition Width="65*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="1" Grid.Row="1" Width="35" Height="35" Source=".\Asserts\Icons\notepad.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="20,0,0,0" Style="{StaticResource DashboardBtnText}" Text="Recommend Loan"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -730,13 +743,20 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Width="250" Height="80">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="90*"/>
+                                    <RowDefinition Height="5*"/>
+                                </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                                    <ColumnDefinition Width="65*"/>
+                                    <ColumnDefinition Width="5*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Width="40" Height="40" Source=".\Asserts\Icons\searchingPerson.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Column="1"  Width="110"  Text="Find Customer" Style="{StaticResource DashboardBtnText}"></TextBlock>
+                                <Image Grid.Column="1" Grid.Row="1" Width="35" Height="35" Source=".\Asserts\Icons\searchingPerson.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" Margin="20,0,0,0"  Width="110"  Text="Find Customer" Style="{StaticResource DashboardBtnText}"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -789,13 +809,20 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Width="250" Height="80">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition Height="55"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="90*"></RowDefinition>
+                                    <RowDefinition Height="5*"/>
                                 </Grid.RowDefinitions>
-                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\team.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1"  Width="100" Style="{StaticResource DashboardBtnText}" Text="Add Employee"></TextBlock>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="25*"/>
+                                    <ColumnDefinition Width="65*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="1" Grid.Row="1" Width="35" Height="35" Source=".\Asserts\Icons\team.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="20,0,0,0" Style="{StaticResource DashboardBtnText}" Text="Add Employee"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -1003,14 +1030,21 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Height="80" Width="250">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition Height="55"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="90*"></RowDefinition>
+                                    <RowDefinition Height="5*"/>
                                 </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="25*"/>
+                                    <ColumnDefinition Width="65*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
 
-                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\money.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" FontSize="16" Width="120" Style="{StaticResource DashboardBtnText}" Text="Daily Collection (AC)"></TextBlock>
+                                <Image Grid.Column="1" Grid.Row="1" Width="35" Height="35" Source=".\Asserts\Icons\money.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Margin="20,0,0,0" Style="{StaticResource DashboardBtnText}" Text="Daily Collection (AC)"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -1069,14 +1103,21 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Height="80" Width="250">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition Height="55"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="90*"></RowDefinition>
+                                    <RowDefinition Height="5*"/>
                                 </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="25*"/>
+                                    <ColumnDefinition Width="65*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
 
-                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\DocumentVerifyAC.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" FontSize="16" Width="130" Style="{StaticResource DashboardBtnText}" Text="Verify Document(AC)"></TextBlock>
+                                <Image Grid.Column="1" Grid.Row="1" Width="35" Height="35" Source=".\Asserts\Icons\DocumentVerifyAC.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Grid.Column="2" Margin="20,0,0,0" HorizontalAlignment="Left" Style="{StaticResource DashboardBtnText}" Text="Document Verify (AC)"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
@@ -1128,14 +1169,22 @@
                 <ContentPresenter>
                     <ContentPresenter.ContentTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Height="85" Width="250">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition Height="55"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="90*"></RowDefinition>
+                                    <RowDefinition Height="5*"/>
+                                    
                                 </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="25*"/>
+                                    <ColumnDefinition Width="65*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
 
-                                <Image Grid.Column="0" Width="65" Height="65" Source=".\Asserts\Icons\result.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-                                <TextBlock Grid.Row="1" Width="100" Style="{StaticResource DashboardBtnText}" Text="HiMark Result"></TextBlock>
+                                <Image Grid.Column="1" Grid.Row="1" Width="35" Height="35" Source=".\Asserts\Icons\result.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="20,0,0,0" Style="{StaticResource DashboardBtnText}" Text="HiMark Result"></TextBlock>
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>

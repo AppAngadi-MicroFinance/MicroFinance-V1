@@ -29,32 +29,29 @@ namespace MicroFinance
     public partial class DashboardBranchManager : Page
     {
         Branch branch = new Branch();
-       // string BranchId = "01202107002";
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
-        public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
         LoanProcess loanProcess = new LoanProcess();
-        //string BranchId = MainWindow.LoginDesignation.BranchId;
         public DashboardBranchManager()
         {
             InitializeComponent();
-            //ManageApprovalNotification();
             EnrollStartDate.SelectedDate = DateTime.Now;
             EnrollEndDate.SelectedDate = DateTime.Now;
+            LoadCount();
         }
-        //void ManageApprovalNotification()
-        //{
-        //    int forApprovals = GetCustomersStatus1(BranchId);
-        //    if (forApprovals > 0)
-        //    {
-        //        xCustApprovalsCount.Text = forApprovals.ToString();
-        //    }
-        //    else
-        //    {
-        //        xNotificationBatch.Visibility = Visibility.Collapsed;
-        //    }
-        //}
+
+
+        void LoadCount()
+        {
+            string BranchID = MainWindow.LoginDesignation.BranchId;
+            xCustomerPendingsAC.Text = NotificationRepository.GetVerifyDocumentNotifyCount(BranchID, 6).ToString();
+            xHimarkResultCount.Text = NotificationRepository.GetHimarkResultCount(BranchID).ToString();
+            xCustomerPendingsBM.Text = NotificationRepository.GetVerifyDocumentNotifyCount(BranchID, 7).ToString();
+            xRecommendLoanCount.Text = NotificationRepository.GetVerifyDocumentNotifyCount(BranchID, 8).ToString();
+
+        }
+        
 
         private void xAddCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -176,14 +173,7 @@ namespace MicroFinance
 
             }
         }
-        //void LoanHimarkData(List<HimarkResultModel> himarkResultslist)
-        //{
-        //    HimarkResult himark = new HimarkResult();
-        //    foreach (HimarkResultModel hm in himarkResultslist)
-        //    {
-        //        himark.InsertHimarkDate(hm);
-        //    }
-        //}
+        
 
         private void RequestedListBoxNew_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -208,10 +198,7 @@ namespace MicroFinance
 
         private void EnrollDetailsBtn_Click(object sender, RoutedEventArgs e)
         {
-            GridA.IsEnabled = false;
-            GridB.IsEnabled = false;
-            GridC.IsEnabled = false;
-            GridD.IsEnabled = false;
+            MenuPanel.IsEnabled = false;
             EnrollDatailsPanel.Visibility = Visibility.Visible;
         }
 
@@ -259,10 +246,7 @@ namespace MicroFinance
 
         private void EnrollCancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            GridA.IsEnabled = true;
-            GridB.IsEnabled = true;
-            GridC.IsEnabled = true;
-            GridD.IsEnabled = true;
+            MenuPanel.IsEnabled = true;
             EnrollDatailsPanel.Visibility = Visibility.Collapsed;
         }
     }

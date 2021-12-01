@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
 
 
-        <WrapPanel Grid.Row="1" Grid.Column="1" Margin="25" MaxWidth="1150">
+        <WrapPanel Grid.Row="1" Grid.Column="1" Margin="25" MaxWidth="1150" x:Name="ToolsPanal">
 
             <Border Style="{StaticResource MainBorder}" Margin="15">
                 <Border.Effect>
