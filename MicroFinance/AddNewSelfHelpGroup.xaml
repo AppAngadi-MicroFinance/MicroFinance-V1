@@ -161,8 +161,6 @@
                 <TextBlock x:Name="xSHGState" Text="TAMIL NADU" Width="300" Grid.Column="1" Grid.Row="7" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left"
                            FontSize="16" FontWeight="Bold"></TextBlock>
 
-
-
                 <Button x:Name="xCreateNewSHG" Click="xCreateNewSHG_Click" Style="{StaticResource PrimaryBtn}" Width="200" Height="40" Grid.Column="1"
                         FontSize="18" Grid.Row="8" Content="Create Center">
                     

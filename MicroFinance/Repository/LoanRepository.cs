@@ -121,6 +121,7 @@ namespace MicroFinance.ViewModel
 
         public static ObservableCollection<RecommendView> GetRecommendList(int StatusCode,string EmpId)
         {
+            Dictionary<string, SelfHelpGroupDetail> shgdetail = GetSelfHelpGroupDetail(MainWindow.LoginDesignation.BranchId);
             ObservableCollection<RecommendView> ResultView = new ObservableCollection<RecommendView>();
             using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
             {
@@ -129,7 +130,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.EnrollDate from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from LoanApplication where LoanStatus='" + StatusCode + "') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and LoanApplication.BranchId='" + MainWindow.LoginDesignation.BranchId + "' and LoanApplication.EmployeeId='"+EmpId+"'";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.EnrollDate,LoanApplication.SHGId from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from LoanApplication where LoanStatus='" + StatusCode + "') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and LoanApplication.BranchId='" + MainWindow.LoginDesignation.BranchId + "' and LoanApplication.EmployeeId='"+EmpId+"'";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -146,6 +147,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.BranchName = reader.GetString(7);
                             HMRequestCustomer.EmpName = reader.GetString(8);
                             HMRequestCustomer.RequestDate = reader.GetDateTime(9);
+                            HMRequestCustomer.SHGId = reader.GetString(10);
                             HMRequestCustomer.IsRecommend = true;
                      
                             // SqlCommand sqlcomm = new SqlCommand();
@@ -158,11 +160,13 @@ namespace MicroFinance.ViewModel
                     reader.Close();
                     foreach (RecommendView Hm in ResultView)
                     {
+                        Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
+                        Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
 
-                        sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
-                        Hm.CenterName = (string)sqlcomm.ExecuteScalar();
-                        sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Hm.CustomerID + "'))";
-                        Hm.CollectionDay = (string)sqlcomm.ExecuteScalar();
+                        //sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
+                        //Hm.CenterName = (string)sqlcomm.ExecuteScalar();
+                        //sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Hm.CustomerID + "'))";
+                        //Hm.CollectionDay = (string)sqlcomm.ExecuteScalar();
                     }
                 }
             }
@@ -171,6 +175,7 @@ namespace MicroFinance.ViewModel
         public static ObservableCollection<RecommendView> GetRecommendListForRM(int StatusCode)
         {
             ObservableCollection<RecommendView> ResultView = new ObservableCollection<RecommendView>();
+            Dictionary<string, SelfHelpGroupDetail> shgdetail = GetSelfHelpGroupDetail(MainWindow.LoginDesignation.BranchId);
             using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
@@ -178,7 +183,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.EnrollDate from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from LoanApplication where LoanStatus='" + StatusCode + "') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.EnrollDate,LoanApplication.SHGId from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from LoanApplication where LoanStatus='" + StatusCode + "') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -195,6 +200,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.BranchName = reader.GetString(7);
                             HMRequestCustomer.EmpName = reader.GetString(8);
                             HMRequestCustomer.RequestDate = reader.GetDateTime(9);
+                            HMRequestCustomer.SHGId = reader.GetString(10);
                             HMRequestCustomer.IsRecommend = true;
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
@@ -206,11 +212,12 @@ namespace MicroFinance.ViewModel
                     reader.Close();
                     foreach (RecommendView Hm in ResultView)
                     {
-
-                        sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
-                        Hm.CenterName = (string)sqlcomm.ExecuteScalar();
-                        sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Hm.CustomerID + "'))";
-                        Hm.CollectionDay = (string)sqlcomm.ExecuteScalar();
+                        Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
+                        Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        //sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
+                        //Hm.CenterName = (string)sqlcomm.ExecuteScalar();
+                        //sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Hm.CustomerID + "'))";
+                        //Hm.CollectionDay = (string)sqlcomm.ExecuteScalar();
                     }
                 }
             }
@@ -221,6 +228,7 @@ namespace MicroFinance.ViewModel
         public static ObservableCollection<RecommendView> GetRecommendList(int StatusCode,bool value=true)
         {
             ObservableCollection<RecommendView> ResultView = new ObservableCollection<RecommendView>();
+            Dictionary<string, SelfHelpGroupDetail> shgdetail = GetSelfHelpGroupDetail(MainWindow.LoginDesignation.BranchId);
             using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
@@ -228,7 +236,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.LoanType,LoanApplication.EnrollDate,DisbursementFromSAMU.ApprovedDate from CustomerDetails,LoanApplication,BranchDetails,Employee,DisbursementFromSAMU where LoanApplication.RequestId in(select RequestId from LoanApplication where LoanStatus='" + StatusCode+"') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and DisbursementFromSAMU.RequestID=LoanApplication.RequestId";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.LoanType,LoanApplication.EnrollDate,DisbursementFromSAMU.ApprovedDate,LoanApplication.SHGId from CustomerDetails,LoanApplication,BranchDetails,Employee,DisbursementFromSAMU where LoanApplication.RequestId in(select RequestId from LoanApplication where LoanStatus='" + StatusCode+"') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and DisbursementFromSAMU.RequestID=LoanApplication.RequestId";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -247,6 +255,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.LoanType = reader.GetString(9);
                             HMRequestCustomer.RequestDate = reader.GetDateTime(10);
                             HMRequestCustomer.SamuApproveDate = reader.GetDateTime(11);
+                            HMRequestCustomer.SHGId = reader.GetString(12);
                             HMRequestCustomer.IsRecommend = true;
                             // SqlCommand sqlcomm = new SqlCommand();
                             // sqlcomm.Connection = sqlconn;
@@ -258,11 +267,12 @@ namespace MicroFinance.ViewModel
                     reader.Close();
                     foreach (RecommendView Hm in ResultView)
                     {
-
-                        sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
-                        Hm.CenterName = (string)sqlcomm.ExecuteScalar();
-                        sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Hm.CustomerID + "'))";
-                        Hm.CollectionDay = (string)sqlcomm.ExecuteScalar();
+                        Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
+                        Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        //sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
+                        //Hm.CenterName = (string)sqlcomm.ExecuteScalar();
+                        //sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Hm.CustomerID + "'))";
+                        //Hm.CollectionDay = (string)sqlcomm.ExecuteScalar();
                     }
                 }
             }
@@ -273,6 +283,7 @@ namespace MicroFinance.ViewModel
         public static ObservableCollection<RecommendView> GetApproveList(int StatusCode, bool value = true)
         {
             ObservableCollection<RecommendView> ResultView = new ObservableCollection<RecommendView>();
+            Dictionary<string, SelfHelpGroupDetail> shgdetail = GetSelfHelpGroupDetail(MainWindow.LoginDesignation.BranchId);
             using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
@@ -280,7 +291,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.LoanType,LoanApplication.EnrollDate,DisbursementFromSAMU.ApprovedDate from CustomerDetails,LoanApplication,BranchDetails,Employee,DisbursementFromSAMU where LoanApplication.RequestId in(select RequestId from LoanApplication where LoanStatus='" + StatusCode + "') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and DisbursementFromSAMU.RequestID=LoanApplication.RequestId";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.LoanType,LoanApplication.EnrollDate,DisbursementFromSAMU.ApprovedDate,LoanApplication.SHGId from CustomerDetails,LoanApplication,BranchDetails,Employee,DisbursementFromSAMU where LoanApplication.RequestId in(select RequestId from LoanApplication where LoanStatus='" + StatusCode + "') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and DisbursementFromSAMU.RequestID=LoanApplication.RequestId";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -298,6 +309,7 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.EmpName = reader.GetString(8);
                             HMRequestCustomer.LoanType = reader.GetString(9);
                             HMRequestCustomer.RequestDate = reader.GetDateTime(11);
+                            HMRequestCustomer.SHGId = reader.GetString(12);
 
                             HMRequestCustomer.IsRecommend = true;
                             // SqlCommand sqlcomm = new SqlCommand();
@@ -310,11 +322,12 @@ namespace MicroFinance.ViewModel
                     reader.Close();
                     foreach (RecommendView Hm in ResultView)
                     {
-
-                        sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
-                        Hm.CenterName = (string)sqlcomm.ExecuteScalar();
-                        sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Hm.CustomerID + "'))";
-                        Hm.CollectionDay = (string)sqlcomm.ExecuteScalar();
+                        Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
+                        Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        //sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
+                        //Hm.CenterName = (string)sqlcomm.ExecuteScalar();
+                        //sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Hm.CustomerID + "'))";
+                        //Hm.CollectionDay = (string)sqlcomm.ExecuteScalar();
                     }
                 }
             }
@@ -761,7 +774,6 @@ namespace MicroFinance.ViewModel
                         sqlcomm.CommandText = "Update LoanApplication Set LoanStatus='" + StatusCode + "' where Requestid='" + ReqID + "' ";
                         sqlcomm.ExecuteNonQuery();
                     }
-                    
                 }
             }
         }
@@ -801,7 +813,7 @@ namespace MicroFinance.ViewModel
         }
 
 
-        public static void InsertHimarkData(ObservableCollection<HimarkResultExcelModel> DataList)
+        public static void InsertHimarkData(ObservableCollection<HimarkResultExcelModel> DataList,string HimarkReportid)
         {
             using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
@@ -813,7 +825,7 @@ namespace MicroFinance.ViewModel
                     foreach(HimarkResultExcelModel result in DataList)
                     {
                         //sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName,AadharNumber)values('" + result.GetRequestId(result.AadharNumber) + "','" + result.ReportID + "','" + result.ReportDate.ToString("MM-dd-yyyy") + "','" + result.EligibleLoanAmount + "','" + result.Status + "','" + result.HiMarkRemark + "','" + result.ActiveUnsecureLoan + "','" + result.ActiveUnsecureLoanin6Months + "','" + result.OutstandingAmount + "','" + result.DPDSummary + "','" + result.HIMarkScore + "','" + result.ScoreCommend + "','" + result.DPDAmount + "','" + result.BName + "','" + result.FileName + "','"+result.AadharNumber+"')";
-                        sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName,AadharNumber)values('" + result.RequestID + "','" + result.ReportID + "','" + result.ReportDate.ToString("MM-dd-yyyy") + "','" + result.EligibleLoanAmount + "','" + result.Status + "','" + result.HiMarkRemark + "','" + result.ActiveUnsecureLoan + "','" + result.ActiveUnsecureLoanin6Months + "','" + result.OutstandingAmount + "','" + result.DPDSummary + "','" + result.HIMarkScore + "','" + result.ScoreCommend + "','" + result.DPDAmount + "','" + result.BName + "','" + result.FileName + "','"+result.AadharNumber+"')";
+                        sqlcomm.CommandText = "insert into HimarkResult(RequestID,ReportID,ReportDate,EligibleAmount,Status,Remark,ActiveUnsecureLoan,ActiveUnsecureLoaninLast6Months,OutstandingAmount,DPDPaymentHistory,HimarkScore,ScoreCommend,DPDAmount,BranchID,FileName,AadharNumber,HimarkReference)values('" + result.RequestID + "','" + result.ReportID + "','" + result.ReportDate.ToString("MM-dd-yyyy") + "','" + result.EligibleLoanAmount + "','" + result.Status + "','" + result.HiMarkRemark + "','" + result.ActiveUnsecureLoan + "','" + result.ActiveUnsecureLoanin6Months + "','" + result.OutstandingAmount + "','" + result.DPDSummary + "','" + result.HIMarkScore + "','" + result.ScoreCommend + "','" + result.DPDAmount + "','" + result.BName + "','" + result.FileName + "','"+result.AadharNumber+"','"+HimarkReportid+"')";
                         sqlcomm.ExecuteNonQuery();
                     }
                     

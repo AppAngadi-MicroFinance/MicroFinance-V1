@@ -163,7 +163,8 @@
         </DataGrid>
 
         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,25,0">
-            <Button Style="{StaticResource PrimaryBtn}" Content="Upload" x:Name="UploadFileBtn" Click="UploadFileBtn_Click"></Button>
+            <TextBox x:Name="txtreportid" Style="{StaticResource Textbox}" Margin="10,0,0,0" Width="120" Height="40"/>
+            <Button Style="{StaticResource PrimaryBtn}" Content="Upload" x:Name="UploadFileBtn" Click="UploadFileBtn_Click"  Margin="10,0,0,0"></Button>
             
             <Button Style="{StaticResource CancelBtn}" x:Name="CancelBtn" Click="CancelBtn_Click" Content="Cancel" Margin="10,0,0,0"></Button>
 

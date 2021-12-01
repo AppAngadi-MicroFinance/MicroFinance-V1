@@ -57,20 +57,29 @@ namespace MicroFinance
         {
             string FileName = HimarkDataList.Select(temp => temp.FileName).FirstOrDefault();
             bool Result = HimarkResult.IsAlreadyUpload(FileName);
+          
             if(Result)
             {
-                try
+                if(txtreportid.Text.Trim().Length>3)
                 {
-                    GifPanel.Visibility = Visibility.Visible;
-                    await System.Threading.Tasks.Task.Run(() => LoanRepository.InsertHimarkData(HimarkDataList));
-                    GifPanel.Visibility = Visibility.Collapsed;
-                    MainWindow.StatusMessageofPage(1, FileName + " Upload SuccessFully.");
+                    try
+                    {
+                        GifPanel.Visibility = Visibility.Visible;
+                        await System.Threading.Tasks.Task.Run(() => LoanRepository.InsertHimarkData(HimarkDataList,txtreportid.Text.Trim().ToUpper()));
+                        GifPanel.Visibility = Visibility.Collapsed;
+                        MainWindow.StatusMessageofPage(1, FileName + " Upload SuccessFully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    this.NavigationService.Navigate(new DashBoardRegionOfficer());
                 }
-                catch(Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Please Enter Hi-mark Report Id!..", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                this.NavigationService.Navigate(new DashBoardRegionOfficer());
+                
                 
             }
             else
