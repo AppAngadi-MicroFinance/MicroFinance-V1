@@ -40,7 +40,7 @@ namespace MicroFinance
                 CategoryCombo.SelectedIndex = 0;
                 string selectedvalue = CategoryCombo.SelectedValue as string;
                 LoadBinding(selectedvalue);
-                RequestDataGrid.ItemsSource = BindingData;
+                RequestDataGrid.ItemsSource = BindingData.OrderByDescending(temp=>temp.ReportDate);
                 SelectAllCheck.IsChecked = true;
             }
         }
