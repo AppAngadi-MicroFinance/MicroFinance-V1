@@ -290,5 +290,24 @@ namespace MicroFinance.Repository
             return Balance;
         }
 
+        public static string GetCustomerID(string AadharNumber)
+        {
+            string Result = "";
+            using (SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select CustId from CustomerDetails where AadharNumber='" + AadharNumber + "'";
+                    Result = (string)sqlcomm.ExecuteScalar();
+
+                }
+                sqlconn.Close();
+            }
+            return Result;
+        }
+
     }
 }

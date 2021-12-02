@@ -45,7 +45,31 @@
                 </Border.Effect>
                 <Button Style="{StaticResource BtnNEFT}" x:Name="BtnDownloadNEFT" Click="BtnDownloadNEFT_Click"></Button>
             </Border>
+            <Border Margin="15" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button Style="{StaticResource NavigateFindCustomerSmall}" x:Name="FindCustomerBtn" Click="FindCustomerBtn_Click"></Button>
+            </Border>
         </WrapPanel>
+        <Border Height="250" Width="350" Grid.ColumnSpan="3" Grid.RowSpan="3" Background="White" CornerRadius="5" BorderBrush="Gray" BorderThickness="2" x:Name="FindCustomerPanel" Visibility="Collapsed">
+            <Grid Width="330" Height="190">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.5*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Customer Search" Style="{StaticResource SubTitle}" FontSize="18"></TextBlock>
+                <Separator BorderBrush="Gray" BorderThickness="2" VerticalAlignment="Bottom"></Separator>
+                <TextBlock Text="Aadhar Number" VerticalAlignment="Bottom" Grid.Row="1" Style="{StaticResource Regular}" Margin="5"></TextBlock>
+                <TextBox Height="35" Grid.Row="2" Margin="5,0,5,0" FontSize="16" FontWeight="SemiBold" VerticalContentAlignment="Center" x:Name="AadharNumberBox"></TextBox>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.RowSpan="2">
+                    <Button Style="{StaticResource PrimaryBtn}" Content="Search" x:Name="SearchBtn" Click="SearchBtn_Click"></Button>
+                    <Button Style="{StaticResource CancelBtn}" Content="Cancel" Margin="10,0,0,0" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
+                </StackPanel>
+            </Grid>
+        </Border>
 
         
        
