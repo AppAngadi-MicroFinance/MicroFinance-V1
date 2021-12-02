@@ -45,6 +45,18 @@ namespace MicroFinance
 
             EnrollStartDate.SelectedDate = DateTime.Now;
             EnrollEndDate.SelectedDate = DateTime.Now;
+            LoadCount();
+        }
+
+
+        void LoadCount()
+        {
+            int c = NotificationRepository.GetLoanApplicationCount(1);
+            xExportHimarkCount.Text = (c < 100) ? c.ToString() : "99+";
+            int c1 = NotificationRepository.GetLoanApplicationCount(9);
+            xLoanRecommendCount.Text = (c1 < 100) ? c1.ToString() : "99+";
+            int c2 = NotificationRepository.GetLoanApplicationCount(10);
+            xSendToSamuCount.Text = (c2 < 100) ? c2.ToString() : "99+";
         }
 
         
@@ -274,12 +286,12 @@ namespace MicroFinance
 
         private void xAddNewEmployee_Click(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new AddEmployee());
         }
 
         private void xFindCustomer_Click(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new CustomerSearch());
         }
 
         private void xFindEmployee_Click(object sender, RoutedEventArgs e)
@@ -289,7 +301,8 @@ namespace MicroFinance
 
         private void xAllowanceReportBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            AddRegion region = new AddRegion();
+            region.ShowDialog();
         }
 
         private void BranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -299,7 +312,7 @@ namespace MicroFinance
 
         private void xAddNewBranch_Click(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new CreateBranch());
         }
 
         private void RegionCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -329,8 +342,7 @@ namespace MicroFinance
 
         private void EnrollDetailsBtn_Click(object sender, RoutedEventArgs e)
         {
-            GridC.IsEnabled = false;
-            GridD.IsEnabled = false;
+            MenuPanel.IsEnabled = false;
             EnrollDatailsPanel.Visibility = Visibility.Visible;
         }
 
@@ -379,17 +391,42 @@ namespace MicroFinance
 
         private void EnrollCancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            GridC.IsEnabled = true;
-            GridD.IsEnabled = true;
+            MenuPanel.IsEnabled = true;
             EnrollDatailsPanel.Visibility = Visibility.Collapsed;
         }
 
+        private void TransferBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new TransferEmployee());
+        }
 
+        private void SAMUSendRequestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new SamuExport());
+        }
 
-       
+        private async void SamuImportBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<SUMAtoHO> ResultList = new List<SUMAtoHO>();
+            OpenFileDialog openFileDlg = new OpenFileDialog();
+            openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
+            openFileDlg.Title = "Choose File";
+            openFileDlg.InitialDirectory = @"C:\";
+            Nullable<bool> result = openFileDlg.ShowDialog();
+            if (result == true)
+            {
+                GifPanel.Visibility = Visibility.Visible;
+                string FileFrom = openFileDlg.FileName;
+                List<SamuReportView> RequestList = new List<SamuReportView>();
 
+                await System.Threading.Tasks.Task.Run(() => RequestList = SamuRepository.GetSamuRequest(FileFrom));
+                GifPanel.Visibility = Visibility.Collapsed;
 
+                this.NavigationService.Navigate(new SamuResult(RequestList));
+                // this.NavigationService.Navigate(new HOLoanApproval(ResultList));
 
+            }
+        }
     }
 
     public class HimarkResultExcelModel
