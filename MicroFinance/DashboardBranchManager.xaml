@@ -85,7 +85,27 @@
                         </Border>
                     </Grid>
                 </Border>
-                
+                <Border Margin="15" Style="{StaticResource MainBorder}" 
+                 >
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                    </Border.Effect>
+                    <Button x:Name="AssignShedule" Click="AssignShedule_Click" Style="{StaticResource AssignSHG}"></Button>
+                </Border>
+                <Border Margin="15" Style="{StaticResource MainBorder}" 
+                 >
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                    </Border.Effect>
+                    <Button x:Name="EditShedule" Click="EditShedule_Click" Style="{StaticResource EditSHG}"></Button>
+                </Border>
+                <Border Margin="15" Style="{StaticResource MainBorder}" 
+                 >
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                    </Border.Effect>
+                    <Button x:Name="ViewCenter" Click="ViewCenter_Click" Style="{StaticResource viewSHG}"></Button>
+                </Border>
                 
             </WrapPanel>
             <Border BorderBrush="Gray" Height="40" BorderThickness="0,0,0,2" MaxWidth="1100" Margin="10">

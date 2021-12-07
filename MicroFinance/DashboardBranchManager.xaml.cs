@@ -72,7 +72,8 @@ namespace MicroFinance
 
         private void xAddSHGBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new AddNewSelfHelpGroup());
+            // this.NavigationService.Navigate(new AddNewSelfHelpGroup());
+            this.NavigationService.Navigate(new CreateSHG());
         }
         int GetCustomersStatus1(string branchId)
         {
@@ -248,6 +249,50 @@ namespace MicroFinance
         {
             MenuPanel.IsEnabled = true;
             EnrollDatailsPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void AssignShedule_Click(object sender, RoutedEventArgs e)
+        {
+            List<SHGModal> Centers = new List<SHGModal>();
+            string BranchId = MainWindow.LoginDesignation.BranchId;
+            Centers= SHGRepository.GetCenters(true, BranchId);
+            if(Centers.Count!=0)
+            {
+                this.NavigationService.Navigate(new CenterView(Centers));
+            }
+            else
+            {
+                MessageBox.Show("No Un Alloated Center Available", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void EditShedule_Click(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<TimeTable> SheduleList = new ObservableCollection<TimeTable>();
+            string BranchID = MainWindow.LoginDesignation.BranchId;
+            SheduleList = TimeTableRepository.GetShedules(BranchID);
+            if(SheduleList.Count!=0)
+            {
+                this.NavigationService.Navigate(new EditShedule(SheduleList));
+            }
+            
+
+            
+        }
+
+        private void ViewCenter_Click(object sender, RoutedEventArgs e)
+        {
+            List<SHGModal> Centers = new List<SHGModal>();
+            string BranchId = MainWindow.LoginDesignation.BranchId;
+            Centers = SHGRepository.GetCenters(BranchId);
+            if (Centers.Count != 0)
+            {
+                this.NavigationService.Navigate(new CenterView(Centers,1));
+            }
+            else
+            {
+                MessageBox.Show("No Center Available", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }
