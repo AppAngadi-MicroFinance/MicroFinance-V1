@@ -67,6 +67,29 @@ namespace MicroFinance.Repository
         }
 
 
+        public static bool IsAlreadyAllocated(string EmployeeID, string CollectionDay, string CollectionTime)
+        {
+            int Count = 0;
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "select COUNT(SHGId) from TimeTable where EmpId = '" + EmployeeID + "' and CollectionDay = '" + CollectionDay + "' and CollectionTime = '" + CollectionTime + "'";
+                Count = (int)cmd.ExecuteScalar();
+                con.Close();
+                if (Count > 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+
         public static ObservableCollection<TimeTable> GetShedules(string BranchID)
         {
             ObservableCollection<TimeTable> SheduleList = new ObservableCollection<TimeTable>();

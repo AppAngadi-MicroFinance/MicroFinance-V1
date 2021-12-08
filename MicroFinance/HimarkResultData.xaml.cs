@@ -159,6 +159,7 @@ namespace MicroFinance
                 
                     List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
                     LoanRepository.ChangeLoanStatus(RequestList, 3);
+                LoanRepository.InsertTransaction(RequestList, MainWindow.LoginDesignation.EmpId, 3);
                     string Message = "" + RequestList.Count.ToString() + " Loan(s) Accepted with SecureDPD Successfully!...";
                     MainWindow.StatusMessageofPage(1, Message);
                     this.NavigationService.Navigate(new HimarkResultData());
@@ -271,6 +272,7 @@ namespace MicroFinance
 
                 List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
                 LoanRepository.ChangeLoanStatus(RequestList, 4);
+                LoanRepository.InsertTransaction(RequestList, MainWindow.LoginDesignation.EmpId, 4);
                 string Message = "" + RequestList.Count.ToString() + " Loan(s) Accepted with SecureDPD Successfully!...";
                 MainWindow.StatusMessageofPage(1, Message);
                 this.NavigationService.Navigate(new HimarkResultData());

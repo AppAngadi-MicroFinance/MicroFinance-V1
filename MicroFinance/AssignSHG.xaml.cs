@@ -161,16 +161,25 @@ namespace MicroFinance
             EmployeeViewModel SelectedEmployee = EmployeeNameCombo.SelectedItem as EmployeeViewModel;
             Shedule.EmployeeID = SelectedEmployee.EmployeeId;
 
-            bool Res= TimeTableRepository.CreateShedule(Shedule);
-            if(Res)
+
+            if(!TimeTableRepository.IsAlreadyAllocated(Shedule.EmployeeID,Shedule.CollectionDay,Shedule.CollectionTime))
             {
-                MessageBox.Show("Shedule Created SuccessFully!...","Success",MessageBoxButton.OK,MessageBoxImage.Information);
-                this.NavigationService.Navigate(new DashboardBranchManager());
+                bool Res = TimeTableRepository.CreateShedule(Shedule);
+                if (Res)
+                {
+                    MessageBox.Show("Shedule Created SuccessFully!...", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.NavigationService.Navigate(new DashboardBranchManager());
+                }
+                else
+                {
+                    MessageBox.Show("Error!..\nTry Again", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
             else
             {
-                MessageBox.Show("Error!..\nTry Again", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Shedule Time Already Allocated!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            
 
             
         }

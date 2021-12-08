@@ -62,10 +62,11 @@ namespace MicroFinance
             {
                 if(txtreportid.Text.Trim().Length>3)
                 {
+                    string ReferenceID = txtreportid.Text.Trim().ToUpper();
                     try
                     {
                         GifPanel.Visibility = Visibility.Visible;
-                        await System.Threading.Tasks.Task.Run(() => LoanRepository.InsertHimarkData(HimarkDataList,txtreportid.Text.Trim().ToUpper()));
+                        await System.Threading.Tasks.Task.Run(() => LoanRepository.InsertHimarkData(HimarkDataList,ReferenceID));
                         GifPanel.Visibility = Visibility.Collapsed;
                         MainWindow.StatusMessageofPage(1, FileName + " Upload SuccessFully.");
                     }

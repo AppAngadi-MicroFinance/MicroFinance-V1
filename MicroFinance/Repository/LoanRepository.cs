@@ -333,6 +333,45 @@ namespace MicroFinance.ViewModel
         }
 
 
+        public static void InsertTransaction(string ApplicationId,string EmployeeID,int StatusCode)
+        {
+            using (SqlConnection sqlcon=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlcon.Open();
+                if(ConnectionState.Open==sqlcon.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "insert into LoanApplicationLog(ApplicationID,RequestedBy,TransactionDate,StatusCode) values('"+ApplicationId+"','"+EmployeeID+"','"+DateTime.Now.ToString("MM-dd-yyyy")+"','"+StatusCode+"')";
+                    sqlcomm.ExecuteNonQuery();
+
+                }
+                sqlcon.Close();
+            }
+        }
+        public static void InsertTransaction(List<string> ApplicationIds,string EmployeeID,int StatusCode)
+        {
+            using (SqlConnection sqlcon = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlcon.Open();
+                if (ConnectionState.Open == sqlcon.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+
+                    foreach(string ID in ApplicationIds)
+                    {
+                        sqlcomm.CommandText = "insert into LoanApplicationLog(ApplicationID,RequestedBy,TransactionDate,StatusCode) values('" + ID + "','" + EmployeeID + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "','" + StatusCode + "')";
+                        sqlcomm.ExecuteNonQuery();
+
+                    }
+
+                }
+                sqlcon.Close();
+            }
+        }
+
+
 
         public static int RecommendLoans(ObservableCollection<RecommendView> recommends,int StatusCode)
         {
