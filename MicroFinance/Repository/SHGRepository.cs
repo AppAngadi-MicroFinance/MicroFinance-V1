@@ -35,6 +35,27 @@ namespace MicroFinance.Repository
             return null;
         }
 
+
+        public static bool IsAlreadyExists(SHGModal SHGDetails)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (ConnectionState.Open == sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select count(*) from SelfHelpGroup where SHGName='"+SHGDetails.SHGName+"'";
+                    int res = sqlcomm.ExecuteNonQuery();
+                    if (res == 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         public static bool UpdateSHG(SHGModal SHGDetails)
         {
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))

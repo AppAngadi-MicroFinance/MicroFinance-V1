@@ -554,7 +554,7 @@ namespace MicroFinance.ViewModel
             // GetLoanDetails(CustId);
             DateTime ApproveDate = SamuapprovalDate;
             DayOfWeek CollectionDay = WeekDay(Collectionday);
-            DateTime NextCollectionDate = CollectionDate(CollectionDay);
+            DateTime NextCollectionDate = CollectionDate(CollectionDay,ApproveDate);
             List<Loan> LoanCollectionList = Interestcc(LoanAmount, LoanPeroid, ApproveDate, NextCollectionDate);
             foreach (Loan item in LoanCollectionList)
             {
@@ -635,6 +635,39 @@ namespace MicroFinance.ViewModel
                 else
                 {
                     ResultDate = DateTime.Now.AddDays(a);
+                }
+
+
+            }
+            return ResultDate;
+        }
+        public static DateTime CollectionDate(DayOfWeek day,DateTime ApproveDate)
+        {
+            DateTime ResultDate = new DateTime();
+            DayOfWeek Today = ApproveDate.DayOfWeek;
+            int calValue = ((int)day - (int)Today);
+            if (calValue == 0)
+            {
+                ResultDate = ApproveDate.AddDays(7);
+            }
+            else if (calValue > 3)
+            {
+                ResultDate = ApproveDate.AddDays(calValue);
+            }
+            else if (calValue <= 3 && calValue > 0)
+            {
+                ResultDate = ApproveDate.AddDays(calValue + 7);
+            }
+            else if (calValue < 0)
+            {
+                int a = 7 - Math.Abs(calValue);
+                if (Math.Abs(calValue) > 3)
+                {
+                    ResultDate = ApproveDate.AddDays(7 + a);
+                }
+                else
+                {
+                    ResultDate = ApproveDate.AddDays(a);
                 }
 
 

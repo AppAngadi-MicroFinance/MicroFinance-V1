@@ -10,7 +10,7 @@
 
     <Grid Width="1366" Height="630">
         <Button x:Name="xBackwardButton" Click="xBackwardButton_Click"
-                Style="{StaticResource BackButtonStyle}" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
+                Style="{StaticResource BackButtonStyle}" Width="40" Visibility="Collapsed" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
         <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
@@ -30,7 +30,7 @@
             <TextBlock Text="Self Help Group" Style="{StaticResource Regular}" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
             <ComboBox Style="{StaticResource combo}" Margin="15,0,0,0" x:Name="SHGBox" Grid.Row="2" Grid.Column="1"/>
             <TextBlock Text="Date" Style="{StaticResource Regular}" FontWeight="Bold" Grid.Row="3" Grid.Column="0"/>
-            <DatePicker x:Name="DateBox" Grid.Row="3" Grid.Column="1" Width="200" HorizontalAlignment="Center" Margin="0,8,-15,0"/>
+            <DatePicker Style="{StaticResource DateSelecter}" x:Name="DateBox" Grid.Row="3" Grid.Column="1" Width="200" HorizontalAlignment="Center" Margin="0,8,-15,0"/>
             <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"  x:Name="EnterBtn" Style="{StaticResource SecondaryBtn}" Content="Continue" Click="EnterBtn_Click"/>
         </Grid>
     </Grid>

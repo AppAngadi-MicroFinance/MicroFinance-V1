@@ -70,16 +70,25 @@ namespace MicroFinance
         {
             if(ValidCheck())
             {
-                string res = SHGRepository.AddSHG(SHG);
-                if(res!=null)
+                bool IsExists = SHGRepository.IsAlreadyExists(SHG);
+                if(!IsExists)
                 {
-                    SHG.SHGId = res;
-                    this.NavigationService.Navigate(new AssignSHG(SHG));
+                    string res = SHGRepository.AddSHG(SHG);
+                    if (res != null)
+                    {
+                        SHG.SHGId = res;
+                        this.NavigationService.Navigate(new AssignSHG(SHG));
+                    }
+                    else
+                    {
+                        
+                    }
                 }
                 else
                 {
-
+                    MessageBox.Show("This Center Already Exists.","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
                 }
+
             }
             else
             {
