@@ -1157,7 +1157,11 @@ namespace MicroFinance.Modal
                 sqlCommand.Parameters.AddWithValue("@isActive",true);
 
                 if (sqlCommand.ExecuteNonQuery() == 1)
-                    InsertIntoCustomerGroup(_customerId, PeerGroup, IsLeader, GetMembersCountINPeerGroup(PeerGroup),SelfHelpGroup);
+                {
+                    string CenterID = (MainWindow.DicCenterMeta.ContainsKey(SelfHelpGroup)) ? MainWindow.DicCenterMeta[SelfHelpGroup] : "";
+                    InsertIntoCustomerGroup(_customerId, PeerGroup, IsLeader, GetMembersCountINPeerGroup(PeerGroup), CenterID);
+                }
+                    
 
             }
         }
@@ -1257,7 +1261,8 @@ namespace MicroFinance.Modal
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "select Bid from BranchDetails where BranchName='" + BranchName + "'";
                 string BranchId = sqlCommand.ExecuteScalar().ToString();
-                sqlCommand.CommandText = "update CustomerGroup set PeerGroupId='" + PeerGroup + "',IsLeader='" + IsLeader + "' where CustId='"+_customerId+"'";
+                string CenterID = (MainWindow.DicCenterMeta.ContainsKey(SelfHelpGroup)) ? MainWindow.DicCenterMeta[SelfHelpGroup] : "";
+                sqlCommand.CommandText = "update CustomerGroup set PeerGroupId='" + PeerGroup + "',IsLeader='" + IsLeader + "' where CustId='"+_customerId+"',SHGID='"+CenterID+"'";
                 sqlCommand.ExecuteNonQuery();
             }
         }

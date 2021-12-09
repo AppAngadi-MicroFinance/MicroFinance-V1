@@ -191,12 +191,16 @@ namespace MicroFinance
                 {
                     string BranchName = SelectBranch.SelectedValue as string;
                     string RegionName = SelectRegion.SelectedValue as string;
+                    string CenterName =  SelectShg.SelectedValue as string;
+
+                    string CenterID = (MainWindow.DicCenterMeta.ContainsKey(CenterName)) ? MainWindow.DicCenterMeta[CenterName] : "";
                     GroupMembers groupMembers = MembersListView.SelectedValue as GroupMembers;
                   
                     groupMembers.IsRequested = true;
                     loanRequest.CustomerID = groupMembers.CustomerID;
                     loanRequest.EmployeeID = EmployeeId;
-                    loanRequest.SendRequest(RegionName, BranchName);
+                    loanRequest.SendRequest(RegionName, BranchName,CenterID);
+                    
                     MembersListView.Items.Refresh();
                     loanRequest = new LoanDetails();
                     LoanRequestPanel.DataContext = new LoanDetails();

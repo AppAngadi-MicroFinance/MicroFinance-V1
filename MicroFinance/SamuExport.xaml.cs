@@ -119,7 +119,7 @@ namespace MicroFinance
 
         private void SamuCancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new DashBoardHeadOfficer());
+            this.NavigationService.Navigate(new DashBoardRegionOfficer());
         }
 
         private async void SamuExportBtn_Click(object sender, RoutedEventArgs e)
@@ -132,7 +132,7 @@ namespace MicroFinance
                 {
                     await System.Threading.Tasks.Task.Run(() => GenerateSamuFile());
                     GifPanel.Visibility = Visibility.Collapsed;
-                    this.NavigationService.Navigate(new DashBoardHeadOfficer());
+                    this.NavigationService.Navigate(new DashBoardRegionOfficer());
                 }
                 catch
                 {

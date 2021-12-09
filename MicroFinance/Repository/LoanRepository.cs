@@ -58,9 +58,11 @@ namespace MicroFinance.ViewModel
                   
                     foreach (RecommendView Hm in ResultView)
                     {
-                        Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
-                        Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
-                       
+                        if (shgdetail.ContainsKey(Hm.SHGId) == true)
+                        {
+                            Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
+                            Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        }
                         //sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
                         //Hm.CenterName = (string)sqlcomm.ExecuteScalar();
                         //sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '"+Hm.CustomerID+"'))";
@@ -93,7 +95,7 @@ namespace MicroFinance.ViewModel
 
             return selfhelpgrouplist;
         }
-        static Dictionary<string, SelfHelpGroupDetail> GetSelfHelpGroupDetail(string branchid)
+        public static Dictionary<string, SelfHelpGroupDetail> GetSelfHelpGroupDetail(string branchid)
         {
             Dictionary<string, SelfHelpGroupDetail> selfhelpgrouplist = new Dictionary<string, SelfHelpGroupDetail>();
             using (SqlConnection con = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
@@ -114,6 +116,32 @@ namespace MicroFinance.ViewModel
             }
 
             return selfhelpgrouplist;
+        }
+
+
+        public static Dictionary<string,string> GetCenterMetaDetails()
+        {
+            Dictionary<string, string> CenterDetails = new Dictionary<string, string>();
+            using (SqlConnection con = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+
+                cmd.CommandText = "select SelfHelpGroup.SHGId, SelfHelpGroup.SHGName from SelfHelpGroup";
+                SqlDataReader dr;
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    string CenterID = dr.GetString(0);
+                    string CenterName = dr.GetString(1);
+                    if(!CenterDetails.ContainsKey(CenterName))
+                    CenterDetails.Add(CenterName, CenterID);
+                }
+                dr.Close();
+
+            }
+            return CenterDetails;
         }
 
 

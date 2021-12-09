@@ -219,10 +219,14 @@ namespace MicroFinance
         string CustomerId;
         public AddCustomer(string CustomerID)
         {
-            CustomerId = CustomerID;
-            FillAllDetails();
+
+
+            
 
             InitializeComponent();
+            
+            CustomerId = CustomerID;
+            FillAllDetails();
             IsEligible();
 
             BranchAndGroupDetailsforFieldOfficer(1);
@@ -274,7 +278,7 @@ namespace MicroFinance
                     LandHoldingShowBtn.Visibility = Visibility.Visible;
                 }
             }
-           
+
         }
         void FillAllDetails()
         {

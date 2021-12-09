@@ -16,6 +16,9 @@ namespace MicroFinance.Modal
             BranchList = EmployeeRepository.GetBranches();
             EmployeeList = EmployeeRepository.GetEmployees();
             CenterList = EmployeeRepository.GetTimeTable();
+            
+
+
         }
 
 
@@ -23,5 +26,6 @@ namespace MicroFinance.Modal
         public ObservableCollection<BranchViewModel> BranchList = new ObservableCollection<BranchViewModel>();
         public ObservableCollection<EmployeeViewModel> EmployeeList = new ObservableCollection<EmployeeViewModel>();
         public List<TimeTableViewModel> CenterList = new List<TimeTableViewModel>();
+        
     }
 }

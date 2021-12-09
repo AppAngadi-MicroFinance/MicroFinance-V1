@@ -207,6 +207,25 @@ namespace MicroFinance.Modal
                 LoanRepository.InsertTransaction(RequestID, _employeeID, 1);
             }
         }
+        public void SendRequest(string Region, string Branch,string CenterID)
+        {
+            this._regionname = Region;
+            this._branchname = Branch;
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                string RequestID = GenerateLoanRequestID();
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "insert into LoanApplication(RequestID,CustId,EmployeeId,LoanType,LoanAmount,LoanPeriod,Purpose,EnrollDate,LoanStatus,Remark,BranchID,SHGId) values  ('" + RequestID + "','" + _customerID + "','" + _employeeID + "','" + _loantype + "'," + _loanamount + "," + _loanperiod + ",'" + _loanPurpose + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "','1','','" + _branchId + "','"+CenterID+"')";
+                    sqlcomm.ExecuteNonQuery();
+                }
+                sqlconn.Close();
+                LoanRepository.InsertTransaction(RequestID, _employeeID, 1);
+            }
+        }
         public void RecommendLoan(string RequestId)
         {
             using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
