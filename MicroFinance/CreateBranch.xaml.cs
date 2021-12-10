@@ -1,5 +1,7 @@
 ﻿using MicroFinance.Modal;
+using MicroFinance.Utils;
 using MicroFinance.Validations;
+using MicroFinance.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,8 @@ namespace MicroFinance
         public List<string> Regionlist;
         StringBuilder Emptyfields = new StringBuilder();
         StringBuilder Requiredfields = new StringBuilder();
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public CreateBranch()
         {
             InitializeComponent();
@@ -106,11 +110,13 @@ namespace MicroFinance
                     CB.AddBranch(RegionBox.Text);
                     MainGrid.IsEnabled = true;
                     MainGrid.Opacity = 1.0;
-                    MainWindow.StatusMessageofPage(1, "Branch Created Successfully");
+                    message = language.translate(SystemFunction.IsTamil, "SA12");//Branch Created Successfully
+                    MainWindow.StatusMessageofPage(1, message);
                 }
                 else
                 {
-                    MainWindow.StatusMessageofPage(0, "Branch AlredyExits...");
+                    message = language.translate(SystemFunction.IsTamil, "AE6");//Branch AlredyExits...
+                    MainWindow.StatusMessageofPage(0, message);
                 }
 
                 this.NavigationService.Navigate(new CreateBranch());
@@ -224,7 +230,8 @@ namespace MicroFinance
             bool result= CB.IsExists();
             if(result==true)
             {
-                MessageBox.Show("Branch Already Exists in this Region...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                message = language.translate(SystemFunction.IsTamil, "AE7");//Branch Already Exists in this Region...
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.NavigationService.Navigate(new CreateBranch());
             }
         }

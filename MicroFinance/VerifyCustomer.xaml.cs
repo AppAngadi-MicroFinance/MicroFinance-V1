@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Utils;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -22,6 +24,8 @@ namespace MicroFinance
     /// </summary>
     public partial class VerifyCustomer : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         Notification OverallObj = new Notification();
         Customer customer = new Customer();
         Guarantor guarantor = new Guarantor();
@@ -160,13 +164,15 @@ namespace MicroFinance
                         command.CommandText = "update CustomerDetails set CustomerStatus='2' where CustId='" + CustomerId + "'";
                         command.ExecuteNonQuery();
                     }
-                    MainWindow.StatusMessageofPage(1, "Successfully Customer Recommended...");
+                    message = language.translate(SystemFunction.IsTamil, "SA20");
+                    MainWindow.StatusMessageofPage(1, message);
                     NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(1));
                 }
             }
             catch
             {
-                MainWindow.StatusMessageofPage(2, "Check Correctly...");
+                message = language.translate(SystemFunction.IsTamil, "W16");
+                MainWindow.StatusMessageofPage(2, message);
             }
         }
         void GetBranchDetails()
@@ -242,7 +248,8 @@ namespace MicroFinance
                 command.CommandText = "update CustomerDetails set CustomerStatus='4' where CustId='" + CustomerId + "'";
                 command.ExecuteNonQuery();
             }
-            MainWindow.StatusMessageofPage(1, "Successfully Customer Rejected...");
+            message = language.translate(SystemFunction.IsTamil, "SA21");
+            MainWindow.StatusMessageofPage(1, message);
             NavigationService.GetNavigationService(this).Navigate(new CustomerNotification(2));
         }
     }

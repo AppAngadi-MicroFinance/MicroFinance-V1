@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.ViewModel;
+using MicroFinance.Utils;
 
 namespace MicroFinance
 {
@@ -28,6 +29,8 @@ namespace MicroFinance
         public List<string> DesignationList = new List<string> { "Manager", "Region Manager","Accountant","Field Officer"};
         public List<string> DesignationList1=new List<string> {"Accountant", "Field Officer" };
         public List<Branch> Branchlist;
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public List<string> Religionlist = new List<string> { "Muslim", "Hindu", "Christianity" };
         Branch branch = new Branch();
         Employee addemployee = new Employee();
@@ -151,17 +154,20 @@ namespace MicroFinance
                 case "Address Proof":
                     addemployee.AddressProofImage = image;
                     addemployee.IsAddressProof = true;
-                    MainWindow.StatusMessageofPage(1, "Address Proof Added");
+                    message = language.translate(SystemFunction.IsTamil, "SA8");//Address Proof Added
+                    MainWindow.StatusMessageofPage(1, message);
                     break;
                 case "Photo Proof":
                     addemployee.PhotoProofImage = image;
                     addemployee.IsPhotoProof = true;
-                    MainWindow.StatusMessageofPage(1, "Photo Proof Added");
+                    message = language.translate(SystemFunction.IsTamil, "SA9");//Photo Proof Added
+                    MainWindow.StatusMessageofPage(1, message);
                     break;
                 case "Profile Picture":
                     addemployee.ProfileImage = image;
                     addemployee.IsProfilePicture = true;
-                    MainWindow.StatusMessageofPage(1, "Profile Picture Added");
+                    message = language.translate(SystemFunction.IsTamil, "SA10");//Profile Picture Added
+                    MainWindow.StatusMessageofPage(1, message);
                     break;
             }
         }
@@ -198,7 +204,9 @@ namespace MicroFinance
                 }
                 else
                 {
-                    if (MessageBox.Show("Check These fields are Empty\n" + Emptyfields.ToString() + "Are you sure You want to create Branch Without These Information", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
+                    message = language.translate(SystemFunction.IsTamil, "W21");//Check These fields are Empty\n
+                    string messagetwo = language.translate(SystemFunction.IsTamil, "W22");//Are you sure You want to create Employee Without These Information
+                    if (MessageBox.Show(message + Emptyfields.ToString() + messagetwo, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
                     {
                         ConfirmationPanel.IsOpen = true;
                         EmployeeMainGrid.IsEnabled = false;
@@ -207,7 +215,8 @@ namespace MicroFinance
             }
             else
             {
-                MessageBox.Show("These Fields are Mandatory Please Fill All these Fields\n" + RequiredFields.ToString(), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                message = language.translate(SystemFunction.IsTamil, "M4");//These Fields are Mandatory Please Fill All these Fields\n
+                MessageBox.Show(message+"\n"+ RequiredFields.ToString(), "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
         }
@@ -259,17 +268,19 @@ namespace MicroFinance
                 if(EmployeeSaveBtn.Content.ToString()=="Save")
                 {
                     bool Result = EmployeeRepository.AddEmployee(addemployee);
-                    MainWindow.StatusMessageofPage(1, "Employee Added Successfully");
+                    message = language.translate(SystemFunction.IsTamil, "SA22");//Employee Added Successfully
+                    MainWindow.StatusMessageofPage(1, message);
                     this.NavigationService.Navigate(new AddEmployee());
                 }
                 else if(EmployeeSaveBtn.Content.ToString()=="Update")
                 {
                    
-                        ConfirmationPanel.IsOpen = false;
-                        EmployeeMainGrid.IsEnabled = true;
-                        addemployee.EmployeeAdd();
-                        MainWindow.StatusMessageofPage(1, "Employee Updated Successfully");
-                        this.NavigationService.Navigate(new AddEmployee());
+                    ConfirmationPanel.IsOpen = false;
+                    EmployeeMainGrid.IsEnabled = true;
+                    addemployee.EmployeeAdd();
+                    message = language.translate(SystemFunction.IsTamil, "SA23");//Employee Updated Successfully
+                    MainWindow.StatusMessageofPage(1, message);
+                    this.NavigationService.Navigate(new AddEmployee());
                 }
                 
             }
@@ -376,7 +387,8 @@ namespace MicroFinance
         {
             if(Isnew==true&&addemployee.IsExists()==true)
             {
-                MessageBox.Show("The Employee Already Exists.... Please Check!.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                message = language.translate(SystemFunction.IsTamil, "AE10");//The Employee Already Exists.... Please Check!.
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.NavigationService.Navigate(new AddEmployee());
             }
         }

@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Utils;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -29,6 +31,8 @@ namespace MicroFinance
         string Time = string.Empty;
         string OfficerId = string.Empty;
         string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public AddNewSelfHelpGroup()
         {
             InitializeComponent();
@@ -81,7 +85,8 @@ namespace MicroFinance
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Something you did wrong. Check all fields..!");
+                message = language.translate(SystemFunction.IsTamil, "M5");//Something you did wrong. Check all fields..!
+                MessageBox.Show(message);
             }
         }
 
@@ -185,7 +190,8 @@ namespace MicroFinance
                 }
                 else
                 {
-                    MessageBox.Show("Already time alloted for this employee..!");
+                    message = language.translate(SystemFunction.IsTamil, "AE2");//Already time alloted for this employee..!
+                    MessageBox.Show(message);
                     return false;
                 }
             }

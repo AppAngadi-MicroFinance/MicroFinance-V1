@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
 using MicroFinance.Reports;
+using MicroFinance.Utils;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -23,6 +25,8 @@ namespace MicroFinance
     /// </summary>
     public partial class LoanRecommend : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public List<LoanProcess> loanDetails = new List<LoanProcess>();
         public static ObservableCollection<LoanProcess> RecommenedList = new ObservableCollection<LoanProcess>();
@@ -109,7 +113,8 @@ namespace MicroFinance
             Custlist.Items.Refresh();
             if(loanProcess.IsAlreadyRecommend(ID))
             {
-                MainWindow.StatusMessageofPage(0, "This loan is Already Recommend");
+                message = language.translate(SystemFunction.IsTamil, "AE12");//Loan Already Approved!...
+                MainWindow.StatusMessageofPage(0, message);
             }
             else
             {
@@ -119,7 +124,8 @@ namespace MicroFinance
                 RemoveItemFromList(ID);
                 SelectedCustomersView.Items.Add(GetRecommendDetails(ID));
                 //LoadCustData();
-                MainWindow.StatusMessageofPage(1, "loan Recommend Successfully...");
+                message = language.translate(SystemFunction.IsTamil, "SA16");//loan Recommend Successfully...
+                MainWindow.StatusMessageofPage(1, message);
 
             }
             
@@ -185,8 +191,9 @@ namespace MicroFinance
             {
                 himarkReport = new HiMark();
                 himarkReport.hiMarksList = Himarklist;
-               // himarkReport.createHimarkXls();
-                MainWindow.StatusMessageofPage(1, "Excel Exported Successfully...");
+                // himarkReport.createHimarkXls();
+                message = language.translate(SystemFunction.IsTamil, "SA25");//Excel Exported Successfully...
+                MainWindow.StatusMessageofPage(1, message);
             }
             catch 
             {
@@ -217,7 +224,8 @@ namespace MicroFinance
                 loanProcess.ChangeLoanStatus(lp.LoanRequestID, CurrentStatus+1);
                 count++;
             }
-            MainWindow.StatusMessageofPage(1, count.ToString() + " Loan(s) Recommend Successfully!...");
+            message = language.translate(SystemFunction.IsTamil, "SA16");//loan Recommended Successfully...
+            MainWindow.StatusMessageofPage(1, count.ToString() + message);
             if (CurrentStatus == 8)
             {
                 if (this.NavigationService.CanGoBack)

@@ -1,4 +1,6 @@
 ﻿using MicroFinance.Modal;
+using MicroFinance.Utils;
+using MicroFinance.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -22,6 +24,8 @@ namespace MicroFinance
     /// </summary>
     public partial class DenominationPage : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
 
         List<DenominationModel> Dlist = new List<DenominationModel>();
         int initialAmt = 0;
@@ -101,7 +105,8 @@ namespace MicroFinance
             }
             else
             {
-                MainWindow.StatusMessageofPage(0, "Please Check Denomination and Enter Correct Denomination.....");
+                message = language.translate(SystemFunction.IsTamil, "W12");//Please Check Denomination and Enter Correct Denomination.....
+                MainWindow.StatusMessageofPage(0, message);
             }
         }
         public void InsertDenomination()

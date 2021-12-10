@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Utils;
 using MicroFinance.ViewModel;
 
 namespace MicroFinance
@@ -23,6 +24,8 @@ namespace MicroFinance
     /// </summary>
     public partial class SamuExport : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         ObservableCollection<BranchViewModel> Branches = new ObservableCollection<BranchViewModel>();
         List<HimarkRequestView> RequestList = new List<HimarkRequestView>();
         GTtoSamunnati GTtoSAMU = new GTtoSamunnati();
@@ -136,13 +139,15 @@ namespace MicroFinance
                 }
                 catch
                 {
-                    MainWindow.StatusMessageofPage(0, "Error...");
+                    message = language.translate(SystemFunction.IsTamil, "W10");//Error...
+                    MainWindow.StatusMessageofPage(0, message);
                     GifPanel.Visibility = Visibility.Collapsed;
                 }
             }
             else
             {
-                MessageBox.Show("No Data Selected!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                message = language.translate(SystemFunction.IsTamil, "SW4");//No Data Selected!
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             
 
@@ -156,11 +161,13 @@ namespace MicroFinance
                 
                 GTtoSAMU.GenerateSamunnati_File(FilterData(BindingData));
                 HimarkRepository.UpdateStatusToExportExcel(RequestIds, 11);
-                MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
+                message = language.translate(SystemFunction.IsTamil, "SA17");//"Excel Generated Successfully!..."
+                MainWindow.StatusMessageofPage(1, message);
             }
             catch
             {
-                MainWindow.StatusMessageofPage(0, "Error...");
+                message = language.translate(SystemFunction.IsTamil, "W10");//Error...
+                MainWindow.StatusMessageofPage(0, message);
                 
             }
         }
@@ -215,7 +222,8 @@ namespace MicroFinance
 
             if (StartDate > EndDate || StartDate == null || EndDate == null)
             {
-                MessageBox.Show("Enter Valid Date!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                message = language.translate(SystemFunction.IsTamil, "W8");//Enter Prper Date
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
@@ -297,7 +305,8 @@ namespace MicroFinance
             //string Req = btn.Uid.ToString();
 
             string CustomerName = GetCustomerName(RequestID);
-            string Message = "Are You Sure You Want To Reject " + CustomerName + " ";
+            message = language.translate(SystemFunction.IsTamil, "W14");//Are You Sure You Want To Reject
+            string Message = message + CustomerName + " ";
             MessageBoxResult result = MessageBox.Show(Message, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (MessageBoxResult.Yes == result)
             {

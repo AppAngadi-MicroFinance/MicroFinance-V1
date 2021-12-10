@@ -310,6 +310,7 @@
     <Compile Include="ViewModel\HimarkRepository.cs" />
     <Compile Include="ViewModel\HimarkRequestView.cs" />
     <Compile Include="Repository\LoanRepository.cs" />
+    <Compile Include="ViewModel\LanguageSelector.cs" />
     <Compile Include="ViewModel\LoanApplicationViewModel.cs" />
     <Compile Include="ViewModel\LoanViewModel.cs" />
     <Compile Include="ViewModel\RecommendView.cs" />
@@ -685,6 +686,9 @@
   <ItemGroup>
     <Resource Include="Asserts\Icons\HomeBtn.png" />
     <Resource Include="Asserts\Icons\LogOutBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Translate.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

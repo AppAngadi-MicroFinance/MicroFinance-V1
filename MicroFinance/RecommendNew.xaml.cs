@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
 using MicroFinance.Reports;
+using MicroFinance.Utils;
 using MicroFinance.ViewModel;
 
 namespace MicroFinance
@@ -24,6 +25,8 @@ namespace MicroFinance
     /// </summary>
     public partial class RecommendNew : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public static int CurrentStatus = 0;
         LoanProcess loanprocess = new LoanProcess();
         List<LoanProcess> NeftList = new List<LoanProcess>();
@@ -143,7 +146,8 @@ namespace MicroFinance
             {
                 neft.GenerateNEFT_File(FilterFinalList(FinalList));
                 LoanRepository.RecommendLoans(RecommendList, CurrentStatus + 2);
-                MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
+                message = language.translate(SystemFunction.IsTamil, "SA17");//"Excel Generated Successfully!..."
+                MainWindow.StatusMessageofPage(1, message);
             }
             catch (Exception ex)
             {
@@ -166,7 +170,8 @@ namespace MicroFinance
                 {
                     LoanRepository.ChangeLoanStatus(RequestIDList, CurrentStatus + 1);
                     LoanRepository.ApproveLoans(BindingList);
-                    MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Approved Successfully!...");
+                    message = language.translate(SystemFunction.IsTamil, "SA16");//Loan(s) Approved Successfully!...
+                    MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + message);
                     this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
                 }
                 else
@@ -182,12 +187,14 @@ namespace MicroFinance
                 if(RequestIDList.Count!=0)
                 {
                     LoanRepository.ChangeLoanStatus(RequestIDList, CurrentStatus + 1);
-                    MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Approved Successfully!...");
+                    message = language.translate(SystemFunction.IsTamil, "SA16");//Loan(s) Approved Successfully!...
+                    MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + message);
                     this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
                 }
                 else
                 {
-                    MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    message = language.translate(SystemFunction.IsTamil, "SW2");//No Record Selected
+                    MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 
             }
@@ -221,7 +228,8 @@ namespace MicroFinance
             //string Req = btn.Uid.ToString();
 
             string CustomerName = GetCustomerName(RequestID);
-            string Message = "Are You Sure You Want To Reject " + CustomerName + " ";
+            message = language.translate(SystemFunction.IsTamil, "W14");//Are You Sure You Want To Reject
+            string Message = message + CustomerName + " ";
            MessageBoxResult result=  MessageBox.Show(Message, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if(MessageBoxResult.Yes==result)
             {
@@ -267,7 +275,8 @@ namespace MicroFinance
 
             if(StartDate>EndDate || StartDate==null || EndDate==null)
             {
-                MessageBox.Show("Enter Valid Date!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                message = language.translate(SystemFunction.IsTamil, "W8");//Enter Proper Date!...
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             { 
@@ -393,12 +402,14 @@ namespace MicroFinance
             if(RequestIDList.Count!=0)
             {
                 LoanRepository.ChangeLoanStatus(RequestIDList, 13);
-                MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Rejected Successfully!...");
+                message = language.translate(SystemFunction.IsTamil, "SA29");
+                MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + message);
                 this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
             }
             else
             {
-                MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                message = language.translate(SystemFunction.IsTamil, "SW2");//No Record Selected
+                MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             
         }

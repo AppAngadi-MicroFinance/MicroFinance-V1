@@ -1,5 +1,7 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
+using MicroFinance.Utils;
+using MicroFinance.ViewModel;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,8 @@ namespace MicroFinance
         public BitmapImage tempimg;
         public FilterInfoCollection FilterInfoCollection;
         public VideoCaptureDevice captureDevice;
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public Capture()
         {
             InitializeComponent();
@@ -56,7 +60,8 @@ namespace MicroFinance
             }
             if (DeviceList.Items.Count <= 0)
             {
-                MessageBox.Show("No WebCam in your System.");
+                message = language.translate(SystemFunction.IsTamil, "AE5");//No WebCam in your System.
+                MessageBox.Show(message);
             }
             else
             {
@@ -163,7 +168,8 @@ namespace MicroFinance
             }
             else
             {
-                MainWindow.StatusMessageofPage(0, "Please Capture..");
+                message = language.translate(SystemFunction.IsTamil, "W4");//Please Capture..
+                MainWindow.StatusMessageofPage(0, message);
             }
         }
 
@@ -193,11 +199,13 @@ namespace MicroFinance
                 CapImg.Source = tempimg;
                 SavedImage = tempimg;
                 CapturePanel.IsOpen = false;
-                AddCustomer.StatusMessageWhileCapturingImage(1, "Successfully Image Is Captured...");
+                message = language.translate(SystemFunction.IsTamil, "SA11");//Successfully Image Is Captured...
+                AddCustomer.StatusMessageWhileCapturingImage(1, message);
             }
             else
             {
-                MainWindow.StatusMessageofPage(0, "Capture Image First");
+                message = language.translate(SystemFunction.IsTamil, "W6");//"Capture Image First"
+                MainWindow.StatusMessageofPage(0, message);
             }
            
 

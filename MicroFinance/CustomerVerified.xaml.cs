@@ -1,4 +1,6 @@
 ﻿using MicroFinance.Modal;
+using MicroFinance.Utils;
+using MicroFinance.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -35,6 +37,8 @@ namespace MicroFinance
         Guarantor guarantor = new Guarantor();
         Nominee nominee = new Nominee();
         Branch_Shg_PgDetails Branch_Shg_Pg = new Branch_Shg_PgDetails();
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
 
         public CustomerVerified(string CustId,int status,string LoanRequestId,string EmpId)
         {
@@ -632,25 +636,29 @@ namespace MicroFinance
                         customer.AddressProof = image;
                         CustAddressProofError.Visibility = Visibility.Collapsed;
                         customer.CustomerAddressProof = false;
-                        MainWindow.StatusMessageofPage(1, "Successfully Customer Address Proof Added...");
+                        message = language.translate(SystemFunction.IsTamil, "SA1");//Successfully Customer Address Proof Added...
+                        MainWindow.StatusMessageofPage(1, message);
                         break;
                     case "Photo Proof":
                         customer.PhotoProof = image;
                         CustPhotoProofError.Visibility = Visibility.Collapsed;
-                        MainWindow.StatusMessageofPage(1, "Successfully Customer Photo Proof Added...");
+                        message = language.translate(SystemFunction.IsTamil, "SA2");//Successfully Customer Photo Proof Added...
+                        MainWindow.StatusMessageofPage(1, message);
                         break;
                     case "Profile Picture":
                         {
                             customer.ProfilePicture = image;
                             CustProfilePictrueError.Visibility = Visibility.Collapsed;
-                            MainWindow.StatusMessageofPage(1, "Successfully Customer Profile Picture Added...");
+                            message = language.translate(SystemFunction.IsTamil, "SA3");//Successfully Customer Profile Picture Added...
+                            MainWindow.StatusMessageofPage(1, message);
                         }
                         break;
                     case "Combine Photo":
                         {
                             customer.CombinePhoto = image;
                             CustProfilePictrueError.Visibility = Visibility.Collapsed;
-                            MainWindow.StatusMessageofPage(1, "Successfully Customer Profile Picture Added...");
+                            message = language.translate(SystemFunction.IsTamil, "SA3");//Successfully Customer Profile Picture Added...
+                            MainWindow.StatusMessageofPage(1, message);
                         }
                         break;
                 }
@@ -1034,10 +1042,12 @@ namespace MicroFinance
                     {
                         InsertVerificationDetails();
                         customer.SaveCustomerDetails(_regionName, _branchName, _shgName, _pgName, guarantor, nominee);
-                        MainWindow.StatusMessageofPage(1, "Successfully Customer Details Added");
+                        message = language.translate(SystemFunction.IsTamil, "SA13");//Successfully Customer Details Added
+                        MainWindow.StatusMessageofPage(1, message);
                         NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
                         Thread.Sleep(2000);
-                        MainWindow.StatusMessageofPage(1, "Ready...");
+                        message = language.translate(SystemFunction.IsTamil, "W1");//Ready...
+                        MainWindow.StatusMessageofPage(1, message);
                     }
                     else if (CustomerStatus == 3)
                     {
@@ -1069,12 +1079,14 @@ namespace MicroFinance
                 }
                 else
                 {
-                    MainWindow.StatusMessageofPage(0, "Please Verifiy Mandotory Fields.....");
+                    message = language.translate(SystemFunction.IsTamil, "M7");//Please Verifiy Mandotory Fields.....
+                    MainWindow.StatusMessageofPage(0, message);
                 }
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Please Check All  Mandotory Fields.....","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
+                message = language.translate(SystemFunction.IsTamil, "M8");//Please Check All  Mandotory Fields.....
+                MessageBox.Show(message,"Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
             }
             
             
@@ -1993,7 +2005,8 @@ namespace MicroFinance
             string Aadhra = CustAadharNo.Text;
             if(Aadhra.Length!=12 && Aadhra!=GAadharD)
             {
-                MessageBox.Show("InValid Aadhar Number", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                message = language.translate(SystemFunction.IsTamil, "W18");//InValid Aadhar Number
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
                 GAadharD = Aadhra;
                 CustAadharNo.Text="";
             }

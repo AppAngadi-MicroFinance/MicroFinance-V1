@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
 using MicroFinance.Repository;
+using MicroFinance.Utils;
 using MicroFinance.ViewModel;
 
 namespace MicroFinance
@@ -32,6 +33,8 @@ namespace MicroFinance
         public static Nominee nominee = new Nominee();
         public static StaticProperty CaptureImageMessage = new StaticProperty();
         public static LoanDetails Loan = new LoanDetails();
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
 
         public List<string> BankList = new List<string>();
         public List<string> PurposeList = new List<string>();
@@ -545,21 +548,24 @@ namespace MicroFinance
                 CheckAadharAlreadyExist();
                 if (IsAadharAlreadeyExists)
                 {
-                    MessageBox.Show("Aadhar Card Already Exists..");
+                    message = language.translate(SystemFunction.IsTamil, "AE1");//Aadhar Card Already Exists..
+                    MessageBox.Show(message);
                 }
                 else if (CustomerValidation() == false)
                 {
-                    MainWindow.StatusMessageofPage(0, "Please Enter Require Fields....");
+                    message = language.translate(SystemFunction.IsTamil, "M3");//Please Enter Require Fields....
+                    MainWindow.StatusMessageofPage(0, message);
                     Thread.Sleep(10000);
-                    MainWindow.StatusMessageofPage(1, "Ready...");
+                    message = language.translate(SystemFunction.IsTamil, "W1");//Ready....
+                    MainWindow.StatusMessageofPage(1, message);
                 }
                 else if(LoanDetailsValidation()==false)
                 {
                     //MainWindow.StatusMessageofPage(0, "Please Enter Loan Details....");
                     //Thread.Sleep(2000);
                     //MainWindow.StatusMessageofPage(1, "Ready...");
-
-                    MessageBox.Show("Please Complete Loan Details","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                    message = language.translate(SystemFunction.IsTamil, "M2");//Please Complete Loan Details
+                    MessageBox.Show(message,"Error",MessageBoxButton.OK,MessageBoxImage.Error);
                 }
                 else
                 {
@@ -625,7 +631,8 @@ namespace MicroFinance
             }
             else
             {
-                StatusMessageWhileCapturingImage(0, "Please Capture or Select Photo To Save....");
+                message = language.translate(SystemFunction.IsTamil, "M1");//Please Capture or Select Photo To Save....
+                StatusMessageWhileCapturingImage(0, message);
                 //CaptureImageStatus.Text = "Please Capture or Select Photo";
             }
         }
@@ -644,16 +651,19 @@ namespace MicroFinance
                 {
                     case "Address Proof":
                         customer.AddressProof = image;
-                        MainWindow.StatusMessageofPage(1, "Successfully Customer Address Proof Added...");
+                        message = language.translate(SystemFunction.IsTamil, "SA1");//Successfully Customer Address Proof Added...
+                        MainWindow.StatusMessageofPage(1, message);
                         break;
                     case "Photo Proof":
                         customer.PhotoProof = image;
-                        MainWindow.StatusMessageofPage(1, "Successfully Customer Photo Proof Added...");
+                        message = language.translate(SystemFunction.IsTamil, "SA2");//Successfully Customer Photo Proof Added...
+                        MainWindow.StatusMessageofPage(1, message);
                         break;
                     case "Profile Picture":
                         {
                             customer.ProfilePicture = image;
-                            MainWindow.StatusMessageofPage(1, "Successfully Customer Profile Picture Added...");
+                            message = language.translate(SystemFunction.IsTamil, "SA3");//Successfully Customer Profile Picture Added...
+                            MainWindow.StatusMessageofPage(1, message);
                         }
                         break;
                 }
@@ -840,7 +850,8 @@ namespace MicroFinance
         {
             if (!CheckGuarantorValidation())
             {
-                MainWindow.StatusMessageofPage(0, "Please Enter Required Fields....");
+                message = language.translate(SystemFunction.IsTamil, "M3");//Please Enter Required Fields....
+                MainWindow.StatusMessageofPage(0, message);
             }
             else
             {
@@ -848,8 +859,8 @@ namespace MicroFinance
                 GuarantorWindow.Visibility = Visibility.Collapsed;
                 guarantor.IsGuarantorNull = true;
                 EnableDisableBackground(true);
-
-                MainWindow.StatusMessageofPage(1, "Successfully Guarantor Added...");
+                message = language.translate(SystemFunction.IsTamil, "SA4");//Successfully Guarantor Added...
+                MainWindow.StatusMessageofPage(1, message);
                 if (guarantor.IsNominee)
                 {
                     NomineeErrorCheck.Visibility = Visibility.Collapsed;
@@ -912,7 +923,8 @@ namespace MicroFinance
                     ////    nominee.City = guarantor.City;
                     ////    nominee.State = guarantor.City;
                     ////}
-                    MainWindow.StatusMessageofPage(1, "Successfully Guarantor and Nominee Added...");
+                    message = language.translate(SystemFunction.IsTamil, "SA5"); //Successfully Guarantor and Nominee Added...
+                    MainWindow.StatusMessageofPage(1, message);
                 }
             }
         }
@@ -1036,7 +1048,8 @@ namespace MicroFinance
         {
             if (CheckNomineeValidation() == false)
             {
-                MainWindow.StatusMessageofPage(2, "Please Enter Required Fields....");
+                message = language.translate(SystemFunction.IsTamil, "M3");//Please Enter Required Fields....
+                MainWindow.StatusMessageofPage(2, message);
             }
             else
             {
@@ -1044,7 +1057,8 @@ namespace MicroFinance
                 AddNomineepopup.Visibility = Visibility.Collapsed;
                 EnableDisableBackground(true);
                 nominee.IsNomineeNull = true;
-                MainWindow.StatusMessageofPage(1, "Successfully Nominee Added...");
+                message = language.translate(SystemFunction.IsTamil, "SA6");//Successfully Nominee Added...
+                MainWindow.StatusMessageofPage(1, message);
             }
         }
 
@@ -1241,7 +1255,8 @@ namespace MicroFinance
             customer.HavingBankDetails = true;
             AccountdetailsPanel.IsOpen = false;
             EnableDisableBackground(true);
-            MainWindow.StatusMessageofPage(1, "Successfully BankDetails Added...");
+            message = language.translate(SystemFunction.IsTamil, "SA7");//Successfully BankDetails Added...
+            MainWindow.StatusMessageofPage(1, message);
             BankErrorCheck.Visibility = Visibility.Collapsed;
 
             BankDetailsView NewBank = new BankDetailsView();
@@ -2289,7 +2304,8 @@ namespace MicroFinance
             CheckAadharAlreadyExist();
             if(IsAadharAlreadeyExists)
             {
-                MessageBox.Show("Aadhar Number is Already Exist..");
+                message = language.translate(SystemFunction.IsTamil, "AE1");//Aadhar Number is Already Exist..
+                MessageBox.Show(message);
             }
             if(AadharValidatin(AadharNo.Text))
             {
@@ -2470,7 +2486,8 @@ namespace MicroFinance
             {
                 if(!AadharPass.Equals(AadharNumber))
                 {
-                    MessageBox.Show("Please Enter Valid Aadhar Number!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                    message = language.translate(SystemFunction.IsTamil, "W18");//Please Enter Valid Aadhar Number!...
+                    MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
                     AadharPassBox.Clear();
                     AadharNo.Clear();
                     AadharPassBox.Focus();
@@ -2484,7 +2501,8 @@ namespace MicroFinance
             }
             else
             {
-                MessageBox.Show("Please Enter Valid Aadhar Number!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                message = language.translate(SystemFunction.IsTamil, "W18");//Please Enter Valid Aadhar Number!...
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
                 AadharPassBox.Clear();
                 AadharNo.Clear();
                 AadharPassBox.Focus();
@@ -2496,7 +2514,8 @@ namespace MicroFinance
         {
             if(AadharNo.Text!=PhotoProofNo.Text)
             {
-                MessageBox.Show("Please Enter Valid Aadhar Number!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                message = language.translate(SystemFunction.IsTamil, "W18");//Please Enter Valid Aadhar Number!...
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
                 PhotoProofNo.Text = "";
             }
         }

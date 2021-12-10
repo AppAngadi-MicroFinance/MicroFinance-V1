@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using System.Data;
 using System.Data.SqlClient;
 using MicroFinance.Modal;
+using MicroFinance.ViewModel;
+using MicroFinance.Utils;
 
 namespace MicroFinance
 {
@@ -22,6 +24,8 @@ namespace MicroFinance
     /// </summary>
     public partial class AddRegion : Window
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         Region region;
         public AddRegion()
         {
@@ -36,11 +40,13 @@ namespace MicroFinance
             {
                 region.AddRegion();
                 this.Close();
-                MainWindow.StatusMessageofPage(1, "Region Addeed Successfully");
+                message = language.translate(SystemFunction.IsTamil, "SA24");//Region Addeed Successfully...
+                MainWindow.StatusMessageofPage(1, message);
             }
             else
             {
-                MainWindow.StatusMessageofPage(1, "The " + region.RegionName + " Region Is Already Exist... Please Check");
+                message = language.translate(SystemFunction.IsTamil, "AE11");//Region Is Already Exist... Please Check
+                MainWindow.StatusMessageofPage(1, region.RegionName + message);
             }
         }
     }

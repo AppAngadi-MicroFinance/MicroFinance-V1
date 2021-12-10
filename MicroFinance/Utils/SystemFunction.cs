@@ -12,6 +12,9 @@ namespace MicroFinance.Utils
    public static class SystemFunction
     {
 
+
+        public static bool IsTamil { get; set; }
+
         public static string GetMACAddress()
         {
             return

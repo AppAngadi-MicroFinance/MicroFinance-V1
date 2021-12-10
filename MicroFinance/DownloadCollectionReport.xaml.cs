@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Utils;
 using MicroFinance.ViewModel;
 using Microsoft.Reporting.WinForms;
 
@@ -25,6 +26,8 @@ namespace MicroFinance
     /// </summary>
     public partial class DownloadCollectionReport : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public List<BranchNameView> BranchList = new List<BranchNameView>();
         public List<CenterNameView> CenterList = new List<CenterNameView>();
         public List<EmployeeNameView> EmployeeList = new List<EmployeeNameView>();
@@ -103,7 +106,8 @@ namespace MicroFinance
 
                 await System.Threading.Tasks.Task.Run(()=> GenerateReport(branchId,CenterID,EmpId,selectedDate));
                 GifPanel.Visibility = Visibility.Collapsed;
-                MainWindow.StatusMessageofPage(1, "Report generated Successfully!....");
+                message = language.translate(SystemFunction.IsTamil, "SA27");//Report generated Successfully!....
+                MainWindow.StatusMessageofPage(1, message);
             }
         }
         void GenerateReport(string BranchID,string CenterId,String EmpID,DateTime date)
@@ -190,7 +194,8 @@ namespace MicroFinance
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Can't generate Collection Sheet for You. Contact admin.");
+                message = language.translate(SystemFunction.IsTamil, "W9");//Can't generate Collection Sheet for You. Contact admin.
+                MessageBox.Show(message);
             }
         }
 

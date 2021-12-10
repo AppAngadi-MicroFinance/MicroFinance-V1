@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Utils;
 using MicroFinance.ViewModel;
 
 namespace MicroFinance
@@ -22,6 +23,8 @@ namespace MicroFinance
     /// </summary>
     public partial class TransferEmployee : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public static ObservableCollection<BranchViewModel> BranchList = new ObservableCollection<BranchViewModel>();
         public static ObservableCollection<EmployeeViewModel> EmployeeList = new ObservableCollection<EmployeeViewModel>();
         public static List<RegionViewModel> RegionList = new List<RegionViewModel>();
@@ -241,7 +244,8 @@ namespace MicroFinance
             bool Res= EmployeeRepository.TransferEmployee(Transfer_Employee);
             if(Res)
             {
-                MainWindow.StatusMessageofPage(1, "Employee Transfered Successfully!...");
+                message = language.translate(SystemFunction.IsTamil, "AE7");//"Employee Transfered Successfully!..."
+                MainWindow.StatusMessageofPage(1, message);
                 System.Threading.Thread.Sleep(2000);
                 MainWindow.StatusMessageofPage(1, "Ready");
                 this.NavigationService.Navigate(new TransferEmployee());

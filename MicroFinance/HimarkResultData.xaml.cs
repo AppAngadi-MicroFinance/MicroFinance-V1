@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Utils;
 using MicroFinance.ViewModel;
 
 namespace MicroFinance
@@ -23,6 +24,8 @@ namespace MicroFinance
     /// </summary>
     public partial class HimarkResultData : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         string BranchID = MainWindow.LoginDesignation.BranchId;
         HimarkResult HMResult = new HimarkResult();
         List<HimarkResultModel> HMResultList = new List<HimarkResultModel>();
@@ -154,19 +157,21 @@ namespace MicroFinance
         private void BulkAcceptBtn_Click(object sender, RoutedEventArgs e)
         {
             int SelectedCount = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).Count();
-            if(SelectedCount!=0)
+            if (SelectedCount != 0)
             {
-                
-                    List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
-                    LoanRepository.ChangeLoanStatus(RequestList, 3);
-                    string Message = "" + RequestList.Count.ToString() + " Loan(s) Accepted with SecureDPD Successfully!...";
-                    MainWindow.StatusMessageofPage(1, Message);
-                    this.NavigationService.Navigate(new HimarkResultData());
-                
+
+                List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                LoanRepository.ChangeLoanStatus(RequestList, 3);
+                message = language.translate(SystemFunction.IsTamil, "SA15");//Loan(s) Accepted with SecureDPD Successfully!...
+                string Message = "" + RequestList.Count.ToString() + message;
+                MainWindow.StatusMessageofPage(1, Message);
+                this.NavigationService.Navigate(new HimarkResultData());
+
             }
             else
             {
-                MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                message = language.translate(SystemFunction.IsTamil, "SW2");//No Record Selected
+                MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             
 
@@ -241,7 +246,8 @@ namespace MicroFinance
             //string Req = btn.Uid.ToString();
 
             string CustomerName = GetCustomerName(RequestID);
-            string Message = "Are You Sure You Want To Reject " + CustomerName + " ";
+            message = language.translate(SystemFunction.IsTamil, "W14");//Are You Sure You Want To Reject
+            string Message = message + CustomerName + " ";
             MessageBoxResult result = MessageBox.Show(Message, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (MessageBoxResult.Yes == result)
             {
@@ -271,14 +277,16 @@ namespace MicroFinance
 
                 List<string> RequestList = BindingData.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
                 LoanRepository.ChangeLoanStatus(RequestList, 4);
-                string Message = "" + RequestList.Count.ToString() + " Loan(s) Accepted with SecureDPD Successfully!...";
+                message = language.translate(SystemFunction.IsTamil, "SA15");//Loan(s) Accepted with SecureDPD Successfully!...
+                string Message = "" + RequestList.Count.ToString() + message;
                 MainWindow.StatusMessageofPage(1, Message);
                 this.NavigationService.Navigate(new HimarkResultData());
 
             }
             else
             {
-                MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                message = language.translate(SystemFunction.IsTamil, "SW2");//No Record Selected
+                MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

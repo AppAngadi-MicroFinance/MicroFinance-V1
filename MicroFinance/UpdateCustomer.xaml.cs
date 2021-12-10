@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Utils;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -23,7 +25,8 @@ namespace MicroFinance
     /// </summary>
     public partial class UpdateCustomer : Page
     {
-
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public static Customer customer = new Customer();
         public static Guarantor guarantor = new Guarantor();
         public static Nominee nominee = new Nominee();
@@ -250,7 +253,8 @@ namespace MicroFinance
             }
             else
             {
-                StatusMessageWhileCapturingImage(2, "Please Capture or Select Photo To Save....");
+                message = language.translate(SystemFunction.IsTamil, "M1");//"Please Capture or Select Photo To Save...."
+                StatusMessageWhileCapturingImage(2, message);
                 //CaptureImageStatus.Text = "Please Capture or Select Photo";
             }
         }
@@ -269,16 +273,19 @@ namespace MicroFinance
                 {
                     case "Address Proof":
                         customer.AddressProof = image;
-                        MainWindow.StatusMessageofPage(1, "Successfully Customer Address Proof Added...");
+                        message = language.translate(SystemFunction.IsTamil, "SA1");
+                        MainWindow.StatusMessageofPage(1, message);
                         break;
                     case "Photo Proof":
                         customer.PhotoProof = image;
-                        MainWindow.StatusMessageofPage(1, "Successfully Customer Photo Proof Added...");
+                        message = language.translate(SystemFunction.IsTamil, "SA2");
+                        MainWindow.StatusMessageofPage(1, message);
                         break;
                     case "Profile Picture":
                         {
                             customer.ProfilePicture = image;
-                            MainWindow.StatusMessageofPage(1, "Successfully Customer Profile Picture Added...");
+                            message = language.translate(SystemFunction.IsTamil, "SA3");
+                            MainWindow.StatusMessageofPage(1, message);
                         }
                         break;
                 }
@@ -460,7 +467,8 @@ namespace MicroFinance
             GuarantorWindow.Visibility = Visibility.Collapsed;
             guarantor.IsGuarantorNull = true;
             EnableDisableBackground(true);
-            MainWindow.StatusMessageofPage(1, "Successfully Guarantor Added...");
+            message = language.translate(SystemFunction.IsTamil, "SA4");
+            MainWindow.StatusMessageofPage(1, message);
             if (guarantor.IsNominee)
             {
                 nominee.NomineeName = guarantor.GuarantorName;
@@ -489,7 +497,8 @@ namespace MicroFinance
                 //    nominee.City = guarantor.City;
                 //    nominee.State = guarantor.City;
                 //}
-                MainWindow.StatusMessageofPage(1, "Successfully Guarantor and Nominee Added...");
+                message = language.translate(SystemFunction.IsTamil, "SA5");
+                MainWindow.StatusMessageofPage(1, message);
             }
         }
 
@@ -610,7 +619,8 @@ namespace MicroFinance
             AddNomineepopup.Visibility = Visibility.Collapsed;
             EnableDisableBackground(true);
             nominee.IsNomineeNull = true;
-            MainWindow.StatusMessageofPage(1, "Successfully Nominee Added...");
+            message = language.translate(SystemFunction.IsTamil, "SA6");
+            MainWindow.StatusMessageofPage(1, message);
         }
 
         private void NomineeCancel_Click(object sender, RoutedEventArgs e)
@@ -785,7 +795,8 @@ namespace MicroFinance
             customer.HavingBankDetails = true;
             AccountdetailsPanel.IsOpen = false;
             EnableDisableBackground(true);
-            MainWindow.StatusMessageofPage(1, "Successfully Guarantor and Nominee Added...");
+            message = language.translate(SystemFunction.IsTamil, "SA5");
+            MainWindow.StatusMessageofPage(1, message);
         }
 
         private void PanelCloseBtn_Click(object sender, RoutedEventArgs e)

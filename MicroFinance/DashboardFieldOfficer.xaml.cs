@@ -22,6 +22,7 @@ using System.IO;
 using System.Data;
 using MicroFinance.ViewModel;
 using MicroFinance.Repository;
+using MicroFinance.Utils;
 
 namespace MicroFinance
 {
@@ -32,6 +33,8 @@ namespace MicroFinance
     {
         public static LoginDetails LoginDesignation;
         string DayOFWeek;
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public DashboardFieldOfficer()
         {
             InitializeComponent();
@@ -181,7 +184,8 @@ namespace MicroFinance
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Can't generate Collection Sheet for You. Contact admin.");
+                message = language.translate(SystemFunction.IsTamil, "AE7");//Can't generate Collection Sheet for You. Contact admin.
+                MessageBox.Show(message);
             }
         }
 
@@ -198,7 +202,8 @@ namespace MicroFinance
             await System.Threading.Tasks.Task.Run(()=>DownloadPdf());
             GifPanel.Visibility = Visibility.Collapsed;
             xDaySelectionPopup.Visibility = Visibility.Collapsed;
-            MainWindow.StatusMessageofPage(1, "Collection Report Generated SuccessFully!...");
+            message = language.translate(SystemFunction.IsTamil, "SA26");//Collection Report Generated SuccessFully!...
+            MainWindow.StatusMessageofPage(1, message);
         }
 
         void DownloadPdf()
@@ -247,7 +252,8 @@ namespace MicroFinance
 
                     if (EnrollDetails.Count == 0)
                     {
-                        string Message = string.Format("No Enroll Found Betweeen {0} to {1}.", StartDate.ToString("dd-MMM-yyyy"), EndDate.ToString("dd-MMM-yyyy"));
+                        message = language.translate(SystemFunction.IsTamil, "W11");//No Enroll Found Betweeen {0} to {1}.
+                        string Message = string.Format(message, StartDate.ToString("dd-MMM-yyyy"), EndDate.ToString("dd-MMM-yyyy"));
                         MessageBox.Show(Message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
@@ -257,10 +263,9 @@ namespace MicroFinance
                 }
                 else
                 {
-                    MessageBox.Show("Enter Proper Date!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    message = language.translate(SystemFunction.IsTamil, "W8");
+                    MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-                
-
                 
             }
         }

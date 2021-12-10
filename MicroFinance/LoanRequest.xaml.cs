@@ -17,6 +17,7 @@ using System.Data;
 using System.Data.SqlClient;
 using MicroFinance.Repository;
 using MicroFinance.ViewModel;
+using MicroFinance.Utils;
 
 namespace MicroFinance
 {
@@ -25,6 +26,8 @@ namespace MicroFinance
     /// </summary>
     public partial class LoanRequest : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
         public string EmployeeId = MainWindow.LoginDesignation.EmpId;
         public string EmployeeDesignation = MainWindow.LoginDesignation.LoginDesignation;
@@ -202,14 +205,16 @@ namespace MicroFinance
                 }
                 else
                 {
-                    MessageBox.Show("1.Please Check Loan Details\n2.Select Customer","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
+                    message = language.translate(SystemFunction.IsTamil, "W17");//1.Please Check Loan Details\n2.Select Customer
+                    MessageBox.Show(message,"Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
                     loanRequest = new LoanDetails();
                     LoanRequestPanel.DataContext = new LoanDetails();
                 }
             }
             else
             {
-                MessageBox.Show("This Customer Already in Application Process!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                message = language.translate(SystemFunction.IsTamil, "SW3");//This Customer Already in Application Process!...
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             
             

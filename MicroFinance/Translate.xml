@@ -1,0 +1,741 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Translate>
+  <!-- Mandatory Fields Error Message-->
+
+  <English>
+    <id>M1</id>
+    <Text>Please Capture or Select Photo To Save....</Text>
+  </English>
+  <Tamil>
+    <id>M1</id>
+    <Text>சேமிக்க புகைப்படத்தை எடுக்கவும் அல்லது தேர்ந்தெடுக்கவும்…</Text>
+  </Tamil>
+
+  <English>
+    <id>M2</id>
+    <Text>Please Complete Loan Details</Text>
+  </English>
+  <Tamil>
+    <id>M2</id>
+    <Text>தயவுசெய்து கடன் விவரங்களைப் பூர்த்தி செய்யவும்</Text>
+  </Tamil>
+
+  <English>
+    <id>M3</id>
+    <Text>Please Enter Require Fields....</Text>
+  </English>
+  <Tamil>
+    <id>M3</id>
+    <Text>தேவையான விவரங்களை உள்ளிடவும்....</Text>
+  </Tamil>
+
+  <English>
+    <id>M4</id>
+    <Text>These Fields are Mandatory Please Fill All these Fields</Text>
+  </English>
+  <Tamil>
+    <id>M4</id>
+    <Text>இந்த விவரங்கள் கட்டாயம், இந்த விவரங்கள் அனைத்தையும் நிரப்பவும்</Text>
+  </Tamil>
+
+  <English>
+    <id>M5</id>
+    <Text>Something you did wrong. Check all fields..!</Text>
+  </English>
+  <Tamil>
+    <id>M5</id>
+    <Text>ஏதோ நீங்கள் தவறு செய்துவிட்டீர்கள். அனைத்து விவரங்களையும் சரிபார்க்கவும்..!</Text>
+  </Tamil>
+
+  <English>
+    <id>M6</id>
+    <Text>Something you did wrong. Check all fields..!</Text>
+  </English>
+  <Tamil>
+    <id>M6</id>
+    <Text>ஏதோ நீங்கள் தவறு செய்துவிட்டீர்கள். அனைத்து விவரங்களையும் சரிபார்க்கவும்..!</Text>
+  </Tamil>
+
+  <English>
+    <id>M7</id>
+    <Text>Please Verifiy Mandotory Fields.....</Text>
+  </English>
+  <Tamil>
+    <id>M7</id>
+    <Text>கட்டாய விவரங்களைச் சரிபார்க்கவும்.....</Text>
+  </Tamil>
+
+  <English>
+    <id>M8</id>
+    <Text>Please Check All  Mandotory Fields.....</Text>
+  </English>
+  <Tamil>
+    <id>M8</id>
+    <Text>அனைத்து கட்டாய விவரங்களையும் சரிபார்க்கவும்.....</Text>
+  </Tamil>
+
+
+  <!--Login Error Messages-->
+  <English>
+    <id>L1</id>
+    <Text>Please Enter a Valid Username and Password.....</Text>
+  </English>
+  <Tamil>
+    <id>L1</id>
+    <Text>சரியான பயனர்பெயர் மற்றும் கடவுச்சொல்லை உள்ளிடவும்.....</Text>
+  </Tamil>
+
+  <English>
+    <id>L2</id>
+    <Text>Password does not Matching. Please ReEnter..!</Text>
+  </English>
+  <Tamil>
+    <id>L2</id>
+    <Text>கடவுச்சொல் பொருந்தவில்லை. தயவுசெய்து மீண்டும் உள்ளிடவும்..!</Text>
+  </Tamil>
+
+  <English>
+    <id>L3</id>
+    <Text>This is not your mobile number.</Text>
+  </English>
+  <Tamil>
+    <id>L3</id>
+    <Text>இது உங்கள் மொபைல் எண் அல்ல.</Text>
+  </Tamil>
+
+  <English>
+    <id>L4</id>
+    <Text>Password changed Sucessfully.</Text>
+  </English>
+  <Tamil>
+    <id>L4</id>
+    <Text>கடவுச்சொல் வெற்றிகரமாக மாற்றப்பட்டது.</Text>
+  </Tamil>
+
+  <!--Already Exsist Error Messages-->
+  <English>
+    <id>AE1</id>
+    <Text>Aadhar Number Already Exists..</Text>
+  </English>
+  <Tamil>
+    <id>AE1</id>
+    <Text>இந்த ஆதார் எண் ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது</Text>
+  </Tamil>
+
+  <English>
+    <id>AE2</id>
+    <Text>Already time alloted for this employee..!</Text>
+  </English>
+  <Tamil>
+    <id>AE2</id>
+    <Text>இந்த ஊழியருக்கு ஏற்கனவே நேரம் ஒதுக்கப்பட்டுள்ளது..!</Text>
+  </Tamil>
+
+  <English>
+    <id>AE3</id>
+    <Text>Group name already exist in this Selfhelpgroup..!</Text>
+  </English>
+  <Tamil>
+    <id>AE3</id>
+    <Text>இந்த சுயஉதவிக்குழுவின்  பெயர் ஏற்கனவே உள்ளது..!</Text>
+  </Tamil>
+
+  <English>
+    <id>AE5</id>
+    <Text>This Time Already Assign To this Employee Select Another Time!...</Text>
+  </English>
+  <Tamil>
+    <id>AE5</id>
+    <Text>இந்த நேரம் ஏற்கனவே இந்த பணியாளருக்கு ஒதுக்கப்பட்டுள்ளது மற்றொரு நேரத்தைத் தேர்ந்தெடுக்கவும்!...</Text>
+  </Tamil>
+
+  <English>
+    <id>AE6</id>
+    <Text>Branch AlredyExits...</Text>
+  </English>
+  <Tamil>
+    <id>AE6</id>
+    <Text>கிளை ஏற்கனவே உள்ளது...</Text>
+  </Tamil>
+
+  <English>
+    <id>AE7</id>
+    <Text>A branch of this area already exists ..</Text>
+  </English>
+  <Tamil>
+    <id>AE7</id>
+    <Text>இந்த பகுதியின் கிளை ஏற்கனவே உள்ளது...</Text>
+  </Tamil>
+
+  <English>
+    <id>AE8</id>
+    <Text>This File Already Upload Please Check!...</Text>
+  </English>
+  <Tamil>
+    <id>AE8</id>
+    <Text>ஏற்கனவே பதிவேற்றப்பட்டது தயவுசெய்து சரிபார்க்கவும்!...</Text>
+  </Tamil>
+
+  <English>
+    <id>AE9</id>
+    <Text>This File Already Upload Please Check!...</Text>
+  </English>
+  <Tamil>
+    <id>AE9</id>
+    <Text>ஏற்கனவே பதிவேற்றப்பட்டது தயவுசெய்து சரிபார்க்கவும்!...</Text>
+  </Tamil>
+
+  <English>
+    <id>AE10</id>
+    <Text>The Employee Already Exists.... Please Check!.</Text>
+  </English>
+  <Tamil>
+    <id>AE10</id>
+    <Text>பணியாளர் ஏற்கனவே இருக்கிறார்.... தயவுசெய்து சரிபார்க்கவும்!.</Text>
+  </Tamil>
+
+  <English>
+    <id>AE11</id>
+    <Text>Region Is Already Exist... Please Check</Text>
+  </English>
+  <Tamil>
+    <id>AE11</id>
+    <Text>பகுதி ஏற்கனவே உள்ளது... சரிபார்க்கவும்</Text>
+  </Tamil>
+
+  <English>
+    <id>AE12</id>
+    <Text>Loan Already Approved!...</Text>
+  </English>
+  <Tamil>
+    <id>AE12</id>
+    <Text>கடன் ஏற்கனவே அங்கீகரிக்கப்பட்டுள்ளது!...</Text>
+  </Tamil>
+
+  <English>
+    <id>AE13</id>
+    <Text>File Already Exists!...</Text>
+  </English>
+  <Tamil>
+    <id>AE13</id>
+    <Text>பதிவு ஏற்கனவே உள்ளது</Text>
+  </Tamil>
+  
+  <!--Successfuly Added Messages-->
+  <English>
+    <id>SA1</id>
+    <Text>Successfully Customer Address Proof Added...</Text>
+  </English>
+  <Tamil>
+    <id>SA1</id>
+    <Text>வாடிக்கையாளரின் முகவரிச் சான்று சேர்க்கப்பட்டது...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA2</id>
+    <Text>Successfully Customer Photo Proof Added...</Text>
+  </English>
+  <Tamil>
+    <id>SA2</id>
+    <Text>வாடிக்கையாளரின் புகைப்படச் சான்று சேர்க்கப்பட்டது...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA3</id>
+    <Text>Successfully Customer Profile Picture Added...</Text>
+  </English>
+  <Tamil>
+    <id>SA3</id>
+    <Text>வாடிக்கையாளரின் சுயவிவரப் படம் சேர்க்கப்பட்டது...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA4</id>
+    <Text>Successfully Guarantor Added...</Text>
+  </English>
+  <Tamil>
+    <id>SA4</id>
+    <Text>உத்தரவாதம் அளிப்பவர் சேர்க்கப்பட்டார்...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA5</id>
+    <Text>Successfully Guarantor and Nominee Added...</Text>
+  </English>
+  <Tamil>
+    <id>SA5</id>
+    <Text>உத்தரவாதம் அளிப்பவர் மற்றும் பரிந்துரைக்கப்பட்டவர் சேர்க்கப்பட்டார்...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA6</id>
+    <Text>Successfully Nominee Added...</Text>
+  </English>
+  <Tamil>
+    <id>SA6</id>
+    <Text>பரிந்துரைக்கப்பட்டவர் சேர்க்கப்பட்டார்…</Text>
+  </Tamil>
+
+  <English>
+    <id>SA7</id>
+    <Text>Successfully BankDetails Added...</Text>
+  </English>
+  <Tamil>
+    <id>SA7</id>
+    <Text>வங்கி விவரங்கள் சேர்க்கப்பட்டது...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA8</id>
+    <Text>Successfully Address Proof Added...</Text>
+  </English>
+  <Tamil>
+    <id>SA8</id>
+    <Text>முகவரிச் சான்று சேர்க்கப்பட்டது...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA9</id>
+    <Text>Successfully Photo Proof Added...</Text>
+  </English>
+  <Tamil>
+    <id>SA9</id>
+    <Text>சுயவிவரப் படம் சேர்க்கப்பட்டது...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA10</id>
+    <Text>Successfully Profile Picture Added...</Text>
+  </English>
+  <Tamil>
+    <id>SA10</id>
+    <Text>சுயவிவரப் படம் சேர்க்கப்பட்டது....</Text>
+  </Tamil>
+
+  <English>
+    <id>SA11</id>
+    <Text>Successfully Image Is Captured...</Text>
+  </English>
+  <Tamil>
+    <id>SA11</id>
+    <Text>புகைப்படம் எடுக்கப்பட்டது...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA12</id>
+    <Text>Branch Created Successfully...</Text>
+  </English>
+  <Tamil>
+    <id>SA12</id>
+    <Text>கிளை உருவாக்கப்பட்டது...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA13</id>
+    <Text>Successfully Customer Details Added...</Text>
+  </English>
+  <Tamil>
+    <id>SA13</id>
+    <Text>வாடிக்கையாளர் விவரங்கள் சேர்க்கப்பட்டது...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA14</id>
+    <Text>File Upload Successfully!...</Text>
+  </English>
+  <Tamil>
+    <id>SA14</id>
+    <Text>பதிவு ஏற்றம் முடிந்தது...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA15</id>
+    <Text>Loan(s) Accepted with SecureDPD Successfully!...</Text>
+  </English>
+  <Tamil>
+    <id>SA15</id>
+    <Text>SecureDPD உடன் கடன் ஏற்றுக்கொள்ளப்பட்டது!...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA16</id>
+    <Text>Loan Approved SuccessFully!..</Text>
+  </English>
+  <Tamil>
+    <id>SA16</id>
+    <Text>கடன் அங்கீகரிக்கப்பட்டது !..</Text>
+  </Tamil>
+
+  <English>
+    <id>SA17</id>
+    <Text>Excel Generated Successfully!...</Text>
+  </English>
+  <Tamil>
+    <id>SA17</id>
+    <Text>எக்செல் உருவாக்கப்பட்டது!...</Text>
+  </Tamil>
+
+  <English>
+    <id>  </id>
+    <Text>Employee Transfered Successfully!...</Text>
+  </English>
+  <Tamil>
+    <id>SA18</id>
+    <Text>பணியாளர் இடமாற்றம் செய்யப்பட்டார்!...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA19</id>
+    <Text>Successfully Customer Approved...</Text>
+  </English>
+  <Tamil>
+    <id>SA19</id>
+    <Text>வாடிக்கையாளரால் அங்கீகரிக்கப்பட்டது... </Text>
+  </Tamil>
+
+  <English>
+    <id>SA20</id>
+    <Text>Successfully Customer Recommended...</Text>
+  </English>
+  <Tamil>
+    <id>SA20</id>
+    <Text>வாடிக்கையாளர் பரிந்துரைக்கப்பட்டார்...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA21</id>
+    <Text>Successfully Customer Rejected...</Text>
+  </English>
+  <Tamil>
+    <id>SA21</id>
+    <Text>வாடிக்கையாளர்  நிராகரிக்கப்பட்டார்...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA22</id>
+    <Text>Employee Added Successfully...</Text>
+  </English>
+  <Tamil>
+    <id>SA22</id>
+    <Text>பணியாளர் சேர்க்கப்பட்டார்...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA23</id>
+    <Text>Employee Updated Successfully...</Text>
+  </English>
+  <Tamil>
+    <id>SA23</id>
+    <Text>பணியாளர் புதுப்பிக்கப்பட்டார்...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA24</id>
+    <Text>Region Addeed Successfully...</Text>
+  </English>
+  <Tamil>
+    <id>SA24</id>
+    <Text>பகுதி வெற்றிகரமாக சேர்க்கப்பட்டது</Text>
+  </Tamil>
+
+  <English>
+    <id>SA25</id>
+    <Text>Excel Export Successfully...</Text>
+  </English>
+  <Tamil>
+    <id>SA25</id>
+    <Text>Excel ஏற்றுமதி செய்யப்பட்டது...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA26</id>
+    <Text>Collection Report Generated SuccessFully!...</Text>
+  </English>
+  <Tamil>
+    <id>SA26</id>
+    <Text>வசூல் அறிக்கை உருவாக்கப்பட்டது!...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA27</id>
+    <Text>Report Generated SuccessFully!...</Text>
+  </English>
+  <Tamil>
+    <id>SA27</id>
+    <Text>அறிக்கை உருவாக்கப்பட்டது!...</Text>
+  </Tamil>
+
+  <English>
+    <id>SA28</id>
+    <Text>Upload SuccessFully.... </Text>
+  </English>
+  <Tamil>
+    <id>SA28</id>
+    <Text>பதிவேற்றப்பட்டது....</Text>
+  </Tamil>
+
+  <English>
+    <id>SA29</id>
+    <Text>Loan(s) Rejected Successfully!... </Text>
+  </English>
+  <Tamil>
+    <id>SA29</id>
+    <Text>கடன்(கள்) நிராகரிக்கப்பட்டது!...</Text>
+  </Tamil>
+
+  
+
+  
+  
+  
+  <!--Warning Messages-->
+
+  <English>
+    <id>W1</id>
+    <Text>Ready…</Text>
+  </English>
+  <Tamil>
+    <id>W1</id>
+    <Text>தயார்...</Text>
+  </Tamil>
+
+  <English>
+    <id>W2</id>
+    <Text>Please enter group name before click.</Text>
+  </English>
+  <Tamil>
+    <id>W2</id>
+    <Text>கிளிக் செய்வதற்கு முன் குழுவின் பெயரை உள்ளிடவும்.</Text>
+  </Tamil>
+
+  <English>
+    <id>W3</id>
+    <Text>Please Select The Employee</Text>
+  </English>
+  <Tamil>
+    <id>W3</id>
+    <Text>பணியாளரைத் தேர்ந்தெடுக்கவும்</Text>
+  </Tamil>
+
+  <English>
+    <id>W4</id>
+    <Text>Please Capture..</Text>
+  </English>
+  <Tamil>
+    <id>W4</id>
+    <Text>தயவு செய்து புகைப்படம்  பிடிக்கவும்..</Text>
+  </Tamil>
+
+  <English>
+    <id>W5</id>
+    <Text>No WebCam in your System.</Text>
+  </English>
+  <Tamil>
+    <id>W5</id>
+    <Text>உங்கள் கணினியில் புகைப்பட கருவி இல்லை.</Text>
+  </Tamil>
+
+  <English>
+    <id>W6</id>
+    <Text>Capture Image First</Text>
+  </English>
+  <Tamil>
+    <id>W6</id>
+    <Text>முதலில் படத்தைப் பிடிக்கவும்.</Text>
+  </Tamil>
+
+  <English>
+    <id>W7</id>
+    <Text>Error Occured</Text>
+  </English>
+  <Tamil>
+    <id>W7</id>
+    <Text>பிழை ஏற்பட்டது</Text>
+  </Tamil>
+
+  <English>
+    <id>W8</id>
+    <Text>Enter Proper Date!...</Text>
+  </English>
+  <Tamil>
+    <id>W8</id>
+    <Text>சரியான தேதியை உள்ளிடவும்!...</Text>
+  </Tamil>
+
+  <English>
+    <id>W9</id>
+    <Text>Can't generate Collection Sheet for You. Contact admin.</Text>
+  </English>
+  <Tamil>
+    <id>W9</id>
+    <Text>உங்களுக்காக சேகரிப்பு தாளை உருவாக்க முடியாது. நிர்வாகியை தொடர்பு கொள்ளவும்.</Text>
+  </Tamil>
+
+  <English>
+    <id>W10</id>
+    <Text>Error...</Text>
+  </English>
+  <Tamil>
+    <id>W10</id>
+    <Text>பிழை...</Text>
+  </Tamil>
+
+  <English>
+    <id>W11</id>
+    <Text>No Enroll Found Betweeen {0} to {1}.</Text>
+  </English>
+  <Tamil>
+    <id>W11</id>
+    <Text>{0} முதல் {1} வரை எந்தப் பதிவும் இல்லை.</Text>
+  </Tamil>
+
+  <English>
+    <id>W12</id>
+    <Text>Please Check Denomination and Enter Correct Denomination.....</Text>
+  </English>
+  <Tamil>
+    <id>W12</id>
+    <Text>மதிப்பை சரிபார்த்து சரியான மதிப்பை உள்ளிடவும்.....</Text>
+  </Tamil>
+
+  <English>
+    <id>W13</id>
+    <Text>Are You Sure You Want To Remove the Customer </Text>
+  </English>
+  <Tamil>
+    <id>W13</id>
+    <Text>நீங்கள் நிச்சயமாக வாடிக்கையாளரை அகற்ற விரும்புகிறீர்களா </Text>
+  </Tamil>
+
+  <English>
+    <id>W14</id>
+    <Text>Are You Sure You Want To Reject </Text>
+  </English>
+  <Tamil>
+    <id>W14</id>
+    <Text>நீங்கள் நிச்சயமாக நிராகரிக்க விரும்புகிறீர்களா </Text>
+  </Tamil>
+
+  <English>
+    <id>W15</id>
+    <Text>1.Please Check Loan Details\n2.Select Customer</Text>
+  </English>
+  <Tamil>
+    <id>W15</id>
+    <Text>1.கடன் விவரங்களைச் சரிபார்க்கவும்\n2.வாடிக்கையாளரைத் தேர்ந்தெடுக்கவும்</Text>
+  </Tamil>
+
+  <English>
+    <id>W16</id>
+    <Text>Check Correctly...</Text>
+  </English>
+  <Tamil>
+    <id>W16</id>
+    <Text>சரியாக சரிபார்க்கவும்...</Text>
+  </Tamil>
+
+  <English>
+    <id>W17</id>
+    <Text>Unauthorized System .....</Text>
+  </English>
+  <Tamil>
+    <id>W17</id>
+    <Text>அங்கீகரிக்கப்படாத அமைப்பு.....</Text>
+  </Tamil>
+
+  <English>
+    <id>W18</id>
+    <Text>Please Enter Valid Aadhar Number!...</Text>
+  </English>
+  <Tamil>
+    <id>W18</id>
+    <Text>சரியான ஆதார் எண்ணை உள்ளிடவும்!...</Text>
+  </Tamil>
+
+  <English>
+    <id>W19</id>
+    <Text>No Request In List...</Text>
+  </English>
+  <Tamil>
+    <id>W19</id>
+    <Text>பட்டியலில் கோரிக்கை இல்லை...</Text>
+  </Tamil>
+
+  <English>
+    <id>W20</id>
+    <Text>Error Data or Mis-Match Data in Given File\n\n</Text>
+  </English>
+  <Tamil>
+    <id>W20</id>
+    <Text>பிழை அல்லது பொருந்தாத தரவு\n\n</Text>
+  </Tamil>
+
+  <English>
+    <id>W21</id>
+    <Text>Check These Fields are Empty\n</Text>
+  </English>
+  <Tamil>
+    <id>W21</id>
+    <Text>இந்த இடங்கள் காலியாக உள்ளதா என சரிபார்க்கவும்</Text>
+  </Tamil>
+
+  <English>
+    <id>W22</id>
+    <Text>Are you sure You want to create Branch Without These Information</Text>
+  </English>
+  <Tamil>
+    <id>W22</id>
+    <Text>இந்தத் தகவல் இல்லாமல் ஒரு பணியாளரை உருவாக்க விரும்புகிறீர்களா?</Text>
+  </Tamil>
+  
+
+  <!--Select Warning Messages-->
+
+  <English>
+    <id>SW1</id>
+    <Text>Select The Branch!..</Text>
+  </English>
+  <Tamil>
+    <id>SW1</id>
+    <Text>கிளையைத் தேர்ந்தெடு!..</Text>
+  </Tamil>
+
+  <English>
+    <id>SW2</id>
+    <Text>No Record Selected</Text>
+  </English>
+  <Tamil>
+    <id>SW2</id>
+    <Text>பதிவு எதுவும் தேர்ந்தெடுக்கப்படவில்லை</Text>
+  </Tamil>
+
+  <English>
+    <id>SW3</id>
+    <Text>This Customer Already in Application Process!...</Text>
+  </English>
+  <Tamil>
+    <id>SW3</id>
+    <Text>இந்த வாடிக்கையாளர் ஏற்கனவே விண்ணப்ப செயல்முறையில் உள்ளார்!...</Text>
+  </Tamil>
+
+  <English>
+    <id>SW4</id>
+    <Text>No Data Selected!</Text>
+  </English>
+  <Tamil>
+    <id>SW4</id>
+    <Text>பதிவு எதுவும் தேர்ந்தெடுக்கப்படவில்லை!</Text>
+  </Tamil>
+  
+  <!--Othres-->
+  
+  <English>
+    <id>O1</id>
+    <Text>No Enroll Found Betweeen {0} to {1}.</Text>
+  </English>
+  <Tamil>
+    <id>O1</id>
+    <Text>{0} முதல் {1} வரை எந்தப் பதிவும் இல்லை.</Text>
+  </Tamil>
+  
+</Translate>

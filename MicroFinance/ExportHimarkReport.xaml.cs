@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using MicroFinance.ViewModel;
 using MicroFinance.Modal;
 using MicroFinance.Reports;
+using MicroFinance.Utils;
 
 namespace MicroFinance
 {
@@ -24,6 +25,8 @@ namespace MicroFinance
     /// </summary>
     public partial class ExportHimarkReport : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         List<BranchNameView> BranchList = new List<BranchNameView>();
         public static List<HimarkRequestView> RequestList = new List<HimarkRequestView>();
         ObservableCollection<HimarkRequestView> ORequestList = new ObservableCollection<HimarkRequestView>();
@@ -119,7 +122,8 @@ namespace MicroFinance
             Button btn = sender as Button;
             string ID = btn.Uid.ToString();
             string name = btn.DataContext.ToString();
-            MessageBoxResult result =(MessageBox.Show("Are You Sure You Want To Remove the Customer", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Information));
+            message = language.translate(SystemFunction.IsTamil, "W13");//Are You Sure You Want To Remove the Customer
+            MessageBoxResult result =(MessageBox.Show(message, "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Information));
             if(result==MessageBoxResult.Yes)
             {
                 HimarkRepository.ChangeLoanStatus(name, 4);
@@ -139,7 +143,8 @@ namespace MicroFinance
                 himarkReport = new HiMark();
                 himarkReport.createHimarkXls(HimarkList);
                 HimarkRepository.UpdateStatusToExportExcel(FilterData,2);
-                MainWindow.StatusMessageofPage(1, "File Exported Successfully!...");
+                message = language.translate(SystemFunction.IsTamil, "SA14");//File Exported Successfully!...
+                MainWindow.StatusMessageofPage(1, message);
             }
             catch (Exception ex)
             {
@@ -170,7 +175,8 @@ namespace MicroFinance
         {
             if(RequestList.Count==0)
             {
-                MessageBox.Show("No Request In List","warning",MessageBoxButton.OK,MessageBoxImage.Error);
+                message = language.translate(SystemFunction.IsTamil, "W19");//No Request In List
+                MessageBox.Show(message,"warning",MessageBoxButton.OK,MessageBoxImage.Error);
             }
             else
             {
@@ -197,7 +203,8 @@ namespace MicroFinance
             {
                 if (StartDate > EndDate)
                 {
-                    MessageBox.Show("Please Select Proper Date!..", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    message = language.translate(SystemFunction.IsTamil, "W8");//Please Select Proper Date!..
+                    MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else
                 {
@@ -214,7 +221,8 @@ namespace MicroFinance
             }
             else
             {
-                MessageBox.Show("Select The Branch!..", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                message = language.translate(SystemFunction.IsTamil, "SW1");//Select The Branch!..
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
             

@@ -112,9 +112,12 @@
         <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#e8fff2" x:Name="MessageStatus" Grid.ColumnSpan="2"  Grid.RowSpan="2">
             <Image Width="15" Height="15" Source="{Binding MessageType,Converter={StaticResource ImageConvert},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
             <TextBlock  Text="{Binding StatusMessage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Regular}" FontWeight="Medium" FontSize="13" Foreground="{Binding MessageType,Converter={StaticResource StatusColor},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+            
         </StackPanel>
-
-
+        <StackPanel Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+            <TextBlock Text="Tamil" Style="{StaticResource Regular}" Margin="5"></TextBlock>
+            <CheckBox Style="{StaticResource OrangeSwitchStyle}" Grid.Row="3" Width="60" x:Name ="TamilCheckbox" Click="TamilCheckbox_Click"></CheckBox>
+        </StackPanel>
         <!--Setting New Password-->
         <Border x:Name="xSetNewPasswordPopUP" Background="Gray" Width="600" Height="500" Grid.Row="1" CornerRadius="10"  BorderThickness="10,50,10,10" 
                 BorderBrush="Gray" Visibility="Collapsed" Margin="383,80.4,165.2,80.4">

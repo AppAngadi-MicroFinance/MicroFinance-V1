@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Utils;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -31,6 +32,8 @@ namespace MicroFinance
         string _password;
         public static LoginDetails LoginDesignation;
         public static BasicDetailsStatic BasicDetails;
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
 
         public static string ConnectionString = Properties.Settings.Default.DBConnection;
         public MainWindow()
@@ -44,6 +47,9 @@ namespace MicroFinance
 
             MainGrid.Width= (int)System.Windows.SystemParameters.WorkArea.Width;
             MainGrid.Height= (int)System.Windows.SystemParameters.WorkArea.Height-30;
+
+
+            SystemFunction.IsTamil = false;
 
             
 
@@ -86,7 +92,8 @@ namespace MicroFinance
                         xHeaderUsername.Text = "ADMIN";
                         mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
                         LoggedInState();
-                        MainWindow.StatusMessageofPage(1, "Ready...");
+                        message = language.translate(SystemFunction.IsTamil, "W1");//Ready…
+                        MainWindow.StatusMessageofPage(1, message);
                     }
                     else
                     {
@@ -97,7 +104,8 @@ namespace MicroFinance
                 }
                 else
                 {
-                    StatusMessageofPage(0, "Unauthorized System .....");
+                    message = language.translate(SystemFunction.IsTamil, "W17");//Unauthorized System .....
+                    StatusMessageofPage(0, message);
                 }
             }
             catch(Exception ex)
@@ -139,7 +147,8 @@ namespace MicroFinance
                     LoginBorder.Visibility = Visibility.Collapsed;
                     mainframe.NavigationService.Navigate(new DashboardFieldOfficer());
                     LoggedInState();
-                    MainWindow.StatusMessageofPage(1, "Ready...");
+                    message = language.translate(SystemFunction.IsTamil, "W1");//Ready…
+                    MainWindow.StatusMessageofPage(1, message);
                 }
                 else if (power.Equals("ACCOUNTANT"))
                 {
@@ -147,27 +156,31 @@ namespace MicroFinance
                     // mainframe.NavigationService.Navigate(new DashboardAccountant());
                     mainframe.NavigationService.Navigate(new DashboardBranchManager());
                     LoggedInState();
-                    MainWindow.StatusMessageofPage(1, "Ready...");
+                    message = language.translate(SystemFunction.IsTamil, "W1");//Ready…
+                    MainWindow.StatusMessageofPage(1, message);
                 }
                 else if (power.Equals("MANAGER"))
                 {
                     LoginBorder.Visibility = Visibility.Collapsed;
                     mainframe.NavigationService.Navigate(new DashboardBranchManager());
                     LoggedInState();
-                    MainWindow.StatusMessageofPage(1, "Ready...");
+                    message = language.translate(SystemFunction.IsTamil, "W1");//Ready…
+                    MainWindow.StatusMessageofPage(1, message);
                 }
                 else if (power.Equals("REGION MANAGER"))
                 {
                     LoginBorder.Visibility = Visibility.Collapsed;
                     mainframe.NavigationService.Navigate(new DashBoardRegionOfficer());
                     LoggedInState();
-                    MainWindow.StatusMessageofPage(1, "Ready...");
+                    message = language.translate(SystemFunction.IsTamil, "W1");//Ready…
+                    MainWindow.StatusMessageofPage(1, message);
                 }
                 HomeBtn.Visibility = Visibility.Visible;
             }
             catch
             {
-                StatusMessageofPage(0, "Please Enter a Valid Username and Password.....");
+                message = language.translate(SystemFunction.IsTamil, "L1");
+                StatusMessageofPage(0, message);//Please Enter a Valid Username and Password.....
             }
         }
 
@@ -195,9 +208,11 @@ namespace MicroFinance
             {
                 if (xNewPassword1.Text != xNewPassword2.Text)
                 {
-                    MessageBox.Show("Password does not Matching. Please ReEnter..!");
+                    message = language.translate(SystemFunction.IsTamil, "L2");//Password does not Matching. Please ReEnter..!
+                    MessageBox.Show(message);
                 }
-                MessageBox.Show("This is not your mobile number.");
+                message = language.translate(SystemFunction.IsTamil, "L3");//"This is not your mobile number."
+                MessageBox.Show(message);
             }
             else
             {
@@ -208,7 +223,8 @@ namespace MicroFinance
                 xNewPassword1.Clear();
                 xPassword.Clear();
                 xSetNewPasswordPopUP.Visibility = Visibility.Collapsed;
-                MessageBox.Show("Password changed Sucessfully.");
+                message = language.translate(SystemFunction.IsTamil, "L4");//Password changed Sucessfully.
+                MessageBox.Show(message);
             }
         }
 
@@ -301,6 +317,19 @@ namespace MicroFinance
                 mainframe.NavigationService.Navigate(new DashBoardRegionOfficer());
             else
                 mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
+        }
+
+        private void TamilCheckbox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox box = sender as CheckBox;
+            if(box.IsChecked==true)
+            {
+                SystemFunction.IsTamil = true;
+            }
+            else if(box.IsChecked==false)
+            {
+                SystemFunction.IsTamil = false;
+            }
         }
     }
 }

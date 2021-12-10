@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using MicroFinance.ViewModel;
 using MicroFinance.Modal;
 using System.Collections.ObjectModel;
+using MicroFinance.Utils;
 
 namespace MicroFinance
 {
@@ -23,6 +24,8 @@ namespace MicroFinance
     /// </summary>
     public partial class HimarkResultView : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         List<HimarkResultModel> ResultList = new List<HimarkResultModel>();
         List<CustomerHimarkDataModel> CustomerData = new List<CustomerHimarkDataModel>();
         ObservableCollection<HimarkResultExcelModel> HimarkDataList = new ObservableCollection<HimarkResultExcelModel>();
@@ -64,7 +67,8 @@ namespace MicroFinance
                     GifPanel.Visibility = Visibility.Visible;
                     await System.Threading.Tasks.Task.Run(() => LoanRepository.InsertHimarkData(HimarkDataList));
                     GifPanel.Visibility = Visibility.Collapsed;
-                    MainWindow.StatusMessageofPage(1, FileName + " Upload SuccessFully.");
+                    message = language.translate(SystemFunction.IsTamil, "SA28");//Upload SuccessFully.
+                    MainWindow.StatusMessageofPage(1, FileName + message);
                 }
                 catch(Exception ex)
                 {
@@ -75,7 +79,8 @@ namespace MicroFinance
             }
             else
             {
-                MessageBox.Show("This File Already Upload!..", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                message = language.translate(SystemFunction.IsTamil, "AE8");//This File Already Upload!..
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -95,8 +100,8 @@ namespace MicroFinance
                     sb.Append(HM.AadharNumber + ", ");
                 }
             }
-
-            string Message = "Error Data or Mis-Match Data in Given File\n\n" + sb.ToString();
+            message = language.translate(SystemFunction.IsTamil, "W20");//Error Data or Mis-Match Data in Given File
+            string Message = message + sb.ToString();
             MessageBox.Show(Message, "Error Data's (Aadhar Number)", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }

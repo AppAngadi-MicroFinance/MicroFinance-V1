@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Utils;
 using MicroFinance.ViewModel;
 
 namespace MicroFinance
@@ -27,7 +28,8 @@ namespace MicroFinance
         public static List<int> Minutes = new List<int>() {0,30};
         public static ObservableCollection<EmployeeViewModel> EmployeeList = new ObservableCollection<EmployeeViewModel>();
         public static List<EmployeeViewModel> NewEmployees = new List<EmployeeViewModel>();
-
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public static string EmpName = string.Empty;
 
 
@@ -88,7 +90,8 @@ namespace MicroFinance
             bool Result = EmployeeRepository.IsAlreadyHaveShedule(SHG);
             if(Result)
             {
-                MessageBox.Show("This Time Already Assign To this Employee Select Another Time!...");
+                message = language.translate(SystemFunction.IsTamil, "AE5");//This Time Already Assign To this Employee Select Another Time!...
+                MessageBox.Show(message);
             }
             else
             {
@@ -131,7 +134,8 @@ namespace MicroFinance
             }
             else
             {
-                MessageBox.Show("Please Select The Employee");
+                message = language.translate(SystemFunction.IsTamil, "W3");//Please Select The Employee
+                MessageBox.Show(message);
             }
             
         }

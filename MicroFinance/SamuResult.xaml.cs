@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Utils;
 using MicroFinance.ViewModel;
 
 namespace MicroFinance
@@ -22,6 +23,9 @@ namespace MicroFinance
     /// </summary>
     public partial class SamuResult : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
+
         ObservableCollection<SamuReportView> ResultList = new ObservableCollection<SamuReportView>();
         public SamuResult()
         {
@@ -78,7 +82,8 @@ namespace MicroFinance
             List<SamuReportView> Finallist = new List<SamuReportView>();
             if(SamuRepository.IsFileAlreadyExists(FilenameText.Text))
             {
-                MainWindow.StatusMessageofPage(0, "File Already Exists!...");
+                message = language.translate(SystemFunction.IsTamil, "AE13");//
+                MainWindow.StatusMessageofPage(0, message);
             }
             else
             {

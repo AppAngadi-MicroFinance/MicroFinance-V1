@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using MicroFinance.Modal;
 using MicroFinance.Reports;
 using MicroFinance.Repository;
+using MicroFinance.Utils;
 using MicroFinance.ViewModel;
 using Microsoft.Win32;
 
@@ -33,6 +34,8 @@ namespace MicroFinance
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         public List<string> dummylist = new List<string> { "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh", "Ashraf Ali", "Safdhar", "Sasi", "Thalif", "Santhosh" };
         LoanProcess loanProcess = new LoanProcess();
         //string BranchId = MainWindow.LoginDesignation.BranchId;
@@ -134,13 +137,15 @@ namespace MicroFinance
             {
                 himarkReport = new HiMark();
                 himarkReport.hiMarksList = Himarklist;
-               // himarkReport.createHimarkXls();
-                MainWindow.StatusMessageofPage(1, "Excel Export Successfully... Location: Doucuments\\Reports\\Hi-Mark Report");
+                // himarkReport.createHimarkXls();
+                message = language.translate(SystemFunction.IsTamil, "SA25");//Excel Export Successfully....
+                MainWindow.StatusMessageofPage(1, message+"Location: Doucuments\\Reports\\Hi-Mark Report");
                 HimarkExportPanel.Visibility = Visibility.Collapsed;
             }
             catch
             {
-                MainWindow.StatusMessageofPage(0, "Error Occured");
+                message = language.translate(SystemFunction.IsTamil, "W7");//Error Occured
+                MainWindow.StatusMessageofPage(0, message);
             }
         }
 
@@ -162,15 +167,16 @@ namespace MicroFinance
                 {
                     List<HimarkResultModel> resultList = new List<HimarkResultModel>();
                     resultList = HmResultList.GetFileDetails(FileFrom);
-                   
-                   // LoanHimarkData(resultList);
-                   
-                    MainWindow.StatusMessageofPage(1, "File Upload Successfully!...");
+
+                    // LoanHimarkData(resultList);
+                    message = language.translate(SystemFunction.IsTamil, "SA14");//File Upload Successfully!...
+                    MainWindow.StatusMessageofPage(1, message);
 
                 }
                 else
                 {
-                    MainWindow.StatusMessageofPage(0, "This File Already Upload Please Check!...");
+                    message = language.translate(SystemFunction.IsTamil, "AE9");//This File Already Upload Please Check!...
+                    MainWindow.StatusMessageofPage(0, message);
                 }
                 
 
@@ -235,7 +241,8 @@ namespace MicroFinance
 
                     if (EnrollDetails.Count == 0)
                     {
-                        string Message = string.Format("No Enroll Found Betweeen {0} to {1}.", StartDate.ToString("dd-MMM-yyyy"), EndDate.ToString("dd-MMM-yyyy"));
+                        message = language.translate(SystemFunction.IsTamil, "O1");//No Enroll Found Betweeen {0} to {1}.
+                        string Message = string.Format(message, StartDate.ToString("dd-MMM-yyyy"), EndDate.ToString("dd-MMM-yyyy"));
                         MessageBox.Show(Message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
@@ -245,7 +252,8 @@ namespace MicroFinance
                 }
                 else
                 {
-                    MessageBox.Show("Enter Proper Date!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    message = language.translate(SystemFunction.IsTamil, "W7");//Enter Proper Date!...
+                    MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
             }

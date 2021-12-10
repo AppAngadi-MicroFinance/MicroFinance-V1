@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
+using MicroFinance.Utils;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -22,6 +24,8 @@ namespace MicroFinance
     /// </summary>
     public partial class LoanAfterHimark : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         LoanProcess loanprocess = new LoanProcess();
         string BranchID = MainWindow.LoginDesignation.BranchId;
         public List<LoanProcess> RecommendList = new List<LoanProcess>();
@@ -130,7 +134,8 @@ namespace MicroFinance
             Custlist.Items.Refresh();
             if(loan.IsAlreadyApproved(ID))
             {
-                MainWindow.StatusMessageofPage(1, "Loan Already Approved!...");
+                message = language.translate(SystemFunction.IsTamil, "AE12");//Loan Already Approved!...
+                MainWindow.StatusMessageofPage(1, message);
             }
             else
             {
@@ -139,7 +144,8 @@ namespace MicroFinance
                 loan.ApprovedBy = ApprovedBy;
                 loan.RequestApproval(ID);
                 RemoveItem(ID);
-                MainWindow.StatusMessageofPage(1, "Loan Approved Successfully...");
+                message = language.translate(SystemFunction.IsTamil, "SA16");//Loan Approved Successfully...
+                MainWindow.StatusMessageofPage(1, message);
             }
             
             
@@ -189,7 +195,8 @@ namespace MicroFinance
                 loanprocess.ChangeLoanStatus(lp.LoanRequestID, 9);
                 Count++;
             }
-            MainWindow.StatusMessageofPage(1, Count.ToString() + " Loan(s) Recommend Successfully!...");
+            message = language.translate(SystemFunction.IsTamil, "SA16");//Loan(s) Approved Successfully!...
+            MainWindow.StatusMessageofPage(1, Count.ToString() + message);
             this.NavigationService.Navigate(new DashBoardHeadOfficer());
         }
     }

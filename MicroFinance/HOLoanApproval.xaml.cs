@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
 using MicroFinance.Reports;
+using MicroFinance.Utils;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -23,6 +25,8 @@ namespace MicroFinance
     /// </summary>
     public partial class HOLoanApproval : Page
     {
+        public static LanguageSelector language = new LanguageSelector();
+        public static string message;
         LoanProcess loanprocess = new LoanProcess();
         SUMAtoHO Suma = new SUMAtoHO();
         List<SUMAtoHO> SumaApprovalList = new List<SUMAtoHO>();
@@ -132,7 +136,8 @@ namespace MicroFinance
             loanprocess.ApproveLoan(ID, Data);
             //AddtoApprovalList(ID);
             RemoveItemFromList(ID);
-            MainWindow.StatusMessageofPage(1, "Loan Approved SuccessFully!..");
+            message = language.translate(SystemFunction.IsTamil, "SA16");//Loan Approved SuccessFully!..
+            MainWindow.StatusMessageofPage(1,message);
         }
 
 
@@ -205,11 +210,13 @@ namespace MicroFinance
             try
             {
                 neft.GenerateNEFT_File(ApprovedCustomerList);
-                MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
+                message = language.translate(SystemFunction.IsTamil, "SA17");//Excel Generated Successfully!...
+                MainWindow.StatusMessageofPage(1, message);
             }
             catch (Exception ex)
             {
-                MainWindow.StatusMessageofPage(0, "Error!");
+                message = language.translate(SystemFunction.IsTamil, "W10");//Error
+                MainWindow.StatusMessageofPage(0, message);
 
             }
         }
@@ -230,7 +237,8 @@ namespace MicroFinance
                 loanprocess.ApproveLoan(ID,Data);
                 Count++;
             }
-            MainWindow.StatusMessageofPage(1, Count.ToString() + " Loan(s) Approved Successfully!...");
+            message = language.translate(SystemFunction.IsTamil, "SA16");//Loan(s) Approved Successfully!...
+            MainWindow.StatusMessageofPage(1, Count.ToString() + message);
             BulkApprovalBtn.Visibility = Visibility.Collapsed;
         
         }
