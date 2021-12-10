@@ -183,7 +183,9 @@ namespace MicroFinance
             }
             else
             {
-                MessageBoxResult result= MessageBox.Show("This Employee Assign in Various Group Please Check\n Click -Yes- to Check","Warning",MessageBoxButton.YesNo,MessageBoxImage.Warning);
+                message = language.translate(SystemFunction.IsTamil, "W26");//This Employee Assign in Various Group Please Check
+                string message1 = language.translate(SystemFunction.IsTamil, "W27");//Click -Yes- to Check"
+                MessageBoxResult result= MessageBox.Show(message+"\n"+ message1 ,"Warning",MessageBoxButton.YesNo,MessageBoxImage.Warning);
                 if(MessageBoxResult.Yes==result)
                 {
                     this.NavigationService.Navigate(new AssignCenter(selectedEmployee.EmployeeId));

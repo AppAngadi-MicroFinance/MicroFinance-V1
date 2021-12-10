@@ -712,6 +712,24 @@
     <Text>நீங்கள் நிச்சயமாக தொடர விரும்புகிறீர்களா.</Text>
   </Tamil>
 
+  <English>
+    <id>W26</id>
+    <Text>This Employee Assign in Various Group Please Check</Text>
+  </English>
+  <Tamil>
+    <id>W26</id>
+    <Text>இந்த ஊழியர் பல்வேறு குழுக்களில் பணிபுரிகிறார் என்பதை சரிபார்க்கவும்</Text>
+  </Tamil>
+
+  <English>
+    <id>W27</id>
+    <Text>Click -Yes- to Check</Text>
+  </English>
+  <Tamil>
+    <id>W27</id>
+    <Text>சரிபார்க்க - ஆம்- என்பதைக் கிளிக் செய்யவும்</Text>
+  </Tamil>
+
   <!--Select Warning Messages-->
 
   <English>
