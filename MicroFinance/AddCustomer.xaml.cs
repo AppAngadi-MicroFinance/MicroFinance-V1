@@ -1507,8 +1507,10 @@ namespace MicroFinance
             {
                 if (Age <= 18 || Age >= 59)
                 {
-                    MessageBoxResult Result = MessageBox.Show("This User is Not Valid!...\n(The " +
-                        "Age Range Between 18-65)\n Are You Sure You Want To Continue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    message = language.translate(SystemFunction.IsTamil, "W23");//This User is Not Valid!...
+                    string message1 = language.translate(SystemFunction.IsTamil, "W22");//(The Age Range Between 18-65)
+                    string message2 = language.translate(SystemFunction.IsTamil, "W23");//Are You Sure You Want To Continue.
+                    MessageBoxResult Result = MessageBox.Show(message+"\n"+message1+"\n "+message2, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
                 
@@ -1686,8 +1688,10 @@ namespace MicroFinance
             {
                 if (Age <= 18 || Age > 65)
                 {
-                    MessageBoxResult Result = MessageBox.Show("This User is Not Valid!...\n(The " +
-                        "Age Range Between 18-65)\n Are You Sure You Want To Continue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                   message = language.translate(SystemFunction.IsTamil, "W23");//This User is Not Valid!...
+                    string message1 = language.translate(SystemFunction.IsTamil, "W22");//(The Age Range Between 18-65)
+                    string message2 = language.translate(SystemFunction.IsTamil, "W23");//Are You Sure You Want To Continue.
+                    MessageBoxResult Result = MessageBox.Show(message+"\n"+message1+"\n "+message2, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }            
         }
@@ -2020,8 +2024,10 @@ namespace MicroFinance
             {
                 if (Age <= 18 || Age > 59)
                 {
-                    MessageBoxResult Result = MessageBox.Show("This User is Not Valid!...\n(The " +
-                        "Age Range Between 18-59)\n Are You Sure You Want To Continue.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    message = language.translate(SystemFunction.IsTamil, "W23");//This User is Not Valid!...
+                    string message1 = language.translate(SystemFunction.IsTamil, "W22");//(The Age Range Between 18-65)
+                    string message2 = language.translate(SystemFunction.IsTamil, "W23");//Are You Sure You Want To Continue.
+                    MessageBoxResult Result = MessageBox.Show(message + "\n" + message1 + "\n " + message2, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
             }

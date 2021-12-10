@@ -484,9 +484,6 @@
   </Tamil>
 
   
-
-  
-  
   
   <!--Warning Messages-->
 
@@ -687,7 +684,33 @@
     <id>W22</id>
     <Text>இந்தத் தகவல் இல்லாமல் ஒரு பணியாளரை உருவாக்க விரும்புகிறீர்களா?</Text>
   </Tamil>
+
+  <English>
+    <id>W23</id>
+    <Text>This User is Not Valid!...</Text>
+  </English>
+  <Tamil>
+    <id>W23</id>
+    <Text>இந்த பயனர் செல்லுபடியாகவில்லை!...</Text>
+  </Tamil>
   
+  <English>
+    <id>W24</id>
+    <Text>(The Age Range Between 18-65)</Text>
+  </English>
+  <Tamil>
+    <id>W24</id>
+    <Text>(வயது வரம்பு 18-65 க்கு இடையில்)</Text>
+  </Tamil>
+
+  <English>
+    <id>W25</id>
+    <Text>Are You Sure You Want To Continue.</Text>
+  </English>
+  <Tamil>
+    <id>W25</id>
+    <Text>நீங்கள் நிச்சயமாக தொடர விரும்புகிறீர்களா.</Text>
+  </Tamil>
 
   <!--Select Warning Messages-->
 
