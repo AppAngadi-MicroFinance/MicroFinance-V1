@@ -555,7 +555,7 @@ namespace MicroFinance
                 else if (CustomerValidation() == false)
                 {
                     MainWindow.StatusMessageofPage(0, "Please Enter Require Fields....");
-                    Thread.Sleep(10000);
+                    //Thread.Sleep(10000);
                     MainWindow.StatusMessageofPage(1, "Ready...");
                 }
                 else if(LoanDetailsValidation()==false)

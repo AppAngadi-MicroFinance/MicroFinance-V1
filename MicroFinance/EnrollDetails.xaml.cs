@@ -124,7 +124,7 @@ namespace MicroFinance
             {
                 if(employee.BranchId==BranchID)
                 {
-                   //Employees.Add(employee);
+                    //Employees.Add(employee);
                     EmployeeCombo.Items.Add(employee);
                 }
             }
