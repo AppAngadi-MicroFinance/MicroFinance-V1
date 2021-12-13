@@ -1814,7 +1814,8 @@ namespace MicroFinance
 
         private void CancelVerify_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            this.NavigationService.GoBack();
+           
         }
 
         private void CustNameofAddresProof_SelectionChanged(object sender, SelectionChangedEventArgs e)

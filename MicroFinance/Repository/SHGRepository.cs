@@ -46,7 +46,7 @@ namespace MicroFinance.Repository
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
                     sqlcomm.CommandText = "select count(*) from SelfHelpGroup where SHGName='"+SHGDetails.SHGName+"'";
-                    int res = sqlcomm.ExecuteNonQuery();
+                    int res =(int) sqlcomm.ExecuteScalar();
                     if (res == 0)
                     {
                         return false;
