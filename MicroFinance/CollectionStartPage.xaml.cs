@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -21,64 +25,159 @@ namespace MicroFinance
     /// </summary>
     public partial class CollectionStartPage : Page
     {
+        ObservableCollection<EmployeeViewModel> Employees = new ObservableCollection<EmployeeViewModel>();
+        List<TimeTableViewModel> CenterList = new List<TimeTableViewModel>();
+        ObservableCollection<CollectionEntryView> CollectionDetails = new ObservableCollection<CollectionEntryView>();
+        ObservableCollection<TimeTableViewModel> BindingCenterList = new ObservableCollection<TimeTableViewModel>();
         public CollectionStartPage()
         {
             InitializeComponent();
-            DateBox.SelectedDate = DateTime.Today;
-            GetDetails();
-        }
-        void GetDetails()
-        {
-            string _officerBranchId = MainWindow.LoginDesignation.BranchId;
-            string _officerEmpId = MainWindow.LoginDesignation.EmpId;
-            string[] _branchName = new string[1];
-            string[] _officerName = new string[1];
-            string[] _regionName = new string[1];
-            List<string> SelfHelpGroupList = new List<string>();
-            using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
-            {
-                sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand();
-                sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "select BranchName,RegionName from BranchDetails where BranchDetails.Bid='" + _officerBranchId + "'";
-                SqlDataReader sqlData = sqlCommand.ExecuteReader();
-                while (sqlData.Read())
-                {
-                    _branchName[0] = sqlData.GetString(0);
-                    _regionName[0] = sqlData.GetString(1);
-                }
-                sqlData.Close();
-                sqlCommand.CommandText = "select Name from Employee where EmpId='" + _officerEmpId + "'";
-                _officerName[0] = sqlCommand.ExecuteScalar().ToString();
-                sqlCommand.CommandText = "select SHGName from SelfHelpGroup join TimeTable on TimeTable.SHGId = SelfHelpGroup.SHGId where EmpId = '"+_officerEmpId+"'";
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                while (sqlDataReader.Read())
-                {
-                    SelfHelpGroupList.Add(sqlDataReader.GetString(0));
-                }
-                sqlDataReader.Close();
-                sqlConnection.Close();
-            }
-            BranchBox.ItemsSource = _branchName; BranchBox.SelectedIndex = 0;
-            FieldOfficerBox.ItemsSource = _officerName; FieldOfficerBox.SelectedIndex = 0;
-            SHGBox.ItemsSource = SelfHelpGroupList;
+
+            LoadData();
+            EmployeeNameCombo.SelectedIndex = SelectedEmployee();
+            CenterNameCombo.ItemsSource = BindingCenterList;
         }
 
-        private void EnterBtn_Click(object sender, RoutedEventArgs e)
+
+        void LoadData()
         {
-            string _branchName = BranchBox.Text;
-            string _shgName = SHGBox.Text;
-            DateTime _date =(DateTime)DateBox.SelectedDate;
-            string _day = _date.DayOfWeek.ToString();
-            String _regionName = MainWindow.LoginDesignation.RegionName;
+            LoadEmployee();
+            EmployeeNameCombo.ItemsSource = Employees;
+            SelectedEmployee();
+            CenterList = MainWindow.BasicDetails.CenterList;
+        }
+
+
+        void LoadCenters(string EmpId,string CollectionDay)
+        {
+            BindingCenterList.Clear();
+            foreach(TimeTableViewModel center in CenterList)
+            {
+                if(center.EmpId==EmpId&&center.CollectionDay==CollectionDay)
+                {
+                    BindingCenterList.Add(center);
+                }
+            }
+        }
+
+
+        void LoadEmployee()
+        {
+            foreach(EmployeeViewModel employee in MainWindow.BasicDetails.EmployeeList)
+            {
+                if(employee.BranchId==MainWindow.LoginDesignation.BranchId && employee.Designation=="Field Officer")
+                {
+                    Employees.Add(employee);
+                }
+            }
+        }
+
+        int SelectedEmployee()
+        {
+            int Count = 0;
+            foreach (EmployeeViewModel employee in Employees)
+            {
+                if(employee.EmployeeId==MainWindow.LoginDesignation.EmpId)
+                {
+                    return Count; 
+                }
+                Count++;
+            }
+            return -1;
+        }
+
+        
+
+        
+        
+
+
+        async Task LoadCollectionlist(string EmpId, string collectionday, string groupid)
+        {
             
-            NavigationService.GetNavigationService(this).Navigate(new CollectionEntry(_branchName,_shgName,_date.ToShortDateString(),_day));
+            string url1 = "http://examsign-001-site4.itempurl.com/api/Collectiondetails";
+           // string url1 = "http://localhost:44357/api/Collectiondetails";
+            var values1 = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("empid",EmpId),
+                    new KeyValuePair<string, string>("collectionday",collectionday),
+                    new KeyValuePair<string, string>("groupid",groupid),
+                };
+            HttpClient client1 = new HttpClient();
+            HttpResponseMessage response1 = new HttpResponseMessage();
+            response1 = await client1.PostAsync(url1, new FormUrlEncodedContent(values1));
+            if (response1.IsSuccessStatusCode)
+            {
+                var result = await response1.Content.ReadAsStringAsync();
+                var status = JsonConvert.DeserializeObject<ObservableCollection<CollectionEntryView>>(result);
+
+                CollectionDetails = status;
+
+               
+            }
+
+            
         }
 
         private void xBackwardButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.NavigationService.CanGoBack)
                 this.NavigationService.GoBack();
+        }
+
+        private async void ContinueBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(EmployeeNameCombo.SelectedIndex!=-1 && CollectionDayCombo.SelectedIndex!=-1&&CenterNameCombo.SelectedIndex!=-1)
+            {
+                ComboBoxItem SelectedItem = CollectionDayCombo.SelectedItem as ComboBoxItem;
+                string CollectionDay = SelectedItem.Content.ToString();
+                EmployeeViewModel SelectedEmployee = EmployeeNameCombo.SelectedItem as EmployeeViewModel;
+                string EmpId = SelectedEmployee.EmployeeId;
+                TimeTableViewModel SelectedSHG = CenterNameCombo.SelectedItem as TimeTableViewModel;
+                string CenterID = SelectedSHG.SHGId;
+                try
+                {
+                    GifPanel.Visibility = Visibility.Visible;
+                    await LoadCollectionlist(EmpId, CollectionDay, CenterID);
+                    GifPanel.Visibility = Visibility.Collapsed;
+                    if(CollectionDetails.Count!=0)
+                    {
+                        this.NavigationService.Navigate(new CollectionEntryNew(CollectionDetails, SelectedSHG.SHGName));
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Collection Available in this Center", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                   
+                }
+                catch
+                {
+
+                }
+
+                
+
+               
+            }
+            
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new DashboardFieldOfficer());
+        }
+
+        private void CollectionDayCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(CollectionDayCombo.SelectedIndex!=-1)
+            {
+                ComboBoxItem SelectedItem = CollectionDayCombo.SelectedItem as ComboBoxItem;
+                string CollectionDay = SelectedItem.Content.ToString();
+                EmployeeViewModel SelectedEmployee = EmployeeNameCombo.SelectedItem as EmployeeViewModel;
+                string EmpId = SelectedEmployee.EmployeeId;
+
+                LoadCenters(EmpId, CollectionDay);
+            }
         }
     }
 }

@@ -1,8 +1,12 @@
 ﻿using MicroFinance.Modal;
+using MicroFinance.ViewModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,6 +28,8 @@ namespace MicroFinance
     {
 
         List<DenominationModel> Dlist = new List<DenominationModel>();
+        ObservableCollection<CollectionEntryView> CollectionEntryDetails = new ObservableCollection<CollectionEntryView>();
+        string CenterName = "";
         int initialAmt = 0;
         Button btn;
         public DenominationPage()
@@ -40,6 +46,20 @@ namespace MicroFinance
             CenterBlock.Text = CenterName;
             DateBlock.Text = Date.ToString("yyyy-MM-dd");
             DayBlock.Text = Date.DayOfWeek.ToString();
+            AddBasic();
+            DenominationList.ItemsSource = Dlist;
+        }
+        public DenominationPage(ObservableCollection<CollectionEntryView> CollectionDetails,string centerName)
+        {
+           
+           
+            InitializeComponent();
+            initialAmt = CollectionDetails.Select(temp => temp.Total).Sum();
+            CenterName = centerName;
+            CollectionEntryDetails = CollectionDetails;
+            TotalAmount.Text = initialAmt.ToString("C");
+           
+            
             AddBasic();
             DenominationList.ItemsSource = Dlist;
         }
@@ -91,20 +111,33 @@ namespace MicroFinance
             return total;
         }
         public bool  AlreadyEntered = false;
-        private void SaveDenomination_Click(object sender, RoutedEventArgs e)
+        private async void SaveDenomination_Click(object sender, RoutedEventArgs e)
         {
             if(_checkIsValid)
             {
-                btn.IsEnabled = true;
-                AlreadyEntered = true;
-                NavigationService.GoBack();
+                //btn.IsEnabled = true;
+                //AlreadyEntered = true;
+                //NavigationService.GoBack();
+                try
+                {
+                    GifPanel.Visibility = Visibility.Visible;
+                    await SubmitCollection();
+                    GifPanel.Visibility = Visibility.Collapsed;
+                    MessageBox.Show("Collection Added SuccessFully!...", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.NavigationService.Navigate(new DashboardFieldOfficer());
+                }
+                catch(Exception)
+                {
+                    MessageBox.Show("Error Occur!...", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+               
             }
             else
             {
                 MainWindow.StatusMessageofPage(0, "Please Check Denomination and Enter Correct Denomination.....");
             }
         }
-        public void InsertDenomination()
+        public DenominationView InsertDenomination()
         {
             string _branchId = MainWindow.LoginDesignation.BranchId;
             string _regionName = MainWindow.LoginDesignation.RegionName;
@@ -120,19 +153,109 @@ namespace MicroFinance
             string _five = Dlist[7].Multiples;
             string _two = Dlist[8].Multiples;
             string _one = Dlist[9].Multiples;
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "insert into DenominationTable values('" + _regionName + "','" + _branchId + "','" + _date + "','" + _empId + "'," + _twoThousand + "," + _fiveHundred + "," + _twoHundred + "," + _hundred + "," + _fifty + "," + _twenty + "," + _ten + "," + _five + "," + _two + "," + _one + "," + initialAmt + ",'" + CenterBlock.Text + "',0)";
-                command.ExecuteNonQuery();
-            }
+            //using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.DBConnection))
+            //{
+            //    connection.Open();
+            //    SqlCommand command = new SqlCommand();
+            //    command.Connection = connection;
+            //    command.CommandText = "insert into DenominationTable values('" + _regionName + "','" + _branchId + "','" + _date + "','" + _empId + "'," + _twoThousand + "," + _fiveHundred + "," + _twoHundred + "," + _hundred + "," + _fifty + "," + _twenty + "," + _ten + "," + _five + "," + _two + "," + _one + "," + initialAmt + ",'" + CenterBlock.Text + "',0)";
+            //    command.ExecuteNonQuery();
+            //}
+
+            DenominationView denomination = new DenominationView();
+            denomination.RegionName = _regionName;
+            denomination.BId = _branchId;
+            denomination.EmpId = _empId;
+            denomination.CollectionDate = DateTime.Today;
+            denomination.TwoThousand = int.Parse(_twoThousand);
+            denomination.FiveHundred =int.Parse(_fiveHundred);
+            denomination.TwoHundred = int.Parse(_twoHundred);
+            denomination.Hundred = int.Parse(_hundred);
+            denomination.Fifty = int.Parse(_fifty);
+            denomination.Twenty = int.Parse(_twenty);
+            denomination.Ten = int.Parse(_ten);
+            denomination.Five = int.Parse(_five);
+            denomination.Two = int.Parse(_two);
+            denomination.One = int.Parse(_one);
+            denomination.SHGName = CenterName;
+            denomination.TotalCollection = initialAmt;
+            return denomination;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+
+
+        public void AddCollectionDetails()
+        {
+
+        }
+
+        async Task SubmitCollection()
+        {
+            List<CollectionEntryView> collectiondetaillist = new List<CollectionEntryView>();
+            foreach (var item in CollectionEntryDetails)
+            {
+                collectiondetaillist.Add(new CollectionEntryView
+                {
+                    SecurityDeposite = item.SecurityDeposite,
+                    ActualDue = item.ActualDue,
+                    ActualPaymentDate = item.ActualPaymentDate,
+                    CollectedBy = item.CollectedBy,
+                    CollectedOn = DateTime.Today,
+                    Attendance = item.Attendance,
+                    Balance = item.Balance,
+                    BranchId = item.BranchId,
+                    CustId = item.CustId,
+                    CustomerName = item.CustomerName,
+                    Extras = item.Extras,
+                    Principal = item.Principal,
+                    Interest = item.Interest,
+                    LoanId = item.LoanId,
+                    PaidDue = item.PaidDue,
+                    Total = item.Total
+                });
+            }
+            var json = JsonConvert.SerializeObject(collectiondetaillist);
+            var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+            string url1 = "http://examsign-001-site4.itempurl.com/api/CollectionEntry";
+
+
+            HttpClient client1 = new HttpClient();
+            HttpResponseMessage response1 = new HttpResponseMessage();
+            response1 = await client1.PostAsync(url1, stringContent);
+            
+
+            if (response1.IsSuccessStatusCode)
+            {
+                var result = await response1.Content.ReadAsStringAsync();
+
+                await SubmitDenamination(InsertDenomination());
+
+            }
+        }
+        async Task SubmitDenamination(DenominationView denomination)
+        {
+            DenominationView Denomination = denomination;
+            var jsondata = JsonConvert.SerializeObject(Denomination);
+            var stringContent = new StringContent(jsondata, UnicodeEncoding.UTF8, "application/json");
+            string url1 = "http://examsign-001-site4.itempurl.com/api/AddDenomination";
+
+
+            HttpClient client1 = new HttpClient();
+            HttpResponseMessage response1 = new HttpResponseMessage();
+            response1 = await client1.PostAsync(url1, stringContent);
+
+
+            if (response1.IsSuccessStatusCode)
+            {
+                var result = await response1.Content.ReadAsStringAsync();
+
+
+            }
         }
     }
 }

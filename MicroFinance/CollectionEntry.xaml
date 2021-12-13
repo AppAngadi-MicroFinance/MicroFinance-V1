@@ -115,7 +115,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate >
-                                <Grid Width="1050" Height="40" >
+                                <Grid Width="1050" Height="40">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="50"/>
                                         <ColumnDefinition Width="110"/>

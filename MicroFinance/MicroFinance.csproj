@@ -62,6 +62,9 @@
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PasswordHassing">
       <HintPath>F:\PasswordHassing\PasswordHassing\bin\Debug\PasswordHassing.dll</HintPath>
     </Reference>
@@ -125,6 +128,9 @@
     </Compile>
     <Compile Include="CollectionEntry.xaml.cs">
       <DependentUpon>CollectionEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CollectionEntryNew.xaml.cs">
+      <DependentUpon>CollectionEntryNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="CollectionReportNew.xaml.cs">
       <DependentUpon>CollectionReportNew.xaml</DependentUpon>
@@ -316,12 +322,15 @@
     <Compile Include="ViewModel\BankDetailsView.cs" />
     <Compile Include="ViewModel\BranchViewModel.cs" />
     <Compile Include="ViewModel\CenterViewModel.cs" />
+    <Compile Include="ViewModel\CollectionEntryBindingModal.cs" />
+    <Compile Include="ViewModel\CollectionEntryView.cs" />
     <Compile Include="ViewModel\CollectionReportRepo.cs" />
     <Compile Include="ViewModel\CollectionReportView.cs" />
     <Compile Include="Repository\EmployeeRepository.cs" />
     <Compile Include="ViewModel\CustomerHimarkDataModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\DateModel.cs" />
+    <Compile Include="ViewModel\DenominationView.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\EnrollDetailsView.cs" />
     <Compile Include="ViewModel\HimarkRepository.cs" />
@@ -375,6 +384,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CollectionEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CollectionEntryNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

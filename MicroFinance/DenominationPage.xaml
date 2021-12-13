@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MicroFinance"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
       d:DesignHeight="630" d:DesignWidth="1366" Background="#FEF2E4"
       Title="DenominationPage">
@@ -13,6 +14,10 @@
             <RowDefinition Height="15*"/>
             <RowDefinition Height="75*"/>
         </Grid.RowDefinitions>
+        <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="3">
+
+            <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
+        </StackPanel>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
@@ -27,20 +32,20 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
                 <TextBlock Text="Branch Name : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                 <TextBlock x:Name="BranchBlock" Style="{StaticResource Regular}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Visibility="Collapsed">
                 <TextBlock Text="Center Name : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                 <TextBlock x:Name="CenterBlock" Style="{StaticResource Regular}"/>
             </StackPanel>
             <TextBlock Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Text="Denomination" Style="{StaticResource SubTitle}" HorizontalAlignment="Center"/>
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" Visibility="Collapsed">
                 <TextBlock Text="Date : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                 <TextBlock x:Name="DateBlock"  Style="{StaticResource NumberRegular}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,43,0">
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,43,0" Visibility="Collapsed">
                 <TextBlock Text="Day : " Style="{StaticResource Regular}" FontWeight="Bold"/>
                 <TextBlock x:Name="DayBlock" Style="{StaticResource Regular}"/>
             </StackPanel>

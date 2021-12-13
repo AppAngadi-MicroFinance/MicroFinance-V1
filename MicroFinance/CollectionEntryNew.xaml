@@ -1,0 +1,123 @@
+﻿<Page x:Class="MicroFinance.CollectionEntryNew"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      xmlns:convert="clr-namespace:MicroFinance.Converters"
+      mc:Ignorable="d" 
+      
+      Title="CollectionEntryNew">
+    <Page.Resources>
+        <convert:MoneyConverter x:Key="MoneyConvert"/>
+        <convert:PresentCheck x:Key="PCheck"/>
+        <convert:AbsentCheck x:Key="ACheck"/>
+        <convert:LeaveCheck x:Key="LCheck"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Collection Entry" Style="{StaticResource Title}" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+            <TextBlock Text="Center Name : " Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource SubTitle}"></TextBlock>
+            <TextBlock Text="Thilli Nagar" Style="{StaticResource SubTitle}" x:Name="CenterNameText"></TextBlock>
+        </StackPanel>
+                <Separator Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom"></Separator>
+        <DataGrid Grid.Row="1" Grid.Column="1" MaxWidth="1300" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" Background="Transparent" ColumnHeaderHeight="40" MaxHeight="500" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False" x:Name="CollectionGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="S.No" Width="0.2*" Binding="{Binding SNO}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Customer Name" Width="1*" Binding="{Binding CustomerName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Loan Type" Visibility="Collapsed" Width="0.5*" Binding="{Binding LoanType}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Principal" Width="0.5*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding Principal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Interest" Width="0.5*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding Interest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Security" Width="0.5*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding SecurityDeposite,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Total" Width="0.5*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding Total,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Visibility="Collapsed" Header="No" Width="0.5*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding No,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Attendence" Width="1*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <RadioButton Content="P" FontWeight="Bold" IsChecked="{Binding Attendance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource PCheck}}">
+                                    <RadioButton.LayoutTransform>
+                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                    </RadioButton.LayoutTransform>
+                                </RadioButton>
+                                <RadioButton Content="A" FontWeight="Bold" Margin="10,0,0,0" IsChecked="{Binding Attendance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource ACheck}}">
+                                    <RadioButton.LayoutTransform>
+                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                    </RadioButton.LayoutTransform>
+                                </RadioButton>
+                                <RadioButton Content="L" FontWeight="Bold" Margin="10,0,0,0" IsChecked="{Binding Attendance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource LCheck}}">
+                                    <RadioButton.LayoutTransform>
+                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                    </RadioButton.LayoutTransform>
+                                </RadioButton>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+            <DataGrid.RowStyle>
+
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.Height" Value="35"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="14" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen"/>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+
+
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left">
+            <TextBlock Text="Total Amount : " Style="{StaticResource SubTitle}"></TextBlock>
+            <TextBlock Text="2500" Style="{StaticResource SubTitle}" x:Name="TotalAmountText"></TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{StaticResource SecondaryBtn}" Margin="5" Width="200" Content="Add Denomination" x:Name="AddDenominationBtn" Click="AddDenominationBtn_Click"> </Button>
+            <Button Style="{StaticResource CancelBtn}" Margin="5" Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Page>
