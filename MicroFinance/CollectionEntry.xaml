@@ -33,7 +33,7 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <Button x:Name="xCloseButton" Click="xCloseButton_Click" Margin="5,5,0,0" Style="{StaticResource Close}" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Button x:Name="xCloseButton" Click="xCloseButton_Click" Margin="5,5,0,0" Style="{StaticResource Close}" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed">
                 
             </Button>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">

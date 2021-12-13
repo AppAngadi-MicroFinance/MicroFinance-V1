@@ -42,8 +42,7 @@ namespace MicroFinance
             EnrollStartDate.SelectedDate = DateTime.Today;
             EnrollEndDate.SelectedDate = DateTime.Today;
             SelectAllCheck.IsChecked = true;
-            
-
+           
             CurrentStatus = statusCode;
             if(statusCode==11)
             {
@@ -71,11 +70,9 @@ namespace MicroFinance
             }
             else
             {
-
                 RecommendList = LoanRepository.GetRecommendList(statusCode);
                 BranchList = EmployeeRepository.GetBranches();
                 BranchCombo.ItemsSource = BranchList;
-
             }
             BindingLoad();
             RecommendGrid.ItemsSource = BindingList;
@@ -133,16 +130,19 @@ namespace MicroFinance
                     }
                 }
             }
-            return FilterList;
-            
+            return FilterList; 
         }
 
         void GenerateNEFTFile(List<LoanProcess> FinalList)
         {
             try
             {
-                neft.GenerateNEFT_File(FilterFinalList(FinalList));
+                List<LoanProcess> FilterData = FilterFinalList(FinalList);
+                List<string> RequestIDList = FilterData.Select(temp => temp.LoanRequestID).ToList();
+                string EmpID = string.IsNullOrEmpty(MainWindow.LoginDesignation.EmpId) ? "ADMIN" : MainWindow.LoginDesignation.EmpId;
+                neft.GenerateNEFT_File(FilterData);
                 LoanRepository.RecommendLoans(RecommendList, CurrentStatus + 2);
+                LoanRepository.InsertTransaction(RequestIDList, EmpID, CurrentStatus + 2);
                 MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
             }
             catch (Exception ex)
@@ -165,6 +165,7 @@ namespace MicroFinance
                 if(RequestIDList.Count!=0)
                 {
                     LoanRepository.ChangeLoanStatus(RequestIDList, CurrentStatus + 1);
+                    LoanRepository.InsertTransaction(RequestIDList, MainWindow.LoginDesignation.EmpId, CurrentStatus + 1);
                     LoanRepository.ApproveLoans(BindingList);
                     MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Approved Successfully!...");
                     this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
@@ -182,6 +183,7 @@ namespace MicroFinance
                 if(RequestIDList.Count!=0)
                 {
                     LoanRepository.ChangeLoanStatus(RequestIDList, CurrentStatus + 1);
+                    LoanRepository.InsertTransaction(RequestIDList, MainWindow.LoginDesignation.EmpId, CurrentStatus + 1);
                     MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Approved Successfully!...");
                     this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
                 }
@@ -393,6 +395,7 @@ namespace MicroFinance
             if(RequestIDList.Count!=0)
             {
                 LoanRepository.ChangeLoanStatus(RequestIDList, 13);
+                LoanRepository.InsertTransaction(RequestIDList, MainWindow.LoginDesignation.EmpId,13);
                 MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Rejected Successfully!...");
                 this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
             }

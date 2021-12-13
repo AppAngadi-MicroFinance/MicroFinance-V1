@@ -123,6 +123,7 @@ namespace MicroFinance
             if(result==MessageBoxResult.Yes)
             {
                 HimarkRepository.ChangeLoanStatus(name, 4);
+                LoanRepository.InsertTransaction(name, MainWindow.LoginDesignation.EmpId,4);
                 RetainCustomer(name);
             }
         }
@@ -133,12 +134,14 @@ namespace MicroFinance
             List<HimarkModel> HimarkList = new List<HimarkModel>();
             List<HimarkRequestView> FilterData = FilterList(RequestList);
             HimarkList = HimarkRepository.GetDetailsForReport(FilterData);
+            List<string> RequestIDList = FilterData.Select(temp => temp.RequestID).ToList();
             HiMark himarkReport = new HiMark();
             try
             {
                 himarkReport = new HiMark();
                 himarkReport.createHimarkXls(HimarkList);
                 HimarkRepository.UpdateStatusToExportExcel(FilterData,2);
+                LoanRepository.InsertTransaction(RequestIDList, MainWindow.LoginDesignation.EmpId, 2);
                 MainWindow.StatusMessageofPage(1, "File Exported Successfully!...");
             }
             catch (Exception ex)

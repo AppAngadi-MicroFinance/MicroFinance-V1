@@ -1157,23 +1157,28 @@ namespace MicroFinance.Modal
                 sqlCommand.Parameters.AddWithValue("@isActive",true);
 
                 if (sqlCommand.ExecuteNonQuery() == 1)
-                    InsertIntoCustomerGroup(_customerId, PeerGroup, IsLeader, GetMembersCountINPeerGroup(PeerGroup));
+                {
+                    string CenterID = (MainWindow.DicCenterMeta.ContainsKey(SelfHelpGroup)) ? MainWindow.DicCenterMeta[SelfHelpGroup] : "";
+                    InsertIntoCustomerGroup(_customerId, PeerGroup, IsLeader, GetMembersCountINPeerGroup(PeerGroup), CenterID);
+                }
+                    
 
             }
         }
 
-        void InsertIntoCustomerGroup(string custId, string pgId, bool isLeader, int cpId)
+        void InsertIntoCustomerGroup(string custId, string pgId, bool isLeader, int cpId,string SHGID)
         {
             using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sqlConnection.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = sqlConnection;
-                cmd.CommandText = "insert into CustomerGroup (CustId, PeerGroupId, IsLeader, CPid)values(@custId, @pgId, @isLeader, @cPid)";
+                cmd.CommandText = "insert into CustomerGroup (CustId, PeerGroupId, IsLeader, CPid,SHGID)values(@custId, @pgId, @isLeader, @cPid,@shgid)";
                 cmd.Parameters.AddWithValue("@custId", custId);
                 cmd.Parameters.AddWithValue("@pgId", pgId);
                 cmd.Parameters.AddWithValue("@isLeader", isLeader);
                 cmd.Parameters.AddWithValue("@cPid", cpId);
+                cmd.Parameters.AddWithValue("@shgid", SHGID);
                 cmd.ExecuteNonQuery();
                 sqlConnection.Close();
             }
@@ -1256,7 +1261,8 @@ namespace MicroFinance.Modal
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "select Bid from BranchDetails where BranchName='" + BranchName + "'";
                 string BranchId = sqlCommand.ExecuteScalar().ToString();
-                sqlCommand.CommandText = "update CustomerGroup set PeerGroupId='" + PeerGroup + "',IsLeader='" + IsLeader + "' where CustId='"+_customerId+"'";
+                string CenterID = (MainWindow.DicCenterMeta.ContainsKey(SelfHelpGroup)) ? MainWindow.DicCenterMeta[SelfHelpGroup] : "";
+                sqlCommand.CommandText = "update CustomerGroup set PeerGroupId='" + PeerGroup + "',IsLeader='" + IsLeader + "' where CustId='"+_customerId+"',SHGID='"+CenterID+"'";
                 sqlCommand.ExecuteNonQuery();
             }
         }

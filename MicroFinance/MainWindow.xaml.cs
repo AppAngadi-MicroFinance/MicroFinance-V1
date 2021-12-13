@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Utils;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -31,6 +32,7 @@ namespace MicroFinance
         string _password;
         public static LoginDetails LoginDesignation;
         public static BasicDetailsStatic BasicDetails;
+        public static Dictionary<string, string> DicCenterMeta = new Dictionary<string, string>();
 
         public static string ConnectionString = Properties.Settings.Default.DBConnection;
         public MainWindow()
@@ -44,8 +46,8 @@ namespace MicroFinance
 
             MainGrid.Width= (int)System.Windows.SystemParameters.WorkArea.Width;
             MainGrid.Height= (int)System.Windows.SystemParameters.WorkArea.Height-30;
+            DicCenterMeta = LoanRepository.GetCenterMetaDetails();
 
-            
 
 
 

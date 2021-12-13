@@ -34,13 +34,22 @@ namespace MicroFinance.Utils
 
         public static void OpenDrive()
         {
-            Process[] procs = Process.GetProcesses();
-            foreach (Process proc in procs)
+            try
             {
-                if (proc.ProcessName == "googledrivesync")
-                    proc.Kill();
+                Process[] procs = Process.GetProcesses();
+                foreach (Process proc in procs)
+                {
+                    if (proc.ProcessName == "googledrivesync")
+                        proc.Kill();
+                }
+                Process.Start(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Google Drive");
             }
-            Process.Start(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Google Drive");
+            catch
+            {
+                MainWindow.StatusMessageofPage(0, "Drive Not Found");
+              
+            }
+            
         }
 
 

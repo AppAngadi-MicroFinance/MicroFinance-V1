@@ -119,7 +119,7 @@ namespace MicroFinance
 
         private void SamuCancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new DashBoardHeadOfficer());
+            this.NavigationService.Navigate(new DashBoardRegionOfficer());
         }
 
         private async void SamuExportBtn_Click(object sender, RoutedEventArgs e)
@@ -132,7 +132,7 @@ namespace MicroFinance
                 {
                     await System.Threading.Tasks.Task.Run(() => GenerateSamuFile());
                     GifPanel.Visibility = Visibility.Collapsed;
-                    this.NavigationService.Navigate(new DashBoardHeadOfficer());
+                    this.NavigationService.Navigate(new DashBoardRegionOfficer());
                 }
                 catch
                 {
@@ -156,6 +156,8 @@ namespace MicroFinance
                 
                 GTtoSAMU.GenerateSamunnati_File(FilterData(BindingData));
                 HimarkRepository.UpdateStatusToExportExcel(RequestIds, 11);
+                string EmpID =string.IsNullOrEmpty(MainWindow.LoginDesignation.EmpId)?"ADMIN":MainWindow.LoginDesignation.EmpId;
+                LoanRepository.InsertTransaction(RequestIds, EmpID, 11);
                 MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
             }
             catch
@@ -302,6 +304,8 @@ namespace MicroFinance
             if (MessageBoxResult.Yes == result)
             {
                 LoanRepository.RejectLoan(RequestID);
+                string EmpID = string.IsNullOrEmpty(MainWindow.LoginDesignation.EmpId) ? "ADMIN" : MainWindow.LoginDesignation.EmpId;
+                LoanRepository.InsertTransaction(RequestID, EmpID, 13);
                 this.NavigationService.Navigate(new SamuExport());
             }
         }

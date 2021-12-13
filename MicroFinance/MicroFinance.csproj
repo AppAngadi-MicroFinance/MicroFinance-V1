@@ -111,11 +111,17 @@
     <Compile Include="AssignCenter.xaml.cs">
       <DependentUpon>AssignCenter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AssignSHG.xaml.cs">
+      <DependentUpon>AssignSHG.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BranchManagerNotifyPanel.xaml.cs">
       <DependentUpon>BranchManagerNotifyPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Capture.xaml.cs">
       <DependentUpon>Capture.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CenterView.xaml.cs">
+      <DependentUpon>CenterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CollectionEntry.xaml.cs">
       <DependentUpon>CollectionEntry.xaml</DependentUpon>
@@ -149,6 +155,9 @@
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Converters\VisibleConverterByString.cs" />
     <Compile Include="Converters\VisiblityConverterByImage.cs" />
+    <Compile Include="CreateSHG.xaml.cs">
+      <DependentUpon>CreateSHG.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomerSearch.xaml.cs">
       <DependentUpon>CustomerSearch.xaml</DependentUpon>
     </Compile>
@@ -181,6 +190,9 @@
     </Compile>
     <Compile Include="CustomerNotification.xaml.cs">
       <DependentUpon>CustomerNotification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditShedule.xaml.cs">
+      <DependentUpon>EditShedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="EnrollDetails.xaml.cs">
       <DependentUpon>EnrollDetails.xaml</DependentUpon>
@@ -241,8 +253,10 @@
     <Compile Include="Modal\GTtoSamunnati.cs" />
     <Compile Include="Modal\SaveImageToDrive.cs" />
     <Compile Include="Modal\SelfHeadGroupModal.cs" />
+    <Compile Include="Modal\SHGModal.cs" />
     <Compile Include="Modal\StaticProperty.cs" />
     <Compile Include="Modal\LoanStatusCode.cs" />
+    <Compile Include="Modal\TimeTable.cs" />
     <Compile Include="NotificationPage.xaml.cs">
       <DependentUpon>NotificationPage.xaml</DependentUpon>
     </Compile>
@@ -266,6 +280,8 @@
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="Repository\EnrollDetailsRepository.cs" />
     <Compile Include="Repository\NotificationRepository.cs" />
+    <Compile Include="Repository\SHGRepository.cs" />
+    <Compile Include="Repository\TimeTableRepository.cs" />
     <Compile Include="SamuExport.xaml.cs">
       <DependentUpon>SamuExport.xaml</DependentUpon>
     </Compile>
@@ -342,11 +358,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AssignSHG.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BranchManagerNotifyPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Capture.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CenterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -367,6 +391,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateBranch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateSHG.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -417,6 +445,10 @@
     <Page Include="CustomerNotification.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EditShedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EnrollDetails.xaml">
       <SubType>Designer</SubType>

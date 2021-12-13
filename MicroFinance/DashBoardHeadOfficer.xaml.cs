@@ -19,6 +19,7 @@ using MicroFinance.Reports;
 using Microsoft.Win32;
 using MicroFinance.ViewModel;
 using System.Collections.ObjectModel;
+using MicroFinance.Repository;
 
 namespace MicroFinance
 {
@@ -38,22 +39,18 @@ namespace MicroFinance
         {
             InitializeComponent();
             // ManageApprovalNotification();
-           // EmployeeFrame.NavigationService.Navigate(new TransferEmployee());
+            // EmployeeFrame.NavigationService.Navigate(new TransferEmployee());
+            LoadCount();
         }
 
-
-        void ManageApprovalNotification()
+        void LoadCount()
         {
-            int forApprovals = GetCustomersStatus2(BranchID);
-            if (forApprovals > 0)
-            {
-                xCustApprovalsCount.Text = forApprovals.ToString();
-            }
-            else
-            {
-                xNotificationBatch.Visibility = Visibility.Collapsed;
-            }
+            int count = NotificationRepository.GetLoanApplicationCount(11);
+            xLoanDisbursmentCount.Text = (count<100)?count.ToString():"99+";
         }
+
+
+       
 
         private void xAddNewEmployee_Click(object sender, RoutedEventArgs e)
         {
@@ -74,11 +71,7 @@ namespace MicroFinance
             this.NavigationService.Navigate(new CreateBranch());
         }
 
-        private void xPopupCloseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            xSearchPersonPop.Visibility = Visibility.Collapsed;
-           
-        }
+        
 
         private void xFindCustomer_Click(object sender, RoutedEventArgs e)
         {
@@ -86,19 +79,7 @@ namespace MicroFinance
             this.NavigationService.Navigate(new CustomerSearch());
         }
 
-        private void xFindEmployee_Click(object sender, RoutedEventArgs e)
-        {
-            branch = new Branch();
-            xSearchPersonPop.Visibility = Visibility.Visible;
-            RegionCombo.ItemsSource = null;
-            branch.GetRegionList();
-            branch.GetBranchList();
-            RegionList = branch.RegionList;
-            BranchList = branch.BranchList;
-            RegionCombo.ItemsSource = RegionList;
-            BranchCombo.Items.Clear();
-            EmployeeList.Items.Clear();  
-        }
+       
 
         private void xAllowanceReportBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -133,50 +114,6 @@ namespace MicroFinance
         private void EmployeeSeachPanelCloseBtn_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void RegionCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            BranchCombo.Items.Clear();
-            string SelectedRegion = RegionCombo.SelectedValue as string;
-            FetchBranch(SelectedRegion);
-        }
-        public void FetchBranch(string regionname)
-        {
-            foreach (Branch b in BranchList)
-            {
-                if (b.RegionName == regionname)
-                {
-                    BranchCombo.Items.Add(b.BranchName);
-                }
-            }
-        }
-
-        private void BranchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            EmployeeList.Items.Clear();
-            List<string> ActiveEmployees = new List<string>();
-            string selectedBrach = BranchCombo.SelectedValue as string;
-            ActiveEmployees= branch.ActiveEmployees(branch.GetBranchID(selectedBrach));
-            foreach(string s in ActiveEmployees)
-            {
-                Employee emp = new Employee();
-                emp.GetEmployeeDetails(s);
-                EmployeeList.Items.Add(emp);
-            }
-            
-            
-
-        }
-        private void xSearchPersonPopcloseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            xSearchPersonPop.Visibility = Visibility.Collapsed;
-        }
-
-        private void EmployeeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Employee selectedEmployee = EmployeeList.SelectedValue as Employee;
-            this.NavigationService.Navigate(new AddEmployee(selectedEmployee));
         }
 
         private  void LoanDesposment_Click(object sender, RoutedEventArgs e)
@@ -308,6 +245,36 @@ namespace MicroFinance
         private void TransferBtn_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new TransferEmployee());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FindCustomerPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string AadharNumber = AadharNumberBox.Text;
+            if(!string.IsNullOrEmpty(AadharNumber)&&AadharNumber.Length==12)
+            {
+                string CustomerID = CustomerRepository.GetCustomerID(AadharNumber);
+                this.NavigationService.Navigate(new GTrustCustomerProfile(CustomerID));
+            }
+            else
+            {
+                string message = AadharNumber + "is Invalid Aadhar";
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void FindCustomerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FindCustomerPanel.Visibility = Visibility.Visible;
         }
     }
 }

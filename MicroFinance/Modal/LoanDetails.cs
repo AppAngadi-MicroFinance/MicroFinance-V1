@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance.Modal
 {
@@ -193,15 +194,36 @@ namespace MicroFinance.Modal
             this._branchname = Branch;
             using (SqlConnection sqlconn=new SqlConnection(ConnectionString))
             {
+                string RequestID = GenerateLoanRequestID();
                 sqlconn.Open();
                 if(sqlconn.State == ConnectionState.Open)
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "insert into LoanApplication(RequestID,CustId,EmployeeId,LoanType,LoanAmount,LoanPeriod,Purpose,EnrollDate,LoanStatus,Remark,BranchID) values  ('" + GenerateLoanRequestID()+"','"+_customerID+"','"+_employeeID+"','"+_loantype+"',"+_loanamount+","+_loanperiod+",'"+_loanPurpose+"','"+DateTime.Now.ToString("MM-dd-yyyy")+"','1','','"+_branchId+"')";
+                    sqlcomm.CommandText = "insert into LoanApplication(RequestID,CustId,EmployeeId,LoanType,LoanAmount,LoanPeriod,Purpose,EnrollDate,LoanStatus,Remark,BranchID) values  ('" + RequestID+"','"+_customerID+"','"+_employeeID+"','"+_loantype+"',"+_loanamount+","+_loanperiod+",'"+_loanPurpose+"','"+DateTime.Now.ToString("MM-dd-yyyy")+"','1','','"+_branchId+"')";
                     sqlcomm.ExecuteNonQuery();
                 }
                 sqlconn.Close();
+                LoanRepository.InsertTransaction(RequestID, _employeeID, 1);
+            }
+        }
+        public void SendRequest(string Region, string Branch,string CenterID)
+        {
+            this._regionname = Region;
+            this._branchname = Branch;
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                string RequestID = GenerateLoanRequestID();
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "insert into LoanApplication(RequestID,CustId,EmployeeId,LoanType,LoanAmount,LoanPeriod,Purpose,EnrollDate,LoanStatus,Remark,BranchID,SHGId) values  ('" + RequestID + "','" + _customerID + "','" + _employeeID + "','" + _loantype + "'," + _loanamount + "," + _loanperiod + ",'" + _loanPurpose + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "','1','','" + _branchId + "','"+CenterID+"')";
+                    sqlcomm.ExecuteNonQuery();
+                }
+                sqlconn.Close();
+                LoanRepository.InsertTransaction(RequestID, _employeeID, 1);
             }
         }
         public void RecommendLoan(string RequestId)

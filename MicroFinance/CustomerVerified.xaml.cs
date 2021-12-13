@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Repository;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -1044,6 +1046,7 @@ namespace MicroFinance
                         UpdateVerification();
                         customer.UpdateExistingDetails(_branchName, _shgName, _pgName, guarantor, nominee);
                         ChangeLoanStatus(_loanReqId, 6);
+                        LoanRepository.InsertTransaction(_loanReqId, MainWindow.LoginDesignation.EmpId, 6);
                         NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
                     }
                     else if (CustomerStatus == 6)
@@ -1051,6 +1054,7 @@ namespace MicroFinance
                         UpdateVerification();
                         customer.UpdateExistingDetails(_branchName, _shgName, _pgName, guarantor, nominee);
                         ChangeLoanStatus(_loanReqId, 7);
+                        LoanRepository.InsertTransaction(_loanReqId, MainWindow.LoginDesignation.EmpId, 7);
                         if (MainWindow.LoginDesignation.LoginDesignation == "Accountant")
                         {
                             NavigationService.GetNavigationService(this).Navigate(new DashboardAccountant());
@@ -1064,6 +1068,7 @@ namespace MicroFinance
                     else if (CustomerStatus == 7)
                     {
                         ChangeLoanStatus(_loanReqId, 8);
+                        LoanRepository.InsertTransaction(_loanReqId, MainWindow.LoginDesignation.EmpId, 8);
                         NavigationService.GetNavigationService(this).Navigate(new DashboardBranchManager());
                     }
                 }

@@ -68,6 +68,23 @@ namespace MicroFinance.Repository
             }
             return Count;
         }
+        public static int GetLoanApplicationCount(int StatusCode)
+        {
+            int Count = 0;
+            using (SqlConnection sqlconn = new SqlConnection(ConnectionString))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select count(*) from LoanApplication where LoanStatus='"+StatusCode+"'";
+                    Count = (int)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            return Count;
+        }
        
     }
 }

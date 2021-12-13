@@ -58,9 +58,11 @@ namespace MicroFinance.ViewModel
                   
                     foreach (RecommendView Hm in ResultView)
                     {
-                        Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
-                        Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
-                       
+                        if (shgdetail.ContainsKey(Hm.SHGId) == true)
+                        {
+                            Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
+                            Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        }
                         //sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
                         //Hm.CenterName = (string)sqlcomm.ExecuteScalar();
                         //sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '"+Hm.CustomerID+"'))";
@@ -93,7 +95,7 @@ namespace MicroFinance.ViewModel
 
             return selfhelpgrouplist;
         }
-        static Dictionary<string, SelfHelpGroupDetail> GetSelfHelpGroupDetail(string branchid)
+        public static Dictionary<string, SelfHelpGroupDetail> GetSelfHelpGroupDetail(string branchid)
         {
             Dictionary<string, SelfHelpGroupDetail> selfhelpgrouplist = new Dictionary<string, SelfHelpGroupDetail>();
             using (SqlConnection con = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
@@ -114,6 +116,32 @@ namespace MicroFinance.ViewModel
             }
 
             return selfhelpgrouplist;
+        }
+
+
+        public static Dictionary<string,string> GetCenterMetaDetails()
+        {
+            Dictionary<string, string> CenterDetails = new Dictionary<string, string>();
+            using (SqlConnection con = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+
+                cmd.CommandText = "select SelfHelpGroup.SHGId, SelfHelpGroup.SHGName from SelfHelpGroup";
+                SqlDataReader dr;
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    string CenterID = dr.GetString(0);
+                    string CenterName = dr.GetString(1);
+                    if(!CenterDetails.ContainsKey(CenterName))
+                    CenterDetails.Add(CenterName, CenterID);
+                }
+                dr.Close();
+
+            }
+            return CenterDetails;
         }
 
 
@@ -333,6 +361,45 @@ namespace MicroFinance.ViewModel
         }
 
 
+        public static void InsertTransaction(string ApplicationId,string EmployeeID,int StatusCode)
+        {
+            using (SqlConnection sqlcon=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlcon.Open();
+                if(ConnectionState.Open==sqlcon.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "insert into LoanApplicationLog(ApplicationID,RequestedBy,TransactionDate,StatusCode) values('"+ApplicationId+"','"+EmployeeID+"','"+DateTime.Now.ToString("MM-dd-yyyy")+"','"+StatusCode+"')";
+                    sqlcomm.ExecuteNonQuery();
+
+                }
+                sqlcon.Close();
+            }
+        }
+        public static void InsertTransaction(List<string> ApplicationIds,string EmployeeID,int StatusCode)
+        {
+            using (SqlConnection sqlcon = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlcon.Open();
+                if (ConnectionState.Open == sqlcon.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+
+                    foreach(string ID in ApplicationIds)
+                    {
+                        sqlcomm.CommandText = "insert into LoanApplicationLog(ApplicationID,RequestedBy,TransactionDate,StatusCode) values('" + ID + "','" + EmployeeID + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "','" + StatusCode + "')";
+                        sqlcomm.ExecuteNonQuery();
+
+                    }
+
+                }
+                sqlcon.Close();
+            }
+        }
+
+
 
         public static int RecommendLoans(ObservableCollection<RecommendView> recommends,int StatusCode)
         {
@@ -487,7 +554,7 @@ namespace MicroFinance.ViewModel
             // GetLoanDetails(CustId);
             DateTime ApproveDate = SamuapprovalDate;
             DayOfWeek CollectionDay = WeekDay(Collectionday);
-            DateTime NextCollectionDate = CollectionDate(CollectionDay);
+            DateTime NextCollectionDate = CollectionDate(CollectionDay,ApproveDate);
             List<Loan> LoanCollectionList = Interestcc(LoanAmount, LoanPeroid, ApproveDate, NextCollectionDate);
             foreach (Loan item in LoanCollectionList)
             {
@@ -568,6 +635,39 @@ namespace MicroFinance.ViewModel
                 else
                 {
                     ResultDate = DateTime.Now.AddDays(a);
+                }
+
+
+            }
+            return ResultDate;
+        }
+        public static DateTime CollectionDate(DayOfWeek day,DateTime ApproveDate)
+        {
+            DateTime ResultDate = new DateTime();
+            DayOfWeek Today = ApproveDate.DayOfWeek;
+            int calValue = ((int)day - (int)Today);
+            if (calValue == 0)
+            {
+                ResultDate = ApproveDate.AddDays(7);
+            }
+            else if (calValue > 3)
+            {
+                ResultDate = ApproveDate.AddDays(calValue);
+            }
+            else if (calValue <= 3 && calValue > 0)
+            {
+                ResultDate = ApproveDate.AddDays(calValue + 7);
+            }
+            else if (calValue < 0)
+            {
+                int a = 7 - Math.Abs(calValue);
+                if (Math.Abs(calValue) > 3)
+                {
+                    ResultDate = ApproveDate.AddDays(7 + a);
+                }
+                else
+                {
+                    ResultDate = ApproveDate.AddDays(a);
                 }
 
 

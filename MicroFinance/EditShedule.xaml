@@ -1,0 +1,50 @@
+﻿<Page x:Class="MicroFinance.EditShedule"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      
+      Title="EditShedule">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="SheduleGridView" Grid.Row="1" Grid.Column="1" Background="Transparent" MaxHeight="420" MaxWidth="1250"  ColumnHeaderHeight="40" IsReadOnly="True" HeadersVisibility="All"   AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" AlternatingRowBackground="LightBlue" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="Center Name" Width="1*" Binding="{Binding CenterName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Collection Time" Binding="{Binding CollectionTime}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Collection Day" Binding="{Binding CollectionDay}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Employee Name" Binding="{Binding EmpName}" Width="1*"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Edit Shedule" Width="0.5*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource SecondaryBtn}" Content="Edit" FontSize="12" Margin="2" x:Name="EditShedule" Click="EditShedule_Click" Height="auto" Width="auto"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowStyle>
+
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.Height" Value="35"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="14" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen"/>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+    </Grid>
+</Page>
