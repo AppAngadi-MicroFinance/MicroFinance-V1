@@ -155,6 +155,8 @@ namespace MicroFinance.Repository
             return Centers;
         }
 
+       
+
         public static List<SHGModal> GetCenters(string BranchId)
         {
             List<SHGModal> Centers = new List<SHGModal>();
@@ -166,6 +168,7 @@ namespace MicroFinance.Repository
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
                     sqlcomm.CommandText = "select SHGId,SHGName,DateOfCreation,Taluk,District,IsActive from SelfHelpGroup where BranchId='"+BranchId+"' and IsActive=1";
+                  
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
                     {
