@@ -45,7 +45,7 @@ namespace MicroFinance
             if(NotificationGrid.SelectedItem!=null)
             {
                 r = NotificationGrid.SelectedItem as RecommendView;
-                this.NavigationService.Navigate(new CustomerVerified(r.CustomerID, CurrentStatus, r.RequestID, r.EmpId));
+                this.NavigationService.Navigate(new CustomerVerified(r.CustomerID, CurrentStatus, r.RequestID, r.EmpId,r.CenterName));
             }
            
         }

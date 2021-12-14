@@ -936,7 +936,8 @@ namespace MicroFinance.Modal
             EmployeeID = MainWindow.LoginDesignation.EmpId;
             CustomerID = _customerId;
             BranchID = MainWindow.LoginDesignation.BranchId;
-            SendRequest(Region, BranchName);
+            string CenterID = MainWindow.DicCenterMeta.ContainsKey(SelfHelpGroup) ? MainWindow.DicCenterMeta[SelfHelpGroup] : "";
+            SendRequest(Region, BranchName,CenterID);
             //CheckAndChangeStatus();
 
         }
@@ -1262,7 +1263,7 @@ namespace MicroFinance.Modal
                 sqlCommand.CommandText = "select Bid from BranchDetails where BranchName='" + BranchName + "'";
                 string BranchId = sqlCommand.ExecuteScalar().ToString();
                 string CenterID = (MainWindow.DicCenterMeta.ContainsKey(SelfHelpGroup)) ? MainWindow.DicCenterMeta[SelfHelpGroup] : "";
-                sqlCommand.CommandText = "update CustomerGroup set PeerGroupId='" + PeerGroup + "',IsLeader='" + IsLeader + "' where CustId='"+_customerId+"',SHGID='"+CenterID+"'";
+                sqlCommand.CommandText = "update CustomerGroup set PeerGroupId='" + PeerGroup + "',IsLeader='" + IsLeader + "' where CustId='"+_customerId+"' and SHGID='"+CenterID+"'";
                 sqlCommand.ExecuteNonQuery();
             }
         }

@@ -38,7 +38,7 @@ namespace MicroFinance
         Nominee nominee = new Nominee();
         Branch_Shg_PgDetails Branch_Shg_Pg = new Branch_Shg_PgDetails();
 
-        public CustomerVerified(string CustId,int status,string LoanRequestId,string EmpId)
+        public CustomerVerified(string CustId,int status,string LoanRequestId,string EmpId,string CenterName)
         {
             InitializeComponent();
             TransformGroup group = new TransformGroup();
@@ -58,6 +58,43 @@ namespace MicroFinance
             _regionName = Branch_Shg_Pg.GetRegionNameofEmployee();
             _branchName = Branch_Shg_Pg.GetBranchNameofEmployee();
             _pgName = Branch_Shg_Pg.GetCustomerPG(CustId);
+            _shgName = CenterName;
+
+            customer._customerId = CustId;
+            guarantor._customerId = CustId;
+            nominee._customerId = CustId;
+            customer.GetAllDetailsofCustomers();
+            customer.GetVerfiedDetailsofCustomer();
+            guarantor.GetGuranteeDetails();
+            guarantor.GetGuarantorVerifedDetails();
+            nominee.GetNomineeDetails();
+            nominee.GetNomineeVerifiedDetails();
+
+            ContextAssigning();
+            GetBlockWiseVerifiedorNot();
+            VisiblityOfPhotoPanel();
+        }
+        public CustomerVerified(string CustId, int status, string LoanRequestId, string EmpId)
+        {
+            InitializeComponent();
+            TransformGroup group = new TransformGroup();
+            ScaleTransform xform = new ScaleTransform();
+            group.Children.Add(xform);
+            TranslateTransform tt = new TranslateTransform();
+            group.Children.Add(tt);
+            omrimage.RenderTransform = group;
+            omrimage.MouseWheel += image_MouseWheel;
+            omrimage.MouseLeftButtonDown += image_MouseLeftButtonDown;
+            omrimage.MouseLeftButtonUp += image_MouseLeftButtonUp;
+            omrimage.MouseMove += image_MouseMove;
+
+            CustomerStatus = status;
+            _loanReqId = LoanRequestId;
+            Branch_Shg_Pg.EmpId = EmpId;
+            _regionName = Branch_Shg_Pg.GetRegionNameofEmployee();
+            _branchName = Branch_Shg_Pg.GetBranchNameofEmployee();
+            _pgName = Branch_Shg_Pg.GetCustomerPG(CustId);
+            
 
             customer._customerId = CustId;
             guarantor._customerId = CustId;
@@ -1079,7 +1116,7 @@ namespace MicroFinance
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Please Check All  Mandotory Fields.....","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
+                MessageBox.Show(ex.Message,"Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
             }
             
             

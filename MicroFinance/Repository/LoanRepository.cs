@@ -173,7 +173,8 @@ namespace MicroFinance.ViewModel
                             HMRequestCustomer.BranchName = reader.GetString(7);
                             HMRequestCustomer.EmpName = reader.GetString(8);
                             HMRequestCustomer.RequestDate = reader.GetDateTime(9);
-                            HMRequestCustomer.SHGId = reader.GetString(10);
+                            HMRequestCustomer.SHGId=reader.IsDBNull(10)?"":reader.GetString(10);
+                            
                             HMRequestCustomer.IsRecommend = true;
                      
                             // SqlCommand sqlcomm = new SqlCommand();
