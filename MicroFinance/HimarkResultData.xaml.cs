@@ -64,6 +64,9 @@ namespace MicroFinance
                 }
 
             }
+
+            RequestDataGrid.ItemsSource = BindingData.OrderByDescending(temp => temp.ReportDate);
+            SelectAllCheck.IsChecked = true;
         }
 
 
@@ -73,7 +76,9 @@ namespace MicroFinance
             if (SelectedValue != null)
             {
                 LoadBinding(SelectedValue);
+
                 
+
             }
 
 

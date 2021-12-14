@@ -205,7 +205,7 @@ namespace MicroFinance
             AadharNoGrid.DataContext = customer;
             Male.DataContext = customer;
             Female.DataContext = customer;
-
+           
             GurantorGrid.DataContext = guarantor;
             GuarantorAddressDetails.DataContext = guarantor;
             GuarantorOtherDetailsGrid.DataContext = guarantor;
