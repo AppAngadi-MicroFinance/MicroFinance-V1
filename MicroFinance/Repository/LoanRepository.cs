@@ -58,11 +58,19 @@ namespace MicroFinance.ViewModel
                   
                     foreach (RecommendView Hm in ResultView)
                     {
-                        if (shgdetail.ContainsKey(Hm.SHGId) == true)
+                        try
                         {
-                            Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
-                            Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                            if (shgdetail.ContainsKey(Hm.SHGId) == true)
+                            {
+                                Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
+                                Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                            }
                         }
+                        catch(Exception ex)
+                        {
+
+                        }
+                       
                         //sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
                         //Hm.CenterName = (string)sqlcomm.ExecuteScalar();
                         //sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '"+Hm.CustomerID+"'))";
@@ -81,7 +89,6 @@ namespace MicroFinance.ViewModel
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 con.Open();
-
                 cmd.CommandText = "select SelfHelpGroup.SHGId, SelfHelpGroup.SHGName,TimeTable.CollectionDay from SelfHelpGroup,TimeTable where SelfHelpGroup.SHGId=TimeTable.SHGId";
                 SqlDataReader dr;
                 dr = cmd.ExecuteReader();
@@ -187,8 +194,17 @@ namespace MicroFinance.ViewModel
                     reader.Close();
                     foreach (RecommendView Hm in ResultView)
                     {
-                        Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
-                        Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+
+                        try
+                        {
+                            Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
+                            Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        }
+                        catch(Exception ex)
+                        {
+
+                        }
+                       
 
                         //sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
                         //Hm.CenterName = (string)sqlcomm.ExecuteScalar();
@@ -239,8 +255,15 @@ namespace MicroFinance.ViewModel
                     reader.Close();
                     foreach (RecommendView Hm in ResultView)
                     {
-                        Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
-                        Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        try
+                        {
+                            Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
+                            Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
                         //sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
                         //Hm.CenterName = (string)sqlcomm.ExecuteScalar();
                         //sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Hm.CustomerID + "'))";
@@ -294,8 +317,15 @@ namespace MicroFinance.ViewModel
                     reader.Close();
                     foreach (RecommendView Hm in ResultView)
                     {
-                        Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
-                        Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        try
+                        {
+                            Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
+                            Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
                         //sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
                         //Hm.CenterName = (string)sqlcomm.ExecuteScalar();
                         //sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Hm.CustomerID + "'))";
@@ -349,8 +379,15 @@ namespace MicroFinance.ViewModel
                     reader.Close();
                     foreach (RecommendView Hm in ResultView)
                     {
-                        Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
-                        Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        try
+                        {
+                            Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
+                            Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
                         //sqlcomm.CommandText = "select SHGName from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + Hm.CustomerID + "'))";
                         //Hm.CenterName = (string)sqlcomm.ExecuteScalar();
                         //sqlcomm.CommandText = "select CollectionDay from TimeTable where SHGId = (select SHGid from PeerGroup where GroupId = (select PeerGroupId from CustomerGroup where CustId = '" + Hm.CustomerID + "'))";
