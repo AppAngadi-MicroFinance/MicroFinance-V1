@@ -76,6 +76,12 @@
                 </Border.Effect>
                 <Button x:Name="EnrollDetailsBtn" Click="EnrollDetailsBtn_Click" Style="{StaticResource EnrollDetailsBtn}"></Button>
             </Border>
+            <Border  Style="{StaticResource MainBorder}" Margin="15">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="EnrollDataBtn" Click="EnrollDataBtn_Click" Style="{StaticResource EnrollDataBtn}"></Button>
+            </Border>
         </WrapPanel>
         
         <StackPanel x:Name="GifPanel" Panel.ZIndex="3" Grid.ColumnSpan="3" Grid.RowSpan="3" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">

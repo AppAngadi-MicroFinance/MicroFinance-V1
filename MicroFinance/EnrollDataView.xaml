@@ -1,0 +1,38 @@
+﻿<Page x:Class="MicroFinance.EnrollDataView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      
+      Title="EnrollDataView">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="EnrollDataGrid" RowBackground="White" AutoGenerateColumns="False" AlternatingRowBackground="LightGray"  Grid.Row="1" Grid.Column="1" Background="Transparent" MaxHeight="450" MaxWidth="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Customer Name" Width="1*" Binding="{Binding CustomerName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Aadhar Number" Width="1*" Binding="{Binding AadharNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Contact Number" Width="1*" Binding="{Binding ContactNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="EnrollDate" Width="1*" Binding="{Binding EnrollDate,StringFormat={}MM-dd-yyyy}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Continue" Width="0.5*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource SecondaryBtn}" Content="Continue" FontSize="12" Height="auto" Width="auto" Margin="5" Click="ContinueBtn_Click" x:Name="ContinueBtn"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

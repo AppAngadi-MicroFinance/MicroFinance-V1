@@ -1263,10 +1263,27 @@ namespace MicroFinance.Modal
                 sqlCommand.CommandText = "select Bid from BranchDetails where BranchName='" + BranchName + "'";
                 string BranchId = sqlCommand.ExecuteScalar().ToString();
                 string CenterID = (MainWindow.DicCenterMeta.ContainsKey(SelfHelpGroup)) ? MainWindow.DicCenterMeta[SelfHelpGroup] : "";
-                sqlCommand.CommandText = "update CustomerGroup set PeerGroupId='" + PeerGroup + "',IsLeader='" + IsLeader + "' where CustId='"+_customerId+"' and SHGID='"+CenterID+"'";
-                sqlCommand.ExecuteNonQuery();
+                //sqlCommand.CommandText = "update CustomerGroup set SHGID='" + CenterID + "', PeerGroupId='" + PeerGroup + "',IsLeader='" + IsLeader + "' where CustId='"+_customerId+"' and SHGID='"+CenterID+"'";
+                //int res= sqlCommand.ExecuteNonQuery();
+                UpdateCustomerGroup(_customerId, CenterID, PeerGroup);
             }
         }
+
+        public void UpdateCustomerGroup(string CustomerID,string CenterID,string PeerGroupID)
+        {
+            using (SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                SqlCommand sqlcomm = new SqlCommand();
+                sqlcomm.Connection = sqlconn;
+                sqlcomm.CommandText = "update CustomerGroup set SHGID='" + CenterID + "', PeerGroupId='" + PeerGroupID + "',IsLeader='" + IsLeader + "' where CustId='" + _customerId + "'";
+                int res= sqlcomm.ExecuteNonQuery();
+                string EmployeeID = MainWindow.BasicDetails.CenterList.Where(temp => temp.SHGId == CenterID).Select(temp => temp.EmpId).FirstOrDefault();
+                sqlcomm.CommandText = "Update LoanApplication set EmployeeId='" + EmployeeID + "' , SHGId='" + CenterID + "' where CustId='" + CustomerID + "'";
+                int res1= sqlcomm.ExecuteNonQuery();
+            }
+        }
+
         public void GetVerfiedDetailsofCustomer()
         {
             using(SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))

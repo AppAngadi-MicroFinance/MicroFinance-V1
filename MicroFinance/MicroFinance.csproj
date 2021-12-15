@@ -111,6 +111,9 @@
     <Compile Include="AddRegion.xaml.cs">
       <DependentUpon>AddRegion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="APIModal\VMCustomerDetails.cs" />
+    <Compile Include="APIModal\VMCustomerEnrollData.cs" />
+    <Compile Include="APIModal\VMCustomerGroup.cs" />
     <Compile Include="AssignCenter.xaml.cs">
       <DependentUpon>AssignCenter.xaml</DependentUpon>
     </Compile>
@@ -164,6 +167,9 @@
     <Compile Include="CreateSHG.xaml.cs">
       <DependentUpon>CreateSHG.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomerEnrollDataView.xaml.cs">
+      <DependentUpon>CustomerEnrollDataView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomerSearch.xaml.cs">
       <DependentUpon>CustomerSearch.xaml</DependentUpon>
     </Compile>
@@ -199,6 +205,9 @@
     </Compile>
     <Compile Include="EditShedule.xaml.cs">
       <DependentUpon>EditShedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EnrollDataView.xaml.cs">
+      <DependentUpon>EnrollDataView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EnrollDetails.xaml.cs">
       <DependentUpon>EnrollDetails.xaml</DependentUpon>
@@ -327,6 +336,7 @@
     <Compile Include="ViewModel\CollectionReportRepo.cs" />
     <Compile Include="ViewModel\CollectionReportView.cs" />
     <Compile Include="Repository\EmployeeRepository.cs" />
+    <Compile Include="ViewModel\CustomerEnrollMetaData.cs" />
     <Compile Include="ViewModel\CustomerHimarkDataModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\DateModel.cs" />
@@ -411,6 +421,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomerEnrollDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomerSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -460,6 +474,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="EditShedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EnrollDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
