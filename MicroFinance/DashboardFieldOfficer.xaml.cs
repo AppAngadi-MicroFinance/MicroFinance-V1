@@ -22,6 +22,9 @@ using System.IO;
 using System.Data;
 using MicroFinance.ViewModel;
 using MicroFinance.Repository;
+using System.Net.Http;
+using Newtonsoft.Json;
+
 
 namespace MicroFinance
 {
@@ -284,6 +287,57 @@ namespace MicroFinance
             MainGrid.IsEnabled = true;
             ToolsPanal.IsEnabled = true;
             EnrollDatailsPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void EnrollDataBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<CustomerEnrollMetaData> CustomerData = GetDeummyData();
+            this.NavigationService.Navigate(new EnrollDataView(CustomerData));
+        }
+
+
+
+        List<CustomerEnrollMetaData> GetDeummyData()
+        {
+            List<CustomerEnrollMetaData> CustomerData = new List<CustomerEnrollMetaData>();
+            for(int i=0;i<3;i++)
+            {
+                CustomerEnrollMetaData c = new CustomerEnrollMetaData();
+                c.AadharNumber = "789789789789";
+                c.CustomerName = "Ashraf Ali";
+                c.ContactNumber = "9876543210";
+                c.DateOfBirth = DateTime.Today;
+                c.EnrollDate = DateTime.Today;
+
+                CustomerData.Add(c);
+                
+                
+            }
+            return CustomerData;
+         }
+
+        async Task GetCustomerEnrollMetaData(string EmpId)
+        {
+
+            string url1 = "http://examsign-001-site4.itempurl.com/api/Collectiondetails";
+            // string url1 = "http://localhost:44357/api/Collectiondetails";
+            var values1 = new List<KeyValuePair<string, string>>
+                {
+                    //new KeyValuePair<string, string>("empid",EmpId),
+                    //new KeyValuePair<string, string>("collectionday",collectionday),
+                    //new KeyValuePair<string, string>("groupid",groupid),
+                };
+            HttpClient client1 = new HttpClient();
+            HttpResponseMessage response1 = new HttpResponseMessage();
+            response1 = await client1.PostAsync(url1, new FormUrlEncodedContent(values1));
+            if (response1.IsSuccessStatusCode)
+            {
+                //var result = await response1.Content.ReadAsStringAsync();
+                //var status = JsonConvert.DeserializeObject<ObservableCollection<CollectionEntryView>>(result);
+
+                //CollectionDetails = status;
+
+            }
         }
     }
 }

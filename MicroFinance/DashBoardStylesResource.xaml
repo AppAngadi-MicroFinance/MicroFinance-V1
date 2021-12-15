@@ -877,6 +877,43 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!--Enroll Data Button Style-->
+    <Style TargetType="{x:Type Button}" x:Key="EnrollDataBtn">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="Background" Value="#FEF8F1"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Content">
+            <Setter.Value>
+                <ContentPresenter>
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <Grid Height="80" Width="250">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10*"></RowDefinition>
+                                    <RowDefinition Height="90*"></RowDefinition>
+                                    <RowDefinition Height="10*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="25*"/>
+                                    <ColumnDefinition Width="65*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="1" Width="35" Height="35" Grid.Row="1" Source=".\Asserts\Icons\detail.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Row="1" Grid.Column="2"  Style="{StaticResource DashboardBtnText}" Text="New Enroll Data" HorizontalAlignment="Left" Margin="20,0,0,0"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
     <!--Find Customer small Template-->
