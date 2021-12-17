@@ -23,6 +23,7 @@ namespace MicroFinance
         public CustomerEnrollDataView()
         {
             InitializeComponent();
+           
         }
     }
 }

@@ -8,7 +8,7 @@
       
       Title="CustomerEnrollDataView">
 
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="90*"/>
@@ -19,6 +19,92 @@
             <ColumnDefinition Width="90*"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
-        
+
+        <Frame Grid.Row="1" Grid.Column="1" x:Name="MainFrame"></Frame>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button Style="{StaticResource SecondaryBtn}" Margin="5" x:Name="NextBtn" Content="Next"></Button>
+            <Button Style="{StaticResource SecondaryBtn}" Margin="5" x:Name="BackBtn" Content="Back"></Button>
+        </StackPanel>
+
+        <Grid x:Name="CustomerGrid" Background="Transparent" Visibility="Visible" Grid.Column="1" Grid.Row="1" MaxWidth="1200" MaxHeight="550">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="10*"></ColumnDefinition>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="30*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Customer Name" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox Grid.Column="1" Style="{StaticResource InputBox}" Width="350" HorizontalAlignment="Left"></TextBox>
+            <TextBlock Text="Date Of Birth" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                <DatePicker Grid.Row="1" Grid.Column="1" Style="{StaticResource DateSelecter}" Width="200" Background="White" HorizontalAlignment="Left"></DatePicker>
+                <TextBlock Text="Age : " Style="{StaticResource Regular}" Margin="35,0,0,0"></TextBlock>
+                <TextBlock Text="25" Margin="10,0,0,0" Style="{StaticResource Regular}"></TextBlock>
+            </StackPanel>
+            <TextBlock Text="Father Name" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource InputBox}" Width="350" HorizontalAlignment="Left"></TextBox>
+            <TextBlock Text="Mother Name" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="0"></TextBlock>
+            <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource InputBox}" Width="350" HorizontalAlignment="Left"></TextBox>
+            <TextBlock Text="Guardian Name" Style="{StaticResource Regular}" Grid.Row="4"></TextBlock>
+            <TextBox Grid.Row="4" Grid.Column="1" Width="350" HorizontalAlignment="Left" Style="{StaticResource InputBox}"></TextBox>
+            <TextBlock Text="Contact Number" Style="{StaticResource Regular}" Grid.Row="5"></TextBlock>
+            <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource InputBox}" Width="350" HorizontalAlignment="Left"></TextBox>
+            <TextBlock Text="Religion" Style="{StaticResource Regular}" Grid.Row="6"></TextBlock>
+            <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
+                <ComboBox Grid.Row="6" Grid.Column="1" Style="{StaticResource combo}" Width="130" HorizontalAlignment="Left"></ComboBox>
+                <TextBlock Text="Community" Style="{StaticResource Regular}" Margin="10,0,0,0"></TextBlock>
+                <ComboBox Style="{StaticResource combo}" Margin="10,0,0,0" Width="120"></ComboBox>
+            </StackPanel>
+            <TextBlock Text="Caste" Grid.Row="7" Grid.Column="0" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource InputBox}" Width="350" HorizontalAlignment="Left"></TextBox>
+            <TextBlock Text="Education" Style="{StaticResource Regular}" Grid.Row="8"></TextBlock>
+            <TextBox Grid.Row="8" Grid.Column="1" Style="{StaticResource InputBox}" Width="350" HorizontalAlignment="Left"></TextBox>
+            <TextBlock Text=""></TextBlock>
+            <TextBlock Text="Family Members" Style="{StaticResource Regular}" Grid.Row="9"></TextBlock>
+            <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal">
+                <TextBox Style="{StaticResource InputBox}" Width="150"></TextBox>
+                <TextBlock Text="Earning Members" Style="{StaticResource Regular}" Margin="10,0,0,0" TextWrapping="Wrap" Width="80"></TextBlock>
+                <TextBox Margin="10,0,0,0" Style="{StaticResource InputBox}" Width="100"></TextBox>
+            </StackPanel>
+            <TextBlock Text="Occupation" Grid.Row="10" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox Grid.Row="10" Grid.Column="1" Style="{StaticResource InputBox}" Width="350" HorizontalAlignment="Left"></TextBox>
+            <TextBlock Grid.Row="11" Text="Monthly Income" Style="{StaticResource Regular}"></TextBlock>
+            <StackPanel Grid.Row="11" Grid.Column="1" Orientation="Horizontal">
+                <TextBox Width="150" Style="{StaticResource InputBox}"></TextBox>
+                <TextBlock Width="80" Style="{StaticResource Regular}" TextWrapping="Wrap" Margin="5,0,0,0" Text="Monthly Expence"></TextBlock>
+                <TextBox Width="115" Style="{StaticResource InputBox}"></TextBox>
+            </StackPanel>
+            <TextBlock Text="Family Yearly Income" Grid.Row="12" Style="{StaticResource Regular}"></TextBlock>
+            
+            <TextBox Grid.Row="12" Grid.Column="1" Width="  350" HorizontalAlignment="Left" Style="{StaticResource InputBox}"></TextBox>
+            <TextBlock Text="Door No" Grid.Column="3" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox Grid.Column="4" Style="{StaticResource InputBox}" Width="350"></TextBox>
+            <TextBlock Text="Street Name" Grid.Column="3" Grid.Row="1" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="4" Style="{StaticResource InputBox}" Width="350"></TextBox>
+            <TextBlock Text="Village" Grid.Column="3" Grid.Row="2" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="4" Style="{StaticResource InputBox}" Width="350"></TextBox>
+            <TextBlock Text="Taluk" Grid.Column="3" Grid.Row="3" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox Grid.Row="3" Grid.Column="4" Style="{StaticResource InputBox}" Width="350"></TextBox>
+            <TextBlock Text="City" Grid.Column="3" Grid.Row="4" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox Grid.Row="4" Grid.Column="4" Style="{StaticResource InputBox}" Width="350"></TextBox>
+            <TextBlock Text="Pin Code" Grid.Column="3" Grid.Row="5" Style="{StaticResource Regular}"></TextBlock>
+            <TextBox Grid.Row="5" Grid.Column="4" Style="{StaticResource InputBox}" Width="350"></TextBox>
+        </Grid>
     </Grid>
 </Page>

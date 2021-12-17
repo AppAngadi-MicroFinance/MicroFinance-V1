@@ -40,28 +40,28 @@
                 <DataGridTemplateColumn Header="Principal" Width="0.5*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding Principal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding Principal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Interest" Width="0.5*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding Interest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding Interest,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Security" Width="0.5*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding SecurityDeposite,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding SecurityDeposite,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Total" Width="0.5*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding Total,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Style="{StaticResource InputBox}" Text="{Binding Total,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

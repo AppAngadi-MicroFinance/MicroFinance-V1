@@ -70,7 +70,39 @@ namespace MicroFinance
 
         private void AddDenominationBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new DenominationPage(CollectionEntries,_centername));
+            this.NavigationService.Navigate(new DenominationPage(FormCollectionData(),_centername));
+        }
+
+
+        ObservableCollection<CollectionEntryView> FormCollectionData()
+        {
+            ObservableCollection<CollectionEntryView> CollectionList = new ObservableCollection<CollectionEntryView>();
+
+            foreach (CollectionEntryBindingModal Collection in BindingModalList)
+            {
+                CollectionEntryView Coll = new CollectionEntryView();
+              
+                Coll.BranchId = Collection.BranchId;
+                Coll.CustId = Collection.CustId;
+                Coll.CustomerName = Collection.CustomerName;
+                Coll.LoanId = Collection.LoanId;
+                Coll.Principal = Collection.Principal;
+                Coll.Interest = Collection.Interest;
+                Coll.Total = Collection.Total;
+                Coll.SecurityDeposite = Collection.SecurityDeposite;
+                Coll.ActualDue = Collection.SecurityDeposite;
+                Coll.PaidDue = Collection.PaidDue;
+                Coll.Balance = Collection.Balance;
+                Coll.ActualPaymentDate = Collection.ActualPaymentDate;
+                Coll.CollectedOn = Collection.CollectedOn;
+                Coll.Attendance = Collection.Attendance;
+                Coll.Extras = Collection.Extras;
+                Coll.CollectedBy = Collection.CollectedBy;
+
+                CollectionList.Add(Coll);
+            }
+
+            return CollectionList;
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)

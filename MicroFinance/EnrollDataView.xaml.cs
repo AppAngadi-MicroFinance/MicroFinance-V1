@@ -37,6 +37,7 @@ namespace MicroFinance
             {
                 CustomerEnrollMetaData SelectedCustomer = new CustomerEnrollMetaData();
                 SelectedCustomer = EnrollDataGrid.SelectedItem as CustomerEnrollMetaData;
+                this.NavigationService.Navigate(new CustomerEnrollDataView());
             }
         }
     }
