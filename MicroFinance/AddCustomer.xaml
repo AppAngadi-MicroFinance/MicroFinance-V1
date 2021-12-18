@@ -99,6 +99,13 @@
             <StackPanel Orientation="Horizontal" Grid.Column="7">
                 <TextBlock Text="Self Help Group" Style="{StaticResource Regular}" VerticalAlignment="Center"/>
                 <ComboBox KeyboardNavigation.TabIndex="0" x:Name="SelectSHG" Style="{StaticResource combo}" Margin="15,0,0,0" Width="140"  SelectionChanged="SelectSHG_SelectionChanged"  >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding SHGName}" VerticalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="9" x:Name="PeerGroupCombo">
