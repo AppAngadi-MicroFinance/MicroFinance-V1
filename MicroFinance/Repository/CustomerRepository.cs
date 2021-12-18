@@ -13,8 +13,6 @@ namespace MicroFinance.Repository
     public class CustomerRepository
     {
 
-       
-
         public void AddCustomerDetails(string Region, string BranchName, string SelfHelpGroup, string PeerGroup,Customer CustData)
         {
             string CustomerID = string.Empty;
