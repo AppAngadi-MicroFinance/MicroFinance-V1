@@ -303,13 +303,14 @@ namespace MicroFinance
             string[] _officerName = new string[1];
             string[] _regionName = new string[1];
             List<string> SelfHelpGroupList = new List<string>();
+            List<TimeTableViewModel> CenterList = MainWindow.BasicDetails.CenterList.Where(temp => temp.EmpId == _officerEmpId).ToList();
 
             Branch_Shg_PgDetails branch_Shg_Pg = new Branch_Shg_PgDetails();
             branch_Shg_Pg.EmpId = _officerEmpId;
             _branchName[0] = branch_Shg_Pg.GetBranchNameofEmployee();
             _regionName[0] = branch_Shg_Pg.GetRegionNameofEmployee();
             _officerName[0] = branch_Shg_Pg.GetEmployeeName();
-            SelfHelpGroupList = branch_Shg_Pg.GetSelfHelpGroup();
+           // SelfHelpGroupList = branch_Shg_Pg.GetSelfHelpGroup();
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
@@ -327,8 +328,9 @@ namespace MicroFinance
             SelectRegion.ItemsSource = _regionName; SelectRegion.SelectedIndex = 0;
             SelectBranch.ItemsSource = _branchName; SelectBranch.SelectedIndex = 0;
             SelectFO.ItemsSource = _officerName; SelectFO.SelectedIndex = 0;
-            SelectSHG.ItemsSource = SelfHelpGroupList;
-           // SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
+            //SelectSHG.ItemsSource = SelfHelpGroupList;
+            // SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
+            SelectSHG.ItemsSource = CenterList;
         }
         void BranchAndGroupDetailsforFieldOfficer(int number=0)
         {
@@ -338,13 +340,14 @@ namespace MicroFinance
             string[] _officerName = new string[1];
             string[] _regionName = new string[1];
             List<string> SelfHelpGroupList = new List<string>();
+            List<TimeTableViewModel> CenterList = MainWindow.BasicDetails.CenterList.Where(temp => temp.EmpId == _officerEmpId).ToList();
 
             Branch_Shg_PgDetails branch_Shg_Pg = new Branch_Shg_PgDetails();
             branch_Shg_Pg.EmpId = _officerEmpId;
             _branchName[0] = branch_Shg_Pg.GetBranchNameofEmployee();
             _regionName[0] = branch_Shg_Pg.GetRegionNameofEmployee();
             _officerName[0] = branch_Shg_Pg.GetEmployeeName();
-            SelfHelpGroupList = branch_Shg_Pg.GetSelfHelpGroup();
+            //SelfHelpGroupList = branch_Shg_Pg.GetSelfHelpGroup();
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 sqlConnection.Open();
@@ -362,7 +365,7 @@ namespace MicroFinance
             SelectRegion.ItemsSource = _regionName; SelectRegion.SelectedIndex = 0;
             SelectBranch.ItemsSource = _branchName; SelectBranch.SelectedIndex = 0;
             SelectFO.ItemsSource = _officerName; SelectFO.SelectedIndex = 0;
-            SelectSHG.ItemsSource = SelfHelpGroupList; SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
+            SelectSHG.ItemsSource = CenterList; SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
         }
 
         string GetCustomerBranch(string CustomerID)
@@ -428,11 +431,12 @@ namespace MicroFinance
 
         private void SelectSHG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            TimeTableViewModel SelectedCenter = SelectSHG.SelectedItem as TimeTableViewModel;
             List<PeerGroup> SelectedPG = new List<PeerGroup>();
 
             foreach (var item in PeerGroupDetails)
             {
-                if (item.SHGName == SelectSHG.SelectedItem.ToString())
+                if (item.SHGName ==SelectedCenter.SHGName)
                 {
                     if(customer.IsPeerGroupFull(item.PG_Id))
                     {
@@ -569,12 +573,13 @@ namespace MicroFinance
                 else
                 {
                     PeerGroup SelectedPG = SelectPG.SelectedValue as PeerGroup;
+                    TimeTableViewModel SelectedCenter = SelectSHG.SelectedItem as TimeTableViewModel;
                     
                         customer._customerId = customer.GetCustId(SelectBranch.Text, SelectRegion.Text);
-                        CustomerVerified verified = new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectSHG.Text, SelectedPG.PG_Id);
-                        customer = new Customer();
-                        nominee = new Nominee();
-                        guarantor = new Guarantor();
+                        CustomerVerified verified = new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectedCenter.SHGId, SelectedPG.PG_Id);
+                       // customer = new Customer();
+                       // nominee = new Nominee();
+                       // guarantor = new Guarantor();
                         Assign();
                         NavigationService.GetNavigationService(this).Navigate(verified);
                    
@@ -585,7 +590,8 @@ namespace MicroFinance
             else if(BtnContent.Equals("Update"))
             {
                 PeerGroup SelectedPG = SelectPG.SelectedValue as PeerGroup;
-                customer.UpdateExistingDetails(SelectBranch.Text, SelectSHG.Text, SelectedPG.PG_Id, guarantor, nominee);
+                TimeTableViewModel SelectedCenter = SelectSHG.SelectedItem as TimeTableViewModel;
+                customer.UpdateExistingDetails(SelectBranch.Text, SelectedCenter.SHGId, SelectedPG.PG_Id, guarantor, nominee);
                 string Designation = MainWindow.LoginDesignation.LoginDesignation;
                 Designation = (Designation == null) ? "" : Designation;
                 LoadHomePage(Designation);

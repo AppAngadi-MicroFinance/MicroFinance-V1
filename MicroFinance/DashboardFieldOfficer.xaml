@@ -243,7 +243,7 @@
         </Border>
 
         <!--Select Day to download CollectionSheet-->
-        <Border x:Name="xDaySelectionPopup" Width="400" Height="250" BorderThickness="10,50,10,10" BorderBrush="#781F9F" Visibility="Collapsed">
+        <Border x:Name="xDaySelectionPopup" Width="400" Height="250" BorderThickness="10,50,10,10" BorderBrush="#781F9F" Visibility="Collapsed" Grid.Column="1" Grid.Row="1">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
             </Border.Effect>

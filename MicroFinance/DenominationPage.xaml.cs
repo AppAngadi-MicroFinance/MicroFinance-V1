@@ -205,7 +205,7 @@ namespace MicroFinance
                     ActualDue = item.ActualDue,
                     ActualPaymentDate = item.ActualPaymentDate,
                     CollectedBy = item.CollectedBy,
-                    CollectedOn = DateTime.Today,
+                    CollectedOn =  DateTime.UtcNow.Date,
                     Attendance = item.Attendance,
                     Balance = item.Balance,
                     BranchId = item.BranchId,

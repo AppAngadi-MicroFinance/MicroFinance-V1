@@ -936,7 +936,7 @@ namespace MicroFinance.Modal
             EmployeeID = MainWindow.LoginDesignation.EmpId;
             CustomerID = _customerId;
             BranchID = MainWindow.LoginDesignation.BranchId;
-            string CenterID = MainWindow.DicCenterMeta.ContainsKey(SelfHelpGroup) ? MainWindow.DicCenterMeta[SelfHelpGroup] : "";
+            string CenterID =SelfHelpGroup;
             SendRequest(Region, BranchName,CenterID);
             //CheckAndChangeStatus();
 
@@ -1159,7 +1159,7 @@ namespace MicroFinance.Modal
 
                 if (sqlCommand.ExecuteNonQuery() == 1)
                 {
-                    string CenterID = (MainWindow.DicCenterMeta.ContainsKey(SelfHelpGroup)) ? MainWindow.DicCenterMeta[SelfHelpGroup] : "";
+                    string CenterID = SelfHelpGroup;
                     InsertIntoCustomerGroup(_customerId, PeerGroup, IsLeader, GetMembersCountINPeerGroup(PeerGroup), CenterID);
                 }
                     
@@ -1262,7 +1262,7 @@ namespace MicroFinance.Modal
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "select Bid from BranchDetails where BranchName='" + BranchName + "'";
                 string BranchId = sqlCommand.ExecuteScalar().ToString();
-                string CenterID = (MainWindow.DicCenterMeta.ContainsKey(SelfHelpGroup)) ? MainWindow.DicCenterMeta[SelfHelpGroup] : "";
+                string CenterID = SelfHelpGroup;
                 //sqlCommand.CommandText = "update CustomerGroup set SHGID='" + CenterID + "', PeerGroupId='" + PeerGroup + "',IsLeader='" + IsLeader + "' where CustId='"+_customerId+"' and SHGID='"+CenterID+"'";
                 //int res= sqlCommand.ExecuteNonQuery();
                 UpdateCustomerGroup(_customerId, CenterID, PeerGroup);

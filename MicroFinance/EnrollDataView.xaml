@@ -28,11 +28,24 @@
                 <DataGridTemplateColumn Header="Continue" Width="0.5*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Style="{StaticResource SecondaryBtn}" Content="Continue" FontSize="12" Height="auto" Width="auto" Margin="5" Click="ContinueBtn_Click" x:Name="ContinueBtn"></Button>
+                            <Button Style="{StaticResource SecondaryBtn}" Content="Continue" FontSize="12" Height="auto" Width="auto" Margin="2" Click="ContinueBtn_Click" x:Name="ContinueBtn" ></Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
+            <DataGrid.RowStyle>
+
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.Height" Value="35"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="14" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen"/>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+
+
+                </Style>
+            </DataGrid.RowStyle>
         </DataGrid>
     </Grid>
 </Page>

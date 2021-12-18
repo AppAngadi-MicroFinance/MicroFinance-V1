@@ -115,6 +115,10 @@ namespace MicroFinance
 
                
             }
+            else
+            {
+                MessageBox.Show(response1.ReasonPhrase, "Warninng", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
 
             
         }
