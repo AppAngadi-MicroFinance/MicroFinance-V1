@@ -114,6 +114,7 @@
     <Compile Include="APIModal\VMCustomerDetails.cs" />
     <Compile Include="APIModal\VMCustomerEnrollData.cs" />
     <Compile Include="APIModal\VMCustomerGroup.cs" />
+    <Compile Include="APIModal\VMGuarenteeDetails.cs" />
     <Compile Include="AssignCenter.xaml.cs">
       <DependentUpon>AssignCenter.xaml</DependentUpon>
     </Compile>

@@ -24,7 +24,7 @@ using MicroFinance.ViewModel;
 using MicroFinance.Repository;
 using System.Net.Http;
 using Newtonsoft.Json;
-
+using System.Collections.ObjectModel;
 
 namespace MicroFinance
 {
@@ -35,6 +35,7 @@ namespace MicroFinance
     {
         public static LoginDetails LoginDesignation;
         string DayOFWeek;
+        public ObservableCollection<CustomerEnrollMetaData> CustomerEnrollMetaDataList = new ObservableCollection<CustomerEnrollMetaData>();
         public DashboardFieldOfficer()
         {
             InitializeComponent();
@@ -289,9 +290,14 @@ namespace MicroFinance
             EnrollDatailsPanel.Visibility = Visibility.Collapsed;
         }
 
-        private void EnrollDataBtn_Click(object sender, RoutedEventArgs e)
+        private async void EnrollDataBtn_Click(object sender, RoutedEventArgs e)
         {
-            List<CustomerEnrollMetaData> CustomerData = GetDeummyData();
+            GifPanel.Visibility = Visibility.Visible;
+            ToolsPanal.IsEnabled = false;
+            await GetCustomerEnrollMetaData(MainWindow.LoginDesignation.EmpId);
+            ToolsPanal.IsEnabled = true;
+            GifPanel.Visibility = Visibility.Collapsed;
+            ObservableCollection<CustomerEnrollMetaData> CustomerData = CustomerEnrollMetaDataList;
             this.NavigationService.Navigate(new EnrollDataView(CustomerData));
         }
 
@@ -319,23 +325,17 @@ namespace MicroFinance
         async Task GetCustomerEnrollMetaData(string EmpId)
         {
 
-            string url1 = "http://examsign-001-site4.itempurl.com/api/Collectiondetails";
-            // string url1 = "http://localhost:44357/api/Collectiondetails";
-            var values1 = new List<KeyValuePair<string, string>>
-                {
-                    //new KeyValuePair<string, string>("empid",EmpId),
-                    //new KeyValuePair<string, string>("collectionday",collectionday),
-                    //new KeyValuePair<string, string>("groupid",groupid),
-                };
+            string url1 = "http://examsign-001-site4.itempurl.com/api/GetEnrollMetaDetails/"+EmpId;
+            
             HttpClient client1 = new HttpClient();
             HttpResponseMessage response1 = new HttpResponseMessage();
-            response1 = await client1.PostAsync(url1, new FormUrlEncodedContent(values1));
+            response1 = await client1.PostAsync(url1,null);
             if (response1.IsSuccessStatusCode)
             {
-                //var result = await response1.Content.ReadAsStringAsync();
-                //var status = JsonConvert.DeserializeObject<ObservableCollection<CollectionEntryView>>(result);
+                var result = await response1.Content.ReadAsStringAsync();
+                var status = JsonConvert.DeserializeObject<ObservableCollection<CustomerEnrollMetaData>>(result);
 
-                //CollectionDetails = status;
+                CustomerEnrollMetaDataList = status;
 
             }
         }
