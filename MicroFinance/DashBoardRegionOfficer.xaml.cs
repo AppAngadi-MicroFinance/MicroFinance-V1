@@ -468,7 +468,7 @@ namespace MicroFinance
             set
             {
                 string id = value;
-               // _bname = MainWindow.BasicDetails.BranchList.Where(temp => temp.BranchName == id).Select(temp => temp.BranchId).FirstOrDefault();
+                _bname = MainWindow.BasicDetails.BranchList.Where(temp => temp.BranchName == id).Select(temp => temp.BranchId).FirstOrDefault();
                 BranchName = id;
             }
         }
