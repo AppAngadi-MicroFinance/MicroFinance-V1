@@ -58,5 +58,15 @@ namespace MicroFinance.APIModal
         public string LandHolding { get; set; }
         public string LandVolume { get; set; }
 
+
+        //Address Details
+
+        public string DoorNo { get; set; }
+        public string StreetName { get; set; }
+        public string Village { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        
+
     }
 }
