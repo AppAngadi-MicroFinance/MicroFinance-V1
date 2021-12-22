@@ -35,7 +35,8 @@ namespace MicroFinance
 
             LoadData();
             EmployeeNameCombo.SelectedIndex = SelectedEmployee();
-            CenterNameCombo.ItemsSource = BindingCenterList;
+            // CenterNameCombo.ItemsSource = BindingCenterList;
+        
         }
 
 
@@ -58,6 +59,8 @@ namespace MicroFinance
                     BindingCenterList.Add(center);
                 }
             }
+            CenterNameCombo.ItemsSource = BindingCenterList.OrderBy(temp => temp.SHGName);
+        
         }
 
 
