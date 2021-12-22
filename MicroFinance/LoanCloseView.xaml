@@ -1,0 +1,54 @@
+﻿<Page x:Class="MicroFinance.LoanCloseView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      Title="LoanCloseView">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Row="1" Grid.Column="1" Width="auto" Height="auto" ColumnHeaderHeight="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"  IsReadOnly="True" HeadersVisibility="All"   AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" AlternatingRowBackground="LightBlue" ScrollViewer.HorizontalScrollBarVisibility="Hidden" MaxWidth="1200" MaxHeight="500" x:Name="EnrollDetailGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Branch Name" Width="1*" Binding="{Binding BranchName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Center Name" Width="1*" Binding="{Binding CenterName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Employee Name" Width="1*" Binding="{Binding EmployeeName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Customer Name" Width="1*" Binding="{Binding CustomerName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Aadhar Number" Width="1*" Binding="{Binding AadharNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Enroll Date" Width="0.5*" Binding="{Binding EnrollDate,StringFormat='{}{0:dd-MM-yyyy}'}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Loan Status" Width="1*" Binding="{Binding LoanStatus}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Reject" Width="0.5*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource DangerBtn}" Margin="3" Content="Reject" x:Name="RejectBtn" Click="RejectBtn_Click" Height="auto" Width="auto"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+
+            <DataGrid.RowStyle>
+
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.Height" Value="40"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="14" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen"/>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+    </Grid>
+</Page>
