@@ -124,7 +124,14 @@
                     </Border.Effect>
                     <Button x:Name="ViewCenter" Click="ViewCenter_Click" Style="{StaticResource viewSHG}"></Button>
                 </Border>
-                <Button Content="Deactive Loan Application" Margin="15" x:Name="DeactiveLoanApplication" Click="DeactiveLoanApplication_Click"></Button>
+                <Border Margin="15" Style="{StaticResource MainBorder}" 
+                 >
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                    </Border.Effect>
+                    <Button  x:Name="DeactiveLoanApplication" Click="DeactiveLoanApplication_Click" Style="{StaticResource DeactivateLoan}"></Button>
+                </Border>
+                
                 
             </WrapPanel>
             

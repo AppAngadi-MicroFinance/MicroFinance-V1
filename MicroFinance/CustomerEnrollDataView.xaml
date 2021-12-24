@@ -101,7 +101,7 @@
                             <TextBlock Text="Religion" Style="{StaticResource Regular}" Grid.Row="7"></TextBlock>
                             <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="7" Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="ReligionCombo"></ComboBox>
                             <TextBlock Text="Community" Style="{StaticResource Regular}" Grid.Row="8"></TextBlock>
-                            <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="8" Text="{Binding Community,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="ComminityCombo"></ComboBox>
+                            <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="8" SelectedValue="{Binding Community,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="ComminityCombo"></ComboBox>
                             <TextBlock Text="Caste" Style="{StaticResource Regular}" Grid.Row="9"></TextBlock>
                             <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="9" Text="{Binding Caste,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             <TextBlock Text="Education" Style="{StaticResource Regular}" Grid.Row="10"></TextBlock>
@@ -150,7 +150,7 @@
                                 <ComboBoxItem>No</ComboBoxItem>
                             </ComboBox>
                             <TextBlock Text="Land Type" Style="{StaticResource Regular}" Grid.Row="31"></TextBlock>
-                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="31" Text="{Binding LandType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="31" Text="{Binding Residency,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             <TextBlock Text="Bank Details" Grid.Row="33" Style="{StaticResource Title}" Margin="5"></TextBlock>
                             <TextBlock Text="Account Holder Name" Style="{StaticResource Regular}" Grid.Row="34"></TextBlock>
                             <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="34" Text="{Binding BankACHolderName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
@@ -243,7 +243,7 @@
                             <TextBlock Text="Address Proof Number" Style="{StaticResource Regular}" Grid.Row="15"></TextBlock>
                             <TextBox Grid.Row="15" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding AddressProofNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             <TextBlock Text="Photo Proof Name" Style="{StaticResource Regular}" Grid.Row="16"></TextBlock>
-                            <TextBox Grid.Row="16" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding PhotoProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox Grid.Row="16" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             <TextBlock Text="Photo Proof Number" Style="{StaticResource Regular}" Grid.Row="17"></TextBlock>
                             <TextBox Grid.Row="17" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding PhotoProofNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         </Grid>
@@ -315,7 +315,7 @@
                             <TextBlock Text="Address Proof Number" Style="{StaticResource Regular}" Grid.Row="15"></TextBlock>
                             <TextBox Grid.Row="15" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding AddressProofNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             <TextBlock Text="Photo Proof Name" Style="{StaticResource Regular}" Grid.Row="16"></TextBlock>
-                            <TextBox Grid.Row="16" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding PhotoProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox Grid.Row="16" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             <TextBlock Text="Photo Proof Number" Style="{StaticResource Regular}" Grid.Row="17"></TextBlock>
                             <TextBox Grid.Row="17" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding PhotoProofNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         </Grid>

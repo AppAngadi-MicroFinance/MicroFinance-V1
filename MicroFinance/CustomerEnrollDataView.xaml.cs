@@ -34,9 +34,10 @@ namespace MicroFinance
         private List<string> ResidencyTypeList = new List<string> { "HUT HOUSE", "TILED ROOF HOUSE", "CONCRETE HOUSE" };
         private List<string> LandHoldingList = new List<string> { "YES", "NO" };
         private List<string> ReligionList = new List<string> { "CHRISTIAN", "HINDU", "MUSLIM" };
-        private List<string> CommunityList = new List<string> { };
-        private List<string> RelationshipList = new List<string> { "Father", "Mother", "Sister", "Wife", "Husband", "Son", "Daughter" };
+        
+        private List<string> RelationshipList = new List<string> { "FATHER", "MOTHER", "SISTER", "WIFE", "HUSBAND", "SON", "DAUGHTER" };
         private List<string> LoanPurposeList = new List<string> { "AGRI" };
+        public List<string> CommunityList = new List<string> { "BCM", "BC", "MBC", "SC", "ST", "Others" };
 
         private List<string> RegionList = new List<string>();
         private ObservableCollection<EmployeeViewModel> EmployeeList = new ObservableCollection<EmployeeViewModel>();
@@ -62,6 +63,7 @@ namespace MicroFinance
             ComminityCombo.ItemsSource = CommunityList;
             HousingTypeCombo.ItemsSource = ResidencyTypeList;
             RelationShipCombo.ItemsSource = RelationshipList;
+            
             NGenderCombo.ItemsSource = GenderList;
             NRelationShipCombo.ItemsSource = RelationshipList;
             CustomerDetailsGrid.DataContext = CustomerDetails;
@@ -136,7 +138,7 @@ namespace MicroFinance
             CustomerDetails.CombinePhoto = _customerdata.CombinePhoto;
             CustomerDetails.PhotoProofNo = _customerdata.PhotoProofNumber;
             CustomerDetails.AddressProofNo = _customerdata.AddressProofNumber;
-            CustomerDetails.Residency = "";
+            CustomerDetails.Residency = _customerdata.LandType;
             CustomerDetails.LandHolding = _customerdata.LandHolding;
             CustomerDetails.LandVolume = _customerdata.LandVolume;
 

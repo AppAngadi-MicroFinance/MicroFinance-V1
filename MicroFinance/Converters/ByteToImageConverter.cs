@@ -18,8 +18,6 @@ namespace MicroFinance.Converters
             BitmapImage image = new BitmapImage();
             image = ByteToBI(ImgData);
             return image;
-            
-
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

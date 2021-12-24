@@ -761,5 +761,8 @@
     <Resource Include="Asserts\Icons\HomeBtn.png" />
     <Resource Include="Asserts\Icons\LogOutBtn.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\DocumentRemove-WF.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

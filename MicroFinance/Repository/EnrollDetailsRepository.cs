@@ -212,7 +212,7 @@ namespace MicroFinance.Repository
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,LoanApplication.EnrollDate,LoanApplication.EmployeeId,LoanApplication.BranchId,LoanApplication.LoanStatus,LoanApplication.RequestId from CustomerDetails,LoanApplication where CustomerDetails.AadharNumber='"+AadharNumber+"' and CustomerDetails.CustId=LoanApplication.CustId and LoanStatus not in (0,14)";
+                    sqlcomm.CommandText = "select CustomerDetails.Name,CustomerDetails.AadharNumber,CustomerDetails.CustId,LoanApplication.EnrollDate,LoanApplication.EmployeeId,LoanApplication.BranchId,LoanApplication.LoanStatus,LoanApplication.RequestId from CustomerDetails,LoanApplication where CustomerDetails.AadharNumber='"+AadharNumber+"' and CustomerDetails.CustId=LoanApplication.CustId and LoanStatus not in (0,1,4,14,13)";
 
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
@@ -231,21 +231,23 @@ namespace MicroFinance.Repository
 
                             EnrollDetails.Add(Details);
                         }
-                    }
-                    reader.Close();
+                        reader.Close();
 
-                    sqlcomm.CommandText = "select SHGId from selfhelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + EnrollDetails[0].CustomerID + "'))";
-                     string CenterID = (string)sqlcomm.ExecuteScalar();
-                    string CenterName = MainWindow.BasicDetails.CenterList.Where(temp => temp.SHGId == CenterID).Select(temp => temp.SHGName).FirstOrDefault();
-                    string EmployeeName = MainWindow.BasicDetails.EmployeeList.Where(temp => temp.EmployeeId == EnrollDetails[0].EmployeeId).Select(temp => temp.EmployeeName).FirstOrDefault();
-                     string BranchName = MainWindow.BasicDetails.BranchList.Where(temp => temp.BranchId == EnrollDetails[0].BranchId).Select(temp => temp.BranchName).FirstOrDefault();
-                    foreach (EnrollDetailsView EnrollCust in EnrollDetails)
-                    {
-                        EnrollCust.CenterID = CenterID;
-                        EnrollCust.CenterName = CenterName;
-                        EnrollCust.EmployeeName = EmployeeName;
-                        EnrollCust.BranchName = BranchName;
+                        sqlcomm.CommandText = "select SHGId from selfhelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + EnrollDetails[0].CustomerID + "'))";
+                        string CenterID = (string)sqlcomm.ExecuteScalar();
+                        string CenterName = MainWindow.BasicDetails.CenterList.Where(temp => temp.SHGId == CenterID).Select(temp => temp.SHGName).FirstOrDefault();
+                        string EmployeeName = MainWindow.BasicDetails.EmployeeList.Where(temp => temp.EmployeeId == EnrollDetails[0].EmployeeId).Select(temp => temp.EmployeeName).FirstOrDefault();
+                        string BranchName = MainWindow.BasicDetails.BranchList.Where(temp => temp.BranchId == EnrollDetails[0].BranchId).Select(temp => temp.BranchName).FirstOrDefault();
+                        foreach (EnrollDetailsView EnrollCust in EnrollDetails)
+                        {
+                            EnrollCust.CenterID = CenterID;
+                            EnrollCust.CenterName = CenterName;
+                            EnrollCust.EmployeeName = EmployeeName;
+                            EnrollCust.BranchName = BranchName;
+                        }
                     }
+                    
+                    
                 }
             }
             return EnrollDetails;

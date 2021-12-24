@@ -30,17 +30,16 @@ namespace MicroFinance
             EnrollDetailGrid.ItemsSource = ApplicationList;
         }
 
-        private void EnrollDetailGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+       
 
         private void RejectBtn_Click(object sender, RoutedEventArgs e)
         {
             if(EnrollDetailGrid.SelectedItem!=null)
             {
                 EnrollDetailsView SelectedApplication = EnrollDetailGrid.SelectedItem as EnrollDetailsView;
-                MessageBox.Show(SelectedApplication.RequestID);
+                int LoanStatus = (SelectedApplication.LoanStatusCode < 3) ? 4 : 13;
+                bool res = LoanRepository.DeactivateApplication(SelectedApplication.RequestID, LoanStatus);
+                this.NavigationService.Navigate(new DashboardBranchManager());
             }
         }
     }
