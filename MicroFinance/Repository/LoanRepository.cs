@@ -509,6 +509,30 @@ namespace MicroFinance.ViewModel
             Result = region + branch + year + month + "GL" + ((count < 10) ? "0" + count : count.ToString());
             return Result;
         }
+        public static string GenerateLoanRequestID(string BranchID) // IDPattern 02001202106R05 (02-Region/001-Branch/2021-CurrentYear/06-CurrentMonth/R-Request(Spe)/(No.of Loan given in currentYear+1))
+        {
+            int count = 1;
+            string Result = "";
+            int year = DateTime.Now.Year;
+            int mon = DateTime.Now.Month;
+            string month = ((mon) < 10 ? "0" + mon : mon.ToString());
+            using (SqlConnection sqlcon = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlcon.Open();
+                if (sqlcon.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "select Count(RequestID) from LoanApplication where RequestID like '%" + year + "%'";
+                    count += (int)sqlcomm.ExecuteScalar();
+                }
+                sqlcon.Close();
+            }
+            string region = BranchID.Substring(0, 2);
+            string branch = BranchID.Substring(8);
+            Result = region + branch + year + month + "R" + ((count < 10) ? "0" + count : count.ToString());
+            return Result;
+        }
         public static void ApproveLoans(ObservableCollection<RecommendView> recommends)
         {
            // GetRequestDetails(ID);

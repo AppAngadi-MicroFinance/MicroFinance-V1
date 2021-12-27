@@ -118,6 +118,31 @@ namespace MicroFinance.Repository
             Result = region + branch + year + month + ((count < 10) ? "0" + count : count.ToString());
             return Result;
         }
+        public static string GenerateCustomerID(string BranchId)
+        {
+            int CustomerCount = 0;
+            using (SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select count(*) from CustomerDetails";
+                    CustomerCount = (int)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            int count = CustomerCount+1;
+            string Result = "";
+            int year = DateTime.Now.Year;
+            int mon = DateTime.Now.Month;
+            string month = ((mon) < 10 ? "0" + mon : mon.ToString());
+            string region = BranchId.Substring(0, 2);
+            string branch = BranchId.Substring(8);
+            Result = region + branch + year + month + ((count < 10) ? "0" + count : count.ToString());
+            return Result;
+        }
         public static List<CenterViewModel> GetCenters()
         {
             List<CenterViewModel> CenterList = new List<CenterViewModel>();

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Convert="clr-namespace:MicroFinance.Converters"
       xmlns:local="clr-namespace:MicroFinance"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
       Background="#FEF2E4"
       Title="CustomerEnrollDataView">
@@ -17,6 +18,10 @@
             <RowDefinition Height="90*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
+        <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="6" Grid.ColumnSpan="7">
+
+            <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
+        </StackPanel>
         <TextBlock Text="Customer Enroll Data" Grid.Row="0" Style="{StaticResource Title}"></TextBlock>
         <Grid MaxHeight="500" Width="800" Grid.Row="1">
             <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">

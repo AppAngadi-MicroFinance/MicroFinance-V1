@@ -809,13 +809,21 @@ namespace MicroFinance.Modal
                     _occupation = sqlData.GetString(15);
                     _monthlyIncome = sqlData.GetInt32(16);
                     _monthlyExpenses = sqlData.GetInt32(17);
-                    string[] _fullAdress = sqlData.GetString(18).Split('|', '~');
-                    _doorNumber = _fullAdress[0];
-                    _streetName = _fullAdress[2];
-                    _localityTown = _fullAdress[4];
-                    _taluk = _fullAdress[6];
-                    _city = _fullAdress[8];
-                    _state = _fullAdress[10];
+                    try
+                    {
+                        string[] _fullAdress = sqlData.GetString(18).Split('|', '~');
+                        _doorNumber = _fullAdress[0];
+                        _streetName = _fullAdress[2];
+                        _localityTown = _fullAdress[4];
+                        _taluk = _fullAdress[6];
+                        _city = _fullAdress[8];
+                        _state = _fullAdress[10];
+                    }
+                    catch
+                    {
+
+                    }
+                   
                     
                     _pincode = sqlData.GetInt32(19);
                     _housingType = sqlData.GetString(20);

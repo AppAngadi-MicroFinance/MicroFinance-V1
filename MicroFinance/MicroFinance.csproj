@@ -111,6 +111,7 @@
     <Compile Include="AddRegion.xaml.cs">
       <DependentUpon>AddRegion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="APIModal\CustomerEnrollDataViewModel.cs" />
     <Compile Include="APIModal\VMCustomerDetails.cs" />
     <Compile Include="APIModal\VMCustomerEnrollData.cs" />
     <Compile Include="APIModal\VMCustomerGroup.cs" />
