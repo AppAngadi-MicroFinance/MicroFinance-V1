@@ -7,12 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using MicroFinance.Modal;
 using MicroFinance.ViewModel;
+using MicroFinance.APIModal;
 
 namespace MicroFinance.Repository
 {
     public class CustomerRepository
     {
-
+        private string CustomerID = "";
+        private string RequestID = "";
         public void AddCustomerDetails(string Region, string BranchName, string SelfHelpGroup, string PeerGroup,Customer CustData)
         {
             string CustomerID = string.Empty;
@@ -74,7 +76,6 @@ namespace MicroFinance.Repository
 
             }
         }
-
         void InsertIntoCustomerGroup(string custId, string pgId, bool isLeader, int cpId)
         {
             using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -91,7 +92,6 @@ namespace MicroFinance.Repository
                 sqlConnection.Close();
             }
         }
-
         int GetMembersCountINPeerGroup(string peerGroupId)
         {
             int Count = 1;
@@ -106,13 +106,6 @@ namespace MicroFinance.Repository
             }
             return Count;
         }
-
-
-
-
-
-
-
         private static string GenerateCustomerID(string BranchId,int CustCount)
         {
             int count = CustCount;
@@ -125,8 +118,31 @@ namespace MicroFinance.Repository
             Result = region + branch + year + month + ((count < 10) ? "0" + count : count.ToString());
             return Result;
         }
-
-
+        public static string GenerateCustomerID(string BranchId)
+        {
+            int CustomerCount = 0;
+            using (SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select count(*) from CustomerDetails";
+                    CustomerCount = (int)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            int count = CustomerCount+1;
+            string Result = "";
+            int year = DateTime.Now.Year;
+            int mon = DateTime.Now.Month;
+            string month = ((mon) < 10 ? "0" + mon : mon.ToString());
+            string region = BranchId.Substring(0, 2);
+            string branch = BranchId.Substring(8);
+            Result = region + branch + year + month + ((count < 10) ? "0" + count : count.ToString());
+            return Result;
+        }
         public static List<CenterViewModel> GetCenters()
         {
             List<CenterViewModel> CenterList = new List<CenterViewModel>();
@@ -156,7 +172,6 @@ namespace MicroFinance.Repository
             }
             return CenterList;
         }
-
         public static List<CustomerViewModel> Customers(string CenterID)
         {
             List<CustomerViewModel> CustomerList = new List<CustomerViewModel>();
@@ -200,8 +215,6 @@ namespace MicroFinance.Repository
             }
             return CustomerList;
         }
-
-
         public static CustomerViewModel GetCustomerMetaDetials(string CustomerID)
         {
             CustomerViewModel Customer = new CustomerViewModel();
@@ -242,7 +255,6 @@ namespace MicroFinance.Repository
 
             return Customer;
         }
-
         private static string FormAddress(string[] Address)
         {
             StringBuilder sb = new StringBuilder();
@@ -253,8 +265,6 @@ namespace MicroFinance.Repository
             }
             return sb.ToString();
         }
-
-
         public static int GetSavingsAccountBalance(string CustomerId)
         {
             int Balance = 0;
@@ -287,7 +297,6 @@ namespace MicroFinance.Repository
             }
             return Balance;
         }
-
         public static string GetCustomerID(string AadharNumber)
         {
             string Result = "";
@@ -305,6 +314,58 @@ namespace MicroFinance.Repository
                 sqlconn.Close();
             }
             return Result;
+        }
+        public static List<PeerGroupViewModal> GetPeerGroups(string EmpID)
+        {
+            List<PeerGroupViewModal> GroupList = new List<PeerGroupViewModal>();
+            using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select SHGid, GroupId, GroupName from PeerGroup where SHGid in(select SHGId from TimeTable where EmpId = '"+EmpID+"')";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while(reader.Read())
+                        {
+                            PeerGroupViewModal Group = new PeerGroupViewModal();
+                            Group.SHGID = reader.GetString(0);
+                            Group.GroupID = reader.GetString(1);
+                            Group.GroupName = reader.GetString(2);
+                            GroupList.Add(Group);
+                        }
+                        reader.Close();
+                    }
+                    sqlconn.Close();
+
+                }
+            }
+            return GroupList;
+        }
+        public static int CustomerCount()
+        {
+            int Result = 0;
+            using(SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "";
+                    Result = (int)sqlcomm.ExecuteScalar();
+                }
+                sqlconn.Close();
+            }
+            return Result + 1;
+        }
+        public static bool EnrollCustomerDetails(VMCustomerDetails CustData,PeerGroupViewModal PeerGroup,TimeTableViewModel CenterDetails,BranchViewModel BranchDetails,VMGuarenteeDetails GuarenteeDetails,VMNomineeDetails NomineeDetails)
+        {
+
+            return true;
         }
 
     }

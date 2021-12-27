@@ -292,13 +292,29 @@ namespace MicroFinance
 
         private async void EnrollDataBtn_Click(object sender, RoutedEventArgs e)
         {
-            GifPanel.Visibility = Visibility.Visible;
-            ToolsPanal.IsEnabled = false;
-            await GetCustomerEnrollMetaData(MainWindow.LoginDesignation.EmpId);
-            ToolsPanal.IsEnabled = true;
-            GifPanel.Visibility = Visibility.Collapsed;
-            ObservableCollection<CustomerEnrollMetaData> CustomerData = CustomerEnrollMetaDataList;
-            this.NavigationService.Navigate(new EnrollDataView(CustomerData));
+            try
+            {
+                GifPanel.Visibility = Visibility.Visible;
+                ToolsPanal.IsEnabled = false;
+                await GetCustomerEnrollMetaData(MainWindow.LoginDesignation.EmpId);
+                ToolsPanal.IsEnabled = true;
+                GifPanel.Visibility = Visibility.Collapsed;
+                ObservableCollection<CustomerEnrollMetaData> CustomerData = CustomerEnrollMetaDataList;
+                this.NavigationService.Navigate(new EnrollDataView(CustomerData));
+            }
+            catch(HttpRequestException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                GifPanel.Visibility = Visibility.Collapsed;
+                ToolsPanal.IsEnabled = true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                GifPanel.Visibility = Visibility.Collapsed;
+                ToolsPanal.IsEnabled = true;
+            }
+            
         }
 
 

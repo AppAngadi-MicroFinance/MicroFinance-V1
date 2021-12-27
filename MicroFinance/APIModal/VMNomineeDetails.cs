@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MicroFinance.APIModal
 {
-    public class VMGuarenteeDetails
+    public class VMNomineeDetails
     {
         public string CustId { get; set; }
         public string Name { get; set; }

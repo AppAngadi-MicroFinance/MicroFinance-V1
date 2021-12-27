@@ -3,317 +3,415 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Convert="clr-namespace:MicroFinance.Converters"
       xmlns:local="clr-namespace:MicroFinance"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
       Background="#FEF2E4"
       Title="CustomerEnrollDataView">
+    <Page.Resources>
+        <Convert:ByteToImageConverter x:Key="ImageConverter"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="6" Grid.ColumnSpan="7">
 
-    <Grid MaxHeight="500" Width="800">
-        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
-            <Grid Width="780">
+            <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
+        </StackPanel>
+        <TextBlock Text="Customer Enroll Data" Grid.Row="0" Style="{StaticResource Title}"></TextBlock>
+        <Grid MaxHeight="500" Width="800" Grid.Row="1">
+            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+                <Grid Width="780" x:Name="PanelGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Customer Details" Style="{StaticResource Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"></TextBlock>
+                    <Border BorderBrush="Gray" CornerRadius="5" BorderThickness="2" Grid.Row="1">
+                        <Grid x:Name="CustomerDetailsGrid" Width="770">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="35*"/>
+                                <ColumnDefinition Width="65*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Customer Name" Style="{StaticResource Regular}"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Father Name" Style="{StaticResource Regular}" Grid.Row="1"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="1" Text="{Binding FatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Mother Name" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="2" Text="{Binding MotherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Date Of Birth" Style="{StaticResource Regular}" Grid.Row="3"></TextBlock>
+                            <DatePicker Style="{StaticResource DateSelecter}" Grid.Column="1" Width="350" Margin="3" Grid.Row="3" SelectedDate="{Binding Dob,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                            <TextBlock Text="Gender" Style="{StaticResource Regular}" Grid.Row="4"></TextBlock>
+                            <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="4" Text="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="GenderCombo">
+
+                            </ComboBox>
+                            <TextBlock Text="Guardian Name" Style="{StaticResource Regular}" Grid.Row="5"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="5" Text="{Binding HusbandName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBox>
+                            <TextBlock Text="Contact Number" Style="{StaticResource Regular}" Grid.Row="6"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="6" Text="{Binding Mobile,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Religion" Style="{StaticResource Regular}" Grid.Row="7"></TextBlock>
+                            <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="7" Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="ReligionCombo"></ComboBox>
+                            <TextBlock Text="Community" Style="{StaticResource Regular}" Grid.Row="8"></TextBlock>
+                            <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="8" SelectedValue="{Binding Community,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="ComminityCombo"></ComboBox>
+                            <TextBlock Text="Caste" Style="{StaticResource Regular}" Grid.Row="9"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="9" Text="{Binding Caste,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Education" Style="{StaticResource Regular}" Grid.Row="10"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="10" Text="{Binding Education,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Family Members" Style="{StaticResource Regular}" Grid.Row="11"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="11" Text="{Binding FamilyMembers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Earning Members" Style="{StaticResource Regular}" Grid.Row="12"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="12" Text="{Binding EarningMembers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Occupation" Style="{StaticResource Regular}" Grid.Row="13"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="13" Text="{Binding Occupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Monthly Income" Style="{StaticResource Regular}" Grid.Row="14"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="14" Text="{Binding MonthlyIncome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Monthly Expence" Style="{StaticResource Regular}" Grid.Row="15"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="15" Text="{Binding MonthlyExpenses,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Family Income (Per Annum)" Style="{StaticResource Regular}" Grid.Row="16"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="16" Text="{Binding YearlyIncome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Door No" Style="{StaticResource Regular}" Grid.Row="17"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="17" Text="{Binding DoorNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="18"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="18" Text="{Binding StreetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Village" Style="{StaticResource Regular}" Grid.Row="19"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="19" Text="{Binding Village,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Taluk" Visibility="Collapsed" Style="{StaticResource Regular}" Grid.Row="20"></TextBlock>
+                            <TextBox Visibility="Collapsed" Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="20"></TextBox>
+                            <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="21"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="21" Text="{Binding City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="PinCode" Style="{StaticResource Regular}" Grid.Row="22"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="22" Text="{Binding Pincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Aadhar Number" Style="{StaticResource Regular}" Grid.Row="23"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="23" Text="{Binding AadharNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Address Proof Name" Style="{StaticResource Regular}" Grid.Row="24"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="24" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Address Proof Number" Style="{StaticResource Regular}" Grid.Row="25"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="25" Text="{Binding AddressProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Photo Proof Name" Style="{StaticResource Regular}" Grid.Row="26"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="26" Text="{Binding PhotoProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Photo Proof Number" Style="{StaticResource Regular}" Grid.Row="27"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="27" Text="{Binding PhotoProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Housing Type" Style="{StaticResource Regular}" Grid.Row="28"></TextBlock>
+                            <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="28" Text="{Binding HousingType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="HousingTypeCombo"></ComboBox>
+                            <TextBlock Visibility="Collapsed" Text="Land Holding" Style="{StaticResource Regular}" Grid.Row="29"></TextBlock>
+                            <ComboBox Visibility="Collapsed" Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="29" ></ComboBox>
+                            <TextBlock Visibility="Visible" Text="Land Holding" Style="{StaticResource Regular}" Grid.Row="30"></TextBlock>
+                            <ComboBox Visibility="Visible" Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="30" Text="{Binding LandHolding,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                <ComboBoxItem>Yes</ComboBoxItem>
+                                <ComboBoxItem>No</ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Text="Land Type" Style="{StaticResource Regular}" Grid.Row="31"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="31" Text="{Binding Residency,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Bank Details" Grid.Row="33" Style="{StaticResource Title}" Margin="5"></TextBlock>
+                            <TextBlock Text="Account Holder Name" Style="{StaticResource Regular}" Grid.Row="34"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="34" Text="{Binding BankACHolderName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Account Number" Style="{StaticResource Regular}" Grid.Row="35"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="35" Text="{Binding BankAccountNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Bank Name" Style="{StaticResource Regular}" Grid.Row="36"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="36" Text="{Binding BankName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Branch Name" Style="{StaticResource Regular}" Grid.Row="37"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="37" Text="{Binding BankBranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="IFSC Code" Style="{StaticResource Regular}" Grid.Row="38"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="38" Text="{Binding IFSCCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="MICR Code" Style="{StaticResource Regular}" Grid.Row="39"></TextBlock>
+                            <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="39" Text="{Binding MICRCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Address Proof" Style="{StaticResource Regular}" Grid.Row="40"></TextBlock>
+                            <Image Height="200" Grid.Column="1" Width="400" Margin="5" Grid.Row="40" Source="{Binding AddressProof,Converter={StaticResource ImageConverter}}" ></Image>
+                            <TextBlock Text="Photo Proof" Grid.Row="41" Style="{StaticResource Regular}" ></TextBlock>
+                            <Image Grid.Row="41" Grid.Column="1" Width="400" Height="200" Margin="5" Source="{Binding PhotoProof,Converter={StaticResource ImageConverter}}"></Image>
+                            <TextBlock Text="Combine Photo" Grid.Row="42" Style="{StaticResource Regular}"></TextBlock>
+                            <Image Grid.Row="42" Grid.Column="1" Width="400" Height="200" Margin="5" Source="{Binding CombinePhoto,Converter={StaticResource ImageConverter}}"></Image>
+
+
+
+                        </Grid>
+
+                    </Border>
+                    <TextBlock Text="Guarentee Details" Style="{StaticResource Title}" VerticalAlignment="Center" Grid.Row="2" Margin="0,10,0,0"></TextBlock>
+                    <Border BorderBrush="Gray" CornerRadius="5" BorderThickness="2" Grid.Row="3" Margin="0,10,0,0">
+                        <Grid x:Name="GuarenteeDetailsGrid" Width="770">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="35*"/>
+                                <ColumnDefinition Width="65*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Name" Style="{StaticResource Regular}" Grid.Row="1"></TextBlock>
+                            <TextBox Grid.Row="1" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Gender" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Width="350" Style="{StaticResource combo}" Margin="3" x:Name="GGenderCombo" Text="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+
+                            </ComboBox>
+                            <TextBlock Text="Date Of Birth" Style="{StaticResource Regular}" Grid.Row="3"></TextBlock>
+                            <DatePicker Grid.Row="3" Grid.Column="1" Width="350" Style="{StaticResource DateSelecter}" Margin="3" SelectedDate="{Binding Dob,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                            <TextBlock Text="Contact Number" Style="{StaticResource Regular}" Grid.Row="4"></TextBlock>
+                            <TextBox Grid.Row="4" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding Mobile,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Occupation" Style="{StaticResource Regular}" Grid.Row="5"></TextBlock>
+                            <TextBox Grid.Row="5" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding Occupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="RelationShip" Style="{StaticResource Regular}" Grid.Row="6"></TextBlock>
+                            <ComboBox Grid.Row="6" Grid.Column="1" Width="350" Style="{StaticResource combo}" Margin="3" x:Name="RelationShipCombo" Text="{Binding RelationShip,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                            <TextBlock Text="Door No" Style="{StaticResource Regular}" Grid.Row="7"></TextBlock>
+                            <TextBox Grid.Row="7" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding DoorNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="8"></TextBlock>
+                            <TextBox Grid.Row="8" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding StreetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Village" Style="{StaticResource Regular}" Grid.Row="9"></TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding Village,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Visibility="Collapsed" Text="Taluk" Style="{StaticResource Regular}" Grid.Row="10"></TextBlock>
+                            <TextBox Grid.Row="10" Visibility="Collapsed" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
+                            <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="11"></TextBlock>
+                            <TextBox Grid.Row="11" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="12"></TextBlock>
+                            <TextBox Grid.Row="12" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
+                            <TextBlock Text="PinCode" Style="{StaticResource Regular}" Grid.Row="13"></TextBlock>
+                            <TextBox Grid.Row="13" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding Pincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Address Proof Name" Style="{StaticResource Regular}" Grid.Row="14"></TextBlock>
+                            <TextBox Grid.Row="14" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Address Proof Number" Style="{StaticResource Regular}" Grid.Row="15"></TextBlock>
+                            <TextBox Grid.Row="15" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding AddressProofNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Photo Proof Name" Style="{StaticResource Regular}" Grid.Row="16"></TextBlock>
+                            <TextBox Grid.Row="16" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Photo Proof Number" Style="{StaticResource Regular}" Grid.Row="17"></TextBlock>
+                            <TextBox Grid.Row="17" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding PhotoProofNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </Grid>
+                    </Border>
+                    <TextBlock Text="Nominee Details" Grid.Row="4" Style="{StaticResource Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,0"></TextBlock>
+                    <Border BorderBrush="Gray" CornerRadius="5" BorderThickness="2" Grid.Row="5" Margin="0,10,0,0">
+                        <Grid x:Name="NomineeDetailsGrid" Width="770">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="35*"/>
+                                <ColumnDefinition Width="65*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Name" Style="{StaticResource Regular}" Grid.Row="1"></TextBlock>
+                            <TextBox Grid.Row="1" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Gender" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Width="350" Style="{StaticResource combo}" Margin="3" x:Name="NGenderCombo" Text="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+
+                            </ComboBox>
+                            <TextBlock Text="Date Of Birth" Style="{StaticResource Regular}" Grid.Row="3"></TextBlock>
+                            <DatePicker Grid.Row="3" Grid.Column="1" Width="350" Style="{StaticResource DateSelecter}" Margin="3" SelectedDate="{Binding Dob,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                            <TextBlock Text="Contact Number" Style="{StaticResource Regular}" Grid.Row="4"></TextBlock>
+                            <TextBox Grid.Row="4" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding Mobile,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Occupation" Style="{StaticResource Regular}" Grid.Row="5"></TextBlock>
+                            <TextBox Grid.Row="5" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding Occupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="RelationShip" Style="{StaticResource Regular}" Grid.Row="6"></TextBlock>
+                            <ComboBox Grid.Row="6" Grid.Column="1" Width="350" Style="{StaticResource combo}" Margin="3" x:Name="NRelationShipCombo" Text="{Binding RelationShip,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                            <TextBlock Text="Door No" Style="{StaticResource Regular}" Grid.Row="7"></TextBlock>
+                            <TextBox Grid.Row="7" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding DoorNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="8"></TextBlock>
+                            <TextBox Grid.Row="8" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding StreetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Village" Style="{StaticResource Regular}" Grid.Row="9"></TextBlock>
+                            <TextBox Grid.Row="9" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding Village,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Visibility="Collapsed" Text="Taluk" Style="{StaticResource Regular}" Grid.Row="10"></TextBlock>
+                            <TextBox Grid.Row="10" Visibility="Collapsed" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
+                            <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="11"></TextBlock>
+                            <TextBox Grid.Row="11" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="12"></TextBlock>
+                            <TextBox Grid.Row="12" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
+                            <TextBlock Text="PinCode" Style="{StaticResource Regular}" Grid.Row="13"></TextBlock>
+                            <TextBox Grid.Row="13" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding Pincode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Address Proof Name" Style="{StaticResource Regular}" Grid.Row="14"></TextBlock>
+                            <TextBox Grid.Row="14" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Address Proof Number" Style="{StaticResource Regular}" Grid.Row="15"></TextBlock>
+                            <TextBox Grid.Row="15" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding AddressProofNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Photo Proof Name" Style="{StaticResource Regular}" Grid.Row="16"></TextBlock>
+                            <TextBox Grid.Row="16" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Text="Photo Proof Number" Style="{StaticResource Regular}" Grid.Row="17"></TextBlock>
+                            <TextBox Grid.Row="17" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3" Text="{Binding PhotoProofNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+            
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ButtonPanel">
+            <Button Style="{StaticResource SecondaryBtn}" Margin="5" Content="Continue" x:Name="ContinueBtn" Click="ContinueBtn_Click"></Button>
+            <Button Style="{StaticResource CancelBtn}" Margin="5" Content="Cancel"></Button>
+        </StackPanel>
+        <Border Height="430" Width="750" Background="White" Grid.Row="1" CornerRadius="8" BorderThickness="2" BorderBrush="Gray" Visibility="Collapsed" x:Name="CustomerVerifyPanel">
+            <Grid Height="390" Width="590">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Customer Details" Style="{StaticResource Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"></TextBlock>
-                <Border BorderBrush="Gray" CornerRadius="5" BorderThickness="2" Grid.Row="1">
-                    <Grid x:Name="CustomerDetailsGrid" Width="770">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="35*"/>
-                            <ColumnDefinition Width="65*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Customer Name" Style="{StaticResource Regular}"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Father Name" Style="{StaticResource Regular}" Grid.Row="1"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="1" Text="{Binding FatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Mother Name" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="2" Text="{Binding MotherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Date Of Birth" Style="{StaticResource Regular}" Grid.Row="3"> </TextBlock>
-                        <DatePicker Style="{StaticResource DateSelecter}" Grid.Column="1" Width="350" Margin="3" Grid.Row="3" SelectedDate="{Binding Dob,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
-                        <TextBlock Text="Gender" Style="{StaticResource Regular}" Grid.Row="4"></TextBlock>
-                        <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="4" SelectedItem="{Binding Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                            <ComboBoxItem>Male</ComboBoxItem>
-                            <ComboBoxItem>Female</ComboBoxItem>
-                        </ComboBox>
-                        <TextBlock Text="Guardian Name" Style="{StaticResource Regular}" Grid.Row="5"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="5" Text="{Binding HusbandName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBox>
-                        <TextBlock Text="Contact Number" Style="{StaticResource Regular}" Grid.Row="6"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="6" Text="{Binding Mobile,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Religion" Style="{StaticResource Regular}" Grid.Row="7"></TextBlock>
-                        <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="7" Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="ReligionCombo"></ComboBox>
-                        <TextBlock Text="Community" Style="{StaticResource Regular}" Grid.Row="8"></TextBlock>
-                        <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="8" Text="{Binding Community,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="ComminityCombo"></ComboBox>
-                        <TextBlock Text="Caste" Style="{StaticResource Regular}" Grid.Row="9"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="9" Text="{Binding Caste,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Education" Style="{StaticResource Regular}" Grid.Row="10"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="10" Text="{Binding Education,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Family Members" Style="{StaticResource Regular}" Grid.Row="11"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="11" Text="{Binding FamilyMembers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Earning Members" Style="{StaticResource Regular}" Grid.Row="12"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="12" Text="{Binding EarningMembers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Occupation" Style="{StaticResource Regular}" Grid.Row="13"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="13" Text="{Binding Occupation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Monthly Income" Style="{StaticResource Regular}" Grid.Row="14"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="14" Text="{Binding MonthlyIncome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Monthly Expence" Style="{StaticResource Regular}" Grid.Row="15"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="15" Text="{Binding MonthlyExpence,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Family Income (Per Annum)" Style="{StaticResource Regular}" Grid.Row="16"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="16" Text="{Binding YearlyIncome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Door No" Style="{StaticResource Regular}" Grid.Row="17"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="17" Text="{Binding DoorNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="18"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="18" Text="{Binding StreetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Village" Style="{StaticResource Regular}" Grid.Row="19"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="19" Text="{Binding Village,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Taluk" Visibility="Collapsed" Style="{StaticResource Regular}" Grid.Row="20"></TextBlock>
-                        <TextBox Visibility="Collapsed" Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="20"></TextBox>
-                        <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="21"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="21" Text="{Binding City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="PinCode" Style="{StaticResource Regular}" Grid.Row="22"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="22" Text="{Binding PinCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Aadhar Number" Style="{StaticResource Regular}" Grid.Row="23"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="23" Text="{Binding AadharNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Address Proof Name" Style="{StaticResource Regular}" Grid.Row="24"></TextBlock>
-                        <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="24" Text="{Binding AddressProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                        <TextBlock Text="Address Proof Number" Style="{StaticResource Regular}" Grid.Row="25"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="25" Text="{Binding AddressProofNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Photo Proof Name" Style="{StaticResource Regular}" Grid.Row="26"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="26" Text="{Binding PhotoProofName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Photo Proof Number" Style="{StaticResource Regular}" Grid.Row="27"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="27" Text="{Binding PhotoProofNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Housing Type" Style="{StaticResource Regular}" Grid.Row="28"></TextBlock>
-                        <ComboBox Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="28" Text="{Binding HousingType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                        <TextBlock Visibility="Collapsed" Text="Land Holding" Style="{StaticResource Regular}" Grid.Row="29"></TextBlock>
-                        <ComboBox Visibility="Collapsed" Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="29" ></ComboBox>
-                        <TextBlock Visibility="Visible" Text="Land Holding" Style="{StaticResource Regular}" Grid.Row="30"></TextBlock>
-                        <ComboBox Visibility="Visible" Style="{StaticResource combo}" Grid.Column="1" Width="350" Margin="3" Grid.Row="30" Text="{Binding LandHolding,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                            <ComboBoxItem>Yes</ComboBoxItem>
-                            <ComboBoxItem>No</ComboBoxItem>
-                        </ComboBox>
-                        <TextBlock Text="Land Type" Style="{StaticResource Regular}" Grid.Row="31"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="32" Text="{Binding LandType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Bank Details" Grid.Row="33" Style="{StaticResource Title}" Margin="5"></TextBlock>
-                        <TextBlock Text="Account Holder Name" Style="{StaticResource Regular}" Grid.Row="34"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="34" Text="{Binding BankACHolderName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Account Number" Style="{StaticResource Regular}" Grid.Row="35"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="35" Text="{Binding BankAccountNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Bank Name" Style="{StaticResource Regular}" Grid.Row="36"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="36" Text="{Binding BankName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Branch Name" Style="{StaticResource Regular}" Grid.Row="37"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="37" Text="{Binding BankBranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="IFSC Code" Style="{StaticResource Regular}" Grid.Row="38"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="38" Text="{Binding IFSCCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="MICR Code" Style="{StaticResource Regular}" Grid.Row="39"></TextBlock>
-                        <TextBox Style="{StaticResource InputBox}" Grid.Column="1" Width="350" Margin="3" Grid.Row="39" Text="{Binding MICRCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Text="Address Proof" Style="{StaticResource Regular}" Grid.Row="40"></TextBlock>
-                        <Image Height="200" Grid.Column="1" Width="400" Margin="5" Grid.Row="40" ></Image>
-                        <TextBlock Text="Photo Proof" Grid.Row="41" Style="{StaticResource Regular}"></TextBlock>
-                        <Image Grid.Row="41" Grid.Column="1" Width="400" Height="200" Margin="5"></Image>
-                        <TextBlock Text="Combine Photo" Grid.Row="42" Style="{StaticResource Regular}"></TextBlock>
-                        <Image Grid.Row="42" Grid.Column="1" Width="400" Height="200" Margin="5"></Image>
-
-
-
-                    </Grid>
+                <TextBlock Text="Customer Branch Details" Style="{StaticResource Title}" VerticalAlignment="Center"></TextBlock>
+                <Separator VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="3" Grid.ColumnSpan="2"></Separator>
+                <TextBlock Text="Region Name" Grid.Row="1" Style="{StaticResource Regular}" VerticalAlignment="Bottom"></TextBlock>
+                <ComboBox Grid.Row="2" Style="{StaticResource combo}" x:Name="RegionCombo" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center"></ComboBox>
+                <TextBlock Text="Branch Name" Grid.Row="1" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Bottom"></TextBlock>
+                <ComboBox Grid.Row="2" Grid.Column="1" Style="{StaticResource combo}" Width="250" HorizontalAlignment="Left" x:Name="BranchCombo">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding BranchName}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Center Name" Grid.Row="3" Style="{StaticResource Regular}" VerticalAlignment="Bottom"></TextBlock>
+                <ComboBox Grid.Row="4" Grid.Column="0" Style="{StaticResource combo}" Width="250" HorizontalAlignment="Left" x:Name="CenterNameCombo" SelectionChanged="CenterNameCombo_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding SHGName}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Peer Group" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom"></TextBlock>
+                <ComboBox Grid.Row="4" Grid.Column="1" Style="{StaticResource combo}" Width="250" HorizontalAlignment="Left" x:Name="PeerGroupCombo">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding GroupName}" Style="{StaticResource Regular}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="Loan Details" Grid.Row="5" Style="{StaticResource Title}" VerticalAlignment="Center" Margin="0,10,0,0"></TextBlock>
+                <Separator BorderBrush="Gray" BorderThickness="2" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Bottom"></Separator>
+                <TextBlock Text="Loan Type" Grid.Row="6" Style="{StaticResource Regular}" VerticalAlignment="Bottom"></TextBlock>
+                <ComboBox Grid.Row="7" Style="{StaticResource combo}" Width="250" HorizontalAlignment="Left" x:Name="LoanTypeCombo">
+                    <ComboBoxItem Content="Special Loan"/>
+                    <ComboBoxItem Content="General Loan"/>
+                </ComboBox>
+                <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" Grid.Row="6" Grid.Column="1" VerticalAlignment="Bottom">
                     
-                </Border>
-                <TextBlock Text="Guarentee Details" Style="{StaticResource Title}" VerticalAlignment="Center" Grid.Row="2" Margin="0,10,0,0"></TextBlock>
-                <Border BorderBrush="Gray" CornerRadius="5" BorderThickness="2" Grid.Row="3" Margin="0,10,0,0">
-                    <Grid x:Name="GuarenteeDetailsGrid" Width="770">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="35*"/>
-                            <ColumnDefinition Width="65*"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <TextBlock Text="Name" Style="{StaticResource Regular}" Grid.Row="1"></TextBlock>
-                        <TextBox Grid.Row="1" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Gender" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
-                        <ComboBox Grid.Row="2" Grid.Column="1" Width="350" Style="{StaticResource combo}" Margin="3">
-                            <ComboBoxItem>Male</ComboBoxItem>
-                            <ComboBoxItem>Female</ComboBoxItem>
-                        </ComboBox>
-                        <TextBlock Text="Date Of Birth" Style="{StaticResource Regular}" Grid.Row="3"></TextBlock>
-                        <DatePicker Grid.Row="3" Grid.Column="1" Width="350" Style="{StaticResource DateSelecter}" Margin="3"></DatePicker>
-                        <TextBlock Text="Contact Number" Style="{StaticResource Regular}" Grid.Row="4"></TextBlock>
-                        <TextBox Grid.Row="4" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Occupation" Style="{StaticResource Regular}" Grid.Row="5"></TextBlock>
-                        <TextBox Grid.Row="5" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="RelationShip" Style="{StaticResource Regular}" Grid.Row="6"></TextBlock>
-                        <ComboBox Grid.Row="6" Grid.Column="1" Width="350" Style="{StaticResource combo}" Margin="3"></ComboBox>
-                        <TextBlock Text="Door No" Style="{StaticResource Regular}" Grid.Row="7"></TextBlock>
-                        <TextBox Grid.Row="7" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="8"></TextBlock>
-                        <TextBox Grid.Row="8" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Village" Style="{StaticResource Regular}" Grid.Row="9"></TextBlock>
-                        <TextBox Grid.Row="9" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Taluk" Style="{StaticResource Regular}" Grid.Row="10"></TextBlock>
-                        <TextBox Grid.Row="10" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="11"></TextBlock>
-                        <TextBox Grid.Row="11" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="12"></TextBlock>
-                        <TextBox Grid.Row="12" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="PinCode" Style="{StaticResource Regular}" Grid.Row="13"></TextBlock>
-                        <TextBox Grid.Row="13" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Address Proof Name" Style="{StaticResource Regular}" Grid.Row="14"></TextBlock>
-                        <TextBox Grid.Row="14" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Address Proof Number" Style="{StaticResource Regular}" Grid.Row="15"></TextBlock>
-                        <TextBox Grid.Row="15" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Photo Proof Name" Style="{StaticResource Regular}" Grid.Row="16"></TextBlock>
-                        <TextBox Grid.Row="16" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Photo Proof Number" Style="{StaticResource Regular}" Grid.Row="17"></TextBlock>
-                        <TextBox Grid.Row="17" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                    </Grid>
-                </Border>
-                <TextBlock Text="Nominee Details" Grid.Row="4" Style="{StaticResource Title}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,0,0"></TextBlock>
-                <Border BorderBrush="Gray" CornerRadius="5" BorderThickness="2" Grid.Row="5" Margin="0,10,0,0">
-                    <Grid x:Name="NomineeDetailsGrid" Width="770">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="35*"/>
-                            <ColumnDefinition Width="65*"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <TextBlock Text="Name" Style="{StaticResource Regular}" Grid.Row="1"></TextBlock>
-                        <TextBox Grid.Row="1" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Gender" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
-                        <ComboBox Grid.Row="2" Grid.Column="1" Width="350" Style="{StaticResource combo}" Margin="3">
-                            <ComboBoxItem>Male</ComboBoxItem>
-                            <ComboBoxItem>Female</ComboBoxItem>
-                        </ComboBox>
-                        <TextBlock Text="Date Of Birth" Style="{StaticResource Regular}" Grid.Row="3"></TextBlock>
-                        <DatePicker Grid.Row="3" Grid.Column="1" Width="350" Style="{StaticResource DateSelecter}" Margin="3"></DatePicker>
-                        <TextBlock Text="Contact Number" Style="{StaticResource Regular}" Grid.Row="4"></TextBlock>
-                        <TextBox Grid.Row="4" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Occupation" Style="{StaticResource Regular}" Grid.Row="5"></TextBlock>
-                        <TextBox Grid.Row="5" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="RelationShip" Style="{StaticResource Regular}" Grid.Row="6"></TextBlock>
-                        <ComboBox Grid.Row="6" Grid.Column="1" Width="350" Style="{StaticResource combo}" Margin="3"></ComboBox>
-                        <TextBlock Text="Door No" Style="{StaticResource Regular}" Grid.Row="7"></TextBlock>
-                        <TextBox Grid.Row="7" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Street Name" Style="{StaticResource Regular}" Grid.Row="8"></TextBlock>
-                        <TextBox Grid.Row="8" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Village" Style="{StaticResource Regular}" Grid.Row="9"></TextBlock>
-                        <TextBox Grid.Row="9" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Taluk" Style="{StaticResource Regular}" Grid.Row="10"></TextBlock>
-                        <TextBox Grid.Row="10" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="City" Style="{StaticResource Regular}" Grid.Row="11"></TextBlock>
-                        <TextBox Grid.Row="11" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="State" Style="{StaticResource Regular}" Grid.Row="12"></TextBlock>
-                        <TextBox Grid.Row="12" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="PinCode" Style="{StaticResource Regular}" Grid.Row="13"></TextBlock>
-                        <TextBox Grid.Row="13" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Address Proof Name" Style="{StaticResource Regular}" Grid.Row="14"></TextBlock>
-                        <TextBox Grid.Row="14" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Address Proof Number" Style="{StaticResource Regular}" Grid.Row="15"></TextBlock>
-                        <TextBox Grid.Row="15" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Photo Proof Name" Style="{StaticResource Regular}" Grid.Row="16"></TextBlock>
-                        <TextBox Grid.Row="16" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                        <TextBlock Text="Photo Proof Number" Style="{StaticResource Regular}" Grid.Row="17"></TextBlock>
-                        <TextBox Grid.Row="17" Grid.Column="1" Width="350" Style="{StaticResource InputBox}" Margin="3"></TextBox>
-                    </Grid>
-                </Border>
+                </TextBlock>
+                <ComboBox Grid.Row="7" Grid.Column="1" Style="{StaticResource combo}" Width="250" HorizontalAlignment="Left" x:Name="LoanAmountCombo">
+                    <ComboBoxItem Content="10000"/>
+                    <ComboBoxItem Content="15000"/>
+                    <ComboBoxItem Content="20000"/>
+                    <ComboBoxItem Content="25000"/>
+                    <ComboBoxItem Content="30000"/>
+                </ComboBox>
+                <TextBlock Text="Loan Period" Style="{StaticResource Regular}" Grid.Row="8" VerticalAlignment="Bottom"></TextBlock>
+                <ComboBox Grid.Row="9" Style="{StaticResource combo}" Width="250" HorizontalAlignment="Left" x:Name="LoanPeriodCombo">
+                    <ComboBoxItem Content="25"/>
+                    <ComboBoxItem Content="50"/>
+                    <ComboBoxItem Content="75"/>
+                    <ComboBoxItem Content="100"/>
+                </ComboBox>
+                <TextBlock Text="Loan Purpose" Grid.Row="8" Grid.Column="1" Style="{StaticResource Regular}" VerticalAlignment="Bottom"></TextBlock>
+                <ComboBox Grid.Row="9" Grid.Column="1" Style="{StaticResource combo}" Width="250" HorizontalAlignment="Left" x:Name="LoanPurposeCombo"></ComboBox>
+                <StackPanel Grid.Row="10" Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                    <Button Style="{StaticResource PrimaryBtn}" Margin="5" Content="Submit" x:Name="SubmitBtn" Click="SubmitBtn_Click"></Button>
+                    <Button Style="{StaticResource CancelBtn}" Margin="5" Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
+                </StackPanel>
             </Grid>
-        </ScrollViewer>
+        </Border>
     </Grid>
 </Page>

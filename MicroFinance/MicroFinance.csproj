@@ -111,10 +111,12 @@
     <Compile Include="AddRegion.xaml.cs">
       <DependentUpon>AddRegion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="APIModal\CustomerEnrollDataViewModel.cs" />
     <Compile Include="APIModal\VMCustomerDetails.cs" />
     <Compile Include="APIModal\VMCustomerEnrollData.cs" />
     <Compile Include="APIModal\VMCustomerGroup.cs" />
     <Compile Include="APIModal\VMGuarenteeDetails.cs" />
+    <Compile Include="APIModal\VMNomineeDetails.cs" />
     <Compile Include="AssignCenter.xaml.cs">
       <DependentUpon>AssignCenter.xaml</DependentUpon>
     </Compile>
@@ -147,6 +149,7 @@
     </Compile>
     <Compile Include="Converters\AbsentCheck.cs" />
     <Compile Include="Converters\AgeConverter.cs" />
+    <Compile Include="Converters\ByteToImageConverter.cs" />
     <Compile Include="Converters\ComboEnableDisable.cs" />
     <Compile Include="Converters\DayConverter.cs" />
     <Compile Include="Converters\GenderFemale.cs" />
@@ -233,6 +236,9 @@
     </Compile>
     <Compile Include="LoanAfterHimark.xaml.cs">
       <DependentUpon>LoanAfterHimark.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoanCloseView.xaml.cs">
+      <DependentUpon>LoanCloseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoanRecommend.xaml.cs">
       <DependentUpon>LoanRecommend.xaml</DependentUpon>
@@ -349,6 +355,7 @@
     <Compile Include="Repository\LoanRepository.cs" />
     <Compile Include="ViewModel\LoanApplicationViewModel.cs" />
     <Compile Include="ViewModel\LoanViewModel.cs" />
+    <Compile Include="ViewModel\PeerGroupViewModal.cs" />
     <Compile Include="ViewModel\RecommendView.cs" />
     <Compile Include="ViewModel\RegionViewModel.cs" />
     <Compile Include="ViewModel\SamuReportView.cs" />
@@ -511,6 +518,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LoanAfterHimark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoanCloseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -750,6 +761,9 @@
   <ItemGroup>
     <Resource Include="Asserts\Icons\HomeBtn.png" />
     <Resource Include="Asserts\Icons\LogOutBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\DocumentRemove-WF.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

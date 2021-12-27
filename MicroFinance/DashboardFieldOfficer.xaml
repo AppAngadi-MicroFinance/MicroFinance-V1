@@ -80,7 +80,7 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="EnrollDataBtn" Click="EnrollDataBtn_Click" Style="{StaticResource EnrollDataBtn}" Visibility="Collapsed"></Button>
+                <Button x:Name="EnrollDataBtn" Click="EnrollDataBtn_Click" Style="{StaticResource EnrollDataBtn}" Visibility="Visible"></Button>
             </Border>
         </WrapPanel>
         

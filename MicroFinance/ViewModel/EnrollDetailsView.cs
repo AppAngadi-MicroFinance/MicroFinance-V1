@@ -33,5 +33,6 @@ namespace MicroFinance.ViewModel
             }
         }
         public string LoanStatus { get; set; }
+        public string RequestID { get; set; }
     }
 }

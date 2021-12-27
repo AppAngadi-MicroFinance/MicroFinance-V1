@@ -294,5 +294,26 @@ namespace MicroFinance
                 MessageBox.Show("No Center Available", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+        private void DeactiveLoanApplication_Click(object sender, RoutedEventArgs e)
+        {
+            FindCustomerPanel.Visibility = Visibility.Visible;
+            MenuPanel.IsEnabled = false;
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(AadharNumberBox.Text))
+            {
+                string AadharNumber = AadharNumberBox.Text;
+                this.NavigationService.Navigate(new LoanCloseView(AadharNumber));
+            }
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FindCustomerPanel.Visibility = Visibility.Collapsed;
+            MenuPanel.IsEnabled = true;
+        }
     }
 }

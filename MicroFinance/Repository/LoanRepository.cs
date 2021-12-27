@@ -80,7 +80,6 @@ namespace MicroFinance.ViewModel
             }
             return ResultView;
         }
-
         static Dictionary<string,SelfHelpGroupDetail> GetSelfHelpGroupDetail()
         {
             Dictionary<string, SelfHelpGroupDetail> selfhelpgrouplist = new Dictionary<string, SelfHelpGroupDetail>();
@@ -124,8 +123,6 @@ namespace MicroFinance.ViewModel
 
             return selfhelpgrouplist;
         }
-
-
         public static Dictionary<string,string> GetCenterMetaDetails()
         {
             Dictionary<string, string> CenterDetails = new Dictionary<string, string>();
@@ -150,8 +147,6 @@ namespace MicroFinance.ViewModel
             }
             return CenterDetails;
         }
-
-
         public static ObservableCollection<RecommendView> GetRecommendList(int StatusCode,string EmpId)
         {
             Dictionary<string, SelfHelpGroupDetail> shgdetail = GetSelfHelpGroupDetail(MainWindow.LoginDesignation.BranchId);
@@ -273,8 +268,6 @@ namespace MicroFinance.ViewModel
             }
             return ResultView;
         }
-
-
         public static ObservableCollection<RecommendView> GetRecommendList(int StatusCode,bool value=true)
         {
             ObservableCollection<RecommendView> ResultView = new ObservableCollection<RecommendView>();
@@ -335,8 +328,6 @@ namespace MicroFinance.ViewModel
             }
             return ResultView;
         }
-
-
         public static ObservableCollection<RecommendView> GetApproveList(int StatusCode, bool value = true)
         {
             ObservableCollection<RecommendView> ResultView = new ObservableCollection<RecommendView>();
@@ -397,8 +388,6 @@ namespace MicroFinance.ViewModel
             }
             return ResultView;
         }
-
-
         public static void InsertTransaction(string ApplicationId,string EmployeeID,int StatusCode)
         {
             using (SqlConnection sqlcon=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
@@ -436,9 +425,6 @@ namespace MicroFinance.ViewModel
                 sqlcon.Close();
             }
         }
-
-
-
         public static int RecommendLoans(ObservableCollection<RecommendView> recommends,int StatusCode)
         {
             int count = 0;
@@ -463,8 +449,6 @@ namespace MicroFinance.ViewModel
             }
             return count;
         }
-
-
         public static bool IsAlreadyInApplicationProcess(string CustomerID)
         {
             using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -483,9 +467,6 @@ namespace MicroFinance.ViewModel
             }
             return false;
         }
-
-
-
         public static void RejectLoan(string ReqID)
         {
             using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
@@ -500,18 +481,10 @@ namespace MicroFinance.ViewModel
                 }
             }
         }
-
-
-
-
-
         public static int ApproveLoan()
         {
             return 0;
         }
-
-
-
         public static string GenerateLoanID(string BranchID) // IDPattern 02001202106R05 (02-Region/001-Branch/2021-CurrentYear/06-CurrentMonth/R-Request(Spe)/(No.of Loan given in currentYear+1))
         {
             int count = 1;
@@ -536,9 +509,30 @@ namespace MicroFinance.ViewModel
             Result = region + branch + year + month + "GL" + ((count < 10) ? "0" + count : count.ToString());
             return Result;
         }
-
-
-
+        public static string GenerateLoanRequestID(string BranchID) // IDPattern 02001202106R05 (02-Region/001-Branch/2021-CurrentYear/06-CurrentMonth/R-Request(Spe)/(No.of Loan given in currentYear+1))
+        {
+            int count = 1;
+            string Result = "";
+            int year = DateTime.Now.Year;
+            int mon = DateTime.Now.Month;
+            string month = ((mon) < 10 ? "0" + mon : mon.ToString());
+            using (SqlConnection sqlcon = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlcon.Open();
+                if (sqlcon.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "select Count(RequestID) from LoanApplication where RequestID like '%" + year + "%'";
+                    count += (int)sqlcomm.ExecuteScalar();
+                }
+                sqlcon.Close();
+            }
+            string region = BranchID.Substring(0, 2);
+            string branch = BranchID.Substring(8);
+            Result = region + branch + year + month + "R" + ((count < 10) ? "0" + count : count.ToString());
+            return Result;
+        }
         public static void ApproveLoans(ObservableCollection<RecommendView> recommends)
         {
            // GetRequestDetails(ID);
@@ -599,8 +593,6 @@ namespace MicroFinance.ViewModel
                 InsertIntoLoanMaster(BranchID, CustomerID, LoanID, item.WeekNo, item.DueDate, item.Amount, item.Interest, item.Total);
             }
         }
-
-        
         public static List<Loan> Interestcc(int amount, int weeksCount, DateTime loanIssuedDate, DateTime nextDueDate)
         {
             //int days = (nextDueDate - loanIssuedDate).Days;
@@ -742,7 +734,6 @@ namespace MicroFinance.ViewModel
             }
             return result;
         }
-
         public static void NewSavingAcc(string id,string BranchID)
         {
             string regionCode = BranchID.Substring(0, 2);
@@ -768,9 +759,6 @@ namespace MicroFinance.ViewModel
                 sqlcon.Close();
             }
         }
-
-
-
         public static List<string> GetAllPurposeNames()
         {
             List<string> PurposeList = new List<string>();
@@ -797,8 +785,6 @@ namespace MicroFinance.ViewModel
             }
             return PurposeList;
         }
-
-
         public static List<LoanApplicationViewModel> LoanApplicationDetails(string CustomerID)
         {
             List<LoanApplicationViewModel> Applications = new List<LoanApplicationViewModel>();
@@ -832,7 +818,6 @@ namespace MicroFinance.ViewModel
 
                 return Applications;
         }
-
         public static List<LoanViewModel> LoanDetails(string CustomerID)
         {
             List<LoanViewModel> Loans = new List<LoanViewModel>();
@@ -881,7 +866,6 @@ namespace MicroFinance.ViewModel
             }
             return Loans;
         }
-
         public static void ChangeLoanStatus(string RequestId,int StatusCode)
         {
             using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -913,8 +897,6 @@ namespace MicroFinance.ViewModel
                 }
             }
         }
-
-
         public static List<CustomerHimarkDataModel> GetDetailsForHimarkResult()
         {
             List<CustomerHimarkDataModel> ResultList = new List<CustomerHimarkDataModel>();
@@ -947,8 +929,6 @@ namespace MicroFinance.ViewModel
             }
             return ResultList;
         }
-
-
         public static void InsertHimarkData(ObservableCollection<HimarkResultExcelModel> DataList,string HimarkReportid)
         {
             using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -969,9 +949,24 @@ namespace MicroFinance.ViewModel
                 sqlconn.Close();
             }
         }
-
-
-
+        public static bool DeactivateApplication(string ApplicationID,int LoanStatus)
+        {
+            using(SqlConnection sqlconn=new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "update LoanApplication set LoanStatus='"+LoanStatus+"' where RequestID='"+ApplicationID+"'";
+                    int count= sqlcomm.ExecuteNonQuery();
+                    if (count == 1)
+                        return true;
+                }
+                sqlconn.Close();
+            }
+            return false;
+        }
     }
     public class Loan
     {
