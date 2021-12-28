@@ -88,13 +88,6 @@ namespace MicroFinance
             }
             return -1;
         }
-
-        
-
-        
-        
-
-
         async Task LoadCollectionlist(string EmpId, string collectionday, string groupid)
         {
             

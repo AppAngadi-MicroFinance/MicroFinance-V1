@@ -22,29 +22,19 @@ namespace MicroFinance.Modal
         }
         public static void SaveImage(string Path,string FileName,byte[] Data)
         {
-            string FolderPath = Path;
-            if(!Directory.Exists(FolderPath))
+            if(Data!=null)
             {
-                Directory.CreateDirectory(FolderPath);
-                //MainWindow.StatusMessageofPage(0, "Drive Sync First!.....");
-            }
-            else
-            {
-                string ImagePath = FolderPath + "\\" + FileName + ".jpg";
-                if (File.Exists(ImagePath) == false)
+                string FolderPath = Path;
+                if (!Directory.Exists(FolderPath))
                 {
-                    using (System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(Data)))
-                    {
-                        image.Save(ImagePath, ImageFormat.Jpeg);
-                    }
+                    Directory.CreateDirectory(FolderPath);
+                    //MainWindow.StatusMessageofPage(0, "Drive Sync First!.....");
                 }
                 else
                 {
-
-                    System.IO.FileStream stream = new System.IO.FileStream(ImagePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    if (null == stream)
+                    string ImagePath = FolderPath + "\\" + FileName + ".jpg";
+                    if (File.Exists(ImagePath) == false)
                     {
-                        File.Delete(ImagePath);
                         using (System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(Data)))
                         {
                             image.Save(ImagePath, ImageFormat.Jpeg);
@@ -52,17 +42,32 @@ namespace MicroFinance.Modal
                     }
                     else
                     {
-                        stream.Close();
 
-                        File.Delete(ImagePath);
-                        using (System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(Data)))
+                        System.IO.FileStream stream = new System.IO.FileStream(ImagePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                        if (null == stream)
                         {
-                            image.Save(ImagePath, ImageFormat.Jpeg);
+                            File.Delete(ImagePath);
+                            using (System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(Data)))
+                            {
+                                image.Save(ImagePath, ImageFormat.Jpeg);
+                            }
+                        }
+                        else
+                        {
+                            stream.Close();
+
+                            File.Delete(ImagePath);
+                            using (System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(Data)))
+                            {
+                                image.Save(ImagePath, ImageFormat.Jpeg);
+                            }
                         }
                     }
                 }
+                }
+            
 
-            }
+            
             
             
         }

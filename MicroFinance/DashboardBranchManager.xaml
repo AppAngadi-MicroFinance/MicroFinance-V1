@@ -131,6 +131,7 @@
                     </Border.Effect>
                     <Button  x:Name="DeactiveLoanApplication" Click="DeactiveLoanApplication_Click" Style="{StaticResource DeactivateLoan}"></Button>
                 </Border>
+                <Button Content="Collection Details" Margin="15" x:Name="CollectionDetailsBtn" Click="CollectionDetailsBtn_Click"></Button>
                 
                 
             </WrapPanel>

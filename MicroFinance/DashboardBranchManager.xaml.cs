@@ -315,5 +315,10 @@ namespace MicroFinance
             FindCustomerPanel.Visibility = Visibility.Collapsed;
             MenuPanel.IsEnabled = true;
         }
+
+        private void CollectionDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new DownloadCollectionReport(1));
+        }
     }
 }

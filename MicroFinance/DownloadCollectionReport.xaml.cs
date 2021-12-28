@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
@@ -25,30 +26,81 @@ namespace MicroFinance
     /// </summary>
     public partial class DownloadCollectionReport : Page
     {
-        public List<BranchNameView> BranchList = new List<BranchNameView>();
-        public List<CenterNameView> CenterList = new List<CenterNameView>();
-        public List<EmployeeNameView> EmployeeList = new List<EmployeeNameView>();
+        public ObservableCollection<BranchViewModel> Branches = new ObservableCollection<BranchViewModel>();
+        public ObservableCollection<EmployeeViewModel> Employees = new ObservableCollection<EmployeeViewModel>();
+        public List<TimeTableViewModel> Centers = new List<TimeTableViewModel>();
         public DownloadCollectionReport()
         {
             InitializeComponent();
             LoadData();
-            BranchNameCombo.ItemsSource = BranchList;
+            //BranchNameCombo.ItemsSource = BranchList;
             //FONameCombo.ItemsSource = EmployeeList;
+        }
+        public DownloadCollectionReport(int Code)
+        {
+            InitializeComponent();
+            LoadData();
+           if(Code==1)
+            {
+                //BranchNameCombo.IsEnabled = false;
+                BranchNameCombo.ItemsSource = Branches;
+                string BranchID = MainWindow.LoginDesignation.BranchId;
+                BranchNameCombo.SelectedIndex = SelectedBranch(BranchID);
+            }
+        }
+
+
+        int SelectedBranch(string BranchID)
+        {
+            int Index = 0;
+            foreach(BranchViewModel branch in Branches)
+            {
+                if(branch.BranchId==BranchID)
+                {
+                    return Index;
+                }
+                else
+                {
+                    Index++;
+                }
+            }
+
+            return -1;
+        }
+        int SelectedEmployee(string EmpID)
+        {
+            int Index = 0;
+            foreach (EmployeeViewModel employee in Employees)
+            {
+                if (employee.EmployeeId == EmpID)
+                {
+                    return Index;
+                }
+                else
+                {
+                    Index++;
+                }
+            }
+            return -1;
         }
 
 
         public void LoadData()
         {
-            BranchList = CollectionReportRepo.GetBranchNames();
-            CenterList = CollectionReportRepo.GetCenters();
-            EmployeeList = CollectionReportRepo.GetEmployees();
+            //BranchList = CollectionReportRepo.GetBranchNames();
+            //CenterList = CollectionReportRepo.GetCenters();
+            //EmployeeList = CollectionReportRepo.GetEmployees();
+            Branches = MainWindow.BasicDetails.BranchList;
+            Employees = MainWindow.BasicDetails.EmployeeList;
+            Centers = MainWindow.BasicDetails.CenterList;
+            
 
         }
 
         void LoadFO(string BId)
         {
             FONameCombo.Items.Clear();
-            foreach(EmployeeNameView Emp in EmployeeList)
+            foreach(EmployeeViewModel Emp in Employees)
             {
                 if(Emp.BranchId==BId)
                 {
@@ -65,7 +117,7 @@ namespace MicroFinance
             Allcenter.CenterName = "All";
             Allcenter.BranchId = "All";
             CenterNameCombo.Items.Add(Allcenter);
-            foreach(CenterNameView C in CenterList)
+            foreach(TimeTableViewModel C in Centers)
             {
                 if(C.EmpId==FOID)
                 {
@@ -76,9 +128,13 @@ namespace MicroFinance
 
         private void BranchNameCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FONameCombo.IsEnabled = true;
-            BranchNameView SelectedBranch = BranchNameCombo.SelectedValue as BranchNameView;
-            LoadFO(SelectedBranch.BranchId);
+            if(BranchNameCombo.SelectedItem!=null)
+            {
+                FONameCombo.IsEnabled = true;
+                BranchViewModel SelectedBranch = BranchNameCombo.SelectedValue as BranchViewModel;
+                LoadFO(SelectedBranch.BranchId);
+            }
+           
         }
 
         private void FONameCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -197,6 +253,16 @@ namespace MicroFinance
         private void CenterNameCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CollectionDate.IsEnabled = true;
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ContineBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
