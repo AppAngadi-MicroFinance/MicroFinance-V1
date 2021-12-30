@@ -82,6 +82,13 @@
                 </Border.Effect>
                 <Button x:Name="EnrollDataBtn" Click="EnrollDataBtn_Click" Style="{StaticResource EnrollDataBtn}" Visibility="Visible"></Button>
             </Border>
+            <Border Margin="15" Style="{StaticResource MainBorder}" 
+                 >
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="CollectionDetailsBtn" Click="CollectionDetailsBtn_Click" Style="{StaticResource NavigateDailyReports}"></Button>
+            </Border>
         </WrapPanel>
         
         <StackPanel x:Name="GifPanel" Panel.ZIndex="3" Grid.ColumnSpan="3" Grid.RowSpan="3" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">

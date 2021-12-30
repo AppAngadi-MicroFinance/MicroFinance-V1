@@ -242,7 +242,7 @@ namespace MicroFinance
                 {
                     DateModel DateData = new DateModel();
                     DateData.FromDate = StartDate;
-                    DateData.EndDate = EndDate;
+                    DateData.ToDate = EndDate;
                     string BranchId = MainWindow.LoginDesignation.BranchId;
                     string EmpID = MainWindow.LoginDesignation.EmpId;
                     GifPanel.Visibility = Visibility.Visible;
@@ -354,6 +354,11 @@ namespace MicroFinance
                 CustomerEnrollMetaDataList = status;
 
             }
+        }
+
+        private void CollectionDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new DownloadCollectionReport(2));
         }
     }
 }

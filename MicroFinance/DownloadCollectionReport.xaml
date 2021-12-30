@@ -67,7 +67,7 @@
                             <ContentPresenter>
                                 <ContentPresenter.Content>
 
-                                    <TextBlock Text="{Binding CenterName}" VerticalAlignment="Center" Style="{StaticResource Regular}" FontSize="14"></TextBlock>
+                                    <TextBlock Text="{Binding SHGName}" VerticalAlignment="Center" Style="{StaticResource Regular}" FontSize="14"></TextBlock>
 
                                 </ContentPresenter.Content>
                             </ContentPresenter>
@@ -75,9 +75,9 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Text="From" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="0" Margin="20,0,0,0"></TextBlock>
-                <DatePicker IsEnabled="False" Grid.Column="1" Grid.Row="4" Height="40" Width="210" Style="{StaticResource DateSelecter}" x:Name="CollectionDate"></DatePicker>
+                <DatePicker IsEnabled="True" Grid.Column="1" Grid.Row="4" Height="40" Width="210"  x:Name="CollectionStartDate" Style="{StaticResource DateSelecter}"></DatePicker>
                 <TextBlock Text="To" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="0" Margin="20,0,0,0"></TextBlock>
-                <DatePicker IsEnabled="False" Grid.Column="1" Grid.Row="5" Height="40" Width="210" Style="{StaticResource DateSelecter}" x:Name="CollectionEndDate"></DatePicker>
+                <DatePicker IsEnabled="True" Grid.Column="1" Grid.Row="5" Height="40" Width="210" Style="{StaticResource DateSelecter}" x:Name="CollectionEndDate"></DatePicker>
                 <StackPanel Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="6" Orientation="Horizontal">
                     <Button  Style="{StaticResource SecondaryBtn}" Margin="5" Content="Continue" x:Name="ContineBtn" Click="ContineBtn_Click"></Button>
                     <Button  Style="{StaticResource CancelBtn}" Margin="5" Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>

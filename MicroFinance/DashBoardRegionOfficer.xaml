@@ -142,6 +142,13 @@
                 </Border.Effect>
                 <Button Style="{StaticResource SamuImportBtn}" x:Name="SamuImportBtn" Click="SamuImportBtn_Click"></Button>
             </Border>
+            <Border Margin="15" Style="{StaticResource MainBorder}" 
+                 >
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="CollectionDetailsBtn" Click="CollectionDetailsBtn_Click" Style="{StaticResource NavigateDailyReports}"></Button>
+            </Border>
         </WrapPanel>
         
            

@@ -9,6 +9,6 @@ namespace MicroFinance.ViewModel
     public class DateModel
     {
         public DateTime FromDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime ToDate { get; set; }
     }
 }
