@@ -923,16 +923,17 @@ namespace MicroFinance.Modal
             if(HavingBankDetails)
             {
                 AddBankDetails();
-                if(LandHolding.Equals("YES"))
-                {
-                    AddHouseTypeDetails(true);
-                }
-                else if (LandHolding.Equals("NO"))
-                {
-                    AddHouseTypeDetails();
-                }
+                
             }
-            if(AadharNo!="")
+            if (LandHolding.Equals("YES"))
+            {
+                AddHouseTypeDetails(true);
+            }
+            else if (LandHolding.Equals("NO"))
+            {
+                AddHouseTypeDetails();
+            }
+            if (AadharNo!="")
             {
                 AddAadharNumber();
             }
