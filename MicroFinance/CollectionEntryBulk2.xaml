@@ -1,0 +1,50 @@
+﻿<Page x:Class="MicroFinance.CollectionEntryBulk2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      
+      Title="CollectionEntryBulk2">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
+        </StackPanel>
+        <DataGrid x:Name="CollectionDetailsGrid" AlternatingRowBackground="CadetBlue" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" Background="#2df4fa" MaxHeight="450" Height="auto" MaxWidth="700" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Customer Name" Width="2*" Binding="{Binding CustomerName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pricipal" Width="1*" Binding="{Binding Principal}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Security" Width="1*" Binding="{Binding SecurityDeposite}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Interest" Width="1*" Binding="{Binding Interest}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Total Amount" Width="1*" Binding="{Binding Total}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Collected On" Width="1*" Binding="{Binding CollectedOn,StringFormat={}dd-MM-yyyy}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowStyle>
+
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.Height" Value="33"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="13" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.HorizontalAlignment" Value="Center"></Setter>
+                    <Setter Property="Background" Value="#7ac0c2"></Setter>
+
+
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+        <Button x:Name="InsertBtn" Click="InsertBtn_Click" Content="Submit" Style="{StaticResource PrimaryBtn}" Grid.Row="2"></Button>
+    </Grid>
+</Page>

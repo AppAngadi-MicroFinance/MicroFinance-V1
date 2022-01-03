@@ -59,6 +59,7 @@ namespace MicroFinance
                 string BranchID = MainWindow.LoginDesignation.BranchId;
                 BranchCombo.SelectedIndex = SelectedBranch(BranchID);
                 BranchCombo.IsEnabled = false;
+                CenterCombo.SelectedIndex = 0;
             }
 
             CollectionDetailsGrid.ItemsSource = BindingList;
@@ -96,6 +97,8 @@ namespace MicroFinance
                 BindingList.Add(Collection);
 
             }
+            CollectedAmountText.Text = BindingList.Select(temp => temp.PaidDue).Sum().ToString();
+            TotalAmountTobeCollectedText.Text = BindingList.Select(temp => temp.ActualDue).Sum().ToString();
         }
         void LoadBranch()
         {
@@ -200,21 +203,29 @@ namespace MicroFinance
                         if(SelectedCenter.SHGId!="ALL")
                         {
                             LoadCollection(1, SelectedCenter.SHGId);
+                            CollectedAmountText.Text = BindingList.Select(temp => temp.PaidDue).Sum().ToString();
+                            TotalAmountTobeCollectedText.Text = BindingList.Select(temp => temp.ActualDue).Sum().ToString();
                         }
                         else
                         {
                             LoadCollection(SelectedEmployee.EmployeeId, 1);
+                            CollectedAmountText.Text = BindingList.Select(temp => temp.PaidDue).Sum().ToString();
+                            TotalAmountTobeCollectedText.Text = BindingList.Select(temp => temp.ActualDue).Sum().ToString();
                         }
 
                     }
                     else
                     {
                         LoadCollection(SelectedBranch.BranchId);
+                        CollectedAmountText.Text = BindingList.Select(temp => temp.PaidDue).Sum().ToString();
+                        TotalAmountTobeCollectedText.Text = BindingList.Select(temp => temp.ActualDue).Sum().ToString();
                     }
                 }
                 else
                 {
                     LoadCollection();
+                    CollectedAmountText.Text = BindingList.Select(temp => temp.PaidDue).Sum().ToString();
+                    TotalAmountTobeCollectedText.Text = BindingList.Select(temp => temp.ActualDue).Sum().ToString();
                 }
             }
             else

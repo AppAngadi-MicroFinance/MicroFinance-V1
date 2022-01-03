@@ -53,7 +53,7 @@
             </StackPanel>
             <StackPanel Margin="5">
                 <TextBlock Text="Center" Style="{StaticResource Regular}" FontSize="13"></TextBlock>
-                <ComboBox Style="{StaticResource combo}" x:Name="CenterCombo">
+                <ComboBox Style="{StaticResource combo}" x:Name="CenterCombo" SelectedIndex="0">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <ContentPresenter>
@@ -68,7 +68,7 @@
                 </ComboBox>
             </StackPanel>
             
-            <Button Style="{StaticResource SecondaryBtn}" Content="OK" Margin="5" Height="30" Width="65" VerticalAlignment="Bottom" x:Name="OKBtn" Click="OKBtn_Click"></Button>
+            <Button Style="{StaticResource SecondaryBtn}" Content="View" Margin="5" Height="30" Width="65" VerticalAlignment="Bottom" x:Name="OKBtn" Click="OKBtn_Click"></Button>
         </StackPanel>
         <DataGrid x:Name="CollectionDetailsGrid" AlternatingRowBackground="CadetBlue" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" Background="#2df4fa" MaxHeight="550" Height="auto" MaxWidth="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
             <DataGrid.Columns>
@@ -103,5 +103,11 @@
             </DataGrid.RowStyle>
             
         </DataGrid>
+        <StackPanel Grid.Row="2" Grid.Column="1" Background="Transparent" Orientation="Horizontal" Margin="5">
+            <TextBlock Text="Collection Amount : " Style="{StaticResource SubTitle}" FontWeight="SemiBold"></TextBlock>
+            <TextBlock Text="18500" x:Name="CollectedAmountText" Style="{StaticResource SubTitle}" FontWeight="SemiBold"></TextBlock>
+            <TextBlock Text=" / " Style="{StaticResource SubTitle}" FontWeight="SemiBold"></TextBlock>
+            <TextBlock Text="200000" x:Name="TotalAmountTobeCollectedText" Style="{StaticResource SubTitle}" FontWeight="SemiBold"></TextBlock>
+        </StackPanel>
     </Grid>
 </Page>

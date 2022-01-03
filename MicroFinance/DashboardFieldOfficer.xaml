@@ -89,6 +89,7 @@
                 </Border.Effect>
                 <Button x:Name="CollectionDetailsBtn" Click="CollectionDetailsBtn_Click" Style="{StaticResource NavigateDailyReports}"></Button>
             </Border>
+            <Button Content="Bulk Entry" Margin="15" x:Name="BulkEntryBtn" Click="BulkEntryBtn_Click"></Button>
         </WrapPanel>
         
         <StackPanel x:Name="GifPanel" Panel.ZIndex="3" Grid.ColumnSpan="3" Grid.RowSpan="3" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">

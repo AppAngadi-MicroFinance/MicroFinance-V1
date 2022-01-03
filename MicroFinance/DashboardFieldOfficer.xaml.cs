@@ -360,5 +360,11 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new DownloadCollectionReport(2));
         }
+
+        private void BulkEntryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string EmpID = MainWindow.LoginDesignation.EmpId;
+            this.NavigationService.Navigate(new CollectionEntryBulk(EmpID));
+        }
     }
 }

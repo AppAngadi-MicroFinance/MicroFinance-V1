@@ -138,6 +138,15 @@
     <Compile Include="CollectionEntry.xaml.cs">
       <DependentUpon>CollectionEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CollectionEntryBulk.xaml.cs">
+      <DependentUpon>CollectionEntryBulk.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CollectionEntryBulk1.xaml.cs">
+      <DependentUpon>CollectionEntryBulk1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CollectionEntryBulk2.xaml.cs">
+      <DependentUpon>CollectionEntryBulk2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CollectionEntryNew.xaml.cs">
       <DependentUpon>CollectionEntryNew.xaml</DependentUpon>
     </Compile>
@@ -349,6 +358,7 @@
     <Compile Include="Repository\EmployeeRepository.cs" />
     <Compile Include="ViewModel\CustomerEnrollMetaData.cs" />
     <Compile Include="ViewModel\CustomerHimarkDataModel.cs" />
+    <Compile Include="ViewModel\CustomerMetaData.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\DateModel.cs" />
     <Compile Include="ViewModel\DenominationView.cs" />
@@ -358,6 +368,7 @@
     <Compile Include="ViewModel\HimarkRequestView.cs" />
     <Compile Include="Repository\LoanRepository.cs" />
     <Compile Include="ViewModel\LoanApplicationViewModel.cs" />
+    <Compile Include="ViewModel\LoanDetailsView.cs" />
     <Compile Include="ViewModel\LoanViewModel.cs" />
     <Compile Include="ViewModel\PeerGroupViewModal.cs" />
     <Compile Include="ViewModel\RecommendView.cs" />
@@ -410,6 +421,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CollectionEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CollectionEntryBulk.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CollectionEntryBulk1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CollectionEntryBulk2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

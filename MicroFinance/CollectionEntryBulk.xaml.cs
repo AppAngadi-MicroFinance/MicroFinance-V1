@@ -1,0 +1,178 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using MicroFinance.ViewModel;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Net.Http;
+using Newtonsoft.Json;
+
+namespace MicroFinance
+{
+    /// <summary>
+    /// Interaction logic for CollectionEntryBulk.xaml
+    /// </summary>
+    public partial class CollectionEntryBulk : Page
+    {
+        List<TimeTableViewModel> Centers = new List<TimeTableViewModel>();
+        List<EmployeeViewModel> Employees = new List<EmployeeViewModel>();
+        List<CustomerMetaData> Customers = new List<CustomerMetaData>();
+        List<LoanDetailsView> CustomerLoanDetailsList = new List<LoanDetailsView>();
+        public CollectionEntryBulk()
+        {
+            InitializeComponent();
+        }
+        public CollectionEntryBulk(string EmpID)
+        {
+            InitializeComponent();
+            Employees = MainWindow.BasicDetails.EmployeeList.Where(temp => temp.EmployeeId == EmpID).Select(temp => new EmployeeViewModel { BranchId = temp.BranchId, EmployeeId = temp.EmployeeId, EmployeeName = temp.EmployeeName, Designation = temp.Designation }).ToList();
+            Centers = MainWindow.BasicDetails.CenterList.OrderBy(temp=>temp.SHGName).ToList();
+            EmployeeCombo.ItemsSource = Employees;
+            EmployeeCombo.SelectedIndex = 0;
+            
+            
+        }
+
+        private void EmployeeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(EmployeeCombo.SelectedItem!=null)
+            {
+                EmployeeViewModel SelectedEmployee = EmployeeCombo.SelectedItem as EmployeeViewModel;
+                LoadCenter(SelectedEmployee.EmployeeId);
+                
+            }
+        }
+
+        void LoadCenter(string EmpID)
+        {
+            CenterCombo.Items.Clear();
+            foreach(TimeTableViewModel Center in Centers)
+            {
+                if(Center.EmpId==EmpID)
+                {
+                    CenterCombo.Items.Add(Center);
+                }
+            }
+        }
+
+        private async void CustomerList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                CustomerMetaData SelectedCustomer = CustomerList.SelectedItem as CustomerMetaData;
+                if (SelectedCustomer.ActiveLoans != 0)
+                {
+                    GifPanel.Visibility = Visibility.Visible;
+                    await GetLoanDetails(SelectedCustomer.CustomerID);
+                    GifPanel.Visibility = Visibility.Collapsed;
+                    if (CustomerLoanDetailsList.Count != 0)
+                    {
+                        this.NavigationService.Navigate(new CollectionEntryBulk1(CustomerLoanDetailsList));
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Data Found");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No Active Loans for " + SelectedCustomer.CustomerName, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+        async Task GetLoanDetails(string CustomerID)
+        {
+            string url1 = "http://examsign-001-site4.itempurl.com/api/GetLoanDetails/" + CustomerID;
+            HttpClient client1 = new HttpClient();
+            HttpResponseMessage response1 = new HttpResponseMessage();
+            response1 = await client1.PostAsync(url1, null);
+
+            if (response1.IsSuccessStatusCode)
+            {
+                var result = await response1.Content.ReadAsStringAsync();
+                var status = JsonConvert.DeserializeObject<List<LoanDetailsView>>(result);
+
+                if (status != null)
+                {
+                    CustomerLoanDetailsList.Clear();
+                    CustomerLoanDetailsList = status;
+                }
+            }
+            else
+            {
+                string message = response1.StatusCode.ToString();
+                MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private async void ViewBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                TimeTableViewModel SelectedCenter = CenterCombo.SelectedItem as TimeTableViewModel;
+                CustomerList.Items.Clear();
+                GifPanel.Visibility = Visibility.Visible;
+                await GetCustomers(SelectedCenter.SHGId);
+                LoadCustomer();
+                GifPanel.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+
+        }
+
+
+        async Task GetCustomers(string CenterID)
+        {
+            string url1 = "http://examsign-001-site4.itempurl.com/api/GetCustomerMetaDetails/"+CenterID;
+            HttpClient client1 = new HttpClient();
+            HttpResponseMessage response1 = new HttpResponseMessage();
+            response1 = await client1.PostAsync(url1,null);
+
+            if(response1.IsSuccessStatusCode)
+            {
+                var result = await response1.Content.ReadAsStringAsync();
+                var status = JsonConvert.DeserializeObject<List<CustomerMetaData>>(result);
+
+                if(status!=null)
+                {
+                    Customers.Clear();
+                    Customers = status;
+                    LoadCustomer();
+                }
+            }
+            else
+            {
+                string message = response1.StatusCode.ToString();
+                MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        void LoadCustomer()
+        {
+            CustomerList.Items.Clear();
+            foreach (CustomerMetaData Customer in Customers)
+            {
+                CustomerList.Items.Add(Customer);
+            }
+
+        }
+    }
+}
