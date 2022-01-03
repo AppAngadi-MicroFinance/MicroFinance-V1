@@ -27,9 +27,9 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.ColumnSpan="2" Text="Download Collection Sheet" Style="{StaticResource SubTitle}" Margin="10,0,0,0"></TextBlock>
+                <TextBlock Grid.ColumnSpan="2" Text="Collection Details" Style="{StaticResource SubTitle}" Margin="10,0,0,0"></TextBlock>
                 <Button Visibility="Collapsed" Style="{StaticResource ModalClose}" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,20,0"></Button>
                 <Separator Grid.ColumnSpan="2" BorderBrush="Gray" BorderThickness="30" VerticalAlignment="Bottom"></Separator>
                 <TextBlock Text="Branch" Style="{StaticResource Regular}" Grid.Row="1" Margin="20,0,0,0"></TextBlock>
@@ -52,8 +52,8 @@
                         <DataTemplate>
                             <ContentPresenter>
                                 <ContentPresenter.Content>
-                                    
-                                        <TextBlock Text="{Binding EmpName}" VerticalAlignment="Center" Style="{StaticResource Regular}" FontSize="14"></TextBlock>
+
+                                    <TextBlock Text="{Binding EmployeeName}" VerticalAlignment="Center" Style="{StaticResource Regular}" FontSize="14"></TextBlock>
                                     
                                 </ContentPresenter.Content>
                             </ContentPresenter>
@@ -67,16 +67,22 @@
                             <ContentPresenter>
                                 <ContentPresenter.Content>
 
-                                    <TextBlock Text="{Binding CenterName}" VerticalAlignment="Center" Style="{StaticResource Regular}" FontSize="14"></TextBlock>
+                                    <TextBlock Text="{Binding SHGName}" VerticalAlignment="Center" Style="{StaticResource Regular}" FontSize="14"></TextBlock>
 
                                 </ContentPresenter.Content>
                             </ContentPresenter>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <TextBlock Text="Date" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="0" Margin="20,0,0,0"></TextBlock>
-                <DatePicker IsEnabled="False" Grid.Column="1" Grid.Row="4" Height="40" Width="210" Style="{StaticResource DateSelecter}" x:Name="CollectionDate"></DatePicker>
-                <Button Style="{StaticResource SecondaryBtn}" Background="DarkBlue" Content="Download" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="2" x:Name="DownloadSheetBtn" Click="DownloadSheetBtn_Click"></Button>
+                <TextBlock Text="From" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="0" Margin="20,0,0,0"></TextBlock>
+                <DatePicker IsEnabled="True" Grid.Column="1" Grid.Row="4" Height="40" Width="210"  x:Name="CollectionStartDate" Style="{StaticResource DateSelecter}"></DatePicker>
+                <TextBlock Text="To" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="0" Margin="20,0,0,0"></TextBlock>
+                <DatePicker IsEnabled="True" Grid.Column="1" Grid.Row="5" Height="40" Width="210" Style="{StaticResource DateSelecter}" x:Name="CollectionEndDate"></DatePicker>
+                <StackPanel Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="6" Orientation="Horizontal">
+                    <Button  Style="{StaticResource SecondaryBtn}" Margin="5" Content="Continue" x:Name="ContineBtn" Click="ContineBtn_Click"></Button>
+                    <Button  Style="{StaticResource CancelBtn}" Margin="5" Content="Cancel" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
+                </StackPanel>
+                
             </Grid>
         </Border>
     </Grid>

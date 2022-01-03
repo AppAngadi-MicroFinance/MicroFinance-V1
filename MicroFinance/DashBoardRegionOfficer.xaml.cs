@@ -357,7 +357,7 @@ namespace MicroFinance
                 {
                     DateModel DateData = new DateModel();
                     DateData.FromDate = StartDate;
-                    DateData.EndDate = EndDate;
+                    DateData.ToDate = EndDate;
                     string BranchId = MainWindow.LoginDesignation.BranchId;
                     GifPanel.Visibility = Visibility.Visible;
                     await System.Threading.Tasks.Task.Run(() => EnrollDetails = GetEnrollDetails(DateData));
@@ -426,6 +426,11 @@ namespace MicroFinance
                 // this.NavigationService.Navigate(new HOLoanApproval(ResultList));
 
             }
+        }
+
+        private void CollectionDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new DownloadCollectionReport());
         }
     }
 

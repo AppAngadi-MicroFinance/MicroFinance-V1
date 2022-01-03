@@ -1066,7 +1066,10 @@ namespace MicroFinance.Modal
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = "update CustomerDetails set IsProfilePhoto = 'True' where CustId = '" + _customerId + "'";
                 sqlCommand.ExecuteNonQuery();
-                byte[] data=Convertion(CombinePhoto);
+
+
+
+                byte[] data=(CombinePhoto!=null)?Convertion(CombinePhoto):null;
                 sqlCommand.CommandText = "update CustomerDetails set IsProfilePhote = @combinephoto, IsCombinePhoto = 'True' where CustId = '" + _customerId + "'";
                 string Folderpath = MainWindow.DriveBasePath + "\\" + MainWindow.LoginDesignation.RegionName + "\\" + MainWindow.LoginDesignation.BranchName + "\\" + "Customer\\Profile Picture";
                 SaveImageToDrive.SaveImage(Folderpath, _customerId, data);

@@ -252,7 +252,7 @@ namespace MicroFinance.ViewModel
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select EmployeeBranch.EmpId,EmployeeBranch.BranchId,EmployeeBranch.Designation,Employee.Name from EmployeeBranch,Employee where Employee.EmpId=EmployeeBranch.EmpId";
+                    sqlcomm.CommandText = "select EmployeeBranch.EmpId,EmployeeBranch.BranchId,EmployeeBranch.Designation,Employee.Name from EmployeeBranch,Employee where Employee.EmpId=EmployeeBranch.EmpId and EmployeeBranch.IsActive='1'";
                     SqlDataReader reader = sqlcomm.ExecuteReader();
                     if (reader.HasRows)
                     {

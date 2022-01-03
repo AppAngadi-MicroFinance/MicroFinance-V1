@@ -214,7 +214,7 @@ namespace MicroFinance
                 {
                     DateModel DateData = new DateModel();
                     DateData.FromDate = StartDate;
-                    DateData.EndDate = EndDate;
+                    DateData.ToDate = EndDate;
                     string BranchId = MainWindow.LoginDesignation.BranchId;
                     GifPanel.Visibility = Visibility.Visible;
                     await System.Threading.Tasks.Task.Run(() => EnrollDetails = GetEnrollDetails(DateData,BranchId));
@@ -314,6 +314,11 @@ namespace MicroFinance
         {
             FindCustomerPanel.Visibility = Visibility.Collapsed;
             MenuPanel.IsEnabled = true;
+        }
+
+        private void CollectionDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new DownloadCollectionReport(1));
         }
     }
 }
