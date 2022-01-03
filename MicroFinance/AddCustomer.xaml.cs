@@ -28,6 +28,7 @@ namespace MicroFinance
     {
         public string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
         public static Customer customer = new Customer();
+      
         public static Guarantor guarantor = new Guarantor();
         public static Nominee nominee = new Nominee();
         public static StaticProperty CaptureImageMessage = new StaticProperty();
@@ -46,10 +47,14 @@ namespace MicroFinance
         public AddCustomer()
         {
             InitializeComponent();
-            IsEligible();
+          customer = new Customer();
+          guarantor = new Guarantor();
+          nominee = new Nominee();
+          CaptureImageMessage = new StaticProperty();
+          Loan = new LoanDetails();
+          IsEligible();
            // MainGrid.Height = MainWindow.MainHeight-50;
            // MainGrid.Width = MainWindow.MainWidth;
-
             //TempLoad();
             BranchAndGroupDetailsforFieldOfficer();
             Assign();
@@ -143,6 +148,8 @@ namespace MicroFinance
             customer.Taluk = "Kurinji";
             customer.PhotoProofNo = "823932893";
             customer.AddressProofNo = "8329823";
+            customer.LandHolding = "NO";
+            
 
 
 
@@ -219,12 +226,7 @@ namespace MicroFinance
         string CustomerId;
         public AddCustomer(string CustomerID)
         {
-
-
-            
-
             InitializeComponent();
-            
             CustomerId = CustomerID;
             FillAllDetails();
             IsEligible();
