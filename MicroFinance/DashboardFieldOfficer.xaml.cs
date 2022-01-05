@@ -366,5 +366,10 @@ namespace MicroFinance
             string EmpID = MainWindow.LoginDesignation.EmpId;
             this.NavigationService.Navigate(new CollectionEntryBulk(EmpID));
         }
+
+        private void SavingAmountRequestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new SavingsAmountWithdrawRequest());
+        }
     }
 }

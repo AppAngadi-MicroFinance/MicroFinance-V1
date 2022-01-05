@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +21,7 @@ using MicroFinance.Reports;
 using MicroFinance.Repository;
 using MicroFinance.ViewModel;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 
 namespace MicroFinance
 {
@@ -319,6 +321,58 @@ namespace MicroFinance
         private void CollectionDetailsBtn_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new DownloadCollectionReport(1));
+        }
+
+        private async void SDRecommendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BranchRequestView RequestDetails = new BranchRequestView { BranchID = MainWindow.LoginDesignation.BranchId, StatusCode = 1 };
+            GifPanel.Visibility = Visibility.Visible;
+            MenuPanel.IsEnabled = false;
+            await GetRequestDetails(RequestDetails);
+            MenuPanel.IsEnabled = true;
+            GifPanel.Visibility = Visibility.Collapsed;
+            if(RequestDetailsList.Count!=0)
+            {
+                this.NavigationService.Navigate(new SDRecommendView(RequestDetailsList));
+            }
+
+
+        }
+        List<SavingsAccountRequestView> RequestDetailsList = new List<SavingsAccountRequestView>();
+
+        async Task GetRequestDetails(BranchRequestView RequestDetails)
+        {
+            string url = "http://examsign-001-site4.itempurl.com/api/GetRequests/Branch";
+            var json = JsonConvert.SerializeObject(RequestDetails);
+            var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+            HttpClient Client = new HttpClient();
+            HttpResponseMessage Response = new HttpResponseMessage();
+            Response = await Client.PostAsync(url, stringContent);
+
+            if(Response.IsSuccessStatusCode)
+            {
+                var result = await Response.Content.ReadAsStringAsync();
+                var status = JsonConvert.DeserializeObject<List<SavingsAccountRequestView>>(result);
+                if(status!=null)
+                {
+                    RequestDetailsList = status;
+                }
+                else
+                {
+                    MessageBox.Show("No Data Found");
+                }
+            }
+            else
+            {
+                MessageBox.Show(Response.StatusCode.ToString());
+            }
+        }
+
+
+        public class BranchRequestView
+        {
+            public string BranchID { get; set; }
+            public int StatusCode { get; set; }
         }
     }
 }

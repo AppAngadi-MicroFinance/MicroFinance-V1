@@ -286,6 +286,8 @@
     <Compile Include="Modal\Region.cs" />
     <Compile Include="Modal\GTtoSamunnati.cs" />
     <Compile Include="Modal\SaveImageToDrive.cs" />
+    <Compile Include="Modal\SavingAmountRequest_Log.cs" />
+    <Compile Include="Modal\SavingsAmountRequest.cs" />
     <Compile Include="Modal\SelfHeadGroupModal.cs" />
     <Compile Include="Modal\SHGModal.cs" />
     <Compile Include="Modal\StaticProperty.cs" />
@@ -321,6 +323,12 @@
     </Compile>
     <Compile Include="SamuResult.xaml.cs">
       <DependentUpon>SamuResult.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SavingsAmountWithdrawRequest.xaml.cs">
+      <DependentUpon>SavingsAmountWithdrawRequest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SDRecommendView.xaml.cs">
+      <DependentUpon>SDRecommendView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
@@ -375,6 +383,8 @@
     <Compile Include="ViewModel\RegionViewModel.cs" />
     <Compile Include="ViewModel\SamuReportView.cs" />
     <Compile Include="ViewModel\SamuRepository.cs" />
+    <Compile Include="ViewModel\SavingsAccountRequestView.cs" />
+    <Compile Include="ViewModel\SavingsAccountView.cs" />
     <Compile Include="ViewModel\TimeTableViewModel.cs" />
     <Page Include="AddCustomer.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -603,6 +613,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SamuResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SavingsAmountWithdrawRequest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SDRecommendView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

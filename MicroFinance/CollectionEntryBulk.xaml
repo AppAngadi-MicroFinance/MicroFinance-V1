@@ -84,5 +84,21 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Border Height="200" Width="300" Grid.Column="1" Grid.Row="2" Background="White" BorderBrush="Gray" BorderThickness="2" CornerRadius="5" x:Name="MenuPanel" Visibility="Visible">
+            <Grid Width="290">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="80*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Option" Style="{StaticResource SubTitle}" HorizontalAlignment="Left"></TextBlock>
+                <Separator BorderBrush="Gray" BorderThickness="2" VerticalAlignment="Bottom"></Separator>
+                <Button Style="{StaticResource DangerBtn}" Height="20" Width="20" Content="X" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0" x:Name="CloseBtn" Click="CloseBtn_Click" > </Button>
+                <WrapPanel Width="260" Margin="10" Grid.Row="1">
+                    <Button Margin="5" Style="{StaticResource SecondaryBtn}" Content="Collection" x:Name="ColletionEntryBtn" Click="ColletionEntryBtn_Click"></Button>
+                    <Button Margin="5" Style="{StaticResource SecondaryBtn}" Content="SD Request" x:Name="withdrawnRequestBtn" Click="withdrawnRequestBtn_Click"></Button>
+                </WrapPanel>
+            </Grid>
+            
+        </Border>
     </Grid>
 </Page>

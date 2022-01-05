@@ -1,0 +1,63 @@
+﻿<Page x:Class="MicroFinance.SavingsAmountWithdrawRequest"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      Title="SavingsAmountWithdrawRequest">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Height="400" Width="500" Background="White" BorderBrush="Gray" BorderThickness="2" CornerRadius="10" Grid.Column="1" Grid.Row="1">
+            <Grid Height="390" Width="480">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="60*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Account Details" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="3"></TextBlock>
+                <Separator Grid.ColumnSpan="3" VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="2"></Separator>
+                <TextBlock Text="Customer Name" Style="{StaticResource Regular}" Grid.Row="1"></TextBlock>
+                <TextBlock Text=":" Style="{StaticResource Regular}" Grid.Row="1" Grid.Column="1"></TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="2" Style="{StaticResource InputBox}" IsReadOnly="True" x:Name="CustomerNameBox"></TextBox>
+                <TextBlock Text="Account Number" Style="{StaticResource Regular}" Grid.Row="2"></TextBlock>
+                <TextBlock Text=":" Style="{StaticResource Regular}" Grid.Row="2" Grid.Column="1"></TextBlock>
+                <TextBox Grid.Row="2" Grid.Column="2" Style="{StaticResource InputBox}" IsReadOnly="True" x:Name="AccountNumberBox"></TextBox>
+                <TextBlock Text="Payment Type" Style="{StaticResource Regular}" Grid.Row="3"></TextBlock>
+                <TextBlock Text=":" Style="{StaticResource Regular}" Grid.Row="3" Grid.Column="1"></TextBlock>
+                <TextBox Grid.Row="3" Grid.Column="2" Style="{StaticResource InputBox}" IsReadOnly="True" Text="Debit"></TextBox>
+                <TextBlock Text="Balance" Style="{StaticResource Regular}" Grid.Row="4"></TextBlock>
+                <TextBlock Text=":" Style="{StaticResource Regular}" Grid.Row="4" Grid.Column="1"></TextBlock>
+                <TextBox Grid.Row="4" Grid.Column="2" Style="{StaticResource InputBox}" IsReadOnly="True" x:Name="BalanceBox"></TextBox>
+                <TextBlock Text="Withdraw Amount" Style="{StaticResource Regular}" Grid.Row="5"></TextBlock>
+                <TextBlock Text=":" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1"></TextBlock>
+                <TextBox Grid.Row="5" Grid.Column="2" Style="{StaticResource InputBox}" IsReadOnly="False" x:Name="WithdrawnAmountBox"></TextBox>
+                <StackPanel Grid.Row="6" Grid.ColumnSpan="3" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                    <Button Style="{StaticResource PrimaryBtn}" Margin="5" Content="Request" x:Name="RequestBtn" Click="RequestBtn_Click" ></Button>
+                    <Button Style="{StaticResource CancelBtn}" Margin="5" Content="Cancel"></Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

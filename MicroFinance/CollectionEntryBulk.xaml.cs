@@ -27,6 +27,7 @@ namespace MicroFinance
         List<EmployeeViewModel> Employees = new List<EmployeeViewModel>();
         List<CustomerMetaData> Customers = new List<CustomerMetaData>();
         List<LoanDetailsView> CustomerLoanDetailsList = new List<LoanDetailsView>();
+        SavingsAccountView CustoemrAccountDetail = new SavingsAccountView();
         public CollectionEntryBulk()
         {
             InitializeComponent();
@@ -64,35 +65,11 @@ namespace MicroFinance
             }
         }
 
-        private async void CustomerList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void CustomerList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            try
-            {
-                CustomerMetaData SelectedCustomer = CustomerList.SelectedItem as CustomerMetaData;
-                if (SelectedCustomer.ActiveLoans != 0)
-                {
-                    GifPanel.Visibility = Visibility.Visible;
-                    await GetLoanDetails(SelectedCustomer.CustomerID);
-                    GifPanel.Visibility = Visibility.Collapsed;
-                    if (CustomerLoanDetailsList.Count != 0)
-                    {
-                        this.NavigationService.Navigate(new CollectionEntryBulk1(CustomerLoanDetailsList));
-                    }
-                    else
-                    {
-                        MessageBox.Show("No Data Found");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No Active Loans for " + SelectedCustomer.CustomerName, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
+
+            MenuPanel.Visibility = Visibility.Visible;
+            CustomerList.IsEnabled = false;
         }
         async Task GetLoanDetails(string CustomerID)
         {
@@ -138,7 +115,30 @@ namespace MicroFinance
 
         }
 
+        async Task GetAccountDetails(string CustomerId)
+        {
+            string url1 = "http://examsign-001-site4.itempurl.com/api/GetAccountDetails/" + CustomerId;
+            HttpClient client1 = new HttpClient();
+            HttpResponseMessage response1 = new HttpResponseMessage();
+            response1 = await client1.PostAsync(url1, null);
 
+            if (response1.IsSuccessStatusCode)
+            {
+                var result = await response1.Content.ReadAsStringAsync();
+                var status = JsonConvert.DeserializeObject<SavingsAccountView>(result);
+
+                if (status != null)
+                {
+                    CustoemrAccountDetail = new SavingsAccountView();
+                    CustoemrAccountDetail = status;
+                }
+            }
+            else
+            {
+                string message = response1.StatusCode.ToString();
+                MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
         async Task GetCustomers(string CenterID)
         {
             string url1 = "http://examsign-001-site4.itempurl.com/api/GetCustomerMetaDetails/"+CenterID;
@@ -173,6 +173,60 @@ namespace MicroFinance
                 CustomerList.Items.Add(Customer);
             }
 
+        }
+
+        private async void withdrawnRequestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CustomerMetaData SelectedCustomer = CustomerList.SelectedItem as CustomerMetaData;
+                GifPanel.Visibility = Visibility.Visible;
+                await GetAccountDetails(SelectedCustomer.CustomerID);
+                GifPanel.Visibility = Visibility.Collapsed;
+                this.NavigationService.Navigate(new SavingsAmountWithdrawRequest(CustoemrAccountDetail));
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private async void ColletionEntryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CustomerMetaData SelectedCustomer = CustomerList.SelectedItem as CustomerMetaData;
+                if (SelectedCustomer.ActiveLoans != 0)
+                {
+                    GifPanel.Visibility = Visibility.Visible;
+                    await GetLoanDetails(SelectedCustomer.CustomerID);
+                    GifPanel.Visibility = Visibility.Collapsed;
+                    if (CustomerLoanDetailsList.Count != 0)
+                    {
+                        this.NavigationService.Navigate(new CollectionEntryBulk1(CustomerLoanDetailsList));
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Data Found");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No Active Loans for " + SelectedCustomer.CustomerName, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MenuPanel.Visibility = Visibility.Collapsed;
+            CustomerList.IsEnabled = true;
         }
     }
 }

@@ -138,7 +138,9 @@
                         <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                     </Border.Effect>
                     <Button x:Name="CollectionDetailsBtn" Click="CollectionDetailsBtn_Click" Style="{StaticResource NavigateDailyReports}"></Button>
+                    
                 </Border>
+                <Button Content="Recommend security Deposit" Margin="15" x:Name="SDRecommendBtn" Click="SDRecommendBtn_Click"></Button>
                 
                 
                 
