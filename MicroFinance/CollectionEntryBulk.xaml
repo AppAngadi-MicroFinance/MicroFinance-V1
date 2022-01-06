@@ -84,7 +84,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Border Height="200" Width="300" Grid.Column="1" Grid.Row="2" Background="White" BorderBrush="Gray" BorderThickness="2" CornerRadius="5" x:Name="MenuPanel" Visibility="Visible">
+        <Border Height="200" Width="300" Grid.Column="1" Grid.Row="2" Background="White" BorderBrush="Gray" BorderThickness="2" CornerRadius="5" x:Name="MenuPanel" Visibility="Collapsed">
             <Grid Width="290">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20*"/>

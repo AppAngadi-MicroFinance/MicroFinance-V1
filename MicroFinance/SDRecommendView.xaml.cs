@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Modal;
 using MicroFinance.ViewModel;
 using Newtonsoft.Json;
 
@@ -39,9 +40,10 @@ namespace MicroFinance
         {
             List<string> IdList = RequestDetailsList.Select(temp => temp.RequestID).ToList();
             int CurrentCode = RequestDetailsList.Select(temp => temp.Code).FirstOrDefault();
+            List<SavingAmountRequest_Log> LogDetails = FormlogDetails(CurrentCode + 1);
             try
             {
-                await updateRequestDetails(IdList, CurrentCode + 1);
+                await updateRequestDetails(IdList, CurrentCode + 1,LogDetails);
             }
             catch(Exception ex)
             {
@@ -50,9 +52,25 @@ namespace MicroFinance
 
         }
 
-        async Task updateRequestDetails(List<string> IdList,int Code)
+        List<SavingAmountRequest_Log> FormlogDetails(int Code)
         {
-            UpdateRequestView Details = new UpdateRequestView { RequestIDList = IdList, StatusCode = Code };
+            List<SavingAmountRequest_Log> LogDetails = new List<SavingAmountRequest_Log>();
+            foreach(SavingsAccountRequestView Request in RequestDetailsList)
+            {
+                SavingAmountRequest_Log Log = new SavingAmountRequest_Log();
+                Log.RequestID = Request.RequestID;
+                Log.EmployeeID = MainWindow.LoginDesignation.EmpId;
+                Log.Code = Code;
+                Log.TransactionDate = DateTime.Now.ToLocalTime();
+
+                LogDetails.Add(Log);
+            }
+            return LogDetails;
+        }
+
+        async Task updateRequestDetails(List<string> IdList, int Code,List<SavingAmountRequest_Log> LogDetails)
+        {
+            UpdateRequestView Details = new UpdateRequestView { RequestIDList = IdList, StatusCode = Code,LogDetails=LogDetails };
             string url = "http://examsign-001-site4.itempurl.com/api/UpdateRequest/SA";
             HttpClient Client = new HttpClient();
             HttpResponseMessage Response = new HttpResponseMessage();
@@ -74,6 +92,7 @@ namespace MicroFinance
         {
             public int StatusCode { get; set; }
             public List<string> RequestIDList { get; set; }
+            public List<SavingAmountRequest_Log> LogDetails { get; set; }
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)

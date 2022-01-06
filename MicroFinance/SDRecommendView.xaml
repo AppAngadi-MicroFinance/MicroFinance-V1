@@ -21,13 +21,13 @@
         </Grid.RowDefinitions>
         <DataGrid x:Name="RequestGrid" Grid.Row="2"  AlternatingRowBackground="CadetBlue" AutoGenerateColumns="False" Grid.Column="1" Background="#2df4fa" MaxHeight="550" Height="auto" MaxWidth="1300" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Branch Name" Width="1.5*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Employee Name" Width="1.5*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Center Name" Width="1.5*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Customer Name" Width="2*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Request Amount" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Account Balance" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Request Date" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Branch Name" Width="1.5*" Binding="{Binding BranchName }"></DataGridTextColumn>
+                <DataGridTextColumn Header="Employee Name" Width="1.5*" Binding="{Binding EmployeeName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Center Name" Width="1.5*" Binding="{Binding CenterName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Customer Name" Width="2*" Binding="{Binding CustomerName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Request Amount" Width="1*" Binding="{Binding Amount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Account Balance" Width="1*" Binding="{Binding Balance}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Request Date" Width="1*" Binding="{Binding RequestDate,StringFormat={}dd-MM-yyyy}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="3" Orientation="Horizontal" Margin="5" Grid.Column="1">
