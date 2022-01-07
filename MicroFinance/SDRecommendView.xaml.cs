@@ -60,6 +60,9 @@ namespace MicroFinance
             try
             {
                 await updateRequestDetails(IdList, CurrentCode + 1,LogDetails);
+                string Designation = MainWindow.LoginDesignation.LoginDesignation;
+                Designation = (Designation == null) ? "" : Designation;
+                LoadHomePage(Designation);
             }
             catch(Exception ex)
             {
@@ -120,10 +123,21 @@ namespace MicroFinance
 
         private async void NeftBtn_Click(object sender, RoutedEventArgs e)
         {
-            List<NeftRequestView> NeftDetails = RequestDetailsList.Select(temp => new NeftRequestView { CustomerID = temp.CustomerID, Amount = temp.Amount }).ToList();
+            try
+            {
+                List<NeftRequestView> NeftDetails = RequestDetailsList.Select(temp => new NeftRequestView { CustomerID = temp.CustomerID, Amount = temp.Amount }).ToList();
+                await GetNeftDetails(NeftDetails);
+                NEFT neft_Generator = new NEFT();
+                neft_Generator.GenerateNEFT_File_SD(BankDetails);
+                string Designation = MainWindow.LoginDesignation.LoginDesignation;
+                Designation = (Designation == null) ? "" : Designation;
+                LoadHomePage(Designation);
+            }
+            catch
+            {
 
-            NEFT neft_Generator = new NEFT();
-            neft_Generator.GenerateNEFT_File_SD(BankDetails);
+            }
+           
             
         }
 
