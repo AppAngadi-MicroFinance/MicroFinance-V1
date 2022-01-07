@@ -149,6 +149,14 @@
                 </Border.Effect>
                 <Button x:Name="CollectionDetailsBtn" Click="CollectionDetailsBtn_Click" Style="{StaticResource NavigateDailyReports}"></Button>
             </Border>
+            <Border Margin="15" Style="{StaticResource MainBorder}" 
+                 >
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="SDRecommendBtn" Click="SDRecommendBtn_Click" Style="{StaticResource WithDrawlBtn}"></Button>
+            </Border>
+            
         </WrapPanel>
         
            

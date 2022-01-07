@@ -26,7 +26,7 @@
             <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
         </StackPanel>
 
-        <WrapPanel Grid.Row="1" Grid.Column="1" MaxWidth="1250" Margin="25">
+        <WrapPanel Grid.Row="1" Grid.Column="1" MaxWidth="1250" Margin="25" x:Name="MenuPanel">
             <Border Margin="15" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
@@ -50,6 +50,13 @@
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Button Style="{StaticResource NavigateFindCustomerSmall}" x:Name="FindCustomerBtn" Click="FindCustomerBtn_Click"></Button>
+            </Border>
+            <Border Margin="15" Style="{StaticResource MainBorder}" 
+                 >
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="SDRecommendBtn" Click="SDRecommendBtn_Click" Style="{StaticResource WithDrawlBtn1}"></Button>
             </Border>
         </WrapPanel>
         <Border Height="250" Width="350" Grid.ColumnSpan="3" Grid.RowSpan="3" Background="White" CornerRadius="5" BorderBrush="Gray" BorderThickness="2" x:Name="FindCustomerPanel" Visibility="Collapsed">

@@ -364,6 +364,7 @@
     <Compile Include="ViewModel\CollectionReportRepo.cs" />
     <Compile Include="ViewModel\CollectionReportView.cs" />
     <Compile Include="Repository\EmployeeRepository.cs" />
+    <Compile Include="ViewModel\CustomerBankDetailView.cs" />
     <Compile Include="ViewModel\CustomerEnrollMetaData.cs" />
     <Compile Include="ViewModel\CustomerHimarkDataModel.cs" />
     <Compile Include="ViewModel\CustomerMetaData.cs" />
@@ -378,6 +379,7 @@
     <Compile Include="ViewModel\LoanApplicationViewModel.cs" />
     <Compile Include="ViewModel\LoanDetailsView.cs" />
     <Compile Include="ViewModel\LoanViewModel.cs" />
+    <Compile Include="ViewModel\NeftRequestView.cs" />
     <Compile Include="ViewModel\PeerGroupViewModal.cs" />
     <Compile Include="ViewModel\RecommendView.cs" />
     <Compile Include="ViewModel\RegionViewModel.cs" />

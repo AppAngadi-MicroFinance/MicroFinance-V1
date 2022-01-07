@@ -20,6 +20,8 @@ using Microsoft.Win32;
 using MicroFinance.ViewModel;
 using System.Collections.ObjectModel;
 using MicroFinance.Repository;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace MicroFinance
 {
@@ -28,7 +30,7 @@ namespace MicroFinance
     /// </summary>
     public partial class DashBoardHeadOfficer : Page
     {
-       
+
         string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
         GTtoSamunnati GTtoSAMU = new GTtoSamunnati();
         Branch branch = new Branch();
@@ -46,11 +48,11 @@ namespace MicroFinance
         void LoadCount()
         {
             int count = NotificationRepository.GetLoanApplicationCount(11);
-            xLoanDisbursmentCount.Text = (count<100)?count.ToString():"99+";
+            xLoanDisbursmentCount.Text = (count < 100) ? count.ToString() : "99+";
         }
 
 
-       
+
 
         private void xAddNewEmployee_Click(object sender, RoutedEventArgs e)
         {
@@ -59,7 +61,7 @@ namespace MicroFinance
 
         private void xPendingCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
         private void xLoanRequestListBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -71,7 +73,7 @@ namespace MicroFinance
             this.NavigationService.Navigate(new CreateBranch());
         }
 
-        
+
 
         private void xFindCustomer_Click(object sender, RoutedEventArgs e)
         {
@@ -79,7 +81,7 @@ namespace MicroFinance
             this.NavigationService.Navigate(new CustomerSearch());
         }
 
-       
+
 
         private void xAllowanceReportBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -103,7 +105,7 @@ namespace MicroFinance
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = sqlconn;
-                    cmd.CommandText = "select count(distinct CustomerDetails.CustId) from CustomerDetails join CustomerGroup on CustomerGroup.BranchId = '"+branchId+"' where CustomerDetails.CustomerStatus = 2";
+                    cmd.CommandText = "select count(distinct CustomerDetails.CustId) from CustomerDetails join CustomerGroup on CustomerGroup.BranchId = '" + branchId + "' where CustomerDetails.CustomerStatus = 2";
                     value = (int)cmd.ExecuteScalar();
                 }
                 sqlconn.Close();
@@ -116,7 +118,7 @@ namespace MicroFinance
 
         }
 
-        private  void LoanDesposment_Click(object sender, RoutedEventArgs e)
+        private void LoanDesposment_Click(object sender, RoutedEventArgs e)
         {
             //List<SUMAtoHO> ResultList = new List<SUMAtoHO>();
             //OpenFileDialog openFileDlg = new OpenFileDialog();
@@ -134,7 +136,7 @@ namespace MicroFinance
 
             //}
             this.NavigationService.Navigate(new RecommendNew(11));
-            
+
         }
 
 
@@ -145,7 +147,7 @@ namespace MicroFinance
             var FilePath = FileFrom.Split('\\');
             string FileName = FilePath[FilePath.Length - 1];
             SUMAtoHO SUMA = new SUMAtoHO();
-           
+
             if (!SUMA.IsFileExists(FileName))
             {
                 SumaApprovalList = Suma.ImportSamuFile(FileFrom);
@@ -159,7 +161,7 @@ namespace MicroFinance
             return SumaApprovalList;
         }
 
-        private  void SAMUSendRequestBtn_Click(object sender, RoutedEventArgs e)
+        private void SAMUSendRequestBtn_Click(object sender, RoutedEventArgs e)
         {
             //old
             this.NavigationService.Navigate(new SamuExport());
@@ -227,7 +229,7 @@ namespace MicroFinance
                 GifPanel.Visibility = Visibility.Visible;
                 string FileFrom = openFileDlg.FileName;
                 List<SamuReportView> RequestList = new List<SamuReportView>();
-                
+
                 await System.Threading.Tasks.Task.Run(() => RequestList = SamuRepository.GetSamuRequest(FileFrom));
                 GifPanel.Visibility = Visibility.Collapsed;
 
@@ -260,7 +262,7 @@ namespace MicroFinance
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
             string AadharNumber = AadharNumberBox.Text;
-            if(!string.IsNullOrEmpty(AadharNumber)&&AadharNumber.Length==12)
+            if (!string.IsNullOrEmpty(AadharNumber) && AadharNumber.Length == 12)
             {
                 string CustomerID = CustomerRepository.GetCustomerID(AadharNumber);
                 this.NavigationService.Navigate(new GTrustCustomerProfile(CustomerID));
@@ -276,5 +278,56 @@ namespace MicroFinance
         {
             FindCustomerPanel.Visibility = Visibility.Visible;
         }
+
+
+        private async void SDRecommendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BranchRequestView RequestDetails = new BranchRequestView { BranchID = MainWindow.LoginDesignation.BranchId, StatusCode = 3 };
+            GifPanel.Visibility = Visibility.Visible;
+            MenuPanel.IsEnabled = false;
+            await GetRequestDetails();
+            MenuPanel.IsEnabled = true;
+            GifPanel.Visibility = Visibility.Collapsed;
+            if (RequestDetailsList.Count != 0)
+            {
+                this.NavigationService.Navigate(new SDRecommendView(RequestDetailsList, 3));
+            }
+        }
+        List<SavingsAccountRequestView> RequestDetailsList = new List<SavingsAccountRequestView>();
+
+        async Task GetRequestDetails()
+        {
+            string url = "http://examsign-001-site4.itempurl.com/api/GetRequests/3";
+            
+            HttpClient Client = new HttpClient();
+            HttpResponseMessage Response = new HttpResponseMessage();
+            Response = await Client.PostAsync(url, null);
+
+            if (Response.IsSuccessStatusCode)
+            {
+                var result = await Response.Content.ReadAsStringAsync();
+                var status = JsonConvert.DeserializeObject<List<SavingsAccountRequestView>>(result);
+                if (status != null)
+                {
+                    RequestDetailsList = status;
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("No Data Found");
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show(Response.StatusCode.ToString());
+            }
+        }
+        public class BranchRequestView
+        {
+            public string BranchID { get; set; }
+            public int StatusCode { get; set; }
+        }
     }
-}
+
+
+
+    }

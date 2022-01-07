@@ -29,10 +29,27 @@
                 <DataGridTextColumn Header="Account Balance" Width="1*" Binding="{Binding Balance}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Request Date" Width="1*" Binding="{Binding RequestDate,StringFormat={}dd-MM-yyyy}"></DataGridTextColumn>
             </DataGrid.Columns>
+            <DataGrid.RowStyle>
+
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.Height" Value="30"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="13" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen"/>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+
+
+                </Style>
+            </DataGrid.RowStyle>
         </DataGrid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="3" Orientation="Horizontal" Margin="5" Grid.Column="1">
+        <StackPanel x:Name="RecommendPanel" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="3" Orientation="Horizontal" Margin="5" Grid.Column="1">
             <Button Style="{StaticResource PrimaryBtn}" Content="Recommend" Margin="5" x:Name="RecommedBtn" Click="RecommedBtn_Click"></Button>
             <Button Style="{StaticResource CancelBtn}" Content="Cancel" Margin="5" x:Name="CancelBtn" Click="CancelBtn_Click"></Button>
+        </StackPanel>
+        <StackPanel x:Name="NeftPanel" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Row="3" Orientation="Horizontal" Margin="5" Grid.Column="1">
+            <Button Style="{StaticResource SecondaryBtn}" Content="Generate NEFT" Width="130" Margin="5" x:Name="NeftBtn" Click="NeftBtn_Click"></Button>
+            <Button Style="{StaticResource CancelBtn}" Content="Cancel" Margin="5" x:Name="CancelBtn1" Click="CancelBtn_Click"></Button>
         </StackPanel>
     </Grid>
 </Page>

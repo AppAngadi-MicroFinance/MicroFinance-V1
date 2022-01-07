@@ -24,6 +24,8 @@ using Microsoft.Win32;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using MicroFinance.ViewModel;
 using MicroFinance.Repository;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace MicroFinance
 {
@@ -431,6 +433,54 @@ namespace MicroFinance
         private void CollectionDetailsBtn_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new DownloadCollectionReport());
+        }
+
+        private async void SDRecommendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BranchRequestView RequestDetails = new BranchRequestView { BranchID = MainWindow.LoginDesignation.BranchId, StatusCode = 2 };
+            GifPanel.Visibility = Visibility.Visible;
+            MenuPanel.IsEnabled = false;
+            await GetRequestDetails(RequestDetails);
+            MenuPanel.IsEnabled = true;
+            GifPanel.Visibility = Visibility.Collapsed;
+            if (RequestDetailsList.Count != 0)
+            {
+                this.NavigationService.Navigate(new SDRecommendView(RequestDetailsList,2));
+            }
+        }
+        List<SavingsAccountRequestView> RequestDetailsList = new List<SavingsAccountRequestView>();
+
+        async Task GetRequestDetails(BranchRequestView RequestDetails)
+        {
+            string url = "http://examsign-001-site4.itempurl.com/api/GetRequests/Branch";
+            var json = JsonConvert.SerializeObject(RequestDetails);
+            var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+            HttpClient Client = new HttpClient();
+            HttpResponseMessage Response = new HttpResponseMessage();
+            Response = await Client.PostAsync(url, stringContent);
+
+            if (Response.IsSuccessStatusCode)
+            {
+                var result = await Response.Content.ReadAsStringAsync();
+                var status = JsonConvert.DeserializeObject<List<SavingsAccountRequestView>>(result);
+                if (status != null)
+                {
+                    RequestDetailsList = status;
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("No Data Found");
+                }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show(Response.StatusCode.ToString());
+            }
+        }
+        public class BranchRequestView
+        {
+            public string BranchID { get; set; }
+            public int StatusCode { get; set; }
         }
     }
 
