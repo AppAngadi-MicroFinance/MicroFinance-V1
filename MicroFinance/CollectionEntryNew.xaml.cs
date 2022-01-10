@@ -55,7 +55,7 @@ namespace MicroFinance
                 Coll.Interest = Collection.Interest;
                 Coll.Total = Collection.Total;
                 Coll.SecurityDeposite = Collection.SecurityDeposite;
-                Coll.ActualDue = Collection.SecurityDeposite;
+                Coll.ActualDue = Collection.ActualDue;
                 Coll.PaidDue = Collection.PaidDue;
                 Coll.Balance = Collection.Balance;
                 Coll.ActualPaymentDate = Collection.ActualPaymentDate;
@@ -90,7 +90,7 @@ namespace MicroFinance
                 Coll.Interest = Collection.Interest;
                 Coll.Total = Collection.Total;
                 Coll.SecurityDeposite = Collection.SecurityDeposite;
-                Coll.ActualDue = Collection.SecurityDeposite;
+                Coll.ActualDue = Collection.ActualDue;
                 Coll.PaidDue = Collection.PaidDue;
                 Coll.Balance = Collection.Balance;
                 Coll.ActualPaymentDate = Collection.ActualPaymentDate;

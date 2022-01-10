@@ -150,5 +150,9 @@ namespace MicroFinance
             return RequestID;
         }
 
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new DashboardFieldOfficer());
+        }
     }
 }
