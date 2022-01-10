@@ -18,5 +18,6 @@ namespace MicroFinance.ViewModel
         public string BranchName { get; set; }
         public int Amount { get; set; }
         public DateTime RequestDate { get; set; }
+        public int Balance { get; set; }
     }
 }

@@ -74,11 +74,12 @@ namespace MicroFinance
         List<SavingAmountRequest_Log> FormlogDetails(int Code)
         {
             List<SavingAmountRequest_Log> LogDetails = new List<SavingAmountRequest_Log>();
-            foreach(SavingsAccountRequestView Request in RequestDetailsList)
+            string EmpId = (MainWindow.LoginDesignation.EmpId != null) ? MainWindow.LoginDesignation.EmpId : "Admin";
+            foreach (SavingsAccountRequestView Request in RequestDetailsList)
             {
                 SavingAmountRequest_Log Log = new SavingAmountRequest_Log();
                 Log.RequestID = Request.RequestID;
-                Log.EmployeeID = MainWindow.LoginDesignation.EmpId;
+                Log.EmployeeID = EmpId;
                 Log.Code = Code;
                 Log.TransactionDate = DateTime.Now.ToLocalTime();
 
@@ -99,7 +100,6 @@ namespace MicroFinance
             if(Response.IsSuccessStatusCode)
             {
                 MessageBox.Show("Success");
-                this.NavigationService.Navigate(new DashboardBranchManager());
             }
             else
             {
@@ -125,6 +125,17 @@ namespace MicroFinance
         {
             try
             {
+                List<string> IdList = RequestDetailsList.Select(temp => temp.RequestID).ToList();
+                int CurrentCode = RequestDetailsList.Select(temp => temp.Code).FirstOrDefault();
+                List<SavingAmountRequest_Log> LogDetails = FormlogDetails(CurrentCode + 1);
+                try
+                {
+                    await updateRequestDetails(IdList, CurrentCode + 1, LogDetails);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
                 List<NeftRequestView> NeftDetails = RequestDetailsList.Select(temp => new NeftRequestView { CustomerID = temp.CustomerID, Amount = temp.Amount }).ToList();
                 await GetNeftDetails(NeftDetails);
                 NEFT neft_Generator = new NEFT();
