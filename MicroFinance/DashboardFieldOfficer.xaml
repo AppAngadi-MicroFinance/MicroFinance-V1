@@ -96,7 +96,7 @@
                 </Border.Effect>
                 <Button Style="{StaticResource NavigateFindCustomerSmall}" x:Name="BulkEntryBtn" Click="BulkEntryBtn_Click"></Button>
             </Border>
-            <Button Content="Saving Amount Request" x:Name="SavingAmountRequestBtn" Click="SavingAmountRequestBtn_Click"    ></Button>
+            <Button Content="Saving Amount Request" Visibility="Collapsed" x:Name="SavingAmountRequestBtn" Click="SavingAmountRequestBtn_Click"    ></Button>
             
         </WrapPanel>
         

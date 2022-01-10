@@ -305,6 +305,7 @@
     <Compile Include="RegionManagerWindow.xaml.cs">
       <DependentUpon>RegionManagerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reports\CollectionDetailsReport.cs" />
     <Compile Include="Reports\HiMark.cs" />
     <Compile Include="Reports\HimarkModel.cs" />
     <Compile Include="Reports\NoOfLoansDis.cs" />

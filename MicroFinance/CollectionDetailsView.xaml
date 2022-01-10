@@ -109,5 +109,9 @@
             <TextBlock Text=" / " Style="{StaticResource SubTitle}" FontWeight="SemiBold"></TextBlock>
             <TextBlock Text="200000" x:Name="TotalAmountTobeCollectedText" Style="{StaticResource SubTitle}" FontWeight="SemiBold"></TextBlock>
         </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" Background="Transparent" Orientation="Horizontal" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button Style="{StaticResource SecondaryBtn}" Margin="5" Content="Genrerate Report" Width="160" x:Name="RepostBtn" Click="RepostBtn_Click"></Button>
+            <Button Style="{StaticResource CancelBtn}" Margin="5" x:Name="CancelBtn" Click="CancelBtn_Click" Content="Cancel"></Button>
+        </StackPanel>
     </Grid>
 </Page>

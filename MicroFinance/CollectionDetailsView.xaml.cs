@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MicroFinance.Reports;
 using MicroFinance.ViewModel;
 
 namespace MicroFinance
@@ -275,6 +276,38 @@ namespace MicroFinance
                 }
             }
         }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string Designation = MainWindow.LoginDesignation.LoginDesignation;
+            Designation = (Designation == null) ? "" : Designation;
+            LoadHomePage(Designation);
+        }
+
+       
+
+        private void RepostBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CollectionDetailsReport report = new CollectionDetailsReport(BindingList);
+            report.GenerateCollectionRepost();
+            string Designation = MainWindow.LoginDesignation.LoginDesignation;
+            Designation = (Designation == null) ? "" : Designation;
+            LoadHomePage(Designation);
+        }
+
+        public void LoadHomePage(string Designation)
+        {
+            if (Designation.Equals("Field Officer"))
+                this.NavigationService.Navigate(new DashboardFieldOfficer());
+            else if (Designation.Equals("Accountant"))
+                this.NavigationService.Navigate(new DashboardAccountant());
+            else if (Designation.Equals("Branch Manager") || Designation.Equals("Manager"))
+                this.NavigationService.Navigate(new DashboardBranchManager());
+            else if (Designation.Equals("Region Manager"))
+                this.NavigationService.Navigate(new DashBoardRegionOfficer());
+            else
+                this.NavigationService.Navigate(new DashBoardHeadOfficer());
+        }
     }
 
 
@@ -301,5 +334,11 @@ namespace MicroFinance
         public string BranchName { get; set; }
         public string CenterName { get; set; }
         public string CenterID { get; set; }
+
+
+        public override string ToString()
+        {
+            return (this.BranchName + "," + this.EmployeeName + "," + this.CenterName + "," + this.CustomerName+"," + this.Principal +"," +this.Interest + "," + this.SecurityDeposite+"," + this.Total);
+        }
     }
 }

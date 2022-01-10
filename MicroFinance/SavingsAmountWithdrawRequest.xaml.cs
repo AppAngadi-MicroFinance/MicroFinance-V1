@@ -64,6 +64,7 @@ namespace MicroFinance
                     try
                     {
                         await SendWithDrawRequest(RequestDetails,LogDetails);
+                        this.NavigationService.Navigate(new DashboardFieldOfficer());
                     }
                     catch (Exception ex)
                     {
@@ -145,7 +146,7 @@ namespace MicroFinance
             int month = DateTime.Now.Month;
             string RegionCode = BranchId.Substring(0, 2);
             string BranchCode = BranchId.Substring(8);
-            RequestID = RegionCode + BranchCode + year + ((month < 10) ? "0" + month.ToString() : month.ToString())+"SDR"+ ((Count < 100) ? "00" + Count.ToString() : Count.ToString());
+            RequestID = RegionCode + BranchCode + year + ((month < 10) ? "0" + month.ToString() : month.ToString())+"SDR"+ ((Count < 100) ? "00" + (Count+1).ToString() : (Count+1).ToString());
             return RequestID;
         }
 
