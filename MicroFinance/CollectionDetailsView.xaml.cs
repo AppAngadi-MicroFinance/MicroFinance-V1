@@ -338,7 +338,7 @@ namespace MicroFinance
 
         public override string ToString()
         {
-            return (this.BranchName + "," + this.EmployeeName + "," + this.CenterName + "," + this.CustomerName+"," + this.Principal +"," +this.Interest + "," + this.SecurityDeposite+"," + this.Total);
+            return (this.BranchName + "," + this.EmployeeName + "," + this.CenterName + "," + this.CustomerName+"," + this.Principal +","+this.CollectedOn.ToString("dd-mm-yyyy")+"" +this.Interest + "," + this.SecurityDeposite+"," + this.Total);
         }
     }
 }

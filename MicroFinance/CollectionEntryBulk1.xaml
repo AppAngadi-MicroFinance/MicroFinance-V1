@@ -28,10 +28,17 @@
                 <DataGridTextColumn Header="Loan Amount" Width="2*" Binding="{Binding LoanAmount}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Paid Amount" Width="2*" Binding="{Binding PaidAmount}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Balance" Width="2*" Binding="{Binding Balance}"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="Add Collection" Width="2*">
+                <DataGridTemplateColumn Header="Add Collection" Width="2*" x:Name="AddCollectionTemp">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Width="auto" Height="auto" Margin="1" Style="{StaticResource SecondaryBtn}" Content="Add Collection" DataContext="{Binding LoanID}" Click="AddCollectionBtn_Click" x:Name="AddCollectionBtn" FontSize="13"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Claim Death" Width="2*" x:Name="MarkDeathTemp">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="auto" Height="auto" Margin="1" Style="{StaticResource DangerBtn}" Content="Claim Death" DataContext="{Binding LoanID}" Click="MarkDeathBtn_Click" x:Name="MarkDeathBtn" FontSize="13"></Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

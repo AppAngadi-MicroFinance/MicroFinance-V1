@@ -111,7 +111,7 @@
                         <Button Style="{StaticResource SecondaryBtn}" Margin="10" Width="150" Content="Edit Customer" x:Name="CustomerEditBtn" Click="CustomerEditBtn_Click"></Button>
                         <Button Style="{StaticResource SecondaryBtn}" Margin="10" Width="150" Content="Change Loan Date" Visibility="Collapsed"></Button>
                         <Button Style="{StaticResource SecondaryBtn}" Visibility="Collapsed" Margin="10" Width="150" Content="Collection Entry"></Button>
-                        <Button Visibility="Collapsed" Style="{StaticResource SecondaryBtn}" Margin="10" Width="150"></Button>
+                        <Button Visibility="Visible" Style="{StaticResource SecondaryBtn}" Margin="10" Width="150" Content="Claim Death" x:Name="ClaimDeathBtn" Click="ClaimDeathBtn_Click"></Button>
                     </WrapPanel>
                 </Grid>
             </Border>

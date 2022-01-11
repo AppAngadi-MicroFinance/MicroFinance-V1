@@ -18,6 +18,7 @@ using System.Collections.ObjectModel;
 using MicroFinance.Repository;
 using System.Net.Http;
 using Newtonsoft.Json;
+using MicroFinance.Modal;
 
 namespace MicroFinance
 {
@@ -239,23 +240,56 @@ namespace MicroFinance
 
         private async void SubmitBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(IsValidEntry())
+            try
             {
-                BranchViewModel SelectedBranch = BranchCombo.SelectedItem as BranchViewModel;
-                string BranchID = SelectedBranch.BranchId;
-                TimeTableViewModel SelectedCenter = CenterNameCombo.SelectedItem as TimeTableViewModel;
-                string CenterID = SelectedCenter.SHGId;
-                string EmpId = MainWindow.LoginDesignation.EmpId;
-                PeerGroupViewModal SelectedGroup = PeerGroupCombo.SelectedItem as PeerGroupViewModal;
-                string GroupID = SelectedGroup.GroupID;
-                GifPanel.Visibility = Visibility.Visible;
-                await insertData(BranchID, CenterID, GroupID, EmpId);
-                GifPanel.Visibility = Visibility.Collapsed;
+                if (IsValidEntry())
+                {
+                    BranchViewModel SelectedBranch = BranchCombo.SelectedItem as BranchViewModel;
+                    string BranchID = SelectedBranch.BranchId;
+                    TimeTableViewModel SelectedCenter = CenterNameCombo.SelectedItem as TimeTableViewModel;
+                    string CenterID = SelectedCenter.SHGId;
+                    string EmpId = MainWindow.LoginDesignation.EmpId;
+                    PeerGroupViewModal SelectedGroup = PeerGroupCombo.SelectedItem as PeerGroupViewModal;
+                    string GroupID = SelectedGroup.GroupID;
+                    GifPanel.Visibility = Visibility.Visible;
+                    await insertData(BranchID, CenterID, GroupID, EmpId);
+                    string Path = MainWindow.DriveBasePath + "\\TRICHY" + SelectedBranch.BranchName + "\\Customer";
+                    AddCustomerImages(Path, CustomerDetails.CustId);
+                    GifPanel.Visibility = Visibility.Collapsed;
+                    this.NavigationService.Navigate(new DashboardFieldOfficer());
 
+                }
+                else
+                {
+                    MessageBox.Show("Check All Fields", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Check All Fields", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+
+         void AddCustomerImages(string BasePath,string FileName)
+        {
+            
+            if(CustomerDetails.AddressProof!=null)
+            {
+                SaveImageToDrive drive = new SaveImageToDrive(BasePath+"\\Address Proof", FileName, CustomerDetails.AddressProof);
+            }
+            if(CustomerDetails.PhotoProof!=null)
+            {
+                SaveImageToDrive drive = new SaveImageToDrive(BasePath+"\\Photo Proof",FileName, CustomerDetails.PhotoProof);
+            }
+            if(CustomerDetails.ProfilePhoto!=null)
+            {
+                SaveImageToDrive drive = new SaveImageToDrive(BasePath+"\\Profile Picture",FileName, CustomerDetails.ProfilePhoto);
+            }
+            if(CustomerDetails.CombinePhoto!=null)
+            {
+                SaveImageToDrive drive = new SaveImageToDrive(BasePath+"\\Combine Phote",FileName, CustomerDetails.CombinePhoto);
             }
         }
 

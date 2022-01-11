@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.ViewModel;
 using MicroFinance.Repository;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace MicroFinance
 {
@@ -25,6 +27,7 @@ namespace MicroFinance
     {
         public static ObservableCollection<BranchViewModel> BranchList = new ObservableCollection<BranchViewModel>();
         public static List<CenterViewModel> CenterList = new List<CenterViewModel>();
+        List<LoanDetailsView> CustomerLoanDetailsList = new List<LoanDetailsView>();
         public CustomerSearch()
         {
             InitializeComponent();
@@ -146,6 +149,47 @@ namespace MicroFinance
                 MessageBox.Show(ex.StackTrace);
             }
            
+        }
+
+        private async void ClaimDeathBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SelectOptionPanel.IsOpen = false;
+                CustomerViewModel SelectedCustomer = CustomerList.SelectedItem as CustomerViewModel;
+                await GetLoanDetails(SelectedCustomer.CustomerID);
+
+                this.NavigationService.Navigate(new CollectionEntryBulk1(CustomerLoanDetailsList,true));
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
+        async Task GetLoanDetails(string CustomerID)
+        {
+            string url1 = "http://examsign-001-site4.itempurl.com/api/GetLoanDetails/" + CustomerID;
+            HttpClient client1 = new HttpClient();
+            HttpResponseMessage response1 = new HttpResponseMessage();
+            response1 = await client1.PostAsync(url1, null);
+
+            if (response1.IsSuccessStatusCode)
+            {
+                var result = await response1.Content.ReadAsStringAsync();
+                var status = JsonConvert.DeserializeObject<List<LoanDetailsView>>(result);
+
+                if (status != null)
+                {
+                    CustomerLoanDetailsList.Clear();
+                    CustomerLoanDetailsList = status;
+                }
+            }
+            else
+            {
+                string message = response1.StatusCode.ToString();
+                MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

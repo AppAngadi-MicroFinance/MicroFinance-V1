@@ -24,6 +24,7 @@ namespace MicroFinance
     public partial class CollectionEntryBulk1 : Page
     {
         public List<CollectionEntryView> CollectionDetailsList = new List<CollectionEntryView>();
+       
         public CollectionEntryBulk1()
         {
             InitializeComponent();
@@ -33,6 +34,14 @@ namespace MicroFinance
             InitializeComponent();
             CustomerNameText.Text = loanDetails.Select(temp => temp.CustomerName).FirstOrDefault();
             LoanDetailsGrid.ItemsSource = loanDetails;
+            MarkDeathTemp.Visibility = Visibility.Collapsed;
+        }
+        public CollectionEntryBulk1(List<LoanDetailsView> loanDetails,bool IsForClaimDeath)
+        {
+            InitializeComponent();
+            CustomerNameText.Text = loanDetails.Select(temp => temp.CustomerName).FirstOrDefault();
+            LoanDetailsGrid.ItemsSource = loanDetails;
+            AddCollectionTemp.Visibility = Visibility.Collapsed;
         }
 
         private void AddCollectionBtn_Click(object sender, RoutedEventArgs e)
@@ -45,6 +54,8 @@ namespace MicroFinance
             LoanDetailsGrid.IsEnabled = false;
             ConfirmationPanel.Visibility = Visibility.Visible;
         }
+
+        
 
         private async void ViewBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -102,6 +113,11 @@ namespace MicroFinance
         {
             LoanDetailsGrid.IsEnabled = true;
             ConfirmationPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void MarkDeathBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

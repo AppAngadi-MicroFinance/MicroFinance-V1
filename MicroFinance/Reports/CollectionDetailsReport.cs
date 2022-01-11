@@ -41,7 +41,7 @@ namespace MicroFinance.Reports
 
         void formData()
         {
-            FileData.Append("Branch Name,Employee Name,Center Name,Customer Name,Principal,Interest,Security Deposit,Total\n");
+            FileData.Append("Branch Name,Employee Name,Center Name,Customer Name,Collected On,Principal,Interest,Security Deposit,Total\n");
             foreach(CollectionDetailsModel data in Details)
             {
                 FileData.Append(data.ToString() + "\n");
