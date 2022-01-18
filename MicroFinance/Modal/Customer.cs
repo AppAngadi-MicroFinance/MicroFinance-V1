@@ -819,7 +819,7 @@ namespace MicroFinance.Modal
                         _city = _fullAdress[8];
                         _state = _fullAdress[10];
                     }
-                    catch
+                    catch (Exception ex)
                     {
 
                     }

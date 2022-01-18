@@ -237,6 +237,7 @@ namespace MicroFinance
             PanelGrid.IsEnabled = true;
             ButtonPanel.IsEnabled = true;
         }
+        string BranchName = "";
 
         private async void SubmitBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -246,6 +247,7 @@ namespace MicroFinance
                 {
                     BranchViewModel SelectedBranch = BranchCombo.SelectedItem as BranchViewModel;
                     string BranchID = SelectedBranch.BranchId;
+                    BranchName = SelectedBranch.BranchName;
                     TimeTableViewModel SelectedCenter = CenterNameCombo.SelectedItem as TimeTableViewModel;
                     string CenterID = SelectedCenter.SHGId;
                     string EmpId = MainWindow.LoginDesignation.EmpId;
@@ -253,8 +255,6 @@ namespace MicroFinance
                     string GroupID = SelectedGroup.GroupID;
                     GifPanel.Visibility = Visibility.Visible;
                     await insertData(BranchID, CenterID, GroupID, EmpId);
-                    string Path = MainWindow.DriveBasePath + "\\TRICHY" + SelectedBranch.BranchName + "\\Customer";
-                    AddCustomerImages(Path, CustomerDetails.CustId);
                     GifPanel.Visibility = Visibility.Collapsed;
                     this.NavigationService.Navigate(new DashboardFieldOfficer());
 
@@ -272,10 +272,11 @@ namespace MicroFinance
         }
 
 
-         void AddCustomerImages(string BasePath,string FileName)
-        {
-            
-            if(CustomerDetails.AddressProof!=null)
+         void AddCustomerImages(string FileName)
+         {
+            string BasePath = MainWindow.DriveBasePath + "\\TRICHY\\" + BranchName+"\\Customer";
+
+            if (CustomerDetails.AddressProof!=null)
             {
                 SaveImageToDrive drive = new SaveImageToDrive(BasePath+"\\Address Proof", FileName, CustomerDetails.AddressProof);
             }
@@ -289,9 +290,9 @@ namespace MicroFinance
             }
             if(CustomerDetails.CombinePhoto!=null)
             {
-                SaveImageToDrive drive = new SaveImageToDrive(BasePath+"\\Combine Phote",FileName, CustomerDetails.CombinePhoto);
+                SaveImageToDrive drive = new SaveImageToDrive(BasePath+"\\Combine Photo",FileName, CustomerDetails.CombinePhoto);
             }
-        }
+         }
 
         async Task insertData(string BranchID,string CenterID,string GroupID,string EmpID)
         {
@@ -308,6 +309,7 @@ namespace MicroFinance
             if (response1.IsSuccessStatusCode)
             {
 
+                AddCustomerImages(Customer.CustomerID);
                 MessageBox.Show("Customer Details Added SuccessFully...", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 Reloaddata();
                 
@@ -425,6 +427,7 @@ namespace MicroFinance
             Customerdata.GDateOfBirth = GuarenteeDetails.Dob;
             Customerdata.GAge = CustomerDetails.Age;
             Customerdata.GContactNumber = GuarenteeDetails.Mobile;
+            Customerdata.GGender = GuarenteeDetails.Gender;
             Customerdata.GOccupation = GuarenteeDetails.Occupation;
             Customerdata.GRelationShip = GuarenteeDetails.RelationShip;
             Customerdata.GDoorNo = GuarenteeDetails.DoorNo;
@@ -437,7 +440,7 @@ namespace MicroFinance
             Customerdata.GAddressProofNumber = GuarenteeDetails.AddressProofNumber;
             Customerdata.GPhotoProofName = GuarenteeDetails.PhotoProofName;
             Customerdata.GPhotoProofNumber = GuarenteeDetails.PhotoProofNumber;
-            Customerdata.Gender = GuarenteeDetails.Gender;
+            //Customerdata.Gender = GuarenteeDetails.Gender;
 
 
             // NomineeDetails
@@ -495,5 +498,6 @@ namespace MicroFinance
             }
             return false;
         }
+        
     }
 }
