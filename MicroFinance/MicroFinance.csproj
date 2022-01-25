@@ -175,6 +175,7 @@
     <Compile Include="Converters\MoneyConverter.cs" />
     <Compile Include="Converters\MonthConverter.cs" />
     <Compile Include="Converters\PresentCheck.cs" />
+    <Compile Include="Converters\StatusCodeConverter.cs" />
     <Compile Include="Converters\StatusForegroundColor.cs" />
     <Compile Include="Converters\StatusImage.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
@@ -317,8 +318,15 @@
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="Repository\EnrollDetailsRepository.cs" />
     <Compile Include="Repository\NotificationRepository.cs" />
+    <Compile Include="Repository\SARepository.cs" />
     <Compile Include="Repository\SHGRepository.cs" />
     <Compile Include="Repository\TimeTableRepository.cs" />
+    <Compile Include="SACollectionView.xaml.cs">
+      <DependentUpon>SACollectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SALoanApplcationView.xaml.cs">
+      <DependentUpon>SALoanApplcationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SamuExport.xaml.cs">
       <DependentUpon>SamuExport.xaml</DependentUpon>
     </Compile>
@@ -330,6 +338,9 @@
     </Compile>
     <Compile Include="SDRecommendView.xaml.cs">
       <DependentUpon>SDRecommendView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdminDashboard.xaml.cs">
+      <DependentUpon>SuperAdminDashboard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
@@ -374,6 +385,7 @@
     <Compile Include="ViewModel\DenominationView.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\EnrollDetailsView.cs" />
+    <Compile Include="ViewModel\FOCollectionView.cs" />
     <Compile Include="ViewModel\HimarkRepository.cs" />
     <Compile Include="ViewModel\HimarkRequestView.cs" />
     <Compile Include="Repository\LoanRepository.cs" />
@@ -384,6 +396,8 @@
     <Compile Include="ViewModel\PeerGroupViewModal.cs" />
     <Compile Include="ViewModel\RecommendView.cs" />
     <Compile Include="ViewModel\RegionViewModel.cs" />
+    <Compile Include="ViewModel\SACollectionViewModel.cs" />
+    <Compile Include="ViewModel\SALoanStatusView.cs" />
     <Compile Include="ViewModel\SamuReportView.cs" />
     <Compile Include="ViewModel\SamuRepository.cs" />
     <Compile Include="ViewModel\SavingsAccountRequestView.cs" />
@@ -611,6 +625,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SACollectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SALoanApplcationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SamuExport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -624,6 +646,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SDRecommendView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SuperAdminDashboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

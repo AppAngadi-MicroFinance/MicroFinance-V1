@@ -90,6 +90,17 @@ namespace MicroFinance
                         LoggedInState();
                         MainWindow.StatusMessageofPage(1, "Ready...");
                     }
+                    else if(_userName.ToLower() == "SuperAdmin".ToLower() && _password == "SuperAdmin")
+                    {
+                        LoginBorder.Visibility = Visibility.Collapsed;
+                        UserProfilePanel.Visibility = Visibility.Visible;
+                        HomeBtn.Visibility = Visibility.Visible;
+                        xHeaderUsername.Text = "Super Admin";
+                        LoginDesignation.LoginDesignation = "SuperAdmin";
+                        mainframe.NavigationService.Navigate(new SuperAdminDashboard());
+                        LoggedInState();
+                        MainWindow.StatusMessageofPage(1, "Ready...");
+                    }
                     else
                     {
                         GetLogin();
@@ -302,6 +313,8 @@ namespace MicroFinance
                 mainframe.NavigationService.Navigate(new DashboardBranchManager());
             else if (Designation.Equals("Region Manager"))
                 mainframe.NavigationService.Navigate(new DashBoardRegionOfficer());
+            else if (Designation.Equals("SuperAdmin"))
+                mainframe.NavigationService.Navigate(new SuperAdminDashboard());
             else
                 mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
         }

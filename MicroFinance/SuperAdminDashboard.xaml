@@ -1,0 +1,28 @@
+﻿<Page x:Class="MicroFinance.SuperAdminDashboard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      mc:Ignorable="d" 
+      Title="SuperAdminDashboard">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="CollectionBtn" Click="CollectionBtn_Click"   Style="{StaticResource SecondaryBtn}" Content="Collection Details" Width="150" Margin="5"></Button>
+            <Button x:Name="LoanStatusBtn" Style="{StaticResource SecondaryBtn}" Content="Application Status" Width="150" Margin="5" Click="LoanStatusBtn_Click"></Button>
+        </StackPanel>
+        <Frame x:Name="SuperAdminMainPanel" Grid.Column="1" Grid.Row="1"></Frame>
+    </Grid>
+</Page>
