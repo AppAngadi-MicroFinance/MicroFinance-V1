@@ -962,7 +962,7 @@
 
                             <TextBlock x:Name="GuarantorContactError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                         </StackPanel>
-                        <TextBox x:Name="GuarantorContactBox" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="GuarantorContactBox_TextChanged" LostFocus="">
+                        <TextBox x:Name="GuarantorContactBox" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="GuarantorContactBox_TextChanged" LostFocus="GuarantorContactBox_LostFocus">
                             <TextBox.Text>
                                 <Binding Path="ContactNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 </Binding>

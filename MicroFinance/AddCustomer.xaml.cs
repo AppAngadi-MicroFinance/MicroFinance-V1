@@ -2581,5 +2581,10 @@ namespace MicroFinance
                 NomineeContactBox.ForceCursor = true;
             }
         }
+
+        private void GuarantorContactBox_LostFocus_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

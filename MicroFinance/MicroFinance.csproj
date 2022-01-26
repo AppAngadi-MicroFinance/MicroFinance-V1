@@ -229,6 +229,12 @@
     <Compile Include="EnrollDetails.xaml.cs">
       <DependentUpon>EnrollDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExpenceReportView.xaml.cs">
+      <DependentUpon>ExpenceReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpenseEntry.xaml.cs">
+      <DependentUpon>ExpenseEntry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExportHimarkReport.xaml.cs">
       <DependentUpon>ExportHimarkReport.xaml</DependentUpon>
     </Compile>
@@ -270,6 +276,7 @@
     <Compile Include="Modal\CustomerDetailsForVerification.cs" />
     <Compile Include="Modal\DatabaseMethods.cs" />
     <Compile Include="Modal\DenominationModel.cs" />
+    <Compile Include="Modal\ExpenceDetails.cs" />
     <Compile Include="Modal\GenerateSavingsAccID.cs" />
     <Compile Include="Modal\GuarantorDetailsForVerification.cs" />
     <Compile Include="Modal\GenerateCustomerId.cs" />
@@ -317,6 +324,7 @@
     <Compile Include="Repository\CollectionRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="Repository\EnrollDetailsRepository.cs" />
+    <Compile Include="Repository\ExpenceRepository.cs" />
     <Compile Include="Repository\NotificationRepository.cs" />
     <Compile Include="Repository\SARepository.cs" />
     <Compile Include="Repository\SHGRepository.cs" />
@@ -385,6 +393,7 @@
     <Compile Include="ViewModel\DenominationView.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\EnrollDetailsView.cs" />
+    <Compile Include="ViewModel\ExpenseDetailsView.cs" />
     <Compile Include="ViewModel\FOCollectionView.cs" />
     <Compile Include="ViewModel\HimarkRepository.cs" />
     <Compile Include="ViewModel\HimarkRequestView.cs" />
@@ -548,6 +557,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EnrollDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpenceReportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpenseEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -842,6 +859,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Asserts\Icons\DocumentRemove-WF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\SpendMoney.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

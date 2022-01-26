@@ -147,6 +147,13 @@
                     </Border.Effect>
                     <Button x:Name="SDRecommendBtn" Click="SDRecommendBtn_Click" Style="{StaticResource WithDrawlBtn}"></Button>
                 </Border>
+                <Border Margin="15" Style="{StaticResource MainBorder}" 
+                 >
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                    </Border.Effect>
+                    <Button x:Name="AddEcpence" Click="AddEcpence_Click" Style="{StaticResource ExpenceBtn}"></Button>
+                </Border>
 
 
 

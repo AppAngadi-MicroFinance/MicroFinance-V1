@@ -374,5 +374,10 @@ namespace MicroFinance
             public string BranchID { get; set; }
             public int StatusCode { get; set; }
         }
+
+        private void AddEcpence_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ExpenseEntry());
+        }
     }
 }
