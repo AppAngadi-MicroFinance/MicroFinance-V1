@@ -368,5 +368,40 @@ namespace MicroFinance.Repository
             return true;
         }
 
+
+        public static string ContactNumberAlreadyExists(string ContactNumber)
+        {
+            string Result = "";
+            using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select count(Mobile) from CustomerDetails where Mobile='"+ContactNumber+"'";
+                    int count = (int)sqlcomm.ExecuteScalar();
+                    if(count>=1)
+                    {
+                        return "Customer";
+                    }
+                    sqlcomm.CommandText = "select count(Mobile) from GuarenteeDetails where Mobile='"+ContactNumber+"'";
+                    int count1 = (int)sqlcomm.ExecuteScalar();
+                    if(count1>=1)
+                    {
+                        return "Guarentee";
+                    }
+                    sqlcomm.CommandText = "select count(Mobile) from NomineeDetails where Mobile='" + ContactNumber + "'";
+                    int count2 = (int)sqlcomm.ExecuteScalar();
+                    if(count2>=1)
+                    {
+                        return "Nominee";
+                    }
+                }
+            }
+
+            return Result;
+        }
+
     }
 }

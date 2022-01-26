@@ -2486,7 +2486,8 @@ namespace MicroFinance
                     MessageBox.Show("Please Enter Valid Aadhar Number!...", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
                     AadharPassBox.Clear();
                     AadharNo.Clear();
-                    AadharPassBox.Focus();
+                    AadharPassBox.Focusable = true;
+                    Keyboard.Focus(AadharPassBox);
                     AadharNo.IsEnabled = false;
                     
                 }
@@ -2537,6 +2538,48 @@ namespace MicroFinance
                 return true;
             }
             return Result;
+        }
+
+        private void ContactBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string Result = CustomerRepository.ContactNumberAlreadyExists(ContactBox.Text);
+            if(!string.IsNullOrEmpty(Result))
+            {
+                string Message = "This Number Already Registed as " + Result;
+                MessageBox.Show(Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                ContactBox.Text = "";
+                ContactBox.Focusable = true;
+                Keyboard.Focus(ContactBox);
+                ContactBox.ForceCursor = true;
+            }
+        }
+
+        private void GuarantorContactBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string Result = CustomerRepository.ContactNumberAlreadyExists(GuarantorContactBox.Text);
+            if (!string.IsNullOrEmpty(Result))
+            {
+                string Message = "This Number Already Registed as " + Result;
+                MessageBox.Show(Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                GuarantorContactBox.Text = "";
+                GuarantorContactBox.Focusable = true;
+                Keyboard.Focus(GuarantorContactBox);
+                GuarantorContactBox.ForceCursor = true;
+            }
+        }
+
+        private void NomineeContactBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string Result = CustomerRepository.ContactNumberAlreadyExists(NomineeContactBox.Text);
+            if (!string.IsNullOrEmpty(Result))
+            {
+                string Message = "This Number Already Registed as " + Result;
+                MessageBox.Show(Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                NomineeContactBox.Text = "";
+                NomineeContactBox.Focusable = true;
+                Keyboard.Focus(NomineeContactBox);
+                NomineeContactBox.ForceCursor = true;
+            }
         }
     }
 }

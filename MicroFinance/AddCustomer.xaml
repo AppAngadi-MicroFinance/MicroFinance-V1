@@ -219,9 +219,9 @@
                             <TextBlock Text="Contact Number" Grid.Column="1" Grid.Row="5" Style="{StaticResource Regular}" Margin="0,0,15,0"/>
                             <TextBlock x:Name="CustContactError" Style="{StaticResource ErrorStar}" Visibility="Collapsed" Margin="-15,0,0,0"/>
                         </StackPanel>
-                        <TextBox KeyboardNavigation.TabIndex="8" x:Name="ContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="120" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="ContactBox_TextChanged">
+                        <TextBox KeyboardNavigation.TabIndex="8" x:Name="ContactBox" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" Width="120" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="ContactBox_TextChanged" LostFocus="ContactBox_LostFocus">
                             <TextBox.Text>
-                                <Binding Path="ContactNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding Path="ContactNumber" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
@@ -962,7 +962,7 @@
 
                             <TextBlock x:Name="GuarantorContactError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                         </StackPanel>
-                        <TextBox x:Name="GuarantorContactBox" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="GuarantorContactBox_TextChanged">
+                        <TextBox x:Name="GuarantorContactBox" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="GuarantorContactBox_TextChanged" LostFocus="">
                             <TextBox.Text>
                                 <Binding Path="ContactNumber" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                 </Binding>
@@ -1420,7 +1420,7 @@
                             <TextBlock Text="Contact Number" Grid.Column="0" Grid.Row="7" Style="{StaticResource Regular}"/>
                             <TextBlock x:Name="NomineeContactError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                         </StackPanel>
-                        <TextBox x:Name="NomineeContactBox" Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="NomineeContactBox_TextChanged" CharacterCasing="Upper">
+                        <TextBox x:Name="NomineeContactBox" Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="NomineeContactBox_TextChanged" CharacterCasing="Upper" LostFocus="NomineeContactBox_LostFocus">
                             <TextBox.Text>
                                 <Binding Path="ContactNumber" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
                             </TextBox.Text>
