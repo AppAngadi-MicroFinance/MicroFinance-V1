@@ -64,7 +64,7 @@
                 
                 <Grid>
                     <Button  Style="{StaticResource NavigateExportHiMark}" x:Name="HimarkBtn" Click="HimarkBtn_Click"></Button>
-                    <Border x:Name="xNotificationBatch" Margin="0,-15,-15,0" Style="{StaticResource NotifyCount}" Width="35" Height="35" Visibility="Visible">
+                    <Border x:Name="xNotificationBatch" Margin="0,-15,-15,0" Style="{StaticResource NotifyCountBig}" Width="45" Height="35" Visibility="Visible">
                         <TextBlock x:Name="xExportHimarkCount" Style="{StaticResource NotifyText}" FontSize="16"></TextBlock>
                     </Border>
                 </Grid>
@@ -88,7 +88,7 @@
                 
                 <Grid>
                     <Button x:Name="xLoanRequestListBtn" Click="xLoanRequestListBtn_Click" Style="{StaticResource NavigateLoanRequestList}"></Button>
-                    <Border x:Name="xNotificationBatch1" Margin="0,-15,-15,0" Style="{StaticResource NotifyCount}" Width="35" Height="35" Visibility="Visible">
+                    <Border x:Name="xNotificationBatch1" Margin="0,-15,-15,0" Style="{StaticResource NotifyCountBig}" Width="45" Height="35" Visibility="Visible">
                         <TextBlock x:Name="xLoanRecommendCount" Style="{StaticResource NotifyText}" FontSize="16"></TextBlock>
                     </Border>
                     
@@ -131,7 +131,7 @@
                 
                 <Grid>
                     <Button Style="{StaticResource NavigateSendToSammu}" Grid.Column="1" x:Name="SAMUSendRequestBtn" Click="SAMUSendRequestBtn_Click"></Button>
-                    <Border x:Name="xNotificationBatch3" Margin="0,-15,-15,0" Style="{StaticResource NotifyCount}" Width="35" Height="35" Visibility="Visible">
+                    <Border x:Name="xNotificationBatch3" Margin="0,-15,-15,0" Style="{StaticResource NotifyCountBig}" Width="45" Height="35" Visibility="Visible">
                         <TextBlock x:Name="xSendToSamuCount" Style="{StaticResource NotifyText}" FontSize="16"></TextBlock>
                     </Border>
                 </Grid>

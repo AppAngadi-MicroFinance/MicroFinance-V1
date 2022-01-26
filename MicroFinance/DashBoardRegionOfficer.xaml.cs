@@ -54,11 +54,11 @@ namespace MicroFinance
         void LoadCount()
         {
             int c = NotificationRepository.GetLoanApplicationCount(1);
-            xExportHimarkCount.Text = (c < 100) ? c.ToString() : "99+";
+            xExportHimarkCount.Text = c.ToString();
             int c1 = NotificationRepository.GetLoanApplicationCount(9);
-            xLoanRecommendCount.Text = (c1 < 100) ? c1.ToString() : "99+";
+            xLoanRecommendCount.Text = c1.ToString();
             int c2 = NotificationRepository.GetLoanApplicationCount(10);
-            xSendToSamuCount.Text = (c2 < 100) ? c2.ToString() : "99+";
+            xSendToSamuCount.Text = c2.ToString();
         }
 
         

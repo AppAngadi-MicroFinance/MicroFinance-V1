@@ -48,7 +48,7 @@ namespace MicroFinance
         void LoadCount()
         {
             int count = NotificationRepository.GetLoanApplicationCount(11);
-            xLoanDisbursmentCount.Text = (count < 100) ? count.ToString() : "99+";
+            xLoanDisbursmentCount.Text = count.ToString();
         }
 
 

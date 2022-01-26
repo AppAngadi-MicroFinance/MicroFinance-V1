@@ -32,6 +32,14 @@
         <Setter Property="HorizontalAlignment" Value="Right"></Setter>
         <Setter Property="VerticalAlignment" Value="Top"></Setter>
     </Style>
+    <Style x:Key="NotifyCountBig" TargetType="{x:Type Border}">
+        <Setter Property="CornerRadius" Value="15"></Setter>
+        <Setter Property="BorderBrush" Value="White"></Setter>
+        <Setter Property="BorderThickness"  Value="3"/>
+        <Setter Property="Background" Value="Red"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+    </Style>
 
     <!--Dashboard Buttons main Border-->
     <Style x:Key="MainBorder" TargetType="{x:Type Border}">

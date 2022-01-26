@@ -34,7 +34,7 @@
                 
                 <Grid>
                     <Button x:Name="LoanDesposment" Style="{StaticResource NavigateLoanDisposment}" Click="LoanDesposment_Click"></Button>
-                    <Border x:Name="xNotificationBatch" Margin="0,-15,-15,0" Style="{StaticResource NotifyCount}" Width="35" Height="35" Visibility="Visible">
+                    <Border x:Name="xNotificationBatch" Margin="0,-15,-15,0" Style="{StaticResource NotifyCountBig}" Width="45" Height="35" Visibility="Visible">
                         <TextBlock x:Name="xLoanDisbursmentCount" Style="{StaticResource NotifyText}" FontSize="16"></TextBlock>
                     </Border>
                 </Grid>
