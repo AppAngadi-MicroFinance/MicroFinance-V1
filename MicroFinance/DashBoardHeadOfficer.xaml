@@ -58,12 +58,17 @@
                 </Border.Effect>
                 <Button x:Name="SDRecommendBtn" Click="SDRecommendBtn_Click" Style="{StaticResource WithDrawlBtn1}"></Button>
             </Border>
-            <Border Margin="15" Style="{StaticResource MainBorder}" 
-                 >
+            <Border Margin="15" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Button x:Name="ExpenceReportBtn" Style="{StaticResource ExpenceReport}" Click="ExpenceReportBtn_Click"></Button>
+            </Border>
+            <Border Margin="15" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button Style="{StaticResource SettingBtn}" x:Name="SettingBtn" Click="SettingBtn_Click"></Button>
             </Border>
             
         </WrapPanel>

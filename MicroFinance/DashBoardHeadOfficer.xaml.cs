@@ -331,6 +331,11 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new ExpenceReportView());
         }
+
+        private void SettingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new SettingPage());
+        }
     }
 
 
