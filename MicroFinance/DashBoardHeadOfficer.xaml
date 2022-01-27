@@ -58,6 +58,7 @@
                 </Border.Effect>
                 <Button x:Name="SDRecommendBtn" Click="SDRecommendBtn_Click" Style="{StaticResource WithDrawlBtn1}"></Button>
             </Border>
+            <Button x:Name="ExpenceReportBtn" Content="Expence Report" Style="{StaticResource SecondaryBtn}" Width="150" Click="ExpenceReportBtn_Click"></Button>
         </WrapPanel>
         <Border Height="250" Width="350" Grid.ColumnSpan="3" Grid.RowSpan="3" Background="White" CornerRadius="5" BorderBrush="Gray" BorderThickness="2" x:Name="FindCustomerPanel" Visibility="Collapsed">
             <Grid Width="330" Height="190">

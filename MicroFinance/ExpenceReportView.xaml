@@ -3,20 +3,63 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       xmlns:local="clr-namespace:MicroFinance"
       mc:Ignorable="d" 
       
       Title="ExpenceReportView">
 
     <Grid>
-        <DataGrid MaxHeight="600" MaxWidth="1200" x:Name="ExpenceViewGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel x:Name="GifPanel" Grid.RowSpan="3" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1" Panel.ZIndex="2" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
+        </StackPanel>
+        <TextBlock x:Name="Totaltext" Grid.Column="1" VerticalAlignment="Bottom" Style="{StaticResource SubTitle}" HorizontalAlignment="Right"></TextBlock>
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1">
+            <StackPanel>
+                <TextBlock Text="From Date" Style="{StaticResource Regular}"></TextBlock>
+                <DatePicker Style="{StaticResource DateSelecter}" Background="White" Width="250" x:Name="FromDate"></DatePicker>
+            </StackPanel>
+            <StackPanel Margin="5,0,0,0">
+                <TextBlock Text="To Date" Style="{StaticResource Regular}"></TextBlock>
+                <DatePicker Style="{StaticResource DateSelecter}" Background="White" Width="250" x:Name="EndDate"></DatePicker>
+            </StackPanel>
+            <Button Style="{StaticResource SecondaryBtn}" VerticalAlignment="Bottom" Margin="5,0,0,0" Width="60" Height="30" Content="Ok" x:Name="OKBtn" Click="OKBtn_Click"></Button>
+        </StackPanel>
+        <DataGrid MaxHeight="600" Grid.Row="1" Grid.Column="1" MaxWidth="1200" x:Name="ExpenceViewGrid" ColumnHeaderHeight="40" CanUserResizeColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Branch Name" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Employee Name" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Expense Type" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Reason" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Date" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Branch Name" Binding="{Binding BranchName}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Employee Name" Binding="{Binding EmployeeName}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Expense Type" Binding="{Binding ExpenseType}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Reason" Binding="{Binding Reason}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Date" Width="1*" Binding="{Binding ExpenceDate,StringFormat={}dd-MM-yyyy}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Width="1*" Binding="{Binding Amount}"></DataGridTextColumn>
             </DataGrid.Columns>
+            <DataGrid.RowStyle>
+
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.Height" Value="33"></Setter>
+                    <Setter Property="TextBlock.FontSize" Value="13" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="TextBlock.HorizontalAlignment" Value="Center"></Setter>
+                    <Setter Property="Background" Value="#7ac0c2"></Setter>
+
+
+                </Style>
+            </DataGrid.RowStyle>
         </DataGrid>  
     </Grid>
 </Page>

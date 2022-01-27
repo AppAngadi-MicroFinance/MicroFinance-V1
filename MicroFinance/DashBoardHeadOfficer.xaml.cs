@@ -326,6 +326,11 @@ namespace MicroFinance
             public string BranchID { get; set; }
             public int StatusCode { get; set; }
         }
+
+        private void ExpenceReportBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ExpenceReportView());
+        }
     }
 
 
