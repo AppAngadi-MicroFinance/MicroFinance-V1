@@ -59,7 +59,6 @@ namespace MicroFinance
             }
         }
 
-
         void LoadDetails(List<ExpenseDetailsView> Details)
         {
             ExpenceViewGrid.Items.Clear();

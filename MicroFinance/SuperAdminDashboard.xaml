@@ -22,6 +22,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="CollectionBtn" Click="CollectionBtn_Click"   Style="{StaticResource SecondaryBtn}" Content="Collection Details" Width="150" Margin="5"></Button>
             <Button x:Name="LoanStatusBtn" Style="{StaticResource SecondaryBtn}" Content="Application Status" Width="150" Margin="5" Click="LoanStatusBtn_Click"></Button>
+            <Button x:Name="ExpenseReportBtn" Style="{StaticResource SecondaryBtn}" Content="Expense Report" Width="150" Margin="5" Click="ExpenseReportBtn_Click"></Button>
         </StackPanel>
         <Frame x:Name="SuperAdminMainPanel" Grid.Column="1" Grid.Row="1"></Frame>
     </Grid>

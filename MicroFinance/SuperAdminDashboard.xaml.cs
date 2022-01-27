@@ -34,5 +34,10 @@ namespace MicroFinance
         {
             SuperAdminMainPanel.NavigationService.Navigate(new SALoanApplcationView());
         }
+
+        private void ExpenseReportBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ExpenceReportView());
+        }
     }
 }
