@@ -64,12 +64,7 @@ namespace MicroFinance.Modal
                         }
                     }
                 }
-                }
-            
-
-            
-            
-            
+            }   
         }
 
 

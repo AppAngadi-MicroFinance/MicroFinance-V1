@@ -403,5 +403,26 @@ namespace MicroFinance.Repository
             return Result;
         }
 
+
+        public static bool IsCustomerIdAlreadyExists(string CustomerID)
+        {
+            using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select count(CustId) from CustomerDetails where CustId = '"+CustomerID+"'";
+                    int Count = (int)sqlcomm.ExecuteScalar();
+                    if(Count==0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
     }
 }

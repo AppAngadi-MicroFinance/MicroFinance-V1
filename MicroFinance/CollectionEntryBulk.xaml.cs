@@ -23,6 +23,7 @@ namespace MicroFinance
     /// </summary>
     public partial class CollectionEntryBulk : Page
     {
+        public string _EmployeeID = "";
         List<TimeTableViewModel> Centers = new List<TimeTableViewModel>();
         List<EmployeeViewModel> Employees = new List<EmployeeViewModel>();
         List<CustomerMetaData> Customers = new List<CustomerMetaData>();
@@ -35,6 +36,7 @@ namespace MicroFinance
         public CollectionEntryBulk(string EmpID)
         {
             InitializeComponent();
+            _EmployeeID = EmpID;
             Employees = MainWindow.BasicDetails.EmployeeList.Where(temp => temp.EmployeeId == EmpID).Select(temp => new EmployeeViewModel { BranchId = temp.BranchId, EmployeeId = temp.EmployeeId, EmployeeName = temp.EmployeeName, Designation = temp.Designation }).ToList();
             Centers = MainWindow.BasicDetails.CenterList.OrderBy(temp=>temp.SHGName).ToList();
             EmployeeCombo.ItemsSource = Employees;
@@ -228,5 +230,36 @@ namespace MicroFinance
             MenuPanel.Visibility = Visibility.Collapsed;
             CustomerList.IsEnabled = true;
         }
+
+        private void LoanRequestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerMetaData SelectedCustomer = CustomerList.SelectedItem as CustomerMetaData;
+
+            LoanApplicationMeta MetaData = new LoanApplicationMeta();
+            MetaData.CustomerName = SelectedCustomer.CustomerName;
+            MetaData.CustomerID = SelectedCustomer.CustomerID;
+            MetaData.CenterID = SelectedCustomer.CenterID;
+            MetaData.EmpID = _EmployeeID;
+            MetaData.BranchID = MainWindow.LoginDesignation.BranchId;
+
+            bool res = LoanRepository.IsAlreadyInApplicationProcess(MetaData.CustomerID);
+            if(res==false)
+            {
+                this.NavigationService.Navigate(new LoanRequestNew(MetaData));
+            }
+            else
+            {
+                MessageBox.Show("This Customer Already in Application Process", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+               
+            
+        }
+    }
+
+
+    public class LoanApplicationMeta:CustomerMetaData
+    {
+        public string EmpID { get; set; }
+        public string BranchID { get; set; }
     }
 }

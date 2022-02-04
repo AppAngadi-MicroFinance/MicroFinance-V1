@@ -1071,12 +1071,23 @@ namespace MicroFinance
                 {
                     if (CustomerStatus == 0)
                     {
-                        InsertVerificationDetails();
-                        customer.SaveCustomerDetails(_regionName, _branchName, _shgName, _pgName, guarantor, nominee);
-                        MainWindow.StatusMessageofPage(1, "Successfully Customer Details Added");
-                        NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
-                        Thread.Sleep(2000);
-                        MainWindow.StatusMessageofPage(1, "Ready...");
+                        string CustId = customer.GetCustId(_branchName, _regionName);
+
+                        if(!CustomerRepository.IsCustomerIdAlreadyExists(CustId))
+                        {
+                            customer._customerId = CustId;
+                            InsertVerificationDetails();
+                            customer.SaveCustomerDetails(_regionName, _branchName, _shgName, _pgName, guarantor, nominee);
+                            MainWindow.StatusMessageofPage(1, "Successfully Customer Details Added");
+                            NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
+                            Thread.Sleep(2000);
+                            MainWindow.StatusMessageofPage(1, "Ready...");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Something Went wrong Plese Try Again\n Click 'Submit' Button", "Warining", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+
                     }
                     else if (CustomerStatus == 3)
                     {

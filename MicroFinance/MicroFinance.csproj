@@ -268,6 +268,9 @@
     <Compile Include="LoanRequest.xaml.cs">
       <DependentUpon>LoanRequest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoanRequestNew.xaml.cs">
+      <DependentUpon>LoanRequestNew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modal\AddPeerGroup.cs" />
     <Compile Include="Modal\BasicDetailsStatic.cs" />
     <Compile Include="Modal\Branch_Shg_PgDetails.cs" />
@@ -285,6 +288,7 @@
     <Compile Include="Modal\GenerateCustomerId.cs" />
     <Compile Include="Modal\Guarantor.cs" />
     <Compile Include="Modal\HimarkResult.cs" />
+    <Compile Include="Modal\LoanApplication.cs" />
     <Compile Include="Modal\LoanDetails.cs" />
     <Compile Include="Modal\LoanProcess.cs" />
     <Compile Include="Modal\LoginDetails.cs" />
@@ -616,6 +620,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LoanRequest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoanRequestNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
