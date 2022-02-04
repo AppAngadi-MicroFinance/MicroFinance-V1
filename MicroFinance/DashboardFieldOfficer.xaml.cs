@@ -394,7 +394,7 @@ namespace MicroFinance
 
         private void CustomerSearchByAadhar_Click(object sender, RoutedEventArgs e)
         {
-            FindCustomerPanel.Visibility = Visibility.Collapsed;
+            FindCustomerPanel.Visibility = Visibility.Visible;
         }
     }
 }

@@ -32,11 +32,11 @@
             </Border>
             
             <Border  Margin="15" Style="{StaticResource MainBorder}" 
-                 VerticalAlignment="Center" HorizontalAlignment="Center">
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button x:Name="xLoanRequestBtn" Click="xLoanRequestBtn_Click" Style="{StaticResource NavigateLoanRequest}"></Button>
+                <Button x:Name="xLoanRequestBtn" Click="xLoanRequestBtn_Click" Visibility="Visible" Style="{StaticResource NavigateLoanRequest}"></Button>
             </Border>
             <Border Margin="15" Style="{StaticResource MainBorder}">
                 <Border.Effect>
@@ -97,7 +97,14 @@
                 <Button Style="{StaticResource NavigateFindCustomerSmall}" x:Name="BulkEntryBtn" Click="BulkEntryBtn_Click"></Button>
             </Border>
             <Button Content="Saving Amount Request" Visibility="Collapsed" x:Name="SavingAmountRequestBtn" Click="SavingAmountRequestBtn_Click"    ></Button>
-            <Button x:Name="CustomerSearchByAadhar" Content="Search Customer By Aadhar" Margin="15" Click="CustomerSearchByAadhar_Click"></Button>
+            <Border Margin="15" Style="{StaticResource MainBorder}" 
+                 >
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="CustomerSearchByAadhar"  Style="{StaticResource NavigateFindCustomer}" Click="CustomerSearchByAadhar_Click"></Button>
+            </Border>
+            
             
         </WrapPanel>
         
