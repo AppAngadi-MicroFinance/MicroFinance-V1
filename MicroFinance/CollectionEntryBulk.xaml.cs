@@ -138,7 +138,7 @@ namespace MicroFinance
             else
             {
                 string message = response1.StatusCode.ToString();
-                MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                throw new ArgumentException(message);
             }
         }
         async Task GetCustomers(string CenterID)
@@ -190,6 +190,7 @@ namespace MicroFinance
             }
             catch(Exception ex)
             {
+                GifPanel.Visibility = Visibility.Collapsed;
                 MessageBox.Show(ex.Message);
             }
             

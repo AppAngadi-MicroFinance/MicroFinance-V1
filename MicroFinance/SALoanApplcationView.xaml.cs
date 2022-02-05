@@ -26,9 +26,19 @@ namespace MicroFinance
         public SALoanApplcationView()
         {
             InitializeComponent();
-            BranchCombo.ItemsSource = MainWindow.BasicDetails.BranchList;
+            LoadBranch();
             FromDate.SelectedDate = DateTime.Today;
             ToDate.SelectedDate = DateTime.Today;
+        }
+
+        void LoadBranch()
+        {
+            BranchViewModel AllBranch = new BranchViewModel { BranchId = "ALL", BranchName = "ALL", RegionId = "ALL" };
+            BranchCombo.Items.Add(AllBranch);
+            foreach(BranchViewModel branch in MainWindow.BasicDetails.BranchList)
+            {
+                BranchCombo.Items.Add(branch);
+            }
         }
 
         private async void OkBtn_Click(object sender, RoutedEventArgs e)
@@ -43,7 +53,17 @@ namespace MicroFinance
                 DateTime To = ToDate.SelectedDate.Value;
                 BranchNameText.Text = SelectedBranch.BranchName;
                 GifPanel.Visibility = Visibility.Visible;
-                await System.Threading.Tasks.Task.Run(()=>StatusDetails = SARepository.GetApplicationStatusDetails(SelectedBranch.BranchId,From,To));
+
+                string BranchId = SelectedBranch.BranchId;
+                if(BranchId!="ALL")
+                {
+                    await System.Threading.Tasks.Task.Run(() => StatusDetails = SARepository.GetApplicationStatusDetails(SelectedBranch.BranchId, From, To));
+                }
+                else
+                {
+                    await System.Threading.Tasks.Task.Run(() => StatusDetails = SARepository.GetApplicationStatusDetails(From, To));
+                }
+                
                 GifPanel.Visibility = Visibility.Collapsed;
                 StatusDetailsList.IsEnabled = true;
                 LoadStatusList(StatusDetails);
