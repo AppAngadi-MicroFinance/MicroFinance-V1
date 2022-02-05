@@ -90,7 +90,7 @@ namespace MicroFinance
                         LoggedInState();
                         MainWindow.StatusMessageofPage(1, "Ready...");
                     }
-                    else if(_userName.ToLower() == "SuperAdmin".ToLower() && _password == "SuperAdmin")
+                    else if(_userName.ToLower() == "superadmin".ToLower() && _password == "superadmin")
                     {
                         LoginBorder.Visibility = Visibility.Collapsed;
                         UserProfilePanel.Visibility = Visibility.Visible;
