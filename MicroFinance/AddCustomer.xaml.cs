@@ -577,7 +577,7 @@ namespace MicroFinance
                     PeerGroup SelectedPG = SelectPG.SelectedValue as PeerGroup;
                     TimeTableViewModel SelectedCenter = SelectSHG.SelectedItem as TimeTableViewModel;
                     
-                        customer._customerId = customer.GetCustId(SelectBranch.Text, SelectRegion.Text);
+                        //customer._customerId = customer.GetCustId(SelectBranch.Text, SelectRegion.Text);
                         CustomerVerified verified = new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectedCenter.SHGId, SelectedPG.PG_Id);
                        // customer = new Customer();
                        // nominee = new Nominee();

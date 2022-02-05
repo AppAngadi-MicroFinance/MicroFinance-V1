@@ -195,10 +195,25 @@ namespace MicroFinance
 
                     string CenterID = (MainWindow.DicCenterMeta.ContainsKey(CenterName)) ? MainWindow.DicCenterMeta[CenterName] : "";
                     GroupMembers groupMembers = MembersListView.SelectedValue as GroupMembers;
-                  
+
+                    string LoanPurpose = LoanPurposeCombo.SelectedItem as string;
+
+                    
+                    ComboBoxItem SelectedAmount = LoanAmountcombo.SelectedItem as ComboBoxItem;
+                    int LoanAmount = Convert.ToInt32(SelectedAmount.Content.ToString());
+                    ComboBoxItem SelectedPeriod = TimePeriodcombo.SelectedItem as ComboBoxItem;
+                    int LoanPeriod = Convert.ToInt32(SelectedPeriod.Content.ToString());
+                    ComboBoxItem SelectedLoanType = LoanTypecombo.SelectedItem as ComboBoxItem;
+                    string LoanType = SelectedLoanType.Content.ToString();
+
+
                     groupMembers.IsRequested = true;
                     loanRequest.CustomerID = groupMembers.CustomerID;
                     loanRequest.EmployeeID = EmployeeId;
+                    loanRequest.LoanPurpose = LoanPurpose;
+                    loanRequest.LoanPeriod = LoanPeriod;
+                    loanRequest.LoanType = LoanType;
+                    loanRequest.LoanAmount = LoanAmount;
                     loanRequest.SendRequest(RegionName, BranchName,CenterID);
                     
                     MembersListView.Items.Refresh();
@@ -209,7 +224,7 @@ namespace MicroFinance
                 {
                     MessageBox.Show("1.Please Check Loan Details\n2.Select Customer","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
                     loanRequest = new LoanDetails();
-                    LoanRequestPanel.DataContext = new LoanDetails();
+                   // LoanRequestPanel.DataContext = LoanRequest;
                 }
             }
             else
@@ -223,11 +238,23 @@ namespace MicroFinance
 
         public bool LoanDetailsValid()
         {
-            if(LoanTypecombo.SelectedIndex!=-1)
+            if(LoanTypecombo.SelectedIndex==-1)
             {
-                return true;
+                return false;
             }
-            return false;
+            else if(LoanAmountcombo.SelectedItem==null)
+            {
+                return false;
+            }
+            else if (LoanAmountcombo.SelectedItem == null)
+            {
+                return false;
+            }
+            else if (LoanPurposeCombo.SelectedItem == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         private void MembersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

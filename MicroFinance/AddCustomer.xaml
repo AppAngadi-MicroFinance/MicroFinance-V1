@@ -846,27 +846,19 @@
                     <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Loan Type" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,55,0"/>
                         <ComboBox KeyboardNavigation.TabIndex="38" x:Name="LoanTypecombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding LoanType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Width="180">
-                            <ComboBoxItem Content="Special Loan"/>
                             <ComboBoxItem Content="General Loan"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,30,0"/>
                         <ComboBox KeyboardNavigation.TabIndex="39" x:Name="LoanAmountcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="180">
-                            <ComboBoxItem Content="10000"/>
-                            <ComboBoxItem Content="15000"/>
-                            <ComboBoxItem Content="20000"/>
-                            <ComboBoxItem Content="25000"/>
                             <ComboBoxItem Content="30000"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
                         <TextBlock Text="Time Period" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,45,0"/>
                         <ComboBox KeyboardNavigation.TabIndex="40" x:Name="TimePeriodcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Width="180" Text="{Binding LoanPeriod,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                            <ComboBoxItem Content="25"/>
                             <ComboBoxItem Content="50"/>
-                            <ComboBoxItem Content="75"/>
-                            <ComboBoxItem Content="100"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">

@@ -58,9 +58,6 @@ namespace MicroFinance.Repository
             SACollectionViewModel CollectionDetails = new SACollectionViewModel();
             return CollectionDetails;
         }
-
-
-
         public static SALoanStatusView GetApplicationStatusDetails(string BranchId)
         {
             SALoanStatusView StatusDetail = new SALoanStatusView();
@@ -84,5 +81,41 @@ namespace MicroFinance.Repository
             }
             return StatusDetail;
         }
+        public static SALoanStatusView GetApplicationStatusDetails(string BranchId,DateTime FromDate,DateTime ToDate)
+        {
+            SALoanStatusView StatusDetail = new SALoanStatusView();
+            List<StatusModal> Statuslist = new List<StatusModal>();
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if (ConnectionState.Open == sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    for (int i = 1; i <= 14; i++)
+                    {
+                        if(i!=14)
+                        {
+                            sqlcomm.CommandText = "select Count(*) from LoanApplication where RequestId in(select ApplicationID from LoanApplicationLog where TransactionDate between '" + FromDate.ToString("MM-dd-yyyy") + "' and '" + ToDate.ToString("MM-dd-yyyy") + "' and StatusCode = '" + i + "') and BranchId = '" + BranchId + "'";
+                            int res = (int)sqlcomm.ExecuteScalar();
+                            Statuslist.Add(new StatusModal { Code = i, Count = res });
+                        }
+                        else
+                        {
+                            sqlcomm.CommandText = "select Count(*) from LoanApplication where RequestId in (select RequestID from DisbursementFromSAMU where ApprovedDate between '"+FromDate.ToString("MM-dd-yyyy")+"' and '"+ToDate.ToString("MM-dd-yyyy")+"') and BranchId='"+BranchId+"'";
+                            int res = (int)sqlcomm.ExecuteScalar();
+                            Statuslist.Add(new StatusModal { Code = i, Count = res });
+                        }
+                        
+                    }
+                    StatusDetail.StatusDetails = Statuslist;
+                }
+                sqlconn.Close();
+            }
+            return StatusDetail;
+        }
+
+
+
     }
 }

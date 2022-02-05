@@ -925,13 +925,17 @@ namespace MicroFinance.Modal
                 AddBankDetails();
                 
             }
-            if (LandHolding.Equals("YES"))
+            if  (LandHolding!=null)
             {
-                AddHouseTypeDetails(true);
-            }
-            else if (LandHolding.Equals("NO"))
-            {
-                AddHouseTypeDetails();
+                if(LandHolding.Equals("YES"))
+                {
+                    AddHouseTypeDetails(true);
+                }
+                else if(LandHolding.Equals("NO"))
+                {
+                    AddHouseTypeDetails();
+                }
+                
             }
             if (AadharNo!="")
             {

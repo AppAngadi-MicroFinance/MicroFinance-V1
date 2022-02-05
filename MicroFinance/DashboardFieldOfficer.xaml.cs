@@ -371,5 +371,30 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new SavingsAmountWithdrawRequest());
         }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string AadharNumber = AadharNumberBox.Text;
+            if (!string.IsNullOrEmpty(AadharNumber) && AadharNumber.Length == 12)
+            {
+                string CustomerID = CustomerRepository.GetCustomerID(AadharNumber);
+                this.NavigationService.Navigate(new GTrustCustomerProfile(CustomerID));
+            }
+            else
+            {
+                string message = AadharNumber + "is Invalid Aadhar";
+                MessageBox.Show(message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            FindCustomerPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void CustomerSearchByAadhar_Click(object sender, RoutedEventArgs e)
+        {
+            FindCustomerPanel.Visibility = Visibility.Visible;
+        }
     }
 }

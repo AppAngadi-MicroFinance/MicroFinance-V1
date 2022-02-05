@@ -27,23 +27,30 @@ namespace MicroFinance
         {
             InitializeComponent();
             BranchCombo.ItemsSource = MainWindow.BasicDetails.BranchList;
+            FromDate.SelectedDate = DateTime.Today;
+            ToDate.SelectedDate = DateTime.Today;
         }
 
         private async void OkBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(BranchCombo.SelectedItem!=null)
+            if(BranchCombo.SelectedItem!=null && FromDate.SelectedDate!=null&&ToDate.SelectedDate!=null)
             {
                 StatusDetailsList.Items.Clear();
                 SALoanStatusView StatusDetails = new SALoanStatusView();
                 
                 BranchViewModel SelectedBranch = BranchCombo.SelectedItem as BranchViewModel;
+                DateTime From = FromDate.SelectedDate.Value;
+                DateTime To = ToDate.SelectedDate.Value;
                 BranchNameText.Text = SelectedBranch.BranchName;
                 GifPanel.Visibility = Visibility.Visible;
-                await System.Threading.Tasks.Task.Run(()=>StatusDetails = SARepository.GetApplicationStatusDetails(SelectedBranch.BranchId));
+                await System.Threading.Tasks.Task.Run(()=>StatusDetails = SARepository.GetApplicationStatusDetails(SelectedBranch.BranchId,From,To));
                 GifPanel.Visibility = Visibility.Collapsed;
                 StatusDetailsList.IsEnabled = true;
                 LoadStatusList(StatusDetails);
-                BranchCombo.SelectedIndex = -1;
+            }
+            else
+            {
+                MessageBox.Show("Check Date Range and Branch");
             }
             
             

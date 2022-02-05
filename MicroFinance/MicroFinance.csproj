@@ -259,11 +259,17 @@
     <Compile Include="LoanCloseView.xaml.cs">
       <DependentUpon>LoanCloseView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoanPurposeView.xaml.cs">
+      <DependentUpon>LoanPurposeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoanRecommend.xaml.cs">
       <DependentUpon>LoanRecommend.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoanRequest.xaml.cs">
       <DependentUpon>LoanRequest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoanRequestNew.xaml.cs">
+      <DependentUpon>LoanRequestNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modal\AddPeerGroup.cs" />
     <Compile Include="Modal\BasicDetailsStatic.cs" />
@@ -282,6 +288,7 @@
     <Compile Include="Modal\GenerateCustomerId.cs" />
     <Compile Include="Modal\Guarantor.cs" />
     <Compile Include="Modal\HimarkResult.cs" />
+    <Compile Include="Modal\LoanApplication.cs" />
     <Compile Include="Modal\LoanDetails.cs" />
     <Compile Include="Modal\LoanProcess.cs" />
     <Compile Include="Modal\LoginDetails.cs" />
@@ -325,6 +332,7 @@
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="Repository\EnrollDetailsRepository.cs" />
     <Compile Include="Repository\ExpenceRepository.cs" />
+    <Compile Include="Repository\GeneralRepository.cs" />
     <Compile Include="Repository\NotificationRepository.cs" />
     <Compile Include="Repository\SARepository.cs" />
     <Compile Include="Repository\SHGRepository.cs" />
@@ -346,6 +354,9 @@
     </Compile>
     <Compile Include="SDRecommendView.xaml.cs">
       <DependentUpon>SDRecommendView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingPage.xaml.cs">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SuperAdminDashboard.xaml.cs">
       <DependentUpon>SuperAdminDashboard.xaml</DependentUpon>
@@ -600,11 +611,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LoanPurposeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoanRecommend.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LoanRequest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoanRequestNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -663,6 +682,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SDRecommendView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -862,6 +885,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Asserts\Icons\SpendMoney.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\Settings-B.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -22,6 +22,15 @@
         </StackPanel>
         <TextBlock x:Name="BranchNameText" Style="{StaticResource Title}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"></TextBlock>
         <StackPanel Orientation="Horizontal">
+            <StackPanel Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="From"></TextBlock>
+                <DatePicker Background="White" Name="FromDate" Style="{StaticResource DateSelecter}" Width="250"></DatePicker>
+
+            </StackPanel>
+            <StackPanel Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="To"></TextBlock>
+                <DatePicker Background="White" x:Name="ToDate" Style="{StaticResource DateSelecter}" Width="250"></DatePicker>
+            </StackPanel>
             <StackPanel Margin="5">
                 <TextBlock Text="Branch"></TextBlock>
                 <ComboBox Style="{StaticResource combo}" x:Name="BranchCombo" Width="250" >

@@ -24,7 +24,7 @@
 
             <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
         </StackPanel>
-        <TextBlock Text="Collection Entry Bulk" Style="{StaticResource Title}" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="Customer Search" Style="{StaticResource Title}" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
         <Separator Grid.Column="1" BorderBrush="Gray" BorderThickness="3" VerticalAlignment="Bottom"></Separator>
         <StackPanel Background="Transparent" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom">
             <StackPanel Margin="5">
@@ -92,10 +92,11 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Option" Style="{StaticResource SubTitle}" HorizontalAlignment="Left"></TextBlock>
                 <Separator BorderBrush="Gray" BorderThickness="2" VerticalAlignment="Bottom"></Separator>
-                <Button Style="{StaticResource DangerBtn}" Height="20" Width="20" Content="X" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0" x:Name="CloseBtn" Click="CloseBtn_Click" > </Button>
+                <Button Style="{StaticResource DangerBtn}" Height="20" Width="20" Content="X" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" x:Name="CloseBtn" Click="CloseBtn_Click" > </Button>
                 <WrapPanel Width="260" Margin="10" Grid.Row="1">
                     <Button Margin="5" Style="{StaticResource SecondaryBtn}" Content="Collection" x:Name="ColletionEntryBtn" Click="ColletionEntryBtn_Click"></Button>
-                    <Button Margin="5" Style="{StaticResource SecondaryBtn}" Content="SD Request" x:Name="withdrawnRequestBtn" Click="withdrawnRequestBtn_Click"></Button>
+                    <Button Margin="5" Style="{StaticResource SecondaryBtn}" Content="SD Request" x:Name="withdrawnRequestBtn" Click="withdrawnRequestBtn_Click" ></Button>
+                    <Button Style="{StaticResource SecondaryBtn}" Margin="5" Content="Loan Request" x:Name="LoanRequestBtn" Click="LoanRequestBtn_Click"></Button>
                 </WrapPanel>
             </Grid>
             
