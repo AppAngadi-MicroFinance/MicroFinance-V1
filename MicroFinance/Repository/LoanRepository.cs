@@ -977,7 +977,11 @@ namespace MicroFinance.ViewModel
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
                     sqlcomm.CommandText = "insert into LoanApplication(CustId,RequestId,LoanAmount,LoanType,LoanPeriod,Purpose,EnrollDate,LoanStatus,Remark,EmployeeId,BranchId,SHGId) values('" + ApplictionDetails.CustomerID + "','" + ApplictionDetails.RequestID + "','" + ApplictionDetails.LoanAmount + "','" + ApplictionDetails.LoanType + "','" + ApplictionDetails.LoanPeriod + "','" + ApplictionDetails.LoanPurpose +"','"+ApplictionDetails.EnrollDate.ToString("MM-dd-yyyy")+"','"+ApplictionDetails.LoanStatus+"','','"+ApplictionDetails.EmpId+"','"+ApplictionDetails.BranchID+"','"+ApplictionDetails.CenterID+"')";
-                    sqlcomm.ExecuteNonQuery();
+                    int res=(int)sqlcomm.ExecuteNonQuery();
+                    if(res==1)
+                    {
+                        InsertTransaction(ApplictionDetails.RequestID, ApplictionDetails.EmpId, ApplictionDetails.LoanStatus);
+                    }
                 }
                 sqlconn.Close();
             }
