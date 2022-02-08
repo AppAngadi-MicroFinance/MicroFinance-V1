@@ -97,7 +97,6 @@ namespace MicroFinance
                 MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-
         private async void ViewBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -116,7 +115,6 @@ namespace MicroFinance
             
 
         }
-
         async Task GetAccountDetails(string CustomerId)
         {
             string url1 = "http://examsign-001-site4.itempurl.com/api/GetAccountDetails/" + CustomerId;
@@ -166,7 +164,6 @@ namespace MicroFinance
                 MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-
         void LoadCustomer()
         {
             CustomerList.Items.Clear();
@@ -174,9 +171,7 @@ namespace MicroFinance
             {
                 CustomerList.Items.Add(Customer);
             }
-
         }
-
         private async void withdrawnRequestBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -195,7 +190,6 @@ namespace MicroFinance
             }
             
         }
-
         private async void ColletionEntryBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -225,13 +219,11 @@ namespace MicroFinance
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             MenuPanel.Visibility = Visibility.Collapsed;
             CustomerList.IsEnabled = true;
         }
-
         private void LoanRequestBtn_Click(object sender, RoutedEventArgs e)
         {
             CustomerMetaData SelectedCustomer = CustomerList.SelectedItem as CustomerMetaData;
