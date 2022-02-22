@@ -3,10 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:convert="clr-namespace:MicroFinance.Converters"
       xmlns:local="clr-namespace:MicroFinance"
       mc:Ignorable="d" 
       Title="CollectionDetailsView">
-
+    <Page.Resources>
+        <convert:AttendenceConverter x:Key="AttConvert"/>
+    </Page.Resources>
     <Grid ShowGridLines="False">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -83,7 +86,7 @@
                 <DataGridTextColumn Header="Extras" Binding="{Binding Extras}" Width="0.5*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Due Date" Binding="{Binding ActualPaymentDate,StringFormat={}dd-MM-yyyy}" Width="0.8*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Paid On" Binding="{Binding CollectedOn,StringFormat={}dd-MM-yyyy}" Width="0.8*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Attendence" Binding="{Binding Attendance}" Width="0.7*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Attendence" Binding="{Binding Attendance,Converter={StaticResource AttConvert}}" Width="0.7*"></DataGridTextColumn>
             </DataGrid.Columns>
             <DataGrid.RowStyle>
 

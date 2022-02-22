@@ -63,21 +63,16 @@ namespace MicroFinance
             GifPanel.Visibility = Visibility.Visible;
             try
             {
-                
                 string UserName = xUserName.Text;
                 string Password = xPassword.Password;
                 // LoginDesignation = new LoginDetails(UserName);
                 await System.Threading.Tasks.Task.Run(()=>LoginDesignation = new LoginDetails(UserName, Password));
                 if (LoginDesignation.IsRegisteredSystem() == true)
                 {
-
                     _userName = UserName;
                     _password = Password;
-
-
                     if (_userName.ToLower() == "Admin".ToLower() && _password == "GTrust123")
                     {
-                        
                         await System.Threading.Tasks.Task.Run(() => GetBaseDetails());
                         GifPanel.Visibility = Visibility.Collapsed;
                         LoginBorder.Visibility = Visibility.Collapsed;
@@ -110,7 +105,6 @@ namespace MicroFinance
                         GetLogin();
                         UserProfilePanel.Visibility = Visibility.Visible;
                     }
-
                 }
                 else
                 {
@@ -123,10 +117,6 @@ namespace MicroFinance
                 GifPanel.Visibility = Visibility.Collapsed;
                 StatusMessageofPage(0, ex.Message);
             }
-           
-
-
-
         }
 
         void GetBaseDetails()
