@@ -330,6 +330,7 @@
     <Compile Include="Reports\SamuunatiReport.cs" />
     <Compile Include="Reports\SUMAtoHO.cs" />
     <Compile Include="Repository\BankRepository.cs" />
+    <Compile Include="Repository\BranchReportRepository.cs" />
     <Compile Include="Repository\CollectionRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="Repository\EnrollDetailsRepository.cs" />

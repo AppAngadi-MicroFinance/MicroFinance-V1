@@ -509,7 +509,6 @@ namespace MicroFinance.ViewModel
             Result = region + branch + year + month + "GL" + ((count < 10) ? "0" + count : count.ToString());
             return Result;
         }
-
         public static string GenerateLoanID(string BranchID,SqlConnection _sqlConnection) // IDPattern 02001202106R05 (02-Region/001-Branch/2021-CurrentYear/06-CurrentMonth/R-Request(Spe)/(No.of Loan given in currentYear+1))
         {
             int count = 1;

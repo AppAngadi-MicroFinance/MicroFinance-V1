@@ -70,6 +70,7 @@
                 </Border.Effect>
                 <Button Style="{StaticResource SettingBtn}" x:Name="SettingBtn" Click="SettingBtn_Click"></Button>
             </Border>
+            <Button Margin="15" x:Name="sampleBtn" Content="Click" Click="sampleBtn_Click" ></Button>
             
         </WrapPanel>
         <Border Height="250" Width="350" Grid.ColumnSpan="3" Grid.RowSpan="3" Background="White" CornerRadius="5" BorderBrush="Gray" BorderThickness="2" x:Name="FindCustomerPanel" Visibility="Collapsed">
