@@ -39,19 +39,12 @@ namespace MicroFinance
         {
             InitializeComponent();
             SystemFunction.OpenDrive();
-            BasicDetails = new BasicDetailsStatic();
+            
             MessageStatus.DataContext = StatusMsg;
             xHeaderDate.Text ="Date: "+ DateTime.Now.ToString("dd-MMM-yyyy");
             DriveBasePath = SystemFunction.DriveBasePath;
-
             MainGrid.Width= (int)System.Windows.SystemParameters.WorkArea.Width;
             MainGrid.Height= (int)System.Windows.SystemParameters.WorkArea.Height-30;
-            DicCenterMeta = LoanRepository.GetCenterMetaDetails();
-
-
-
-
-
         }
         public static void StatusMessageofPage(int Type, string Message)
         {
@@ -65,33 +58,37 @@ namespace MicroFinance
             UserProfilePanel.Visibility = Visibility.Collapsed;
         }
 
-        private void xLoginButton_Click(object sender, RoutedEventArgs e)
+        private async void xLoginButton_Click(object sender, RoutedEventArgs e)
         {
+            GifPanel.Visibility = Visibility.Visible;
             try
             {
                 string UserName = xUserName.Text;
                 string Password = xPassword.Password;
                 // LoginDesignation = new LoginDetails(UserName);
-                LoginDesignation = new LoginDetails(UserName, Password);
+                await System.Threading.Tasks.Task.Run(()=>LoginDesignation = new LoginDetails(UserName, Password));
                 if (LoginDesignation.IsRegisteredSystem() == true)
                 {
-
                     _userName = UserName;
                     _password = Password;
-
-
                     if (_userName.ToLower() == "Admin".ToLower() && _password == "GTrust123")
                     {
+                        await System.Threading.Tasks.Task.Run(() => GetBaseDetails());
+                        GifPanel.Visibility = Visibility.Collapsed;
                         LoginBorder.Visibility = Visibility.Collapsed;
                         UserProfilePanel.Visibility = Visibility.Visible;
                         HomeBtn.Visibility = Visibility.Visible;
                         xHeaderUsername.Text = "ADMIN";
+                        
                         mainframe.NavigationService.Navigate(new DashBoardHeadOfficer());
                         LoggedInState();
                         MainWindow.StatusMessageofPage(1, "Ready...");
                     }
                     else if(_userName.ToLower() == "superadmin".ToLower() && _password == "superadmin")
                     {
+                        
+                        await System.Threading.Tasks.Task.Run(() => GetBaseDetails());
+                        GifPanel.Visibility = Visibility.Collapsed;
                         LoginBorder.Visibility = Visibility.Collapsed;
                         UserProfilePanel.Visibility = Visibility.Visible;
                         HomeBtn.Visibility = Visibility.Visible;
@@ -103,26 +100,30 @@ namespace MicroFinance
                     }
                     else
                     {
+                        await System.Threading.Tasks.Task.Run(() => GetBaseDetails());
+                        GifPanel.Visibility = Visibility.Collapsed;
                         GetLogin();
                         UserProfilePanel.Visibility = Visibility.Visible;
                     }
-
                 }
                 else
                 {
+                    GifPanel.Visibility = Visibility.Collapsed;
                     StatusMessageofPage(0, "Unauthorized System .....");
                 }
             }
             catch(Exception ex)
             {
+                GifPanel.Visibility = Visibility.Collapsed;
                 StatusMessageofPage(0, ex.Message);
             }
-           
-
-
-
         }
 
+        void GetBaseDetails()
+        {
+            BasicDetails = new BasicDetailsStatic();
+            DicCenterMeta = LoanRepository.GetCenterMetaDetails();
+        }
 
         string GetPassword(string userName)
         {

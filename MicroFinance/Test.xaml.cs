@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MicroFinance.Modal;
 using MicroFinance.Converters;
+using MicroFinance.Repository;
+using MicroFinance.ViewModel;
 
 namespace MicroFinance
 {
@@ -26,21 +28,26 @@ namespace MicroFinance
         public Test()
         {
             InitializeComponent();
-            add();
+          
             //Custlist.ItemsSource = mylist;
 
         }
 
-        public void add()
+       
+       
+
+        private void sampleBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            string BranchId = "01202109001";
+            DateTime Todaya = DateTime.Today;
+            DateTime ToDate = Convert.ToDateTime("01-01-2021");
+            DateModel Datedata = new DateModel { FromDate = ToDate, ToDate = Todaya };
+            List<BranchReportEmployeeWise> result= BranchReportRepository.GetBranchLoanAmountEmployeewise(BranchId, Datedata);
+
         }
 
-        private void ApprovetoHiMarkBtn_Click(object sender, RoutedEventArgs e)
-        {
-           
 
-        }
+
     }
     public class Cust:BindableBase
     {

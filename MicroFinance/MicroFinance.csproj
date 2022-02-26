@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="Converters\AbsentCheck.cs" />
     <Compile Include="Converters\AgeConverter.cs" />
+    <Compile Include="Converters\AttendenceConverter.cs" />
     <Compile Include="Converters\ByteToImageConverter.cs" />
     <Compile Include="Converters\ComboEnableDisable.cs" />
     <Compile Include="Converters\DayConverter.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Converters\InverseVisible.cs" />
     <Compile Include="Converters\InverseVisibleConvertedByString.cs" />
     <Compile Include="Converters\InverseVisiblityConverterbyImage.cs" />
+    <Compile Include="Converters\IValueConvert.cs" />
     <Compile Include="Converters\LeaveCheck.cs" />
     <Compile Include="Converters\LoanRequestConverter.cs" />
     <Compile Include="Converters\MoneyConverter.cs" />
@@ -328,6 +330,7 @@
     <Compile Include="Reports\SamuunatiReport.cs" />
     <Compile Include="Reports\SUMAtoHO.cs" />
     <Compile Include="Repository\BankRepository.cs" />
+    <Compile Include="Repository\BranchReportRepository.cs" />
     <Compile Include="Repository\CollectionRepository.cs" />
     <Compile Include="Repository\CustomerRepository.cs" />
     <Compile Include="Repository\EnrollDetailsRepository.cs" />

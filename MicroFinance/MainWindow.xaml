@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Convert="clr-namespace:MicroFinance.Converters"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:MicroFinance" xmlns:modal="clr-namespace:MicroFinance.Modal" d:DataContext="{d:DesignInstance Type=modal:StaticProperty}"
         mc:Ignorable="d"
         Title="G Trust" Background="White" WindowStartupLocation="CenterScreen" BorderBrush="Gray" SizeToContent="WidthAndHeight">
@@ -60,6 +61,10 @@
             <Button Grid.Column="3" x:Name="xLogoutButton" Width="25" Height="25" Style="{StaticResource LogoutButtonStyle}"
                     HorizontalAlignment="Right" Click="xLogoutButton_Click" Margin="0,0,20,0" Visibility="Collapsed" ToolTip="Log Out"></Button>
         </Grid>
+        <StackPanel x:Name="GifPanel" Panel.ZIndex="3" Grid.ColumnSpan="3" Grid.RowSpan="3" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
+        </StackPanel>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Frame Grid.Row="1" x:Name="mainframe" NavigationUIVisibility="Hidden" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Frame>
         </ScrollViewer>

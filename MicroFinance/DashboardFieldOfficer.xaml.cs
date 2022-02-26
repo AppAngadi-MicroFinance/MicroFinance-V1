@@ -314,7 +314,6 @@ namespace MicroFinance
                 GifPanel.Visibility = Visibility.Collapsed;
                 ToolsPanal.IsEnabled = true;
             }
-            
         }
 
 

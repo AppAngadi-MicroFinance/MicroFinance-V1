@@ -157,43 +157,70 @@ namespace MicroFinance
 
         }
 
-        private void RecommendLoanBtn_Click(object sender, RoutedEventArgs e)
+        void ApproveLoans(List<string> ReqList)
         {
-            if(CurrentStatus==11)
-            {
-                List<string> RequestIDList = BindingList.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
-                if(RequestIDList.Count!=0)
-                {
-                    LoanRepository.ChangeLoanStatus(RequestIDList, CurrentStatus + 1);
-                    LoanRepository.InsertTransaction(RequestIDList, MainWindow.LoginDesignation.EmpId, CurrentStatus + 1);
-                    LoanRepository.ApproveLoans(BindingList);
-                    MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Approved Successfully!...");
-                    this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
-                }
-                else
-                {
-                    MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                
+            LoanRepository.ChangeLoanStatus(ReqList, CurrentStatus + 1);
+            LoanRepository.InsertTransaction(ReqList, MainWindow.LoginDesignation.EmpId, CurrentStatus + 1);
+            LoanRepository.ApproveLoans(BindingList);
+        }
 
-            }
-            else
+        private async void RecommendLoanBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                List<string> RequestIDList = BindingList.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
-                if(RequestIDList.Count!=0)
+                if (CurrentStatus == 11)
                 {
-                    LoanRepository.ChangeLoanStatus(RequestIDList, CurrentStatus + 1);
-                    LoanRepository.InsertTransaction(RequestIDList, MainWindow.LoginDesignation.EmpId, CurrentStatus + 1);
-                    MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Approved Successfully!...");
-                    this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
+                    List<string> RequestIDList = BindingList.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                    if (RequestIDList.Count != 0)
+                    {
+                        GifPanel.Visibility = Visibility.Visible;
+                        RecommendPanel.IsEnabled = false;
+                        await System.Threading.Tasks.Task.Run(() => ApproveLoans(RequestIDList));
+                        GifPanel.Visibility = Visibility.Collapsed;
+                        RecommendPanel.IsEnabled = true;
+                        MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Approved Successfully!...");
+                        this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+
                 }
                 else
                 {
-                    MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    List<string> RequestIDList = BindingList.Where(temp => temp.IsRecommend == true).Select(temp => temp.RequestID).ToList();
+                    if (RequestIDList.Count != 0)
+                    {
+                        GifPanel.Visibility = Visibility.Visible;
+                        RecommendPanel.IsEnabled = false;
+                        await System.Threading.Tasks.Task.Run(() => ChangeLoanStatusAndAddTransaction(RequestIDList));
+                        GifPanel.Visibility = Visibility.Collapsed;
+                        RecommendPanel.IsEnabled = true;
+                        MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Approved Successfully!...");
+                        this.NavigationService.Navigate(new RecommendNew(CurrentStatus));
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Record Selected", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+
                 }
-                
+            }
+            catch (Exception ex)
+            {
+                RecommendPanel.IsEnabled = true;
+                GifPanel.Visibility = Visibility.Collapsed;
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
+            
+        }
+
+        void ChangeLoanStatusAndAddTransaction(List<string> ReqList)
+        {
+            LoanRepository.ChangeLoanStatus(ReqList, CurrentStatus + 1);
+            LoanRepository.InsertTransaction(ReqList, MainWindow.LoginDesignation.EmpId, CurrentStatus + 1);
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)

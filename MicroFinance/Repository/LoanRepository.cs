@@ -509,6 +509,30 @@ namespace MicroFinance.ViewModel
             Result = region + branch + year + month + "GL" + ((count < 10) ? "0" + count : count.ToString());
             return Result;
         }
+        public static string GenerateLoanID(string BranchID,SqlConnection _sqlConnection) // IDPattern 02001202106R05 (02-Region/001-Branch/2021-CurrentYear/06-CurrentMonth/R-Request(Spe)/(No.of Loan given in currentYear+1))
+        {
+            int count = 1;
+            string Result = "";
+            int year = DateTime.Now.Year;
+            int mon = DateTime.Now.Month;
+            string month = ((mon) < 10 ? "0" + mon : mon.ToString());
+            using (SqlConnection sqlcon = _sqlConnection)
+            {
+                //sqlcon.Open();
+                if (sqlcon.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlcon;
+                    sqlcomm.CommandText = "select Count(LoanID) from LoanDetails where LoanID like '%" + year + "%'";
+                    count += (int)sqlcomm.ExecuteScalar();
+                }
+                sqlcon.Close();
+            }
+            string region = BranchID.Substring(0, 2);
+            string branch = BranchID.Substring(8);
+            Result = region + branch + year + month + "GL" + ((count < 10) ? "0" + count : count.ToString());
+            return Result;
+        }
         public static string GenerateLoanRequestID(string BranchID) // IDPattern 02001202106R05 (02-Region/001-Branch/2021-CurrentYear/06-CurrentMonth/R-Request(Spe)/(No.of Loan given in currentYear+1))
         {
             int count = 1;
@@ -534,10 +558,7 @@ namespace MicroFinance.ViewModel
             return Result;
         }
         public static void ApproveLoans(ObservableCollection<RecommendView> recommends)
-        {
-           // GetRequestDetails(ID);
-           // ChangeLoanStatus(ID, 12);
-            
+        {   
             using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
             {
                 sqlconn.Open();
@@ -549,12 +570,12 @@ namespace MicroFinance.ViewModel
                     foreach(RecommendView rm in recommends)
                     {
                         if(rm.IsRecommend==true)
-                        {
-                            
+                        {                   
                             string LoanId = GenerateLoanID(rm.BranchID);
                             sqlcomm.CommandText = "insert into LoanDetails(LoanID,CustomerID,LoanType,LoanPeriod,InterestRate,RequestedBY,ApprovedBy,ApproveDate,LoanAmount,IsActive)values('" + LoanId + "','" + rm.CustomerID + "','" + rm.LoanType + "'," + rm.LoanPeriod + ",'12','" + rm.EmpId + "','','" + rm.SamuApproveDate.ToString("MM-dd-yyyy") + "'," + rm.LoanAmount + ",'true')";
                             sqlcomm.ExecuteNonQuery();
-                            sqlcomm.CommandText = "select EmpId from EmployeeBranch where BranchId=(select BranchId from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + rm.CustomerID + "'))) and Designation='Manager'";
+                            //sqlcomm.CommandText = "select EmpId from EmployeeBranch where BranchId=(select BranchId from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + rm.CustomerID + "'))) and Designation='Manager'";
+                            sqlcomm.CommandText = "select EmpId from EmployeeBranch where BranchId='" + rm.BranchID + "' and Designation='Manager'";
                             string EmpId = (string)sqlcomm.ExecuteScalar();
                             sqlcomm.CommandText = "update LoanDetails set ApprovedBY='" + EmpId + "' where LoanID='" + LoanId + "'";
                             sqlcomm.ExecuteNonQuery();
@@ -566,10 +587,8 @@ namespace MicroFinance.ViewModel
                             sqlcomm.ExecuteNonQuery();
                             if (Result == 1)
                             {
-                                LoadData1(LoanId, rm.CustomerID, rm.LoanAmount, rm.LoanPeriod, rm.BranchID, rm.CollectionDay,rm.SamuApproveDate);
+                                LoadData1New(LoanId, rm.CustomerID, rm.LoanAmount, rm.LoanPeriod, rm.BranchID, rm.CollectionDay,rm.SamuApproveDate,sqlconn);
                                 NewSavingAcc(rm.CustomerID, rm.BranchID);
-
-                                //Suma.InsertData(SUMAObj, LoanId);
 
                             }
                         }
@@ -580,6 +599,69 @@ namespace MicroFinance.ViewModel
                 sqlconn.Close();
             }
 
+        }
+        static void LoadData1New(string LoanID, string CustomerID, int LoanAmount, int LoanPeroid, string BranchID, string Collectionday, DateTime SamuapprovalDate,SqlConnection _sqlConnection)
+        {
+            DateTime ApproveDate = SamuapprovalDate;
+            DayOfWeek CollectionDay = WeekDay(Collectionday);
+            DateTime NextCollectionDate = CollectionDate(CollectionDay, ApproveDate);
+            List<Loan> LoanCollectionList = Interestcc(LoanAmount, LoanPeroid, ApproveDate, NextCollectionDate);
+            SqlConnection sqlconn = _sqlConnection;
+                //sqlconn.Open();
+                if (ConnectionState.Open == sqlconn.State)
+                {
+                    DataTable dat = ConvertListtoDataTable(LoanCollectionList, BranchID, CustomerID, LoanID);
+                    SqlBulkCopy bulkCopy = new SqlBulkCopy(Properties.Settings.Default.DBConnection);
+                    bulkCopy.DestinationTableName = "LoanCollectionMaster";
+                    bulkCopy.BatchSize = dat.Rows.Count;
+                    bulkCopy.WriteToServer(dat);
+                    bulkCopy.Close();
+                }
+                
+            
+
+        }
+        static DataTable ConvertListtoDataTable(List<Loan> LoanMasterDetails, string BranchId, string CustomerId, string loanID)
+        {
+            LoanCollectionMaster lc = new LoanCollectionMaster();
+            DataTable dt = new DataTable();
+            dt.Columns.Add(new DataColumn(lc.BranchID));
+            dt.Columns.Add(new DataColumn(lc.CustomerID));
+            dt.Columns.Add(new DataColumn(lc.LoanID));
+            dt.Columns.Add(new DataColumn(lc.WeekNo));
+            dt.Columns.Add(new DataColumn(lc.DueDate));
+            dt.Columns.Add(new DataColumn(lc.Principal));
+            dt.Columns.Add(new DataColumn(lc.Interest));
+            dt.Columns.Add(new DataColumn(lc.Total));
+            DataRow row;
+
+            foreach (Loan l in LoanMasterDetails)
+            {
+                LoanCollectionMaster MasterDetails = new LoanCollectionMaster { BranchID = BranchId, CustomerID = CustomerId, LoanID = loanID, WeekNo = l.WeekNo.ToString(), DueDate = l.DueDate.ToString("yyyy-MM-dd"), Principal = l.Amount.ToString(), Interest = l.Interest.ToString(), Total = l.Total.ToString() };
+                row = dt.NewRow();
+                row.ItemArray = MasterDetails.ToString().Split(',');
+                dt.Rows.Add(row);
+            }
+
+            return dt;
+        }
+        public class LoanCollectionMaster
+        {
+            public string BranchID { get; set; }
+            public string CustomerID { get; set; }
+            public string LoanID { get; set; }
+            public string WeekNo { get; set; }
+            public string DueDate { get; set; }
+            public string Principal { get; set; }
+            public string Interest { get; set; }
+            public string Total { get; set; }
+
+
+            public override string ToString()
+            {
+                string Value = this.BranchID + "," + this.CustomerID + "," + this.LoanID + "," + this.WeekNo + "," + this.DueDate + "," + this.Principal + "," + this.Interest + "," + this.Total;
+                return Value;
+            }
         }
         static void LoadData1(string LoanID,string CustomerID,int LoanAmount,int LoanPeroid,string BranchID,string Collectionday,DateTime SamuapprovalDate)
         {

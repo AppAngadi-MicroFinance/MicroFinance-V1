@@ -283,9 +283,6 @@ namespace MicroFinance
             Designation = (Designation == null) ? "" : Designation;
             LoadHomePage(Designation);
         }
-
-       
-
         private void RepostBtn_Click(object sender, RoutedEventArgs e)
         {
             CollectionDetailsReport report = new CollectionDetailsReport(BindingList);
@@ -294,7 +291,6 @@ namespace MicroFinance
             Designation = (Designation == null) ? "" : Designation;
             LoadHomePage(Designation);
         }
-
         public void LoadHomePage(string Designation)
         {
             if (Designation.Equals("Field Officer"))
@@ -329,13 +325,10 @@ namespace MicroFinance
         public int Attendance { get; set; }
         public int Extras { get; set; }
         public string CollectedBy { get; set; }
-
         public string EmployeeName { get; set; }
         public string BranchName { get; set; }
         public string CenterName { get; set; }
         public string CenterID { get; set; }
-
-
         public override string ToString()
         {
             return (this.BranchName + "," + this.EmployeeName + "," + this.CenterName + "," + this.CustomerName+"," + this.Principal +","+this.CollectedOn.ToString("dd-mm-yyyy")+"," +this.Interest + "," + this.SecurityDeposite+"," + this.Total);
