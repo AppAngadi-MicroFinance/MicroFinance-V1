@@ -65,7 +65,6 @@ namespace MicroFinance.Repository
             }
             return ExpenseDetails;
         }
-
         public static List<string> GetExpenceTypes()
         {
             List<string> Types = new List<string>();

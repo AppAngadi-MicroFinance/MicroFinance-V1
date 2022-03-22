@@ -118,28 +118,38 @@ namespace MicroFinance
 
         }
 
-        private void LoanDesposment_Click(object sender, RoutedEventArgs e)
+        private async void LoanDesposment_Click(object sender, RoutedEventArgs e)
         {
-            //List<SUMAtoHO> ResultList = new List<SUMAtoHO>();
-            //OpenFileDialog openFileDlg = new OpenFileDialog();
-            //openFileDlg.Filter = "Excel Files |*.xls;*.xlsx;*.xlsm";
-            //openFileDlg.Title = "Choose File";
-            //openFileDlg.InitialDirectory = @"C:\";
-            //Nullable<bool> result = openFileDlg.ShowDialog();
-            //if (result == true)
-            //{
-            //    GifPanel.Visibility = Visibility.Visible;
-            //    string FileFrom = openFileDlg.FileName;
-            //    await System.Threading.Tasks.Task.Run(() =>ResultList= uploadSamuFile(FileFrom));
-            //    GifPanel.Visibility = Visibility.Collapsed;
-            //    this.NavigationService.Navigate(new HOLoanApproval(ResultList));
+            ObservableCollection<RecommendView> ResultData = new ObservableCollection<RecommendView>();
+            //this.NavigationService.Navigate(new LoanRecommend(8));
+            try
+            {
+                GifPanel.Visibility = Visibility.Visible;
+                await System.Threading.Tasks.Task.Run(() => ResultData = GetRecommDetails(11));
+                if (ResultData.Count != 0)
+                {
+                    GifPanel.Visibility = Visibility.Collapsed;
+                    this.NavigationService.Navigate(new RecommendNew(11, ResultData));
+                }
+                else
+                {
+                    GifPanel.Visibility = Visibility.Collapsed;
+                    MessageBox.Show("No Records Found!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
 
-            //}
-            this.NavigationService.Navigate(new RecommendNew(11));
+            }
+            catch (Exception ex)
+            {
+                GifPanel.Visibility = Visibility.Collapsed;
+                MessageBox.Show(ex.Message);
+            }
 
         }
 
-
+        public ObservableCollection<RecommendView> GetRecommDetails(int Code)
+        {
+            return LoanRepository.GetRecommendList(Code,true);
+        }
         List<SUMAtoHO> uploadSamuFile(string FileFrom)
         {
             SUMAtoHO Suma = new SUMAtoHO();

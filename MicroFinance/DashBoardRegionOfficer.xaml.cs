@@ -26,6 +26,7 @@ using MicroFinance.ViewModel;
 using MicroFinance.Repository;
 using Newtonsoft.Json;
 using System.Net.Http;
+using MessageBox = System.Windows.MessageBox;
 
 namespace MicroFinance
 {
@@ -67,10 +68,37 @@ namespace MicroFinance
             this.NavigationService.Navigate(new AddCustomer());
         }
 
-        private void xLoanRequestListBtn_Click(object sender, RoutedEventArgs e)
+        private async void xLoanRequestListBtn_Click(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(new LoanRecommend(9));
-            this.NavigationService.Navigate(new RecommendNew(9));
+            ObservableCollection<RecommendView> ResultData = new ObservableCollection<RecommendView>();
+            //this.NavigationService.Navigate(new LoanRecommend(8));
+            try
+            {
+                GifPanel.Visibility = Visibility.Visible;
+                await System.Threading.Tasks.Task.Run(() => ResultData = GetRecommDetails(9));
+                if (ResultData.Count != 0)
+                {
+                    GifPanel.Visibility = Visibility.Collapsed;
+                    this.NavigationService.Navigate(new RecommendNew(9, ResultData));
+                }
+                else
+                {
+                    GifPanel.Visibility = Visibility.Collapsed;
+                    MessageBox.Show("No Records Found!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                GifPanel.Visibility = Visibility.Collapsed;
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        public ObservableCollection<RecommendView> GetRecommDetails(int Code)
+        {
+            return LoanRepository.GetRecommendListForRM(Code);
         }
 
         private void xRecommendCustome_Click(object sender, RoutedEventArgs e)
