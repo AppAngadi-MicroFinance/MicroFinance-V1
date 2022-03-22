@@ -83,6 +83,7 @@
 
                 <DataGridTextColumn Header="Loan Amount" Width="0.5*"  FontSize="16"  Binding="{Binding LoanAmount}"/>
                 <DataGridTextColumn Header="Enroll Date" Width="0.5*" FontSize="16" Binding="{Binding RequestDate,StringFormat='{}{0:dd-MM-yyyy}'}"></DataGridTextColumn>
+                <DataGridTextColumn Width="0.5*" x:Name="HMRefNumber" Header="Hm Ref Number" Binding="{Binding HimarkRefNumber}" Visibility="Collapsed"></DataGridTextColumn>
                 <DataGridTemplateColumn Width="0.5*"  Header="Delete" Visibility="Collapsed">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

@@ -254,6 +254,10 @@ namespace MicroFinance.ViewModel
                         {
                             Hm.CenterName = shgdetail[Hm.SHGId].SHGName;
                             Hm.CollectionDay = shgdetail[Hm.SHGId].CollectionDay;
+                            //For get himark reference Number
+                            sqlcomm.CommandText = "select HimarkReference from HimarkResult where RequestID='" + Hm.RequestID + "'";
+                            string number =(string) sqlcomm.ExecuteScalar();
+                            Hm.HimarkRefNumber = number;
                         }
                         catch (Exception ex)
                         {
@@ -594,11 +598,9 @@ namespace MicroFinance.ViewModel
                         }
                         
                     }
-                   
                 }
                 sqlconn.Close();
             }
-
         }
         static void LoadData1New(string LoanID, string CustomerID, int LoanAmount, int LoanPeroid, string BranchID, string Collectionday, DateTime SamuapprovalDate,SqlConnection _sqlConnection)
         {

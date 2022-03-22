@@ -65,6 +65,7 @@ namespace MicroFinance
             else if(CurrentStatus==9)
             {
                 RecommendList = LoanRepository.GetRecommendListForRM(statusCode);
+                HMRefNumber.Visibility = Visibility.Visible;
                 BranchList = EmployeeRepository.GetBranches();
                 BranchCombo.ItemsSource = BranchList;
             }
@@ -81,6 +82,57 @@ namespace MicroFinance
             RecommendGrid.Items.Refresh();
 
             if(MainWindow.LoginDesignation.LoginDesignation=="Manager")
+            {
+                BranchNamePanel.Visibility = Visibility.Collapsed;
+            }
+
+        }
+        public RecommendNew(int statusCode,ObservableCollection<RecommendView> RecDataList)
+        {
+            InitializeComponent();
+            EnrollStartDate.SelectedDate = DateTime.Today;
+            EnrollEndDate.SelectedDate = DateTime.Today;
+            SelectAllCheck.IsChecked = true;
+
+            CurrentStatus = statusCode;
+            if (statusCode == 11)
+            {
+                TileText.Text = "Loan Approval";
+                RecommendLoanBtn.Content = "Approve";
+                RecommendList = LoanRepository.GetRecommendList(statusCode, true);
+                BranchList = EmployeeRepository.GetBranches();
+                BranchCombo.ItemsSource = BranchList;
+            }
+            else if (CurrentStatus == 12)
+            {
+                RecommendList = LoanRepository.GetApproveList(statusCode, true);
+                RecommendPanel.Visibility = Visibility.Collapsed;
+                ReportPanel.Visibility = Visibility.Visible;
+                loanprocess.GetLoanDetailList(12);
+                NeftList = loanprocess.LoanProcessList;
+                BranchList = EmployeeRepository.GetBranches();
+                BranchCombo.ItemsSource = BranchList;
+            }
+            else if (CurrentStatus == 9)
+            {
+                RecommendList = RecDataList;
+                HMRefNumber.Visibility = Visibility.Visible;
+                BranchList = MainWindow.BasicDetails.BranchList;
+                BranchCombo.ItemsSource = BranchList;
+            }
+            else
+            {
+                RecommendList = RecDataList;
+                BranchList = MainWindow.BasicDetails.BranchList;
+                BranchCombo.ItemsSource = BranchList;
+            }
+            BindingLoad();
+            RecommendGrid.ItemsSource = BindingList;
+            SelectedCountText.Text = BindingList.Count.ToString();
+
+            RecommendGrid.Items.Refresh();
+
+            if (MainWindow.LoginDesignation.LoginDesignation == "Manager")
             {
                 BranchNamePanel.Visibility = Visibility.Collapsed;
             }
