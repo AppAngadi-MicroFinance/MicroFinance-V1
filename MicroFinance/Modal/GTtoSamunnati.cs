@@ -23,7 +23,7 @@ namespace MicroFinance.Modal
         {
             List<SamuunatiReport> CustomerDetails = new List<SamuunatiReport>();
             List<string> CustomerIdList = new List<string>();
-            using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.db))
+            using(SqlConnection sql=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
@@ -114,7 +114,7 @@ namespace MicroFinance.Modal
         public List<SamuunatiReport> GetDetails(ObservableCollection<RecommendView> RecommendList)
         {
             List<SamuunatiReport> CustomerDetails = new List<SamuunatiReport>();
-            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.db))
+            using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();

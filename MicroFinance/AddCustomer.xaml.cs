@@ -305,7 +305,7 @@ namespace MicroFinance
             string[] _officerName = new string[1];
             string[] _regionName = new string[1];
             List<string> SelfHelpGroupList = new List<string>();
-            List<TimeTableViewModel> CenterList = MainWindow.BasicDetails.CenterList.Where(temp => temp.EmpId == _officerEmpId).ToList();
+            List<TimeTableViewModel> CenterList = MainWindow.BasicDetails.CenterList.Where(temp => temp.EmpId == _officerEmpId).OrderBy(temp=>temp.SHGName).ToList();
 
             Branch_Shg_PgDetails branch_Shg_Pg = new Branch_Shg_PgDetails();
             branch_Shg_Pg.EmpId = _officerEmpId;
