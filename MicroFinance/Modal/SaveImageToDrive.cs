@@ -78,19 +78,27 @@ namespace MicroFinance.Modal
             // BitmapImage defaultimage = @"..\\Asserts\\Icons\\NoImageFound.jpg";
             if (Directory.Exists(FolderPath))
             {
-                string filepath = FolderPath + "\\" + FileName + ".jpg";
-                Uri ImagePath = new Uri(FolderPath + "\\" + FileName + ".jpg");
-                
-                if (File.Exists(filepath))
+                try
                 {
-                    BitmapImage image = new BitmapImage();
-                    image.BeginInit();
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                    image.UriSource=new Uri(filepath, UriKind.RelativeOrAbsolute);
-                    image.EndInit();
-                    return image;
+                    string filepath = FolderPath + "\\" + FileName + ".jpg";
+                    Uri ImagePath = new Uri(FolderPath + "\\" + FileName + ".jpg");
+
+                    if (File.Exists(filepath))
+                    {
+                        BitmapImage image = new BitmapImage();
+                        image.BeginInit();
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                        image.UriSource = new Uri(filepath, UriKind.RelativeOrAbsolute);
+                        image.EndInit();
+                        return image;
+                    }
                 }
+                catch(Exception ex)
+                {
+
+                }
+                
             }
             //getimage(DefalutImage);
             return new BitmapImage(DefalutImage);

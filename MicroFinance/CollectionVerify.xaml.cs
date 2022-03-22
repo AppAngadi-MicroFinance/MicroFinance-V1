@@ -76,8 +76,16 @@ namespace MicroFinance
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            DenominationList.Items.Clear();
-            DenominationGrid.Visibility = Visibility.Hidden;
+            try
+            {
+                DenominationList.Items.Clear();
+                DenominationGrid.Visibility = Visibility.Hidden;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         Dictionary<string, string> FieldOfficerIdAndName = new Dictionary<string, string>();
