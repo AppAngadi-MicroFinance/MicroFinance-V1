@@ -22,7 +22,9 @@ namespace MicroFinance.Modal
         }
         public static void SaveImage(string Path,string FileName,byte[] Data)
         {
-            if(Data!=null)
+            Uri DefalutImage = new Uri("pack://application:,,,/MicroFinance;component/Asserts/Icons/NoImageFound.jpg");
+            byte[] Default_image =converterImgToByte(getimage(DefalutImage));
+            if (Data!=null && Data!=Default_image)
             {
                 string FolderPath = Path;
                 if (!Directory.Exists(FolderPath))

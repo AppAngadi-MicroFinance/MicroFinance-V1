@@ -682,9 +682,6 @@ namespace MicroFinance.ViewModel
                     bulkCopy.WriteToServer(dat);
                     bulkCopy.Close();
                 }
-                
-            
-
         }
         static DataTable ConvertListtoDataTable(List<Loan> LoanMasterDetails, string BranchId, string CustomerId, string loanID)
         {
