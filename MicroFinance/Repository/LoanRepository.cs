@@ -602,6 +602,69 @@ namespace MicroFinance.ViewModel
                 sqlconn.Close();
             }
         }
+        public static void ApproveLoans(ObservableCollection<RecommendView> recommends,int StatusCode)
+        {
+            using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if (sqlconn.State == ConnectionState.Open)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+
+                    foreach (RecommendView rm in recommends)
+                    {
+                        if (rm.IsRecommend == true)
+                        {
+                            string LoanId = GenerateLoanID(rm.BranchID);
+                            try
+                            {
+                                sqlcomm.CommandText = "insert into LoanDetails(LoanID,CustomerID,LoanType,LoanPeriod,InterestRate,RequestedBY,ApprovedBy,ApproveDate,LoanAmount,IsActive)values('" + LoanId + "','" + rm.CustomerID + "','" + rm.LoanType + "'," + rm.LoanPeriod + ",'12','" + rm.EmpId + "','','" + rm.SamuApproveDate.ToString("MM-dd-yyyy") + "'," + rm.LoanAmount + ",'true')";
+                                sqlcomm.ExecuteNonQuery();
+                                //sqlcomm.CommandText = "select EmpId from EmployeeBranch where BranchId=(select BranchId from SelfHelpGroup where SHGId=(select SHGid from PeerGroup where GroupId=(select PeerGroupId from CustomerGroup where CustId='" + rm.CustomerID + "'))) and Designation='Manager'";
+                                sqlcomm.CommandText = "select EmpId from EmployeeBranch where BranchId='" + rm.BranchID + "' and Designation='Manager'";
+                                string EmpId = (string)sqlcomm.ExecuteScalar();
+                                sqlcomm.CommandText = "update LoanDetails set ApprovedBY='" + EmpId + "' where LoanID='" + LoanId + "'";
+                                sqlcomm.ExecuteNonQuery();
+                                sqlcomm = new SqlCommand();
+                                sqlcomm.Connection = sqlconn;
+                                sqlcomm.CommandText = "update CustomerDetails set IsActive='true' where CustId='" + rm.CustomerID + "'";
+                                int Result = (int)sqlcomm.ExecuteNonQuery();
+                                sqlcomm.CommandText = "update DisbursementFromSAMU set LoanID='" + LoanId + "' where RequestID='" + rm.RequestID + "'";
+                                sqlcomm.ExecuteNonQuery();
+                                sqlcomm.CommandText = "insert into LoanApplicationLog(ApplicationID,RequestedBy,TransactionDate,StatusCode) values('" + rm.RequestID + "','" + MainWindow.LoginDesignation.EmpId + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "','" + StatusCode + "')";
+                                sqlcomm.ExecuteNonQuery();
+                                sqlcomm.CommandText = "Update LoanApplication Set LoanStatus='" + StatusCode + "' where Requestid='" + rm.RequestID + "' ";
+                                sqlcomm.ExecuteNonQuery();
+
+                                if (Result == 1)
+                                {
+                                    LoadData1New(LoanId, rm.CustomerID, rm.LoanAmount, rm.LoanPeriod, rm.BranchID, rm.CollectionDay, rm.SamuApproveDate, sqlconn);
+                                    NewSavingAcc(rm.CustomerID, rm.BranchID);
+
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                sqlcomm.CommandText = "Delete from LoanDetails where loanid='" + LoanId + "'";
+                                sqlcomm.ExecuteNonQuery();
+                                sqlcomm.CommandText = "Delete from LoanCollectionMaster where loanid='" + LoanId + "'";
+                                sqlcomm.ExecuteNonQuery();
+                                sqlcomm.CommandText = "Delete from LoanApplicationLog where ApplicationID='" + rm.RequestID + "' and StatusCode='" + StatusCode + "'";
+                                sqlcomm.ExecuteNonQuery();
+                                sqlcomm.CommandText = "Update LoanApplication set LoanStatus='" + (StatusCode - 1) +"' where RequestID='" + rm.RequestID + "'";
+                                sqlcomm.ExecuteNonQuery();
+                                sqlcomm.CommandText = "update CustomerDetails set IsActive='false' where CustId='" + rm.CustomerID + "'";
+                                sqlcomm.ExecuteNonQuery();
+                            }
+                            
+                        }
+
+                    }
+                }
+                sqlconn.Close();
+            }
+        }
         static void LoadData1New(string LoanID, string CustomerID, int LoanAmount, int LoanPeroid, string BranchID, string Collectionday, DateTime SamuapprovalDate,SqlConnection _sqlConnection)
         {
             DateTime ApproveDate = SamuapprovalDate;

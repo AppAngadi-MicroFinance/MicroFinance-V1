@@ -209,11 +209,15 @@ namespace MicroFinance
 
         }
 
-        void ApproveLoans(List<string> ReqList)
+        void ApproveLoans1(List<string> ReqList)
         {
             LoanRepository.ChangeLoanStatus(ReqList, CurrentStatus + 1);
             LoanRepository.InsertTransaction(ReqList, MainWindow.LoginDesignation.EmpId, CurrentStatus + 1);
             LoanRepository.ApproveLoans(BindingList);
+        }
+        void ApproveLoans()
+        {
+            LoanRepository.ApproveLoans(BindingList,CurrentStatus+1);
         }
 
         private async void RecommendLoanBtn_Click(object sender, RoutedEventArgs e)
@@ -227,7 +231,7 @@ namespace MicroFinance
                     {
                         GifPanel.Visibility = Visibility.Visible;
                         RecommendPanel.IsEnabled = false;
-                        await System.Threading.Tasks.Task.Run(() => ApproveLoans(RequestIDList));
+                        await System.Threading.Tasks.Task.Run(() => ApproveLoans());
                         GifPanel.Visibility = Visibility.Collapsed;
                         RecommendPanel.IsEnabled = true;
                         MainWindow.StatusMessageofPage(1, RequestIDList.Count.ToString() + "Loan(s) Approved Successfully!...");
