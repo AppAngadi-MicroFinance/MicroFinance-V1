@@ -44,16 +44,11 @@ namespace MicroFinance
             // EmployeeFrame.NavigationService.Navigate(new TransferEmployee());
             LoadCount();
         }
-
         void LoadCount()
         {
             int count = NotificationRepository.GetLoanApplicationCount(11);
             xLoanDisbursmentCount.Text = count.ToString();
         }
-
-
-
-
         private void xAddNewEmployee_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new AddEmployee());

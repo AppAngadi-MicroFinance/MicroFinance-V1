@@ -296,7 +296,6 @@ namespace MicroFinance
 
         async Task insertData(string BranchID,string CenterID,string GroupID,string EmpID)
         {
-
             CustomerEnrollDataViewModel Customer = FormCustomerModel(BranchID, EmpID, CenterID, GroupID);
             string jsondata = JsonConvert.SerializeObject(Customer);
             var stringContent = new StringContent(jsondata, UnicodeEncoding.UTF8, "application/json");
@@ -308,19 +307,14 @@ namespace MicroFinance
             response1 = await client1.PostAsync(url1, stringContent);
             if (response1.IsSuccessStatusCode)
             {
-
                 AddCustomerImages(Customer.CustomerID);
                 MessageBox.Show("Customer Details Added SuccessFully...", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 Reloaddata();
-                
-
             }
             else
             {
                 MessageBox.Show(response1.ReasonPhrase, "Warninng", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-
-
         }
 
 
@@ -348,9 +342,7 @@ namespace MicroFinance
                     MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     GifPanel.Visibility = Visibility.Collapsed;
                    
-                }
-
-            
+                }   
         }
 
         async Task GetCustomerEnrollMetaData(string EmpId)

@@ -79,13 +79,22 @@ namespace MicroFinance.Repository
                 {
                     SqlCommand sqlcomm = new SqlCommand();
                     sqlcomm.Connection = sqlconn;
-                    sqlcomm.CommandText = "select count(*) from LoanApplication where LoanStatus='"+StatusCode+"'";
-                    Count = (int)sqlcomm.ExecuteScalar();
+                    if(StatusCode==11)
+                    {
+                        sqlcomm.CommandText = "select Count(*) from DisbursementFromSAMU, LoanApplication where DisbursementFromSAMU.RequestID  in (select RequestID from LoanApplication where LoanStatus = '"+StatusCode+"') and DisbursementFromSAMU.RequestID = LoanApplication.RequestId";
+                        Count = (int)sqlcomm.ExecuteScalar();
+                    }
+                    else
+                    {
+                        sqlcomm.CommandText = "select count(*) from LoanApplication where LoanStatus='" + StatusCode + "'";
+                        Count = (int)sqlcomm.ExecuteScalar();
+                    }
                 }
                 sqlconn.Close();
             }
             return Count;
         }
-       
+        
+
     }
 }
