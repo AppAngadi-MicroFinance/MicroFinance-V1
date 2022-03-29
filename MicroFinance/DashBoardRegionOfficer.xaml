@@ -51,6 +51,42 @@
                 </StackPanel>
             </Grid>
         </Border>
+        <Border Height="360" Width="400" Grid.RowSpan="3" Grid.ColumnSpan="3" Background="White" Panel.ZIndex="2" CornerRadius="10" BorderBrush="Gray" BorderThickness="2" x:Name="HiMarkReportPanel" Visibility="Collapsed">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="10" Color="LightGray" Opacity="1"></DropShadowEffect>
+            </Border.Effect>
+            <Grid Height="350" Width="390">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Himark Report" Style="{StaticResource Title}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <Separator VerticalAlignment="Bottom" BorderBrush="Gray"></Separator>
+                <StackPanel Margin="0,0,0,0" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center">
+                    <TextBlock Text="From" Style="{StaticResource Regular}"></TextBlock>
+                    <DatePicker x:Name="HMEnrollStartDate" Style="{StaticResource DateSelecter}"  Height="30" Width="250" Background="White" FontSize="16">
+
+                    </DatePicker>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="To" Style="{StaticResource Regular}"></TextBlock>
+                    <DatePicker x:Name="HMEnrollEndDate" Style="{StaticResource DateSelecter}"  Height="30" Width="250" Background="White" FontSize="16"></DatePicker>
+                </StackPanel>
+                <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Type" Style="{StaticResource Regular}"></TextBlock>
+                    <ComboBox Style="{StaticResource combo}" Width="250" x:Name="HMCaseCombo"></ComboBox>
+                </StackPanel>
+                <StackPanel Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Style="{StaticResource PrimaryBtn}" Content="OK" x:Name="HMOkBtn" Click="HMOkBtn_Click"></Button>
+                    <Button Style="{StaticResource CancelBtn}" Margin="10,0,0,0" Content="Cancel" x:Name="HMCancelBtn" Click="HMCancelBtn_Click"></Button>
+                </StackPanel>
+            </Grid>
+        </Border>
         <StackPanel x:Name="GifPanel" Panel.ZIndex="2" Height="200" Width="200" Grid.RowSpan="3" Grid.ColumnSpan="3" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <Image Name="ProcessGif" Margin="0,0,0,0" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
@@ -156,6 +192,14 @@
                 </Border.Effect>
                 <Button x:Name="SDRecommendBtn" Click="SDRecommendBtn_Click" Style="{StaticResource WithDrawlBtn}"></Button>
             </Border>
+            <Border Margin="15" Style="{StaticResource MainBorder}" 
+                 >
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="GenerateHMReport" Style="{StaticResource NavigateExportHiMark_A}"  Click="GenerateHMReport_Click"></Button>
+            </Border>
+            
             
         </WrapPanel>
         

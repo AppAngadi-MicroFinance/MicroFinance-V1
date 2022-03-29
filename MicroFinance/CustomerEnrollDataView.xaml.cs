@@ -318,8 +318,6 @@ namespace MicroFinance
             string jsondata = JsonConvert.SerializeObject(Customer);
             var stringContent = new StringContent(jsondata, UnicodeEncoding.UTF8, "application/json");
             string url1 = "http://examsign-001-site4.itempurl.com/api/AddCustomerData";
-
-
             HttpClient client1 = new HttpClient();
             HttpResponseMessage response1 = new HttpResponseMessage();
             response1 = await client1.PostAsync(url1, stringContent);
@@ -338,7 +336,6 @@ namespace MicroFinance
 
         public async void Reloaddata()
         {
-           
                 try
                 {
                     GifPanel.Visibility = Visibility.Visible;
@@ -375,9 +372,7 @@ namespace MicroFinance
             {
                 var result = await response1.Content.ReadAsStringAsync();
                 var status = JsonConvert.DeserializeObject<ObservableCollection<CustomerEnrollMetaData>>(result);
-
                 CustomerEnrollMetaDataList = status;
-
             }
         }
 

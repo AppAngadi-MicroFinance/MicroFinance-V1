@@ -240,6 +240,9 @@
     <Compile Include="ExportHimarkReport.xaml.cs">
       <DependentUpon>ExportHimarkReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GenerateHimarkReport.xaml.cs">
+      <DependentUpon>GenerateHimarkReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GTrustCustomerProfile.xaml.cs">
       <DependentUpon>GTrustCustomerProfile.xaml</DependentUpon>
     </Compile>
@@ -583,6 +586,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExportHimarkReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GenerateHimarkReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

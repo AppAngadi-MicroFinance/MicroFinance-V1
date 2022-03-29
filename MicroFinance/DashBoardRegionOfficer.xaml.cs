@@ -39,6 +39,7 @@ namespace MicroFinance
         public string LoginBranchID = MainWindow.LoginDesignation.BranchId;
         public ObservableCollection<LoanProcess> loanDetails = new ObservableCollection<LoanProcess>();
         public static List<LoanProcess> RecommenedList = new List<LoanProcess>();
+        List<string> HMCaseList = new List<string> { "Reject To Approve", "Approve To Reject" };
 
         public static List<HimarkRequestView> RequestList = new List<HimarkRequestView>();
         LoanProcess loanProcess = new LoanProcess();
@@ -48,6 +49,9 @@ namespace MicroFinance
 
             EnrollStartDate.SelectedDate = DateTime.Now;
             EnrollEndDate.SelectedDate = DateTime.Now;
+            HMEnrollStartDate.SelectedDate = DateTime.Now;
+            HMEnrollEndDate.SelectedDate = DateTime.Now;
+            HMCaseCombo.ItemsSource = HMCaseList;
             LoadCount();
         }
 
@@ -509,6 +513,71 @@ namespace MicroFinance
         {
             public string BranchID { get; set; }
             public int StatusCode { get; set; }
+        }
+
+        private void HMCancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            HiMarkReportPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private async void HMOkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(HMEnrollStartDate.SelectedDate!=null && HMEnrollEndDate.SelectedDate!=null && HMCaseCombo.SelectedIndex!=-1)
+            {
+                DateModel DateData = new DateModel { FromDate = HMEnrollStartDate.SelectedDate.Value, ToDate = HMEnrollEndDate.SelectedDate.Value };
+                string SelectedType = HMCaseCombo.SelectedValue.ToString();
+                if(SelectedType=="Reject To Approve")
+                {
+                    List<HimarkRequestView> ReqList = new List<HimarkRequestView>();
+                    GifPanel.Visibility = Visibility.Visible;
+                    try
+                    {
+                        await System.Threading.Tasks.Task.Run(() => ReqList = HimarkRepository.GetHimarkRejectToApproveList(DateData));
+                        if(ReqList.Count!=0)
+                        {
+                            this.NavigationService.Navigate(new GenerateHimarkReport(ReqList));
+                        }
+                        else
+                        {
+                            MessageBox.Show("No Data Found", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                            GifPanel.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        GifPanel.Visibility = Visibility.Collapsed;
+                        MessageBox.Show(ex.Message,"Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
+                    }
+                }
+                else if(SelectedType=="Approve To Reject")
+                {
+                    List<HimarkRequestView> ReqList = new List<HimarkRequestView>();
+                    GifPanel.Visibility = Visibility.Visible;
+                    try
+                    {
+                        await System.Threading.Tasks.Task.Run(() => ReqList = HimarkRepository.GetHimarkApprovetoRejectList(DateData));
+                        if (ReqList.Count != 0)
+                        {
+                            this.NavigationService.Navigate(new GenerateHimarkReport(ReqList));
+                        }
+                        else
+                        {
+                            MessageBox.Show("No Data Found", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                            GifPanel.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        GifPanel.Visibility = Visibility.Collapsed;
+                        MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+            }
+        }
+
+        private void GenerateHMReport_Click(object sender, RoutedEventArgs e)
+        {
+            HiMarkReportPanel.Visibility = Visibility.Visible;
         }
     }
 

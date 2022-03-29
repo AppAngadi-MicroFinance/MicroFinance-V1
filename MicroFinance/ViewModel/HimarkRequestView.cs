@@ -33,6 +33,7 @@ namespace MicroFinance.ViewModel
         public string BranchName { get; set; }
         public string Collectionday { get; set; }
         public string CenterName { get; set; }
+        public string CenterID { get; set; }
 
     }
 }
