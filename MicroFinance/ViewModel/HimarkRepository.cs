@@ -62,6 +62,101 @@ namespace MicroFinance.ViewModel
             return ResultView;
         }
 
+
+        public static List<HimarkRequestView> GetHimarkRejectToApproveList(DateModel DateData)
+        {
+            List<HimarkRequestView> ResultView = new List<HimarkRequestView>();
+            using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if (ConnectionState.Open == sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.EnrollDate,Loanapplication.SHGId from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from HimarkResult where status='Reject') and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and EnrollDate between '"+DateData.FromDate.ToString("yyyy-MM-dd")+"' and '"+DateData.ToDate.ToString("yyyy-MM-dd")+"' and  LoanApplication.LoanStatus not in (4,5,13,14)";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            HimarkRequestView HMRequestCustomer = new HimarkRequestView();
+                            HMRequestCustomer.CustomerName = reader.GetString(0);
+                            HMRequestCustomer.RequestID = reader.GetString(1);
+                            HMRequestCustomer.CustomerID = reader.GetString(2);
+                            HMRequestCustomer.LoanAmount = reader.GetInt32(3);
+                            HMRequestCustomer.LoanPeriod = reader.GetInt32(4);
+                            HMRequestCustomer.EmpId = reader.GetString(5);
+                            HMRequestCustomer.BranchID = reader.GetString(6);
+                            HMRequestCustomer.BranchName = reader.GetString(7);
+                            HMRequestCustomer.EmpName = reader.GetString(8);
+                            HMRequestCustomer.RequestDate = reader.GetDateTime(9);
+                            HMRequestCustomer.CenterID = reader.GetString(10);
+                            ResultView.Add(HMRequestCustomer);
+                        }
+                    }
+                    reader.Close();
+                    foreach (HimarkRequestView Hm in ResultView)
+                    {
+                        TimeTableViewModel Center = MainWindow.BasicDetails.CenterList.Where(temp => temp.SHGId == Hm.CenterID).Select(temp=>new TimeTableViewModel {SHGName=temp.SHGName,SHGId=temp.SHGId,CollectionDay=temp.CollectionDay }).FirstOrDefault();
+                        if(Center!=null)
+                        {
+                            Hm.Collectionday = Center.CollectionDay;
+                        Hm.CenterName = Center.SHGName;
+                        }
+                        
+                    }
+                }
+            }
+            return ResultView;
+        }
+
+        public static List<HimarkRequestView> GetHimarkApprovetoRejectList(DateModel DateData)
+        {
+            List<HimarkRequestView> ResultView = new List<HimarkRequestView>();
+            using (SqlConnection sqlconn = new SqlConnection(MicroFinance.Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                if (ConnectionState.Open == sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    sqlcomm.CommandText = "select CustomerDetails.Name,LoanApplication.RequestId,LoanApplication.CustId,LoanApplication.LoanAmount,LoanApplication.LoanPeriod,LoanApplication.EmployeeId,LoanApplication.BranchId,BranchDetails.BranchName,Employee.Name,LoanApplication.EnrollDate,Loanapplication.SHGId from CustomerDetails,LoanApplication,BranchDetails,Employee where RequestId in(select RequestId from HimarkResult where status not in ('Reject')) and LoanApplication.CustId=CustomerDetails.CustId and BranchDetails.Bid=LoanApplication.BranchId and Employee.EmpId=LoanApplication.EmployeeId and EnrollDate between '" + DateData.FromDate.ToString("yyyy-MM-dd") + "' and '" + DateData.ToDate.ToString("yyyy-MM-dd") + "' and  LoanApplication.LoanStatus in (5,13)";
+                    SqlDataReader reader = sqlcomm.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            HimarkRequestView HMRequestCustomer = new HimarkRequestView();
+                            HMRequestCustomer.CustomerName = reader.GetString(0);
+                            HMRequestCustomer.RequestID = reader.GetString(1);
+                            HMRequestCustomer.CustomerID = reader.GetString(2);
+                            HMRequestCustomer.LoanAmount = reader.GetInt32(3);
+                            HMRequestCustomer.LoanPeriod = reader.GetInt32(4);
+                            HMRequestCustomer.EmpId = reader.GetString(5);
+                            HMRequestCustomer.BranchID = reader.GetString(6);
+                            HMRequestCustomer.BranchName = reader.GetString(7);
+                            HMRequestCustomer.EmpName = reader.GetString(8);
+                            HMRequestCustomer.RequestDate = reader.GetDateTime(9);
+                            HMRequestCustomer.CenterID = reader.GetString(10);
+                            ResultView.Add(HMRequestCustomer);
+                        }
+                    }
+                    reader.Close();
+                    foreach (HimarkRequestView Hm in ResultView)
+                    {
+                        TimeTableViewModel Center = MainWindow.BasicDetails.CenterList.Where(temp => temp.SHGId == Hm.CenterID).Select(temp => new TimeTableViewModel { SHGName = temp.SHGName, SHGId = temp.SHGId, CollectionDay = temp.CollectionDay }).FirstOrDefault();
+                        if (Center != null)
+                        {
+                            Hm.Collectionday = Center.CollectionDay;
+                            Hm.CenterName = Center.SHGName;
+                        }
+
+                    }
+                }
+            }
+            return ResultView;
+        }
+
         public static string GetEmpName(string ID)
         {
             string Result = "";

@@ -23,13 +23,21 @@ namespace MicroFinance.Modal
         public static void SaveImage(string Path,string FileName,byte[] Data)
         {
             Uri DefalutImage = new Uri("pack://application:,,,/MicroFinance;component/Asserts/Icons/NoImageFound.jpg");
-            byte[] Default_image =converterImgToByte(getimage(DefalutImage));
-            if (Data!=null && Data!=Default_image)
+            byte[] Default_image =BIToByte(getimage(DefalutImage));
+            if (Data!=null && !Data.SequenceEqual(Default_image))
             {
                 string FolderPath = Path;
                 if (!Directory.Exists(FolderPath))
                 {
                     Directory.CreateDirectory(FolderPath);
+                    string ImagePath = FolderPath + "\\" + FileName + ".jpg";
+                    if (File.Exists(ImagePath) == false)
+                    {
+                        using (System.Drawing.Image image = System.Drawing.Image.FromStream(new MemoryStream(Data)))
+                        {
+                            image.Save(ImagePath, ImageFormat.Jpeg);
+                        }
+                    }
                     //MainWindow.StatusMessageofPage(0, "Drive Sync First!.....");
                 }
                 else
@@ -136,6 +144,19 @@ namespace MicroFinance.Modal
                 image.EndInit();
                 return image;
             }
+        }
+
+        public static byte[] BIToByte(BitmapImage img)
+        {
+            byte[] Data;
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(img));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                Data = ms.ToArray();
+            }
+            return Data;
         }
     }
 }

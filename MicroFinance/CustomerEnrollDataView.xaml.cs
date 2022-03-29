@@ -19,6 +19,8 @@ using MicroFinance.Repository;
 using System.Net.Http;
 using Newtonsoft.Json;
 using MicroFinance.Modal;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace MicroFinance
 {
@@ -276,22 +278,38 @@ namespace MicroFinance
          {
             string BasePath = MainWindow.DriveBasePath + "\\TRICHY\\" + BranchName+"\\Customer";
 
-            if (CustomerDetails.AddressProof!=null)
+            using(SqlConnection sqlconn=new SqlConnection(Properties.Settings.Default.DBConnection))
             {
-                SaveImageToDrive drive = new SaveImageToDrive(BasePath+"\\Address Proof", FileName, CustomerDetails.AddressProof);
+                sqlconn.Open();
+                if(ConnectionState.Open==sqlconn.State)
+                {
+                    SqlCommand sqlcomm = new SqlCommand();
+                    sqlcomm.Connection = sqlconn;
+                    if (CustomerDetails.AddressProof != null)
+                    {
+                        SaveImageToDrive drive = new SaveImageToDrive(BasePath + "\\Address Proof", FileName, CustomerDetails.AddressProof);
+                        sqlcomm.CommandText = "update CustomerEnrollData set AddressProof=null where AadharNumber='" + CustomerDetails.AadharNumber + "'";
+                        sqlcomm.ExecuteNonQuery();
+                    }
+                    if (CustomerDetails.PhotoProof != null)
+                    {
+                        SaveImageToDrive drive = new SaveImageToDrive(BasePath + "\\Photo Proof", FileName, CustomerDetails.PhotoProof);
+                        sqlcomm.CommandText = "update CustomerEnrollData set PhotoProof=null where AadharNumber='" + CustomerDetails.AadharNumber + "'";
+                        sqlcomm.ExecuteNonQuery();
+                    }
+                    if (CustomerDetails.ProfilePhoto != null)
+                    {
+                        SaveImageToDrive drive = new SaveImageToDrive(BasePath + "\\Profile Picture", FileName, CustomerDetails.ProfilePhoto);
+                    }
+                    if (CustomerDetails.CombinePhoto != null)
+                    {
+                        SaveImageToDrive drive = new SaveImageToDrive(BasePath + "\\Combine Photo", FileName, CustomerDetails.CombinePhoto);
+                        sqlcomm.CommandText = "update CustomerEnrollData set CombinePhoto=null where AadharNumber='" + CustomerDetails.AadharNumber + "'";
+                        sqlcomm.ExecuteNonQuery();
+                    }
+                }
             }
-            if(CustomerDetails.PhotoProof!=null)
-            {
-                SaveImageToDrive drive = new SaveImageToDrive(BasePath+"\\Photo Proof",FileName, CustomerDetails.PhotoProof);
-            }
-            if(CustomerDetails.ProfilePhoto!=null)
-            {
-                SaveImageToDrive drive = new SaveImageToDrive(BasePath+"\\Profile Picture",FileName, CustomerDetails.ProfilePhoto);
-            }
-            if(CustomerDetails.CombinePhoto!=null)
-            {
-                SaveImageToDrive drive = new SaveImageToDrive(BasePath+"\\Combine Photo",FileName, CustomerDetails.CombinePhoto);
-            }
+            
          }
 
         async Task insertData(string BranchID,string CenterID,string GroupID,string EmpID)
@@ -300,8 +318,6 @@ namespace MicroFinance
             string jsondata = JsonConvert.SerializeObject(Customer);
             var stringContent = new StringContent(jsondata, UnicodeEncoding.UTF8, "application/json");
             string url1 = "http://examsign-001-site4.itempurl.com/api/AddCustomerData";
-
-
             HttpClient client1 = new HttpClient();
             HttpResponseMessage response1 = new HttpResponseMessage();
             response1 = await client1.PostAsync(url1, stringContent);
@@ -320,7 +336,6 @@ namespace MicroFinance
 
         public async void Reloaddata()
         {
-           
                 try
                 {
                     GifPanel.Visibility = Visibility.Visible;
@@ -357,9 +372,7 @@ namespace MicroFinance
             {
                 var result = await response1.Content.ReadAsStringAsync();
                 var status = JsonConvert.DeserializeObject<ObservableCollection<CustomerEnrollMetaData>>(result);
-
                 CustomerEnrollMetaDataList = status;
-
             }
         }
 
