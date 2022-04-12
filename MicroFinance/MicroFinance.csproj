@@ -326,8 +326,12 @@
       <DependentUpon>RegionManagerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reports\CollectionDetailsReport.cs" />
+    <Compile Include="Reports\CustomerDueDetail.cs" />
+    <Compile Include="Reports\DueDetailRDLCModel.cs" />
+    <Compile Include="Reports\GroupSummaryRDLCModel.cs" />
     <Compile Include="Reports\HiMark.cs" />
     <Compile Include="Reports\HimarkModel.cs" />
+    <Compile Include="Reports\LoanDetail.cs" />
     <Compile Include="Reports\NoOfLoansDis.cs" />
     <Compile Include="Reports\NEFT.cs" />
     <Compile Include="Reports\SamuunatiReport.cs" />
