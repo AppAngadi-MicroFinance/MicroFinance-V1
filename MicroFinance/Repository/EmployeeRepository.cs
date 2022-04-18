@@ -352,7 +352,6 @@ namespace MicroFinance.ViewModel
         public static bool IsAlreadyHaveShedule(SHGView shg)
         {
             bool Result = false;
-
             using(SqlConnection sqlconn=new SqlConnection(ConnectionString))
             {
                 sqlconn.Open();
@@ -369,6 +368,20 @@ namespace MicroFinance.ViewModel
                 }
             }
             return Result;
+        }
+
+        public static string GetEmployeeName(string employeeId)
+        {
+            string EmployeeName = string.Empty;
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = "select Name from Employee where EmpId = '" + employeeId + "'";
+                EmployeeName = (string)cmd.ExecuteScalar();
+            }
+            return EmployeeName;
         }
 
 
@@ -413,6 +426,29 @@ namespace MicroFinance.ViewModel
             }
         }
 
+        public static List<EmployeeViewModel> GetEmployees(string branchId)
+        {
+            List<EmployeeViewModel> toReturn = new List<EmployeeViewModel>();
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = "select EmpId, Name from Employee where EmpId in (select EmpId from EmployeeBranch where IsActive = 1 and Designation = 'Field Officer' and BranchId = '" + branchId + "')";
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while(dr.Read())
+                {
+                    EmployeeViewModel obj = new EmployeeViewModel();
+                    obj.BranchId = branchId;
+                    obj.Designation = "Field Officer";
+                    obj.EmployeeId = dr.GetString(0);
+                    obj.EmployeeName = dr.GetString(1);
+                    toReturn.Add(obj);
+                }
+            }
+            return toReturn;
+        }
 
 
         public static List<EmployeeViewModel> GetNewEmployees(string BranchId)

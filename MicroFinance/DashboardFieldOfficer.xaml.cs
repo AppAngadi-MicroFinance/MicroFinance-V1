@@ -34,12 +34,13 @@ namespace MicroFinance
     /// </summary>
     public partial class DashboardFieldOfficer : Page
     {
-        public static LoginDetails LoginDesignation;
+        public  LoginDetails LoginDesignation;
         string DayOFWeek;
         public ObservableCollection<CustomerEnrollMetaData> CustomerEnrollMetaDataList = new ObservableCollection<CustomerEnrollMetaData>();
         public DashboardFieldOfficer()
         {
             InitializeComponent();
+            this.LoginDesignation = MainWindow.LoginDesignation;
             xCustomerPendings.Text = NotificationRepository.GetVerifyDocumentNotifyCount(MainWindow.LoginDesignation.EmpId).ToString();
 
             EnrollStartDate.SelectedDate = DateTime.Now;
@@ -331,8 +332,6 @@ namespace MicroFinance
             //GenerateScheduleSheet(collectinoDetails);
 
             GenerateSheet(MainWindow.LoginDesignation.EmpId, DayOFWeek);
-
-
         }
 
         private void xDaysList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -535,6 +534,11 @@ namespace MicroFinance
                 }
             }
             return LoanIdList;
+        }
+
+        private void xCollectionEntryView_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new LoanCollectionView(LoginDesignation));
         }
     }
 }

@@ -1130,6 +1130,77 @@ namespace MicroFinance.ViewModel
                 sqlconn.Close();
             }
         }
+        public static List<LoanCollectionEntryView> GetCollectedList(string branchId, string employeeID, DateTime fromDate, DateTime toDate)
+        {
+            List<LoanCollectionEntryView> toReturn = new List<LoanCollectionEntryView>();
+            using (SqlConnection sqlconn = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                sqlconn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = sqlconn;
+                cmd.CommandText = "select CustId, Attendance, Principal, Interest, ActualDue, PaidDue,Balance, ActualPaymentDate, CollectedOn, SecurityDeposite From LoanCollectionEntry where BranchId = '" + branchId + "' and CollectedBy = '" + employeeID + "' and CollectedOn between '" + fromDate.ToString("yyyy-MM-dd") + "' and '" + toDate.AddDays(1).ToString("yyyy-MM-dd") + "'";
+                SqlDataReader dr = cmd.ExecuteReader();
+                while(dr.Read())
+                {
+                    LoanCollectionEntryView obj = new LoanCollectionEntryView();
+                    obj.CustomerId = dr.GetString(0);
+                    obj.IsPresent = dr.GetInt32(1);
+                    obj.PrincipleAmount = dr.GetInt32(2);
+                    obj.InterestAmount = dr.GetInt32(3);
+                    obj.ActualPayment = dr.GetInt32(4);
+                    obj.PaidAmount = dr.GetInt32(5);
+                    obj.OutstandingAmount = dr.GetInt32(6);
+                    obj.ActualDate = dr.GetDateTime(7);
+                    obj.PaidDate = dr.GetDateTime(8);
+                    obj.SecurityDeposite = dr.GetInt32(9);
+                    toReturn.Add(obj);
+                }
+                dr.Close();
+
+                foreach(LoanCollectionEntryView item in toReturn)
+                {
+                    cmd.CommandText = "select Name from CustomerDetails where CustId = '" + item.CustomerId + "'";
+                    item.CustomerName = (string)cmd.ExecuteScalar();
+                }
+            }
+            return toReturn;
+        }
+
+        public static List<LoanCollectionEntryView> GetCollectedList(string branchId, DateTime fromDate, DateTime toDate)
+        {
+            List<LoanCollectionEntryView> toReturn = new List<LoanCollectionEntryView>();
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = "select CustId, Attendance, Principal, Interest, ActualDue, PaidDue,Balance, ActualPaymentDate, CollectedOn, SecurityDeposite From LoanCollectionEntry where BranchId = '" + branchId + "' and CollectedOn between '" + fromDate.ToString("yyyy-MM-dd") + "' and '" + toDate.AddDays(1).ToString("yyyy-MM-dd") + "'";
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    LoanCollectionEntryView obj = new LoanCollectionEntryView();
+                    obj.CustomerId = dr.GetString(0);
+                    obj.IsPresent = dr.GetInt32(1);
+                    obj.PrincipleAmount = dr.GetInt32(2);
+                    obj.InterestAmount = dr.GetInt32(3);
+                    obj.ActualPayment = dr.GetInt32(4);
+                    obj.PaidAmount = dr.GetInt32(5);
+                    obj.OutstandingAmount = dr.GetInt32(6);
+                    obj.ActualDate = dr.GetDateTime(7);
+                    obj.PaidDate = dr.GetDateTime(8);
+                    obj.SecurityDeposite = dr.GetInt32(9);
+                    toReturn.Add(obj);
+                }
+                dr.Close();
+
+                foreach (LoanCollectionEntryView item in toReturn)
+                {
+                    cmd.CommandText = "select Name from CustomerDetails where CustId = '" + item.CustomerId + "'";
+                    item.CustomerName = (string)cmd.ExecuteScalar();
+                }
+            }
+            return toReturn;
+        }
     }
     public class Loan
     {
@@ -1161,4 +1232,5 @@ namespace MicroFinance.ViewModel
             this.CollectionDay = collectionday;
         }
     }
+    
 }

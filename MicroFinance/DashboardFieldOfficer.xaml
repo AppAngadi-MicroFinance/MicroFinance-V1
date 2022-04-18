@@ -89,20 +89,27 @@
                 </Border.Effect>
                 <Button x:Name="CollectionDetailsBtn" Click="CollectionDetailsBtn_Click" Style="{StaticResource NavigateDailyReports}"></Button>
             </Border>
-            <Border Margin="15" Style="{StaticResource MainBorder}" 
-                 >
+            
+            <Border Margin="15" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Button Style="{StaticResource NavigateFindCustomerSmall}" x:Name="BulkEntryBtn" Click="BulkEntryBtn_Click"></Button>
             </Border>
-            <Button Content="Saving Amount Request" Visibility="Collapsed" x:Name="SavingAmountRequestBtn" Click="SavingAmountRequestBtn_Click"    ></Button>
-            <Border Margin="15" Style="{StaticResource MainBorder}" 
-                 >
+            <Button Content="Saving Amount Request" Visibility="Collapsed" x:Name="SavingAmountRequestBtn" Click="SavingAmountRequestBtn_Click"></Button>
+            <!--Search Customer-->
+            <Border Margin="15" Style="{StaticResource MainBorder}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
                 <Button x:Name="CustomerSearchByAadhar"  Style="{StaticResource NavigateFindCustomer}" Click="CustomerSearchByAadhar_Click"></Button>
+            </Border>
+            <!--Collection entry page-->
+            <Border Margin="15" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xCollectionEntryView"  Style="{StaticResource xColletionViewBtnStyle}" Click="xCollectionEntryView_Click"></Button>
             </Border>
             
             

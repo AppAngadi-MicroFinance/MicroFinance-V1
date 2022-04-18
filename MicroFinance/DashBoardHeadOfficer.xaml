@@ -71,7 +71,13 @@
                 <Button Style="{StaticResource SettingBtn}" x:Name="SettingBtn" Click="SettingBtn_Click"></Button>
             </Border>
             <Button Margin="15" x:Name="sampleBtn" Content="Click" Click="sampleBtn_Click" ></Button>
-            
+            <!--Collection entry page-->
+            <Border Margin="15" Style="{StaticResource MainBorder}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                </Border.Effect>
+                <Button x:Name="xCollectionEntryView" Click="xCollectionEntryView_Click"  Style="{StaticResource xColletionViewBtnStyle}"></Button>
+            </Border>
         </WrapPanel>
         <Border Height="250" Width="350" Grid.ColumnSpan="3" Grid.RowSpan="3" Background="White" CornerRadius="5" BorderBrush="Gray" BorderThickness="2" x:Name="FindCustomerPanel" Visibility="Collapsed">
             <Grid Width="330" Height="190">

@@ -406,5 +406,10 @@ namespace MicroFinance
         {
             this.NavigationService.Navigate(new ExpenseEntry());
         }
+
+        private void xCollectionEntryView_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new LoanCollectionView());
+        }
     }
 }

@@ -41,6 +41,9 @@
     <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
       <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
     </Reference>
+    <Reference Include="Humanizer, Version=2.14.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Humanizer.Core.2.14.1\lib\netstandard2.0\Humanizer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -163,6 +166,7 @@
     <Compile Include="Converters\AgeConverter.cs" />
     <Compile Include="Converters\AttendenceConverter.cs" />
     <Compile Include="Converters\ByteToImageConverter.cs" />
+    <Compile Include="Converters\ColorConverter.cs" />
     <Compile Include="Converters\ComboEnableDisable.cs" />
     <Compile Include="Converters\DayConverter.cs" />
     <Compile Include="Converters\GenderFemale.cs" />
@@ -264,6 +268,9 @@
     <Compile Include="LoanCloseView.xaml.cs">
       <DependentUpon>LoanCloseView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoanCollectionView.xaml.cs">
+      <DependentUpon>LoanCollectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoanPurposeView.xaml.cs">
       <DependentUpon>LoanPurposeView.xaml</DependentUpon>
     </Compile>
@@ -294,6 +301,7 @@
     <Compile Include="Modal\Guarantor.cs" />
     <Compile Include="Modal\HimarkResult.cs" />
     <Compile Include="Modal\LoanApplication.cs" />
+    <Compile Include="Modal\LoanCollectionEntryView.cs" />
     <Compile Include="Modal\LoanDetails.cs" />
     <Compile Include="Modal\LoanProcess.cs" />
     <Compile Include="Modal\LoginDetails.cs" />
@@ -373,6 +381,9 @@
     </Compile>
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="TransferEmployee.xaml.cs">
       <DependentUpon>TransferEmployee.xaml</DependentUpon>
@@ -625,6 +636,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LoanCollectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoanPurposeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -708,6 +723,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Test.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -902,6 +921,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Asserts\Icons\Settings-B.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\MoneyBag.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -103,56 +103,56 @@
                         </Border>
                     </Grid>
                 </Border>
-                <Border Margin="15" Style="{StaticResource MainBorder}" 
-                 >
+                <Border Margin="15" Style="{StaticResource MainBorder}">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                     </Border.Effect>
                     <Button x:Name="AssignShedule" Click="AssignShedule_Click" Style="{StaticResource AssignSHG}"></Button>
                 </Border>
-                <Border Margin="15" Style="{StaticResource MainBorder}" 
-                 >
+                <Border Margin="15" Style="{StaticResource MainBorder}">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                     </Border.Effect>
                     <Button x:Name="EditShedule" Click="EditShedule_Click" Style="{StaticResource EditSHG}"></Button>
                 </Border>
-                <Border Margin="15" Style="{StaticResource MainBorder}" 
-                 >
+                <Border Margin="15" Style="{StaticResource MainBorder}">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                     </Border.Effect>
                     <Button x:Name="ViewCenter" Click="ViewCenter_Click" Style="{StaticResource viewSHG}"></Button>
                 </Border>
-                <Border Margin="15" Style="{StaticResource MainBorder}" 
-                 >
+                <Border Margin="15" Style="{StaticResource MainBorder}" >
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                     </Border.Effect>
                     <Button  x:Name="DeactiveLoanApplication" Click="DeactiveLoanApplication_Click" Style="{StaticResource DeactivateLoan}"></Button>
                 </Border>
 
-                <Border Margin="15" Style="{StaticResource MainBorder}" 
-                 >
+                <Border Margin="15" Style="{StaticResource MainBorder}">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                     </Border.Effect>
                     <Button x:Name="CollectionDetailsBtn" Click="CollectionDetailsBtn_Click" Style="{StaticResource NavigateDailyReports}"></Button>
                     
                 </Border>
-                <Border Margin="15" Style="{StaticResource MainBorder}" 
-                 >
+                <Border Margin="15" Style="{StaticResource MainBorder}">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                     </Border.Effect>
                     <Button x:Name="SDRecommendBtn" Click="SDRecommendBtn_Click" Style="{StaticResource WithDrawlBtn}"></Button>
                 </Border>
-                <Border Margin="15" Style="{StaticResource MainBorder}" 
-                 >
+                <Border Margin="15" Style="{StaticResource MainBorder}">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                     </Border.Effect>
                     <Button x:Name="AddEcpence" Click="AddEcpence_Click" Style="{StaticResource ExpenceBtn}"></Button>
+                </Border>
+                <!--Collection entry page-->
+                <Border Margin="15" Style="{StaticResource MainBorder}">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                    </Border.Effect>
+                    <Button x:Name="xCollectionEntryView"  Style="{StaticResource xColletionViewBtnStyle}" Click="xCollectionEntryView_Click"></Button>
                 </Border>
 
 

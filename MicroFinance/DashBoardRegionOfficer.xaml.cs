@@ -579,6 +579,11 @@ namespace MicroFinance
         {
             HiMarkReportPanel.Visibility = Visibility.Visible;
         }
+
+        private void xCollectionEntryView_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new LoanCollectionView());
+        }
     }
 
     public class HimarkResultExcelModel
