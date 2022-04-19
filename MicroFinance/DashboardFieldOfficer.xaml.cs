@@ -25,6 +25,7 @@ using MicroFinance.Repository;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using MicroFinance.Reports;
 
 namespace MicroFinance
 {
@@ -204,12 +205,134 @@ namespace MicroFinance
             xDaySelectionPopup.Visibility = Visibility.Collapsed;
             MainWindow.StatusMessageofPage(1, "Collection Report Generated SuccessFully!...");
         }
+        static void GenerateSheet(string empId, string collectionDay)
+        {
+            List<string> LoanIdList = GetLoanId(empId, collectionDay);
 
+            // Loan all Loan Details
+            List<CustomerDueDetail> LoanMemberList = new List<CustomerDueDetail>();
+            try
+            {
+                foreach (string loanId in LoanIdList)
+                    LoanMemberList.Add(new CustomerDueDetail(loanId));
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            // Get Distinct Center
+            List<string> DistinctCenter = LoanMemberList.OrderBy(o => o.CenterName).Select(o => o.CenterName).Distinct().ToList();
+
+            // Split List by center name
+            List<List<CustomerDueDetail>> ListByCenter = new List<List<CustomerDueDetail>>();
+            foreach (string center in DistinctCenter)
+            {
+                ListByCenter.Add(LoanMemberList.Where(o => o.CenterName == center).ToList());
+            }
+
+            // Table Details
+            // Final list of list by center.
+            List<List<DueDetailRDLCModel>> FinalTableList = new List<List<DueDetailRDLCModel>>();
+            List<List<GroupSummaryRDLCModel>> FinalGroupSummary = new List<List<GroupSummaryRDLCModel>>();
+            for (int i = 0; i < ListByCenter.Count; i++)
+            {
+                // Group wise Total amount;
+                List<DueDetailRDLCModel> SingleCenterList = new List<DueDetailRDLCModel>();
+                List<GroupSummaryRDLCModel> SingleCenterGroupSummary = new List<GroupSummaryRDLCModel>();
+
+                List<string> GroupsList = ListByCenter[i].Select(o => o.GroupName).Distinct().ToList();
+                int groupCount = 0;
+                foreach (string groupName in GroupsList)
+                {
+                    groupCount++;
+                    GroupSummaryRDLCModel obj = new GroupSummaryRDLCModel();
+                    obj.GroupName = groupName;
+                    obj.CollectionAmount = ListByCenter[i].Where(o => o.GroupName == groupName).Select(o => o.CuurentLoanDetail.TotalAmount).Sum();
+                    SingleCenterGroupSummary.Add(obj);
+
+                    List<CustomerDueDetail> GroupItem = ListByCenter[i].Where(o => o.GroupName == groupName).ToList();
+                    int subGroupCount = 0;
+                    foreach (CustomerDueDetail item in GroupItem)
+                    {
+                        subGroupCount++;
+                        item.SNo = groupCount + "." + subGroupCount;
+                        item.Day = collectionDay;
+                        SingleCenterList.Add(new DueDetailRDLCModel(item));
+                    }
+                }
+
+                FinalTableList.Add(SingleCenterList);
+                FinalGroupSummary.Add(SingleCenterGroupSummary);
+            }
+
+            for (int i = 0; i < FinalTableList.Count(); i++)
+            {
+                GenerateScheduleSheet(FinalTableList[i], FinalGroupSummary[i]);
+            }
+        }
+        static void GenerateScheduleSheet(List<DueDetailRDLCModel> collectionDetails, List<GroupSummaryRDLCModel> groupWiseCollections)
+        {
+            string CenterName = collectionDetails.Select(o => o.CenterName).Distinct().Single().ToString();
+            //string filedate = showDate.Text;
+            DataTable dt1 = new DataTable();
+            dt1 = ConvertToDataTable(collectionDetails);
+
+            DataTable dt2 = new DataTable();
+            dt2 = ConvertToDataTable(groupWiseCollections);
+
+            //For table 1
+            ReportDataSource reportDataSource1 = new ReportDataSource();
+            reportDataSource1.Name = "DataSet1"; // Name of the DataSet we set in .rdlc
+            reportDataSource1.Value = dt1;
+
+            ReportDataSource reportDataSource2 = new ReportDataSource();
+            reportDataSource2.Name = "DataSet2"; // Name of the DataSet we set in .rdlc
+            reportDataSource2.Value = dt2;
+
+            //Setting Report Viewer
+            ReportViewer reportViewer1 = new ReportViewer();
+            reportViewer1.LocalReport.ReportEmbeddedResource = "MicroFinance.CollectionSheetFO.rdlc";
+            reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
+            reportViewer1.LocalReport.DataSources.Add(reportDataSource2);
+            reportViewer1.RefreshReport();
+            reportViewer1.ProcessingMode = ProcessingMode.Local;
+
+            Warning[] warnings1;
+            string[] streamids1;
+            string mimeType1;
+            string encoding1;
+            string extension1;
+            try
+            {
+                string dir = string.Empty;
+                //string showdatess = Changeformat(showDate.Text);
+                byte[] bytes = reportViewer1.LocalReport.Render("PDF", null, out mimeType1, out encoding1, out extension1, out streamids1, out warnings1);
+
+                dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "REPORTS\\");
+                string FileName = dir + CenterName + "_Collection_Sheet_" + DateTime.Now.ToString("dd-MMM-yyyy") + ".pdf";
+
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+                if (Directory.Exists(dir))
+                {
+                    FileStream fs = new FileStream(FileName, FileMode.Create);
+
+                    var temps = fs.ToString();
+                    fs.Write(bytes, 0, bytes.Length);
+                    fs.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Can't generate Collection Sheet for You. Contact admin.");
+            }
+        }
         void DownloadPdf()
         {
-            CollectionSheetModelPDF collectinoDetails = new CollectionSheetModelPDF(MainWindow.LoginDesignation.EmpId, DayOFWeek);
-            GenerateScheduleSheet(collectinoDetails);
-            
+            //CollectionSheetModelPDF collectinoDetails = new CollectionSheetModelPDF(MainWindow.LoginDesignation.EmpId, DayOFWeek);
+            //GenerateScheduleSheet(collectinoDetails);
+
+            GenerateSheet(MainWindow.LoginDesignation.EmpId, DayOFWeek);
+
+
         }
 
         private void xDaysList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -394,6 +517,24 @@ namespace MicroFinance
         private void CustomerSearchByAadhar_Click(object sender, RoutedEventArgs e)
         {
             FindCustomerPanel.Visibility = Visibility.Visible;
+        }
+
+        static List<string> GetLoanId(string empId, string day)
+        {
+            List<string> LoanIdList = new List<string>();
+            using (SqlConnection con = new SqlConnection(Properties.Settings.Default.db))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = "select LoanID from LoanDetails where IsActive = 1 and CustomerID in (select CustId from CustomerGroup where PeerGroupId in (select GroupId from PeerGroup where SHGid in (select SHGId from TimeTable where EmpId = '" + empId + "' and CollectionDay ='" + day + "')))";
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    LoanIdList.Add(dr.GetString(0));
+                }
+            }
+            return LoanIdList;
         }
     }
 }
