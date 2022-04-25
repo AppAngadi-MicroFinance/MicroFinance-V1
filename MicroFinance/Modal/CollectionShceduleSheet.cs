@@ -100,14 +100,15 @@ namespace MicroFinance.Modal
                 sql.Close();
             }
         }
-        void GetCenterName4EMPid(string empId, string collectionDay)
+        void GetCenterName4EMPid(string empId, string collectionDay,CustomerIDinGroup customergroup)
         {
             using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
             {
                 sql.Open();
                 SqlCommand command = new SqlCommand();
                 command.Connection = sql;
-                command.CommandText = "select SHGName from SelfHelpGroup where SHGId  in (select SHGId from TimeTable where EmpId = '"+empId+"' and CollectionDay = '"+collectionDay+"')";
+                //command.CommandText = "select SHGName from SelfHelpGroup where SHGId  in (select SHGId from TimeTable where EmpId = '"+empId+"' and CollectionDay = '"+collectionDay+"')";
+                command.CommandText = "select shgname from selfhelpgroup where shgid in(select SHGID from CustomerGroup where CustId='" + customergroup.CustomerId + "')";
                 CenterSHGName = (string)command.ExecuteScalar();
                 sql.Close();
             }
@@ -117,11 +118,11 @@ namespace MicroFinance.Modal
         {
 
         }
-        public CollectionShceduleSheet(string empId, string collectionDay)
+        public CollectionShceduleSheet(string empId, string collectionDay,CustomerIDinGroup custidgroup)
         {
             EmpId = empId;
             GetBrachName4EMPid(EmpId);
-            GetCenterName4EMPid(EmpId, collectionDay);
+            GetCenterName4EMPid(EmpId, collectionDay,custidgroup);
         }
      
       
@@ -265,7 +266,7 @@ namespace MicroFinance.Modal
             List<string> LoanIdForCustomerID = new List<string>();
             foreach(CustomerIDinGroup item in CustomersINPeerGroup)
             {
-                CollectionShceduleSheet temp = new CollectionShceduleSheet(empID, day);
+                CollectionShceduleSheet temp = new CollectionShceduleSheet(empID, day,item);
                 using (SqlConnection sql = new SqlConnection(Properties.Settings.Default.DBConnection))
                 {
                     sql.Open();
