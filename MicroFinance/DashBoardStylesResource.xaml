@@ -1856,16 +1856,43 @@
                                 </Grid.RowDefinitions>
                                 <Image Grid.Column="0" Width="65" Height="65"  Source=".\Asserts\Icons\rubberstamp.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
                                 <TextBlock Grid.Row="1" Width="100"  Text="Customer Approvals" Style="{StaticResource DashboardBtnText}"></TextBlock>
-                                
+
                             </Grid>
                         </DataTemplate>
                     </ContentPresenter.ContentTemplate>
                 </ContentPresenter>
             </Setter.Value>
         </Setter>
-        
     </Style>
+    
+    <Style TargetType="{x:Type Button}" x:Key="xsGenerateButton">
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="Background" Value="#FEF8F1"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Content">
+            <Setter.Value>
+                <ContentPresenter>
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <Grid Width="300" Height="200" ShowGridLines="True">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="80*"/>
+                                    <RowDefinition Height="20*"/>
+                                </Grid.RowDefinitions>
 
+                                <Image Grid.Column="1" Width="100" Height="100" Source=".\Asserts\Icons\ExcelOnline.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+                                <TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Width="200"  Text="Generate Report" Style="{StaticResource DashboardBtnText}"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="{x:Type Button}" x:Key="BackButtonStyle">
         <Style.Resources>

@@ -17,7 +17,5 @@ namespace MicroFinance.Modal
                 PropertyChanged(this, new PropertyChangedEventArgs(PropertyName));
             }
         }
-
-
     }
 }

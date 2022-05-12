@@ -344,7 +344,7 @@ namespace MicroFinance
 
         private void sampleBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Test());
+            this.NavigationService.Navigate(new ReportDownloadWindow());
         }
 
         private void xCollectionEntryView_Click(object sender, RoutedEventArgs e)
