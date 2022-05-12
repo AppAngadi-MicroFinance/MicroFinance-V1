@@ -674,5 +674,7 @@ namespace MicroFinance.Reports
                 _penalinterestrate = value;
             }
         }
+
+        
     }
 }

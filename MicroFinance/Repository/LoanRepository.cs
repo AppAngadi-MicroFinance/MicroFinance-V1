@@ -258,6 +258,10 @@ namespace MicroFinance.ViewModel
                             sqlcomm.CommandText = "select HimarkReference from HimarkResult where RequestID='" + Hm.RequestID + "'";
                             string number =(string) sqlcomm.ExecuteScalar();
                             Hm.HimarkRefNumber = number;
+
+                            sqlcomm.CommandText = "select mailid from branchdetails where bid='" + Hm.BranchID + "'";
+
+                            Hm.Mailid = (string)sqlcomm.ExecuteScalar();
                         }
                         catch (Exception ex)
                         {

@@ -66,16 +66,21 @@ namespace MicroFinance.Modal
                     gs.PANTANno = command.ExecuteScalar().ToString();
                     command.CommandText = "select LoanApplication.RequestId,LoanApplication.LoanAmount,HimarkResult.ReportID from LoanApplication,HimarkResult where CustId='"+id+"' and LoanApplication.RequestId = HimarkResult.RequestID";
                     reader = command.ExecuteReader();
+                    string requestid = "";
                     while(reader.Read())
                     {
                         gs.LoanAmount = reader.GetInt32(1);
                         gs.ReportID = reader.GetString(2);
+                        requestid = reader.GetString(0);
                     }
                     reader.Close();
+                    command.CommandText = "select HimarkReference from HimarkResult where RequestID='" + requestid + "'";
+                    string number = (string)command.ExecuteScalar();
+                    gs.HMRefernceNo = number;
                     //default values
 
                     gs.OperatingUnit = "Samunnati_OU";
-                    gs.HMRefernceNo = DateTime.Today.ToString("yyyy") + "_" + DateTime.Today.ToString("MM") + "_" + DateTime.Today.ToString("dd");
+                  //  gs.HMRefernceNo = DateTime.Today.ToString("yyyy") + "_" + DateTime.Today.ToString("MM") + "_" + DateTime.Today.ToString("dd");
                     gs.SamunnatiBranchMapping = "Thiruvanmiyur - BAID";
                     gs.CustomerType = "CBO";
                     gs.CustomerSubtype = "CBO MEMBER";
@@ -149,6 +154,9 @@ namespace MicroFinance.Modal
                         gs.EmployeeName = R.EmpName;
                         gs.CollectionDay = R.CollectionDay;
                         gs.BranchName = R.BranchName;
+                        gs.HMRefernceNo = R.HimarkRefNumber;
+                        gs.EmailID = R.Mailid;
+                       
                     }
                     reader.Close();
                     command.CommandText = "select Mobile from GuarenteeDetails where CustId = '" + R.CustomerID + "'";
@@ -164,7 +172,7 @@ namespace MicroFinance.Modal
                     //default values
 
                     gs.OperatingUnit = "Samunnati_OU";
-                    gs.HMRefernceNo = DateTime.Today.ToString("yyyy") + "_" + DateTime.Today.ToString("MM") + "_" + DateTime.Today.ToString("dd");
+                    //gs.HMRefernceNo = DateTime.Today.ToString("yyyy") + "_" + DateTime.Today.ToString("MM") + "_" + DateTime.Today.ToString("dd");
                     gs.SamunnatiBranchMapping = "Thiruvanmiyur - BAID";
                     gs.CustomerType = "CBO";
                     gs.CustomerSubtype = "CBO MEMBER";
@@ -173,7 +181,7 @@ namespace MicroFinance.Modal
                     gs.Sector = "AGRI INPUT";
                     gs.PrimaryValueChain = "SEEDS";
                     gs.SecondaryValueChain = "SEEDS";
-                    gs.EmailID = "gtrust2007@yahoo.in";
+                    //gs.EmailID = "gtrust2007@yahoo.in";
                     gs.Constitution = "Individual";
                     gs.ExistingRelationshipValue = "S0628";
                     gs.NewCustomerAcquisition = "S0628";

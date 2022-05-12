@@ -156,7 +156,7 @@ namespace MicroFinance
                 
                 GTtoSAMU.GenerateSamunnati_File(FilterData(BindingData));
                 HimarkRepository.UpdateStatusToExportExcel(RequestIds, 11);
-                string EmpID =string.IsNullOrEmpty(MainWindow.LoginDesignation.EmpId)?"ADMIN":MainWindow.LoginDesignation.EmpId;
+                string EmpID = string.IsNullOrEmpty(MainWindow.LoginDesignation.EmpId) ? "ADMIN" : MainWindow.LoginDesignation.EmpId;
                 LoanRepository.InsertTransaction(RequestIds, EmpID, 11);
                 MainWindow.StatusMessageofPage(1, "Excel Generated Successfully!...");
             }

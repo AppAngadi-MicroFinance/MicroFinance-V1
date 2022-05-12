@@ -50,5 +50,6 @@ namespace MicroFinance.ViewModel
         public string LoanType { get; set; }
         public string ReportId { get; set; }
         public string HimarkRefNumber { get; set; }
+        public string Mailid { get; set; }
     }
 }
