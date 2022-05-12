@@ -27,7 +27,7 @@ namespace MicroFinance
     /// </summary>
     public partial class ReportDownloadWindow : Page
     {
-        DateRange CurrentDateRange = new DateRange();
+        DateRange ContextRange = new DateRange();
         List<ReportListViewModel> ReportTypes = new List<ReportListViewModel>();
         GTReport GTReports;
         ReportListViewModel SelectedItem = new ReportListViewModel();
@@ -41,9 +41,8 @@ namespace MicroFinance
         {
             InitializeComponent();
             LoadReportTypes();
+            ResetDateRange();
             xReportTypes.ItemsSource = ReportTypes;
-            CurrentDateRange.FromDate = DateTime.Now.AddMonths(-4);
-            CurrentDateRange.ToDate = DateTime.Now;
         }
         void LoadReportTypes()
         {
@@ -58,6 +57,7 @@ namespace MicroFinance
         }
         void SelectionAction(ReportListViewModel selectedItem)
         {
+            ResetDateRange();
             xSelectedReport.Text = selectedItem.ReportType;
             foreach (ReportListViewModel item in ReportTypes)
             {
@@ -68,6 +68,12 @@ namespace MicroFinance
             }
         }
 
+        void ResetDateRange()
+        {
+            ContextRange = null;
+            xFromDateTB.Text = string.Empty;
+            xToDateTB.Text = string.Empty;
+        }
         private void xReportTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(xReportTypes.SelectedIndex > -1)
@@ -88,13 +94,18 @@ namespace MicroFinance
         }
         private async void xGenerateReport_Click(object sender, RoutedEventArgs e)
         {
-            xLoadingGifPanel.Visibility = Visibility.Visible;
+            if(ContextRange != null)
+            {
+                xLoadingGifPanel.Visibility = Visibility.Visible;
 
-            await Task.Run(() => ReportGenerationProcess());
+                await Task.Run(() => ReportGenerationProcess());
 
-            FinalPath_Binding(FinalPathList);
-            xFinalReportPathPanel.Visibility = Visibility.Visible;
-            xLoadingGifPanel.Visibility = Visibility.Collapsed;
+                FinalPath_Binding(FinalPathList);
+                xFinalReportPathPanel.Visibility = Visibility.Visible;
+                xLoadingGifPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+                MessageBox.Show("You have to select date range.");
         }
         private void xOpenAll_Click(object sender, RoutedEventArgs e)
         {
@@ -114,35 +125,35 @@ namespace MicroFinance
                 switch (SelectedItem.Index)
                 {
                     case 1:
-                        FinalPathList = GTReports.AccountClosingReport(CurrentDateRange);
+                        FinalPathList = GTReports.AccountClosingReport(ContextRange);
                         break;
 
                     case 2:
-                        FinalPathList = GTReports.ApplicationLoginReport(CurrentDateRange);
+                        FinalPathList = GTReports.ApplicationLoginReport(ContextRange);
                         break;
 
                     case 3:
-                        FinalPathList = GTReports.ApplicationHighmarkApproved(CurrentDateRange);
+                        FinalPathList = GTReports.ApplicationHighmarkApproved(ContextRange);
                         break;
 
                     case 4:
-                        FinalPathList = GTReports.ApplicationHighmarkRejection(CurrentDateRange);
+                        FinalPathList = GTReports.ApplicationHighmarkRejection(ContextRange);
                         break;
 
                     case 5:
-                        FinalPathList = GTReports.LoanAmount(CurrentDateRange);
+                        FinalPathList = GTReports.LoanAmount(ContextRange);
                         break;
 
                     case 6:
-                        FinalPathList = GTReports.LoanRecovery(CurrentDateRange);
+                        FinalPathList = GTReports.LoanRecovery(ContextRange);
                         break;
 
                     case 7:
-                        FinalPathList = GTReports.LoanDisbursement(CurrentDateRange);
+                        FinalPathList = GTReports.LoanDisbursement(ContextRange);
                         break;
 
                     case 8:
-                        FinalPathList = GTReports.OutstandingReport(CurrentDateRange);
+                        FinalPathList = GTReports.OutstandingReport(ContextRange);
                         break;
 
                     default:
@@ -172,6 +183,28 @@ namespace MicroFinance
                     MessageBox.Show("File missing or already opened..!");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void xFromDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ContextRange == null)
+                ContextRange = new DateRange();
+            ContextRange.FromDate = (DateTime)xFromDate.SelectedDate;
+            xFromDateTB.Text = ContextRange.FromDate_String;
+        }
+
+        private void xToDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ContextRange == null)
+                ContextRange = new DateRange();
+
+            if (ContextRange.FromDate <= xToDate.SelectedDate)
+            {
+                ContextRange.ToDate = (DateTime)xToDate.SelectedDate;
+                xToDateTB.Text = ContextRange.ToDate_String;
+            }   
+            else
+                MessageBox.Show("Invalid date selection.");
         }
     }
 
