@@ -92,9 +92,18 @@ namespace MicroFinance
                 xReportFilesList.SelectedIndex = -1;
             }
         }
+        bool DoDateVerify(DateRange range)
+        {
+            if (range.FromDate == new DateTime())
+                return false;
+            else if (range.ToDate == new DateTime())
+                return false;
+            else
+                return true;
+        }
         private async void xGenerateReport_Click(object sender, RoutedEventArgs e)
         {
-            if(ContextRange != null)
+            if(ContextRange != null && DoDateVerify(ContextRange))
             {
                 xLoadingGifPanel.Visibility = Visibility.Visible;
 
@@ -190,6 +199,7 @@ namespace MicroFinance
             if (ContextRange == null)
                 ContextRange = new DateRange();
             ContextRange.FromDate = (DateTime)xFromDate.SelectedDate;
+            ContextRange.ToDate = new DateTime();
             xFromDateTB.Text = ContextRange.FromDate_String;
         }
 
