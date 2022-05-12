@@ -13,8 +13,15 @@
 
             <SolidColorBrush x:Key="xMaincolor">#781f9f</SolidColorBrush>
             <SolidColorBrush x:Key="xBlack2">#2a2e36</SolidColorBrush>
+
             
-            
+            <SolidColorBrush x:Key="xGridMainColor1">#FEF2E4</SolidColorBrush>
+            <SolidColorBrush x:Key="xGridMainColor2">#e8c9a5</SolidColorBrush>
+            <SolidColorBrush x:Key="xGridMainColor3">#cf8e44</SolidColorBrush>
+            <SolidColorBrush x:Key="xGridMainColor_Dark1">#ba7729</SolidColorBrush>
+            <SolidColorBrush x:Key="xGridMainColor_Dark2">#613a0d</SolidColorBrush>
+
+
 
             <!--Toggle Button Style-->
             <Style x:Key="ToggleButtonStyle1" TargetType="{x:Type ToggleButton}">

@@ -177,6 +177,7 @@
     <Compile Include="Converters\InverseVisiblityConverterbyImage.cs" />
     <Compile Include="Converters\IValueConvert.cs" />
     <Compile Include="Converters\LeaveCheck.cs" />
+    <Compile Include="Converters\ListItemSelectionColor.cs" />
     <Compile Include="Converters\LoanRequestConverter.cs" />
     <Compile Include="Converters\MoneyConverter.cs" />
     <Compile Include="Converters\MonthConverter.cs" />
@@ -333,6 +334,31 @@
     <Compile Include="RegionManagerWindow.xaml.cs">
       <DependentUpon>RegionManagerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReportDownloadWindow.xaml.cs">
+      <DependentUpon>ReportDownloadWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReportExports\GTReport.cs" />
+    <Compile Include="ReportExports\LoanRepository.cs" />
+    <Compile Include="ReportExports\Models\ApplicationStatusModel.cs" />
+    <Compile Include="ReportExports\Models\CollectionEntryData.cs" />
+    <Compile Include="ReportExports\Models\CollectionEntryModel.cs" />
+    <Compile Include="ReportExports\Models\DateAndData.cs" />
+    <Compile Include="ReportExports\Models\DateRange.cs" />
+    <Compile Include="ReportExports\Models\LoanApplicationModel.cs" />
+    <Compile Include="ReportExports\Models\LoanCollectionEntryModel.cs" />
+    <Compile Include="ReportExports\Models\LoanOutstandingModel.cs" />
+    <Compile Include="ReportExports\Models\LoanRepoModel.cs" />
+    <Compile Include="ReportExports\Models\LoanSummaryModel.cs" />
+    <Compile Include="ReportExports\Models\MFOrigin.cs" />
+    <Compile Include="ReportExports\Models\ReportModel.cs" />
+    <Compile Include="ReportExports\ReportTools\AccountClosingReport.cs" />
+    <Compile Include="ReportExports\ReportTools\ApplicationLoginReport.cs" />
+    <Compile Include="ReportExports\ReportTools\CollectionReport.cs" />
+    <Compile Include="ReportExports\ReportTools\DisbursementReport.cs" />
+    <Compile Include="ReportExports\ReportTools\HighmarkReport.cs" />
+    <Compile Include="ReportExports\ReportTools\LoanAmountReport.cs" />
+    <Compile Include="ReportExports\ReportTools\OutStandingReport.cs" />
+    <Compile Include="ReportExports\ReportTools\ReportTool.cs" />
     <Compile Include="Reports\CollectionDetailsReport.cs" />
     <Compile Include="Reports\CustomerDueDetail.cs" />
     <Compile Include="Reports\DueDetailRDLCModel.cs" />
@@ -690,6 +716,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ReportDownloadWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SACollectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -924,6 +954,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Asserts\Icons\MoneyBag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\ExcelReport.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

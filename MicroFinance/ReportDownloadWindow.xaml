@@ -1,0 +1,165 @@
+﻿<Page x:Class="MicroFinance.ReportDownloadWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MicroFinance"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
+      xmlns:convert="clr-namespace:MicroFinance.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1368" Background="{StaticResource xGridMainColor1}"
+      Title="ReportDownloadWindow">
+
+    <Page.Resources>
+        <convert:ListItemSelectionColor x:Key="xSelectionColor"></convert:ListItemSelectionColor>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="250"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Border x:Name="xFinalReportPathPanel" Grid.Row="2" Background="Transparent" Visibility="Collapsed">
+            <Grid HorizontalAlignment="Center" MaxWidth="1000">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Reports" FontSize="14" FontWeight="SemiBold"></TextBlock>
+                    <Button x:Name="xOpenAll" Click="xOpenAll_Click" Width="80" Height="28" Foreground="White" Content="Open All" Background="Orange" 
+                            Grid.Column="1" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
+                </Grid>
+                <ListView Grid.Row="1" x:Name="xReportFilesList" SelectionChanged="xReportFilesList_SelectionChanged" BorderThickness="0" Background="Transparent">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Border x:Name="xThisPanel" Height="30" Background="{StaticResource xGridMainColor2}" Margin="0,2,0,0">
+                                            <Grid Margin="30,0,0,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Text="{Binding}" FontSize="12" VerticalAlignment="Center"></TextBlock>
+                                                <Border Grid.Column="2" Background="Orange">
+                                                    <TextBlock Text="Open" FontSize="10" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBlock>
+                                                </Border>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="xThisPanel" Property="Opacity" Value="0.7"></Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </Grid>
+        </Border>
+        
+        <Grid Height="300" Width="700" Margin="50,100,50,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Border Width="250" BorderThickness="1" BorderBrush="{StaticResource xGridMainColor_Dark2}" 
+                VerticalAlignment="Top" HorizontalAlignment="Center">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Border Background="{StaticResource xGridMainColor_Dark2}">
+                        <TextBlock Text="Reports" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource xGridMainColor2}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    </Border>
+
+                    <ListView x:Name="xReportTypes" SelectionChanged="xReportTypes_SelectionChanged" MaxHeight="300" Grid.Row="1" Background="Transparent" BorderThickness="0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type  ListViewItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Border x:Name="xThisPanel" Height="30" BorderThickness="1" Margin="0,2,0,0"
+                                            Background="{Binding IsSelected, Converter={StaticResource xSelectionColor}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderBrush="{StaticResource xGridMainColor_Dark1}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="30"></ColumnDefinition>
+                                                        <ColumnDefinition ></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Index}" FontSize="12" FontWeight="SemiBold" Margin="10,0,0,0"
+                                                   HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                                                    <TextBlock Text="{Binding ReportType}" Grid.Column="1" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,0"
+                                                   HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                                                </Grid>
+
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="xThisPanel" Property="Background" Value="{StaticResource xGridMainColor3}"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </Grid>
+            </Border>
+            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Border BorderThickness="1.5" Height="40" Background="{StaticResource xGridMainColor2}" BorderBrush="{StaticResource xGridMainColor_Dark2}" VerticalAlignment="Top">
+                    <Grid HorizontalAlignment="Center">
+                        <TextBlock x:Name="xSelectedReport" Text="Reports" Margin="50,5,50,5" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center"></TextBlock>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1" Background="#FEF8F1" CornerRadius="5"  Width="250" Height="200" VerticalAlignment="Bottom">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="150"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Image Width="100" Height="100" Source=".\Asserts\Icons\ExcelReport.png" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+
+                        <Border Grid.Row="1" CornerRadius="0,0,5,5" BorderThickness="2" BorderBrush="{StaticResource xGridMainColor_Dark1}" >
+                            <Button x:Name="xGenerateReport" Click="xGenerateReport_Click" Content="Export Report" Foreground="White" FontSize="18" FontWeight="SemiBold" 
+                            BorderThickness="0" Background="{StaticResource xGridMainColor_Dark1}"></Button>
+                        </Border>
+
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+
+        
+
+        
+
+        <StackPanel x:Name="xLoadingGifPanel" Panel.ZIndex="3" Grid.ColumnSpan="3" Grid.RowSpan="3" Height="200" Width="200" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Name="ProcessGif" gif:ImageBehavior.AnimatedSource="Asserts\Icons\CircleGif.gif" Height="150" Width="150"></Image>
+        </StackPanel>
+    </Grid>
+</Page>
