@@ -189,7 +189,7 @@ namespace MicroFinance.ReportExports
         {
             List<LoanApplicationModel> toReturn = new List<LoanApplicationModel>();
             cmd.CommandText = string.Empty;
-            cmd.CommandText = "select RequestId, LoanAmount, EnrollDate, CustId, EmployeeId, BranchId, SHGId from LoanApplication where LoanStatus = 3 and EnrollDate between '" + range.FromDate_String + "' and '" + range.ToDate_String + "'";
+            cmd.CommandText = "select RequestId, LoanAmount, EnrollDate, CustId, EmployeeId, BranchId, SHGId from LoanApplication where RequestId in (select ApplicationID from LoanApplicationLog where StatusCode = 4 and TransactionDate between '" + range.FromDate_String + "' and '" + range.ToDate_String + "')";
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -219,7 +219,7 @@ namespace MicroFinance.ReportExports
         {
             List<LoanApplicationModel> toReturn = new List<LoanApplicationModel>();
             cmd.CommandText = string.Empty;
-            cmd.CommandText = "select RequestId, LoanAmount, EnrollDate, CustId, EmployeeId, BranchId, SHGId from LoanApplication where LoanStatus > 3 and EnrollDate between '" + range.FromDate_String + "' and '" + range.ToDate_String + "'";
+            cmd.CommandText = "select RequestId, LoanAmount, EnrollDate, CustId, EmployeeId, BranchId, SHGId from LoanApplication where RequestId in (select ApplicationID from LoanApplicationLog where StatusCode = 3 and TransactionDate between '" + range.FromDate_String + "' and '" + range.ToDate_String + "')";
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
