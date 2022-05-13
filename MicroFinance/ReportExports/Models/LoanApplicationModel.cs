@@ -18,7 +18,7 @@ namespace MicroFinance.ReportExports.Models
 
         public string RequestId { get; set; }
         public DateTime RequestedDate { get; set; }
-        public DateTime DisClosedDate { get; set; }
+        public DateTime AccountCosedOn { get; set; }
 
         public string LoanId { get; set; }
         public string LoanType { get; set; }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace MicroFinance.ReportExports.Models
 {
-    public class LoanRepoModel
+    public class LoanMetaModel
     {
         public string LoanId { get; set; }
+        public int LoanAmount { get; set; }
         public DateTime ApprovedDate { get; set; }
         public string ApprovedBy_EmpId { get; set; }
         public string ApprovedBy_EmpName { get; set; }

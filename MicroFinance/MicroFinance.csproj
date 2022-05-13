@@ -347,7 +347,7 @@
     <Compile Include="ReportExports\Models\LoanApplicationModel.cs" />
     <Compile Include="ReportExports\Models\LoanCollectionEntryModel.cs" />
     <Compile Include="ReportExports\Models\LoanOutstandingModel.cs" />
-    <Compile Include="ReportExports\Models\LoanRepoModel.cs" />
+    <Compile Include="ReportExports\Models\LoanMetaModel.cs" />
     <Compile Include="ReportExports\Models\LoanSummaryModel.cs" />
     <Compile Include="ReportExports\Models\MFOrigin.cs" />
     <Compile Include="ReportExports\Models\ReportModel.cs" />

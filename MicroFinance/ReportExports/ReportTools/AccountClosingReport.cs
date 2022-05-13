@@ -36,7 +36,7 @@ namespace MicroFinance.ReportExports.ReportTools
             List<string> distinctBranch = LoanMasterList.Select(o => o.OriginDetail.BranchId).Distinct().ToList();
             foreach (string branch in distinctBranch)
             {
-                List<string> distinctEmployee = LoanMasterList.Where(o => o.OriginDetail.BranchId == branch).Select(o => o.AccountClosedBY).Distinct().ToList().Where(o => o.Length > 0).ToList();
+                List<string> distinctEmployee = LoanMasterList.Where(o => o.OriginDetail.BranchId == branch).Select(o => o.AccountClosedBY).Distinct().ToList().Where(o => o != null && o.Length > 0).ToList();
                 foreach (string employee in distinctEmployee)
                 {
                     ReportModel Item = new ReportModel();
@@ -51,7 +51,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         obj.ToDate = MonthPeriods[i];
 
                         List<LoanSummaryModel> branchAndCenter = LoanMasterList.Where(o => o.OriginDetail.BranchId == branch && o.AccountClosedBY == employee).ToList();
-                        List<LoanSummaryModel> final = branchAndCenter.Where(o => o.AccountCloseOn > obj.FromDate && o.AccountCloseOn <= obj.ToDate).ToList();
+                        List<LoanSummaryModel> final = branchAndCenter.Where(o => o.AccountClosedOn > obj.FromDate && o.AccountClosedOn <= obj.ToDate).ToList();
 
                         obj.Amount = final.Count();
                         Item.DataList.Add(obj);
@@ -82,7 +82,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         obj.ToDate = MonthPeriods[i];
 
                         List<LoanSummaryModel> branchAndCenter = LoanMasterList.Where(o => o.OriginDetail.RegionId == region && o.OriginDetail.BranchId == branch).ToList();
-                        List<LoanSummaryModel> final = branchAndCenter.Where(o => o.AccountCloseOn > obj.FromDate && o.AccountCloseOn <= obj.ToDate).ToList();
+                        List<LoanSummaryModel> final = branchAndCenter.Where(o => o.AccountClosedOn > obj.FromDate && o.AccountClosedOn <= obj.ToDate).ToList();
 
                         obj.Amount = final.Count();
                         Item.DataList.Add(obj);
@@ -112,7 +112,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         obj.ToDate = MonthPeriods[i];
 
                         List<LoanSummaryModel> branchAndCenter = LoanMasterList.Where(o => o.OriginDetail.BranchId == branch && o.OriginDetail.SHGId == center).ToList();
-                        List<LoanSummaryModel> final = branchAndCenter.Where(o => o.AccountCloseOn > obj.FromDate && o.AccountCloseOn <= obj.ToDate).ToList();
+                        List<LoanSummaryModel> final = branchAndCenter.Where(o => o.AccountClosedOn > obj.FromDate && o.AccountClosedOn <= obj.ToDate).ToList();
 
                         obj.Amount = final.Count();
                         Item.DataList.Add(obj);

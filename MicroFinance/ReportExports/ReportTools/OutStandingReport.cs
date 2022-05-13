@@ -45,7 +45,7 @@ namespace MicroFinance.ReportExports.ReportTools
                     LoanOutstandingModel obj = new LoanOutstandingModel();
                     obj.LoanId = loanItem.Key;
                     obj.EmployeeID = empId;
-                    obj.BranchDetail = LoanRepo.BranchDetailDICT[LoanRepo.Get_EmployeeBranch(obj.EmployeeID)];
+                    obj.BranchDetail = LoanRepo.BranchDetailDICT[LoanRepo.EmployeeBranchDICT[empId]];
                     obj.LoanAmount = LoanMasterList.Where(o => o.LoanId == loanItem.Key).Select(o => o.LoanAmount).FirstOrDefault();
                     obj.PrincipleAmount = LoanMasterList.Where(o => o.LoanId == loanItem.Key).Select(o => o.PrincipleAmount).FirstOrDefault();
                     obj.CollectionEntries = CollectionMaster.Where(o => o.LoanId == loanItem.Key && o.CollectedBy_EmpID == empId).ToList();

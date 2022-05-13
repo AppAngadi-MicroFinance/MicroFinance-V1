@@ -1,4 +1,5 @@
 ﻿using MicroFinance.ReportExports.Models;
+using MicroFinance.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -17,17 +18,21 @@ namespace MicroFinance.ReportExports
         SqlConnection GlobalConnection;
         SqlCommand cmd;
 
-        public List<LoanApplicationModel> LoanMetaMaster = new List<LoanApplicationModel>();
+
         public Dictionary<string, MFOrigin> BranchDetailDICT = new Dictionary<string, MFOrigin>();
+        Dictionary<string, LoanMetaModel> LoanMetaDict = new Dictionary<string, LoanMetaModel>(); //
+
+        public Dictionary<string, string> RequestId_LoanID_DICT = new Dictionary<string, string>();
+
         public Dictionary<string, string> CustomerBranchDICT = new Dictionary<string, string>();
-
-        Dictionary<string, LoanRepoModel> LoanReopDICT = new Dictionary<string, LoanRepoModel>();
-
+        public Dictionary<string, string> CustomerSHG_DICT = new Dictionary<string, string>();
         public Dictionary<string, string> CustomerNameDICT = new Dictionary<string, string>();
         public Dictionary<string, string> SHGNameDICT = new Dictionary<string, string>();
         public Dictionary<string, string> EmployeeNameDICT = new Dictionary<string, string>();
-        public Dictionary<string, string> RequestIdLoanIdDICT = new Dictionary<string, string>();
-        public Dictionary<string, string> LoanDetailsDICT = new Dictionary<string, string>();
+        public Dictionary<string, string> EmployeeBranchDICT = new Dictionary<string, string>();
+
+        public Dictionary<string, int> LoanAmountDICT = new Dictionary<string, int>();
+        public Dictionary<string, int> LoanPrincipleDICT = new Dictionary<string, int>();
 
 
         public LoanRepository(string globalConnectionString)
@@ -39,53 +44,21 @@ namespace MicroFinance.ReportExports
             cmd.Connection = GlobalConnection;
 
             LoadBranchDetials();
+            LoadSHG_DICT();
+
             LoadCustomerDICT();
             LoanCustomer_BranchDICT();
-            LoadSHG_DICT();
+            LoadCustomerSHG();
+
             LoadEmployee_DICT();
+            LoanEmployeeBranch();
+
+            LoadLoanID4RequestID();
+            LoadLoanMetaData();
+            LoadLoanAmount();
+            LoadLoanPrincipleAmount();
         }
-
-
-        public LoanRepository(string connectionstring, DateRange range)
-        {
-            GlobalConnection = new SqlConnection(this.ConnectionString);
-            GlobalConnection.Open();
-            cmd = new SqlCommand();
-            cmd.Connection = GlobalConnection;
-
-            LoadBranchDetials();
-            LoadCustomerDICT();
-            LoanCustomer_BranchDICT();
-            LoadSHG_DICT();
-            LoadEmployee_DICT();
-
-            this.LoanMetaMaster = Get_AllApprovedLoans(range);
-        }
-
-        void LoanDetail()
-        {
-            List<string> loanIdList = LoadLoanRequest();
-            foreach (string loanId in loanIdList)
-            {
-                cmd.CommandText = "select LoanID, ApprovedBy, ApproveDate, IsActive from LoanDetails where LoanID = '" + loanId + "'";
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    LoanRepoModel obj = new LoanRepoModel();
-                    obj.LoanId = dr.GetString(0);
-                    obj.ApprovedBy_EmpId = dr.GetString(1);
-                    obj.ApprovedBy_EmpName = EmployeeNameDICT[obj.ApprovedBy_EmpId];
-                    obj.ApprovedDate = dr.GetDateTime(2);
-                    obj.IsActive = dr.GetBoolean(3);
-                    try
-                    {
-                        LoanReopDICT.Add(loanId, obj);
-                    }
-                    catch (Exception ex) { }
-                }
-                dr.Close();
-            }
-        }
+       
         public List<LoanApplicationModel> Get_AllLoanApplications(DateRange range)
         {
             List<LoanApplicationModel> toReturn = new List<LoanApplicationModel>();
@@ -155,10 +128,10 @@ namespace MicroFinance.ReportExports
                 item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
                 item.CustomerName = CustomerNameDICT[item.CustomerId];
 
-                item.LoanId = Get_LoanId_4RequestId(item.RequestId);
+                item.LoanId = RequestId_LoanID_DICT[item.RequestId];
                 if (item.LoanId != string.Empty)
                 {
-                    LoanRepoModel obj = LoanReopDICT[item.LoanId];
+                    LoanMetaModel obj = LoanMetaDict[item.LoanId];
                     item.LoanApplicationStatus.ApprovedBy_EmpId = obj.ApprovedBy_EmpId;
                     item.LoanApplicationStatus.ApprovedBy_EmpName = obj.ApprovedBy_EmpName;
                     item.LoanApplicationStatus.ApprovedDate = obj.ApprovedDate;
@@ -167,43 +140,7 @@ namespace MicroFinance.ReportExports
             }
             return toReturn;
         }
-
-        public List<LoanApplicationModel> Get_AllLoanDisClosed(DateRange range)
-        {
-            List<LoanApplicationModel> toReturn = new List<LoanApplicationModel>();
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select LoanID, CustomerID, LoanPeriod from LoanDetails where IsActive = 0";
-            SqlDataReader dr = cmd.ExecuteReader();
-            int LoanPeriod = 0;
-            while (dr.Read())
-            {
-                LoanApplicationModel obj = new LoanApplicationModel();
-                obj.LoanId = dr.GetString(0);
-                obj.CustomerId = dr.GetString(1);
-                LoanPeriod = dr.GetInt32(2);
-            }
-            dr.Close();
-
-            foreach (LoanApplicationModel item in toReturn)
-            {
-                int collectionCount = Get_LoanCollectionEntryCount(item.LoanId);
-                if (collectionCount == LoanPeriod)
-                {
-                    item.DisClosedDate = Get_LastEntryDate(item.LoanId);
-                }
-            }
-
-            foreach (LoanApplicationModel item in toReturn)
-            {
-                item.OriginDetail.BranchId = CustomerBranchDICT[item.CustomerId];
-                MFOrigin obj = BranchDetailDICT[item.OriginDetail.BranchId];
-                item.OriginDetail.BranchName = obj.BranchName;
-                item.OriginDetail.RegionId = obj.RegionId;
-                item.OriginDetail.RegionName = obj.RegionName;
-            }
-            return toReturn;
-        }
-
+        //
         public List<CollectionEntryModel> Get_AllCollectionEntries(DateRange range)
         {
             List<CollectionEntryModel> toReturn = new List<CollectionEntryModel>();
@@ -239,11 +176,10 @@ namespace MicroFinance.ReportExports
                 item.OriginDetail.RegionId = branchData.RegionId;
                 item.OriginDetail.RegionName = branchData.RegionName;
 
-                item.OriginDetail.SHGId = Get_SHGID_4CustomerId(item.CustomerId);//
+                item.OriginDetail.SHGId = CustomerSHG_DICT[item.CustomerId];
                 item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
                 item.CollectedBy_EmpName = EmployeeNameDICT[item.CollectedBy_EmpID];
             }
-
             return toReturn;
         }
         public List<LoanApplicationModel> Get_AllHighmarkRejected(DateRange range)
@@ -297,7 +233,7 @@ namespace MicroFinance.ReportExports
             dr.Close();
             return toReturn;
         }
-
+        //
         public List<LoanSummaryModel> Get_LoanSummaryDetails(DateRange range)
         {
             List<LoanSummaryModel> toReturn = new List<LoanSummaryModel>();
@@ -321,10 +257,10 @@ namespace MicroFinance.ReportExports
                 try
                 {
                     try { item.OriginDetail = BranchDetailDICT[CustomerBranchDICT[item.CustomerId]]; } catch (Exception ex) { }
-
-                    item.OriginDetail.SHGId = Get_SHGID_4CustomerId(item.CustomerId);
-                    item.PrincipleAmount = Get_PrincipleAmount(item.LoanId);
+                    item.OriginDetail.SHGId = CustomerSHG_DICT[item.CustomerId];
                     item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
+
+                    item.PrincipleAmount = LoanPrincipleDICT[item.LoanId];
                 }
                 catch (Exception ex) { }
             }
@@ -334,7 +270,7 @@ namespace MicroFinance.ReportExports
         {
             List<LoanSummaryModel> toReturn = new List<LoanSummaryModel>();
             cmd.CommandText = string.Empty;
-            cmd.CommandText = "select LoanID, CustomerID, LoanAmount, ApproveDate from LoanDetails where IsActive = 1 and YEAR(ApproveDate) >= " + range.FromDate.Year + "";
+            cmd.CommandText = "select LoanID, CustomerID, LoanAmount, ApproveDate from LoanDetails where IsActive = 0 and YEAR(ApproveDate) >= " + range.FromDate.Year + "";
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -354,72 +290,21 @@ namespace MicroFinance.ReportExports
                 {
                     try { item.OriginDetail = BranchDetailDICT[CustomerBranchDICT[item.CustomerId]]; } catch (Exception ex) { }
 
-                    item.OriginDetail.SHGId = Get_SHGID_4CustomerId(item.CustomerId);
-                    item.PrincipleAmount = Get_PrincipleAmount(item.LoanId);
+                    item.OriginDetail.SHGId = CustomerSHG_DICT[item.CustomerId];
                     item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
 
-                    item.WeeksPaid = GetPaymentCount(item.LoanId);
-                    item.AccountCloseOn = GetAccountCloseDate(item.LoanId);
-                    item.AccountClosedBY = Get_AccountClosedEmployee(item.LoanId);
+                    //item.PrincipleAmount = Get_PrincipleAmount(item.LoanId);
+                    //item.WeeksPaid = GetPaymentCount(item.LoanId);
+
+                    MultiStructure temp = Get_AccountClosedEmployeeAndDate(item.LoanId);
+                    item.AccountClosedBY = temp.String1;
+                    item.AccountClosedOn = temp.Date1;
                 }
                 catch (Exception ex) { }
             }
             return toReturn;
         }
-
-        int GetPaymentCount(string loanID)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select COUNT(*) from LoanCollectionEntry where LoanId = '" + loanID + "'";
-            int res = (int)cmd.ExecuteScalar();
-            return res;
-        }
-        DateTime GetAccountCloseDate(string loanID)
-        {
-            DateTime toReturn = new DateTime();
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select Top 1 CollectedOn from LoanCollectionEntry where LoanId = '" + loanID + "' order by Balance";
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                toReturn = dr.GetDateTime(0);
-                break;
-            }
-            dr.Close();
-            return toReturn;
-        }
-        string Get_AccountClosedEmployee(string loanID)
-        {
-            string toReturn = string.Empty;
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select Top 1 CollectedBy from LoanCollectionEntry where LoanId = '" + loanID + "' order by Balance";
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                toReturn = dr.GetString(0);
-                break;
-            }
-            dr.Close();
-            return toReturn;
-        }
-
-        public List<LoanCollectionEntryModel> Get_LoanCollectionEnties(string loanId)
-        {
-            List<LoanCollectionEntryModel> toReturn = new List<LoanCollectionEntryModel>();
-            cmd.CommandText = "select Principal, CollectedOn, CollectedBy from LoanCollectionEntry where LoanId = '" + loanId + "'";
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                LoanCollectionEntryModel item = new LoanCollectionEntryModel();
-                item.PrincipleAmount = dr.GetInt32(0);
-                item.CollectedOn = dr.GetDateTime(1);
-                item.CollectedBy_EmpID = dr.GetString(2);
-                item.CollectedBy_EmpName = EmployeeNameDICT[item.CollectedBy_EmpID];
-                toReturn.Add(item);
-            }
-            dr.Close();
-            return toReturn;
-        }
+        //
         public List<CollectionEntryData> Get_CollectionEntry(DateRange range)
         {
             List<CollectionEntryData> toReturn = new List<CollectionEntryData>();
@@ -448,14 +333,12 @@ namespace MicroFinance.ReportExports
                 {
                     item.OriginDetail.RegionId = BranchDetailDICT[item.OriginDetail.BranchId].RegionId;
                     item.OriginDetail.RegionName = BranchDetailDICT[item.OriginDetail.BranchId].RegionName;
-                    item.OriginDetail.SHGId = Get_SHGID_4CustomerId(item.CustomerId);
+                    item.OriginDetail.SHGId = CustomerSHG_DICT[item.CustomerId];
                     item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
+                    item.LoanAmount = LoanAmountDICT[item.LoanId];
                 }
                 catch (Exception ex) { }
             }
-
-            foreach (CollectionEntryData item in toReturn)
-                item.LoanAmount = Get_LoanAmount(item.LoanId);
 
             return toReturn;
         }
@@ -488,12 +371,7 @@ namespace MicroFinance.ReportExports
             }
             return toReturn;
         }
-        public string Get_CollectionEmployeeFromOrigin(string loanID)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select EmpId from TimeTable where SHGId = (select SHGId from CustomerGroup where CustId = (select CustomerID from LoanDetails where LoanID = '" + loanID + "'))";
-            return cmd.ExecuteScalar().ToString();
-        }
+        //
         public List<string> Get_CollectionEmployee(string loanId)
         {
             List<string> toReturn = new List<string>();
@@ -507,8 +385,28 @@ namespace MicroFinance.ReportExports
             dr.Close();
             return toReturn;
         }
-
-
+        public string Get_CollectionEmployeeFromOrigin(string loanID)
+        {
+            cmd.CommandText = string.Empty;
+            cmd.CommandText = "select EmpId from TimeTable where SHGId = (select SHGId from CustomerGroup where CustId = (select CustomerID from LoanDetails where LoanID = '" + loanID + "'))";
+            return cmd.ExecuteScalar().ToString();
+        }
+        
+        MultiStructure Get_AccountClosedEmployeeAndDate(string loanID)
+        {
+            MultiStructure toReturn = new MultiStructure();
+            cmd.CommandText = string.Empty;
+            cmd.CommandText = "select Top 1 CollectedBy, CollectedOn from LoanCollectionEntry where LoanId = '" + loanID + "' order by Balance";
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                toReturn.String1 = dr.GetString(0);
+                toReturn.Date1 = dr.GetDateTime(1);
+                break;
+            }
+            dr.Close();
+            return toReturn;
+        }
         public int Get_LoanCollectionEntryCount(string loanId)
         {
             cmd.CommandText = string.Empty;
@@ -516,14 +414,7 @@ namespace MicroFinance.ReportExports
             int res = (int)cmd.ExecuteScalar();
             return res;
         }
-        public int Get_PrincipleAmount(string loanId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select distinct(Principal) from LoanCollectionMaster where LoanId = '" + loanId + "'";
-            int res = (int)cmd.ExecuteScalar();
-            return res;
-        }
-        public DateTime Get_LastEntryDate(string loanId)
+        DateTime Get_LastEntryDate(string loanId)
         {
             cmd.CommandText = string.Empty;
             cmd.CommandText = "select top 1 CollectedOn from LoanCollectionEntry where LoanId = '" + loanId + "' order by Balance";
@@ -535,97 +426,43 @@ namespace MicroFinance.ReportExports
             }
             return dt;
         }
-        public string Get_CollectionEntryEmployee(string loanId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select top 1 CollectedBy from LoanCollectionEntry where LoanId = '" + loanId + "' order by Balance";
-            SqlDataReader dr = cmd.ExecuteReader();
-            string res = string.Empty;
-            while (dr.Read())
-            {
-                res = dr.GetString(0);
-            }
-            return res;
-        }
-        public string Get_RegionID(string branchId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select RegionId from BranchDetails where Bid = '" + branchId + "'";
-            string regionId = (string)cmd.ExecuteScalar();
-            return regionId;
-        }
-        public string Get_RegionName(string regionId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select RegionName from BranchDetails where RegionId = '" + regionId + "'";
-            string regionName = (string)cmd.ExecuteScalar();
-            return regionName;
-        }
-        public string Get_BranchName(string branchId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select BranchName from BranchDetails where Bid = '" + branchId + "'";
-            string branchName = (string)cmd.ExecuteScalar();
-            return branchName;
-        }
-        public string Get_SHGName(string shgId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select SHGName from SelfHelpGroup where SHGId = '" + shgId + "'";
-            string SHGName = (string)cmd.ExecuteScalar();
-            return SHGName;
-        }
-        public string Get_EmployeeName(string employeeId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select Name from Employee where EmpId = '" + employeeId + "'";
-            string employeeName = (string)cmd.ExecuteScalar();
-            return employeeName;
-        }
-        public string Get_CustomerName(string customerId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select Name from CustomerDetails where CustId = '" + customerId + "'";
-            string customerName = (string)cmd.ExecuteScalar();
-            return customerName;
-        }
 
-
-        public int Get_LoanAmount(string loanId)
+        void LoadLoanID4RequestID()
         {
             cmd.CommandText = string.Empty;
-            cmd.CommandText = "select LoanAmount from LoanDetails where LoanID = '" + loanId + "'";
-            int loanAmount = (int)cmd.ExecuteScalar();
-            return loanAmount;
-        }
-        public string Get_LoanId_4RequestId(string requestId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select LoanID from DisbursementFromSAMU where RequestID = '" + requestId + "'";
-            var res = cmd.ExecuteScalar();
-            string loanID = string.Empty;
-
-            if (res != null)
-                loanID = res.ToString();
-            return loanID;
-        }
-        List<string> LoadLoanRequest()
-        {
-            List<string> toReturn = new List<string>();
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select RequestID, LoanID from DisbursementFromSAMU";
+            cmd.CommandText = "select distinct RequestID, LoanID from DisbursementFromSAMU";
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 try
                 {
-                    RequestIdLoanIdDICT.Add(dr.GetString(0), dr.GetString(1));
-                    toReturn.Add(dr.GetString(1));
+                    RequestId_LoanID_DICT.Add(dr.GetString(0), dr.GetString(1));
                 }
                 catch (Exception ex) { }
             }
             dr.Close();
-            return toReturn;
+        }
+        void LoadLoanPrincipleAmount()
+        {
+            cmd.CommandText = string.Empty;
+            cmd.CommandText = "select Distinct LoanId, Principal from LoanCollectionMaster where LoanId in (select LoanId from LoanDetails where IsActive = 1)";
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                LoanPrincipleDICT.Add(dr.GetString(0), dr.GetInt32(1));
+            }
+            dr.Close();
+        }
+        void LoadLoanAmount()
+        {
+            cmd.CommandText = string.Empty;
+            cmd.CommandText = "select distinct LoanID, LoanAmount from LoanDetails where IsActive = 1";
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                LoanAmountDICT.Add(dr.GetString(0), dr.GetInt32(1));
+            }
+            dr.Close();
         }
         void LoadBranchDetials()
         {
@@ -643,7 +480,17 @@ namespace MicroFinance.ReportExports
             }
             dr.Close();
         }
-
+        void LoanEmployeeBranch()
+        {
+            cmd.CommandText = string.Empty;
+            cmd.CommandText = "select distinct TimeTable.EmpId, SelfHelpGroup.BranchId from TimeTable, SelfHelpGroup where TimeTable.SHGId = SelfHelpGroup.SHGId";
+            SqlDataReader dr = cmd.ExecuteReader();
+            while(dr.Read())
+            {
+                EmployeeBranchDICT.Add(dr.GetString(0), dr.GetString(1));
+            }
+            dr.Close();
+        }
 
         void LoadCustomerDICT()
         {
@@ -684,43 +531,50 @@ namespace MicroFinance.ReportExports
         }
         void LoanCustomer_BranchDICT()
         {
-            foreach (string custId in CustomerNameDICT.Keys.ToArray())
+            cmd.CommandText = string.Empty;
+            cmd.CommandText = "select CustomerGroup.CustId, SelfHelpGroup.Branchid from CustomerGroup, SelfHelpGroup where CustomerGroup.SHGID = SelfHelpGroup.SHGID";
+            SqlDataReader dr = cmd.ExecuteReader();
+            while(dr.Read())
             {
-                string cBranch = Get_CustomerBranch(custId);
+                CustomerBranchDICT.Add(dr.GetString(0), dr.GetString(1));
+            }
+            dr.Close();
+        }
+        void LoadCustomerSHG()
+        {
+            cmd.CommandText = string.Empty;
+            cmd.CommandText = "select distinct CustomerGroup.CustId,CustomerGroup.SHGID from CustomerGroup, SelfHelpGroup where CustomerGroup.SHGID = SelfHelpGroup.SHGID";
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                CustomerSHG_DICT.Add(dr.GetString(0), dr.GetString(1));
+            }
+            dr.Close();
+        }
+
+        void LoadLoanMetaData()
+        {
+            cmd.CommandText = string.Empty;
+            cmd.CommandText = "select distinct LoanID, LoanAmount, ApprovedBy, ApproveDate, IsActive from LoanDetails where IsActive = 1";
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                LoanMetaModel obj = new LoanMetaModel();
+                obj.LoanId = dr.GetString(0);
+                obj.LoanAmount = dr.GetInt32(1);
+                obj.ApprovedBy_EmpId = dr.GetString(2);
+                obj.ApprovedBy_EmpName = EmployeeNameDICT[obj.ApprovedBy_EmpId];
+                obj.ApprovedDate = dr.GetDateTime(3);
+                obj.IsActive = dr.GetBoolean(4);
                 try
                 {
-
-                    CustomerBranchDICT.Add(custId, BranchDetailDICT[cBranch].BranchId);
+                    LoanMetaDict.Add(obj.LoanId, obj);
                 }
-                catch (Exception ex)
-                {
-
-                }
+                catch (Exception ex) { }
             }
+            dr.Close();
         }
 
-        public string Get_CustomerBranch(string customerId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select BranchId from SelfHelpGroup where SHGId = (select SHGID from CustomerGroup where CustId = '" + customerId + "')";
-            return cmd.ExecuteScalar().ToString();
-        }
-
-        
-        public string Get_EmployeeBranch(string empId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select distinct BranchId from SelfHelpGroup where SHGId in (select SHGId from TimeTable where EmpId = '" + empId + "')";
-            return cmd.ExecuteScalar().ToString();
-        }
-
-        public string Get_SHGID_4CustomerId(string customerId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select SHGID from CustomerGroup where CustId = '" + customerId + "'";
-            string SHGName = (string)cmd.ExecuteScalar();
-            return SHGName;
-        }
         public List<DateTime> Get_MonthPeriods(DateRange range)
         {
             List<DateTime> toReturn = new List<DateTime>();
@@ -734,5 +588,12 @@ namespace MicroFinance.ReportExports
             }
             return toReturn;
         }
+    }
+
+    public class MultiStructure
+    {
+        public string String1 { get; set; }
+        public string String2 { get; set; }
+        public DateTime Date1 { get; set; }
     }
 }
