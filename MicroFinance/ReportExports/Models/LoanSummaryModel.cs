@@ -20,7 +20,7 @@ namespace MicroFinance.ReportExports.Models
         public int CollectedAmount { get; set; }
 
         public int WeeksPaid { get; set; }
-        public DateTime AccountCloseOn { get; set; }
+        public DateTime AccountClosedOn { get; set; }
         public string AccountClosedBY { get; set; }
         public LoanSummaryModel()
         {
