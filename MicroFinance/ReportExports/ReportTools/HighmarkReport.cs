@@ -24,23 +24,27 @@ namespace MicroFinance.ReportExports.ReportTools
         public List<ReportModel> RegionWise_RejectionData { get; set; }
         public List<ReportModel> RegionWise_ApprovedData { get; set; }
         LoanRepository LoanRepos;
-        public HighmarkReport(LoanRepository loanRepos, DateRange range)
+        public HighmarkReport(LoanRepository loanRepos, DateRange range,bool isaccept)
         {
             this.Range = range;
             this.LoanRepos = loanRepos;
             this.MonthPeriods = LoanRepos.Get_MonthPeriods(this.Range);
-            this.ApplicationHighmarkRejected = LoanRepos.Get_AllHighmarkApproved(this.Range);
-            this.ApplicationHighmarkApproved = LoanRepos.Get_AllHighmarkRejected(this.Range);
-            //
-            this.CenterWise_RejectionData = CenterWise_Rejection();
-            this.CenterWise_ApprovedData = CenterWise_Approved();
-            this.EmployeeWise_RejectionData = EmployeeWise_Rejected();
-            //
-            this.EmployeeWise_ApprovedData = EmployeeWise_Approved();
-            this.RegionWise_RejectionData = RegionWise_Rejected();
-            this.RegionWise_ApprovedData = RegionWise_Approved();
-
+            if (isaccept==true)
+            {
+                this.ApplicationHighmarkApproved = LoanRepos.Get_AllHighmarkApproved(this.Range);
+                this.CenterWise_ApprovedData = CenterWise_Approved();
+                this.EmployeeWise_ApprovedData = EmployeeWise_Approved();
+                this.RegionWise_ApprovedData = RegionWise_Approved();
+            }
+            else
+            {
+                this.ApplicationHighmarkRejected = LoanRepos.Get_AllHighmarkRejected(this.Range);
+                this.CenterWise_RejectionData = CenterWise_Rejection();
+                this.EmployeeWise_RejectionData = EmployeeWise_Rejected();
+                this.RegionWise_RejectionData = RegionWise_Rejected();
+            }
         }
+        
         List<ReportModel> RegionWise_Approved()
         {
             List<ReportModel> FinalData = new List<ReportModel>();
@@ -194,10 +198,9 @@ namespace MicroFinance.ReportExports.ReportTools
                         obj.ToDate = MonthPeriods[i];
 
                         List<LoanApplicationModel> BranchAndCenter = ApplicationHighmarkApproved.Where(o => o.OriginDetail.BranchId == branchId & o.OriginDetail.SHGId == centerID).ToList();
-                        List<LoanApplicationModel> Final = BranchAndCenter.Where
-                            (o => o.RequestedDate > obj.FromDate && o.RequestedDate <= obj.ToDate).ToList();
+                       
 
-                        obj.Amount = Final.Count();
+                        obj.Amount = BranchAndCenter.Count();
                         Item.DataList.Add(obj);
                     }
                     FinalData.Add(Item);

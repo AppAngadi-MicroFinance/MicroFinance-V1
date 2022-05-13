@@ -232,12 +232,23 @@ namespace MicroFinance.ReportExports
                 toReturn.Add(obj);
             }
             dr.Close();
+            StringBuilder sb = new StringBuilder();
             foreach (LoanApplicationModel item in toReturn)
             {
-                item.CustomerName = CustomerNameDICT[item.CustomerId];
-                item.EmployeeName = EmployeeNameDICT[item.EmployeeId];
-                item.OriginDetail = BranchDetailDICT[item.OriginDetail.BranchId];
+                
+                if(CustomerNameDICT.ContainsKey(item.CustomerId) && EmployeeNameDICT.ContainsKey(item.EmployeeId) && BranchDetailDICT.ContainsKey(item.OriginDetail.BranchId))
+                {
+                    item.CustomerName = CustomerNameDICT[item.CustomerId];
+                    item.EmployeeName = EmployeeNameDICT[item.EmployeeId];
+                    item.OriginDetail = BranchDetailDICT[item.OriginDetail.BranchId];
+                }
+                else
+                {
+                    sb.AppendLine(sb + ",");
+                }
+               
             }
+            var st = sb.ToString();
             return toReturn;
         }
         //

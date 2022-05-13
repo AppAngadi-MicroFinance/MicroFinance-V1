@@ -77,7 +77,7 @@ namespace MicroFinance.ReportExports
             List<string> FilePaths = new List<string>() { Center_FilePath, Employee_FilePath, Region_FilePath };
             CleanFilePaths(FilePaths);
             // Application Highmark rejection
-            HighmarkReport himarkRejection = new HighmarkReport(LoanRepos, Range);
+            HighmarkReport himarkRejection = new HighmarkReport(LoanRepos, Range,false);
             ReportTool.ReportFormat1(Center_FilePath, BranchId_Heading, CenterId_Heading, CenterName_Heading, himarkRejection.MonthPeriods, himarkRejection.CenterWise_RejectionData);
             ReportTool.ReportFormat1(Employee_FilePath, BranchId_Heading, EmployeeId_Heading, EmployeeName_Heading, himarkRejection.MonthPeriods, himarkRejection.EmployeeWise_RejectionData);
             ReportTool.ReportFormat1(Region_FilePath, RegionId_Heading, BranchId_Heading, BranchName_Heading, himarkRejection.MonthPeriods, himarkRejection.RegionWise_RejectionData);
@@ -92,7 +92,7 @@ namespace MicroFinance.ReportExports
             List<string> FilePaths = new List<string>() { Center_FilePath, Employee_FilePath, Region_FilePath };
             CleanFilePaths(FilePaths);
             //
-            HighmarkReport himarkRejection = new HighmarkReport(LoanRepos, Range);
+            HighmarkReport himarkRejection = new HighmarkReport(LoanRepos, Range,true);
             ReportTool.ReportFormat1(Center_FilePath, BranchId_Heading, CenterId_Heading, CenterName_Heading, himarkRejection.MonthPeriods, himarkRejection.CenterWise_ApprovedData);
             ReportTool.ReportFormat1(Employee_FilePath, BranchId_Heading, EmployeeId_Heading, EmployeeName_Heading, himarkRejection.MonthPeriods, himarkRejection.EmployeeWise_ApprovedData);
             ReportTool.ReportFormat1(Region_FilePath, RegionId_Heading, BranchId_Heading, BranchName_Heading, himarkRejection.MonthPeriods, himarkRejection.RegionWise_ApprovedData);
