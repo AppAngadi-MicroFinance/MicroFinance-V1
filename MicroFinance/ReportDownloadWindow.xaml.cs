@@ -198,25 +198,33 @@ namespace MicroFinance
 
         private void xFromDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ContextRange == null)
-                ContextRange = new DateRange();
-            ContextRange.FromDate = (DateTime)xFromDate.SelectedDate;
-            ContextRange.ToDate = new DateTime();
-            xFromDateTB.Text = ContextRange.FromDate_String;
+            if(xFromDate.SelectedDate != null)
+            {
+                if (ContextRange == null)
+                    ContextRange = new DateRange();
+                ContextRange.FromDate = (DateTime)xFromDate.SelectedDate;
+                ContextRange.ToDate = new DateTime();
+                xFromDateTB.Text = ContextRange.FromDate_String;
+                xFromDate.SelectedDate = null;
+            }
         }
 
         private void xToDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ContextRange == null)
-                ContextRange = new DateRange();
-
-            if (ContextRange.FromDate <= xToDate.SelectedDate)
+            if(xToDate.SelectedDate != null)
             {
-                ContextRange.ToDate = (DateTime)xToDate.SelectedDate;
-                xToDateTB.Text = ContextRange.ToDate_String;
+                if (ContextRange == null)
+                    ContextRange = new DateRange();
+
+                if (ContextRange.FromDate <= xToDate.SelectedDate)
+                {
+                    ContextRange.ToDate = (DateTime)xToDate.SelectedDate;
+                    xToDateTB.Text = ContextRange.ToDate_String;
+                }
+                else
+                    MessageBox.Show("Invalid date selection.");
+                xToDate.SelectedDate = null;
             }   
-            else
-                MessageBox.Show("Invalid date selection.");
         }
     }
 

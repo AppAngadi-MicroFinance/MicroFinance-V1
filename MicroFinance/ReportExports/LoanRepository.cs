@@ -20,7 +20,7 @@ namespace MicroFinance.ReportExports
 
 
         public Dictionary<string, MFOrigin> BranchDetailDICT = new Dictionary<string, MFOrigin>();
-        Dictionary<string, LoanRepoModel> LoanReopDICT = new Dictionary<string, LoanRepoModel>(); //
+        Dictionary<string, LoanMetaModel> LoanMetaDict = new Dictionary<string, LoanMetaModel>(); //
 
         public Dictionary<string, string> RequestId_LoanID_DICT = new Dictionary<string, string>();
 
@@ -46,16 +46,17 @@ namespace MicroFinance.ReportExports
             LoadBranchDetials();
             LoadSHG_DICT();
 
-            LoadLoanID4RequestID();
-            LoadLoanPrincipleAmount();
-            LoadLoanAmount();
-
             LoadCustomerDICT();
             LoanCustomer_BranchDICT();
             LoadCustomerSHG();
 
             LoadEmployee_DICT();
             LoanEmployeeBranch();
+
+            LoadLoanID4RequestID();
+            LoadLoanMetaData();
+            LoadLoanAmount();
+            LoadLoanPrincipleAmount();
         }
        
         public List<LoanApplicationModel> Get_AllLoanApplications(DateRange range)
@@ -130,7 +131,7 @@ namespace MicroFinance.ReportExports
                 item.LoanId = RequestId_LoanID_DICT[item.RequestId];
                 if (item.LoanId != string.Empty)
                 {
-                    LoanRepoModel obj = LoanReopDICT[item.LoanId];
+                    LoanMetaModel obj = LoanMetaDict[item.LoanId];
                     item.LoanApplicationStatus.ApprovedBy_EmpId = obj.ApprovedBy_EmpId;
                     item.LoanApplicationStatus.ApprovedBy_EmpName = obj.ApprovedBy_EmpName;
                     item.LoanApplicationStatus.ApprovedDate = obj.ApprovedDate;
@@ -547,6 +548,29 @@ namespace MicroFinance.ReportExports
             while (dr.Read())
             {
                 CustomerSHG_DICT.Add(dr.GetString(0), dr.GetString(1));
+            }
+            dr.Close();
+        }
+
+        void LoadLoanMetaData()
+        {
+            cmd.CommandText = string.Empty;
+            cmd.CommandText = "select distinct LoanID, LoanAmount, ApprovedBy, ApproveDate, IsActive from LoanDetails where IsActive = 1";
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                LoanMetaModel obj = new LoanMetaModel();
+                obj.LoanId = dr.GetString(0);
+                obj.LoanAmount = dr.GetInt32(1);
+                obj.ApprovedBy_EmpId = dr.GetString(2);
+                obj.ApprovedBy_EmpName = EmployeeNameDICT[obj.ApprovedBy_EmpId];
+                obj.ApprovedDate = dr.GetDateTime(3);
+                obj.IsActive = dr.GetBoolean(4);
+                try
+                {
+                    LoanMetaDict.Add(obj.LoanId, obj);
+                }
+                catch (Exception ex) { }
             }
             dr.Close();
         }
