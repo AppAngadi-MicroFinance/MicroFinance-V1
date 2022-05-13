@@ -209,9 +209,7 @@ namespace MicroFinance.ReportExports
             {
                 item.CustomerName = CustomerNameDICT[item.CustomerId];
                 item.EmployeeName = EmployeeNameDICT[item.EmployeeId];
-                MFOrigin obj = BranchDetailDICT[item.OriginDetail.BranchId];
-                item.OriginDetail.BranchName = obj.BranchName;
-                item.OriginDetail.RegionName = obj.RegionName;
+                item.OriginDetail = BranchDetailDICT[item.OriginDetail.BranchId];
             }
             return toReturn;
         }
@@ -323,7 +321,7 @@ namespace MicroFinance.ReportExports
                 obj.CollectedOn = dr.GetDateTime(4);
                 obj.CollectedBy_EmpID = dr.GetString(5);
 
-                obj.OriginDetail.BranchName = BranchDetailDICT[obj.OriginDetail.BranchId].BranchName;
+                obj.OriginDetail = BranchDetailDICT[obj.OriginDetail.BranchId];
                 obj.CustomerName = CustomerNameDICT[obj.CustomerId];
                 obj.CollectedBy_EmpName = EmployeeNameDICT[obj.CollectedBy_EmpID];
                 toReturn.Add(obj);
@@ -334,8 +332,6 @@ namespace MicroFinance.ReportExports
             {
                 try
                 {
-                    item.OriginDetail.RegionId = BranchDetailDICT[item.OriginDetail.BranchId].RegionId;
-                    item.OriginDetail.RegionName = BranchDetailDICT[item.OriginDetail.BranchId].RegionName;
                     item.OriginDetail.SHGId = CustomerSHG_DICT[item.CustomerId];
                     item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
                     item.LoanAmount = LoanAmountDICT[item.LoanId];
