@@ -84,8 +84,11 @@ namespace MicroFinance.ReportExports
                 item.OriginDetail.BranchName = branchOrigin.BranchName;
                 item.OriginDetail.RegionId = branchOrigin.RegionId;
                 item.OriginDetail.RegionName = branchOrigin.RegionName;
-
-                item.EmployeeName = EmployeeNameDICT[item.EmployeeId];
+                if(EmployeeNameDICT.ContainsKey(item.EmployeeId))
+                {
+                    item.EmployeeName = EmployeeNameDICT[item.EmployeeId];
+                }
+                
                 item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
                 item.CustomerName = CustomerNameDICT[item.CustomerId];
             }
@@ -186,7 +189,7 @@ namespace MicroFinance.ReportExports
         {
             List<LoanApplicationModel> toReturn = new List<LoanApplicationModel>();
             cmd.CommandText = string.Empty;
-            cmd.CommandText = "select RequestId, LoanAmount, EnrollDate, CustId, EmployeeId, BranchId, SHGId from LoanApplication where LoanStatus = 3 and EnrollDate between '" + range.FromDate + "' and '" + range.ToDate + "'";
+            cmd.CommandText = "select RequestId, LoanAmount, EnrollDate, CustId, EmployeeId, BranchId, SHGId from LoanApplication where LoanStatus = 3 and EnrollDate between '" + range.FromDate_String + "' and '" + range.ToDate_String + "'";
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -216,7 +219,7 @@ namespace MicroFinance.ReportExports
         {
             List<LoanApplicationModel> toReturn = new List<LoanApplicationModel>();
             cmd.CommandText = string.Empty;
-            cmd.CommandText = "select RequestId, LoanAmount, EnrollDate, CustId, EmployeeId, BranchId, SHGId from LoanApplication where LoanStatus > 3 and EnrollDate between '" + range.FromDate + "' and '" + range.ToDate + "'";
+            cmd.CommandText = "select RequestId, LoanAmount, EnrollDate, CustId, EmployeeId, BranchId, SHGId from LoanApplication where LoanStatus > 3 and EnrollDate between '" + range.FromDate_String + "' and '" + range.ToDate_String + "'";
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
