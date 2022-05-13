@@ -18,7 +18,6 @@ namespace MicroFinance.ReportExports
         SqlConnection GlobalConnection;
         SqlCommand cmd;
 
-        public List<LoanApplicationModel> LoanMetaMaster = new List<LoanApplicationModel>();
 
         public Dictionary<string, MFOrigin> BranchDetailDICT = new Dictionary<string, MFOrigin>();
         Dictionary<string, LoanRepoModel> LoanReopDICT = new Dictionary<string, LoanRepoModel>(); //
@@ -58,25 +57,6 @@ namespace MicroFinance.ReportExports
             LoadEmployee_DICT();
             LoanEmployeeBranch();
         }
-
-
-        public LoanRepository(string connectionstring, DateRange range)
-        {
-            GlobalConnection = new SqlConnection(this.ConnectionString);
-            GlobalConnection.Open();
-            cmd = new SqlCommand();
-            cmd.Connection = GlobalConnection;
-
-            LoadBranchDetials();
-            LoadCustomerDICT();
-            LoanCustomer_BranchDICT();
-            LoadSHG_DICT();
-            LoadEmployee_DICT();
-            LoanEmployeeBranch();
-
-            this.LoanMetaMaster = Get_AllApprovedLoans(range);
-        }
-
        
         public List<LoanApplicationModel> Get_AllLoanApplications(DateRange range)
         {
@@ -285,46 +265,11 @@ namespace MicroFinance.ReportExports
             }
             return toReturn;
         }
-        public List<LoanApplicationModel> Get_AllLoanDisClosed(DateRange range)
-        {
-            List<LoanApplicationModel> toReturn = new List<LoanApplicationModel>();
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select LoanID, CustomerID, LoanPeriod from LoanDetails where IsActive = 0";
-            SqlDataReader dr = cmd.ExecuteReader();
-            int LoanPeriod = 0;
-            while (dr.Read())
-            {
-                LoanApplicationModel obj = new LoanApplicationModel();
-                obj.LoanId = dr.GetString(0);
-                obj.CustomerId = dr.GetString(1);
-                LoanPeriod = dr.GetInt32(2);
-            }
-            dr.Close();
-
-            foreach (LoanApplicationModel item in toReturn)
-            {
-                int collectionCount = Get_LoanCollectionEntryCount(item.LoanId);
-                if (collectionCount == LoanPeriod)
-                {
-                    item.AccountCosedOn = Get_LastEntryDate(item.LoanId);
-                }
-            }
-
-            foreach (LoanApplicationModel item in toReturn)
-            {
-                item.OriginDetail.BranchId = CustomerBranchDICT[item.CustomerId];
-                MFOrigin obj = BranchDetailDICT[item.OriginDetail.BranchId];
-                item.OriginDetail.BranchName = obj.BranchName;
-                item.OriginDetail.RegionId = obj.RegionId;
-                item.OriginDetail.RegionName = obj.RegionName;
-            }
-            return toReturn;
-        }
         public List<LoanSummaryModel> Get_InActiveLoan(DateRange range)
         {
             List<LoanSummaryModel> toReturn = new List<LoanSummaryModel>();
             cmd.CommandText = string.Empty;
-            cmd.CommandText = "select LoanID, CustomerID, LoanAmount, ApproveDate from LoanDetails where IsActive = 1 and YEAR(ApproveDate) >= " + range.FromDate.Year + "";
+            cmd.CommandText = "select LoanID, CustomerID, LoanAmount, ApproveDate from LoanDetails where IsActive = 0 and YEAR(ApproveDate) >= " + range.FromDate.Year + "";
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -445,13 +390,7 @@ namespace MicroFinance.ReportExports
             cmd.CommandText = "select EmpId from TimeTable where SHGId = (select SHGId from CustomerGroup where CustId = (select CustomerID from LoanDetails where LoanID = '" + loanID + "'))";
             return cmd.ExecuteScalar().ToString();
         }
-        int GetPaymentCount(string loanID)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select COUNT(*) from LoanCollectionEntry where LoanId = '" + loanID + "'";
-            int res = (int)cmd.ExecuteScalar();
-            return res;
-        }
+        
         MultiStructure Get_AccountClosedEmployeeAndDate(string loanID)
         {
             MultiStructure toReturn = new MultiStructure();
@@ -485,50 +424,6 @@ namespace MicroFinance.ReportExports
                 dt = dr.GetDateTime(0);
             }
             return dt;
-        }
-
-
-        public string Get_RegionID(string branchId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select RegionId from BranchDetails where Bid = '" + branchId + "'";
-            string regionId = (string)cmd.ExecuteScalar();
-            return regionId;
-        }
-        public string Get_RegionName(string regionId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select RegionName from BranchDetails where RegionId = '" + regionId + "'";
-            string regionName = (string)cmd.ExecuteScalar();
-            return regionName;
-        }
-        public string Get_BranchName(string branchId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select BranchName from BranchDetails where Bid = '" + branchId + "'";
-            string branchName = (string)cmd.ExecuteScalar();
-            return branchName;
-        }
-        public string Get_SHGName(string shgId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select SHGName from SelfHelpGroup where SHGId = '" + shgId + "'";
-            string SHGName = (string)cmd.ExecuteScalar();
-            return SHGName;
-        }
-        public string Get_EmployeeName(string employeeId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select Name from Employee where EmpId = '" + employeeId + "'";
-            string employeeName = (string)cmd.ExecuteScalar();
-            return employeeName;
-        }
-        public string Get_CustomerName(string customerId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select Name from CustomerDetails where CustId = '" + customerId + "'";
-            string customerName = (string)cmd.ExecuteScalar();
-            return customerName;
         }
 
         void LoadLoanID4RequestID()
