@@ -232,6 +232,12 @@ namespace MicroFinance.ReportExports
                 toReturn.Add(obj);
             }
             dr.Close();
+            foreach (LoanApplicationModel item in toReturn)
+            {
+                item.CustomerName = CustomerNameDICT[item.CustomerId];
+                item.EmployeeName = EmployeeNameDICT[item.EmployeeId];
+                item.OriginDetail = BranchDetailDICT[item.OriginDetail.BranchId];
+            }
             return toReturn;
         }
         //
