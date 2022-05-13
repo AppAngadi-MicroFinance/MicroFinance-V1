@@ -49,14 +49,14 @@ namespace MicroFinance.ReportExports.ReportTools
             for (int j = 0; j < DataList.Count; j++)
             {
                 col = 1;
-                xl_WorkSheet.Cells[j + 2, col++] = DataList[j].C1;
-                xl_WorkSheet.Cells[j + 2, col++] = DataList[j].C2;
-                xl_WorkSheet.Cells[j + 2, col++] = DataList[j].C3;
+                xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_1;
+                xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_2;
+                xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_3;
 
                 int k = 0;
                 while (k < DataList[j].DataList.Count)
                 {
-                    xl_WorkSheet.Cells[j + 2, col] = DataList[j].DataList[k].Amount;
+                    xl_WorkSheet.Cells[j + 2, col] = DataList[j].DataList[k].Value;
                     col++;
                     k++;
                 }

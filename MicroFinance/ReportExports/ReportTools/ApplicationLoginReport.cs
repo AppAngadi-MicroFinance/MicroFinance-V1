@@ -39,9 +39,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 foreach (string branch in distinctBranchId)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.C1 = region;
-                    Item.C2 = branch;
-                    Item.C3 = LoanRepos.BranchDetailDICT[branch].BranchName;
+                    Item.Column_1 = region;
+                    Item.Column_2 = branch;
+                    Item.Column_3 = LoanRepos.BranchDetailDICT[branch].BranchName;
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -52,7 +52,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         List<LoanApplicationModel> regionAndBranch = MasterList.Where(o => o.OriginDetail.RegionId == region && o.OriginDetail.BranchId == branch).ToList();
                         List<LoanApplicationModel> Final = regionAndBranch.Where(o => o.RequestedDate > obj.FromDate && o.RequestedDate <= obj.ToDate).ToList();
 
-                        obj.Amount = Final.Count();
+                        obj.Value = Final.Count();
                         Item.DataList.Add(obj);
                     }
                     FinalData.Add(Item);
@@ -71,9 +71,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 foreach (string employee in distinctEmployee)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.C1 = branch;
-                    Item.C2 = employee;
-                    Item.C3 = LoanRepos.EmployeeNameDICT[employee];
+                    Item.Column_1 = branch;
+                    Item.Column_2 = employee;
+                    Item.Column_3 = LoanRepos.EmployeeNameDICT[employee];
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -84,7 +84,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         List<LoanApplicationModel> branchAndEmployee = MasterList.Where(o => o.OriginDetail.BranchId == branch && o.EmployeeId == employee).ToList();
                         List<LoanApplicationModel> Final = branchAndEmployee.Where(o => o.RequestedDate > obj.FromDate && o.RequestedDate <= obj.ToDate).ToList();
 
-                        obj.Amount = Final.Count();
+                        obj.Value = Final.Count();
                         Item.DataList.Add(obj);
                     }
                     FinalData.Add(Item);
@@ -103,9 +103,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 foreach (string center in distinctCenter)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.C1 = branch;
-                    Item.C2 = center;
-                    Item.C3 = LoanRepos.SHGNameDICT[center];
+                    Item.Column_1 = branch;
+                    Item.Column_2 = center;
+                    Item.Column_3 = LoanRepos.SHGNameDICT[center];
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -116,7 +116,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         List<LoanApplicationModel> branchAndSHG = MasterList.Where(o => o.OriginDetail.BranchId == branch && o.OriginDetail.SHGId == center).ToList();
                         List<LoanApplicationModel> Final = branchAndSHG.Where(o => o.RequestedDate > obj.FromDate && o.RequestedDate <= obj.ToDate).ToList();
 
-                        obj.Amount = Final.Count();
+                        obj.Value = Final.Count();
                         Item.DataList.Add(obj);
                     }
                     FinalData.Add(Item);

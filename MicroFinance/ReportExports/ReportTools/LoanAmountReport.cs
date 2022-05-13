@@ -39,9 +39,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 foreach (string branchId in distinctBranch)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.C1 = regionId;
-                    Item.C2 = branchId;
-                    Item.C3 = LoanRepos.BranchDetailDICT[branchId].BranchName;
+                    Item.Column_1 = regionId;
+                    Item.Column_2 = branchId;
+                    Item.Column_3 = LoanRepos.BranchDetailDICT[branchId].BranchName;
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
                         DateAndData obj = new DateAndData();
@@ -51,7 +51,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         List<LoanApplicationModel> Final = RegionAndBranch.Where
                             (o => o.LoanApplicationStatus.ApprovedDate > obj.FromDate && o.LoanApplicationStatus.ApprovedDate <= obj.ToDate).ToList();
 
-                        obj.Amount = Final.Select(o => o.LoanAmount).Sum();
+                        obj.Value = Final.Select(o => o.LoanAmount).Sum();
                         Item.DataList.Add(obj);
                     }
                     FinalData.Add(Item);
@@ -69,9 +69,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 foreach (string empID in distinctmEmpId)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.C1 = branch;
-                    Item.C2 = empID;
-                    Item.C3 = LoanRepos.EmployeeNameDICT[empID];
+                    Item.Column_1 = branch;
+                    Item.Column_2 = empID;
+                    Item.Column_3 = LoanRepos.EmployeeNameDICT[empID];
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
                         DateAndData obj = new DateAndData();
@@ -82,7 +82,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         List<LoanApplicationModel> Final = BranchAndEmployee.Where
                             (o => o.LoanApplicationStatus.ApprovedDate > obj.FromDate && o.LoanApplicationStatus.ApprovedDate <= obj.ToDate).ToList();
 
-                        obj.Amount = Final.Select(o => o.LoanAmount).Sum();
+                        obj.Value = Final.Select(o => o.LoanAmount).Sum();
                         Item.DataList.Add(obj);
                     }
                     FinalData.Add(Item);
@@ -101,9 +101,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 foreach (string center in distinctCenterId)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.C1 = branch;
-                    Item.C2 = center;
-                    Item.C3 = LoanRepos.SHGNameDICT[center];
+                    Item.Column_1 = branch;
+                    Item.Column_2 = center;
+                    Item.Column_3 = LoanRepos.SHGNameDICT[center];
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -115,7 +115,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         List<LoanApplicationModel> Final = BranchAndSHG.Where
                             (o => o.LoanApplicationStatus.ApprovedDate > obj.FromDate && o.LoanApplicationStatus.ApprovedDate <= obj.ToDate).ToList();
 
-                        obj.Amount = Final.Select(o => o.LoanAmount).Sum();
+                        obj.Value = Final.Select(o => o.LoanAmount).Sum();
                         Item.DataList.Add(obj);
                     }
                     FinalData.Add(Item);

@@ -57,9 +57,9 @@ namespace MicroFinance.ReportExports.ReportTools
             foreach (string emp in empIdList)
             {
                 ReportModel Item = new ReportModel();
-                Item.C1 = empCollectionList.Where(o => o.EmployeeID == emp).Select(o => o.BranchDetail.BranchId).FirstOrDefault();
-                Item.C2 = emp;
-                Item.C3 = LoanRepo.EmployeeNameDICT[Item.C2];
+                Item.Column_1 = empCollectionList.Where(o => o.EmployeeID == emp).Select(o => o.BranchDetail.BranchId).FirstOrDefault();
+                Item.Column_2 = emp;
+                Item.Column_3 = LoanRepo.EmployeeNameDICT[Item.Column_2];
                 for (int i = 0; i < MonthPeriods.Count; i++)
                 {
                     DateAndData obj = new DateAndData();
@@ -79,20 +79,20 @@ namespace MicroFinance.ReportExports.ReportTools
                         int collectionCount = collectionData.Where(o => o.CollectedOn <= obj.ToDate).Count();
                         collectionForPeriodforLoan += TotalLoanAmount - (principle * collectionCount);
                     }
-                    obj.Amount = collectionForPeriodforLoan;
+                    obj.Value = collectionForPeriodforLoan;
                     Item.DataList.Add(obj);
                 }
                 FinalData.Add(Item);
             }
 
             List<ReportModel> FinalData2 = new List<ReportModel>();
-            List<string> distinctBranch = FinalData.Select(o => o.C1).Distinct().ToList();
+            List<string> distinctBranch = FinalData.Select(o => o.Column_1).Distinct().ToList();
             foreach (string branch in distinctBranch)
             {
-                List<string> distinctEmployee = FinalData.Where(o => o.C1 == branch).Select(o => o.C2).Distinct().ToList();
+                List<string> distinctEmployee = FinalData.Where(o => o.Column_1 == branch).Select(o => o.Column_2).Distinct().ToList();
                 foreach (string employee in distinctEmployee)
                 {
-                    ReportModel Item = FinalData.Where(o => o.C1 == branch && o.C2 == employee).Select(o => o).FirstOrDefault();
+                    ReportModel Item = FinalData.Where(o => o.Column_1 == branch && o.Column_2 == employee).Select(o => o).FirstOrDefault();
                     FinalData2.Add(Item);
                 }
             }
@@ -109,9 +109,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 foreach (string center in distinctCenter)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.C1 = branch;
-                    Item.C2 = center;
-                    Item.C3 = LoanRepo.SHGNameDICT[center];
+                    Item.Column_1 = branch;
+                    Item.Column_2 = center;
+                    Item.Column_3 = LoanRepo.SHGNameDICT[center];
 
                     List<LoanSummaryModel> BranchAndSHG = LoanMasterList.Where(o => o.OriginDetail.BranchId == branch && o.OriginDetail.SHGId == center).ToList();
                     List<string> distinctLoanID = BranchAndSHG.Select(o => o.LoanId).Distinct().ToList();
@@ -132,7 +132,7 @@ namespace MicroFinance.ReportExports.ReportTools
                             principleSum += (principle * count);
                         }
 
-                        obj.Amount = loanAmountSum - principleSum;
+                        obj.Value = loanAmountSum - principleSum;
                         Item.DataList.Add(obj);
                     }
                     FinalData.Add(Item);
@@ -150,9 +150,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 foreach (string branch in distinctBranch)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.C1 = region;
-                    Item.C2 = branch;
-                    Item.C3 = LoanRepo.BranchDetailDICT[branch].BranchName;
+                    Item.Column_1 = region;
+                    Item.Column_2 = branch;
+                    Item.Column_3 = LoanRepo.BranchDetailDICT[branch].BranchName;
 
                     List<LoanSummaryModel> RegionAndBranch = LoanMasterList.Where(o => o.OriginDetail.RegionId == region && o.OriginDetail.BranchId == branch).ToList();
                     List<string> distinctLoanID = RegionAndBranch.Select(o => o.LoanId).Distinct().ToList();
@@ -172,7 +172,7 @@ namespace MicroFinance.ReportExports.ReportTools
                             int count = CollectionMaster.Where(o => o.LoanId == loanId && o.CollectedOn < obj.ToDate).Count();
                             principleSum += (principle * count);
                         }
-                        obj.Amount = loanAmountSum - principleSum;
+                        obj.Value = loanAmountSum - principleSum;
                         Item.DataList.Add(obj);
                     }
                     FinalData.Add(Item);

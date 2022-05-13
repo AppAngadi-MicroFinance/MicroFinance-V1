@@ -189,7 +189,7 @@ namespace MicroFinance.ReportExports
         {
             List<LoanApplicationModel> toReturn = new List<LoanApplicationModel>();
             cmd.CommandText = string.Empty;
-            cmd.CommandText = "select RequestId, LoanAmount, EnrollDate, CustId, EmployeeId, BranchId, SHGId from LoanApplication where RequestId in (select ApplicationID from LoanApplicationLog where StatusCode = 4 and TransactionDate between '" + range.FromDate_String + "' and '" + range.ToDate_String + "')";
+            cmd.CommandText = "select LoanApplication.RequestId, LoanApplication.LoanAmount, LoanApplicationLog.TransactionDate, LoanApplication.CustId, LoanApplication.EmployeeId, LoanApplication.BranchId, LoanApplication.SHGId from LoanApplication,LoanApplicationLog where LoanApplicationLog.TransactionDate between '" + range.FromDate_String + "' and '" + range.ToDate_String + "' and  LoanApplicationLog.StatusCode = 4 and LoanApplicationLog.ApplicationID=LoanApplication.RequestId";
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -207,9 +207,15 @@ namespace MicroFinance.ReportExports
 
             foreach (LoanApplicationModel item in toReturn)
             {
-                item.CustomerName = CustomerNameDICT[item.CustomerId];
-                item.EmployeeName = EmployeeNameDICT[item.EmployeeId];
-                item.OriginDetail = BranchDetailDICT[item.OriginDetail.BranchId];
+                if (CustomerNameDICT.ContainsKey(item.CustomerId) && EmployeeNameDICT.ContainsKey(item.EmployeeId) && BranchDetailDICT.ContainsKey(item.OriginDetail.BranchId))
+                {
+                    item.CustomerName = CustomerNameDICT[item.CustomerId];
+                    item.EmployeeName = EmployeeNameDICT[item.EmployeeId];
+                    string shgId = item.OriginDetail.SHGId;
+                    item.OriginDetail = BranchDetailDICT[item.OriginDetail.BranchId];
+                    item.OriginDetail.SHGId = shgId;
+                    item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
+                }
             }
             return toReturn;
         }
@@ -217,7 +223,7 @@ namespace MicroFinance.ReportExports
         {
             List<LoanApplicationModel> toReturn = new List<LoanApplicationModel>();
             cmd.CommandText = string.Empty;
-            cmd.CommandText = "select RequestId, LoanAmount, EnrollDate, CustId, EmployeeId, BranchId, SHGId from LoanApplication where RequestId in (select ApplicationID from LoanApplicationLog where StatusCode = 3 and TransactionDate between '" + range.FromDate_String + "' and '" + range.ToDate_String + "')";
+            cmd.CommandText = "select LoanApplication.RequestId, LoanApplication.LoanAmount, LoanApplicationLog.TransactionDate, LoanApplication.CustId, LoanApplication.EmployeeId, LoanApplication.BranchId, LoanApplication.SHGId from LoanApplication,LoanApplicationLog where LoanApplicationLog.TransactionDate between '" + range.FromDate_String + "' and '" + range.ToDate_String + "' and  LoanApplicationLog.StatusCode = 3 and LoanApplicationLog.ApplicationID=LoanApplication.RequestId";
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -232,23 +238,19 @@ namespace MicroFinance.ReportExports
                 toReturn.Add(obj);
             }
             dr.Close();
-            StringBuilder sb = new StringBuilder();
+            //
             foreach (LoanApplicationModel item in toReturn)
             {
-                
                 if(CustomerNameDICT.ContainsKey(item.CustomerId) && EmployeeNameDICT.ContainsKey(item.EmployeeId) && BranchDetailDICT.ContainsKey(item.OriginDetail.BranchId))
                 {
                     item.CustomerName = CustomerNameDICT[item.CustomerId];
                     item.EmployeeName = EmployeeNameDICT[item.EmployeeId];
+                    string shgId = item.OriginDetail.SHGId;
                     item.OriginDetail = BranchDetailDICT[item.OriginDetail.BranchId];
+                    item.OriginDetail.SHGId = shgId;
+                    item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
                 }
-                else
-                {
-                    sb.AppendLine(sb + ",");
-                }
-               
             }
-            var st = sb.ToString();
             return toReturn;
         }
         //

@@ -8,9 +8,9 @@ namespace MicroFinance.ReportExports.Models
 {
     public class ReportModel
     {
-        public string C1 { get; set; }
-        public string C2 { get; set; }
-        public string C3 { get; set; }
+        public string Column_1 { get; set; }
+        public string Column_2 { get; set; }
+        public string Column_3 { get; set; }
 
         public List<DateAndData> DataList { get; set; }
 

@@ -42,9 +42,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 foreach (string branch in distinctBranch)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.C1 = regionId;
-                    Item.C2 = branch;
-                    Item.C3 = LoanRepos.BranchDetailDICT[branch].BranchName;
+                    Item.Column_1 = regionId;
+                    Item.Column_2 = branch;
+                    Item.Column_3 = LoanRepos.BranchDetailDICT[branch].BranchName;
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -56,7 +56,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         List<CollectionEntryModel> FinalList = regionList.Where
                             (o => o.CollectedDate > obj.FromDate && o.CollectedDate <= obj.ToDate).ToList();
 
-                        obj.Amount = FinalList.Select(o => o.PrincipleAmount).Sum();
+                        obj.Value = FinalList.Select(o => o.PrincipleAmount).Sum();
                         Item.DataList.Add(obj);
                     }
                     FinalData.Add(Item);
@@ -75,9 +75,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 foreach (string employee in distinctEmployee)
                 {
                     ReportModel item = new ReportModel();
-                    item.C1 = branch;
-                    item.C2 = employee;
-                    item.C3 = LoanRepos.EmployeeNameDICT[employee];
+                    item.Column_1 = branch;
+                    item.Column_2 = employee;
+                    item.Column_3 = LoanRepos.EmployeeNameDICT[employee];
 
                     for (int i = 0; i < MonthPeriods.Count(); i++)
                     {
@@ -89,7 +89,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         List<CollectionEntryModel> Final = BranchAndEmployee.Where
                             (o => o.CollectedDate > obj.FromDate && o.CollectedDate <= obj.ToDate).ToList();
 
-                        obj.Amount = Final.Select(o => o.PrincipleAmount).Sum();
+                        obj.Value = Final.Select(o => o.PrincipleAmount).Sum();
                         item.DataList.Add(obj);
                     }
                     FinalData.Add(item);
@@ -108,9 +108,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 foreach (string center in distinctCenterId)
                 {
                     ReportModel item = new ReportModel();
-                    item.C1 = branch;
-                    item.C2 = center;
-                    item.C3 = LoanRepos.SHGNameDICT[center];
+                    item.Column_1 = branch;
+                    item.Column_2 = center;
+                    item.Column_3 = LoanRepos.SHGNameDICT[center];
 
                     for (int i = 0; i < MonthPeriods.Count(); i++)
                     {
@@ -122,7 +122,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         List<CollectionEntryModel> Final = BranchAndSHG.Where
                             (o => o.CollectedDate > obj.FromDate && o.CollectedDate <= obj.ToDate).ToList();
 
-                        obj.Amount = Final.Select(o => o.PrincipleAmount).Sum();
+                        obj.Value = Final.Select(o => o.PrincipleAmount).Sum();
                         item.DataList.Add(obj);
                     }
                     FinalData.Add(item);
