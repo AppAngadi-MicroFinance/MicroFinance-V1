@@ -687,7 +687,15 @@ namespace MicroFinance.ReportExports
             foreach (string custId in CustomerNameDICT.Keys.ToArray())
             {
                 string cBranch = Get_CustomerBranch(custId);
-                try { CustomerBranchDICT.Add(custId, BranchDetailDICT[cBranch].BranchId); } catch (Exception ex) { }
+                try
+                {
+
+                    CustomerBranchDICT.Add(custId, BranchDetailDICT[cBranch].BranchId);
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
         }
 
@@ -697,6 +705,8 @@ namespace MicroFinance.ReportExports
             cmd.CommandText = "select BranchId from SelfHelpGroup where SHGId = (select SHGID from CustomerGroup where CustId = '" + customerId + "')";
             return cmd.ExecuteScalar().ToString();
         }
+
+        
         public string Get_EmployeeBranch(string empId)
         {
             cmd.CommandText = string.Empty;
