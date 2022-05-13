@@ -31,7 +31,7 @@ namespace MicroFinance
         List<ReportListViewModel> ReportTypes = new List<ReportListViewModel>();
         GTReport GTReports;
         ReportListViewModel SelectedItem = new ReportListViewModel();
-        List<string> FinalPathList = new List<string>();
+        ObservableCollection<string> FinalPathList = new ObservableCollection<string>();
 
         string BaseDirectory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "REPORTS\\");
         string ConnectionString = MicroFinance.Properties.Settings.Default.DBConnection;
@@ -105,7 +105,9 @@ namespace MicroFinance
         {
             if(ContextRange != null && DoDateVerify(ContextRange))
             {
+                FinalPathList.Clear();
                 xLoadingGifPanel.Visibility = Visibility.Visible;
+                xFinalReportPathPanel.Visibility = Visibility.Collapsed;
 
                 await Task.Run(() => ReportGenerationProcess());
 
@@ -134,35 +136,35 @@ namespace MicroFinance
                 switch (SelectedItem.Index)
                 {
                     case 1:
-                        FinalPathList = GTReports.AccountClosingReport(ContextRange);
+                        FinalPathList = new ObservableCollection<string>(GTReports.AccountClosingReport(ContextRange));
                         break;
 
                     case 2:
-                        FinalPathList = GTReports.ApplicationLoginReport(ContextRange);
+                        FinalPathList = new ObservableCollection<string>(GTReports.ApplicationLoginReport(ContextRange));
                         break;
 
                     case 3:
-                        FinalPathList = GTReports.ApplicationHighmarkApproved(ContextRange);
+                        FinalPathList = new ObservableCollection<string>(GTReports.ApplicationHighmarkApproved(ContextRange));
                         break;
 
                     case 4:
-                        FinalPathList = GTReports.ApplicationHighmarkRejection(ContextRange);
+                        FinalPathList = new ObservableCollection<string>(GTReports.ApplicationHighmarkRejection(ContextRange));
                         break;
 
                     case 5:
-                        FinalPathList = GTReports.LoanAmount(ContextRange);
+                        FinalPathList = new ObservableCollection<string>(GTReports.LoanAmount(ContextRange));
                         break;
 
                     case 6:
-                        FinalPathList = GTReports.LoanRecovery(ContextRange);
+                        FinalPathList = new ObservableCollection<string>(GTReports.LoanRecovery(ContextRange));
                         break;
 
                     case 7:
-                        FinalPathList = GTReports.LoanDisbursement(ContextRange);
+                        FinalPathList = new ObservableCollection<string>(GTReports.LoanDisbursement(ContextRange));
                         break;
 
                     case 8:
-                        FinalPathList = GTReports.OutstandingReport(ContextRange);
+                        FinalPathList = new ObservableCollection<string>(GTReports.OutstandingReport(ContextRange));
                         break;
 
                     default:
@@ -170,7 +172,7 @@ namespace MicroFinance
                 }
             }
         }
-        void FinalPath_Binding(List<string> filePathList)
+        void FinalPath_Binding(ObservableCollection<string> filePathList)
         {
             var res = filePathList.Select(o => o.Replace(BaseDirectory, ""));
             xReportFilesList.ItemsSource = res.ToList();

@@ -18,5 +18,10 @@ namespace MicroFinance.ReportExports.Models
         public int LoanAmount { get; set; }
         public int PrincipleAmount { get; set; }
         public DateTime CollectedOn { get; set; }
+
+        public CollectionEntryData()
+        {
+            this.OriginDetail = new MFOrigin();
+        }
     }
 }

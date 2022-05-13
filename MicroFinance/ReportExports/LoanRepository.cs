@@ -21,7 +21,7 @@ namespace MicroFinance.ReportExports
         public List<LoanApplicationModel> LoanMetaMaster = new List<LoanApplicationModel>();
 
         public Dictionary<string, MFOrigin> BranchDetailDICT = new Dictionary<string, MFOrigin>();
-        Dictionary<string, LoanRepoModel> LoanReopDICT = new Dictionary<string, LoanRepoModel>();
+        Dictionary<string, LoanRepoModel> LoanReopDICT = new Dictionary<string, LoanRepoModel>(); //
 
         public Dictionary<string, string> RequestId_LoanID_DICT = new Dictionary<string, string>();
 
@@ -31,7 +31,9 @@ namespace MicroFinance.ReportExports
         public Dictionary<string, string> SHGNameDICT = new Dictionary<string, string>();
         public Dictionary<string, string> EmployeeNameDICT = new Dictionary<string, string>();
         public Dictionary<string, string> EmployeeBranchDICT = new Dictionary<string, string>();
-        public Dictionary<string, string> LoanDetailsDICT = new Dictionary<string, string>();
+
+        public Dictionary<string, int> LoanAmountDICT = new Dictionary<string, int>();
+        public Dictionary<string, int> LoanPrincipleDICT = new Dictionary<string, int>();
 
 
         public LoanRepository(string globalConnectionString)
@@ -44,7 +46,10 @@ namespace MicroFinance.ReportExports
 
             LoadBranchDetials();
             LoadSHG_DICT();
+
             LoadLoanID4RequestID();
+            LoadLoanPrincipleAmount();
+            LoadLoanAmount();
 
             LoadCustomerDICT();
             LoanCustomer_BranchDICT();
@@ -194,7 +199,6 @@ namespace MicroFinance.ReportExports
                 item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
                 item.CollectedBy_EmpName = EmployeeNameDICT[item.CollectedBy_EmpID];
             }
-
             return toReturn;
         }
         public List<LoanApplicationModel> Get_AllHighmarkRejected(DateRange range)
@@ -272,10 +276,10 @@ namespace MicroFinance.ReportExports
                 try
                 {
                     try { item.OriginDetail = BranchDetailDICT[CustomerBranchDICT[item.CustomerId]]; } catch (Exception ex) { }
-
                     item.OriginDetail.SHGId = CustomerSHG_DICT[item.CustomerId];
-                    item.PrincipleAmount = Get_PrincipleAmount(item.LoanId);
                     item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
+
+                    item.PrincipleAmount = LoanPrincipleDICT[item.LoanId];
                 }
                 catch (Exception ex) { }
             }
@@ -385,12 +389,10 @@ namespace MicroFinance.ReportExports
                     item.OriginDetail.RegionName = BranchDetailDICT[item.OriginDetail.BranchId].RegionName;
                     item.OriginDetail.SHGId = CustomerSHG_DICT[item.CustomerId];
                     item.OriginDetail.SHGName = SHGNameDICT[item.OriginDetail.SHGId];
+                    item.LoanAmount = LoanAmountDICT[item.LoanId];
                 }
                 catch (Exception ex) { }
             }
-
-            foreach (CollectionEntryData item in toReturn)
-                item.LoanAmount = Get_LoanAmount(item.LoanId);
 
             return toReturn;
         }
@@ -529,23 +531,6 @@ namespace MicroFinance.ReportExports
             return customerName;
         }
 
-
-        public int Get_PrincipleAmount(string loanId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select distinct(Principal) from LoanCollectionMaster where LoanId = '" + loanId + "'";
-            int res = (int)cmd.ExecuteScalar();
-            return res;
-        }
-        public int Get_LoanAmount(string loanId)
-        {
-            cmd.CommandText = string.Empty;
-            cmd.CommandText = "select LoanAmount from LoanDetails where LoanID = '" + loanId + "'";
-            int loanAmount = (int)cmd.ExecuteScalar();
-            return loanAmount;
-        }
-
-
         void LoadLoanID4RequestID()
         {
             cmd.CommandText = string.Empty;
@@ -558,6 +543,28 @@ namespace MicroFinance.ReportExports
                     RequestId_LoanID_DICT.Add(dr.GetString(0), dr.GetString(1));
                 }
                 catch (Exception ex) { }
+            }
+            dr.Close();
+        }
+        void LoadLoanPrincipleAmount()
+        {
+            cmd.CommandText = string.Empty;
+            cmd.CommandText = "select Distinct LoanId, Principal from LoanCollectionMaster where LoanId in (select LoanId from LoanDetails where IsActive = 1)";
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                LoanPrincipleDICT.Add(dr.GetString(0), dr.GetInt32(1));
+            }
+            dr.Close();
+        }
+        void LoadLoanAmount()
+        {
+            cmd.CommandText = string.Empty;
+            cmd.CommandText = "select distinct LoanID, LoanAmount from LoanDetails where IsActive = 1";
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                LoanAmountDICT.Add(dr.GetString(0), dr.GetInt32(1));
             }
             dr.Close();
         }
