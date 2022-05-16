@@ -13,7 +13,7 @@ namespace MicroFinance.ReportExports.ReportTools
 {
     public class ReportTool
     {
-        public static void ReportFormat1(string filePath, string p1, string p2, string p3, List<DateTime> MonthPeriods, List<ReportModel> DataList)
+        public static void ReportFormat1(string filePath, string p1, string p2, string p3, string p4, List<DateTime> MonthPeriods, List<ReportModel> DataList)
         {
             Excel.Application xlApp = new Excel.Application();
             if (xlApp == null) { }
@@ -30,6 +30,7 @@ namespace MicroFinance.ReportExports.ReportTools
             xl_WorkSheet.Cells[1, col++] = p1;
             xl_WorkSheet.Cells[1, col++] = p2;
             xl_WorkSheet.Cells[1, col++] = p3;
+            xl_WorkSheet.Cells[1, col++] = p4;
 
             // Write Columns of period.
             int i = 0;
@@ -52,6 +53,7 @@ namespace MicroFinance.ReportExports.ReportTools
                 xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_1;
                 xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_2;
                 xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_3;
+                xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_4;
 
                 int k = 0;
                 while (k < DataList[j].DataList.Count)

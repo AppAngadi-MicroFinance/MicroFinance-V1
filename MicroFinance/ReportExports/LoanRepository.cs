@@ -34,7 +34,6 @@ namespace MicroFinance.ReportExports
         public Dictionary<string, int> LoanAmountDICT = new Dictionary<string, int>();
         public Dictionary<string, int> LoanPrincipleDICT = new Dictionary<string, int>();
 
-
         public LoanRepository(string globalConnectionString)
         {
             this.ConnectionString = globalConnectionString;
@@ -58,7 +57,7 @@ namespace MicroFinance.ReportExports
             LoadLoanAmount();
             LoadLoanPrincipleAmount();
         }
-       
+        //
         public List<LoanApplicationModel> Get_AllLoanApplications(DateRange range)
         {
             List<LoanApplicationModel> toReturn = new List<LoanApplicationModel>();
@@ -409,7 +408,7 @@ namespace MicroFinance.ReportExports
             cmd.CommandText = "select EmpId from TimeTable where SHGId = (select SHGId from CustomerGroup where CustId = (select CustomerID from LoanDetails where LoanID = '" + loanID + "'))";
             return cmd.ExecuteScalar().ToString();
         }
-        
+        //
         MultiStructure Get_AccountClosedEmployeeAndDate(string loanID)
         {
             MultiStructure toReturn = new MultiStructure();
@@ -444,7 +443,7 @@ namespace MicroFinance.ReportExports
             }
             return dt;
         }
-
+        //
         void LoadLoanID4RequestID()
         {
             cmd.CommandText = string.Empty;
@@ -509,7 +508,7 @@ namespace MicroFinance.ReportExports
             }
             dr.Close();
         }
-
+        //
         void LoadCustomerDICT()
         {
             cmd.CommandText = string.Empty;
@@ -569,7 +568,7 @@ namespace MicroFinance.ReportExports
             }
             dr.Close();
         }
-
+        //
         void LoadLoanMetaData()
         {
             cmd.CommandText = string.Empty;
@@ -592,7 +591,7 @@ namespace MicroFinance.ReportExports
             }
             dr.Close();
         }
-
+        //
         public List<DateTime> Get_MonthPeriods(DateRange range)
         {
             List<DateTime> toReturn = new List<DateTime>();

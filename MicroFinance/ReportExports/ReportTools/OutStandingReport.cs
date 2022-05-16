@@ -58,8 +58,9 @@ namespace MicroFinance.ReportExports.ReportTools
             {
                 ReportModel Item = new ReportModel();
                 Item.Column_1 = empCollectionList.Where(o => o.EmployeeID == emp).Select(o => o.BranchDetail.BranchId).FirstOrDefault();
-                Item.Column_2 = emp;
-                Item.Column_3 = LoanRepo.EmployeeNameDICT[Item.Column_2];
+                Item.Column_2 = LoanRepo.BranchDetailDICT[Item.Column_1].BranchName;
+                Item.Column_3 = emp;
+                Item.Column_4 = LoanRepo.EmployeeNameDICT[Item.Column_2];
                 for (int i = 0; i < MonthPeriods.Count; i++)
                 {
                     DateAndData obj = new DateAndData();
@@ -110,8 +111,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 {
                     ReportModel Item = new ReportModel();
                     Item.Column_1 = branch;
-                    Item.Column_2 = center;
-                    Item.Column_3 = LoanRepo.SHGNameDICT[center];
+                    Item.Column_2 = LoanRepo.BranchDetailDICT[branch].BranchName;
+                    Item.Column_3 = center;
+                    Item.Column_4 = LoanRepo.SHGNameDICT[center];
 
                     List<LoanSummaryModel> BranchAndSHG = LoanMasterList.Where(o => o.OriginDetail.BranchId == branch && o.OriginDetail.SHGId == center).ToList();
                     List<string> distinctLoanID = BranchAndSHG.Select(o => o.LoanId).Distinct().ToList();
@@ -151,8 +153,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 {
                     ReportModel Item = new ReportModel();
                     Item.Column_1 = region;
-                    Item.Column_2 = branch;
-                    Item.Column_3 = LoanRepo.BranchDetailDICT[branch].BranchName;
+                    Item.Column_2 = LoanRepo.BranchDetailDICT[branch].RegionName;
+                    Item.Column_3 = branch;
+                    Item.Column_4 = LoanRepo.BranchDetailDICT[branch].BranchName;
 
                     List<LoanSummaryModel> RegionAndBranch = LoanMasterList.Where(o => o.OriginDetail.RegionId == region && o.OriginDetail.BranchId == branch).ToList();
                     List<string> distinctLoanID = RegionAndBranch.Select(o => o.LoanId).Distinct().ToList();

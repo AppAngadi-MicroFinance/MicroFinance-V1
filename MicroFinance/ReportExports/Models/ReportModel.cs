@@ -11,6 +11,7 @@ namespace MicroFinance.ReportExports.Models
         public string Column_1 { get; set; }
         public string Column_2 { get; set; }
         public string Column_3 { get; set; }
+        public string Column_4 { get; set; }
 
         public List<DateAndData> DataList { get; set; }
 

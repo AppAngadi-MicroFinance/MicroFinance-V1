@@ -958,5 +958,8 @@
   <ItemGroup>
     <Resource Include="Asserts\Icons\ExcelReport.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Asserts\Icons\PrinterReport.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

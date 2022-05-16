@@ -40,8 +40,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 {
                     ReportModel Item = new ReportModel();
                     Item.Column_1 = region;
-                    Item.Column_2 = branch;
-                    Item.Column_3 = LoanRepos.BranchDetailDICT[branch].BranchName;
+                    Item.Column_2 = LoanRepos.BranchDetailDICT[branch].RegionName;
+                    Item.Column_3 = branch;
+                    Item.Column_4 = LoanRepos.BranchDetailDICT[branch].BranchName;
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -72,8 +73,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 {
                     ReportModel Item = new ReportModel();
                     Item.Column_1 = branch;
-                    Item.Column_2 = employee;
-                    Item.Column_3 = LoanRepos.EmployeeNameDICT[employee];
+                    Item.Column_2 = LoanRepos.BranchDetailDICT[branch].BranchName;
+                    Item.Column_3 = employee;
+                    Item.Column_4 = LoanRepos.EmployeeNameDICT[employee];
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -104,8 +106,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 {
                     ReportModel Item = new ReportModel();
                     Item.Column_1 = branch;
-                    Item.Column_2 = center;
-                    Item.Column_3 = LoanRepos.SHGNameDICT[center];
+                    Item.Column_2 = LoanRepos.BranchDetailDICT[branch].BranchName;
+                    Item.Column_3 = center;
+                    Item.Column_4 = LoanRepos.SHGNameDICT[center];
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {

@@ -49,15 +49,16 @@ namespace MicroFinance.ReportExports.ReportTools
         {
             List<ReportModel> FinalData = new List<ReportModel>();
             List<string> distinctRegionId = ApplicationHighmarkApproved.Select(o => o.OriginDetail.RegionId).Distinct().ToList();
-            foreach (string regionID in distinctRegionId)
+            foreach (string region in distinctRegionId)
             {
-                List<string> distinctBranchId = ApplicationHighmarkApproved.Where(o => o.OriginDetail.RegionId == regionID).Select(o => o.OriginDetail.BranchId).Distinct().ToList();
-                foreach (string branchId in distinctBranchId)
+                List<string> distinctBranchId = ApplicationHighmarkApproved.Where(o => o.OriginDetail.RegionId == region).Select(o => o.OriginDetail.BranchId).Distinct().ToList();
+                foreach (string branch in distinctBranchId)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.Column_1 = regionID;
-                    Item.Column_2 = branchId;
-                    Item.Column_3 = LoanRepos.BranchDetailDICT[branchId].BranchName;
+                    Item.Column_1 = region;
+                    Item.Column_2 = LoanRepos.BranchDetailDICT[branch].RegionName;
+                    Item.Column_3 = branch;
+                    Item.Column_4 = LoanRepos.BranchDetailDICT[branch].BranchName;
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -65,7 +66,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         obj.FromDate = MonthPeriods[i].AddMonths(-1);
                         obj.ToDate = MonthPeriods[i];
 
-                        List<LoanApplicationModel> RegionAndBranch = ApplicationHighmarkApproved.Where(o => o.OriginDetail.RegionId == regionID && o.OriginDetail.BranchId == branchId).ToList();
+                        List<LoanApplicationModel> RegionAndBranch = ApplicationHighmarkApproved.Where(o => o.OriginDetail.RegionId == region && o.OriginDetail.BranchId == branch).ToList();
                         List<LoanApplicationModel> Final = RegionAndBranch.Where
                             (o => o.RequestedDate > obj.FromDate && o.RequestedDate <= obj.ToDate).ToList();
 
@@ -81,15 +82,16 @@ namespace MicroFinance.ReportExports.ReportTools
         {
             List<ReportModel> FinalData = new List<ReportModel>();
             List<string> distinctRegionId = ApplicationHighmarkRejected.Select(o => o.OriginDetail.RegionId).Distinct().ToList();
-            foreach (string regionID in distinctRegionId)
+            foreach (string region in distinctRegionId)
             {
-                List<string> distinctBranchId = ApplicationHighmarkRejected.Where(o => o.OriginDetail.RegionId == regionID).Select(o => o.OriginDetail.BranchId).Distinct().ToList();
-                foreach (string branchId in distinctBranchId)
+                List<string> distinctBranchId = ApplicationHighmarkRejected.Where(o => o.OriginDetail.RegionId == region).Select(o => o.OriginDetail.BranchId).Distinct().ToList();
+                foreach (string branch in distinctBranchId)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.Column_1 = regionID;
-                    Item.Column_2 = branchId;
-                    Item.Column_3 = LoanRepos.BranchDetailDICT[branchId].BranchName;
+                    Item.Column_1 = region;
+                    Item.Column_2 = LoanRepos.BranchDetailDICT[branch].RegionName;
+                    Item.Column_3 = branch;
+                    Item.Column_4 = LoanRepos.BranchDetailDICT[branch].BranchName;
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -97,7 +99,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         obj.FromDate = MonthPeriods[i].AddMonths(-1);
                         obj.ToDate = MonthPeriods[i];
 
-                        List<LoanApplicationModel> RegionAndBranch = ApplicationHighmarkRejected.Where(o => o.OriginDetail.RegionId == regionID && o.OriginDetail.BranchId == branchId).ToList();
+                        List<LoanApplicationModel> RegionAndBranch = ApplicationHighmarkRejected.Where(o => o.OriginDetail.RegionId == region && o.OriginDetail.BranchId == branch).ToList();
                         List<LoanApplicationModel> Final = RegionAndBranch.Where
                             (o => o.RequestedDate > obj.FromDate && o.RequestedDate <= obj.ToDate).ToList();
 
@@ -114,15 +116,16 @@ namespace MicroFinance.ReportExports.ReportTools
             List<ReportModel> FinalData = new List<ReportModel>();
             List<string> distinctBranchId = ApplicationHighmarkApproved.Select(o => o.OriginDetail.BranchId).Distinct().ToList();
 
-            foreach (string branchId in distinctBranchId)
+            foreach (string branch in distinctBranchId)
             {
-                List<string> distinctEmployeeID = ApplicationHighmarkApproved.Where(o => o.OriginDetail.BranchId == branchId && o.EmployeeId.Length > 0).Select(o => o.EmployeeId).Distinct().ToList();
+                List<string> distinctEmployeeID = ApplicationHighmarkApproved.Where(o => o.OriginDetail.BranchId == branch && o.EmployeeId.Length > 0).Select(o => o.EmployeeId).Distinct().ToList();
                 foreach (string employee in distinctEmployeeID)
                 {
                     ReportModel Item = new ReportModel();
-                    Item.Column_1 = branchId;
-                    Item.Column_2 = employee;
-                    Item.Column_3 = LoanRepos.EmployeeNameDICT[employee];
+                    Item.Column_1 = branch;
+                    Item.Column_2 = LoanRepos.BranchDetailDICT[branch].BranchName;
+                    Item.Column_3 = employee;
+                    Item.Column_4 = LoanRepos.EmployeeNameDICT[employee];
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -130,7 +133,7 @@ namespace MicroFinance.ReportExports.ReportTools
                         obj.FromDate = MonthPeriods[i].AddMonths(-1);
                         obj.ToDate = MonthPeriods[i];
 
-                        List<LoanApplicationModel> BranchAndEmployee = ApplicationHighmarkApproved.Where(o => o.OriginDetail.BranchId == branchId && o.EmployeeId == employee).ToList();
+                        List<LoanApplicationModel> BranchAndEmployee = ApplicationHighmarkApproved.Where(o => o.OriginDetail.BranchId == branch && o.EmployeeId == employee).ToList();
                         List<LoanApplicationModel> Final = BranchAndEmployee.Where
                             (o => o.RequestedDate > obj.FromDate && o.RequestedDate <= obj.ToDate).ToList();
 
@@ -155,8 +158,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 {
                     ReportModel Item = new ReportModel();
                     Item.Column_1 = branchId;
-                    Item.Column_2 = employee;
-                    Item.Column_3 = LoanRepos.EmployeeNameDICT[employee];
+                    Item.Column_2 = LoanRepos.BranchDetailDICT[branchId].BranchName;
+                    Item.Column_3 = employee;
+                    Item.Column_4 = LoanRepos.EmployeeNameDICT[employee];
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -188,8 +192,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 {
                     ReportModel Item = new ReportModel();
                     Item.Column_1 = branchId;
-                    Item.Column_2 = centerID;
-                    Item.Column_3 = LoanRepos.SHGNameDICT[centerID];
+                    Item.Column_2 = LoanRepos.BranchDetailDICT[branchId].BranchName;
+                    Item.Column_3 = centerID;
+                    Item.Column_4 = LoanRepos.SHGNameDICT[centerID];
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {
@@ -221,8 +226,9 @@ namespace MicroFinance.ReportExports.ReportTools
                 {
                     ReportModel Item = new ReportModel();
                     Item.Column_1 = branchId;
-                    Item.Column_2 = centerID;
-                    Item.Column_3 = LoanRepos.SHGNameDICT[centerID];
+                    Item.Column_2 = LoanRepos.BranchDetailDICT[branchId].BranchName;
+                    Item.Column_3 = centerID;
+                    Item.Column_4 = LoanRepos.SHGNameDICT[centerID];
 
                     for (int i = 0; i < MonthPeriods.Count; i++)
                     {

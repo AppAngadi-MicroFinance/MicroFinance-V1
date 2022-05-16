@@ -74,9 +74,8 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="DarkGray" Opacity="0.6"></DropShadowEffect>
                 </Border.Effect>
-                <Button Margin="15" x:Name="sampleBtn" Content="Report " Style="{StaticResource xReportBtnStyle}" Click="sampleBtn_Click" ></Button>
+                <Button Margin="15" x:Name="sampleBtn"  Style="{StaticResource xReportBtnStyle}" Click="sampleBtn_Click" ></Button>
             </Border>
-            
             <!--Collection entry page-->
             <Border Margin="15" Style="{StaticResource MainBorder}">
                 <Border.Effect>
