@@ -344,12 +344,15 @@
     <Compile Include="ReportExports\Models\CollectionEntryModel.cs" />
     <Compile Include="ReportExports\Models\DateAndData.cs" />
     <Compile Include="ReportExports\Models\DateRange.cs" />
+    <Compile Include="ReportExports\Models\DisbursementFromSamu.cs" />
     <Compile Include="ReportExports\Models\LoanApplicationModel.cs" />
     <Compile Include="ReportExports\Models\LoanCollectionEntryModel.cs" />
+    <Compile Include="ReportExports\Models\LoanMetaDetail.cs" />
     <Compile Include="ReportExports\Models\LoanOutstandingModel.cs" />
     <Compile Include="ReportExports\Models\LoanMetaModel.cs" />
     <Compile Include="ReportExports\Models\LoanSummaryModel.cs" />
     <Compile Include="ReportExports\Models\MFOrigin.cs" />
+    <Compile Include="ReportExports\Models\POSReport.cs" />
     <Compile Include="ReportExports\Models\ReportModel.cs" />
     <Compile Include="ReportExports\ReportTools\AccountClosingReport.cs" />
     <Compile Include="ReportExports\ReportTools\ApplicationLoginReport.cs" />
@@ -358,6 +361,7 @@
     <Compile Include="ReportExports\ReportTools\HighmarkReport.cs" />
     <Compile Include="ReportExports\ReportTools\LoanAmountReport.cs" />
     <Compile Include="ReportExports\ReportTools\OutStandingReport.cs" />
+    <Compile Include="ReportExports\ReportTools\POSReportTool.cs" />
     <Compile Include="ReportExports\ReportTools\ReportTool.cs" />
     <Compile Include="Reports\CollectionDetailsReport.cs" />
     <Compile Include="Reports\CustomerDueDetail.cs" />

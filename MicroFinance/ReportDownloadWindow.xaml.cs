@@ -167,6 +167,9 @@ namespace MicroFinance
                         FinalPathList = new ObservableCollection<string>(GTReports.OutstandingReport(ContextRange));
                         break;
 
+                    case 9:
+                        break;
+
                     default:
                         break;
                 }

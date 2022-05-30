@@ -29,6 +29,7 @@ namespace MicroFinance.ReportExports.Models
         public DateTime CollectedDate { get; set; }
         public string CollectedBy_EmpID { get; set; }
         public string CollectedBy_EmpName { get; set; }
+        public  int TotalAmount { get; set; }
 
         public CollectionEntryModel()
         {

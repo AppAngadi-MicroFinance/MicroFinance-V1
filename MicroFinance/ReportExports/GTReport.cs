@@ -147,6 +147,16 @@ namespace MicroFinance.ReportExports
 
             return FilePaths;
         }
+
+        public List<string> POSReport(DateRange Range)
+        {
+            string POS_reportPath = BaseDirectory + "POS Report " + Range.RangeString + ".xlsx";
+            List<string> FilePaths = new List<string>() { POS_reportPath};
+            CleanFilePaths(FilePaths);
+
+            POSReportTool POS_Report = new POSReportTool();
+            return new List<string>();
+        }
         void CleanFilePaths(List<string> filePaths)
         {
             foreach(string path in filePaths)
