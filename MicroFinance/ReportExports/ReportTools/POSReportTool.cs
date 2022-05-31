@@ -12,21 +12,45 @@ namespace MicroFinance.ReportExports.ReportTools
 {
     public class POSReportTool
     {
-        static string Connectionstring = string.Empty;
+        static string Connectionstring = Properties.Settings.Default.DBConnection;
         static Dictionary<string, Customer> customerdetails = new Dictionary<string, Customer>();
         public static Dictionary<string, string> branches;
         public static Dictionary<string, string> regions;
-        LoanRepository LoanRepos;
 
         public List<POSReport> POS_Report = new List<POSReport>();
+        static LoanRepository LoanRepos;
         public POSReportTool()
         {
+            LoanRepos = new LoanRepository(Connectionstring);
             branches = GetAllBranchNames();
             regions = GetAllRegion();
             customerdetails = GetALLCustomerDetail();
             POS_Report = GetPOSReport();
         }
-
+        public List<ReportModel> Get_POSReport()
+        {
+            List<ReportModel> FinalData = new List<ReportModel>();
+            foreach (POSReport item in POS_Report)
+            {
+                ReportModel model1 = new ReportModel();
+                model1.Column_1 = item.BranchName;
+                model1.Column_2 = item.Center;
+                model1.Column_3 = item.CustId;
+                model1.Column_4 = item.CustName;
+                model1.Column_5 = item.AadhaarNumber;
+                model1.Column_6 = item.AccountNo;
+                model1.Column_7 = item.SamAccountNo;
+                model1.Column_8 = item.DisbursementAmount.ToString();
+                model1.Column_9 = item.DisbursementDate.ToShortDateString();
+                model1.Column_10 = item.PrincipalRepaid.ToString();
+                model1.Column_11 = item.InterestRepaid.ToString();
+                model1.Column_12 = item.TotalRepaid.ToString();
+                model1.Column_13 = item.LedgerBalance.ToString();
+                
+                FinalData.Add(model1);
+            }
+            return FinalData;
+        }
         static List<POSReport> GetPOSReport()
         {
             List<POSReport> posreportlist = new List<POSReport>();
@@ -39,6 +63,7 @@ namespace MicroFinance.ReportExports.ReportTools
             {
                 POSReport posreport = new POSReport();
                 posreport.CustId = loan.CustomerId;
+                posreport.Center = LoanRepos.SHGNameDICT[LoanRepos.CustomerSHG_DICT[posreport.CustId]];
                 posreport.CustName = customerdetails[loan.CustomerId].CustomerName;
                 posreport.AadhaarNumber = customerdetails[loan.CustomerId].AadharNo;
                 posreport.AccountNo = samreport.Where(temp => temp.GTLoanId == loan.LoanId).Select(temp => temp.GTLoanId).FirstOrDefault();
@@ -48,17 +73,18 @@ namespace MicroFinance.ReportExports.ReportTools
                 posreport.PrincipalRepaid = collection.Where(temp => temp.LoanId == loan.LoanId).Sum(temp => temp.PrincipleAmount);
                 posreport.InterestRepaid = collection.Where(temp => temp.LoanId == loan.LoanId).Sum(temp => temp.InterestAmount);
                 posreport.TotalRepaid = posreport.PrincipalRepaid + posreport.InterestRepaid;
-
                 posreport.LedgerBalance = loan.LoanAmount - posreport.PrincipalRepaid;
+
                 string regionid = loan.CustomerId.Substring(0, 2);
                 string branchid = loan.CustomerId.Substring(2, 3);
+
                 if (regions.Keys.Contains(regionid))
                 {
                     posreport.Region = regions[regionid];
                 }
                 if (branches.Keys.Contains(branchid))
                 {
-                    posreport.Branch = branches[branchid];
+                    posreport.BranchName = branches[branchid];
                 }
                 posreportlist.Add(posreport);
             }
@@ -160,7 +186,8 @@ namespace MicroFinance.ReportExports.ReportTools
                     custObj.CustomerId = dr.GetString(0);
                     custObj.CustomerName = dr.GetString(1);
                     custObj.AadharNo = dr.GetString(2);
-                    allcustomeridnames.Add(dr.GetString(0), custObj);
+                    if(!allcustomeridnames.Keys.Contains(custObj.CustomerId))
+                        allcustomeridnames.Add(dr.GetString(0), custObj);
                 }
                 dr.Close();
             }

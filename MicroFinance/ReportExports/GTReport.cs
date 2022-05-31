@@ -153,10 +153,14 @@ namespace MicroFinance.ReportExports
             string POS_reportPath = BaseDirectory + "POS Report " + Range.RangeString + ".xlsx";
             List<string> FilePaths = new List<string>() { POS_reportPath};
             CleanFilePaths(FilePaths);
-
+            // POS reports.
             POSReportTool POS_Report = new POSReportTool();
-            return new List<string>();
+            ReportTool.ReportFormat2(POS_reportPath, POS_Report.Get_POSReport(), BranchName_Heading, CenterName_Heading, "CustomerId", "CustomerName", "Aadhar No",
+                "GT A/c no", "Samu A/C no", "DisbursementDate", "DisbursementAmount", "PrincipleRePaid",
+                "InterestRepaid", "TotalRepaidAmount", "LedgerBalance");
+            return FilePaths;
         }
+
         void CleanFilePaths(List<string> filePaths)
         {
             foreach(string path in filePaths)

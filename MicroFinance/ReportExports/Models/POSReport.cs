@@ -10,7 +10,9 @@ namespace MicroFinance.ReportExports.Models
     {
         public string Region { get; set; }
         public string Branch { get; set; }
+        public string BranchName { get; set; }
         public string Center { get; set; }
+        public string CenterName { get; set; }
         public string FieldManager { get; set; }
         public string CustName { get; set; }
         public string CustId { get; set; }

@@ -54,6 +54,7 @@ namespace MicroFinance
             ReportTypes.Add(new ReportListViewModel(6,"Loan Amount recovery"));
             ReportTypes.Add(new ReportListViewModel(7,"Loan Disbursments"));
             ReportTypes.Add(new ReportListViewModel(8,"Loan Outstanding Amount")); 
+            ReportTypes.Add(new ReportListViewModel(9,"POS Report")); 
         }
         void SelectionAction(ReportListViewModel selectedItem)
         {
@@ -168,6 +169,7 @@ namespace MicroFinance
                         break;
 
                     case 9:
+                        FinalPathList = new ObservableCollection<string>(GTReports.POSReport(ContextRange));
                         break;
 
                     default:

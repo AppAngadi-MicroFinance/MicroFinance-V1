@@ -78,8 +78,9 @@ namespace MicroFinance.ReportExports.ReportTools
             xl_WorkBook = null;
         }
 
-        public static void ReportFormat2(string filePath, List<ReportModel> DataList, string branch, string center, string customerId, string customerName, string aadhar, string GT_AC_no, 
-            string samuAC, string disbursedDate, string disbursedAmount, string maturityDate, string principlePaid, string interestPaid, string ODday, string accountClosingDate, string lastPayment, string Ledgerbalance )
+        public static void ReportFormat2(string filePath, List<ReportModel> DataList, string branch, string center, string customerId, string customerName,
+            string aadharNo, string GTAccountNo, string samuAccountNo, string disbursementAmount, string disbursementDate, string principleRepaid, string interstRepaid,
+            string totalRepaid, string ledgerBalance)
         {
             Excel.Application xlApp = new Excel.Application();
             if (xlApp == null) { }
@@ -89,7 +90,6 @@ namespace MicroFinance.ReportExports.ReportTools
 
             xl_WorkBook = xlApp.Workbooks.Add(misValue);
             xl_WorkSheet = (Excel.Worksheet)xl_WorkBook.Worksheets.get_Item(1);
-
             //======================================================================================================================
 
             int col = 1;
@@ -97,18 +97,15 @@ namespace MicroFinance.ReportExports.ReportTools
             xl_WorkSheet.Cells[1, col++] = center;
             xl_WorkSheet.Cells[1, col++] = customerId;
             xl_WorkSheet.Cells[1, col++] = customerName;
-            xl_WorkSheet.Cells[1, col++] = aadhar;
-            xl_WorkSheet.Cells[1, col++] = GT_AC_no;
-            xl_WorkSheet.Cells[1, col++] = samuAC;
-            xl_WorkSheet.Cells[1, col++] = disbursedDate;
-            xl_WorkSheet.Cells[1, col++] = disbursedAmount;
-            xl_WorkSheet.Cells[1, col++] = maturityDate;
-            xl_WorkSheet.Cells[1, col++] = principlePaid;
-            xl_WorkSheet.Cells[1, col++] = interestPaid;
-            xl_WorkSheet.Cells[1, col++] = ODday;
-            xl_WorkSheet.Cells[1, col++] = accountClosingDate;
-            xl_WorkSheet.Cells[1, col++] = lastPayment;
-            xl_WorkSheet.Cells[1, col++] = Ledgerbalance;
+            xl_WorkSheet.Cells[1, col++] = aadharNo;
+            xl_WorkSheet.Cells[1, col++] = GTAccountNo;
+            xl_WorkSheet.Cells[1, col++] = samuAccountNo;
+            xl_WorkSheet.Cells[1, col++] = disbursementAmount;
+            xl_WorkSheet.Cells[1, col++] = disbursementDate;
+            xl_WorkSheet.Cells[1, col++] = principleRepaid;
+            xl_WorkSheet.Cells[1, col++] = interstRepaid;
+            xl_WorkSheet.Cells[1, col++] = totalRepaid;
+            xl_WorkSheet.Cells[1, col++] = ledgerBalance;
             // Text decoration.
             Excel.Range thisRange = xl_WorkSheet.Cells[1, col] as Excel.Range;
             thisRange.EntireRow.Font.Bold = true;
@@ -131,18 +128,20 @@ namespace MicroFinance.ReportExports.ReportTools
                 xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_11;
                 xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_12;
                 xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_13;
-                xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_14;
-                xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_15;
-                xl_WorkSheet.Cells[j + 2, col++] = DataList[j].Column_16;
-
-                int k = 0;
-                while (k < DataList[j].DataList.Count)
-                {
-                    xl_WorkSheet.Cells[j + 2, col] = DataList[j].DataList[k].Value;
-                    col++;
-                    k++;
-                }
             }
+
+            //======================================================================================================================
+
+            xl_WorkBook.SaveAs(filePath, Excel.XlFileFormat.xlOpenXMLWorkbook, misValue, misValue, misValue, misValue,
+                Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+
+            xl_WorkBook.Close(true, misValue, misValue);
+            Marshal.ReleaseComObject(xl_WorkBook);
+            xlApp.Quit();
+            Marshal.ReleaseComObject(xlApp);
+            Marshal.ReleaseComObject(xl_WorkSheet);
+            xlApp = null;
+            xl_WorkBook = null;
         }
     }
 }
