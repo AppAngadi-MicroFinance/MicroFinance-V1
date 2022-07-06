@@ -18,6 +18,7 @@
         <convert:VisibilityConverter x:Key="VisibleConverter"/>
         <convert:InverseVisible x:Key="InverseVisibleConverter"/>
         <convert:AgeConverter x:Key="AgeConvert"/>
+        <convert:AgeConverterString x:Key="AgeCovertString"/>
         <convert:VisiblityConverterByImage x:Key="VisibleByImage"/>
         <convert:InverseVisiblityConverterbyImage x:Key="InverseVisibleByImage"/>
         <convert:StatusForegroundColor x:Key="StatusColor"/>
@@ -202,7 +203,7 @@
                         <TextBlock Text="Father Name" Style="{StaticResource Regular}" Grid.Row="5" Grid.Column="1"/>
                         <TextBlock x:Name="CustFatherError" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
                     </StackPanel>
-                    <TextBox KeyboardNavigation.TabIndex="5" x:Name="FatherNameBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Text="{Binding FatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextChanged="FatherNameBox_TextChanged" CharacterCasing="Upper">
+                    <TextBox KeyboardNavigation.TabIndex="5" x:Name="FatherNameBox" Style="{StaticResource Textbox}" Grid.Row="5" Grid.Column="2" Text="{Binding FatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextChanged="FatherNameBox_TextChanged" >
                     </TextBox>
                     <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
                         <TextBlock Text="Mother Name" Style="{StaticResource Regular}" Grid.Row="7" Grid.Column="1"/>
@@ -551,10 +552,10 @@
         <Grid Grid.Row="1" Grid.Column="5" x:Name="CustomerOtherDetails">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="125"/>
+                <RowDefinition Height="160" />
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="220"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="20"/>
                 <RowDefinition Height="120"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -578,6 +579,7 @@
             <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="40"/>
@@ -620,6 +622,7 @@
                             <Button x:Name="EditNominee" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditNominee_Click"/>
                         </StackPanel>
                     </Grid>
+                   
                     <Grid x:Name="BankGrid" Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="10"/>
@@ -772,6 +775,26 @@
 
                         </Popup>
                     </Grid>
+
+                    <Grid x:Name="ChildGrid" Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                            <TextBlock Text="Child Details" Style="{StaticResource Regular}" Grid.Column="1" Grid.Row="0" />
+                            <TextBlock x:Name="ChildErrorCheck" Style="{StaticResource ErrorStar}" Visibility="Collapsed"/>
+                        </StackPanel>
+                        <TextBox x:Name="ChildBox" Style="{StaticResource Textbox}" Grid.Column="2" Grid.Row="0" Width="140" HorizontalAlignment="Left" Text="{Binding C1Name, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsReadOnly="True" CharacterCasing="Upper">
+                        </TextBox>
+                        <Button x:Name="AddChild" Click="AddChild_Click"  Style="{StaticResource Add}" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Visibility="{Binding IsChildrenNull,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource InverseVisibleConverter}}"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3" x:Name="ChildViewEditPanel" Visibility="{Binding IsChildrenNull,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource VisibleConverter}}">
+                            <Button KeyboardNavigation.TabIndex="35" x:Name="ViewChild" Style="{StaticResource Show}" Grid.Row="1" Grid.Column="3" Margin="0,0,10,0" Click="ViewChild_Click"/>
+                            <Button x:Name="EditChild" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditChild_Click" />
+                        </StackPanel>
+                    </Grid>
                     
                 </Grid>
             </Border>
@@ -853,6 +876,7 @@
                         <TextBlock Text="Loan Amount" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,30,0"/>
                         <ComboBox KeyboardNavigation.TabIndex="39" x:Name="LoanAmountcombo" Style="{StaticResource combo}" HorizontalAlignment="Left" Text="{Binding LoanAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="180">
                             <ComboBoxItem Content="30000"/>
+                            <ComboBoxItem Content="40000"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
@@ -866,6 +890,9 @@
                         <ComboBox KeyboardNavigation.TabIndex="41" Style="{StaticResource combo}" Width="180" Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="PurposeNameCombo"></ComboBox>
                         <!--<TextBox Style="{StaticResource InputBox}" Text="{Binding  LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Black" Width="180" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>-->
                     </StackPanel>
+                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                      
+                    </StackPanel>
                 </Grid>
             </Border>
         </Grid>
@@ -874,7 +901,7 @@
         <!-- Guarantor Popup-->
         <Grid x:Name="GuarantorWindow"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="6" Visibility="Collapsed" >
             <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Gray" CornerRadius="5" Background="#e8fff2">
-                <Grid Background="#e8fff2" Height="510" Width="970" >
+                <Grid Background="#e8fff2" Height="550" Width="970" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30"/>
                         <ColumnDefinition Width="480"/>
@@ -882,7 +909,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="400"/>
+                        <RowDefinition Height="430"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     
@@ -907,7 +934,7 @@
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="10"/>
                             <RowDefinition Height="40"/>
-                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
@@ -984,6 +1011,16 @@
                             <ComboBoxItem Content="SON"/>
                             <ComboBoxItem Content="DAUGHTER"/>
                         </ComboBox>
+                        <StackPanel Orientation="Horizontal" Grid.Row="12" Grid.Column="0">
+                            <TextBlock Text="Monthly Income" Grid.Column="0" Grid.Row="9" Style="{StaticResource Regular}"/>
+                            
+                        </StackPanel>
+                        <TextBox x:Name="txtGMonthlyIncome" Grid.Row="12" Grid.Column="1" VerticalAlignment="Center" Width="250" Style="{StaticResource Textbox}" HorizontalAlignment="Left" TextChanged="txtGMonthlyIncome_TextChanged"  CharacterCasing="Upper">
+                            <TextBox.Text>
+                                <Binding Path="GMonthlyIncome" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <CheckBox x:Name="IsNominee" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" Content="Make As Nominee" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,10" IsChecked="{Binding IsNominee,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
                             <CheckBox.LayoutTransform>
                                 <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
@@ -1171,7 +1208,7 @@
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                    <Grid Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="3" Margin="0,-30,0,0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button x:Name="GuarantorCancel" Style="{StaticResource CancelBtn}" Content="Cancel" Margin="0,0,20,0" Click="GuarantorCancel_Click"/>
                             <Button x:Name="SaveGuarantor" Click="SaveGuarantor_Click" Style="{StaticResource PrimaryBtn}" Content="Add" FontSize="16"/>
@@ -1181,7 +1218,134 @@
             </Border>
         </Grid>
 
+        <Grid x:Name="ChildWindow" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="6" Visibility="Collapsed">
+            <Border Width="980" Height="520" BorderThickness="2" BorderBrush="Gray" CornerRadius="5" Background="#e8fff2">
+                <Grid Background="#e8fff2" Height="510" Width="970" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Child1 Details" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Child2 Details" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" />
 
+                    <Grid Grid.Row="1" Grid.Column="0" Margin="5,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Name" Grid.Row="0" Grid.Column="0"/>
+                        <TextBlock Text="Gender" Grid.Row="1" Grid.Column="0"/>
+                        <TextBlock Text="MobileNo" Grid.Row="2" Grid.Column="0"/>
+                        <TextBlock Text="DOB" Grid.Row="3" Grid.Column="0"/>
+                        <TextBlock Text="Age" Grid.Row="4" Grid.Column="0"/>
+                        <TextBlock Text="Id Proof Type" Grid.Row="5" Grid.Column="0"/>
+                        <TextBlock Text="Id Proof No" Grid.Row="6" Grid.Column="0"/>
+                        <TextBlock Text="Address Proof Type" Grid.Row="7" Grid.Column="0"/>
+                        <TextBlock Text="Address Proof No" Grid.Row="8" Grid.Column="0"/>
+                        <TextBlock Text="Monthly Income" Grid.Row="9" Grid.Column="0"/>
+
+                        <TextBox x:Name="txtC1Name" Grid.Row="0" Grid.Column="1" Style="{StaticResource Textbox}" Text="{Binding C1Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                            <RadioButton Content="Male" Margin="0,10,0,0" FontWeight="Medium" x:Name="C1male"  Click="C1male_Click"  IsChecked="{Binding C1Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource MaleCheck}}">
+                                <RadioButton.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                </RadioButton.LayoutTransform>
+                            </RadioButton>
+                            <RadioButton Content="Female" Margin="5,10,10,0" FontWeight="Medium" x:Name="C1Female" Click="C1Female_Click"  IsChecked="{Binding C1Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource FemaleCheck}}">
+                                <RadioButton.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                </RadioButton.LayoutTransform>
+                            </RadioButton>
+                        </StackPanel>
+                        <TextBox x:Name="txtC1Mobile" Grid.Row="2" Grid.Column="1" Style="{StaticResource Textbox}" Text="{Binding C1ContactNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
+                        <DatePicker x:Name="C1SelectDOB" Grid.Row="3" Grid.Column="1"  Width="250" Height="30" VerticalContentAlignment="Center" Margin="0" SelectedDate="{Binding C1Dob,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" SelectedDateChanged="C1SelectDOB_SelectedDateChanged"/>
+                        <TextBlock x:Name="txtC1Age" Grid.Row="4" Grid.Column="1" Text="{Binding C1Dob,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource AgeConvert}}" Style="{StaticResource NumberRegular}" />
+                        <ComboBox x:Name="C1IdProofType" Grid.Row="5" Grid.Column="1" Style="{StaticResource combo}"   HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProofC1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="txtC1IdNo" Grid.Row="6" Grid.Column="1" Style="{StaticResource Textbox}" Text="{Binding C1IdProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
+                        <ComboBox x:Name="C1AddressProofType" Grid.Row="7" Grid.Column="1" Style="{StaticResource combo}"   HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProofC1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="txtC1AddressNo" Grid.Row="8" Grid.Column="1" Style="{StaticResource Textbox}" Text="{Binding C1AddressProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
+                        <TextBox x:Name="txtc1Income" Grid.Row="9" Grid.Column="1" Style="{StaticResource Textbox}" Text="{Binding C1MonthlyIncome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="1" Margin="5,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Name" Grid.Row="0" Grid.Column="0"/>
+                        <TextBlock Text="Gender" Grid.Row="1" Grid.Column="0"/>
+                        <TextBlock Text="MobileNo" Grid.Row="2" Grid.Column="0"/>
+                        <TextBlock Text="DOB" Grid.Row="3" Grid.Column="0"/>
+                        <TextBlock Text="Age" Grid.Row="4" Grid.Column="0"/>
+                        <TextBlock Text="Id Proof Type" Grid.Row="5" Grid.Column="0"/>
+                        <TextBlock Text="Id Proof No" Grid.Row="6" Grid.Column="0"/>
+                        <TextBlock Text="Address Proof Type" Grid.Row="7" Grid.Column="0"/>
+                        <TextBlock Text="Address Proof No" Grid.Row="8" Grid.Column="0"/>
+                        <TextBlock Text="Monthly Income" Grid.Row="9" Grid.Column="0"/>
+
+                        <TextBox x:Name="txtC2Name" Grid.Row="0" Grid.Column="1" Style="{StaticResource Textbox}" Text="{Binding C2Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                            <RadioButton Content="Male" Margin="0,10,0,0" FontWeight="Medium" x:Name="C2male"  Click="C2male_Click"  IsChecked="{Binding C2Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource MaleCheck}}">
+                                <RadioButton.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                </RadioButton.LayoutTransform>
+                            </RadioButton>
+                            <RadioButton Content="Female" Margin="5,10,10,0" FontWeight="Medium" x:Name="C2Female" Click="C2Female_Click"  IsChecked="{Binding C2Gender,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource FemaleCheck}}">
+                                <RadioButton.LayoutTransform>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                </RadioButton.LayoutTransform>
+                            </RadioButton>
+                        </StackPanel>
+                        <TextBox x:Name="txtC2Mobile" Grid.Row="2" Grid.Column="1" Style="{StaticResource Textbox}" Text="{Binding C2ContactNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
+                        <DatePicker x:Name="C2SelectDOB" Grid.Row="3" Grid.Column="1"  Width="250" Height="30" VerticalContentAlignment="Center" Margin="0" SelectedDate="{Binding C2Dob,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" SelectedDateChanged="C2SelectDOB_SelectedDateChanged"/>
+                        <TextBlock x:Name="txtC2Age" Grid.Row="4" Grid.Column="1" Text="{Binding C2Dob,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource AgeConvert}}" Style="{StaticResource NumberRegular}" />
+                        <ComboBox x:Name="C2IdProofType" Grid.Row="5" Grid.Column="1" Style="{StaticResource combo}"   HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofPhotoProofC2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="txtC2IdNo" Grid.Row="6" Grid.Column="1" Style="{StaticResource Textbox}" Text="{Binding C2IdProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
+                        <ComboBox x:Name="C2AddressProofType" Grid.Row="7" Grid.Column="1" Style="{StaticResource combo}"   HorizontalAlignment="Left" FontWeight="Bold" ItemsSource="{Binding AddressProofName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Text="{Binding NameofAddressProofC2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="txtC2AddressNo" Grid.Row="8" Grid.Column="1" Style="{StaticResource Textbox}" Text="{Binding C2AddressProofNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
+                        <TextBox x:Name="txtc2Income" Grid.Row="9" Grid.Column="1" Style="{StaticResource Textbox}" Text="{Binding C2MonthlyIncome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"/>
+
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="ChildCancel" Style="{StaticResource CancelBtn}" Content="Cancel" Margin="0,0,20,0" Click="ChildCancel_Click"/>
+                            <Button x:Name="SaveChild" Click="SaveChild_Click"  Style="{StaticResource PrimaryBtn}" Content="Add" FontSize="16"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
 
         <!-- Guarantor Popup for View-->
         <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=MainGrid}" x:Name="ViewGuarantorPopopup" Placement="Center" >
@@ -1767,6 +1931,7 @@
             </Border>
         </Popup>
 
+       
     </Grid>
 
 

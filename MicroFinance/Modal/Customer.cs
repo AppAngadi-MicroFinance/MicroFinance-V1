@@ -1,5 +1,6 @@
 ﻿using MicroFinance.Validations;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -891,12 +892,14 @@ namespace MicroFinance.Modal
                 }
             }
         }
-        public void SaveCustomerDetails(string Region, string BranchName, string SelfHelpGroup, string PeerGroup, Guarantor guarantor, Nominee nominee)
+        public void SaveCustomerDetails(string Region, string BranchName, string SelfHelpGroup, string PeerGroup, Guarantor guarantor, Nominee nominee,Children child)
         {
             _branchname = BranchName;
             AddCustomerDetails(Region, BranchName, SelfHelpGroup, PeerGroup);
+            AddChildDetails(child);
             guarantor._customerId = _customerId;
             nominee._customerId = _customerId;
+            child.CustomerId = _customerId;
             if (guarantor.IsGuarantorNull)
             {
                 guarantor.AddGuarantorDetails();
@@ -952,6 +955,7 @@ namespace MicroFinance.Modal
             string CenterID =SelfHelpGroup;
             SendRequest(Region, BranchName,CenterID);
             //CheckAndChangeStatus();
+          
 
         }
 
@@ -1143,7 +1147,8 @@ namespace MicroFinance.Modal
 
                 sqlCommand.CommandText = "insert into CustomerDetails(CustId, Name, FatherName, MotherName, Dob, Age, Gender, Mobile,AadharNumber,Religion, Caste, Community,Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, MonthlyExpenses, Address,Pincode, HousingType, IsBankDetails, IsAddressProof, IsPhotoProof, IsProfilePhoto, BankACHolderName, BankAccountNo, BankName,BankBranchName, IFSCCode, MICRCode, GuarenteeStatus, NomineeStatus, CustomerStatus, IsActive,HusbandName,YearlyIncome,IsCombinePhoto,PhotoProofName,PhotoProofNo,AddressProofName,AddressProofNo)values(@custId, @name, @fatherName, @motherName, @dob, @age, @gender, @mobile, @aadhar, @religion, @caste, @community, @education, @familyMembers,@earningMembers, @occupation, @monthlyIncome, @monthlyExpence, @address, @pincode, @houseType,  @isBankDetails,@isAddressProof, @isPhotoproof, @isProfilePhoto, @bankAccHolder, @bankAcNo, @banckName, @bankBranchName, @ifsc, @micr, @guarenteeStatus, @nomineeStatus, @customerStatus, @isActive,'"+HusbandName+"','"+YearlyIncome+"','"+false+ "','" + _nameofPhotoProof + "','" + _photoProofNo+"','"+_nameofAddressProof+"','"+_AddressProofNo+"')";
 
-                sqlCommand.Parameters.AddWithValue("@custId", _customerId);sqlCommand.Parameters.AddWithValue("@name", CustomerName);
+                sqlCommand.Parameters.AddWithValue("@custId", _customerId);
+                sqlCommand.Parameters.AddWithValue("@name", CustomerName);
                 sqlCommand.Parameters.AddWithValue("@fatherName",_fatherName);sqlCommand.Parameters.AddWithValue("@motherName",_motherName);
                 sqlCommand.Parameters.AddWithValue("@dob", DateofBirth.ToString("MM-dd-yyyy"));sqlCommand.Parameters.AddWithValue("@age",Age);
 
@@ -1178,11 +1183,56 @@ namespace MicroFinance.Modal
                     string CenterID = SelfHelpGroup;
                     InsertIntoCustomerGroup(_customerId, PeerGroup, IsLeader, GetMembersCountINPeerGroup(PeerGroup), CenterID);
                 }
-                    
 
+              
             }
         }
 
+        public void AddChildDetails(Children child)
+        {
+            DateTime? dtime =null;
+            DateTime? dtime2 =null;
+            if(child.C1Dob!=null)
+            {
+                dtime = child.C1Dob;
+            }
+            if(child.C2Dob!=null)
+            {
+                dtime2 = child.C2Dob;
+            }
+            using(SqlConnection con= new SqlConnection(Properties.Settings.Default.db))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.Parameters.Clear();
+                cmd.CommandText= "insert into ChildDetails(CustId,C1Name,C1Mobile,C1DOB,C1Age,C1IdProoftype,C1IdProofNo,C1AddressProoftype,C1AddressProofNo,C1MonthlyIncome,C2Name,C2Mobile,C2DOB,C2Age,C2IdProofType,C2IdProofNo,C2AddressProofType,C2AddressProofNo,C2MonthlyIncome,C1Gender,C2Gender) values(@CustId,@C1Name,@C1Mobile,@C1DOB,@C1Age,@C1IdProoftype,@C1IdProofNo,@C1AddressProoftype,@C1AddressProofNo,@C1MonthlyIncome,@C2Name,@C2Mobile,@C2DOB,@C2Age,@C2IdProofType,@C2IdProofNo,@C2AddressProofType,@C2AddressProofNo,@C2MonthlyIncome,@C1Gender,@C2Gender)";
+                cmd.Parameters.AddWithValue("@CustId",_customerId);
+                cmd.Parameters.AddWithValue("@C1Name", child.C1Name != null ? child.C1Name:"");
+                cmd.Parameters.AddWithValue("@C1Mobile", child.C1ContactNumber != null ? child.C1ContactNumber:"");
+                cmd.Parameters.AddWithValue("@C1DOB", dtime);
+                cmd.Parameters.AddWithValue("@C1Age", child.C1Age != null ? child.C1Age:0);
+                cmd.Parameters.AddWithValue("@C1IdProoftype", child.NameofPhotoProofC1 != null ? child.NameofPhotoProofC1 : "");
+                cmd.Parameters.AddWithValue("@C1IdProofNo", child.C1IdProofNo != null ? child.C1IdProofNo:"");
+                cmd.Parameters.AddWithValue("@C1AddressProoftype", child.NameofAddressProofC1 != null ? child.NameofAddressProofC1 : "");
+                cmd.Parameters.AddWithValue("@C1AddressProofNo", child.C1AddressProofNo != null ? child.C1AddressProofNo:"");
+                cmd.Parameters.AddWithValue("@C1MonthlyIncome", child.C1MonthlyIncome != null ? child.C1MonthlyIncome:0);
+                cmd.Parameters.AddWithValue("@C2Name", child.C2Name != null ? child.C2Name:"");
+                cmd.Parameters.AddWithValue("@C2Mobile", child.C2ContactNumber != null ? child.C2ContactNumber:"");
+                cmd.Parameters.AddWithValue("@C2DOB", dtime2);
+                cmd.Parameters.AddWithValue("@C2Age", child.C2Age != null ? child.C2Age:0);
+                cmd.Parameters.AddWithValue("@C2IdProoftype", child.NameofPhotoProofC2 != null ? child.NameofPhotoProofC2 : "");
+                cmd.Parameters.AddWithValue("@C2IdProofNo", child.C2IdProofNo != null ? child.C2IdProofNo:"");
+                cmd.Parameters.AddWithValue("@C2AddressProoftype", child.NameofAddressProofC2 != null ? child.NameofAddressProofC2 : "");
+                cmd.Parameters.AddWithValue("@C2AddressProofNo", child.C2AddressProofNo != null ? child.C2AddressProofNo:"");
+                cmd.Parameters.AddWithValue("@C2MonthlyIncome", child.C2MonthlyIncome != null ? child.C2MonthlyIncome:0);
+                cmd.Parameters.AddWithValue("@C1Gender", child.C1Gender != null ? child.C1Gender : "");
+                cmd.Parameters.AddWithValue("@C2Gender", child.C2Gender != null ? child.C2Gender : "");
+                cmd.ExecuteNonQuery();
+                cmd.Parameters.Clear();
+
+            }
+        }
         void InsertIntoCustomerGroup(string custId, string pgId, bool isLeader, int cpId,string SHGID)
         {
             using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))

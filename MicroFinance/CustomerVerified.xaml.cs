@@ -36,6 +36,7 @@ namespace MicroFinance
         Customer customer = new Customer();
         Guarantor guarantor = new Guarantor();
         Nominee nominee = new Nominee();
+        Children child = new Children();
         Branch_Shg_PgDetails Branch_Shg_Pg = new Branch_Shg_PgDetails();
 
         public CustomerVerified(string CustId,int status,string LoanRequestId,string EmpId,string CenterName)
@@ -111,7 +112,7 @@ namespace MicroFinance
             VisiblityOfPhotoPanel();
         }
         int CustomerStatus;
-        public CustomerVerified(Customer Cs,Guarantor Gu,Nominee No,int status,string RegionName,string BranchName,string SHGName,string PG)
+        public CustomerVerified(Customer Cs,Guarantor Gu,Nominee No,Children Child, int status,string RegionName,string BranchName,string SHGName,string PG)
         {
             InitializeComponent();
 
@@ -129,7 +130,7 @@ namespace MicroFinance
             guarantor = Gu;
             nominee = No;
             CustomerStatus = status;
-
+            child = Child;
             ContextAssigning();
             VisiblityOfPhotoPanel();
         }
@@ -247,6 +248,7 @@ namespace MicroFinance
             customerAddressGrid.DataContext = customer;
             BankDetailsGrid.DataContext = customer;
             NomineeGrid.DataContext = nominee;
+          
             DataContextForPhotos();
         }
 
@@ -311,6 +313,7 @@ namespace MicroFinance
             CustDocumentGrid.DataContext = customer;
             GuarantorDocumentGrid.DataContext = guarantor;
             NomineeDocumentGrid.DataContext = nominee;
+           
 
             CustNameofAddresProof.ItemsSource = customer.AddressProofName;
             CustNameofPhotoProof.ItemsSource = customer.AddressProofName;
@@ -1077,7 +1080,7 @@ namespace MicroFinance
                         {
                             customer._customerId = CustId;
                             InsertVerificationDetails();
-                            customer.SaveCustomerDetails(_regionName, _branchName, _shgName, _pgName, guarantor, nominee);
+                            customer.SaveCustomerDetails(_regionName, _branchName, _shgName, _pgName, guarantor, nominee,child);
                             MainWindow.StatusMessageofPage(1, "Successfully Customer Details Added");
                             NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
                             Thread.Sleep(2000);

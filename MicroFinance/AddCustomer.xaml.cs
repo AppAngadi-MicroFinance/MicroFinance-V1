@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -33,6 +34,7 @@ namespace MicroFinance
         public static Nominee nominee = new Nominee();
         public static StaticProperty CaptureImageMessage = new StaticProperty();
         public static LoanDetails Loan = new LoanDetails();
+        public static Children children = new Children();
 
         public List<string> BankList = new List<string>();
         public List<string> PurposeList = new List<string>();
@@ -50,12 +52,13 @@ namespace MicroFinance
           customer = new Customer();
           guarantor = new Guarantor();
           nominee = new Nominee();
+          children = new Children();
           CaptureImageMessage = new StaticProperty();
           Loan = new LoanDetails();
           IsEligible();
            // MainGrid.Height = MainWindow.MainHeight-50;
            // MainGrid.Width = MainWindow.MainWidth;
-            //TempLoad();
+           // TempLoad();
             BranchAndGroupDetailsforFieldOfficer();
             Assign();
             BankList = BankRepository.GetAllBankNames();
@@ -222,6 +225,10 @@ namespace MicroFinance
             NomineeOtherDetails.DataContext = nominee;
             NomineeDetails.DataContext = nominee;
             LoanRequestPanel.DataContext = customer;
+            
+            ChildWindow.DataContext = children;
+            ChildGrid.DataContext = children;
+
         }
         string CustomerId;
         public AddCustomer(string CustomerID)
@@ -252,6 +259,9 @@ namespace MicroFinance
             NomineeAddressDetails.DataContext = nominee;
             NomineeOtherDetails.DataContext = nominee;
             NomineeDetails.DataContext = nominee;
+
+            ChildGrid.DataContext = children;
+            ChildWindow.DataContext = children;
 
 
             SaveCustomer.Content = "Update";
@@ -578,7 +588,7 @@ namespace MicroFinance
                     TimeTableViewModel SelectedCenter = SelectSHG.SelectedItem as TimeTableViewModel;
                     
                         //customer._customerId = customer.GetCustId(SelectBranch.Text, SelectRegion.Text);
-                        CustomerVerified verified = new CustomerVerified(customer, guarantor, nominee, 0, SelectRegion.Text, SelectBranch.Text, SelectedCenter.SHGId, SelectedPG.PG_Id);
+                        CustomerVerified verified = new CustomerVerified(customer, guarantor, nominee,children, 0, SelectRegion.Text, SelectBranch.Text, SelectedCenter.SHGId, SelectedPG.PG_Id);
                        // customer = new Customer();
                        // nominee = new Nominee();
                        // guarantor = new Guarantor();
@@ -2583,6 +2593,73 @@ namespace MicroFinance
         }
 
         private void GuarantorContactBox_LostFocus_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddChild_Click(object sender, RoutedEventArgs e)
+        {
+            ChildWindow.Visibility = Visibility.Visible;
+            EnableDisableBackground(false);
+        }
+
+        private void EditChild_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ViewChild_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void C1male_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C1Female_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C1SelectDOB_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void SaveChild_Click(object sender, RoutedEventArgs e)
+        {
+           
+            ChildWindow.Visibility = Visibility.Collapsed;
+           // guarantor.IsGuarantorNull = true;
+            EnableDisableBackground(true);
+
+            MainWindow.StatusMessageofPage(1, "Successfully Children Details Added...");
+        }
+
+        private void ChildCancel_Click(object sender, RoutedEventArgs e)
+        {
+            EnableDisableBackground(true);
+            ChildWindow.Visibility = Visibility.Collapsed;
+        }
+
+        private void C2male_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C2Female_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void C2SelectDOB_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void txtGMonthlyIncome_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

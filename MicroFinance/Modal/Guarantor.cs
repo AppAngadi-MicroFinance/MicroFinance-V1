@@ -380,6 +380,20 @@ namespace MicroFinance.Modal
             }
         }
 
+        private int _gmonthlyincome;
+        public int GMonthlyIncome
+        {
+            get
+            {
+                return _gmonthlyincome;
+            }
+            set
+            {
+                _gmonthlyincome = value;
+                RaisedPropertyChanged("GMonthlyIncome");
+            }
+        }
+
         public List<String> CheckNulls()
         {
             List<string> NullFields = new List<string>();
@@ -478,7 +492,7 @@ namespace MicroFinance.Modal
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
-                sqlCommand.CommandText = "insert into GuarenteeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,IsAddressProof,IsPhotoProof,IsProfilePhoto,Gender,AddressProofName,AddressProofNo,PhotoProofName,PhotoProofNo) values('" + _customerId + "','" + GuarantorName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Occupation + "','" + RelationShip + "','" + Address + "','" + Pincode + "','" + _isAddressProof + "','" + _isPhotoProof + "','" + _isProfilePhoto + "','" + Gender + "','"+NameofAddressProof+"','"+AddressProofNo+"','"+NameofPhotoProof+"','"+PhotoProofNo+"')";
+                sqlCommand.CommandText = "insert into GuarenteeDetails (CustId,Name,Dob,Age,Mobile,Occupation,RelationShip,Address,Pincode,IsAddressProof,IsPhotoProof,IsProfilePhoto,Gender,AddressProofName,AddressProofNo,PhotoProofName,PhotoProofNo,MonthlyHHIncome) values('" + _customerId + "','" + GuarantorName + "','" + DateofBirth.ToString("yyyy-MM-dd") + "','" + Age + "','" + ContactNumber + "','" + Occupation + "','" + RelationShip + "','" + Address + "','" + Pincode + "','" + _isAddressProof + "','" + _isPhotoProof + "','" + _isProfilePhoto + "','" + Gender + "','"+NameofAddressProof+"','"+AddressProofNo+"','"+NameofPhotoProof+"','"+PhotoProofNo+"','"+GMonthlyIncome+"')";
 
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "update CustomerDetails set GuarenteeStatus = 'True' where CustId = '" + _customerId + "'";
@@ -640,6 +654,7 @@ namespace MicroFinance.Modal
                     Gender = sqlDataReader.GetString(17);
                     AddressProofNo = sqlDataReader.GetString(18);
                     PhotoProofNo = sqlDataReader.GetString(19);
+                    GMonthlyIncome= (DBNull.Value.Equals(sqlDataReader["MonthlyHHIncome"])) ? 0 : sqlDataReader.GetInt32(20); 
                 }
             }
         }

@@ -164,6 +164,7 @@
     </Compile>
     <Compile Include="Converters\AbsentCheck.cs" />
     <Compile Include="Converters\AgeConverter.cs" />
+    <Compile Include="Converters\AgeConverterString.cs" />
     <Compile Include="Converters\AttendenceConverter.cs" />
     <Compile Include="Converters\ByteToImageConverter.cs" />
     <Compile Include="Converters\ColorConverter.cs" />
@@ -288,6 +289,7 @@
     <Compile Include="Modal\BasicDetailsStatic.cs" />
     <Compile Include="Modal\Branch_Shg_PgDetails.cs" />
     <Compile Include="Modal\CameraCapture.cs" />
+    <Compile Include="Modal\Children.cs" />
     <Compile Include="Modal\CollectionDetails.cs" />
     <Compile Include="Modal\CollectionShceduleSheet.cs" />
     <Compile Include="Modal\CollectionSheetModelPDF.cs" />

@@ -193,7 +193,8 @@ namespace MicroFinance.ViewModel
                             while(reader.Read())
                             {
                                 string Name = reader.GetString(0);
-                                HMData.CBOName = Name.ToUpper();
+                                HMData.CBOName = "GRAMEEN TRUST";
+                                // HMData.CBOName = Name.ToUpper();
                                 HMData.FIGName = Name.ToUpper();
                                 HMData.SamFinBranch = Name.ToUpper();
                                 HMData.FIGFormationDate = reader.GetDateTime(1).ToString("MM-dd-yyyy");
@@ -266,7 +267,7 @@ namespace MicroFinance.ViewModel
                         reader1.Close();
                         sqlcomm.CommandText = "select isLeader from CustomerGroup where CustId='" + HM.CustomerID + "'";
                         HMData.Member = ((bool)sqlcomm.ExecuteScalar()) ? "LEADER" : "MEMBER";
-                        sqlcomm.CommandText = "select Name,dob,age,RelationShip,AddressProofName,AddressProofNo,PhotoProofName,PhotoProofNo,Gender from GuarenteeDetails where CustId='" + HM.CustomerID + "'";
+                        sqlcomm.CommandText = "select Name,dob,age,RelationShip,AddressProofName,AddressProofNo,PhotoProofName,PhotoProofNo,Gender,Mobile,MonthlyHHIncome from GuarenteeDetails where CustId='" + HM.CustomerID + "'";
                         SqlDataReader reader2 = sqlcomm.ExecuteReader();
                         if(reader2.HasRows)
                         {
@@ -283,11 +284,46 @@ namespace MicroFinance.ViewModel
                                 HMData.COapplicantIDProofType = reader2.GetString(6);
                                 HMData.COapplicantIDProofNo = reader2.GetString(7);
                                 HMData.COapplicantGender = reader2.GetString(8);
+                                HMData.CoApplicantMobileNo = reader2.GetString(9);
+                                HMData.GMonthlyIncome = (DBNull.Value.Equals(reader2["MonthlyHHIncome"])) ? 0 : reader2.GetInt32(10); 
 
                             }
                         }
                         reader2.Close();
                         HMData.DateOfApplication = HM.RequestDate;
+
+                        sqlcomm.CommandText = "select C1Name,C1Mobile,C1DOB,C1Age,C1IdProofType,C1IdProofNo,C1AddressProofType,C1AddressProofNo,C1MonthlyIncome,C2Name,C2Mobile,C2DOB,C2Age,C2IdProofType,C2IdProofNo,C2AddressProofType,C2AddressProofNo,C2MonthlyIncome,C1Gender,C2Gender from ChildDetails where CustId='" + HM.CustomerID+"'";
+                        SqlDataReader dr3 = sqlcomm.ExecuteReader();
+                        if(dr3.HasRows)
+                        {
+                            while(dr3.Read())
+                            {
+                                
+                                HMData.C1Name      =        (DBNull.Value.Equals(dr3["C1Name"])) ? "" : dr3.GetString(0).ToUpper();
+                                HMData.C1Mobile =           (DBNull.Value.Equals(dr3["C1Mobile"])) ? "" : dr3.GetString(1).ToUpper();
+                                HMData.C1DOB =              (DBNull.Value.Equals(dr3["C1DOB"])) ? "" : dr3.GetString(2).ToString().ToUpper();
+                                HMData.C1Age =              (DBNull.Value.Equals(dr3["C1Age"])) ? "" : dr3.GetInt32(3).ToString().ToUpper();
+                                HMData.C1IdProofType=       (DBNull.Value.Equals(dr3["C1IdProofType"])) ? "" : dr3.GetString(4).ToUpper();
+                                HMData.C1IdProofNo =        (DBNull.Value.Equals(dr3["C1IdProofNo"])) ? "" : dr3.GetString(5).ToUpper();
+                                HMData.C1AddressProofType = (DBNull.Value.Equals(dr3["C1AddressProofType"])) ? "" : dr3.GetString(6).ToUpper();
+                                HMData.C1AddressProofNo =   (DBNull.Value.Equals(dr3["C1AddressProofNo"])) ? "" : dr3.GetString(7).ToUpper();
+                                HMData.C1MonthlyIncome =    (DBNull.Value.Equals(dr3["C1MonthlyIncome"])) ? "" : dr3.GetInt32(8).ToString().ToUpper();
+                                HMData.C2Name =             (DBNull.Value.Equals(dr3["C2Name"])) ? "" : dr3.GetString(9).ToUpper();
+                                HMData.C2Mobile =           (DBNull.Value.Equals(dr3["C2Mobile"])) ? "" : dr3.GetString(10).ToUpper();
+                                HMData.C2DOB =              (DBNull.Value.Equals(dr3["C2DOB"])) ? "" : dr3.GetString(11).ToUpper();
+                                HMData.C2Age =              (DBNull.Value.Equals(dr3["C2Age"])) ? "" : dr3.GetInt32(12).ToString().ToUpper();
+                                HMData.C2IdProofType =      (DBNull.Value.Equals(dr3["C2IdProofType"])) ? "" : dr3.GetString(13).ToUpper();
+                                HMData.C2IdProofNo =        (DBNull.Value.Equals(dr3["C2IdProofNo"])) ? "" : dr3.GetString(14).ToUpper();
+                                HMData.C2AddressProofType = (DBNull.Value.Equals(dr3["C2AddressProofType"])) ? "" : dr3.GetString(15).ToUpper();
+                                HMData.C2AddressProofNo =   (DBNull.Value.Equals(dr3["C2AddressProofNo"])) ? "" : dr3.GetString(16).ToUpper();
+                                HMData.C2MonthlyIncome =      (DBNull.Value.Equals(dr3["C2MonthlyIncome"])) ? "" : dr3.GetInt32(17).ToString().ToUpper();
+                                HMData.C1Gender= (DBNull.Value.Equals(dr3["C1Gender"])) ? "" : dr3.GetString(18).ToString().ToUpper();
+                                HMData.C2Gender= (DBNull.Value.Equals(dr3["C2Gender"])) ? "" : dr3.GetString(19).ToString().ToUpper();
+                            }
+                        }
+                        dr3.Close();
+
+                        
                         ReportList.Add(HMData);
                     }    
                 }

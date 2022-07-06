@@ -139,7 +139,7 @@ namespace MicroFinance
             try
             {
                 himarkReport = new HiMark();
-                himarkReport.createHimarkXls(HimarkList);
+                himarkReport.createHimarkXls1(HimarkList);
                 HimarkRepository.UpdateStatusToExportExcel(FilterData,2);
                 LoanRepository.InsertTransaction(RequestIDList, MainWindow.LoginDesignation.EmpId, 2);
                 MainWindow.StatusMessageofPage(1, "File Exported Successfully!...");

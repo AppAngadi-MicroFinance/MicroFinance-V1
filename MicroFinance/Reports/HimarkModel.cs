@@ -257,239 +257,6 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("ApplicantName");
             }
         }
-        private string _applicantgender;
-        public string ApplicantGender
-        {
-            get
-            {
-                return _applicantgender;
-            }
-            set
-            {
-                _applicantgender = value;
-                RaisedPropertyChanged("ApplicantGender");
-            }
-        }
-        private string _applicantmobile;
-        public string ApplicantMobile
-        {
-            get
-            {
-                return _applicantmobile;
-            }
-            set
-            {
-                _applicantmobile = value;
-                RaisedPropertyChanged("ApplicantMobile");
-            }
-        }
-        private string _applicantDOB;
-        public string ApplicantDOB
-        {
-            get
-            {
-                return _applicantDOB;
-            }
-            set
-            {
-                _applicantDOB = value;
-                RaisedPropertyChanged("ApplicantDOB");
-            }
-        }
-        private int _applicantage;
-        public int ApplicantAge
-        {
-            get
-            {
-                return _applicantage;
-            }
-            set
-            {
-                _applicantage = value;
-                RaisedPropertyChanged("ApplicantAge");
-            }
-        }
-        private string _applicantIDprooftype;
-        public string ApplicantIDProofType
-        {
-            get
-            {
-                return _applicantIDprooftype;
-            }
-            set
-            {
-                _applicantIDprooftype = value;
-                RaisedPropertyChanged("ApplicantIDProofType");
-            }
-        }
-        private string _Applicantidproofno;
-        public string ApplicantIDProofNo
-        {
-            get
-            {
-                return _Applicantidproofno;
-            }
-            set
-            {
-                _Applicantidproofno = value;
-                RaisedPropertyChanged("ApplicantIDProofNo");
-            }
-        }
-        private string _applicantAddressprooftype;
-        public string ApplicantAddressProofType
-        {
-            get
-            {
-                return _applicantAddressprooftype;
-            }
-            set
-            {
-                _applicantAddressprooftype = value;
-                RaisedPropertyChanged("ApplicantAddressProofType");
-            }
-        }
-        private string _ApplicantAddressproofno;
-        public string ApplicantAddressProofNo
-        {
-            get
-            {
-                return _ApplicantAddressproofno;
-            }
-            set
-            {
-                _ApplicantAddressproofno = value;
-                RaisedPropertyChanged("ApplicantAddressProofNo");
-            }
-        }
-        private string _coapplicantname;
-        public string COapplicantName
-        {
-            get
-            {
-                return _coapplicantname;
-            }
-            set
-            {
-                _coapplicantname = value;
-                RaisedPropertyChanged("COapplicantName");
-            }
-        }
-        private string _coapplicantgender;
-        public string COapplicantGender
-        {
-            get
-            {
-                return _coapplicantgender;
-            }
-            set
-            {
-                _coapplicantgender = value;
-                RaisedPropertyChanged("COapplicantGender");
-            }
-        }
-        private string _coapplicantDOB;
-        public string COapplicantDOB
-        {
-            get
-            {
-                return _coapplicantDOB;
-            }
-            set
-            {
-                _coapplicantDOB = value;
-                RaisedPropertyChanged("COapplicantDOB");
-            }
-        }
-        private int _coapplicantage;
-        public int COapplicantAge
-        {
-            get
-            {
-                return _coapplicantage;
-            }
-            set
-            {
-                _coapplicantage = value;
-                RaisedPropertyChanged("COapplicantAge");
-            }
-        }
-        private string _coapplicantIDprooftype;
-        public string COapplicantIDProofType
-        {
-            get
-            {
-                return _coapplicantIDprooftype;
-            }
-            set
-            {
-                _coapplicantIDprooftype = value;
-                RaisedPropertyChanged("COapplicantIDProofType");
-            }
-        }
-        private string _coapplicantidproofno;
-        public string COapplicantIDProofNo
-        {
-            get
-            {
-                return _coapplicantidproofno;
-            }
-            set
-            {
-                _coapplicantidproofno = value;
-                RaisedPropertyChanged("COapplicantIDProofNo");
-            }
-        }
-        private string _coapplicantaddressprooftype;
-        public string COapplicantAddressProofType
-        {
-            get
-            {
-                return _coapplicantaddressprooftype;
-            }
-            set
-            {
-                _coapplicantaddressprooftype = value;
-            }
-        }
-        private string _coapplicantaddressproofno;
-        public string COapplicantAddressProofNo
-        {
-            get
-            {
-                return _coapplicantaddressproofno;
-            }
-            set
-            {
-                _coapplicantaddressproofno = value;
-                RaisedPropertyChanged("COapplicantAddressProofNo");
-            }
-        }
-        private string _relationshipWithCOapplicant;
-        public string RelationshipWithCOapplicant
-        {
-            get
-            {
-                return _relationshipWithCOapplicant;
-            }
-            set
-            {
-                _relationshipWithCOapplicant = value;
-                RaisedPropertyChanged("RelationshipWithCOapplicant");
-            }
-        }
-        private string _relationshipWithApplicant;
-        public string RelationshipWithApplicant
-        {
-            get
-            {
-                return _relationshipWithApplicant;
-            }
-            set
-            {
-                _relationshipWithApplicant = value;
-                RaisedPropertyChanged("RelationshipWithApplicant");
-            }
-        }
         private string _applicantFatherName;
         public string ApplicantFatherName
         {
@@ -607,6 +374,34 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("Pincode");
             }
         }
+        private string _applicantmobile;
+        public string ApplicantMobile
+        {
+            get
+            {
+                return _applicantmobile;
+            }
+            set
+            {
+                _applicantmobile = value;
+                RaisedPropertyChanged("ApplicantMobile");
+            }
+        }
+
+        //--applicant Mailid
+        private string _applicantmailid;
+        public string ApplicantMailId
+        {
+            get
+            {
+                return _applicantmailid;
+            }
+            set
+            {
+                _applicantmailid = value;
+            }
+        }
+
         private string _occupation;
         public string Occupation
         {
@@ -712,32 +507,6 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("Religion");
             }
         }
-        private string _monthlyincome;
-        public string MonthlyIncome
-        {
-            get
-            {
-                return _monthlyincome;
-            }
-            set
-            {
-                _monthlyincome = value;
-                RaisedPropertyChanged("MonthlyIncome");
-            }
-        }
-        private string _monthlyexpenses;
-        public string MonthlyExpenses
-        {
-            get
-            {
-                return _monthlyexpenses;
-            }
-            set
-            {
-                _monthlyexpenses = value;
-                RaisedPropertyChanged("MonthlyExpenses");
-            }
-        }
         private string _appBankName;
         public string ApplicantBankName
         {
@@ -792,6 +561,9 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("ApplicantBranchName");
             }
         }
+
+
+        //Monthly HouseHold Expense
         private string _loanpurpose;
         public string LoanPurpose
         {
@@ -831,6 +603,638 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("SamFinBranch");
             }
         }
+        private string _applicantgender;
+        public string ApplicantGender
+        {
+            get
+            {
+                return _applicantgender;
+            }
+            set
+            {
+                _applicantgender = value;
+                RaisedPropertyChanged("ApplicantGender");
+            }
+        }
+
+        //applicant Mobile Number
+        private string _applicantDOB;
+        public string ApplicantDOB
+        {
+            get
+            {
+                return _applicantDOB;
+            }
+            set
+            {
+                _applicantDOB = value;
+                RaisedPropertyChanged("ApplicantDOB");
+            }
+        }
+        private int _applicantage;
+        public int ApplicantAge
+        {
+            get
+            {
+                return _applicantage;
+            }
+            set
+            {
+                _applicantage = value;
+                RaisedPropertyChanged("ApplicantAge");
+            }
+        }
+        private string _applicantIDprooftype;
+        public string ApplicantIDProofType
+        {
+            get
+            {
+                return _applicantIDprooftype;
+            }
+            set
+            {
+                _applicantIDprooftype = value;
+                RaisedPropertyChanged("ApplicantIDProofType");
+            }
+        }
+        private string _Applicantidproofno;
+        public string ApplicantIDProofNo
+        {
+            get
+            {
+                return _Applicantidproofno;
+            }
+            set
+            {
+                _Applicantidproofno = value;
+                RaisedPropertyChanged("ApplicantIDProofNo");
+            }
+        }
+        private string _applicantAddressprooftype;
+        public string ApplicantAddressProofType
+        {
+            get
+            {
+                return _applicantAddressprooftype;
+            }
+            set
+            {
+                _applicantAddressprooftype = value;
+                RaisedPropertyChanged("ApplicantAddressProofType");
+            }
+        }
+        private string _ApplicantAddressproofno;
+        public string ApplicantAddressProofNo
+        {
+            get
+            {
+                return _ApplicantAddressproofno;
+            }
+            set
+            {
+                _ApplicantAddressproofno = value;
+                RaisedPropertyChanged("ApplicantAddressProofNo");
+            }
+        }
+        private string _relationshipWithCOapplicant;
+        public string RelationshipWithCOapplicant
+        {
+            get
+            {
+                return _relationshipWithCOapplicant;
+            }
+            set
+            {
+                _relationshipWithCOapplicant = value;
+                RaisedPropertyChanged("RelationshipWithCOapplicant");
+            }
+        }
+
+        //applicant monthly income
+        private string _coapplicantname;
+        public string COapplicantName
+        {
+            get
+            {
+                return _coapplicantname;
+            }
+            set
+            {
+                _coapplicantname = value;
+                RaisedPropertyChanged("COapplicantName");
+            }
+        }
+        private string _coapplicantgender;
+        public string COapplicantGender
+        {
+            get
+            {
+                return _coapplicantgender;
+            }
+            set
+            {
+                _coapplicantgender = value;
+                RaisedPropertyChanged("COapplicantGender");
+            }
+        }
+
+        //co-applicant mobile number
+        private string _coapplicantDOB;
+        public string COapplicantDOB
+        {
+            get
+            {
+                return _coapplicantDOB;
+            }
+            set
+            {
+                _coapplicantDOB = value;
+                RaisedPropertyChanged("COapplicantDOB");
+            }
+        }
+        private int _coapplicantage;
+        public int COapplicantAge
+        {
+            get
+            {
+                return _coapplicantage;
+            }
+            set
+            {
+                _coapplicantage = value;
+                RaisedPropertyChanged("COapplicantAge");
+            }
+        }
+        private string _coapplicantIDprooftype;
+        public string COapplicantIDProofType
+        {
+            get
+            {
+                return _coapplicantIDprooftype;
+            }
+            set
+            {
+                _coapplicantIDprooftype = value;
+                RaisedPropertyChanged("COapplicantIDProofType");
+            }
+        }
+        private string _coapplicantidproofno;
+        public string COapplicantIDProofNo
+        {
+            get
+            {
+                return _coapplicantidproofno;
+            }
+            set
+            {
+                _coapplicantidproofno = value;
+                RaisedPropertyChanged("COapplicantIDProofNo");
+            }
+        }
+        private string _coapplicantaddressprooftype;
+        public string COapplicantAddressProofType
+        {
+            get
+            {
+                return _coapplicantaddressprooftype;
+            }
+            set
+            {
+                _coapplicantaddressprooftype = value;
+            }
+        }
+        private string _coapplicantaddressproofno;
+        public string COapplicantAddressProofNo
+        {
+            get
+            {
+                return _coapplicantaddressproofno;
+            }
+            set
+            {
+                _coapplicantaddressproofno = value;
+                RaisedPropertyChanged("COapplicantAddressProofNo");
+            }
+        }
+        private string _relationshipWithApplicant;
+        public string RelationshipWithApplicant
+        {
+            get
+            {
+                return _relationshipWithApplicant;
+            }
+            set
+            {
+                _relationshipWithApplicant = value;
+                RaisedPropertyChanged("RelationshipWithApplicant");
+            }
+        }
+        //co-applicant monthly income
+        private int _coapplicantMonthlyincome;
+        public int CoApplicantMonthlyIncome
+        {
+            get
+            {
+                return _coapplicantMonthlyincome;
+            }
+            set
+            {
+                _coapplicantMonthlyincome = value;
+                RaisedPropertyChanged("CoApplicantMonthlyIncome");
+            }
+        }
+        //applicant and co applicant monthly hh income
+        private int _coapplicantmonthlyhhincome;
+        public int CoApplicantMonthlyHHIncome
+        {
+            get
+            {
+                return _coapplicantmonthlyhhincome;
+            }
+            set
+            {
+                _coapplicantmonthlyhhincome = value;
+                RaisedPropertyChanged("CoApplicantMonthlyHHIncome");
+            }
+        }
+
+        // Unmarried_child1_Name
+        private string _c1name;
+        public string C1Name
+        {
+            get
+            {
+                return _c1name;
+            }
+            set
+            {
+                _c1name = value;
+                RaisedPropertyChanged("C1Name");
+            }
+        }
+        // Unmarried_child1_Gender
+        private string _c1gender;
+        public string C1Gender
+        {
+            get
+            {
+                return _c1gender;
+            }
+            set
+            {
+                _c1gender = value;
+                RaisedPropertyChanged("C1Gender");
+            }
+        }
+        // Unmarried_child1_MobileNo
+        private string _c1Mobile;
+        public string C1Mobile
+        {
+            get
+            {
+                return _c1Mobile;
+            }
+            set
+            {
+                _c1Mobile = value;
+                RaisedPropertyChanged("C1Mobile");
+            }
+        }
+        // Unmarried_child1_DOB
+        private string _c1dob;
+        public string C1DOB
+        {
+            get
+            {
+                return _c1dob;
+            }
+            set
+            {
+                _c1dob = value;
+                RaisedPropertyChanged("C1DOB");
+            }
+        }
+        // Unmarried_child1_Age
+        private string _c1Age;
+        public string C1Age
+        {
+            get
+            {
+                return _c1Age;
+            }
+            set
+            {
+                _c1Age = value;
+                RaisedPropertyChanged("C1Age");
+            }
+        }
+        // Unmarried_child1_IdProofType
+        private string _c1idprooftype;
+        public string C1IdProofType
+        {
+            get
+            {
+                return _c1idprooftype;
+            }
+            set
+            {
+                _c1idprooftype = value;
+                RaisedPropertyChanged("C1IdProofType");
+            }
+        }
+        // Unmarried_child1_IdProofNo
+        private string _c1idproofno;
+        public string C1IdProofNo
+        {
+            get
+            {
+                return _c1idproofno;
+            }
+            set
+            {
+                _c1idproofno = value;
+                RaisedPropertyChanged("C1IdProofNo");
+            }
+        }
+        // Unmarried_child1_AddressProofType
+        private string _c1addressprooftype;
+        public string C1AddressProofType
+        {
+            get
+            {
+                return _c1addressprooftype;
+            }
+            set
+            {
+                _c1addressprooftype = value;
+                RaisedPropertyChanged("C1AddressProofType");
+            }
+        }
+        // Unmarried_child1_AddressProofNo
+        public string _c1addressproofno;
+        public string C1AddressProofNo
+        {
+            get
+            {
+                return _c1addressproofno;
+            }
+            set
+            {
+                _c1addressproofno = value;
+                RaisedPropertyChanged("C1AddressProofNo");
+            }
+        }
+        // Unmarried_child1_MonthlyIncome
+        private string _c1monthlyincome;
+        public string C1MonthlyIncome
+        {
+            get
+            {
+                return _c1monthlyincome;
+            }
+            set
+            {
+                _c1monthlyincome = value;
+                RaisedPropertyChanged("C1MonthlyIncome");
+            }
+        }
+
+        // Unmarried_child2_Name
+        private string _c2name;
+        public string C2Name
+        {
+            get
+            {
+                return _c2name;
+            }
+            set
+            {
+                _c2name = value;
+                RaisedPropertyChanged("C2Name");
+            }
+        }
+        // Unmarried_child2_Gender
+        private string _c2gender;
+        public string C2Gender
+        {
+            get
+            {
+                return _c2gender;
+            }
+            set
+            {
+                _c2gender = value;
+                RaisedPropertyChanged("C2Gender");
+            }
+        }
+        // Unmarried_child2_MobileNo
+        private string _c2Mobile;
+        public string C2Mobile
+        {
+            get
+            {
+                return _c2Mobile;
+            }
+            set
+            {
+                _c2Mobile = value;
+                RaisedPropertyChanged("C2Mobile");
+            }
+        }
+        // Unmarried_child2_DOB
+        private string _c2dob;
+        public string C2DOB
+        {
+            get
+            {
+                return _c2dob;
+            }
+            set
+            {
+                _c2dob = value;
+                RaisedPropertyChanged("C2DOB");
+            }
+        }
+        // Unmarried_child2_Age
+        private string _c2Age;
+        public string C2Age
+        {
+            get
+            {
+                return _c2Age;
+            }
+            set
+            {
+                _c2Age = value;
+                RaisedPropertyChanged("C2Age");
+            }
+        }
+        // Unmarried_child2_IdProofType
+        private string _c2idprooftype;
+        public string C2IdProofType
+        {
+            get
+            {
+                return _c2idprooftype;
+            }
+            set
+            {
+                _c2idprooftype = value;
+                RaisedPropertyChanged("C2IdProofType");
+            }
+        }
+        // Unmarried_child2_IdProofNo
+        private string _c2idproofno;
+        public string C2IdProofNo
+        {
+            get
+            {
+                return _c2idproofno;
+            }
+            set
+            {
+                _c2idproofno = value;
+                RaisedPropertyChanged("C2IdProofNo");
+            }
+        }
+
+        // Unmarried_child2_AddressProofType
+        private string _c2addressprooftype;
+        public string C2AddressProofType
+        {
+            get
+            {
+                return _c2addressprooftype;
+            }
+            set
+            {
+                _c2addressprooftype = value;
+                RaisedPropertyChanged("C2AddressProofType");
+            }
+        }
+
+
+        // Unmarried_child2_AddressProofNo
+        public string _c2addressproofno;
+        public string C2AddressProofNo
+        {
+            get
+            {
+                return _c2addressproofno;
+            }
+            set
+            {
+                _c2addressproofno = value;
+                RaisedPropertyChanged("C2AddressProofNo");
+            }
+        }
+
+        // Unmarried_child2_MonthlyIncome
+        private string _c2monthlyincome;
+        public string C2MonthlyIncome
+        {
+            get 
+            {
+                return _c2monthlyincome;
+            }
+            set
+            {
+                _c2monthlyincome = value;
+                RaisedPropertyChanged("C2MonthlyIncome");
+            }
+        }
+
+        private string _intrestrate;
+        public string IntrestRate
+        {
+            get
+            {
+                return _intrestrate;
+            }
+            set
+            {
+                _intrestrate = value;
+                RaisedPropertyChanged("IntrestRate");
+            }
+        }
+
+        //LandHolding Proof
+        private string _landholdingproof;
+        public string LandHoldingProof
+        {
+            get
+            {
+                return _landholdingproof;
+            }
+            set
+            {
+                _landholdingproof = value;
+                RaisedPropertyChanged("LandHoldingProof");
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private string _monthlyincome;
+        public string MonthlyIncome
+        {
+            get
+            {
+                return _monthlyincome;
+            }
+            set
+            {
+                _monthlyincome = value;
+                RaisedPropertyChanged("MonthlyIncome");
+            }
+        }
+        private string _monthlyexpenses;
+        public string MonthlyExpenses
+        {
+            get
+            {
+                return _monthlyexpenses;
+            }
+            set
+            {
+                _monthlyexpenses = value;
+                RaisedPropertyChanged("MonthlyExpenses");
+            }
+        }
+       
+        
         private string _repaymentSchedule;
         public string RepaymentSchedule
         {
@@ -883,19 +1287,7 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("MonthlySurplus");
             }
         }
-        private string _intrestrate;
-        public string IntrestRate
-        {
-            get
-            {
-                return _intrestrate;
-            }
-            set
-            {
-                _intrestrate = value;
-                RaisedPropertyChanged("IntrestRate");
-            }
-        }
+       
         private string _Lpf;
         public string LPF
         {
@@ -1024,6 +1416,48 @@ namespace MicroFinance.Reports
             {
                 _slDated = value;
                 RaisedPropertyChanged("SLdated");
+            }
+        }
+        private int _applicanthhexpense;
+        public int ApplicantHHExpense
+        {
+            get
+            {
+                return _applicanthhexpense;
+            }
+            set
+            {
+                _applicanthhexpense = value;
+                RaisedPropertyChanged("ApplicantHHExpense");
+
+            }
+
+        }
+        private string _coapplicantmobileno;
+        public string CoApplicantMobileNo
+        {
+            get
+            {
+                return _coapplicantmobileno;
+            }
+            set
+            {
+                _coapplicantmobileno = value;
+                RaisedPropertyChanged("CoApplicantMobileNo");
+            }
+        }
+
+        private int _gmonthlyincome;
+        public int GMonthlyIncome
+        {
+            get
+            {
+                return _gmonthlyincome;
+            }
+            set
+            {
+                _gmonthlyincome = value;
+                RaisedPropertyChanged("GMonthlyIncome");
             }
         }
     }
