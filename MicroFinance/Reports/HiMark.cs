@@ -709,6 +709,19 @@ namespace MicroFinance.Reports
                 RaisedPropertyChanged("LandHolding");
                 }
             }
+        private string _landholdingproof;
+        public string LandHoldingProof
+        {
+            get
+            {
+                return _landholdingproof;
+            }
+            set
+            {
+                _landholdingproof = value;
+                RaisedPropertyChanged("LandHoldingProof");
+            }
+        }
             //private string _caste;
             //public string Caste
             //{
@@ -828,6 +841,7 @@ namespace MicroFinance.Reports
             //    RaisedPropertyChanged("LoanPurpose");
             //    }
             //}
+
             private string _loantenure;
             public string LoanTenure
             {

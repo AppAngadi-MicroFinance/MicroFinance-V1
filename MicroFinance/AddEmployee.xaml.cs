@@ -24,7 +24,7 @@ namespace MicroFinance
     public partial class AddEmployee : Page
     {
         public bool Isnew;
-        public List<string> ProofTypes = new List<string> { "Aadhar Proof", "Family Card", "Licence", "VoterID" };
+        public List<string> ProofTypes = new List<string> { "Aadhar Proof", "Family Card", "Licence", "VoterID","Pan Card", "Driving Licence","Passport","Others" };
         public List<string> DesignationList = new List<string> { "Manager", "Region Manager","Accountant","Field Officer"};
         public List<string> DesignationList1=new List<string> {"Accountant", "Field Officer" };
         public List<Branch> Branchlist;

@@ -536,7 +536,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                            <TextBlock Text="AddressProof No." Style="{StaticResource Regular}" Grid.Row="10" Grid.Column="0"/>
+                            <TextBlock Text="ID Proof No." Style="{StaticResource Regular}" Grid.Row="10" Grid.Column="0"/>
                             <TextBlock Style="{StaticResource ErrorStar}" x:Name="addressNoErrorCheck" Visibility="Collapsed"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2">
@@ -553,9 +553,9 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="160" />
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="220"/>
                 <RowDefinition Height="20"/>
+                <RowDefinition Height="250"/>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="120"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -860,6 +860,7 @@
                         <RowDefinition Height="55"/>
                         <RowDefinition Height="55"/>
                         <RowDefinition Height="55"/>
+                        <RowDefinition Height="55"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"/>
@@ -885,13 +886,14 @@
                             <ComboBoxItem Content="50"/>
                         </ComboBox>
                     </StackPanel>
-                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,-10,0,0">
                         <TextBlock Text="Loan Purpose" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,35,0"/>
                         <ComboBox KeyboardNavigation.TabIndex="41" Style="{StaticResource combo}" Width="180" Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="PurposeNameCombo"></ComboBox>
                         <!--<TextBox Style="{StaticResource InputBox}" Text="{Binding  LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Black" Width="180" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>-->
                     </StackPanel>
-                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-                      
+                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="0,-40,0,0">
+                        <TextBlock Text="Land Holding Proof" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,35,0"/>
+                        <ComboBox KeyboardNavigation.TabIndex="42" Style="{StaticResource combo}" Width="180" Text="{Binding LandHoldingProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="cmbLandHoldingProof"></ComboBox>
                     </StackPanel>
                 </Grid>
             </Border>

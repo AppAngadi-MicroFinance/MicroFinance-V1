@@ -38,6 +38,7 @@ namespace MicroFinance
 
         public List<string> BankList = new List<string>();
         public List<string> PurposeList = new List<string>();
+        public List<string> LandHoldingProofList = new List<string>();
 
 
         public List<string> ResidencyList = new List<string> { "OWN HOUSE", "RENT HOUSE" };
@@ -65,6 +66,8 @@ namespace MicroFinance
             BankNameComboBox.ItemsSource = BankList;
             PurposeList = LoanRepository.GetAllPurposeNames();
             PurposeNameCombo.ItemsSource = PurposeList;
+            LandHoldingProofList = LoanRepository.GetALLLandHoldingProof();
+            cmbLandHoldingProof.ItemsSource = LandHoldingProofList;
 
             ResidencyTypeCombo.ItemsSource = ResidencyList;
             HousingTypeCombo.ItemsSource = ResidencyTypeList;

@@ -296,7 +296,7 @@ namespace MicroFinance.Modal
             }
         }
 
-        private List<string> _addressProofNames = new List<string> { "Family Card", "Aadhar Card", "Voter Id" };
+        private List<string> _addressProofNames = new List<string> { "Family Card", "Aadhar Card", "Voter Id", "Pan Card", "Driving Licence", "Passport", "Others" };
 
         public List<string> AddressProofName
         {

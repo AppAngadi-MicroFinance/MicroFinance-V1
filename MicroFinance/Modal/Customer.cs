@@ -490,7 +490,7 @@ namespace MicroFinance.Modal
             }
         }
 
-        private List<string> _addressProofNames = new List<string> { "Family Card", "Aadhar Card", "Voter Id" };
+        private List<string> _addressProofNames = new List<string> { "Family Card", "Aadhar Card", "Voter Id", "Pan Card", "Driving Licence", "Passport", "Others" };
 
         public List<string> AddressProofName
         {
@@ -771,6 +771,21 @@ namespace MicroFinance.Modal
 
 
         private string _branchname;
+
+
+        private string _landholdingproof;
+        public string LandHoldingProof
+        {
+            get
+            {
+                return _landholdingproof;
+            }
+            set
+            {
+                _landholdingproof = value;
+                RaisedPropertyChanged("LandHoldingProof");
+            }
+        }
 
         public Customer()
         {
@@ -1145,7 +1160,7 @@ namespace MicroFinance.Modal
 //HousingType + "','" + HousingIndex + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + false + "','" + 0 + "','" + FatherName + 
 //"','" + MotherName + "','" + Gender + "','" + Caste + "','" + MothlyExpenses + "','" + false + "','" + null + "')";
 
-                sqlCommand.CommandText = "insert into CustomerDetails(CustId, Name, FatherName, MotherName, Dob, Age, Gender, Mobile,AadharNumber,Religion, Caste, Community,Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, MonthlyExpenses, Address,Pincode, HousingType, IsBankDetails, IsAddressProof, IsPhotoProof, IsProfilePhoto, BankACHolderName, BankAccountNo, BankName,BankBranchName, IFSCCode, MICRCode, GuarenteeStatus, NomineeStatus, CustomerStatus, IsActive,HusbandName,YearlyIncome,IsCombinePhoto,PhotoProofName,PhotoProofNo,AddressProofName,AddressProofNo)values(@custId, @name, @fatherName, @motherName, @dob, @age, @gender, @mobile, @aadhar, @religion, @caste, @community, @education, @familyMembers,@earningMembers, @occupation, @monthlyIncome, @monthlyExpence, @address, @pincode, @houseType,  @isBankDetails,@isAddressProof, @isPhotoproof, @isProfilePhoto, @bankAccHolder, @bankAcNo, @banckName, @bankBranchName, @ifsc, @micr, @guarenteeStatus, @nomineeStatus, @customerStatus, @isActive,'"+HusbandName+"','"+YearlyIncome+"','"+false+ "','" + _nameofPhotoProof + "','" + _photoProofNo+"','"+_nameofAddressProof+"','"+_AddressProofNo+"')";
+                sqlCommand.CommandText = "insert into CustomerDetails(CustId, Name, FatherName, MotherName, Dob, Age, Gender, Mobile,AadharNumber,Religion, Caste, Community,Education, FamilyMembers, EarningMembers, Occupation, MonthlyIncome, MonthlyExpenses, Address,Pincode, HousingType, IsBankDetails, IsAddressProof, IsPhotoProof, IsProfilePhoto, BankACHolderName, BankAccountNo, BankName,BankBranchName, IFSCCode, MICRCode, GuarenteeStatus, NomineeStatus, CustomerStatus, IsActive,HusbandName,YearlyIncome,IsCombinePhoto,PhotoProofName,PhotoProofNo,AddressProofName,AddressProofNo,LandHoldingProof)values(@custId, @name, @fatherName, @motherName, @dob, @age, @gender, @mobile, @aadhar, @religion, @caste, @community, @education, @familyMembers,@earningMembers, @occupation, @monthlyIncome, @monthlyExpence, @address, @pincode, @houseType,  @isBankDetails,@isAddressProof, @isPhotoproof, @isProfilePhoto, @bankAccHolder, @bankAcNo, @banckName, @bankBranchName, @ifsc, @micr, @guarenteeStatus, @nomineeStatus, @customerStatus, @isActive,'"+HusbandName+"','"+YearlyIncome+"','"+false+ "','" + _nameofPhotoProof + "','" + _photoProofNo+"','"+_nameofAddressProof+"','"+_AddressProofNo+"','"+_landholdingproof+"')";
 
                 sqlCommand.Parameters.AddWithValue("@custId", _customerId);
                 sqlCommand.Parameters.AddWithValue("@name", CustomerName);

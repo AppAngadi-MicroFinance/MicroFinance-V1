@@ -14,6 +14,7 @@ namespace MicroFinance.ViewModel
 {
     class LoanRepository
     {
+       
         public static ObservableCollection<RecommendView> GetRecommendList(int StatusCode)
         {
             Dictionary<string, SelfHelpGroupDetail> shgdetail = GetSelfHelpGroupDetail(MainWindow.LoginDesignation.BranchId);
@@ -933,6 +934,29 @@ namespace MicroFinance.ViewModel
             }
             return PurposeList;
         }
+
+        public static List<string> GetALLLandHoldingProof()
+        {
+            List<string> landholdinglist = new List<string>();
+            using(SqlConnection con= new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "select Landholding from LandHoldingProof";
+                SqlDataReader dr;
+                dr = cmd.ExecuteReader();
+                while(dr.Read())
+                {
+                    landholdinglist.Add(dr.GetString(0));
+                }
+                dr.Close();
+            }
+            return landholdinglist;
+        }
+     
+
+
         public static List<LoanApplicationViewModel> LoanApplicationDetails(string CustomerID)
         {
             List<LoanApplicationViewModel> Applications = new List<LoanApplicationViewModel>();

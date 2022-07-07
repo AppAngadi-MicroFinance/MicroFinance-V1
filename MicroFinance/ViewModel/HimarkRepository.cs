@@ -219,7 +219,7 @@ namespace MicroFinance.ViewModel
                         HMData.EligibleLoanAmount = HM.LoanAmount.ToString();
                         HMData.RMName = HM.EmpName;
                        // HMData.DateOfApplication = DateTime.Now.ToString("dd-MMM-yyyy");
-                        sqlcomm.CommandText = "select Name,FatherName,MotherName,Dob,Age,Gender,Mobile,Religion,Caste,Education,Occupation,MonthlyIncome,MonthlyExpenses,address,Pincode,HousingType,PhotoProofName,PhotoProofNo,AddressProofName,AddressProofNo,BankAccountNo,BankName,BankBranchName,IFSCCode,MICRCode,Residency,LandHolding from CustomerDetails where CustId='"+HM.CustomerID+"'";
+                        sqlcomm.CommandText = "select Name,FatherName,MotherName,Dob,Age,Gender,Mobile,Religion,Caste,Education,Occupation,MonthlyIncome,MonthlyExpenses,address,Pincode,HousingType,PhotoProofName,PhotoProofNo,AddressProofName,AddressProofNo,BankAccountNo,BankName,BankBranchName,IFSCCode,MICRCode,Residency,LandHolding,LandHoldingProof from CustomerDetails where CustId='"+HM.CustomerID+"'";
                         SqlDataReader reader1 = sqlcomm.ExecuteReader();
                         if(reader1.HasRows)
                         {
@@ -262,6 +262,7 @@ namespace MicroFinance.ViewModel
                                 HMData.ApplicantIFSCcode = reader1.GetString(23).ToUpper();
                                 HMData.LoanPurpose = "AGRI";
                                 HMData.LoanTenure = (HM.LoanPeriod == 50) ? "12": "0";
+                                HMData.LandHoldingProof = (DBNull.Value.Equals(reader1["LandHoldingProof"])) ? "" : reader1.GetString(27).ToUpper();
                             }
                         }
                         reader1.Close();
