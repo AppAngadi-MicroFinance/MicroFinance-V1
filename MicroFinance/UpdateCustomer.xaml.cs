@@ -28,6 +28,7 @@ namespace MicroFinance
         public static Guarantor guarantor = new Guarantor();
         public static Nominee nominee = new Nominee();
         public static StaticProperty CaptureImageMessage = new StaticProperty();
+        public static Children child = new Children();
         string CustomerId;
 
         string WhichClassButtonClick;
@@ -68,9 +69,12 @@ namespace MicroFinance
             customer._customerId = CustomerId;
             guarantor._customerId = CustomerId;
             nominee._customerId = CustomerId;
+            child._customerId = CustomerId;
+            child.CustomerId = CustomerId;
             customer.GetAllDetailsofCustomers();
             guarantor.GetGuranteeDetails();
             nominee.GetNomineeDetails();
+            child.GetChildrenDetails();
         }
 
         public static void StatusMessageWhileCapturingImage(int Type, string Message)
@@ -233,7 +237,7 @@ namespace MicroFinance
         {
             //BranchManagerWindow BMNF = new BranchManagerWindow();
             //BMNF.ShowDialog();
-            customer.UpdateExistingDetails(SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee);
+            customer.UpdateExistingDetails(SelectBranch.Text, SelectSHG.Text, SelectPG.Text, guarantor, nominee,child);
             NavigationService.GetNavigationService(this).Navigate(new dummypage());
         }
 

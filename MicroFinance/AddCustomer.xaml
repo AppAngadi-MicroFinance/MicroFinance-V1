@@ -552,9 +552,9 @@
         <Grid Grid.Row="1" Grid.Column="5" x:Name="CustomerOtherDetails">
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="160" />
+                <RowDefinition Height="200" />
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="250"/>
+                <RowDefinition Height="220"/>
                 <RowDefinition Height="10"/>
                 <RowDefinition Height="120"/>
             </Grid.RowDefinitions>
@@ -795,7 +795,10 @@
                             <Button x:Name="EditChild" Style="{StaticResource Edit}" Grid.Row="1" Grid.Column="3" Click="EditChild_Click" />
                         </StackPanel>
                     </Grid>
-                    
+                    <StackPanel x:Name="stacklandproof" Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,0">
+                        <TextBlock Text="Land Holding Proof" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,0,0"/>
+                        <ComboBox KeyboardNavigation.TabIndex="42" Style="{StaticResource combo}" Margin="5,0,0,0" Width="150" SelectedValue="{Binding LandHoldingProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  x:Name="cmbLandHoldingProof" SelectionChanged="cmbLandHoldingProof_SelectionChanged" ></ComboBox>
+                    </StackPanel>
                 </Grid>
             </Border>
             <TextBlock Text="Other Details " Style="{StaticResource STitle}" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" Visibility="Collapsed"/>
@@ -891,10 +894,7 @@
                         <ComboBox KeyboardNavigation.TabIndex="41" Style="{StaticResource combo}" Width="180" Text="{Binding LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="PurposeNameCombo"></ComboBox>
                         <!--<TextBox Style="{StaticResource InputBox}" Text="{Binding  LoanPurpose,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Black" Width="180" HorizontalAlignment="Left" CharacterCasing="Upper"></TextBox>-->
                     </StackPanel>
-                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="0,-40,0,0">
-                        <TextBlock Text="Land Holding Proof" Style="{StaticResource Regular}" FontWeight="Medium" Margin="0,0,35,0"/>
-                        <ComboBox KeyboardNavigation.TabIndex="42" Style="{StaticResource combo}" Width="180" Text="{Binding LandHoldingProof,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="cmbLandHoldingProof"></ComboBox>
-                    </StackPanel>
+                    
                 </Grid>
             </Border>
         </Grid>

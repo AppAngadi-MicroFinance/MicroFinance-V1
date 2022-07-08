@@ -894,6 +894,7 @@ namespace MicroFinance.Modal
 
                     LandType = (DBNull.Value.Equals(sqlData["LandType"])) ? "" : sqlData.GetString(48);
                     LandVolume = (DBNull.Value.Equals(sqlData["LandVolume"])) ? "" : sqlData.GetString(49);
+                    LandHoldingProof = (DBNull.Value.Equals(sqlData["LandHoldingProof"])) ? "" : sqlData.GetString(50);
 
 
                 }
@@ -1248,6 +1249,8 @@ namespace MicroFinance.Modal
 
             }
         }
+     
+        
         void InsertIntoCustomerGroup(string custId, string pgId, bool isLeader, int cpId,string SHGID)
         {
             using (SqlConnection sqlConnection = new SqlConnection(Properties.Settings.Default.DBConnection))
@@ -1280,12 +1283,14 @@ namespace MicroFinance.Modal
             }
             return Count;
         }
-        public void UpdateExistingDetails(string BranchName, string SelfHelpGroup, string PeerGroup, Guarantor guarantor, Nominee nominee)
+        public void UpdateExistingDetails(string BranchName, string SelfHelpGroup, string PeerGroup, Guarantor guarantor, Nominee nominee,Children children)
         {
             _branchname = BranchName;
             ChangeCustomerDetails(BranchName, SelfHelpGroup, PeerGroup);
             guarantor._customerId = _customerId;
             nominee._customerId = _customerId;
+            children._customerId = _customerId;
+            children.CustomerId = _customerId;
             if (guarantor.IsGuarantorNull)
             {
                 if (_ishavingGuarantorAlready)
@@ -1293,6 +1298,7 @@ namespace MicroFinance.Modal
                 else
                     guarantor.AddGuarantorDetails();
             }
+           
             if (nominee.IsNomineeNull)
             {
                 if (_ishavingNomineeAlready)
@@ -1329,6 +1335,16 @@ namespace MicroFinance.Modal
                 AddCombinePhotoToDrive();
             }
             //CheckAndChangeStatus();
+            if(children.IsChildDetailExist(_customerId))
+            {
+                children.UpdateChildDetails(children);
+            }
+            else
+            {
+                children.InsertChildDetails(children);
+            }
+
+          
         }
         
         public void ChangeCustomerDetails(string BranchName, string SelfHelpGroup, string PeerGroup)
@@ -1339,7 +1355,7 @@ namespace MicroFinance.Modal
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = sqlConnection;
-                sqlCommand.CommandText = "update CustomerDetails set Name='" + CustomerName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Religion='" + Religion + "',Community='" + Community + "',Education='" + Education + "',FamilyMembers='" + FamilyMembers + "',EarningMembers='" + EarningMembers + "',Occupation='" + Occupation + "',MonthlyIncome='" + MonthlyIncome + "',Address='" + AddressofCustomer + "',Pincode='" + Pincode + "',HousingType='" + HousingType + "',FatherName='"+FatherName+"',MotherName='"+MotherName+"',Gender='"+Gender+"',Caste='"+Caste+"',MonthlyExpenses='"+MothlyExpenses+"',HusbandName='"+HusbandName+"',YearlyIncome='"+YearlyIncome+"',AddressProofName='"+_nameofAddressProof+"',AddressProofNo='"+_AddressProofNo+"',PhotoProofName='"+_nameofPhotoProof+"',PhotoProofNo='"+_photoProofNo+"',LandHolding='"+_landholding+"',Residency='"+ResidencyType+"',LandType='"+LandType+"',LandVolume='"+LandVolume+"' where CustId='" + _customerId + "'";
+                sqlCommand.CommandText = "update CustomerDetails set Name='" + CustomerName + "',Dob='" + DateofBirth.ToString("yyyy-MM-dd") + "',Age='" + Age + "',Mobile='" + ContactNumber + "',Religion='" + Religion + "',Community='" + Community + "',Education='" + Education + "',FamilyMembers='" + FamilyMembers + "',EarningMembers='" + EarningMembers + "',Occupation='" + Occupation + "',MonthlyIncome='" + MonthlyIncome + "',Address='" + AddressofCustomer + "',Pincode='" + Pincode + "',HousingType='" + HousingType + "',FatherName='"+FatherName+"',MotherName='"+MotherName+"',Gender='"+Gender+"',Caste='"+Caste+"',MonthlyExpenses='"+MothlyExpenses+"',HusbandName='"+HusbandName+"',YearlyIncome='"+YearlyIncome+"',AddressProofName='"+_nameofAddressProof+"',AddressProofNo='"+_AddressProofNo+"',PhotoProofName='"+_nameofPhotoProof+"',PhotoProofNo='"+_photoProofNo+"',LandHolding='"+_landholding+"',Residency='"+ResidencyType+"',LandType='"+LandType+"',LandVolume='"+LandVolume+"',LandHoldingProof='"+LandHoldingProof+"' where CustId='" + _customerId + "'";
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.CommandText = "select Bid from BranchDetails where BranchName='" + BranchName + "'";
                 string BranchId = sqlCommand.ExecuteScalar().ToString();

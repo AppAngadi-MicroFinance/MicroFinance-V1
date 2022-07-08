@@ -232,6 +232,8 @@ namespace MicroFinance
             ChildWindow.DataContext = children;
             ChildGrid.DataContext = children;
 
+            stacklandproof.DataContext = children;
+
         }
         string CustomerId;
         public AddCustomer(string CustomerID)
@@ -240,7 +242,7 @@ namespace MicroFinance
             CustomerId = CustomerID;
             FillAllDetails();
             IsEligible();
-
+           
             BranchAndGroupDetailsforFieldOfficer(1);
             SelectedBranchAndGroupDetails();
             CustomerGrid.DataContext = customer;
@@ -278,11 +280,13 @@ namespace MicroFinance
             
 
             BankDetailsList = BankRepository.BankDetailsList();
+            LandHoldingProofList = LoanRepository.GetALLLandHoldingProof();
 
 
             BankList = BankRepository.GetAllBankNames();
             BankNameComboBox.ItemsSource = BankList;
             AadharPassBox.Password = customer.AadharNo;
+            cmbLandHoldingProof.ItemsSource = LandHoldingProofList;
 
 
             if (customer.LandHolding!=null)
@@ -297,12 +301,15 @@ namespace MicroFinance
         }
         void FillAllDetails()
         {
-            customer._customerId = CustomerId;
+            customer._customerId  = CustomerId;
             guarantor._customerId = CustomerId;
-            nominee._customerId = CustomerId;
+            nominee._customerId   = CustomerId;
+            children._customerId = CustomerId;
+            children.CustomerId = CustomerId;
             customer.GetAllDetailsofCustomers();
             guarantor.GetGuranteeDetails();
             nominee.GetNomineeDetails();
+            children.GetChildrenDetails();
         }
         public static void StatusMessageWhileCapturingImage(int Type, string Message)
         {
@@ -380,7 +387,8 @@ namespace MicroFinance
             SelectRegion.ItemsSource = _regionName; SelectRegion.SelectedIndex = 0;
             SelectBranch.ItemsSource = _branchName; SelectBranch.SelectedIndex = 0;
             SelectFO.ItemsSource = _officerName; SelectFO.SelectedIndex = 0;
-            SelectSHG.ItemsSource = CenterList; SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
+            SelectSHG.ItemsSource = CenterList; 
+            SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
         }
 
         string GetCustomerBranch(string CustomerID)
@@ -606,10 +614,14 @@ namespace MicroFinance
             {
                 PeerGroup SelectedPG = SelectPG.SelectedValue as PeerGroup;
                 TimeTableViewModel SelectedCenter = SelectSHG.SelectedItem as TimeTableViewModel;
-                customer.UpdateExistingDetails(SelectBranch.Text, SelectedCenter.SHGId, SelectedPG.PG_Id, guarantor, nominee);
-                string Designation = MainWindow.LoginDesignation.LoginDesignation;
-                Designation = (Designation == null) ? "" : Designation;
-                LoadHomePage(Designation);
+                if(SelectedCenter!=null && SelectedPG!=null)
+                {
+                    customer.UpdateExistingDetails(SelectBranch.Text, SelectedCenter.SHGId, SelectedPG.PG_Id, guarantor, nominee,children);
+                    string Designation = MainWindow.LoginDesignation.LoginDesignation;
+                    Designation = (Designation == null) ? "" : Designation;
+                    LoadHomePage(Designation);
+                }
+               
             }
             
             
@@ -2664,6 +2676,15 @@ namespace MicroFinance
 
         private void txtGMonthlyIncome_TextChanged(object sender, TextChangedEventArgs e)
         {
+
+        }
+
+        private void cmbLandHoldingProof_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbLandHoldingProof.SelectedIndex != -1)
+            {
+                customer.LandHoldingProof = cmbLandHoldingProof.SelectedItem.ToString();
+            }
 
         }
     }

@@ -64,6 +64,8 @@ namespace MicroFinance
             customer._customerId = CustId;
             guarantor._customerId = CustId;
             nominee._customerId = CustId;
+            child._customerId = CustId;
+            child.CustomerId = CustId;
             customer.GetAllDetailsofCustomers();
             customer.GetVerfiedDetailsofCustomer();
             guarantor.GetGuranteeDetails();
@@ -100,6 +102,8 @@ namespace MicroFinance
             customer._customerId = CustId;
             guarantor._customerId = CustId;
             nominee._customerId = CustId;
+            child.CustomerId = CustId;
+            child._customerId = CustId;
             customer.GetAllDetailsofCustomers();
             customer.GetVerfiedDetailsofCustomer();
             guarantor.GetGuranteeDetails();
@@ -1095,7 +1099,7 @@ namespace MicroFinance
                     else if (CustomerStatus == 3)
                     {
                         UpdateVerification();
-                        customer.UpdateExistingDetails(_branchName, _shgName, _pgName, guarantor, nominee);
+                        customer.UpdateExistingDetails(_branchName, _shgName, _pgName, guarantor, nominee,child);
                         ChangeLoanStatus(_loanReqId, 6);
                         LoanRepository.InsertTransaction(_loanReqId, MainWindow.LoginDesignation.EmpId, 6);
                         NavigationService.GetNavigationService(this).Navigate(new DashboardFieldOfficer());
@@ -1103,7 +1107,7 @@ namespace MicroFinance
                     else if (CustomerStatus == 6)
                     {
                         UpdateVerification();
-                        customer.UpdateExistingDetails(_branchName, _shgName, _pgName, guarantor, nominee);
+                        customer.UpdateExistingDetails(_branchName, _shgName, _pgName, guarantor, nominee,child);
                         ChangeLoanStatus(_loanReqId, 7);
                         LoanRepository.InsertTransaction(_loanReqId, MainWindow.LoginDesignation.EmpId, 7);
                         if (MainWindow.LoginDesignation.LoginDesignation == "Accountant")
