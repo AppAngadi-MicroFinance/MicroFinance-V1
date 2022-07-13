@@ -1489,5 +1489,43 @@ namespace MicroFinance.Modal
                 return true;
 
         }
+        public bool IsCustomerPeerGroup(string pgID,string customerid)
+        {
+            bool iscurrentgroup= false;
+            using(SqlConnection con = new SqlConnection(Properties.Settings.Default.DBConnection))
+            {
+                SqlCommand cmd = new SqlCommand();
+                con.Open();
+                cmd.Connection = con;
+                cmd.CommandText = "select count(*) from CustomerGroup where PeerGroupId='"+pgID+"' and CustId='"+customerid+"'";
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                if(count>0)
+                {
+                    iscurrentgroup = true;
+                }
+
+            }
+            return iscurrentgroup;
+        }
+
+        public List<string> GetCustomerSHGNames(string custid)
+        {
+            List<string> shgnamelist = new List<string>();
+            using(SqlConnection con= new SqlConnection(Properties.Settings.Default.db))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                con.Open();
+                cmd.CommandText = "select distinct SHGName from SelfHelpGroup where SHGId in(select distinct SHGId from CustomerGroup where CustId = '" + custid + "')";
+                SqlDataReader dr;
+                dr = cmd.ExecuteReader();
+                while(dr.Read())
+                {
+                    shgnamelist.Add(dr.GetString(0));
+                }
+                dr.Close();
+            }
+            return shgnamelist;
+        }
     }
 }

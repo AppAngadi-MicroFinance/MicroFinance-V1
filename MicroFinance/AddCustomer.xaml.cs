@@ -47,6 +47,7 @@ namespace MicroFinance
         public List<BankDetailsView> BankDetailsList = new List<BankDetailsView>();
 
         string WhichClassButtonClick;
+        bool isEditCustomer = false;
         public AddCustomer()
         {
             InitializeComponent();
@@ -242,6 +243,7 @@ namespace MicroFinance
             CustomerId = CustomerID;
             FillAllDetails();
             IsEligible();
+            isEditCustomer = true;
            
             BranchAndGroupDetailsforFieldOfficer(1);
             SelectedBranchAndGroupDetails();
@@ -267,7 +269,7 @@ namespace MicroFinance
 
             ChildGrid.DataContext = children;
             ChildWindow.DataContext = children;
-
+            stacklandproof.DataContext = customer;
 
             SaveCustomer.Content = "Update";
             LoanRequestText.Visibility = Visibility.Collapsed;
@@ -288,6 +290,7 @@ namespace MicroFinance
             AadharPassBox.Password = customer.AadharNo;
             cmbLandHoldingProof.ItemsSource = LandHoldingProofList;
 
+            
 
             if (customer.LandHolding!=null)
             {
@@ -389,6 +392,7 @@ namespace MicroFinance
             SelectFO.ItemsSource = _officerName; SelectFO.SelectedIndex = 0;
             SelectSHG.ItemsSource = CenterList; 
             SelectSHG.SelectedIndex = SelfHelpGroupList.Count - 1;
+           
         }
 
         string GetCustomerBranch(string CustomerID)
@@ -454,19 +458,54 @@ namespace MicroFinance
 
         private void SelectSHG_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //TimeTableViewModel SelectedCenter = SelectSHG.SelectedItem as TimeTableViewModel;
+            //List<PeerGroup> SelectedPG = new List<PeerGroup>();
+            //foreach (var item in PeerGroupDetails)
+            //{
+            //    if (item.SHGName == SelectedCenter.SHGName)
+            //    {
+            //        if (customer.IsPeerGroupFull(item.PG_Id))
+            //        {
+            //            SelectedPG.Add(item);
+            //        }
+            //    }
+            //}
             TimeTableViewModel SelectedCenter = SelectSHG.SelectedItem as TimeTableViewModel;
             List<PeerGroup> SelectedPG = new List<PeerGroup>();
-
-            foreach (var item in PeerGroupDetails)
+            
+            if (isEditCustomer)
             {
-                if (item.SHGName ==SelectedCenter.SHGName)
+                foreach (var item in PeerGroupDetails)
                 {
-                    if(customer.IsPeerGroupFull(item.PG_Id))
+                    if (item.SHGName == SelectedCenter.SHGName)
                     {
-                        SelectedPG.Add(item);
+                        if(customer.IsCustomerPeerGroup(item.PG_Id,CustomerId))
+                        {
+                            SelectedPG.Add(item);
+                        }
+
+                           
+                        
                     }
                 }
             }
+            else
+            {
+                foreach (var item in PeerGroupDetails)
+                {
+                    if (item.SHGName == SelectedCenter.SHGName)
+                    {
+                        if (customer.IsPeerGroupFull(item.PG_Id))
+                        {
+                            SelectedPG.Add(item);
+                        }
+                    }
+                }
+            }
+            
+            
+
+            
 
             SelectPG.ItemsSource = SelectedPG;
             SelectPG.SelectedIndex = 0;

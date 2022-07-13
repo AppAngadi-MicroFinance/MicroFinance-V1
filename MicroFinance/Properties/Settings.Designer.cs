@@ -23,17 +23,6 @@ namespace MicroFinance.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQL6010.site4now.net,1433;Initial Catalog=DB_A5D7B5_microfinance;User" +
-            " Id=DB_A5D7B5_microfinance_admin;Password=Microfinance007;")]
-        public string DBConnection {
-            get {
-                return ((string)(this["DBConnection"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQL6010.site4now.net,1433;Initial Catalog=DB_A5D7B5_microfinance;User" +
@@ -44,6 +33,17 @@ namespace MicroFinance.Properties {
             }
             set {
                 this["Setting"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SQL6010.site4now.net,1433;Initial Catalog=DB_A5D7B5_microfinance;User" +
+            " Id=DB_A5D7B5_microfinance_admin;Password=Microfinance007;")]
+        public string DBConnection {
+            get {
+                return ((string)(this["DBConnection"]));
             }
         }
         
