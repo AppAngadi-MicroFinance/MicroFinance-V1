@@ -302,7 +302,9 @@ namespace MicroFinance.ViewModel
                                 
                                 HMData.C1Name      =        (DBNull.Value.Equals(dr3["C1Name"])) ? "" : dr3.GetString(0).ToUpper();
                                 HMData.C1Mobile =           (DBNull.Value.Equals(dr3["C1Mobile"])) ? "" : dr3.GetString(1).ToUpper();
-                                HMData.C1DOB =              (DBNull.Value.Equals(dr3["C1DOB"])) ? "" : dr3.GetDateTime(2).ToString().ToUpper();
+                               
+                                HMData.C1DOB =              (DBNull.Value.Equals(dr3["C1DOB"])) ? "" : dr3.GetString(2).ToString().ToUpper();
+                                
                                 HMData.C1Age =              (DBNull.Value.Equals(dr3["C1Age"])) ? "" : dr3.GetInt32(3).ToString().ToUpper();
                                 HMData.C1IdProofType=       (DBNull.Value.Equals(dr3["C1IdProofType"])) ? "" : dr3.GetString(4).ToUpper();
                                 HMData.C1IdProofNo =        (DBNull.Value.Equals(dr3["C1IdProofNo"])) ? "" : dr3.GetString(5).ToUpper();
@@ -311,7 +313,7 @@ namespace MicroFinance.ViewModel
                                 HMData.C1MonthlyIncome =    (DBNull.Value.Equals(dr3["C1MonthlyIncome"])) ? "" : dr3.GetInt32(8).ToString().ToUpper();
                                 HMData.C2Name =             (DBNull.Value.Equals(dr3["C2Name"])) ? "" : dr3.GetString(9).ToUpper();
                                 HMData.C2Mobile =           (DBNull.Value.Equals(dr3["C2Mobile"])) ? "" : dr3.GetString(10).ToUpper();
-                                HMData.C2DOB =              (DBNull.Value.Equals(dr3["C2DOB"])) ? "" : dr3.GetDateTime(11).ToString().ToUpper();
+                                HMData.C2DOB =              (DBNull.Value.Equals(dr3["C2DOB"])) ? "" : dr3.GetString(11).ToString().ToUpper();
                                 HMData.C2Age =              (DBNull.Value.Equals(dr3["C2Age"])) ? "" : dr3.GetInt32(12).ToString().ToUpper();
                                 HMData.C2IdProofType =      (DBNull.Value.Equals(dr3["C2IdProofType"])) ? "" : dr3.GetString(13).ToUpper();
                                 HMData.C2IdProofNo =        (DBNull.Value.Equals(dr3["C2IdProofNo"])) ? "" : dr3.GetString(14).ToUpper();
