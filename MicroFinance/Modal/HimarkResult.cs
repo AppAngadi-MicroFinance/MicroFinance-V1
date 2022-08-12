@@ -264,10 +264,10 @@ namespace MicroFinance.Modal
                 {
                     DPDSummaryColumn = i;
                 }
-                else if (value.Equals("Highmark Score Value", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    HimarkScoreValuecolumn = i;
-                }
+                //else if (value.Equals("Highmark Score Value", StringComparison.CurrentCultureIgnoreCase))
+                //{
+                //    HimarkScoreValuecolumn = i;
+                //}
                 else if (value.Equals("Highmark Score Comment", StringComparison.CurrentCultureIgnoreCase))
                 {
                     ScoreCommend = i;
@@ -277,58 +277,67 @@ namespace MicroFinance.Modal
 
                     for (int Rownumber = 2; Rownumber <= rowcount; Rownumber++)
                     {
-
-                        var IsNull = (worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range);
-                        if (IsNull.Text == "")
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            DateTime _reportDate = (DateTime)(worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range).Value;
-                            string _reqID = ((worksheet.Cells[Rownumber, requestIDColumn] as Excel.Range).Value);
-                            var AadharString = (worksheet.Cells[Rownumber, AadharNoColumn] as Excel.Range).Value;
-                            string _aadharno =Convert.ToString(AadharString).Trim();
-                            string BranchString = (worksheet.Cells[Rownumber, BranchNameColumn] as Excel.Range).Value;
-                            string _branchname = BranchString.Trim();
-                            string _name = (worksheet.Cells[Rownumber, NameColumn] as Excel.Range).Value;
-                            int _eligibleAmount = (int)(worksheet.Cells[Rownumber, EligibleLoanAmountColumn] as Excel.Range).Value;
-                            string _status = (worksheet.Cells[Rownumber, HimarkStatusColumn] as Excel.Range).Value;
-                            string _remark = (worksheet.Cells[Rownumber, RemarkColumn] as Excel.Range).Value;
-                            int _activeUnsecureLoan = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoanColumn] as Excel.Range).Value;
-                            int _activeunsecureloan6months = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoan6MonthsColumn] as Excel.Range).Value;
-                            int _outstandingamount = (int)(worksheet.Cells[Rownumber, outstandingamountcolumn] as Excel.Range).Value;
-                            string _dpdsummary = (worksheet.Cells[Rownumber, DPDSummaryColumn] as Excel.Range).Value;
-                            string _himarkscore = Convert.ToString((worksheet.Cells[Rownumber, HimarkScoreValuecolumn] as Excel.Range).Value);
-                            string _scoreCommend = (worksheet.Cells[Rownumber, ScoreCommend] as Excel.Range).Value;
-                            string CategoryValue = _status.ToUpper();
-                            int _dpdamount = (int)(worksheet.Cells[Rownumber, DPDColumn] as Excel.Range).Value;
-                            if (!CategoryList.Contains(CategoryValue))
-                            {
-                                CategoryList.Add(_status.ToUpper());
-                            }
-                    HimarkResultExcelModel result = new HimarkResultExcelModel();
-                            result.ReportID = (_reqID).Trim();
-                            result.Name = (_name).Trim();
-                            result.AadharNumber = _aadharno.Trim();
-                            result.EligibleLoanAmount = _eligibleAmount;
-                            result.Status = _status;
-                            result.HiMarkRemark = _remark;
-                            result.ActiveUnsecureLoan = _activeUnsecureLoan;
-                            result.ActiveUnsecureLoanin6Months = _activeunsecureloan6months;
-                            result.OutstandingAmount = _outstandingamount;
-                            result.DPDSummary = _dpdsummary;
-                            result.HIMarkScore = _himarkscore;
-                            result.ScoreCommend = _scoreCommend;
-                            result.BName = _branchname.Trim();
-                            result.DPDAmount = _dpdamount;
-                            result.ReportDate = _reportDate;
-                            result.FileName = Filename;
+                try
+                {
 
 
-                    HimarkResultList.Add(result);
-                        }
+                    var IsNull = (worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range);
+                    if (IsNull.Text == "")
+                    {
+                        break;
                     }
+                    else
+                    {
+                        DateTime _reportDate = (DateTime)(worksheet.Cells[Rownumber, ReportDateColumn] as Excel.Range).Value;
+                        string _reqID = ((worksheet.Cells[Rownumber, requestIDColumn] as Excel.Range).Value);
+                        var AadharString = (worksheet.Cells[Rownumber, AadharNoColumn] as Excel.Range).Value;
+                        string _aadharno = Convert.ToString(AadharString).Trim();
+                        string BranchString = (worksheet.Cells[Rownumber, BranchNameColumn] as Excel.Range).Value;
+                        string _branchname = BranchString.Trim();
+                        string _name = (worksheet.Cells[Rownumber, NameColumn] as Excel.Range).Value;
+                        int _eligibleAmount = (int)(worksheet.Cells[Rownumber, EligibleLoanAmountColumn] as Excel.Range).Value;
+                        string _status = (worksheet.Cells[Rownumber, HimarkStatusColumn] as Excel.Range).Value;
+                        string _remark = (worksheet.Cells[Rownumber, RemarkColumn] as Excel.Range).Value;
+                        int _activeUnsecureLoan = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoanColumn] as Excel.Range).Value;
+                        int _activeunsecureloan6months = (int)(worksheet.Cells[Rownumber, ActiveUnsecureLoan6MonthsColumn] as Excel.Range).Value;
+                        int _outstandingamount = (int)(worksheet.Cells[Rownumber, outstandingamountcolumn] as Excel.Range).Value;
+                        string _dpdsummary = (worksheet.Cells[Rownumber, DPDSummaryColumn] as Excel.Range).Value;
+                       // string _himarkscore = Convert.ToString((worksheet.Cells[Rownumber, HimarkScoreValuecolumn] as Excel.Range).Value);
+                        string _scoreCommend = (worksheet.Cells[Rownumber, ScoreCommend] as Excel.Range).Value;
+                        string CategoryValue = _status.ToUpper();
+                        int _dpdamount = (int)(worksheet.Cells[Rownumber, DPDColumn] as Excel.Range).Value;
+                        if (!CategoryList.Contains(CategoryValue))
+                        {
+                            CategoryList.Add(_status.ToUpper());
+                        }
+                        HimarkResultExcelModel result = new HimarkResultExcelModel();
+                        result.ReportID = (_reqID).Trim();
+                        result.Name = (_name).Trim();
+                        result.AadharNumber = _aadharno.Trim();
+                        result.EligibleLoanAmount = _eligibleAmount;
+                        result.Status = _status;
+                        result.HiMarkRemark = _remark;
+                        result.ActiveUnsecureLoan = _activeUnsecureLoan;
+                        result.ActiveUnsecureLoanin6Months = _activeunsecureloan6months;
+                        result.OutstandingAmount = _outstandingamount;
+                        result.DPDSummary = _dpdsummary;
+                       // result.HIMarkScore = _himarkscore;
+                        result.ScoreCommend = _scoreCommend;
+                        result.BName = _branchname.Trim();
+                        result.DPDAmount = _dpdamount;
+                        result.ReportDate = _reportDate;
+                        result.FileName = Filename;
+
+
+                        HimarkResultList.Add(result);
+                    }
+
+                }
+                catch(Exception ex)
+                {
+
+                }
+            }
             return HimarkResultList;
         }
         public List<HimarkResultModel> GetBranchRequest(string BranchId)

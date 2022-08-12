@@ -503,10 +503,6 @@ namespace MicroFinance
                 }
             }
             
-            
-
-            
-
             SelectPG.ItemsSource = SelectedPG;
             SelectPG.SelectedIndex = 0;
         }

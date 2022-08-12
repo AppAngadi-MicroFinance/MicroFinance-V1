@@ -103,7 +103,6 @@ namespace MicroFinance.ViewModel
                             Hm.Collectionday = Center.CollectionDay;
                         Hm.CenterName = Center.SHGName;
                         }
-                        
                     }
                 }
             }

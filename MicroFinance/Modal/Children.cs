@@ -448,8 +448,16 @@ namespace MicroFinance.Modal
                 {
                     _c1name = dr.GetString(0);
                     _c1contactNumber = dr.GetString(1);
-                    var dt = dr.GetDataTypeName(2);
-                    _c1dob = dr.GetDateTime(2);
+                    try
+                    {
+                        var dt = dr.GetDataTypeName(2);
+                        _c1dob = dr.GetDateTime(2);
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
+                    
                     _c1age = dr.GetInt32(3);
                     _c1idprooftype = dr.GetString(4);
                     _c1idproofno = dr.GetString(5);
@@ -459,7 +467,16 @@ namespace MicroFinance.Modal
 
                     _c2name = dr.GetString(9);
                     _c2contactNumber = dr.GetString(10);
-                    _c2dob = dr.GetDateTime(11);
+                    try
+                    {
+                        _c2dob = dr.GetDateTime(11);
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
+                   
+
                     _c2age = dr.GetInt32(12);
                     _c2idprooftype = dr.GetString(13);
                     _c2idproofno = dr.GetString(14);
